@@ -18,4 +18,4 @@ build-main:
         - cd ${WORKDIR} && yarn build
         - ln -sfT ${WORKDIR} ${DIR}
         - cd ${DIR} && (pm2 reload ecosystem.config.js || pm2 start ecosystem.config.js)
-        - cd ${WORKDIR} && ls -t | tail -n +3 | sudo xargs -I {} rm -r {}
+        - cd /var/deploy/${CI_COMMIT_BRANCH} && ls -t | tail -n +3 | sudo xargs -I {} rm -r {}
