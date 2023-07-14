@@ -1,5 +1,6 @@
 variables: 
   WORKDIR: /var/deploy/${CI_COMMIT_BRANCH}/${CI_COMMIT_SHORT_SHA}
+  DIR: /var/www/new.rent.myauto.ge
 stages:
   - main
   - staging
@@ -11,10 +12,12 @@ build-main:
         - rent
     script:
         - rsync -tar --exclude='.git*' --exclude='readme.md'  --stats --no-perms . ${WORKDIR}
-        - echo ${ENV} ${WORKDIR}/src/env.js
-        - echo ${ECOSYSTEM} ${WORKDIR}/ecosystem.config.js
+        - echo ${ENV} > ${WORKDIR}/src/env.js
+        - echo ${ECOSYSTEM} > ${WORKDIR}/ecosystem.config.js
         - cd ${WORKDIR} && yarn
         - cd ${WORKDIR} && yarn build
-        - ln -sfT ${WORKDIR} /var/www/new.rent.myauto.ge
+        - ln -sfT ${WORKDIR} ${DIR}
+        - cd ${DIR} && (pm2 reload ecosystem.config.js || pm2 start ecosystem.config.js)
+        - cd ${WORKDIR} && ls -t | tail -n +3 | sudo xargs -I {} rm -r {}
 
 
