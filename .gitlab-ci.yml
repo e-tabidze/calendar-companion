@@ -8,7 +8,6 @@ build-main:
     tags:
         - rent
     script:
-        - rsync -tar --exclude='.git*' --exclude='readme.md'  --stats --no-perms . /var/deploy/${CI_COMMIT_BRANCH}/${CI_COMMIT_BRANCH}
-    
+        - rsync -tar --exclude='.git*' --exclude='readme.md'  --stats --no-perms . /var/deploy/${CI_COMMIT_BRANCH}/${CI_COMMIT_SHORT_SHA}
 
 
