@@ -2,9 +2,9 @@ stages:
   - main
   - staging
   - test
-main:
-    stage:
-        - main
+
+build-main:
+    stage: main
     tags:
         - rent
     script:
