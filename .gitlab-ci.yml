@@ -1,3 +1,5 @@
+variables: 
+  WORKDIR: /var/deploy/${CI_COMMIT_BRANCH}/${CI_COMMIT_SHORT_SHA}
 stages:
   - main
   - staging
@@ -8,6 +10,11 @@ build-main:
     tags:
         - rent
     script:
-        - rsync -tar --exclude='.git*' --exclude='readme.md'  --stats --no-perms . /var/deploy/${CI_COMMIT_BRANCH}/${CI_COMMIT_SHORT_SHA}
+        - rsync -tar --exclude='.git*' --exclude='readme.md'  --stats --no-perms . ${WORKDIR}
+        - echo ${ENV} ${WORKDIR}/src/env.js
+        - echo ${ECOSYSTEM} ${WORKDIR}/ecosystem.config.js
+        - cd ${WORKDIR} && yarn
+        - cd ${WORKDIR} && yarn build
+        - ln -sfT ${WORKDIR} /var/www/new.rent.myauto.ge
 
 
