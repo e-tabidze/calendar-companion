@@ -1,6 +1,6 @@
 variables: 
   WORKDIR: /var/deploy/${CI_COMMIT_BRANCH}/${CI_COMMIT_SHORT_SHA}
-  DIR: /var/www/new.rent.myauto.ge
+  DIR_TEST: /var/www/new.rent.myauto.ge
 stages:
   - main
   - staging
@@ -8,8 +8,6 @@ stages:
 
 build-main:
     stage: main
-    tags:
-        - rent
     script:
         - rsync -tar --exclude='.git*' --exclude='readme.md'  --stats --no-perms . ${WORKDIR}
         - echo ${ENV} > ${WORKDIR}/src/env.js
@@ -18,4 +16,30 @@ build-main:
         - cd ${WORKDIR} && yarn build
         - ln -sfT ${WORKDIR} ${DIR}
         - cd ${DIR} && (pm2 reload ecosystem.config.js || pm2 start ecosystem.config.js)
+        - cd /var/deploy/${CI_COMMIT_BRANCH} && ls -t | tail -n +3 | sudo xargs -I {} rm -r {}
+
+build-staging:
+    stage: staging
+    script:
+        - rsync -tar --exclude='.git*' --exclude='readme.md'  --stats --no-perms . ${WORKDIR}
+        - echo ${ENV_STAGING} > ${WORKDIR}/src/env.js
+        - echo ${ECOSYSTEM_STAGING} > ${WORKDIR}/ecosystem.config.js
+        - cd ${WORKDIR} && yarn
+        - cd ${WORKDIR} && yarn build
+        - ln -sfT ${WORKDIR} ${DIR_STAGING}
+        - cd ${DIR_STAGING} && (pm2 reload ecosystem.config.js || pm2 start ecosystem.config.js)
+        - cd /var/deploy/${CI_COMMIT_BRANCH} && ls -t | tail -n +3 | sudo xargs -I {} rm -r {}
+
+build-test:
+    stage: test
+    tags:
+        - rent
+    script:
+        - rsync -tar --exclude='.git*' --exclude='readme.md'  --stats --no-perms . ${WORKDIR}
+        - echo ${ENV_TEST} > ${WORKDIR}/src/env.js
+        - echo ${ECOSYSTEM_TEST} > ${WORKDIR}/ecosystem.config.js
+        - cd ${WORKDIR} && yarn
+        - cd ${WORKDIR} && yarn build
+        - ln -sfT ${WORKDIR} ${DIR_TEST}
+        - cd ${DIR_TEST} && (pm2 reload ecosystem.config.js || pm2 start ecosystem.config.js)
         - cd /var/deploy/${CI_COMMIT_BRANCH} && ls -t | tail -n +3 | sudo xargs -I {} rm -r {}
