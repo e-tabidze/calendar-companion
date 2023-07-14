@@ -8,6 +8,8 @@ stages:
 
 build-main:
     stage: main
+    only:
+      - main
     script:
         - rsync -tar --exclude='.git*' --exclude='readme.md'  --stats --no-perms . ${WORKDIR}
         - echo ${ENV} > ${WORKDIR}/src/env.js
@@ -20,6 +22,8 @@ build-main:
 
 build-staging:
     stage: staging
+    only:
+      - staging
     script:
         - rsync -tar --exclude='.git*' --exclude='readme.md'  --stats --no-perms . ${WORKDIR}
         - echo ${ENV_STAGING} > ${WORKDIR}/src/env.js
@@ -32,6 +36,8 @@ build-staging:
 
 build-test:
     stage: test
+    only:
+      - test
     tags:
         - rent
     script:
