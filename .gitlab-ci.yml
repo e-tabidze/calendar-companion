@@ -1,0 +1,14 @@
+stages:
+  - main
+  - staging
+  - test
+main:
+    stage:
+        - main
+    tags:
+        - rent
+    script:
+        - whoami
+    
+
+
