@@ -11,6 +11,7 @@ build-main:
     only:
       - main
     script:
+        - pwd
         - rsync -tar --exclude='.git*' --exclude='readme.md'  --stats --no-perms . ${WORKDIR}
         - echo ${ENV} > ${WORKDIR}/src/env.js
         - echo ${ECOSYSTEM} > ${WORKDIR}/ecosystem.config.js
