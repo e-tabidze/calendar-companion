@@ -12,8 +12,8 @@ build-main:
       - main
     script:
         - rsync -tar --exclude='.git*' --exclude='readme.md'  --stats --no-perms . ${WORKDIR}
-        - echo ${ENV} > ${WORKDIR}/src/env.js
-        - echo ${ECOSYSTEM} > ${WORKDIR}/ecosystem.config.js
+        - echo "${ENV}" > ${WORKDIR}/src/env.js
+        - echo "${ECOSYSTEM}" > ${WORKDIR}/ecosystem.config.js
         - cd ${WORKDIR} && yarn
         - cd ${WORKDIR} && yarn build
         - ln -sfT ${WORKDIR} ${DIR}
@@ -26,8 +26,8 @@ build-staging:
       - staging
     script:
         - rsync -tar --exclude='.git*' --exclude='readme.md'  --stats --no-perms . ${WORKDIR}
-        - echo ${ENV_STAGING} > ${WORKDIR}/src/env.js
-        - echo ${ECOSYSTEM_STAGING} > ${WORKDIR}/ecosystem.config.js
+        - echo "${ENV_STAGING}" > ${WORKDIR}/src/env.js
+        - echo "${ECOSYSTEM_STAGING}" > ${WORKDIR}/ecosystem.config.js
         - cd ${WORKDIR} && yarn
         - cd ${WORKDIR} && yarn build
         - ln -sfT ${WORKDIR} ${DIR_STAGING}
@@ -42,8 +42,8 @@ build-test:
         - rent
     script:
         - rsync -tar --exclude='.git*' --exclude='readme.md'  --stats --no-perms . ${WORKDIR}
-        - echo ${ENV_TEST} > ${WORKDIR}/src/env.js
-        - echo ${ECOSYSTEM_TEST} > ${WORKDIR}/ecosystem.config.js
+        - echo "${ENV_TEST}" > ${WORKDIR}/src/env.js
+        - echo "${ECOSYSTEM_TEST}" > ${WORKDIR}/ecosystem.config.js
         - cd ${WORKDIR} && yarn
         - cd ${WORKDIR} && yarn build
         - ln -sfT ${WORKDIR} ${DIR_TEST}
