@@ -10,6 +10,8 @@ build-main:
     stage: main
     only:
       - main
+    tags:
+      - front-rent      
     script:
         - rsync -tar --exclude='.git*' --exclude='readme.md'  --stats --no-perms . ${WORKDIR}
         - echo "${ENV}" > ${WORKDIR}/src/env.js
@@ -24,6 +26,8 @@ build-staging:
     stage: staging
     only:
       - staging
+    tags:
+      - front-rent
     script:
         - rsync -tar --exclude='.git*' --exclude='readme.md'  --stats --no-perms . ${WORKDIR}
         - echo "${ENV_STAGING}" > ${WORKDIR}/src/env.js
@@ -39,7 +43,7 @@ build-test:
     only:
       - test
     tags:
-        - rent
+        - front-rent
     script:
         - rsync -tar --exclude='.git*' --exclude='readme.md'  --stats --no-perms . ${WORKDIR}
         - echo "${ENV_TEST}" > ${WORKDIR}/src/env.js
