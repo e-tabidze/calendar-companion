@@ -8,7 +8,7 @@ import Typography from 'src/views/components/typography'
 import PriceCalcCard from 'src/views/pages/details/priceCalcCard'
 import { useForm } from 'react-hook-form'
 import AdditionalServices from 'src/views/pages/booking/additionalServices'
-import { LargerContainer, SmallerContainer } from 'src/styled/styles'
+import { LargeContainer, ContentContainer } from 'src/styled/styles'
 import { useRouter } from 'next/router'
 import useWindowDimensions from 'src/hooks/useWindowDimensions'
 import Drawer from 'src/views/pages/details/drawer'
@@ -50,9 +50,9 @@ const Booking = () => {
 
   return (
     <>
-      <LargerContainer className='flex items-baseline pt-5 flex-col large:flex-row'>
+      <LargeContainer className='flex items-baseline pt-5 flex-col large:flex-row'>
         <Image src='/images/logo-rent.svg' alt='logo' onClick={onClickLogo} />
-        <SmallerContainer className='flex gap-12'>
+        <ContentContainer className='flex gap-12'>
           <div className='w-full large:w-8/12'>
             <div className='flex justify-between my-8'>
               <div className='flex items-baseline gap-3'>
@@ -115,8 +115,8 @@ const Booking = () => {
           <div className='hidden large:inline-block w-5/12 laptop:w-4/12'>
             <PriceCalcCard />
           </div>
-        </SmallerContainer>
-      </LargerContainer>
+        </ContentContainer>
+      </LargeContainer>
       {isOpenDrawer && width < 779 ? (
         <Drawer isOpenDrawer={isOpenDrawer} setIsOpenDrawer={setIsOpenDrawer} />
       ) : (

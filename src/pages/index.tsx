@@ -1,7 +1,7 @@
 // ** Interfaces
 import { TailwindDiv } from 'src/interfaces/tailwind'
 import DefaultLayout from 'src/layouts/DefaultLayout'
-import { LargerContainer, SmallerContainer, MaxWidthContainer, ResponsiveContainer } from 'src/styled/styles'
+import { LargeContainer, ContentContainer, MaxWidthContainer, ResponsiveContainer } from 'src/styled/styles'
 import Carousel from 'src/views/components/carousel'
 import CategoryCard from 'src/views/components/categoryCard'
 import Divider from 'src/views/components/divider'
@@ -71,6 +71,26 @@ const categoryArray = [
     id: 8,
     type: 'ეკონომიური',
     available: 231
+  },
+  {
+    id: 8,
+    type: 'ეკონომიური',
+    available: 231
+  },
+  {
+    id: 8,
+    type: 'ეკონომიური',
+    available: 231
+  },
+  {
+    id: 8,
+    type: 'ეკონომიური',
+    available: 231
+  },
+  {
+    id: 8,
+    type: 'ეკონომიური',
+    available: 231
   }
 ]
 
@@ -78,43 +98,43 @@ const categories = categoryArray.map((item, key) => <CategoryCard category={item
 const MainPage = () => (
   <DefaultLayout>
     <MainPageBox>
-      <LargerContainer>
+      <LargeContainer>
         <Hero />
-      </LargerContainer>
-      <SmallerContainer>
+      </LargeContainer>
+      <ContentContainer>
         <Typography type='h3' className='mt-12'>
           მოძებნე კატეგორიების მიხედვით
         </Typography>
-        <Typography type='subtitle' className='mb-12'>
+        <Typography type='subtitle' color='light' className='mb-12'>
           იპოვეთ თქვენთვის სასურველი ავტომობილი კონკრეტული საჭიროებისთვის ერთ სივრცეში
         </Typography>
-      </SmallerContainer>
-      <Carousel itemsArray={categories} type='categories' />
+        <Carousel itemsArray={categories} type='categories' />
+      </ContentContainer>
       <MaxWidthContainer>
         <Divider />
       </MaxWidthContainer>
-      <SmallerContainer>
+      <ContentContainer>
         <Typography type='h3' className='mt-12'>
           ბოლოს ნანახი
         </Typography>
-        <Typography type='subtitle' className='mb-12'>
+        <Typography type='subtitle' color='light' className='mb-12'>
           ცნობილი ფაქტია, რომ გვერდის წაკითხვად შიგთავსს შეუძლია მკითხველის ყურადღება მიიზიდოს
         </Typography>
-      </SmallerContainer>
-      <Carousel itemsArray={productArray} type='products' />
-      <SmallerContainer>
+        <Carousel itemsArray={productArray} type='products' />
+      </ContentContainer>
+      <ContentContainer>
         <Typography type='h3' className='mt-12'>
           პოპულარული მანქანები
         </Typography>
-        <Typography type='subtitle' className='mb-12'>
+        <Typography type='subtitle' color='light' className='mb-12'>
           ცნობილი ფაქტია, რომ გვერდის წაკითხვად შიგთავსს შეუძლია მკითხველის ყურადღება მიიზიდოს
         </Typography>
-      </SmallerContainer>
-      <Carousel itemsArray={productArray} type='products' />
+        <Carousel itemsArray={productArray} type='products' />
+      </ContentContainer>
       <ResponsiveContainer className='mt-20'>
         <Cities />
       </ResponsiveContainer>
-      <SmallerContainer className='z-10'>
+      <ContentContainer className='z-10'>
         <ActionCardsWrapper>
           <ActionCard
             title='იქირავე'
@@ -131,7 +151,7 @@ const MainPage = () => (
             image='/images/rent2.png'
           />
         </ActionCardsWrapper>
-      </SmallerContainer>
+      </ContentContainer>
     </MainPageBox>
   </DefaultLayout>
 )

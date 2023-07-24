@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import DefaultLayout from 'src/layouts/DefaultLayout'
-import { SmallerContainer } from 'src/styled/styles'
+import { ContentContainer } from 'src/styled/styles'
 import Breadcrumb from 'src/views/components/breadcrumb'
 import Divider from 'src/views/components/divider'
 import Typography from 'src/views/components/typography'
@@ -112,7 +112,7 @@ const Profile = () => {
 
   return (
     <DefaultLayout>
-      <SmallerContainer>
+      <ContentContainer>
         <div>
           <Breadcrumb
             items={[
@@ -179,7 +179,7 @@ const Profile = () => {
             )}
           </div>
         </div>
-      </SmallerContainer>
+      </ContentContainer>
     </DefaultLayout>
   )
 }

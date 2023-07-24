@@ -61,11 +61,12 @@ export const CategoryCardSlider = {
     slidesOffsetBefore: 50
   },
   1280: {
-    slidesPerView: 6.9,
+    // slidesPerView: 6.9,
+    slidesPerView: 'auto',
     slidesPerGroup: 1,
     spaceBetween: 10,
-    slidesOffsetBefore: 80,
-    slidesOffsetAfter: 70
+    // slidesOffsetBefore: 80,
+    // slidesOffsetAfter: 70
   }
 }
 

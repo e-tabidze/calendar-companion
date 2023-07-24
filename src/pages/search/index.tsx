@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import useWindowDimensions from 'src/hooks/useWindowDimensions'
 import DefaultLayout from 'src/layouts/DefaultLayout'
-import { LargerContainer } from 'src/styled/styles'
+import { LargeContainer } from 'src/styled/styles'
 import Divider from 'src/views/components/divider'
 import Image from 'src/views/components/image'
 import MapPicker from 'src/views/components/mapPicker'
@@ -35,7 +35,7 @@ const SearchPage = () => {
 
   return (
     <DefaultLayout>
-      <LargerContainer>
+      <LargeContainer>
         <Divider />
         <FiltersWrapper>
           <MainFilters>
@@ -118,7 +118,7 @@ const SearchPage = () => {
             </MapContainer>
           )}
         </SearchContentsContainer>
-      </LargerContainer>
+      </LargeContainer>
     </DefaultLayout>
   )
 }
