@@ -12,7 +12,7 @@ const CategoryCard = ({ border, category, selected, handleSelect }: Props) => {
   return (
     <div
       onClick={handleSelect}
-      className={`flex flex-col items-center justify-center cursor-pointer p-4 w-28 h-28 tablet:w-36 tablet:h-36 ${
+      className={`flex flex-col items-center justify-center cursor-pointer w-28 h-28 tablet:w-36 tablet:h-36 ${
         border && 'border border-gray-20 rounded-2xl'
       } ${selected ? 'border-2 border-green-100 bg-green-20' : ''} `}
     >

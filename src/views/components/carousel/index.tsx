@@ -34,78 +34,13 @@ const Carousel = ({
   pagination
 }: Props) => {
   const { width } = useWindowDimensions()
-  const [activeIndices, setActiveIndices] = useState([])
   const [thumbsSwiper, setThumbsSwiper] = useState<any>()
   const prevRef = useRef<HTMLImageElement>(null)
   const nextRef = useRef<HTMLImageElement>(null)
-  const swiperRef = useRef(null)
 
   const handleSlideChange = (swiper: any) => {
     const activeSlides = swiper.realIndex + 1
     console.log('Number of active slides:', activeSlides)
-  }
-
-  // useEffect(() => {
-  //   if (activeIndex === 0) prevRef.current?.classList.add('hidden')
-  //   else {
-  //     prevRef.current?.classList.remove('hidden')
-  //   }
-  // }, [activeIndex])
-
-  // const handleSetSlider = (e: any) => {
-  //   setActiveIndex(e.activeIndex)
-  // }
-
-  // const handleSlideChange = () => {
-  //   const slides = document.querySelectorAll('.swiper-slide')
-
-  //   slides.forEach(slide => {
-  //     const slideRect = slide.getBoundingClientRect()
-  //     const isVisible = slideRect.right <= window.innerWidth
-  //     console.log(isVisible, 'isVisible <===')
-
-  //     if (isVisible) {
-  //       slide.classList.remove('hidden')
-  //     } else {
-  //       slide.classList.add('hidden')
-  //     }
-  //   })
-  // }
-
-  // const handleActiveSlides = (index: number) => {
-  //   if (type === 'products') {
-  //     if (width < 530) return `${activeIndex - 1 === index || activeIndex + 1 === index ? 'opacity-30' : ''}`
-  //     if (width > 529 && width < 1024)
-  //       return `${activeIndex - 1 === index || activeIndex + 2 === index ? 'opacity-30' : ''}`
-  //     if (width > 1023) return `${activeIndex - 1 === index || activeIndex + 3 === index ? 'opacity-30' : ''}`
-  //   }
-  //   if (type === 'categories') {
-  //     if (width < 640) return `${activeIndex - 1 === index || activeIndex + 2 === index ? 'opacity-30' : ''}`
-  //     if (width > 639 && width < 768)
-  //       return `${activeIndex - 1 === index || activeIndex + 3 === index ? 'opacity-30' : ''}`
-  //     if (width > 767 && width < 1024)
-  //       return `${activeIndex - 1 === index || activeIndex + 4 === index ? 'opacity-30' : ''}`
-  //     if (width > 1023 && width < 1280)
-  //       return `${activeIndex - 1 === index || activeIndex + 5 === index ? 'opacity-30' : ''}`
-  //     if (width > 1280) return `${activeIndex - 1 === index || activeIndex + 6 === index ? 'opacity-30' : ''}`
-  //   }
-  //   if (type === 'productDetails')
-  //     return `${activeIndex - 1 === index || activeIndex + 1 === index ? 'opacity-30' : ''}`
-  // }
-
-  const breakpoints = {
-    320: {
-      slidesPerView: 'auto'
-      // spaceBetween: 20
-    }
-    // 480: {
-    //   slidesPerView: 'auto'
-    //   // spaceBetween: 30
-    // },
-    // 640: {
-    //   slidesPerView: 'auto'
-    //   // spaceBetween: 40
-    // }
   }
 
   const handleBreakpoints = () => {
@@ -116,26 +51,17 @@ const Carousel = ({
     }
   }
 
-  console.log(activeIndices, 'actives')
-
   return (
     <>
       <Swiper
         className='w-full relative flex justify-between !overflow-visible'
         watchSlidesProgress
-        // breakpoints={handleBreakpoints()}
-        breakpoints={{
-          320: {
-            slidesPerView: 'auto',
-            spaceBetween: 20
-          }
-        }}
-        // breakpoints={breakpoints}
+        // @ts-ignore
+        breakpoints={handleBreakpoints()}
         navigation={{
           prevEl: prevRef.current,
           nextEl: nextRef.current
         }}
-        // onSlideChange={handleSlideChange}
         onSwiper={swiper => handleSlideChange(swiper)}
         onBeforeInit={(swiper: any) => {
           swiper.params.navigation.prevEl = prevRef.current
@@ -145,7 +71,6 @@ const Carousel = ({
           forceToAxis: true
         }}
         controller={{ control: [] }}
-        // onActiveIndexChange={handleSetSlider}
         keyboard={true}
         centeredSlides={type === 'productDetails'}
         loop={loop}
@@ -160,15 +85,9 @@ const Carousel = ({
           />
         </div>
         {itemsArray.map((item, index) => (
-          // <SwiperSlide key={index} className={`w-fit ${handleActiveSlides(index)}`} onClick={onClick}>
-          //   {item}
-          // </SwiperSlide>
           <SwiperSlide key={index} className='!w-fit'>
-            {({ isVisible }) => <div className={`${isVisible} ? '' : 'opacity-30'`}>{item}</div>}
+            {({ isVisible }) => <div className={`${isVisible ? '' : 'opacity-30'}`}>{item}</div>}
           </SwiperSlide>
-          // <SwiperSlide key={index}>
-          //   {/* <div className={activeIndices.includes(index) ? '' : 'opacity-30'}>{item}</div> */}
-          // </SwiperSlide>
         ))}
         <div className='absolute inset-y-0 right-16 mobile:right-2 flex items-center z-10' ref={nextRef}>
           <IconButton
