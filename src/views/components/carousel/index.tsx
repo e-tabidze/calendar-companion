@@ -97,7 +97,7 @@ const Carousel = ({
     320: {
       slidesPerView: 'auto'
       // spaceBetween: 20
-    },
+    }
     // 480: {
     //   slidesPerView: 'auto'
     //   // spaceBetween: 30
@@ -118,20 +118,19 @@ const Carousel = ({
 
   console.log(activeIndices, 'actives')
 
-
   return (
     <>
       <Swiper
         className='w-full relative flex justify-between !overflow-visible'
         watchSlidesProgress
         // breakpoints={handleBreakpoints()}
-        // breakpoints={{
-        //   320: {
-        //     slidesPerView: 'auto',
-        //     spaceBetween: 20
-        //   }
-        // }}
-        breakpoints={breakpoints}
+        breakpoints={{
+          320: {
+            slidesPerView: 'auto',
+            spaceBetween: 20
+          }
+        }}
+        // breakpoints={breakpoints}
         navigation={{
           prevEl: prevRef.current,
           nextEl: nextRef.current
@@ -164,8 +163,8 @@ const Carousel = ({
           // <SwiperSlide key={index} className={`w-fit ${handleActiveSlides(index)}`} onClick={onClick}>
           //   {item}
           // </SwiperSlide>
-          <SwiperSlide key={index} className="!w-fit">
-            {({ isVisible }) => <div className={`${isVisible} ? '' : 'opacity-30' mx-4`}>{item}</div>}
+          <SwiperSlide key={index} className='!w-fit'>
+            {({ isVisible }) => <div className={`${isVisible} ? '' : 'opacity-30'`}>{item}</div>}
           </SwiperSlide>
           // <SwiperSlide key={index}>
           //   {/* <div className={activeIndices.includes(index) ? '' : 'opacity-30'}>{item}</div> */}
