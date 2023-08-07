@@ -98,14 +98,14 @@ const Carousel = ({
       slidesPerView: 'auto'
       // spaceBetween: 20
     },
-    480: {
-      slidesPerView: 'auto'
-      // spaceBetween: 30
-    },
-    640: {
-      slidesPerView: 'auto'
-      // spaceBetween: 40
-    }
+    // 480: {
+    //   slidesPerView: 'auto'
+    //   // spaceBetween: 30
+    // },
+    // 640: {
+    //   slidesPerView: 'auto'
+    //   // spaceBetween: 40
+    // }
   }
 
   const handleBreakpoints = () => {
@@ -122,16 +122,16 @@ const Carousel = ({
   return (
     <>
       <Swiper
-        className='w-full relative flex justify-between'
+        className='w-full relative flex justify-between !overflow-visible'
         watchSlidesProgress
         // breakpoints={handleBreakpoints()}
-        breakpoints={{
-          320: {
-            slidesPerView: 'auto',
-            spaceBetween: 20
-          }
-        }}
-        // breakpoints={breakpoints}
+        // breakpoints={{
+        //   320: {
+        //     slidesPerView: 'auto',
+        //     spaceBetween: 20
+        //   }
+        // }}
+        breakpoints={breakpoints}
         navigation={{
           prevEl: prevRef.current,
           nextEl: nextRef.current
@@ -151,12 +151,6 @@ const Carousel = ({
         centeredSlides={type === 'productDetails'}
         loop={loop}
         thumbs={{ swiper: thumbsSwiper }}
-        pagination={{
-          type: 'custom',
-          renderCustom: function (swiper, current, total) {
-            return pagination ? `<span class="custom-pagination">${current + '/' + (total - 1) + '-დან'}</span>` : null
-          }
-        }}
       >
         <div className='absolute inset-y-0 left-16 mobile:left-2 flex items-center rotate-180 z-50' ref={prevRef}>
           <IconButton
@@ -170,8 +164,8 @@ const Carousel = ({
           // <SwiperSlide key={index} className={`w-fit ${handleActiveSlides(index)}`} onClick={onClick}>
           //   {item}
           // </SwiperSlide>
-          <SwiperSlide key={index}>
-            {({ isVisible }) => <div className={isVisible ? '' : 'opacity-30'}>{item}</div>}
+          <SwiperSlide key={index} className="!w-fit">
+            {({ isVisible }) => <div className={`${isVisible} ? '' : 'opacity-30' mx-4`}>{item}</div>}
           </SwiperSlide>
           // <SwiperSlide key={index}>
           //   {/* <div className={activeIndices.includes(index) ? '' : 'opacity-30'}>{item}</div> */}
