@@ -147,3 +147,19 @@
 .css-24zbih-ValueContainer {
   margin-top: 0px !important;
 }
+
+html {
+  overflow-x: hidden;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+}
