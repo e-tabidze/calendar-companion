@@ -173,6 +173,3 @@ body {
   max-width: 4000px;
 }
 
-.swiper-slide-visible:last-child {
-  opacity: 30 !important;
-}

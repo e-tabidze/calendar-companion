@@ -1,11 +1,11 @@
 // ** Swiper Breakpoints
 export const ProductCardSlider = {
   320: {
-    slidesPerView: "auto",
+    slidesPerView: 1,
     slidesPerGroup: 1,
-    spaceBetween: 15,
-    slidesOffsetBefore: 10,
-    slidesOffsetAfter: 10
+    spaceBetween: 0,
+    slidesOffsetBefore: 0,
+    slidesOffsetAfter: 0
   },
   530: {
     slidesPerView: "auto",
@@ -39,10 +39,11 @@ export const ProductCardSlider = {
 
 export const CategoryCardSlider = {
   320: {
-    slidesPerView: "auto",
+    slidesPerView: 1,
     slidesPerGroup: 1,
-    spaceBetween: 15,
-    slidesOffsetBefore: 0
+    spaceBetween: 40,
+    slidesOffsetBefore: 0,
+    slidesOffsetAfter: 0
   },
   640: {
     slidesPerView: "auto",
@@ -63,7 +64,7 @@ export const CategoryCardSlider = {
   1280: {
     slidesPerView: "auto",
     slidesPerGroup: 1,
-    spaceBetween: 10,
+    spaceBetween: 80,
     slidesOffsetBefore: 80,
     slidesOffsetAfter: 70
   }

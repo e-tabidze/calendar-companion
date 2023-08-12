@@ -37,11 +37,7 @@ const Carousel = ({
   const [thumbsSwiper, setThumbsSwiper] = useState<any>()
   const prevRef = useRef<HTMLImageElement>(null)
   const nextRef = useRef<HTMLImageElement>(null)
-
-  const handleSlideChange = (swiper: any) => {
-    const activeSlides = swiper.realIndex + 1
-    console.log('Number of active slides:', activeSlides)
-  }
+  const swiperRef = useRef<any>(null)
 
   const handleBreakpoints = () => {
     if (singleSlide === false) {
@@ -51,18 +47,56 @@ const Carousel = ({
     }
   }
 
+  const slideRefs = useRef<Array<HTMLDivElement | null>>([])
+
+  useEffect(() => {
+    const options = {
+      root: null,
+      rootMargin: '0px',
+      threshold: type === 'productDetails' || 'products' ? 0.1 : 1
+    }
+
+    const handleIntersection = (entries: IntersectionObserverEntry[]) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1'
+        } else {
+          entry.target.style.opacity = '0.3'
+        }
+      })
+    }
+
+    const observer = new IntersectionObserver(handleIntersection, options)
+
+    slideRefs.current.forEach(ref => {
+      if (ref) {
+        observer.observe(ref)
+      }
+    })
+
+    return () => {
+      observer.disconnect()
+    }
+  }, [itemsArray])
+
   return (
     <>
       <Swiper
         className='w-full relative flex justify-between !overflow-visible'
         watchSlidesProgress
+        ref={swiperRef}
         // @ts-ignore
         breakpoints={handleBreakpoints()}
+        // breakpoints={{
+        //   320: {
+        //     slidesPerView: 'auto'
+        //   }
+        // }}
         navigation={{
           prevEl: prevRef.current,
           nextEl: nextRef.current
         }}
-        onSwiper={swiper => handleSlideChange(swiper)}
+        // onSwiper={swiper => handleSlideChange(swiper)}
         onBeforeInit={(swiper: any) => {
           swiper.params.navigation.prevEl = prevRef.current
           swiper.params.navigation.nextEl = nextRef.current
@@ -85,8 +119,8 @@ const Carousel = ({
           />
         </div>
         {itemsArray.map((item, index) => (
-          <SwiperSlide key={index} className='!w-fit'>
-            {({ isVisible }) => <div className={`${isVisible ? '' : 'opacity-30'}`}>{item}</div>}
+          <SwiperSlide key={index} className='!w-fit mx-2'>
+            <div ref={element => (slideRefs.current[index] = element)}>{item}</div>
           </SwiperSlide>
         ))}
         <div className='absolute inset-y-0 right-16 mobile:right-2 flex items-center z-10' ref={nextRef}>
