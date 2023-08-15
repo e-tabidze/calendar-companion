@@ -108,11 +108,13 @@ const MainPage = () => (
         <Typography type='subtitle' color='light' className='mb-12'>
           იპოვეთ თქვენთვის სასურველი ავტომობილი კონკრეტული საჭიროებისთვის ერთ სივრცეში
         </Typography>
-        <Carousel itemsArray={categories} type='categories' />
       </ContentContainer>
-      <MaxWidthContainer>
+      <LargeContainer>
+        <Carousel itemsArray={categories} type='categories' />
+      </LargeContainer>
+      <LargeContainer>
         <Divider />
-      </MaxWidthContainer>
+      </LargeContainer>
       <ContentContainer>
         <Typography type='h3' className='mt-12'>
           ბოლოს ნანახი
@@ -120,8 +122,10 @@ const MainPage = () => (
         <Typography type='subtitle' color='light' className='mb-12'>
           ცნობილი ფაქტია, რომ გვერდის წაკითხვად შიგთავსს შეუძლია მკითხველის ყურადღება მიიზიდოს
         </Typography>
-        <Carousel itemsArray={productArray} type='products' />
       </ContentContainer>
+      <LargeContainer>
+        <Carousel itemsArray={productArray} type='products' />
+      </LargeContainer>
       <ContentContainer>
         <Typography type='h3' className='mt-12'>
           პოპულარული მანქანები
@@ -129,8 +133,10 @@ const MainPage = () => (
         <Typography type='subtitle' color='light' className='mb-12'>
           ცნობილი ფაქტია, რომ გვერდის წაკითხვად შიგთავსს შეუძლია მკითხველის ყურადღება მიიზიდოს
         </Typography>
-        <Carousel itemsArray={productArray} type='products' />
       </ContentContainer>
+      <LargeContainer>
+        <Carousel itemsArray={productArray} type='products' />
+      </LargeContainer>
       <ResponsiveContainer className='mt-20'>
         <Cities />
       </ResponsiveContainer>

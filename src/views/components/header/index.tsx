@@ -19,7 +19,6 @@ const Header = () => {
         text='AUTH'
       />
       <User />
-      <DefaultButton text="AUTH" onClick={() => router.push("https://test.auth.tnet.ge/ka/user/login/?Continue=https://new-rent.myauto.ge/")} />
     </InnerContainer>
   )
 }

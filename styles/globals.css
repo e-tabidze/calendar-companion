@@ -148,7 +148,7 @@
   margin-top: 0px !important;
 }
 
-html {
+/* html {
   overflow-x: hidden;
 }
 
@@ -162,4 +162,14 @@ body {
 main {
   display: flex;
   flex-direction: column;
+} */
+
+html {
+  overflow-x: hidden;
 }
+
+body {
+  overflow-x: hidden;
+  max-width: 4000px;
+}
+
