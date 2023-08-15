@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 
 // ** Swiper
 import { Swiper, SwiperSlide } from 'swiper/react'
-import SwiperCore, { Virtual, Navigation, Pagination, Mousewheel, Keyboard, Thumbs, FreeMode } from 'swiper'
+import SwiperCore, { Virtual, Navigation, Pagination, Mousewheel, Keyboard, Thumbs, FreeMode, Controller } from 'swiper'
 
 import 'swiper/css'
 import 'swiper/css/pagination'
@@ -22,7 +22,7 @@ interface Props {
   pagination?: boolean
 }
 
-SwiperCore.use([Navigation, Pagination, Virtual, Mousewheel, Keyboard, Thumbs, FreeMode])
+SwiperCore.use([Navigation, Pagination, Virtual, Mousewheel, Keyboard, Thumbs, FreeMode, Controller])
 
 const Carousel = ({
   itemsArray,
@@ -31,44 +31,13 @@ const Carousel = ({
   onClick,
   singleSlide = false,
   thumbs = false,
+  pagination
 }: Props) => {
   const { width } = useWindowDimensions()
-  const [activeIndex, setActiveIndex] = useState(0)
+  const [thumbsSwiper, setThumbsSwiper] = useState<any>()
   const prevRef = useRef<HTMLImageElement>(null)
   const nextRef = useRef<HTMLImageElement>(null)
-  const [thumbsSwiper, setThumbsSwiper] = useState<any>()
-
-  useEffect(() => {
-    if (activeIndex === 0) prevRef.current?.classList.add('hidden')
-    else {
-      prevRef.current?.classList.remove('hidden')
-    }
-  }, [activeIndex])
-
-  const handleSetSlider = (e: any) => {
-    setActiveIndex(e.activeIndex)
-  }
-
-  const handleActiveSlides = (index: number) => {
-    if (type === 'products') {
-      if (width < 530) return `${activeIndex - 1 === index || activeIndex + 1 === index ? 'opacity-30' : ''}`
-      if (width > 529 && width < 1024)
-        return `${activeIndex - 1 === index || activeIndex + 2 === index ? 'opacity-30' : ''}`
-      if (width > 1023) return `${activeIndex - 1 === index || activeIndex + 3 === index ? 'opacity-30' : ''}`
-    }
-    if (type === 'categories') {
-      if (width < 640) return `${activeIndex - 1 === index || activeIndex + 2 === index ? 'opacity-30' : ''}`
-      if (width > 639 && width < 768)
-        return `${activeIndex - 1 === index || activeIndex + 3 === index ? 'opacity-30' : ''}`
-      if (width > 767 && width < 1024)
-        return `${activeIndex - 1 === index || activeIndex + 4 === index ? 'opacity-30' : ''}`
-      if (width > 1023 && width < 1280)
-        return `${activeIndex - 1 === index || activeIndex + 5 === index ? 'opacity-30' : ''}`
-      if (width > 1280) return `${activeIndex - 1 === index || activeIndex + 6 === index ? 'opacity-30' : ''}`
-    }
-    if (type === 'productDetails')
-      return `${activeIndex - 1 === index || activeIndex + 1 === index ? 'opacity-30' : ''}`
-  }
+  const swiperRef = useRef<any>(null)
 
   const handleBreakpoints = () => {
     if (singleSlide === false) {
@@ -78,31 +47,68 @@ const Carousel = ({
     }
   }
 
+  const slideRefs = useRef<Array<HTMLDivElement | null>>([])
+
+  useEffect(() => {
+    const options = {
+      root: null,
+      rootMargin: '0px',
+      threshold: type === 'productDetails' || 'products' ? 0.1 : 1
+    }
+
+    const handleIntersection = (entries: IntersectionObserverEntry[]) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1'
+        } else {
+          entry.target.style.opacity = '0.3'
+        }
+      })
+    }
+
+    const observer = new IntersectionObserver(handleIntersection, options)
+
+    slideRefs.current.forEach(ref => {
+      if (ref) {
+        observer.observe(ref)
+      }
+    })
+
+    return () => {
+      observer.disconnect()
+    }
+  }, [itemsArray])
+
   return (
     <>
       <Swiper
-        className='w-full relative flex justify-between'
+        className='w-full relative flex justify-between !overflow-visible'
+        watchSlidesProgress
+        ref={swiperRef}
+        // @ts-ignore
         breakpoints={handleBreakpoints()}
+        // breakpoints={{
+        //   320: {
+        //     slidesPerView: 'auto'
+        //   }
+        // }}
         navigation={{
           prevEl: prevRef.current,
           nextEl: nextRef.current
         }}
+        // onSwiper={swiper => handleSlideChange(swiper)}
         onBeforeInit={(swiper: any) => {
           swiper.params.navigation.prevEl = prevRef.current
           swiper.params.navigation.nextEl = nextRef.current
         }}
-        onActiveIndexChange={handleSetSlider}
+        mousewheel={{
+          forceToAxis: true
+        }}
+        controller={{ control: [] }}
         keyboard={true}
         centeredSlides={type === 'productDetails'}
         loop={loop}
         thumbs={{ swiper: thumbsSwiper }}
-
-        // pagination={{
-        //   type: 'custom',
-        //   renderCustom: function (swiper, current, total) {
-        //     return pagination ? `<span class="custom-pagination">${current + '/' + (total - 1) + '-დან'}</span>` : null
-        //   }
-        // }}
       >
         <div className='absolute inset-y-0 left-16 mobile:left-2 flex items-center rotate-180 z-50' ref={prevRef}>
           <IconButton
@@ -113,8 +119,8 @@ const Carousel = ({
           />
         </div>
         {itemsArray.map((item, index) => (
-          <SwiperSlide key={index} className={`w-fit ${handleActiveSlides(index)}`} onClick={onClick}>
-            {item}
+          <SwiperSlide key={index} className='!w-fit mx-2'>
+            <div ref={element => (slideRefs.current[index] = element)}>{item}</div>
           </SwiperSlide>
         ))}
         <div className='absolute inset-y-0 right-16 mobile:right-2 flex items-center z-10' ref={nextRef}>
@@ -138,7 +144,7 @@ const Carousel = ({
           className='mySwiper'
         >
           {itemsArray.map((item, index) => (
-            <SwiperSlide key={index} className='mt-12' onClick={onClick}>
+            <SwiperSlide key={index} className='mt-12 snap-start' onClick={onClick}>
               {item}
             </SwiperSlide>
           ))}

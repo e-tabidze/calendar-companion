@@ -20,7 +20,7 @@ import Drawer from 'src/views/pages/details/drawer'
 import ResponsivePriceCalcCard from 'src/views/pages/details/responsivePriceCalcCard'
 import ProductCard from 'src/views/components/productCard'
 import ProductImagesDialog from 'src/views/pages/details/productImagesDialog'
-import { SmallerContainer, MaxWidthContainer } from 'src/styled/styles'
+import { ContentContainer, MaxWidthContainer } from 'src/styled/styles'
 import SubNavItem from 'src/views/pages/details/subNavItem'
 
 const productImages = [
@@ -126,9 +126,9 @@ const ProductDetails = () => {
 
   return (
     <DefaultLayout>
-      <SmallerContainer>
+      <ContentContainer>
         <DetailsPageHeader />
-      </SmallerContainer>
+      </ContentContainer>
       <MaxWidthContainer>
         <Carousel
           itemsArray={productImages}
@@ -140,7 +140,7 @@ const ProductDetails = () => {
         />
       </MaxWidthContainer>
       <MaxWidthContainer className={`${isSticky ? 'fixed top-20' : ''} bg-white z-50`} ref={ref} id='head'>
-        <SmallerContainer className='overflow-x-auto bg-white z-30'>
+        <ContentContainer className='overflow-x-auto bg-white z-30'>
           <div className='flex gap-8 my-6 w-max'>
             <SubNavItem section='details' activeSection={section} handleClick={handleClick}>
               დეტალური ინფორმაცია
@@ -158,11 +158,11 @@ const ProductDetails = () => {
               განმცხადებელი
             </SubNavItem>
           </div>
-        </SmallerContainer>
+        </ContentContainer>
         <Divider />
       </MaxWidthContainer>
       <MaxWidthContainer className={`${isSticky ? 'mt-20' : ''} z-40`}></MaxWidthContainer>
-      <SmallerContainer>
+      <ContentContainer>
         <div className='flex gap-11 mt-8'>
           <div className='w-full large:w-7/12 laptop:w-8/12'>
             <div id='details'>
@@ -294,7 +294,7 @@ const ProductDetails = () => {
           <ProductCard />
           <ProductCard />
         </div>
-      </SmallerContainer>
+      </ContentContainer>
       {isOpenDrawer && width < 779 ? (
         <Drawer isOpenDrawer={isOpenDrawer} setIsOpenDrawer={setIsOpenDrawer} />
       ) : (
