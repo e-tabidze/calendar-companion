@@ -1,7 +1,7 @@
 // ** Interfaces
 import { TailwindDiv } from 'src/interfaces/tailwind'
 import DefaultLayout from 'src/layouts/DefaultLayout'
-import { LargeContainer, ContentContainer, MaxWidthContainer, ResponsiveContainer } from 'src/styled/styles'
+import { LargeContainer, ContentContainer, ResponsiveContainer } from 'src/styled/styles'
 import Carousel from 'src/views/components/carousel'
 import CategoryCard from 'src/views/components/categoryCard'
 import Divider from 'src/views/components/divider'

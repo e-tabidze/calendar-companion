@@ -31,7 +31,6 @@ const Carousel = ({
   onClick,
   singleSlide = false,
   thumbs = false,
-  pagination
 }: Props) => {
   const { width } = useWindowDimensions()
   const [thumbsSwiper, setThumbsSwiper] = useState<any>()
@@ -59,8 +58,10 @@ const Carousel = ({
     const handleIntersection = (entries: IntersectionObserverEntry[]) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
+          // @ts-ignore
           entry.target.style.opacity = '1'
         } else {
+          // @ts-ignore
           entry.target.style.opacity = '0.3'
         }
       })
@@ -85,8 +86,10 @@ const Carousel = ({
         className='w-full relative flex justify-between !overflow-visible'
         watchSlidesProgress
         ref={swiperRef}
+
         // @ts-ignore
         breakpoints={handleBreakpoints()}
+        
         // breakpoints={{
         //   320: {
         //     slidesPerView: 'auto'
@@ -96,6 +99,7 @@ const Carousel = ({
           prevEl: prevRef.current,
           nextEl: nextRef.current
         }}
+
         // onSwiper={swiper => handleSlideChange(swiper)}
         onBeforeInit={(swiper: any) => {
           swiper.params.navigation.prevEl = prevRef.current
