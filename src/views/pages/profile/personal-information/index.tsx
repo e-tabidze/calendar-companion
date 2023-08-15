@@ -19,7 +19,7 @@ const options = [
   { label: 'მდედრობითი', value: 'მდედრობითი' }
 ]
 
-const Parameters = () => {
+const PersonalInfo = () => {
   const [activeTab, setActiveTab] = useState(Tabs.PROFILE)
 
   const { control } = useForm()
@@ -98,4 +98,4 @@ const Parameters = () => {
   )
 }
 
-export default Parameters
+export default PersonalInfo

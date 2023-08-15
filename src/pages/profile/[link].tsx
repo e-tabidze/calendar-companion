@@ -10,7 +10,7 @@ import useWindowDimensions from 'src/hooks/useWindowDimensions'
 import Image from 'next/image'
 import Favourites from 'src/views/pages/profile/favorites'
 import { IconButton } from 'src/views/components/button'
-import Parameters from 'src/views/pages/profile/parameters'
+import PersonalInfo from 'src/views/pages/profile/personal-information'
 import NewCompany from 'src/views/pages/profile/newCompany'
 import CardsAndTransactions from 'src/views/pages/profile/cardsAndTransactions'
 import Company from 'src/views/pages/profile/company'
@@ -38,7 +38,7 @@ const routes = [
     id: 4,
     icon: '',
     item: 'პარამეტრები',
-    path: '/profile/parameters'
+    path: '/profile/personal-information'
   },
   {
     id: 5,
@@ -87,8 +87,8 @@ const Profile = () => {
         return <Favourites />
       case '/profile/transactions/':
         return <CardsAndTransactions />
-      case '/profile/parameters/':
-        return <Parameters />
+      case '/profile/personal-information/':
+        return <PersonalInfo />
       case '/profile/bedina-plus/':
         return <Company />
       case '/profile/create-company/':

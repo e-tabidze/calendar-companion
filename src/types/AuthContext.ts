@@ -11,15 +11,12 @@ export type RegisterParams = {
   password: string
 }
 
-export type UserDataType = {
-  id: number
-  role: string
-  email: string
-  fullName: string
-  username: string
-  password: string
-  name: string
-  avatar?: string | null
+export type User = {
+  UserID: number
+  Email: string
+  UserType: number
+  FirstName: string
+  LastName: string
 }
 
 export type AuthValuesType = {
@@ -27,8 +24,8 @@ export type AuthValuesType = {
   setLoading: (value: boolean) => void
   logout: () => void
   isInitialized: boolean
-  user: UserDataType | null
-  setUser: (value: UserDataType | null) => void
+  user: User | null
+  setUser: (value: User | null) => void
   setIsInitialized: (value: boolean) => void
   login: (params: LoginParams, errorCallback?: ErrCallbackType) => void
 }

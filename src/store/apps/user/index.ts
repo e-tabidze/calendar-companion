@@ -8,7 +8,7 @@ import { Dispatch } from 'redux'
 import STATUSES from 'src/configs/loadingStatuses'
 
 interface Redux {
-  getState: any
+  getState: () => void
   dispatch: Dispatch<any>
 }
 
@@ -19,6 +19,7 @@ export const fetchUserData = createAsyncThunk(
     try {
       dispatch(setUserInfoLoadingStatus(STATUSES.PENDING))
       const response: any = await UserService.getUserData(params.AccessToken)
+      console.log(response, 'response')
       dispatch(setUserData(response.data))
       dispatch(setUserInfoLoadingStatus(STATUSES.SUCCESS))
 
@@ -50,7 +51,7 @@ export const appUsersSlice = createSlice({
       state.error = action.payload
     }
   },
-  extraReducers: builder => {}
+  extraReducers: () => {}
 })
 
 export const { setUserInfoLoadingStatus, setUserData, setError } = appUsersSlice.actions

@@ -108,9 +108,10 @@ const MainPage = () => {
 
   const dispatch = useDispatch()
 
-  console.log({ AccessToken: Cookie.get('AccessToken') })
+  console.log({ AccessToken: Cookie.get('AccessToken') }, 'accesstoken')
 
   useEffect(() => {
+    // @ts-ignore
     dispatch(fetchCompaniesData({ AccessToken: Cookie.get('AccessToken') }))
   }, [dispatch])
 

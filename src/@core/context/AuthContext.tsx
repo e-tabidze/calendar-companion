@@ -5,7 +5,7 @@ import { createContext, useEffect, useState, ReactNode } from 'react'
 import { useRouter } from 'next/router'
 
 // ** Types
-import { AuthValuesType, LoginParams, ErrCallbackType, UserDataType } from 'src/types/AuthContext'
+import { AuthValuesType, LoginParams, ErrCallbackType, User } from 'src/types/AuthContext'
 
 // ** Services
 import AuthService from 'src/services/AuthService'
@@ -35,7 +35,7 @@ type Props = {
 
 const AuthProvider = ({ children }: Props) => {
   // ** States
-  const [user, setUser] = useState<UserDataType | null>(defaultProvider.user)
+  const [user, setUser] = useState<User | null>(defaultProvider.user)
   const [loading, setLoading] = useState<boolean>(defaultProvider.loading)
   const [isInitialized, setIsInitialized] = useState<boolean>(defaultProvider.isInitialized)
 
@@ -50,7 +50,7 @@ const AuthProvider = ({ children }: Props) => {
         setLoading(false)
         try {
           const response: any = await UserService.getUserData()
-          console.log(response, "response")
+          console.log(response, 'response')
           setLoading(false)
           setUser({ ...response.data })
         } catch (error) {
