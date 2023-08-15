@@ -1,8 +1,8 @@
 import HttpService from './HttpService'
 
 class UserService extends HttpService {
-  getUserData() {
-    return this.get('/customer/data')
+  getUserData(AccessToken = '') {
+    return this.get('/user', {}, AccessToken ? { Authorization: `${AccessToken}` } : {})
   }
 }
 
