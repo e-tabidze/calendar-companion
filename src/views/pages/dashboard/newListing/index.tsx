@@ -1,13 +1,13 @@
 import { useState } from 'react'
 import HOC from 'src/hoc'
 import NewListingLayout from 'src/layouts/NewListingLayout'
-import StepOne from 'src/views/pages/newListing/stepOne'
-import StepThree from 'src/views/pages/newListing/stepThree'
-import StepTwo from 'src/views/pages/newListing/stepTwo'
-import StepFour from 'src/views/pages/newListing/stepFour'
-import StepFive from 'src/views/pages/newListing/stepFive'
-import StepSix from 'src/views/pages/newListing/stepSix'
-import StepSeven from 'src/views/pages/newListing/stepSeven'
+import StepOne from 'src/views/pages/dashboard/newListing/stepOne'
+import StepThree from 'src/views/pages/dashboard/newListing/stepThree'
+import StepTwo from 'src/views/pages/dashboard/newListing/stepTwo'
+import StepFour from 'src/views/pages/dashboard/newListing/stepFour'
+import StepFive from 'src/views/pages/dashboard/newListing/stepFive'
+import StepSix from 'src/views/pages/dashboard/newListing/stepSix'
+import StepSeven from 'src/views/pages/dashboard/newListing/stepSeven'
 import { useRouter } from 'next/router'
 
 const options = [
@@ -33,7 +33,7 @@ interface Props {
   condition: any
 }
 
-const NewListing: React.FC<Props> = () => {
+const NewListing: React.FC = () => {
   const router = useRouter()
   const [step, setStep] = useState(options[0])
 
@@ -64,7 +64,7 @@ const NewListing: React.FC<Props> = () => {
   }
 
   const handleClose = () => {
-    router.push('/')
+    router.push('/dashboard/dashboard')
   }
 
   return (

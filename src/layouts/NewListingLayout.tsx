@@ -2,7 +2,7 @@ import { MaxWidthContainer, NewListingHeaderContainer } from 'src/styled/styles'
 import { DefaultButton } from 'src/views/components/button'
 import Image from 'next/image'
 import ProgressBar from 'src/views/components/progressBar'
-import NewListingSelect from 'src/views/pages/newListing/newListingSelect'
+import NewListingSelect from 'src/views/pages/dashboard/newListing/newListingSelect'
 import { useRouter } from 'next/router'
 
 interface Props {
@@ -41,12 +41,12 @@ const NewListingLayout: React.FC<Props> = ({
         <ProgressBar color='green-100' progress={selectedOption.step / options.length} className='large:mt-2' />
       </NewListingHeaderContainer>
       <div
-        className='max-w-[850px] m-auto p-5 laptop:w-10/12 laptop:p-5 laptop:px-0 2xl:p-0'
+        className='max-w-[850px] pb-32 m-auto p-5 laptop:w-10/12 laptop:p-5 laptop:px-0 2xl:p-0'
         style={{ maxWidth: '850px' }}
       >
         <div className='pt-20 pb-20'>{children}</div>
       </div>
-      <div className='sticky bottom-0 bg-white py-5 border border-t-raisin-10 z-10'>
+      <div className='fixed w-full bottom-0 bg-white py-5 border border-t-raisin-10 z-10'>
         <div
           className='max-w-[850px] m-auto flex justify-between px-5 laptop:w-10/12 laptop:px-0 2xl:px-0'
           style={{ maxWidth: '850px' }}

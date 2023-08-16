@@ -73,7 +73,7 @@ const Profile = () => {
     isSidebarVisible ? 'block' : 'hidden'
   } large:block`
 
-  const contentClassName = `w-full large:w-8/12 large:border large:border-raisin-10 large:rounded-3xl ${
+  const contentClassName = `w-full z-[111] large:w-8/12 large:border large:border-raisin-10 large:rounded-3xl ${
     isSidebarVisible ? 'hidden' : 'block'
   } large:block`
 
