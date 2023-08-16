@@ -5,6 +5,7 @@ import HOC from 'src/hoc'
 import StepOne from './stepOne'
 import StepThree from './stepThree'
 import StepTwo from './stepTwo'
+import useCreateCompany from './useCreateCompany'
 
 interface Props1 {
   prop1: any
@@ -19,6 +20,18 @@ const NewCompany = () => {
   const [step, setStep] = useState(options[0])
 
   const router = useRouter()
+
+  const {
+    control,
+    handleSubmit,
+    errors,
+    dispatch,
+    companyValues,
+    dirtyFields,
+    resetField,
+    setError,
+    clearErrors
+  } = useCreateCompany()
 
   const selectOption = (option: any) => {
     setStep(option)

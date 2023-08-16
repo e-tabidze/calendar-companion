@@ -5,6 +5,7 @@ import { createSlice, createAsyncThunk, createAction } from '@reduxjs/toolkit'
 import { Dispatch } from 'redux'
 import STATUSES from 'src/configs/loadingStatuses'
 import CompanyService from 'src/services/CompanyService'
+import { CompanyInfo } from 'src/types/Company'
 
 interface Redux {
   getState: any
@@ -31,16 +32,43 @@ export const fetchCompaniesData = createAsyncThunk(
   }
 )
 
+export const createCompany = createAsyncThunk(
+  'appCompanies/createCompany',
+  async (params: { AccessToken: string; companyInfo: CompanyInfo }, { dispatch }) => {
+    try {
+      const { AccessToken, companyInfo } = params
+      dispatch(setCreateCompanyLoadingStatus(STATUSES.PENDING))
+
+      const response: any = await CompanyService.createCompany(AccessToken, companyInfo)
+
+      dispatch(setCompanyData(response.data))
+      dispatch(setCreateCompanyLoadingStatus(STATUSES.SUCCESS))
+
+      return response.data
+    } catch (error) {
+      dispatch(setError(error))
+      throw error
+    }
+  }
+)
+
 export const appCompaniesSlice = createSlice({
   name: 'appCompanies',
   initialState: {
     data: null,
     status: 'pending',
-    error: null
+    error: null,
+    createdCompanyData: null
   },
   reducers: {
     setCompaniesInfoLoadingStatus: (state, action) => {
       state.status = action.payload
+    },
+    setCreateCompanyLoadingStatus: (state, action) => {
+      state.status = STATUSES.PENDING
+    },
+    setCompanyData: (state, action) => {
+      state.createdCompanyData = action.payload
     },
     setCompaniesData: (state, action) => {
       state.data = action.payload
@@ -53,6 +81,12 @@ export const appCompaniesSlice = createSlice({
   extraReducers: builder => {}
 })
 
-export const { setCompaniesInfoLoadingStatus, setCompaniesData, setError } = appCompaniesSlice.actions
+export const {
+  setCompaniesInfoLoadingStatus,
+  setCompaniesData,
+  setError,
+  setCreateCompanyLoadingStatus,
+  setCompanyData
+} = appCompaniesSlice.actions
 
 export default appCompaniesSlice.reducer
