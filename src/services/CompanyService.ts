@@ -1,13 +1,13 @@
 import HttpService from './HttpService'
-import { CompanyInfo } from 'src/types/Company'
+import { Company } from 'src/types/Company'
 
 class CompanyService extends HttpService {
   getCompanies(AccessToken = '') {
     return this.get('/user-companies', {}, AccessToken ? { Authorization: `${AccessToken}` } : {})
   }
 
-  createCompany(AccessToken = '', companyInfo: CompanyInfo) {
-    return this.post("/companies", companyInfo, AccessToken ? { Authorization: `${AccessToken}` } : {})
+  createCompany(AccessToken = '', company: Company) {
+    return this.post("/companies", company, AccessToken ? { Authorization: `${AccessToken}` } : {})
   }
 }
 

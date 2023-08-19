@@ -35,7 +35,13 @@ const days = [
   }
 ]
 
-const BranchInfoComponent = () => {
+interface Props {
+  control: any
+  errors: any
+  index: number
+}
+
+const BranchInfoComponent: React.FC<Props> = ({ control, errors, index }) => {
   const [map, setMap] = useState(false)
   const [selectedWorkDays, setSelectedWorkDays] = useState<any[]>([
     'monday',
@@ -65,7 +71,13 @@ const BranchInfoComponent = () => {
   return (
     <div className='my-6'>
       <div className='border border-raisin-10 rounded-3xl py-10 px-9 grid grid-cols-1 gap-7'>
-        <InputWithComponent label='მისამართი' onComponentClick={toggleMap} />
+        <InputWithComponent
+          label='მისამართი'
+          onComponentClick={toggleMap}
+          control={control}
+          name={`company_information.address[${index}].address`}
+          errors={errors}
+        />
         <SwitchField label='ერთნაირი დროის მონიშვნა' value={sameTime} onChange={togleTime} />
         {sameTime ? (
           <div className='flex items-center justify-between'>
@@ -79,7 +91,7 @@ const BranchInfoComponent = () => {
                 />
               ))}
             </div>
-            <TimeRangeComponent />
+            <TimeRangeComponent control={control} />
           </div>
         ) : (
           <div className=''>
@@ -91,7 +103,7 @@ const BranchInfoComponent = () => {
                     handleSelect={() => handleselectedWorkDays(day.value)}
                     selected={selectedWorkDays.includes(day.value)}
                   />
-                  <TimeRangeComponent />
+                  <TimeRangeComponent control={control} />
                 </div>
               ))}
             </div>

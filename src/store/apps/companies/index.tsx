@@ -5,7 +5,7 @@ import { createSlice, createAsyncThunk, createAction } from '@reduxjs/toolkit'
 import { Dispatch } from 'redux'
 import STATUSES from 'src/configs/loadingStatuses'
 import CompanyService from 'src/services/CompanyService'
-import { CompanyInfo } from 'src/types/Company'
+import { Company } from 'src/types/Company'
 
 interface Redux {
   getState: any
@@ -34,12 +34,12 @@ export const fetchCompaniesData = createAsyncThunk(
 
 export const createCompany = createAsyncThunk(
   'appCompanies/createCompany',
-  async (params: { AccessToken: string; companyInfo: CompanyInfo }, { dispatch }) => {
+  async (params: { AccessToken: string; company: Company }, { dispatch }) => {
     try {
-      const { AccessToken, companyInfo } = params
+      const { AccessToken, company } = params
       dispatch(setCreateCompanyLoadingStatus(STATUSES.PENDING))
 
-      const response: any = await CompanyService.createCompany(AccessToken, companyInfo)
+      const response: any = await CompanyService.createCompany(AccessToken, company)
 
       dispatch(setCompanyData(response.data))
       dispatch(setCreateCompanyLoadingStatus(STATUSES.SUCCESS))

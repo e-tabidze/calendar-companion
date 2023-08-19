@@ -38,7 +38,7 @@ export const NewListingSelect: React.FC<Props> = ({ options, onChange, selectedO
         leave='transition ease-in duration-75 transform'
         leaveFrom='opacity-100 scale-100'
         leaveTo='opacity-0 scale-95'
-        className='fixed mt-5 left-3 w-[calc(100%-20px)] shadow-lg h-[75px] flex items-center bg-white top-[80px] large:top-none '
+        className='fixed z-[111] mt-5 left-3 w-[calc(100%-20px)] shadow-lg h-[75px] flex items-center bg-white top-[80px] large:top-none '
       >
         <div className='flex justify-between h-full w-max overflow-auto large:w-full'>
           {options.map((option, index) => (

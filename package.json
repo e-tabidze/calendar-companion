@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "@headlessui/react": "^1.7.10",
+    "@hookform/resolvers": "^3.2.0",
     "@reduxjs/toolkit": "^1.9.1",
     "@tailwindcss/line-clamp": "^0.4.2",
     "@types/js-cookie": "^3.0.2",
@@ -33,7 +34,8 @@
     "swiper": "^9.0.5",
     "tailwind-styled-components": "^2.2.0",
     "transform-loader": "^0.2.4",
-    "webworkify-webpack": "1.0.6"
+    "webworkify-webpack": "1.0.6",
+    "yup": "^1.2.0"
   },
   "devDependencies": {
     "@types/node": "^12.12.21",

@@ -1,17 +1,36 @@
 import FileUpload from 'src/views/components/fileUpload'
-import { DefaultInput, MultilineInput } from 'src/views/components/input'
+import { DefaultInput } from 'src/views/components/input'
 
-const StepOne = () => {
+interface Props {
+  control: any
+  errors: any
+  clearErrors: any
+}
+
+const StepOne: React.FC<Props> = ({ control, errors, clearErrors }) => {
   return (
-    <div>
+    <form>
       <div className='grid grid-cols-2 gap-2 my-5'>
-        <DefaultInput label='საიდენტიფიკაციო კოდი' />
-        <DefaultInput label='შპს ბედინა პლიუსი' />
-        <DefaultInput label='კომპანიის დასახელება' className='col-span-2' />
-        <MultilineInput label='აღწერა' rows={4} className="col-span-2" />
+        <DefaultInput label='საიდენტიფიკაციო კოდი' control={control} name='identification_number' errors={errors} clearErrors={clearErrors} />
+        <DefaultInput label='შპს ბედინა პლიუსი' control={control} name='company_information.name' errors={errors} disabled />
+        <DefaultInput
+          label='კომპანიის დასახელება'
+          control={control}
+          className='col-span-2'
+          name='company_information.name'
+          errors={errors}
+        />
+        <DefaultInput
+          label='აღწერა'
+          control={control}
+          className='col-span-2'
+          name='company_information.description'
+          rows={4}
+          errors={errors}
+        />
       </div>
       <FileUpload title='კომპანიის ლოგო' description='(მაქს. ზომა 10 მბ, JPG, PNG, SVG)' />
-    </div>
+    </form>
   )
 }
 

@@ -6,13 +6,14 @@ import NewListingSelect from 'src/views/pages/dashboard/newListing/newListingSel
 import { useRouter } from 'next/router'
 
 interface Props {
-  children?: any
+  children: any
   options: any[]
-  onChange: (option: any) => void
-  onClose: () => void
   selectedOption: any
+  onClose: () => void
+  onChange: (option: any) => void
   onNextStep: () => void
   onPrevStep: () => void
+  onSubmit: any
 }
 
 const NewListingLayout: React.FC<Props> = ({
@@ -22,7 +23,8 @@ const NewListingLayout: React.FC<Props> = ({
   selectedOption,
   onNextStep,
   onPrevStep,
-  onClose
+  onClose,
+  onSubmit
 }) => {
   const router = useRouter()
 
@@ -52,9 +54,13 @@ const NewListingLayout: React.FC<Props> = ({
           style={{ maxWidth: '850px' }}
         >
           {selectedOption.step !== 1 ? <DefaultButton text='უკან' onClick={onPrevStep}></DefaultButton> : <div></div>}
-          {selectedOption.step !== 7 && (
-            <DefaultButton bg='bg-green-100' text='შემდეგი' textColor='text-white' onClick={onNextStep}></DefaultButton>
-          )}
+          <DefaultButton
+            bg='bg-green-100'
+            type={selectedOption.step === options.length ? 'submit' : 'button'}
+            text='შემდეგი'
+            textColor='text-white'
+            onClick={selectedOption.step === options.length ? onSubmit : onNextStep}
+          ></DefaultButton>
         </div>
       </div>
     </MaxWidthContainer>

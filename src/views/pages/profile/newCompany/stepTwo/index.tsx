@@ -2,18 +2,27 @@ import { useState } from 'react'
 import { IconTextButton } from 'src/views/components/button'
 import BranchInfoComponent from './branchInfoComponent'
 
-const StepTwo = () => {
-  const [companyInfoComponents, setCompanyInfoComponents] = useState<any>([<BranchInfoComponent key={Math.random()} />])
+interface Props {
+  control: any
+  errors: any
+}
+
+const StepTwo: React.FC<Props> = ({ control, errors }) => {
+  const [companyInfoComponents, setCompanyInfoComponents] = useState<number[]>([0])
 
   const addComponent = () => {
-    setCompanyInfoComponents([...companyInfoComponents, <BranchInfoComponent key={Math.random()} />])
+    setCompanyInfoComponents(prevComponents => [...prevComponents, prevComponents.length])
   }
-  
+
   return (
-    <div className='mb-48'>
-      <div>{companyInfoComponents.map((component: any) => component)}</div>
-      <IconTextButton label='სხვა  მისამართის დამატება' icon='/icons/add.svg' onClick={addComponent} />
-    </div>
+    <form>
+      <div className='mb-48'>
+        {companyInfoComponents.map(index => (
+          <BranchInfoComponent key={index} index={index} control={control} errors={errors} />
+        ))}
+        <IconTextButton label='სხვა  მისამართის დამატება' icon='/icons/add.svg' onClick={addComponent} />
+      </div>
+    </form>
   )
 }
 
