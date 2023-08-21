@@ -1,6 +1,5 @@
 import Image from 'next/image'
 import React, { useState } from 'react'
-import { Controller } from 'react-hook-form'
 import Select, { ClearIndicatorProps, components, DropdownIndicatorProps, GroupBase } from 'react-select'
 import Typography from '../typography'
 
@@ -39,9 +38,7 @@ interface Props {
   disabled: boolean
   className?: string
   icon?: boolean
-  name: string
-  control: any
-  defaultValue: string
+  onChange: (e: any) => void
 }
 
 const Control = ({ children, ...props }: any) => {
@@ -56,7 +53,7 @@ const Control = ({ children, ...props }: any) => {
   )
 }
 
-const SelectField: React.FC<Props> = ({ placeholder, options, disabled, className, icon, name, control, defaultValue }) => {
+const SelectField: React.FC<Props> = ({ placeholder, options, disabled, className, icon, onChange }) => {
   const [selectedOption, setSelectedOption] = useState<Option>()
 
   const handleChange = (option: any) => {
@@ -87,45 +84,34 @@ const SelectField: React.FC<Props> = ({ placeholder, options, disabled, classNam
 
   return (
     <div className={`relative ${className}`}>
-      <Controller
-        name={name}
-        control={control}
-        render={({ field }) => (
-          <>
-            <Typography
-              type='body'
-              color='light'
-              className={`${
-                selectedOption && selectedOption.value ? 'inline-block absolute z-30 left-3 top-1' : 'hidden'
-              }`}
-            >
-              {placeholder}
-            </Typography>
-            <Select
-              styles={customStyles}
-              options={options}
-              // value={selectedOption}
-              // onChange={handleChange}
-              components={{
-                DropdownIndicator: customDropdownIndicator,
-                ClearIndicator: customClearIndicator,
-                Control
-              }}
-              isClearable
-              placeholder={placeholder}
-              isDisabled={disabled}
-              defaultValue={defaultValue}
-              // @ts-ignore
-              emoji={
-                icon && (
-                  <div className='ml-4'>
-                    <Image src='/icons/clock.svg' alt='' height={18} width={18} />
-                  </div>
-                )
-              }
-            />
-          </>
-        )}
+      <Typography
+        type='body'
+        color='light'
+        className={`${selectedOption && selectedOption.value ? 'inline-block absolute z-30 left-3 top-1' : 'hidden'}`}
+      >
+        {placeholder}
+      </Typography>
+      <Select
+        styles={customStyles}
+        options={options}
+        value={selectedOption}
+        onChange={onChange}
+        components={{
+          DropdownIndicator: customDropdownIndicator,
+          ClearIndicator: customClearIndicator,
+          Control
+        }}
+        isClearable
+        placeholder={placeholder}
+        isDisabled={disabled}
+        // @ts-ignore
+        emoji={
+          icon && (
+            <div className='ml-4'>
+              <Image src='/icons/clock.svg' alt='' height={18} width={18} />
+            </div>
+          )
+        }
       />
     </div>
   )

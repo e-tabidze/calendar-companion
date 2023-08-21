@@ -1,49 +1,28 @@
-import { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { WorkingHours } from 'src/types/Company'
 import { InputWithComponent } from 'src/views/components/input'
 import RoundedTag from 'src/views/components/roundedTag'
 import SwitchField from 'src/views/components/switchField'
 import TimeRangeComponent from '../timeRangeComponent'
 
 const days = [
-  {
-    label: 'ორშ',
-    value: 'monday'
-  },
-  {
-    label: 'სამ',
-    value: 'tuesday'
-  },
-  {
-    label: 'ოთხ',
-    value: 'wednesday'
-  },
-  {
-    label: 'ხუთ',
-    value: 'thursday'
-  },
-  {
-    label: 'პარ',
-    value: 'friday'
-  },
-  {
-    label: 'შაბ',
-    value: 'saturday'
-  },
-  {
-    label: 'კვი',
-    value: 'sunday'
-  }
+  { label: 'ორშ', value: 'monday' },
+  { label: 'სამ', value: 'tuesday' },
+  { label: 'ოთხ', value: 'wednesday' },
+  { label: 'ხუთ', value: 'thursday' },
+  { label: 'პარ', value: 'friday' },
+  { label: 'შაბ', value: 'saturday' },
+  { label: 'კვი', value: 'sunday' }
 ]
 
 interface Props {
-  control: any
-  errors: any
   index: number
+  onWorkingHoursChange: any
 }
 
-const BranchInfoComponent: React.FC<Props> = ({ control, errors, index }) => {
+const BranchInfoComponent: React.FC<Props> = ({ index, onWorkingHoursChange }) => {
   const [map, setMap] = useState(false)
-  const [selectedWorkDays, setSelectedWorkDays] = useState<any[]>([
+  const [selectedWorkDays, setSelectedWorkDays] = useState<string[]>([
     'monday',
     'tuesday',
     'wednesday',
@@ -51,21 +30,49 @@ const BranchInfoComponent: React.FC<Props> = ({ control, errors, index }) => {
     'friday'
   ])
   const [sameTime, setSameTime] = useState(true)
+  const [selectedTimeRange, setSelectedTimeRange] = useState('')
+  const [addressValue, setAddressValue] = useState('')
 
-  const toggleMap = () => {
-    setMap(!map)
+  useEffect(() => {
+    const newWorkingHoursObject = generateWorkingHoursObj()
+
+    // Pass the updated working hours object to the parent component
+    onWorkingHoursChange(newWorkingHoursObject)
+
+    console.log(newWorkingHoursObject, 'newWorkingHoursObject')
+  }, [selectedTimeRange, selectedWorkDays, addressValue])
+
+  const handleAddressChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setAddressValue(e.target.value)
   }
 
-  const togleTime = () => {
-    setSameTime(!sameTime)
-  }
+  const toggleMap = () => setMap(prevMap => !prevMap)
+  const toggleTime = () => setSameTime(prevSameTime => !prevSameTime)
 
-  const handleselectedWorkDays = (value: string) => {
-    if (selectedWorkDays.includes(value)) {
-      setSelectedWorkDays(selectedWorkDays.filter(day => day !== value))
-    } else {
-      setSelectedWorkDays(prevState => [...prevState, value])
+  const handleSelectedWorkDays = (value: string) => {
+    setSelectedWorkDays(prevDays =>
+      prevDays.includes(value) ? prevDays.filter(day => day !== value) : [...prevDays, value]
+    )
+  }
+  const renderTimeRangeComponent = () => (
+    <TimeRangeComponent index={index} setSelectedTimeRange={setSelectedTimeRange} />
+  )
+
+  const generateWorkingHoursObj = () => {
+    if (!selectedTimeRange || selectedWorkDays.length === 0 || !addressValue) {
+      return []
     }
+
+    const workingHoursObject = {
+      address: addressValue,
+      working_hours: {}
+    }
+
+    selectedWorkDays.forEach((day: string | number) => {
+      workingHoursObject.working_hours[day] = selectedTimeRange
+    })
+
+    return workingHoursObject
   }
 
   return (
@@ -73,40 +80,39 @@ const BranchInfoComponent: React.FC<Props> = ({ control, errors, index }) => {
       <div className='border border-raisin-10 rounded-3xl py-10 px-9 grid grid-cols-1 gap-7'>
         <InputWithComponent
           label='მისამართი'
+          value={addressValue}
           onComponentClick={toggleMap}
-          control={control}
           name={`company_information.address[${index}].address`}
-          errors={errors}
+          onChange={e => handleAddressChange(e)}
         />
-        <SwitchField label='ერთნაირი დროის მონიშვნა' value={sameTime} onChange={togleTime} />
+        <SwitchField label='ერთნაირი დროის მონიშვნა' value={sameTime} onChange={toggleTime} />
+
         {sameTime ? (
           <div className='flex items-center justify-between'>
             <div className='flex items-center gap-4'>
-              {days.map((day, index) => (
+              {days.map(day => (
                 <RoundedTag
-                  key={index}
+                  key={day.value}
                   label={day.label}
-                  handleSelect={() => handleselectedWorkDays(day.value)}
+                  handleSelect={() => handleSelectedWorkDays(day.value)}
                   selected={selectedWorkDays.includes(day.value)}
                 />
               ))}
             </div>
-            <TimeRangeComponent control={control} />
+            <div className='flex items-center justify-between'>{renderTimeRangeComponent()}</div>
           </div>
         ) : (
           <div className=''>
-            <div className=''>
-              {days.map((day, index) => (
-                <div className='flex items-center gap-6' key={index}>
-                  <RoundedTag
-                    label={day.label}
-                    handleSelect={() => handleselectedWorkDays(day.value)}
-                    selected={selectedWorkDays.includes(day.value)}
-                  />
-                  <TimeRangeComponent control={control} />
-                </div>
-              ))}
-            </div>
+            {days.map(day => (
+              <div className='flex items-center gap-6' key={day.value}>
+                <RoundedTag
+                  label={day.label}
+                  handleSelect={() => handleSelectedWorkDays(day.value)}
+                  selected={selectedWorkDays.includes(day.value)}
+                />
+                {renderTimeRangeComponent()}
+              </div>
+            ))}
           </div>
         )}
       </div>

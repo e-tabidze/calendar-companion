@@ -1,22 +1,26 @@
+export type WorkingHours = {
+  monday?: string
+  tuesday?: string
+  wednesday?: string
+  thursday?: string
+  friday?: string
+  saturday?: string
+  sunday?: string
+}
+
 export type CompanyAddress = {
   address: string
   city: string
   state: string
   postal_code: string
-  working_hours: {
-    monday: string
-    tuesday: string
-    wednesday: string
-    thursday: string
-    friday: string
-  }
+  working_hours: any
 }
 
 export type CompanyInfo = {
   name: string
   description: string
   logo: string
-  address: CompanyAddress[]
+  address: any
 }
 
 export type Company = {

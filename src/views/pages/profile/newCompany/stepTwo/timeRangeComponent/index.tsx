@@ -1,10 +1,12 @@
+import React, { useState } from 'react'
 import SelectField from 'src/views/components/selectField'
 
 interface Props {
-  control: any
+  index: number
+  setSelectedTimeRange: (time: string) => void
 }
 
-const TimeRangeComponent: React.FC<Props> = ({ control }) => {
+const TimeRangeComponent: React.FC<Props> = ({ index, setSelectedTimeRange }) => {
   const generateTimeOptions = () => {
     const options = []
 
@@ -17,6 +19,18 @@ const TimeRangeComponent: React.FC<Props> = ({ control }) => {
   }
 
   const selectOptions = generateTimeOptions()
+  const [startTime, setStartTime] = useState<string>('')
+  const [endTime, setEndTime] = useState<string>('')
+
+  const handleStartTimeChange = (selectedOption: any) => {
+    setStartTime(selectedOption?.value || '')
+  }
+
+  const handleEndTimeChange = (selectedOption: any) => {
+    setEndTime(selectedOption?.value || '')
+  }
+
+  setSelectedTimeRange(`${startTime} - ${endTime}`)
 
   return (
     <div className='flex items-center gap-1'>
@@ -26,9 +40,7 @@ const TimeRangeComponent: React.FC<Props> = ({ control }) => {
         className='my-2'
         icon
         placeholder=''
-        defaultValue={'08:00'}
-        control={control}
-        name="name"
+        onChange={handleStartTimeChange}
       />
       <div className='h-px w-[6px] bg-raisin-130' />
       <SelectField
@@ -37,9 +49,7 @@ const TimeRangeComponent: React.FC<Props> = ({ control }) => {
         className='my-2'
         icon
         placeholder=''
-        defaultValue={'08:00'}
-        control={control}
-        name="name"
+        onChange={handleEndTimeChange}
       />
     </div>
   )

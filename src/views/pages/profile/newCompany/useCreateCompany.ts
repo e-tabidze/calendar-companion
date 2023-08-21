@@ -11,7 +11,7 @@ const useCreateCompany = () => {
 
   const createCompanyDefaultValues: Company = {
     identification_number: null as number | null,
-    company_type_id: "1",
+    company_type_id: '1',
     company_information: {
       name: '',
       description: '',
@@ -27,7 +27,9 @@ const useCreateCompany = () => {
             tuesday: '',
             wednesday: '',
             thursday: '',
-            friday: ''
+            friday: '',
+            saturday: '',
+            sunday: ''
           }
         }
       ]
@@ -40,7 +42,8 @@ const useCreateCompany = () => {
     formState: { errors, dirtyFields },
     resetField,
     setError,
-    clearErrors
+    clearErrors,
+    setValue
   } = useForm({ mode: 'onChange', defaultValues: createCompanyDefaultValues, resolver: yupResolver(CompanySchema) })
 
   const companyValues: any = useWatch({ control })
@@ -54,7 +57,8 @@ const useCreateCompany = () => {
     dirtyFields,
     resetField,
     setError,
-    clearErrors
+    clearErrors,
+    setValue
   }
 }
 

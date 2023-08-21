@@ -9,7 +9,7 @@ interface Props {
 
 const StepOne: React.FC<Props> = ({ control, errors, clearErrors }) => {
   return (
-    <form>
+    <div>
       <div className='grid grid-cols-2 gap-2 my-5'>
         <DefaultInput label='საიდენტიფიკაციო კოდი' control={control} name='identification_number' errors={errors} clearErrors={clearErrors} />
         <DefaultInput label='შპს ბედინა პლიუსი' control={control} name='company_information.name' errors={errors} disabled />
@@ -30,7 +30,7 @@ const StepOne: React.FC<Props> = ({ control, errors, clearErrors }) => {
         />
       </div>
       <FileUpload title='კომპანიის ლოგო' description='(მაქს. ზომა 10 მბ, JPG, PNG, SVG)' />
-    </form>
+    </div>
   )
 }
 

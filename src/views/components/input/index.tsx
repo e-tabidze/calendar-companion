@@ -15,12 +15,12 @@ const styles = {
 }
 
 interface Props {
-  control: any
-  name: string
+  control?: any
+  name?: string
   label?: string
   id?: any
   prefix?: string
-  errors: any
+  errors?: any
   pattern?: any
   type?: string
   disabled?: boolean
@@ -35,6 +35,8 @@ interface Props {
   setError?: () => void
   clearErrors?: any
   onComponentClick?: () => void
+  value?: string
+  onChange?: (e: any) => void
 }
 
 export const DefaultInput: React.FC<Props> = ({
@@ -79,7 +81,7 @@ export const DefaultInput: React.FC<Props> = ({
     <InputContainer key={index} className={`${className} ${disabled && styles.disabledInput}`}>
       <Controller
         control={control}
-        name={name}
+        name={name || ''}
         rules={{ required: true }}
         render={({ field: { onChange, value } }) => (
           <>
@@ -91,14 +93,13 @@ export const DefaultInput: React.FC<Props> = ({
             >
               {label}
             </label>
-            {console.log(value, 'value')}
             <InputComponent
               // onFocus={e => {
               //   handleFocus()
               // }}
               disabled={disabled}
               value={value || ''}
-              className={` ${rows ? '' : 'h-14'} ${styles.input} ${errors[name] && 'border border-red-100'}`}
+              className={` ${rows ? '' : 'h-14'} ${styles.input} ${errors[name || ''] && 'border border-red-100'}`}
               type='text'
               onChange={e => {
                 onChange(e)
@@ -106,9 +107,9 @@ export const DefaultInput: React.FC<Props> = ({
               pattern={pattern}
               rows={rows}
             />
-            {errors[name] && (
+            {errors[name || ''] && (
               <div id={id} className='text-sm text-red-100'>
-                {errors[name] ? errors[name].message : 'აუცილებელი ველი'}
+                {errors[name || ''] ? errors[name || ''].message : 'აუცილებელი ველი'}
               </div>
             )}
           </>
@@ -183,82 +184,130 @@ export const PasswordInput = ({ label, value, className, onChange, ...rest }: an
   )
 }
 
+// export const InputWithComponent: React.FC<Props> = ({
+//   label,
+//   id,
+//   prefix,
+//   pattern,
+//   type,
+//   disabled = false,
+//   inputStyles = '',
+//   valueSelectorFunction,
+//   innerButton = false,
+//   innerButtonText = '',
+//   innerButtonOnClick = (e: any) => console.log(e),
+//   rows,
+//   className,
+//   index,
+//   setError,
+//   clearErrors,
+//   onComponentClick,
+//   name,
+//   control
+// }) => {
+//   const [isFocused, setIsFocused] = useState(false)
+//   const handleFocus = () => {
+//     setIsFocused(true)
+//   }
+
+//   const handleBlur = (e: { target: { value: string | any[] } }) => {
+//     setIsFocused(e.target.value.length > 0 ? true : false)
+//   }
+//   const labelClasses = isFocused
+//     ? 'text-sm absolute top-3 -translate-y-1/2 transition-transform'
+//     : 'text-sm absolute top-1/2 transform -translate-y-1/2 transition-transform'
+
+//   return (
+//     <InputContainer className={`${className} h-14 border border-raisin-10 rounded-xl px-3 py-2 flex items-center`}>
+//       {isFocused && <label className={`${labelClasses} left-3 text-raisin-50`}>{label}</label>}
+//       <Controller
+//         name={name || ""}
+//         control={control}
+//         rules={{ required: true }}
+//         render={({ field: { onChange, value } }) => (
+//           <>
+//             <label
+//               // className={`${styles.label} ${
+//               //   rows ? (isFocused || value ? 'top-3' : 'top-1/2') : isFocused || value ? 'top-3' : 'top-1/2'
+//               // }`}
+//               className={`${styles.label} focus:border-none focus-visible:border-none`}
+//             >
+//               {label}
+//             </label>
+//             <input
+//               // onFocus={e => {
+//               //   handleFocus()
+//               // }}
+//               className='focus:border-none focus-visible:border-none focus-visible:outline-none focus-visible:ring-0 h-full w-full'
+//               disabled={disabled}
+//               value={value || ''}
+//               // className={` ${rows ? '' : 'h-14'} ${styles.input} ${errors[name] && 'border border-red-100'}`}
+//               type='text'
+//               onChange={e => {
+//                 onChange(e)
+//               }}
+//               pattern={pattern}
+//             />
+//           </>
+//         )}
+//       />
+//       <div className='flex items-center gap-3 w-fit absolute h-full right-0 top-0 border-l border-raisin-10 px-5 cursor-pointer'>
+//         <Image src='/icons/map.svg' alt='' height={24} width={24} onClick={onComponentClick} />
+//         <Typography type='subtitle'>რუკაზე</Typography>
+//       </div>
+//     </InputContainer>
+//   )
+// }
+
 export const InputWithComponent: React.FC<Props> = ({
-  control,
-  name,
   label,
-  id,
-  prefix,
-  errors,
-  pattern,
-  type,
-  disabled = false,
-  inputStyles = '',
-  valueSelectorFunction,
-  innerButton = false,
-  innerButtonText = '',
-  innerButtonOnClick = (e: any) => console.log(e),
-  rows,
+  value,
+  onChange,
+  onComponentClick,
   className,
-  index,
-  setError,
-  clearErrors,
-  onComponentClick
+  disabled,
+  pattern
 }) => {
   const [isFocused, setIsFocused] = useState(false)
+
   const handleFocus = () => {
     setIsFocused(true)
   }
 
   const handleBlur = (e: { target: { value: string | any[] } }) => {
-    setIsFocused(e.target.value.length > 0 ? true : false)
+    setIsFocused(e.target.value.length > 0)
   }
+
   const labelClasses = isFocused
     ? 'text-sm absolute top-3 -translate-y-1/2 transition-transform'
     : 'text-sm absolute top-1/2 transform -translate-y-1/2 transition-transform'
 
-    console.log(control, name, "control", 'name')
-
   return (
     <InputContainer className={`${className} h-14 border border-raisin-10 rounded-xl px-3 py-2 flex items-center`}>
       {isFocused && <label className={`${labelClasses} left-3 text-raisin-50`}>{label}</label>}
-      <Controller
-        control={control}
-        name={name}
-        rules={{ required: true }}
-        render={({ field: { onChange, value } }) => (
-          <>
-            <label
-              // className={`${styles.label} ${
-              //   rows ? (isFocused || value ? 'top-3' : 'top-1/2') : isFocused || value ? 'top-3' : 'top-1/2'
-              // }`}
-              className={`${styles.label} focus:border-none focus-visible:border-none`}
-            >
-              {label}
-            </label>
-            <input
-              // onFocus={e => {
-              //   handleFocus()
-              // }}
-              className='focus:border-none focus-visible:border-none focus-visible:outline-none focus-visible:ring-0 h-full w-full'
-              disabled={disabled}
-              name={name}
-              value={value || ''}
-              // className={` ${rows ? '' : 'h-14'} ${styles.input} ${errors[name] && 'border border-red-100'}`}
-              type='text'
-              onChange={e => {
-                onChange(e)
-              }}
-              pattern={pattern}
-            />
-            {errors[name] && (
-              <div id={id} className='text-sm text-red-100'>
-                {errors[name] ? errors[name].message : 'აუცილებელი ველი'}
-              </div>
-            )}
-          </>
-        )}
-      />
+
+      <>
+        <label
+          // className={`${styles.label} ${
+          //   rows ? (isFocused || value ? 'top-3' : 'top-1/2') : isFocused || value ? 'top-3' : 'top-1/2'
+          // }`}
+          className={`${styles.label} focus:border-none focus-visible:border-none`}
+        >
+          {label}
+        </label>
+        <input
+          // onFocus={e => {
+          //   handleFocus()
+          // }}
+          className='focus:border-none focus-visible:border-none focus-visible:outline-none focus-visible:ring-0 h-full w-full'
+          disabled={disabled}
+          value={value || ''}
+          // className={` ${rows ? '' : 'h-14'} ${styles.input} ${errors[name] && 'border border-red-100'}`}
+          type='text'
+          onChange={onChange}
+          pattern={pattern}
+        />
+      </>
       <div className='flex items-center gap-3 w-fit absolute h-full right-0 top-0 border-l border-raisin-10 px-5 cursor-pointer'>
         <Image src='/icons/map.svg' alt='' height={24} width={24} onClick={onComponentClick} />
         <Typography type='subtitle'>რუკაზე</Typography>

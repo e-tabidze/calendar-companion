@@ -27,7 +27,7 @@ const StepThree: React.FC<Props> = ({ control, errors }) => {
   }
 
   return (
-    <form>
+    <div>
       <div className='grid grid-cols-1 gap-2'>
         <DefaultInput label='ელ. ფოსტა' control={control} errors={errors} name='email' />
         <DefaultInput label='ოფისი ნომერი' control={control} errors={errors} name='officePhone' />
@@ -39,7 +39,7 @@ const StepThree: React.FC<Props> = ({ control, errors }) => {
         )}
         <IconTextButton label='სხვა  ნომრის  დამატება' icon='/icons/add.svg' onClick={addComponent} />
       </div>
-    </form>
+    </div>
   )
 }
 
