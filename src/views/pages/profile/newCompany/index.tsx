@@ -109,9 +109,9 @@ const NewCompany = () => {
     }
   }
 
-  // const RenderStepOne = HOC<StepOneProps>(StepOne, step.step === 1)
-  // const RenderStepTwo = HOC(StepTwo, step.step === 2)
-  // const RenderStepThree = HOC(StepThree, step.step === 3)
+  const RenderStepOne = HOC(StepOne, step.step === 1)
+  const RenderStepTwo = HOC(StepTwo, step.step === 2)
+  const RenderStepThree = HOC(StepThree, step.step === 3)
 
   return (
     <FormProvider {...control}>
@@ -128,9 +128,9 @@ const NewCompany = () => {
       <RenderStepTwo />
       <RenderStepThree /> */}
         <form>
-          {step.step === 1 && <StepOne control={control} errors={errors} clearErrors={clearErrors} />}
-          {step.step === 2 && <StepTwo control={control} />}
-          {step.step === 3 && <StepThree control={control} errors={errors} />}
+          {/* {step.step === 1 && <StepOne control={control} errors={errors} clearErrors={clearErrors} />}
+          {step.step === 2 && <StepTwo control={control} setValue={setValue} />}
+          {step.step === 3 && <StepThree control={control} errors={errors} />} */}
         </form>
       </NewListingLayout>
     </FormProvider>

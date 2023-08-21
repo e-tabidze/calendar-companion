@@ -6,20 +6,25 @@ import BranchInfoComponent from './branchInfoComponent'
 
 interface Props {
   control: any
+  setValue: any
 }
 
-const StepTwo: React.FC<Props> = ({ control }) => {
+const StepTwo: React.FC<Props> = ({ control, setValue }) => {
   const [workingHoursObjects, setWorkingHoursObjects] = useState<WorkingHours[]>([])
 
-  const handleWorkingHoursChange = (index: number, newWorkingHours: WorkingHours) => {
-    setWorkingHoursObjects(prevWorkingHours => {
-      const updatedWorkingHours = [...prevWorkingHours]
-      updatedWorkingHours[index] = newWorkingHours
-      return updatedWorkingHours
-    })
-  }
+  // const handleWorkingHoursChange = (index: number, newWorkingHours: WorkingHours) => {
+  //   setWorkingHoursObjects((prevWorkingHours: any) => {
+  //     const updatedWorkingHours = [...prevWorkingHours]
+  //     updatedWorkingHours[index] = newWorkingHours
+  //     setValue(`company_information.address[${index}]`, updatedWorkingHours)
+  //     return updatedWorkingHours
+  //   })
+  // }
 
-  console.log(workingHoursObjects, 'workingHoursObjects')
+  // Assuming you have props including `setValue` from the form context
+  const handleWorkingHoursChange = (index: number, newWorkingHours: WorkingHours, setValue: any) => {
+    setValue(`company_information.address[${index}]`, newWorkingHours)
+  }
 
   const generateComponent = (index: number) => (
     <Controller
@@ -27,14 +32,18 @@ const StepTwo: React.FC<Props> = ({ control }) => {
       control={control}
       name={`company_information.address[${index}]`}
       render={({ field: { value, onChange } }) => (
-        <BranchInfoComponent
-          index={index}
-          workingHoursObject={value}
-          onWorkingHoursChange={(newWorkingHours: WorkingHours) => {
-            onChange(newWorkingHours)
-            handleWorkingHoursChange(index, newWorkingHours)
-          }}
-        />
+        <>
+          <BranchInfoComponent
+            index={index}
+            workingHoursObject={value}
+            control={control}
+            onWorkingHoursChange={(newWorkingHours: WorkingHours) => {
+              onChange(newWorkingHours)
+              handleWorkingHoursChange(index, newWorkingHours, setValue)
+            }}
+          />
+          {console.log(value, 'value')}
+        </>
       )}
     />
   )

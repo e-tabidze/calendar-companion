@@ -18,9 +18,10 @@ const days = [
 interface Props {
   index: number
   onWorkingHoursChange: any
+  workingHoursObject: any
 }
 
-const BranchInfoComponent: React.FC<Props> = ({ index, onWorkingHoursChange }) => {
+const BranchInfoComponent: React.FC<Props> = ({ index, onWorkingHoursChange, workingHoursObject }) => {
   const [map, setMap] = useState(false)
   const [selectedWorkDays, setSelectedWorkDays] = useState<string[]>([
     'monday',
@@ -32,6 +33,8 @@ const BranchInfoComponent: React.FC<Props> = ({ index, onWorkingHoursChange }) =
   const [sameTime, setSameTime] = useState(true)
   const [selectedTimeRange, setSelectedTimeRange] = useState('')
   const [addressValue, setAddressValue] = useState('')
+
+  console.log(workingHoursObject, 'workingHoursObject in BranchInfoComponent')
 
   useEffect(() => {
     const newWorkingHoursObject = generateWorkingHoursObj()
