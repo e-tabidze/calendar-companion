@@ -5,11 +5,10 @@ import HOC from 'src/hoc'
 import StepOne from './stepOne'
 import StepThree from './stepThree'
 import StepTwo from './stepTwo'
-import useCreateCompany from './useCreateCompany'
 import { FormProvider } from 'react-hook-form'
 import { createCompany } from 'src/store/apps/companies'
 import Cookie from 'src/helpers/Cookie'
-import { Company, CompanyAddress } from 'src/types/Company'
+import useCreateCompany from './useCreateCompany'
 
 const NewCompany = () => {
   const options = [
@@ -31,7 +30,9 @@ const NewCompany = () => {
     resetField,
     setError,
     clearErrors,
-    setValue
+    setValue,
+    fields,
+    append
   } = useCreateCompany()
 
   const selectOption = (option: any) => {
@@ -56,34 +57,43 @@ const NewCompany = () => {
     router.push('/profile/orders/')
   }
 
-  //   "address": [
-  //     {
-  //       "address": "123 Main Street, Suite 101",
-  //       "city": "Cityville",
-  //       "state": "ST",
-  //       "postal_code": "12345",
-  //       "working_hours": {
-  //         "monday": "9:00 AM - 5:00 PM",
-  //         "tuesday": "9:00 AM - 5:00 PM",
-  //         "wednesday": "9:00 AM - 5:00 PM",
-  //         "thursday": "9:00 AM - 5:00 PM",
-  //         "friday": "9:00 AM - 5:00 PM"
+  // {
+  //   "identification_number": "11111",
+  //   "company_type_id": "1",
+  //   "company_information": {
+  //     "name": "some company name",
+  //     "description": "some big description",
+  //     "logo": "https://somelogo.jpg",
+  //     "address": [
+  //       {
+  //         "address": "123 Main Street, Suite 101",
+  //         "city": "Cityville",
+  //         "state": "ST",
+  //         "postal_code": "12345",
+  //         "working_hours": {
+  //           "monday": "9:00 AM - 5:00 PM",
+  //           "tuesday": "9:00 AM - 5:00 PM",
+  //           "wednesday": "9:00 AM - 5:00 PM",
+  //           "thursday": "9:00 AM - 5:00 PM",
+  //           "friday": "9:00 AM - 5:00 PM"
+  //         }
+  //       },
+  //       {
+  //         "address": "456 Elm Avenue, Suite 202",
+  //         "city": "Townsville",
+  //         "state": "ST",
+  //         "postal_code": "67890",
+  //         "working_hours": {
+  //           "monday": "10:00 AM - 6:00 PM",
+  //           "tuesday": "10:00 AM - 6:00 PM",
+  //           "wednesday": "10:00 AM - 6:00 PM",
+  //           "thursday": "10:00 AM - 6:00 PM",
+  //           "friday": "10:00 AM - 6:00 PM"
+  //         }
   //       }
-  //     },
-  //     {
-  //       "address": "456 Elm Avenue, Suite 202",
-  //       "city": "Townsville",
-  //       "state": "ST",
-  //       "postal_code": "67890",
-  //       "working_hours": {
-  //         "monday": "10:00 AM - 6:00 PM",
-  //         "tuesday": "10:00 AM - 6:00 PM",
-  //         "wednesday": "10:00 AM - 6:00 PM",
-  //         "thursday": "10:00 AM - 6:00 PM",
-  //         "friday": "10:00 AM - 6:00 PM"
-  //       }
-  //     }
-  //   ]
+  //     ]
+  //   }
+  // }
 
   const onSubmit = async () => {
     try {
@@ -124,13 +134,13 @@ const NewCompany = () => {
         onClose={handleClose}
         onSubmit={handleSubmit(onSubmit)}
       >
-        {/* <RenderStepOne control={control} />
-      <RenderStepTwo />
-      <RenderStepThree /> */}
         <form>
-          {/* {step.step === 1 && <StepOne control={control} errors={errors} clearErrors={clearErrors} />}
-          {step.step === 2 && <StepTwo control={control} setValue={setValue} />}
-          {step.step === 3 && <StepThree control={control} errors={errors} />} */}
+          {/* <RenderStepOne control={control} errors={errors} clearErrors={clearErrors} />
+          <RenderStepTwo control={control} setValue={setValue} />
+          <RenderStepThree control={control} errors={errors} /> */}
+          {step.step === 1 && <StepOne control={control} errors={errors} clearErrors={clearErrors} />}
+          {step.step === 2 && <StepTwo control={control} setValue={setValue} fields={fields} append={append} />}
+          {step.step === 3 && <StepThree control={control} errors={errors} />}
         </form>
       </NewListingLayout>
     </FormProvider>

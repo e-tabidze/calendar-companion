@@ -1,10 +1,12 @@
-import Typography from '../typography'
+import React from 'react';
+import Typography from '../typography';
 
 interface Props {
-  handleSelect: any
-  selected: boolean
-  label: string
+  handleSelect: any;
+  selected: boolean;
+  label: string;
 }
+
 const RoundedTag: React.FC<Props> = ({ handleSelect, selected, label }) => {
   return (
     <div
@@ -15,7 +17,7 @@ const RoundedTag: React.FC<Props> = ({ handleSelect, selected, label }) => {
         {label}
       </Typography>
     </div>
-  )
-}
+  );
+};
 
-export default RoundedTag
+export default RoundedTag;

@@ -1,11 +1,15 @@
+export type WorkingTime = {
+  startTime: string
+  endTime: string
+}
 export type WorkingHours = {
-  monday?: string
-  tuesday?: string
-  wednesday?: string
-  thursday?: string
-  friday?: string
-  saturday?: string
-  sunday?: string
+  monday?: WorkingTime
+  tuesday?: WorkingTime
+  wednesday?: WorkingTime
+  thursday?: WorkingTime
+  friday?: WorkingTime
+  saturday?: WorkingTime
+  sunday?: WorkingTime
 }
 
 export type CompanyAddress = {

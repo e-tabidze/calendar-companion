@@ -1,4 +1,4 @@
-import { useForm, useWatch } from 'react-hook-form'
+import { useFieldArray, useForm, useWatch } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 
 import { useDispatch } from 'react-redux'
@@ -23,18 +23,41 @@ const useCreateCompany = () => {
           state: '',
           postal_code: '',
           working_hours: {
-            monday: '',
-            tuesday: '',
-            wednesday: '',
-            thursday: '',
-            friday: '',
-            saturday: '',
-            sunday: ''
+            monday: {
+              startTime: '',
+              endTime: ''
+            },
+            tuesday: {
+              startTime: '',
+              endTime: ''
+            },
+            wednesday: {
+              startTime: '',
+              endTime: ''
+            },
+            thursday: {
+              startTime: '',
+              endTime: ''
+            },
+            friday: {
+              startTime: '',
+              endTime: ''
+            },
+            saturday: {
+              startTime: '',
+              endTime: ''
+            },
+            sunday: {
+              startTime: '',
+              endTime: ''
+            }
           }
         }
       ]
     }
   }
+
+
 
   const {
     control,
@@ -44,7 +67,12 @@ const useCreateCompany = () => {
     setError,
     clearErrors,
     setValue
-  } = useForm({ mode: 'onChange', defaultValues: createCompanyDefaultValues, resolver: yupResolver(CompanySchema) })
+  } = useForm({ mode: 'onChange', defaultValues: createCompanyDefaultValues })
+
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: 'company_information.address'
+  })
 
   const companyValues: any = useWatch({ control })
 
@@ -58,7 +86,9 @@ const useCreateCompany = () => {
     resetField,
     setError,
     clearErrors,
-    setValue
+    setValue,
+    fields,
+    append
   }
 }
 

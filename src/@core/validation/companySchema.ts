@@ -23,11 +23,34 @@ const CompanySchema = Yup.object().shape({
         state: Yup.string(),
         postal_code: Yup.string(),
         working_hours: Yup.object().shape({
-          monday: Yup.string(),
-          tuesday: Yup.string(),
-          wednesday: Yup.string(),
-          thursday: Yup.string(),
-          friday: Yup.string()
+          monday: Yup.object().shape({
+            startTime: Yup.string(),
+            endTime: Yup.string()
+          }),
+          tuesday: Yup.object().shape({
+            startTime: Yup.string(),
+            endTime: Yup.string()
+          }),
+          wednesday: Yup.object().shape({
+            startTime: Yup.string(),
+            endTime: Yup.string()
+          }),
+          thursday: Yup.object().shape({
+            startTime: Yup.string(),
+            endTime: Yup.string()
+          }),
+          friday: Yup.object().shape({
+            startTime: Yup.string(),
+            endTime: Yup.string()
+          }),
+          saturday: Yup.object().shape({
+            startTime: Yup.string(),
+            endTime: Yup.string()
+          }),
+          sunday: Yup.object().shape({
+            startTime: Yup.string(),
+            endTime: Yup.string()
+          })
         })
       })
     )

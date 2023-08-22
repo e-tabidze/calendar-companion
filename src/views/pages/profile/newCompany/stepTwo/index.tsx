@@ -7,9 +7,11 @@ import BranchInfoComponent from './branchInfoComponent'
 interface Props {
   control: any
   setValue: any
+  fields: any
+  append: any
 }
 
-const StepTwo: React.FC<Props> = ({ control, setValue }) => {
+const StepTwo: React.FC<Props> = ({ control, setValue, fields, append }) => {
   const [workingHoursObjects, setWorkingHoursObjects] = useState<WorkingHours[]>([])
 
   // const handleWorkingHoursChange = (index: number, newWorkingHours: WorkingHours) => {
@@ -22,31 +24,33 @@ const StepTwo: React.FC<Props> = ({ control, setValue }) => {
   // }
 
   // Assuming you have props including `setValue` from the form context
-  const handleWorkingHoursChange = (index: number, newWorkingHours: WorkingHours, setValue: any) => {
-    setValue(`company_information.address[${index}]`, newWorkingHours)
-  }
+  // const handleWorkingHoursChange = (index: number, newWorkingHours: WorkingHours, setValue: any) => {
+  //   setValue(`company_information.address[${index}]`, newWorkingHours)
+  // }
 
-  const generateComponent = (index: number) => (
-    <Controller
-      key={index}
-      control={control}
-      name={`company_information.address[${index}]`}
-      render={({ field: { value, onChange } }) => (
-        <>
-          <BranchInfoComponent
-            index={index}
-            workingHoursObject={value}
-            control={control}
-            onWorkingHoursChange={(newWorkingHours: WorkingHours) => {
-              onChange(newWorkingHours)
-              handleWorkingHoursChange(index, newWorkingHours, setValue)
-            }}
-          />
-          {console.log(value, 'value')}
-        </>
-      )}
-    />
-  )
+  // const generateComponent = (index: number) => (
+  //   <Controller
+  //     key={index}
+  //     control={control}
+  //     name={`company_information.address[${index}]`}
+  //     render={({ field: { value, onChange } }) => (
+  //       <>
+  //         <BranchInfoComponent
+  //           index={index}
+  //           workingHoursObject={value}
+  //           control={control}
+  //           onWorkingHoursChange={(newWorkingHours: WorkingHours) => {
+  //             onChange(newWorkingHours)
+  //             handleWorkingHoursChange(index, newWorkingHours, setValue)
+  //           }}
+  //         />
+  //         {console.log(value, 'value')}
+  //       </>
+  //     )}
+  //   />
+  // )
+
+  const generateComponent = (index: number) => <BranchInfoComponent index={index} control={control} />
 
   const [companyInfoComponents, setCompanyInfoComponents] = useState<any>([generateComponent(0)])
 
@@ -57,12 +61,33 @@ const StepTwo: React.FC<Props> = ({ control, setValue }) => {
     setCompanyInfoComponents([...companyInfoComponents, newComponent])
   }
 
+  console.log(fields, 'fields')
+
   return (
+    // <div className='mb-48'>
+    //   {companyInfoComponents.map((component: ReactElement<any>, index: number) => (
+    //     <div key={index}>{component}</div>
+    //   ))}
+    //   <IconTextButton label='სხვა  მისამართის დამატება' icon='/icons/add.svg' onClick={addComponent} />
+    // </div>
     <div className='mb-48'>
-      {companyInfoComponents.map((component: ReactElement<any>, index: number) => (
-        <div key={index}>{component}</div>
+      {fields.map((field: any, index: number) => (
+        <BranchInfoComponent index={index} control={control} key={field.id} />
       ))}
-      <IconTextButton label='სხვა  მისამართის დამატება' icon='/icons/add.svg' onClick={addComponent} />
+      <IconTextButton
+        label='სხვა  მისამართის დამატება'
+        icon='/icons/add.svg'
+        onClick={() => {
+          append({
+            address: '',
+            city: '',
+            state: '',
+            postal_code: '',
+            working_hours: {}
+          })
+        }}
+        type='button'
+      />
     </div>
   )
 }
