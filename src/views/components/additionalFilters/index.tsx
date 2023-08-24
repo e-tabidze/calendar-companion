@@ -19,6 +19,7 @@ import { Dialog, Transition } from '@headlessui/react'
 // Styles
 import { ListWrapper, SectionWrapper } from './styles'
 import SwitchField from '../switchField'
+import { useForm } from 'react-hook-form'
 
 interface Props {
   open: boolean
@@ -140,6 +141,7 @@ const AdditionalFilters: React.FC<Props> = ({ open, setOpen }) => {
   const [selectedCategories, setSelectedCategories] = useState<any[]>([])
   const cancelButtonRef = useRef(null)
   const { width } = useWindowDimensions()
+  const { control } = useForm()
 
   const handleSelectCategories = (id: number) => {
     if (selectedCategories.includes(id)) {
@@ -189,19 +191,17 @@ const AdditionalFilters: React.FC<Props> = ({ open, setOpen }) => {
                   </Typography>
                   <div className='w-full flex items-center mb-20 mt-8'>
                     <DefaultInput
+                      name=''
+                      control={control}
                       label={width > 641 ? 'მინიმუმ ფასი დღიურად' : 'მინ. ფასი დღიურად'}
-                      value={''}
-                      onChange={function (e: any): void {
-                        throw new Error('Function not implemented.', e)
-                      }}
+                      errors={''}
                     />
                     <div className='w-3 h-px bg-base-100 mx-2' />
                     <DefaultInput
+                      name=''
+                      control={control}
                       label={width > 641 ? 'მინიმუმ ფასი დღიურად' : 'მინ. ფასი დღიურად'}
-                      value={''}
-                      onChange={function (e: any): void {
-                        throw new Error('Function not implemented.', e)
-                      }}
+                      errors={''}
                     />
                   </div>
                   <div className='my-8'>
@@ -227,9 +227,30 @@ const AdditionalFilters: React.FC<Props> = ({ open, setOpen }) => {
                     <Typography type='h5' weight='normal'>
                       ავტომობილის პარამეტრები
                     </Typography>
-                    <SelectField options={selectOptions} placeholder='მწარმოებელი' disabled={false} className='my-2' />
-                    <SelectField options={selectOptions} placeholder='მოდელი' disabled={false} className='my-2' />
-                    <SelectField options={selectOptions} placeholder='წელი' disabled={false} className='my-2' />
+                    {/* <SelectField
+                      name=''
+                      control={control}
+                      options={selectOptions}
+                      placeholder='მწარმოებელი'
+                      disabled={false}
+                      className='my-2'
+                    />
+                    <SelectField
+                      name=''
+                      control={control}
+                      options={selectOptions}
+                      placeholder='მოდელი'
+                      disabled={false}
+                      className='my-2'
+                    />
+                    <SelectField
+                      name=''
+                      control={control}
+                      options={selectOptions}
+                      placeholder='წელი'
+                      disabled={false}
+                      className='my-2'
+                    /> */}
                   </div>
 
                   <Typography type='h5' weight='normal'>

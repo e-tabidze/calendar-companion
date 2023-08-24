@@ -1,4 +1,5 @@
-import { DefaultInput, MultilineInput } from 'src/views/components/input'
+import { useForm } from 'react-hook-form'
+import { DefaultInput } from 'src/views/components/input'
 import SelectField from 'src/views/components/selectField'
 import ImagesInput from './imagesInput'
 
@@ -8,28 +9,25 @@ const StepOne = () => {
     { value: 'option2', label: 'Option 2' },
     { value: 'option3', label: 'Option 3' }
   ]
-  
+
+  const { control } = useForm()
+
   return (
     <div>
       <div className='grid gap-4 grid-cold-1 large:grid-cols-2'>
-        <DefaultInput label='ვინ კოდი' value='' onChange={(e: any) => console.log(e)} />
-        <DefaultInput label='სახელმწიფო ნომერი' value='' onChange={(e: any) => console.log(e)} />
-        <SelectField placeholder='sdfghjk' options={options} disabled={false} />
-        <SelectField placeholder='sdfghjk' options={options} disabled={false} />
-        <SelectField placeholder='sdfghjk' options={options} disabled={false} />
-        <SelectField placeholder='sdfghjk' options={options} disabled={false} />
+        <DefaultInput name='' control={control} errors={''} label='ვინ კოდი' />
+        <DefaultInput name='' control={control} errors={''} label='სახელმწიფო ნომერი' />
+        <SelectField name='name' control={control} placeholder='select' options={options} disabled={false} />
+        <SelectField name='name' control={control} placeholder='select' options={options} disabled={false} />
+        <SelectField name='name' control={control} placeholder='select' options={options} disabled={false} />
+        <SelectField name='name' control={control} placeholder='select' options={options} disabled={false} />
       </div>
       <div className='grid grid-cols-1 gap-4 mt-4'>
-        <MultilineInput placeholder='დამატებითი ინფორმაცია' rows={4} />
-        <MultilineInput placeholder='გამოყენების ინსტრუქცია' rows={4} />
+        <DefaultInput name='' control={control} errors={''} label='დამატებითი ინფორმაცია' rows={4} />
+        <DefaultInput name='' control={control} errors={''} label='გამოყენების ინსტრუქცია' rows={4} />
       </div>
       <div className='flex flex-wrap gap-2 mt-4'>
-        <ImagesInput
-          label='ავტომობილის ფოტოები'
-          infoText='(მაქს. ზომა 10 მბ, JPG, PNG, SVG)'
-          icon
-          bg='bg-green-10'
-        />
+        <ImagesInput label='ავტომობილის ფოტოები' infoText='(მაქს. ზომა 10 მბ, JPG, PNG, SVG)' icon bg='bg-green-10' />
       </div>
     </div>
   )
