@@ -12,6 +12,11 @@ export type WorkingHours = {
   sunday?: WorkingTime
 }
 
+export type PhoneNumber = {
+  type: office | mobile
+  number: string
+}
+
 export type CompanyAddress = {
   address: string
   city: string
@@ -25,10 +30,9 @@ export type CompanyInfo = {
   description: string
   logo: string
   address: CompanyAddress[]
-  contact: {
+  contactInformation: {
     email: string
-    officeNumber: string | number
-    mobile: any[]
+    phoneNumbers: PhoneNumber[]
   }
 }
 

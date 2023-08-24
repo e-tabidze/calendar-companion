@@ -37,12 +37,11 @@ const useCreateCompany = () => {
       name: '',
       description: '',
       logo: '',
-      contact: {
+      contactInformation: {
         email: '',
-        officeNumber: '',
-        mobile: [null]
+        phoneNumbers: [{ type: 'mobile', number: '' }]
       },
-      address: [defaultAddress],
+      address: [defaultAddress]
     }
   }
 
@@ -65,9 +64,9 @@ const useCreateCompany = () => {
     name: 'company_information.address'
   })
 
-  const { fields: mobileFields, append: appendMobile } = useFieldArray({
+  const { fields: phoneFields, append: appendPhone } = useFieldArray({
     control,
-    name: 'company_information.contact.mobile'
+    name: 'company_information.contactInformation.phoneNumbers'
   })
 
   const companyValues: any = useWatch({ control })
@@ -85,8 +84,8 @@ const useCreateCompany = () => {
     setValue,
     addressFields,
     appendAddress,
-    mobileFields,
-    appendMobile
+    phoneFields,
+    appendPhone
   }
 }
 
