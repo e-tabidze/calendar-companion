@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Controller } from 'react-hook-form'
 import { WorkingHours } from 'src/types/Company'
 import { InputWithComponent } from 'src/views/components/input'
@@ -60,9 +60,7 @@ const BranchInfoComponent: React.FC<Props> = ({ index, onWorkingHoursChange, wor
       prevDays.includes(value) ? prevDays.filter(day => day !== value) : [...prevDays, value]
     )
   }
-  const renderTimeRangeComponent = (day: string) => (
-    <TimeRangeComponent index={index} control={control} day={day} />
-  )
+  const renderTimeRangeComponent = (day: string) => <TimeRangeComponent index={index} control={control} day={day} />
 
   // const generateWorkingHoursObj = () => {
   //   if (!selectedTimeRange || selectedWorkDays.length === 0 || !addressValue) {
