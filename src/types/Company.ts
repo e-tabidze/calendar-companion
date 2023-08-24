@@ -17,14 +17,19 @@ export type CompanyAddress = {
   city: string
   state: string
   postal_code: string
-  working_hours: any
+  working_hours: WorkingHours
 }
 
 export type CompanyInfo = {
   name: string
   description: string
   logo: string
-  address: any
+  address: CompanyAddress[]
+  contact: {
+    email: string
+    officeNumber: string | number
+    mobile: any[]
+  }
 }
 
 export type Company = {

@@ -1,84 +1,23 @@
-import { ReactElement, useState } from 'react'
-import { Controller } from 'react-hook-form'
-import { WorkingHours } from 'src/types/Company'
 import { IconTextButton } from 'src/views/components/button'
 import BranchInfoComponent from './branchInfoComponent'
 
 interface Props {
   control: any
-  setValue: any
-  fields: any
-  append: any
+  addressFields: any
+  appendAddress: any
 }
 
-const StepTwo: React.FC<Props> = ({ control, setValue, fields, append }) => {
-  const [workingHoursObjects, setWorkingHoursObjects] = useState<WorkingHours[]>([])
-
-  // const handleWorkingHoursChange = (index: number, newWorkingHours: WorkingHours) => {
-  //   setWorkingHoursObjects((prevWorkingHours: any) => {
-  //     const updatedWorkingHours = [...prevWorkingHours]
-  //     updatedWorkingHours[index] = newWorkingHours
-  //     setValue(`company_information.address[${index}]`, updatedWorkingHours)
-  //     return updatedWorkingHours
-  //   })
-  // }
-
-  // Assuming you have props including `setValue` from the form context
-  // const handleWorkingHoursChange = (index: number, newWorkingHours: WorkingHours, setValue: any) => {
-  //   setValue(`company_information.address[${index}]`, newWorkingHours)
-  // }
-
-  // const generateComponent = (index: number) => (
-  //   <Controller
-  //     key={index}
-  //     control={control}
-  //     name={`company_information.address[${index}]`}
-  //     render={({ field: { value, onChange } }) => (
-  //       <>
-  //         <BranchInfoComponent
-  //           index={index}
-  //           workingHoursObject={value}
-  //           control={control}
-  //           onWorkingHoursChange={(newWorkingHours: WorkingHours) => {
-  //             onChange(newWorkingHours)
-  //             handleWorkingHoursChange(index, newWorkingHours, setValue)
-  //           }}
-  //         />
-  //         {console.log(value, 'value')}
-  //       </>
-  //     )}
-  //   />
-  // )
-
-  const generateComponent = (index: number) => <BranchInfoComponent index={index} control={control} />
-
-  const [companyInfoComponents, setCompanyInfoComponents] = useState<any>([generateComponent(0)])
-
-  const addComponent = () => {
-    const newIndex = companyInfoComponents.length
-    const newComponent = generateComponent(newIndex)
-
-    setCompanyInfoComponents([...companyInfoComponents, newComponent])
-  }
-
-  console.log(fields, 'fields')
-
+const StepTwo: React.FC<Props> = ({ control, addressFields, appendAddress }) => {
   return (
-    // <div className='mb-48'>
-    //   {companyInfoComponents.map((component: ReactElement<any>, index: number) => (
-    //     <div key={index}>{component}</div>
-    //   ))}
-    //   <IconTextButton label='სხვა  მისამართის დამატება' icon='/icons/add.svg' onClick={addComponent} />
-    // </div>
     <div className='mb-48'>
-      {fields.map((field: any, index: number) => (
+      {addressFields.map((field: any, index: number) => (
         <BranchInfoComponent index={index} control={control} key={field.id} />
       ))}
       <IconTextButton
         label='სხვა  მისამართის დამატება'
         icon='/icons/add.svg'
         onClick={() => {
-          append({
+          appendAddress({
             address: '',
             city: '',
             state: '',

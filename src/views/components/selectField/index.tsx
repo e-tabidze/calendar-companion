@@ -88,9 +88,9 @@ const SelectField: React.FC<Props> = ({ placeholder, options, disabled = false, 
           <Select
             styles={customStyles}
             options={options}
-            value={options.find(opt => opt.value === value)}
+            value={options.find(opt => opt.value === value || "")}
             onChange={(e: any) => {
-              onChange(e.value)
+              onChange(e.value || "")
             }}
             components={{
               DropdownIndicator: customDropdownIndicator,

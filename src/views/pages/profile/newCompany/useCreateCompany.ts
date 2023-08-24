@@ -9,55 +9,42 @@ import { Company } from 'src/types/Company'
 const useCreateCompany = () => {
   const dispatch = useDispatch<AppDispatch>()
 
-  const createCompanyDefaultValues: Company = {
-    identification_number: null as number | null,
+  const defaultWorkingTime = {
+    startTime: '',
+    endTime: ''
+  }
+
+  const defaultAddress = {
+    address: '',
+    city: '',
+    state: '',
+    postal_code: '',
+    working_hours: {
+      monday: { ...defaultWorkingTime },
+      tuesday: { ...defaultWorkingTime },
+      wednesday: { ...defaultWorkingTime },
+      thursday: { ...defaultWorkingTime },
+      friday: { ...defaultWorkingTime },
+      saturday: { ...defaultWorkingTime },
+      sunday: { ...defaultWorkingTime }
+    }
+  }
+
+  const createCompanyDefaultValues = {
+    identification_number: null,
     company_type_id: '1',
     company_information: {
       name: '',
       description: '',
       logo: '',
-      address: [
-        {
-          address: '',
-          city: '',
-          state: '',
-          postal_code: '',
-          working_hours: {
-            monday: {
-              startTime: '',
-              endTime: ''
-            },
-            tuesday: {
-              startTime: '',
-              endTime: ''
-            },
-            wednesday: {
-              startTime: '',
-              endTime: ''
-            },
-            thursday: {
-              startTime: '',
-              endTime: ''
-            },
-            friday: {
-              startTime: '',
-              endTime: ''
-            },
-            saturday: {
-              startTime: '',
-              endTime: ''
-            },
-            sunday: {
-              startTime: '',
-              endTime: ''
-            }
-          }
-        }
-      ]
+      contact: {
+        email: '',
+        officeNumber: '',
+        mobile: [null]
+      },
+      address: [defaultAddress],
     }
   }
-
-
 
   const {
     control,
@@ -67,11 +54,20 @@ const useCreateCompany = () => {
     setError,
     clearErrors,
     setValue
-  } = useForm({ mode: 'onChange', defaultValues: createCompanyDefaultValues })
+  } = useForm({
+    mode: 'onChange',
+    defaultValues: createCompanyDefaultValues
+    // resolver: yupResolver(CompanySchema)
+  })
 
-  const { fields, append, remove } = useFieldArray({
+  const { fields: addressFields, append: appendAddress } = useFieldArray({
     control,
     name: 'company_information.address'
+  })
+
+  const { fields: mobileFields, append: appendMobile } = useFieldArray({
+    control,
+    name: 'company_information.contact.mobile'
   })
 
   const companyValues: any = useWatch({ control })
@@ -87,8 +83,10 @@ const useCreateCompany = () => {
     setError,
     clearErrors,
     setValue,
-    fields,
-    append
+    addressFields,
+    appendAddress,
+    mobileFields,
+    appendMobile
   }
 }
 

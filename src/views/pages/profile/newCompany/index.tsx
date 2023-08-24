@@ -1,7 +1,6 @@
-import { useRouter } from 'next/router'
 import { useState } from 'react'
+import { useRouter } from 'next/router'
 import NewListingLayout from 'src/layouts/NewListingLayout'
-import HOC from 'src/hoc'
 import StepOne from './stepOne'
 import StepThree from './stepThree'
 import StepTwo from './stepTwo'
@@ -26,18 +25,14 @@ const NewCompany = () => {
     errors,
     dispatch,
     companyValues,
-    dirtyFields,
-    resetField,
-    setError,
     clearErrors,
-    setValue,
-    fields,
-    append
+    addressFields,
+    appendAddress,
+    mobileFields,
+    appendMobile
   } = useCreateCompany()
 
-  const selectOption = (option: any) => {
-    setStep(option)
-  }
+  const selectOption = (option: any) => setStep(option)
 
   const handleGoNextStep = () => {
     const currentIndex = options.findIndex(option => option === step)
@@ -53,75 +48,16 @@ const NewCompany = () => {
     }
   }
 
-  const handleClose = () => {
-    router.push('/profile/orders/')
-  }
-
-  // {
-  //   "identification_number": "11111",
-  //   "company_type_id": "1",
-  //   "company_information": {
-  //     "name": "some company name",
-  //     "description": "some big description",
-  //     "logo": "https://somelogo.jpg",
-  //     "address": [
-  //       {
-  //         "address": "123 Main Street, Suite 101",
-  //         "city": "Cityville",
-  //         "state": "ST",
-  //         "postal_code": "12345",
-  //         "working_hours": {
-  //           "monday": "9:00 AM - 5:00 PM",
-  //           "tuesday": "9:00 AM - 5:00 PM",
-  //           "wednesday": "9:00 AM - 5:00 PM",
-  //           "thursday": "9:00 AM - 5:00 PM",
-  //           "friday": "9:00 AM - 5:00 PM"
-  //         }
-  //       },
-  //       {
-  //         "address": "456 Elm Avenue, Suite 202",
-  //         "city": "Townsville",
-  //         "state": "ST",
-  //         "postal_code": "67890",
-  //         "working_hours": {
-  //           "monday": "10:00 AM - 6:00 PM",
-  //           "tuesday": "10:00 AM - 6:00 PM",
-  //           "wednesday": "10:00 AM - 6:00 PM",
-  //           "thursday": "10:00 AM - 6:00 PM",
-  //           "friday": "10:00 AM - 6:00 PM"
-  //         }
-  //       }
-  //     ]
-  //   }
-  // }
+  const handleClose = () => router.push('/profile/orders/')
 
   const onSubmit = async () => {
     try {
-      // const company: Company = {
-      //   identification_number: companyValues.identification_number,
-      //   company_type_id: 1,
-      //   company_information: {
-      //     name: companyValues.name,
-      //     description: companyValues.description,
-      //     logo: companyValues.logo,
-      //     // @ts-ignore
-      //     address: workingHours
-      //     // address: companyValues.address.map((address: CompanyAddress) => ({
-      //     //   ...address,
-      //     //   working_hours: workingHours // Assign the generated working hours object
-      //     // }))
-      //   }
-      // }
       console.log(companyValues, 'companyValues')
       await dispatch(createCompany({ AccessToken: Cookie.get('AccessToken'), company: companyValues }))
     } catch (error) {
       console.error('An error occurred:', error)
     }
   }
-
-  const RenderStepOne = HOC(StepOne, step.step === 1)
-  const RenderStepTwo = HOC(StepTwo, step.step === 2)
-  const RenderStepThree = HOC(StepThree, step.step === 3)
 
   return (
     <FormProvider {...control}>
@@ -135,12 +71,11 @@ const NewCompany = () => {
         onSubmit={handleSubmit(onSubmit)}
       >
         <form>
-          {/* <RenderStepOne control={control} errors={errors} clearErrors={clearErrors} />
-          <RenderStepTwo control={control} setValue={setValue} />
-          <RenderStepThree control={control} errors={errors} /> */}
           {step.step === 1 && <StepOne control={control} errors={errors} clearErrors={clearErrors} />}
-          {step.step === 2 && <StepTwo control={control} setValue={setValue} fields={fields} append={append} />}
-          {step.step === 3 && <StepThree control={control} errors={errors} />}
+          {step.step === 2 && <StepTwo control={control} addressFields={addressFields} appendAddress={appendAddress} />}
+          {step.step === 3 && (
+            <StepThree control={control} errors={errors} mobileFields={mobileFields} appendMobile={appendMobile} />
+          )}
         </form>
       </NewListingLayout>
     </FormProvider>

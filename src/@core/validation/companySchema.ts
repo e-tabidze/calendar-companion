@@ -53,7 +53,16 @@ const CompanySchema = Yup.object().shape({
           })
         })
       })
-    )
+    ),
+    contact: Yup.object().shape({
+      email: Yup.string().email('არასწორი ფორმატი').required('აუცილებელი ველი'),
+      officeNumber: Yup.string(),
+      mobile: Yup.array()
+        .of(Yup.mixed())
+        .test('is-string-or-number', 'მობილური ნომერი ან რიცხვია', value => {
+          return value.every(item => typeof item === 'string' || typeof item === 'number')
+        })
+    })
   })
 })
 

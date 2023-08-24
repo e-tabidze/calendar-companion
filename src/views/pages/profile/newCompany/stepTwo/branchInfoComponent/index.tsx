@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { Controller } from 'react-hook-form'
-import { WorkingHours } from 'src/types/Company'
 import { InputWithComponent } from 'src/views/components/input'
 import RoundedTag from 'src/views/components/roundedTag'
 import SwitchField from 'src/views/components/switchField'
@@ -23,8 +22,9 @@ interface Props {
   control?: any
 }
 
-const BranchInfoComponent: React.FC<Props> = ({ index, onWorkingHoursChange, workingHoursObject, control }) => {
+const BranchInfoComponent: React.FC<Props> = ({ index, control }) => {
   const [map, setMap] = useState(false)
+  const [sameTime, setSameTime] = useState(true)
   const [selectedWorkDays, setSelectedWorkDays] = useState<string[]>([
     'monday',
     'tuesday',
@@ -32,52 +32,11 @@ const BranchInfoComponent: React.FC<Props> = ({ index, onWorkingHoursChange, wor
     'thursday',
     'friday'
   ])
-  const [sameTime, setSameTime] = useState(true)
-  // const [selectedTimeRange, setSelectedTimeRange] = useState('')
-
-  console.log(index, 'index')
-
-  // useEffect(() => {
-  //   const newWorkingHoursObject = generateWorkingHoursObj()
-
-  //   // Pass the updated working hours object to the parent component
-  //   onWorkingHoursChange(newWorkingHoursObject)
-
-  //   console.log(newWorkingHoursObject, 'newWorkingHoursObject')
-  // }, [selectedTimeRange, selectedWorkDays, addressValue])
-
-  // const handleAddressChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   setAddressValue(e.target.value)
-  // }
-
-  // console.log(selectedTimeRange, 'selectedTimeRange')
 
   const toggleMap = () => setMap(prevMap => !prevMap)
   const toggleTime = () => setSameTime(prevSameTime => !prevSameTime)
 
-  const handleSelectedWorkDays = (value: string) => {
-    setSelectedWorkDays(prevDays =>
-      prevDays.includes(value) ? prevDays.filter(day => day !== value) : [...prevDays, value]
-    )
-  }
   const renderTimeRangeComponent = (day: string) => <TimeRangeComponent index={index} control={control} day={day} />
-
-  // const generateWorkingHoursObj = () => {
-  //   if (!selectedTimeRange || selectedWorkDays.length === 0 || !addressValue) {
-  //     return []
-  //   }
-
-  //   const workingHoursObject = {
-  //     address: addressValue,
-  //     working_hours: {}
-  //   }
-
-  //   selectedWorkDays.forEach((day: string | number) => {
-  //     workingHoursObject.working_hours[day] = selectedTimeRange
-  //   })
-
-  //   return workingHoursObject
-  // }
 
   return (
     <div className='my-6'>
@@ -93,15 +52,6 @@ const BranchInfoComponent: React.FC<Props> = ({ index, onWorkingHoursChange, wor
         {sameTime ? (
           <div className='flex items-center justify-between'>
             <div className='flex items-center gap-4'>
-              {/* {days.map(day => (
-                <RoundedTag
-                  key={day.value}
-                  label={day.label}
-                  handleSelect={() => handleSelectedWorkDays(day.value)}
-                  selected={selectedWorkDays.includes(day.value)}
-                />
-              ))} */}
-
               {days.map(day => (
                 <Controller
                   key={day.value}
