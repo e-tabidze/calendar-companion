@@ -28,13 +28,11 @@ const NewListingLayout: React.FC<Props> = ({
 }) => {
   const router = useRouter()
 
-  const onClickLogo = () => {
-    router.push('/')
-  }
+  const onClickLogo = () => router.push('/')
 
   return (
     <MaxWidthContainer className='absolute w-full min-h-screen top-0 left-0 bg-white'>
-      <NewListingHeaderContainer>
+      <NewListingHeaderContainer style={{ position: 'sticky' }}>
         <div className='flex justify-between items-center py-5 px-2 relative'>
           <Image src='/images/logo-rent.svg' alt='' onClick={onClickLogo} height={40} width={131} />
           <NewListingSelect options={options} onChange={onChange} selectedOption={selectedOption} />
