@@ -9,7 +9,7 @@ interface Props {
 
 const StepTwo: React.FC<Props> = ({ control, addressFields, appendAddress }) => {
   return (
-    <div className='mb-48'>
+    <div>
       {addressFields.map((field: any, index: number) => (
         <BranchInfoComponent index={index} control={control} key={field.id} />
       ))}

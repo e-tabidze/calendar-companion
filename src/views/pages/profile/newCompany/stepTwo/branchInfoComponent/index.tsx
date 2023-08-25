@@ -39,8 +39,8 @@ const BranchInfoComponent: React.FC<Props> = ({ index, control }) => {
   const renderTimeRangeComponent = (day: string) => <TimeRangeComponent index={index} control={control} day={day} />
 
   return (
-    <div className='my-6'>
-      <div className='border border-raisin-10 rounded-3xl py-10 px-9 grid grid-cols-1 gap-7'>
+    <div className='mb-6'>
+      <div className='large:border large:border-raisin-10 rounded-3xl py-10 large:px-9 grid grid-cols-1 gap-7'>
         <InputWithComponent
           label='მისამართი'
           onComponentClick={toggleMap}
@@ -51,7 +51,7 @@ const BranchInfoComponent: React.FC<Props> = ({ index, control }) => {
 
         {sameTime ? (
           <div className='flex items-center justify-between'>
-            <div className='flex items-center gap-4'>
+            <div className='flex items-center gap-2 large:gap-4'>
               {days.map(day => (
                 <Controller
                   key={day.value}

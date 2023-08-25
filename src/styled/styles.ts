@@ -3,7 +3,7 @@ import { TailwindDiv } from 'src/interfaces/tailwind'
 
 // headers
 export const HeaderContainer = tw.div<TailwindDiv>`sticky top-0 w-full z-40 bg-white m-auto max-w-maxWidth px-2 laptop:px-8 2xl:px-0`
-export const NewListingHeaderContainer = tw.div`sticky top-0 w-full z-40 bg-white m-auto max-w-maxWidth`
+export const NewListingHeaderContainer = tw.div`sticky top-0 w-full z-40 bg-white m-auto max-w-maxWidth h-20`
 
 // content
 export const LargeContainer = tw.div<TailwindDiv>`w-full m-auto max-w-maxWidth px-2 laptop:px-8 2xl:px-0`
