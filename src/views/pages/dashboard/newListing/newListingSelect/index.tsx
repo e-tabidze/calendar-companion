@@ -1,6 +1,7 @@
-import { useState } from 'react'
-import { Transition } from '@headlessui/react'
+import { Fragment } from 'react'
 import Typography from 'src/views/components/typography'
+
+import { Transition, Menu } from '@headlessui/react'
 
 type SelectOption = {
   value: string
@@ -13,59 +14,58 @@ type Props = {
   selectedOption: SelectOption
 }
 
-export const NewListingSelect: React.FC<Props> = ({ options, onChange, selectedOption }) => {
-  const [isOpen, setIsOpen] = useState(false)
-
-  const toggleOpen = () => setIsOpen(!isOpen)
-
+const NewListingSelect: React.FC<Props> = ({ options, onChange, selectedOption }) => {
   return (
-    <div className='absolute bg-white w-full bottom-[-83px] py-4 large:relative large:w-fit large:bottom-0 large:py-0'>
-      <Typography type='h4' weight='normal' color='dark' className='text-md text-center large:text-3md'>
-        {selectedOption.label}
-      </Typography>
-      <button type='button' onClick={toggleOpen} className='flex items-center gap-2 text-2sm text-green-100 m-auto'>
-        <span>{selectedOption.value}</span>
-        <svg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'>
-          <rect width='24' height='24' rx='8' fill='#DDEAE6' />
-          <path d='M8 11L11.75 14L15.5 11' stroke='#549684' strokeWidth='2' strokeLinecap='round' />
-        </svg>
-      </button>
+    <Menu as='div' className='inline-block text-left'>
+      <div className='flex flex-col items-center'>
+        <Typography type='h4' weight='normal' color='dark' className='text-md text-center large:text-3md'>
+          {selectedOption.label}
+        </Typography>
+        <Menu.Button className='text-raisin-130 px-2 font-normal inline-flex items-center gap-2 w-max rounded-2xl justify-around text-2sm focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75'>
+          <Typography type='h5'>{selectedOption.value}</Typography>
+          <svg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'>
+            <rect width='24' height='24' rx='8' fill='#DDEAE6' />
+            <path d='M8 11L11.75 14L15.5 11' stroke='#549684' strokeWidth='2' strokeLinecap='round' />
+          </svg>
+        </Menu.Button>
+      </div>
       <Transition
-        show={isOpen}
-        enter='transition ease-out duration-100 transform'
-        enterFrom='opacity-0 scale-95'
-        enterTo='opacity-100 scale-100'
-        leave='transition ease-in duration-75 transform'
-        leaveFrom='opacity-100 scale-100'
-        leaveTo='opacity-0 scale-95'
-        className='fixed z-[111] mt-5 left-0 w-full shadow-lg h-[75px] flex items-center bg-white top-[80px] large:top-none '
+        as={Fragment}
+        enter='transition ease-out duration-100'
+        enterFrom='transform opacity-0 scale-95'
+        enterTo='transform opacity-100 scale-100'
+        leave='transition ease-in duration-75'
+        leaveFrom='transform opacity-100 scale-100'
+        leaveTo='transform opacity-0 scale-95'
       >
-        <div className='flex justify-between h-full w-max overflow-auto large:w-full'>
+        <Menu.Items className='absolute left-0 w-full flex justify-between top-20 h-[75px] bg-white shadow-lg'>
           {options.map((option, index) => (
-            <button
-              key={option.value}
-              type='button'
-              className={`flex items-center gap-3 text-left px-4 py-2 text-sm  min-w-max ${
-                selectedOption === option ? 'text-raisin-130 border-b-2 border-green-100' : 'text-raisin-50'
-              }`}
-              onClick={() => {
-                onChange(option)
-                toggleOpen()
-              }}
-            >
-              <div
-                className={`w-6 h-6 rounded-full flex items-center justify-center ${
-                  selectedOption === option ? 'bg-green-100 text-gray-900' : 'bg-raisin-10 text-raisin-20'
+            <Menu.Item key={option.value}>
+              <button
+                type='button'
+                className={`flex items-center gap-3 text-left px-4 py-2 text-sm  min-w-max ${
+                  selectedOption.value === option.value
+                    ? 'text-raisin-130 border-b-2 border-green-100'
+                    : 'text-raisin-50'
                 }`}
+                onClick={() => onChange(option)}
               >
-                <span className={` ${selectedOption === option ? ' text-white' : ' text-raisin-70'}`}>{index + 1}</span>
-              </div>
-              {option.label}
-            </button>
+                <div
+                  className={`w-6 h-6 rounded-full flex items-center justify-center ${
+                    selectedOption.value === option.value ? 'bg-green-100 text-gray-900' : 'bg-raisin-10 text-raisin-20'
+                  }`}
+                >
+                  <span className={` ${selectedOption.value === option.value ? ' text-white' : ' text-raisin-70'}`}>
+                    {index + 1}
+                  </span>
+                </div>
+                {option.label}
+              </button>
+            </Menu.Item>
           ))}
-        </div>
+        </Menu.Items>
       </Transition>
-    </div>
+    </Menu>
   )
 }
 
