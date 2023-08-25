@@ -1,4 +1,3 @@
-import { JSXElementConstructor, ReactElement, useState } from 'react'
 import { IconTextButton } from 'src/views/components/button'
 import { DefaultInput } from 'src/views/components/input'
 
@@ -20,25 +19,21 @@ const StepThree: React.FC<Props> = ({ control, errors, phoneFields, appendPhone 
           name='company_information.contactInformation.email'
         />
         {phoneFields.map((field: any, index: number = 1) => (
-          <>
-            {console.log(phoneFields, 'phoneFields')}
-            <DefaultInput
-              label='მობილურის ნომერი'
-              index={index}
-              control={control}
-              errors={errors}
-              key={field.id}
-              name={`company_information.contactInformation.phoneNumbers.${index}.number`}
-            />
-          </>
+          <DefaultInput
+            label='მობილურის ნომერი'
+            index={index}
+            control={control}
+            errors={errors}
+            key={field.id}
+            name={`company_information.contactInformation.phoneNumbers.${index}.mobile`}
+          />
         ))}
         <IconTextButton
           label='სხვა  ნომრის  დამატება'
           icon='/icons/add.svg'
           onClick={() => {
             appendPhone({
-              type: 'mobile',
-              number: ''
+              mobile: ''
             })
           }}
         />

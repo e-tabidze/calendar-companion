@@ -13,8 +13,7 @@ export type WorkingHours = {
 }
 
 export type PhoneNumber = {
-  type: office | mobile
-  number: string
+  [key: string]: string | undefined
 }
 
 export type CompanyAddress = {

@@ -39,7 +39,7 @@ const useCreateCompany = () => {
       logo: '',
       contactInformation: {
         email: '',
-        phoneNumbers: [{ type: 'mobile', number: '' }]
+        phoneNumbers: [{}, {}]
       },
       address: [defaultAddress]
     }

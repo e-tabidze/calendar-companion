@@ -19,6 +19,8 @@ const NewCompany = () => {
 
   const router = useRouter()
 
+  const handleClose = () => router.push('/profile/orders/')
+
   const {
     control,
     handleSubmit,
@@ -35,24 +37,20 @@ const NewCompany = () => {
   const selectOption = (option: any) => setStep(option)
 
   const handleGoNextStep = () => {
-    const currentIndex = options.findIndex(option => option === step)
+    const currentIndex = options.findIndex(option => option.value === step.value)
     if (currentIndex < options.length - 1) {
       setStep(options[currentIndex + 1])
     }
   }
-
   const handleGoPrevStep = () => {
-    const currentIndex = options.findIndex(option => option === step)
+    const currentIndex = options.findIndex(option => option.step === step.step)
     if (currentIndex > 0) {
       setStep(options[currentIndex - 1])
     }
   }
 
-  const handleClose = () => router.push('/profile/orders/')
-
   const onSubmit = async () => {
     try {
-      console.log(companyValues, 'companyValues')
       await dispatch(createCompany({ AccessToken: Cookie.get('AccessToken'), company: companyValues }))
     } catch (error) {
       console.error('An error occurred:', error)
