@@ -5,14 +5,13 @@ interface Props {
   control: any
   addressFields: any
   appendAddress: any
-  setValue: any
 }
 
-const StepTwo: React.FC<Props> = ({ control, addressFields, appendAddress, setValue }) => {
+const StepTwo: React.FC<Props> = ({ control, addressFields, appendAddress }) => {
   return (
     <div>
       {addressFields.map((field: any, index: number) => (
-        <BranchInfoComponent index={index} control={control} key={field.id} setValue={setValue} />
+        <BranchInfoComponent index={index} control={control} key={field.id} />
       ))}
       <IconTextButton
         label='სხვა  მისამართის დამატება'

@@ -31,8 +31,7 @@ const NewCompany = () => {
     addressFields,
     appendAddress,
     phoneFields,
-    appendPhone,
-    setValue
+    appendPhone
   } = useCreateCompany()
 
   const selectOption = (option: any) => setStep(option)
@@ -72,7 +71,7 @@ const NewCompany = () => {
       >
         <form>
           {step.step === 1 && <StepOne control={control} errors={errors} clearErrors={clearErrors} />}
-          {step.step === 2 && <StepTwo control={control} addressFields={addressFields} appendAddress={appendAddress} setValue={setValue} />}
+          {step.step === 2 && <StepTwo control={control} addressFields={addressFields} appendAddress={appendAddress} />}
           {step.step === 3 && (
             <StepThree control={control} errors={errors} phoneFields={phoneFields} appendPhone={appendPhone} />
           )}

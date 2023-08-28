@@ -20,10 +20,9 @@ interface Props {
   onWorkingHoursChange?: any
   workingHoursObject?: any
   control?: any
-  setValue?: any
 }
 
-const BranchInfoComponent: React.FC<Props> = ({ index, control, setValue }) => {
+const BranchInfoComponent: React.FC<Props> = ({ index, control }) => {
   const [map, setMap] = useState(false)
   const [sameTime, setSameTime] = useState(true)
   const [selectedWorkDays, setSelectedWorkDays] = useState<string[]>([
@@ -63,9 +62,9 @@ const BranchInfoComponent: React.FC<Props> = ({ index, control, setValue }) => {
               />
             ))}
           </div>
-          <div className='flex items-center justify-between'>
+          {/* <div className='flex items-center justify-between'>
             <TimeRangeComponent index={index} control={control} workDays={selectedWorkDays} setValue={setValue} />
-          </div>
+          </div> */}
         </div>
       ) : (
         <div className=''>
