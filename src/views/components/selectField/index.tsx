@@ -38,7 +38,6 @@ interface Props {
   disabled?: boolean
   className?: string
   icon?: boolean
-  value?: any
   control: any
   name: string
 }
@@ -55,7 +54,7 @@ const Control = ({ children, ...props }: any) => {
   )
 }
 
-const SelectField: React.FC<Props> = ({ placeholder, options, disabled = false, className, icon, control, name }) => {
+const SelectField: React.FC<Props> = ({ options, disabled = false, className, icon, control, name }) => {
   const { DropdownIndicator, ClearIndicator } = components
 
   const customDropdownIndicator = (
@@ -81,16 +80,16 @@ const SelectField: React.FC<Props> = ({ placeholder, options, disabled = false, 
   return (
     <div className={`relative ${className}`}>
       <Controller
-        name={name}
+        name={name || ''}
         control={control}
         defaultValue={null}
         render={({ field: { onChange, value } }) => (
           <Select
             styles={customStyles}
             options={options}
-            value={options.find(opt => opt.value === value || "")}
+            value={options.find(opt => opt.value === value || '')}
             onChange={(e: any) => {
-              onChange(e.value || "")
+              onChange(e?.value || '')
             }}
             components={{
               DropdownIndicator: customDropdownIndicator,

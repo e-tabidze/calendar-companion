@@ -18,7 +18,7 @@ const StepThree: React.FC<Props> = ({ control, errors, phoneFields, appendPhone 
           errors={errors}
           name='company_information.contactInformation.email'
         />
-        {phoneFields.map((field: any, index: number = 1) => (
+        {/* {phoneFields.map((field: any, index: number = 1) => (
           <DefaultInput
             label='მობილურის ნომერი'
             index={index}
@@ -27,7 +27,7 @@ const StepThree: React.FC<Props> = ({ control, errors, phoneFields, appendPhone 
             key={field.id}
             name={`company_information.contactInformation.phoneNumbers.${index}.mobile`}
           />
-        ))}
+        ))} */}
         <IconTextButton
           label='სხვა  ნომრის  დამატება'
           icon='/icons/add.svg'

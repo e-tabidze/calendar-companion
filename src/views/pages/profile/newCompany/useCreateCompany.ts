@@ -25,8 +25,8 @@ const useCreateCompany = () => {
       wednesday: { ...defaultWorkingTime },
       thursday: { ...defaultWorkingTime },
       friday: { ...defaultWorkingTime },
-      saturday: { ...defaultWorkingTime },
-      sunday: { ...defaultWorkingTime }
+      // saturday: { ...defaultWorkingTime },
+      // sunday: { ...defaultWorkingTime }
     }
   }
 
