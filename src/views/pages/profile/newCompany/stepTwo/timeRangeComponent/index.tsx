@@ -22,15 +22,13 @@ const TimeRangeComponent: React.FC<Props> = ({ index, control, day }) => {
 
   const selectOptions = generateTimeOptions()
 
-  console.log(typeof day, 'type')
-
   return (
     <div className='flex items-center gap-1'>
       <SelectField
         options={selectOptions}
         className='my-2'
         icon
-        name={`company_information.address.${index}.working_hours.${day}.startTime`}
+        name={`company_information.addresses.${index}.working_hours.${day}.start_time`}
         control={control}
       />
       <div className='h-px w-[6px] bg-raisin-130' />
@@ -39,7 +37,7 @@ const TimeRangeComponent: React.FC<Props> = ({ index, control, day }) => {
         className='my-2'
         icon
         control={control}
-        name={`company_information.address.${index}.working_hours.${day}.endTime`}
+        name={`company_information.addresses.${index}.working_hours.${day}.end_time`}
       />
     </div>
   )

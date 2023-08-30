@@ -26,17 +26,37 @@ interface Props {
 
 const BranchInfoComponent: React.FC<Props> = ({ index, control, errors }) => {
   const [map, setMap] = useState(false)
-  // const [selectedWorkDays, setSelectedWorkDays] = useState<string[]>([
-  //   'monday',
-  //   'tuesday',
-  //   'wednesday',
-  //   'thursday',
-  //   'friday'
-  // ])
 
   const toggleMap = () => setMap(prevMap => !prevMap)
 
   const formState = useWatch({ control })
+
+  const renderDaysSelector = (day: any) => (
+    <Controller
+      key={day.value}
+      name={`company_information.addresses.${index}.working_hours.${day.value}`}
+      control={control}
+      render={({ field: { value, onChange } }) => (
+        <RoundedTag
+          label={day.label}
+          handleSelect={() => {
+            const updatedValue = {
+              ...value,
+              is_selected: !value.is_selected
+            }
+            if (!updatedValue.is_selected) {
+              updatedValue.start_time = ''
+              updatedValue.end_time = ''
+            }
+            onChange(updatedValue)
+          }}
+          selected={value?.is_selected}
+        />
+      )}
+    />
+  )
+
+  const renderTimeRangeComponent = (day: string) => <TimeRangeComponent index={index} control={control} day={day} />
 
   return (
     <div className='mb-6 large:border large:border-raisin-10 rounded-3xl large:py-10 large:px-9 grid grid-cols-1 gap-7'>
@@ -48,7 +68,6 @@ const BranchInfoComponent: React.FC<Props> = ({ index, control, errors }) => {
       />
       <DefaultInput
         label='ტელეფონის ნომერი'
-        onComponentClick={toggleMap}
         name={`company_information.addresses.${index}.phone`}
         control={control}
         errors={errors}
@@ -61,67 +80,17 @@ const BranchInfoComponent: React.FC<Props> = ({ index, control, errors }) => {
         control={control}
       />
 
-      {formState.company_information.addresses[index].isSameTime ? (
-        <div className='flex items-center justify-between'>
-          <div className='flex items-center gap-4'>
-            {days.map(day => (
-              <>
-                {console.log(day, 'day')}
-                <Controller
-                  key={day.value}
-                  name={`company_information.address.${index}.working_hours.${day.value}`}
-                  control={control}
-                  render={({ field: { value, onChange } }) => (
-                    <>
-                      {console.log(value, '<= value')}
-                      <RoundedTag
-                        label={day.label}
-                        handleSelect={() => {
-                          const updatedValue = {
-                            ...value,
-                            isSelected: !value.isSelected
-                          }
-                          if (!updatedValue.isSelected) {
-                            updatedValue.startTime = ''
-                            updatedValue.endTime = ''
-                          }
-                          onChange(updatedValue)
-                        }}
-                        // selected={
-                        //   timeValues[day.value]?.startTime?.length > 0 || timeValues[day.value]?.endTime?.length > 0
-                        // }
-                        selected={value?.isSelected}
-                      />
-                    </>
-                  )}
-                />
-              </>
-            ))}
-          </div>
-          <TimeRangeComponent index={index} control={control} day={'monday'} />
+      {formState.company_information.addresses[index]?.isSameTime ? (
+        <div className='flex items-center justify-between' key={index}>
+          <div className='flex items-center gap-4'>{days.map(day => renderDaysSelector(day))}</div>
+          {renderTimeRangeComponent('monday')}
         </div>
       ) : (
-        <div className=''>
+        <div>
           {days.map(day => (
             <div className='flex items-center gap-6' key={day.value}>
-              <Controller
-                name={`company_information.address.${index}.working_hours.${day.value}`}
-                control={control}
-                render={({ field: { value, onChange } }) => {
-                  return (
-                    <RoundedTag
-                      label={day.label}
-                      handleSelect={() => onChange(value.isSelected)}
-                      // selected={
-                      //   timeValues[selectedWorkDays[0]]?.startTime.length > 0 ||
-                      //   timeValues[selectedWorkDays[0]]?.endTime.length > 0
-                      // }
-                      selected={value?.isSelected}
-                    />
-                  )
-                }}
-              />
-              <TimeRangeComponent index={index} control={control} day={day.value} />
+              {renderDaysSelector(day)}
+              {renderTimeRangeComponent(day.value)}
             </div>
           ))}
         </div>

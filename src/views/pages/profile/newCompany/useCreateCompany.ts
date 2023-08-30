@@ -22,7 +22,7 @@ const useCreateCompany = () => {
   }
 
   const defaultAddress = {
-    address: 'asdfghj',
+    address: '',
     phone: '',
     email: '',
     city: '',
@@ -75,11 +75,6 @@ const useCreateCompany = () => {
     name: 'company_information.addresses'
   })
 
-  // const { fields: phoneFields, append: appendPhone } = useFieldArray({
-  //   control,
-  //   name: 'company_information.contactInformation.phoneNumbers'
-  // })
-
   const companyValues: any = useWatch({ control })
 
   return {
@@ -95,8 +90,6 @@ const useCreateCompany = () => {
     setValue,
     addressFields,
     appendAddress,
-    // phoneFields,
-    // appendPhone,
     defaultAddress
   }
 }
