@@ -1,6 +1,7 @@
 export type WorkingTime = {
-  startTime: string
-  endTime: string
+  start_time: string
+  end_time: string
+  is_selected: boolean
 }
 export type WorkingHours = {
   monday?: WorkingTime
@@ -12,27 +13,25 @@ export type WorkingHours = {
   sunday?: WorkingTime
 }
 
-export type PhoneNumber = {
-  [key: string]: string | undefined
-}
-
 export type CompanyAddress = {
   address: string
+  phone: string
+  email: string
   city: string
   state: string
   postal_code: string
+  lat: string
+  long: string
   working_hours: WorkingHours
 }
 
 export type CompanyInfo = {
   name: string
-  description: string
   logo: string
-  address: CompanyAddress[]
-  contactInformation: {
-    email: string
-    phoneNumbers: PhoneNumber[]
-  }
+  description: string
+  email: string
+  phone_numbers: string
+  addresses: CompanyAddress[]
 }
 
 export type Company = {

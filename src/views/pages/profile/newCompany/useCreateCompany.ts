@@ -9,53 +9,36 @@ import { Company } from 'src/types/Company'
 const useCreateCompany = () => {
   const dispatch = useDispatch<AppDispatch>()
 
-  const defaultWorkingTime = {
-    startTime: '',
-    endTime: ''
+  const defaultWorkDayWorkingTime = {
+    start_time: '09:00',
+    end_time: '18:00',
+    is_selected: true
+  }
+
+  const defaultWeekendWorkingTime = {
+    start_time: '',
+    end_time: '',
+    is_selected: false
   }
 
   const defaultAddress = {
-    address: '',
+    address: 'asdfghj',
+    phone: '',
+    email: '',
     city: '',
     state: '',
     postal_code: '',
+    lat: '',
+    long: '',
     isSameTime: true,
     working_hours: {
-      monday: {
-        startTime: '09:00',
-        endTime: '18:00',
-        isSelected: true
-      },
-      tuesday: {
-        startTime: '09:00',
-        endTime: '18:00',
-        isSelected: true
-      },
-      wednesday: {
-        startTime: '09:00',
-        endTime: '18:00',
-        isSelected: true
-      },
-      thursday: {
-        startTime: '09:00',
-        endTime: '18:00',
-        isSelected: true
-      },
-      friday: {
-        startTime: '09:00',
-        endTime: '18:00',
-        isSelected: true
-      },
-      saturday: {
-        startTime: '',
-        endTime: '',
-        isSelected: false
-      },
-      sunday: {
-        startTime: '',
-        endTime: '',
-        isSelected: false
-      }
+      monday: defaultWorkDayWorkingTime,
+      tuesday: defaultWorkDayWorkingTime,
+      wednesday: defaultWorkDayWorkingTime,
+      thursday: defaultWorkDayWorkingTime,
+      friday: defaultWorkDayWorkingTime,
+      saturday: defaultWeekendWorkingTime,
+      sunday: defaultWeekendWorkingTime
     }
   }
 
@@ -64,13 +47,11 @@ const useCreateCompany = () => {
     company_type_id: '1',
     company_information: {
       name: '',
-      description: '',
       logo: '',
-      contactInformation: {
-        email: '',
-        phoneNumbers: [{}, {}]
-      },
-      address: [defaultAddress]
+      description: '',
+      email: '',
+      phone_numbers: '',
+      addresses: [defaultAddress]
     }
   }
 
@@ -91,13 +72,13 @@ const useCreateCompany = () => {
 
   const { fields: addressFields, append: appendAddress } = useFieldArray({
     control,
-    name: 'company_information.address'
+    name: 'company_information.addresses'
   })
 
-  const { fields: phoneFields, append: appendPhone } = useFieldArray({
-    control,
-    name: 'company_information.contactInformation.phoneNumbers'
-  })
+  // const { fields: phoneFields, append: appendPhone } = useFieldArray({
+  //   control,
+  //   name: 'company_information.contactInformation.phoneNumbers'
+  // })
 
   const companyValues: any = useWatch({ control })
 
@@ -114,8 +95,8 @@ const useCreateCompany = () => {
     setValue,
     addressFields,
     appendAddress,
-    phoneFields,
-    appendPhone,
+    // phoneFields,
+    // appendPhone,
     defaultAddress
   }
 }

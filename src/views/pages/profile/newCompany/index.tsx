@@ -29,10 +29,9 @@ const NewCompany = () => {
     companyValues,
     clearErrors,
     addressFields,
-    appendAddress,
-    phoneFields,
-    appendPhone,
-    setValue
+    appendAddress
+    // phoneFields,
+    // appendPhone,
   } = useCreateCompany()
 
   const selectOption = (option: any) => setStep(option)
@@ -70,14 +69,14 @@ const NewCompany = () => {
             }
 
             for (const day in addr.working_hours) {
-              addr.working_hours[day].startTime ='';
-              addr.working_hours[day].endTime = '';
+              addr.working_hours[day].startTime = ''
+              addr.working_hours[day].endTime = ''
               if (addr.working_hours[day].isSelected) {
                 addr.working_hours[day].startTime = takeDefaultTime.startTime
                 addr.working_hours[day].endTime = takeDefaultTime.endTime
-              addr.working_hours[day].isSelected = true;
-              }else{
-              addr.working_hours[day].isSelected = false;
+                addr.working_hours[day].isSelected = true
+              } else {
+                addr.working_hours[day].isSelected = false
               }
             }
           }
@@ -104,17 +103,8 @@ const NewCompany = () => {
       >
         <form>
           {step.step === 1 && <StepOne control={control} errors={errors} clearErrors={clearErrors} />}
-          {step.step === 2 && (
-            <StepTwo
-              control={control}
-              addressFields={addressFields}
-              appendAddress={appendAddress}
-              setValue={setValue}
-            />
-          )}
-          {step.step === 3 && (
-            <StepThree control={control} errors={errors} phoneFields={phoneFields} appendPhone={appendPhone} />
-          )}
+          {step.step === 2 && <StepTwo control={control} addressFields={addressFields} appendAddress={appendAddress} errors={errors} />}
+          {step.step === 3 && <StepThree control={control} errors={errors} />}
         </form>
       </NewListingLayout>
     </FormProvider>

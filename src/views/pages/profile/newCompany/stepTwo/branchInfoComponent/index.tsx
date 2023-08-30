@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Controller, useForm, useWatch } from 'react-hook-form'
-import { InputWithComponent } from 'src/views/components/input'
+import { DefaultInput, InputWithComponent } from 'src/views/components/input'
 import RoundedTag from 'src/views/components/roundedTag'
 import SwitchField from 'src/views/components/switchField'
 import useCreateCompany from '../../useCreateCompany'
@@ -21,10 +21,10 @@ interface Props {
   onWorkingHoursChange?: any
   workingHoursObject?: any
   control: any
-  setValue: any
+  errors: any
 }
 
-const BranchInfoComponent: React.FC<Props> = ({ index, control }) => {
+const BranchInfoComponent: React.FC<Props> = ({ index, control, errors }) => {
   const [map, setMap] = useState(false)
   // const [selectedWorkDays, setSelectedWorkDays] = useState<string[]>([
   //   'monday',
@@ -36,29 +36,32 @@ const BranchInfoComponent: React.FC<Props> = ({ index, control }) => {
 
   const toggleMap = () => setMap(prevMap => !prevMap)
 
-  const timeValues = useWatch({ control, name: `company_information.address.${index}.working_hours` })
-
-  console.log(timeValues, 'timeValues')
-
-  const boolean = useWatch({ control, name: `company_information.address.${index}.isSameTime` })
+  const formState = useWatch({ control })
 
   return (
     <div className='mb-6 large:border large:border-raisin-10 rounded-3xl large:py-10 large:px-9 grid grid-cols-1 gap-7'>
       <InputWithComponent
         label='მისამართი'
         onComponentClick={toggleMap}
-        name={`company_information.address.${index}.address`}
+        name={`company_information.addresses.${index}.address`}
         control={control}
       />
-      <Controller
-        name={`company_information.address.${index}.isSameTime`}
+      <DefaultInput
+        label='ტელეფონის ნომერი'
+        onComponentClick={toggleMap}
+        name={`company_information.addresses.${index}.phone`}
         control={control}
-        render={({ field: { value, onChange } }) => (
-          <SwitchField label='ერთნაირი დროის მონიშვნა' value={value} onChange={() => onChange(!value)} />
-        )}
+        errors={errors}
       />
 
-      {boolean ? (
+      <SwitchField
+        name={`company_information.addresses.${index}.isSameTime`}
+        label='ერთნაირი დროის მონიშვნა'
+        defaultValue={true}
+        control={control}
+      />
+
+      {formState.company_information.addresses[index].isSameTime ? (
         <div className='flex items-center justify-between'>
           <div className='flex items-center gap-4'>
             {days.map(day => (
@@ -74,7 +77,6 @@ const BranchInfoComponent: React.FC<Props> = ({ index, control }) => {
                       <RoundedTag
                         label={day.label}
                         handleSelect={() => {
-                          // Toggle isSelected and maintain startTime and endTime
                           const updatedValue = {
                             ...value,
                             isSelected: !value.isSelected
