@@ -28,7 +28,7 @@ const TimeRangeComponent: React.FC<Props> = ({ index, control, day }) => {
         options={selectOptions}
         className='my-2'
         icon
-        name={`company_information.addresses.${index}.working_hours.${day}.start_time`}
+        name={`addresses.${index}.working_hours.${day}.start_time`}
         control={control}
       />
       <div className='h-px w-[6px] bg-raisin-130' />
@@ -37,7 +37,7 @@ const TimeRangeComponent: React.FC<Props> = ({ index, control, day }) => {
         className='my-2'
         icon
         control={control}
-        name={`company_information.addresses.${index}.working_hours.${day}.end_time`}
+        name={`addresses.${index}.working_hours.${day}.end_time`}
       />
     </div>
   )

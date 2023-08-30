@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from 'react'
-import { Controller, useForm, useWatch } from 'react-hook-form'
+import React, { useState } from 'react'
+import { Controller, useWatch } from 'react-hook-form'
 import { DefaultInput, InputWithComponent } from 'src/views/components/input'
 import RoundedTag from 'src/views/components/roundedTag'
 import SwitchField from 'src/views/components/switchField'
-import useCreateCompany from '../../useCreateCompany'
 import TimeRangeComponent from '../timeRangeComponent'
 
 const days = [
@@ -34,7 +33,7 @@ const BranchInfoComponent: React.FC<Props> = ({ index, control, errors }) => {
   const renderDaysSelector = (day: any) => (
     <Controller
       key={day.value}
-      name={`company_information.addresses.${index}.working_hours.${day.value}`}
+      name={`addresses.${index}.working_hours.${day.value}`}
       control={control}
       render={({ field: { value, onChange } }) => (
         <RoundedTag
@@ -63,24 +62,24 @@ const BranchInfoComponent: React.FC<Props> = ({ index, control, errors }) => {
       <InputWithComponent
         label='მისამართი'
         onComponentClick={toggleMap}
-        name={`company_information.addresses.${index}.address`}
+        name={`addresses.${index}.address`}
         control={control}
       />
       <DefaultInput
         label='ტელეფონის ნომერი'
-        name={`company_information.addresses.${index}.phone`}
+        name={`addresses.${index}.phone`}
         control={control}
         errors={errors}
       />
 
       <SwitchField
-        name={`company_information.addresses.${index}.isSameTime`}
+        name={`addresses.${index}.isSameTime`}
         label='ერთნაირი დროის მონიშვნა'
         defaultValue={true}
         control={control}
       />
 
-      {formState.company_information.addresses[index]?.isSameTime ? (
+      {formState.addresses[index]?.isSameTime ? (
         <div className='flex items-center justify-between' key={index}>
           <div className='flex items-center gap-4'>{days.map(day => renderDaysSelector(day))}</div>
           {renderTimeRangeComponent('monday')}

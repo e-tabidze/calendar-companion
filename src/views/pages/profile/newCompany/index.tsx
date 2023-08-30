@@ -51,7 +51,7 @@ const NewCompany = () => {
 
   const onSubmit = async () => {
     try {
-      companyValues.company_information.address.forEach(
+      companyValues.addresses.forEach(
         (addr: {
           isSameTime: boolean
           working_hours: {

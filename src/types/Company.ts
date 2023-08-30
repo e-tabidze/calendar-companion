@@ -31,11 +31,11 @@ export type CompanyInfo = {
   description: string
   email: string
   phone_numbers: string
-  addresses: CompanyAddress[]
 }
 
 export type Company = {
   identification_number: number | null
   company_type_id: number | string
   company_information: CompanyInfo
+  addresses: CompanyAddress[]
 }

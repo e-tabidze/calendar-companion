@@ -50,9 +50,9 @@ const useCreateCompany = () => {
       logo: '',
       description: '',
       email: '',
-      phone_numbers: '',
-      addresses: [defaultAddress]
-    }
+      phone_numbers: ''
+    },
+    addresses: [defaultAddress]
   }
 
   const {
@@ -72,7 +72,7 @@ const useCreateCompany = () => {
 
   const { fields: addressFields, append: appendAddress } = useFieldArray({
     control,
-    name: 'company_information.addresses'
+    name: 'addresses'
   })
 
   const companyValues: any = useWatch({ control })
