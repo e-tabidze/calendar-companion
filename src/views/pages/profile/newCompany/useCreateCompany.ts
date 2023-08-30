@@ -19,14 +19,43 @@ const useCreateCompany = () => {
     city: '',
     state: '',
     postal_code: '',
+    isSameTime: true,
     working_hours: {
-      monday: { ...defaultWorkingTime },
-      tuesday: { ...defaultWorkingTime },
-      wednesday: { ...defaultWorkingTime },
-      thursday: { ...defaultWorkingTime },
-      friday: { ...defaultWorkingTime },
-      // saturday: { ...defaultWorkingTime },
-      // sunday: { ...defaultWorkingTime }
+      monday: {
+        startTime: '09:00',
+        endTime: '18:00',
+        isSelected: true
+      },
+      tuesday: {
+        startTime: '09:00',
+        endTime: '18:00',
+        isSelected: true
+      },
+      wednesday: {
+        startTime: '09:00',
+        endTime: '18:00',
+        isSelected: true
+      },
+      thursday: {
+        startTime: '09:00',
+        endTime: '18:00',
+        isSelected: true
+      },
+      friday: {
+        startTime: '09:00',
+        endTime: '18:00',
+        isSelected: true
+      },
+      saturday: {
+        startTime: '',
+        endTime: '',
+        isSelected: false
+      },
+      sunday: {
+        startTime: '',
+        endTime: '',
+        isSelected: false
+      }
     }
   }
 
@@ -55,6 +84,7 @@ const useCreateCompany = () => {
     setValue
   } = useForm({
     mode: 'onChange',
+    reValidateMode: 'onChange',
     defaultValues: createCompanyDefaultValues
     // resolver: yupResolver(CompanySchema)
   })
@@ -85,7 +115,8 @@ const useCreateCompany = () => {
     addressFields,
     appendAddress,
     phoneFields,
-    appendPhone
+    appendPhone,
+    defaultAddress
   }
 }
 

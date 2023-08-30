@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
-import { Controller } from 'react-hook-form'
+import React, { useEffect, useState } from 'react'
+import { Controller, useForm, useWatch } from 'react-hook-form'
 import { InputWithComponent } from 'src/views/components/input'
 import RoundedTag from 'src/views/components/roundedTag'
 import SwitchField from 'src/views/components/switchField'
+import useCreateCompany from '../../useCreateCompany'
 import TimeRangeComponent from '../timeRangeComponent'
 
 const days = [
@@ -19,24 +20,27 @@ interface Props {
   index: number
   onWorkingHoursChange?: any
   workingHoursObject?: any
-  control?: any
+  control: any
+  setValue: any
 }
 
 const BranchInfoComponent: React.FC<Props> = ({ index, control }) => {
   const [map, setMap] = useState(false)
-  const [sameTime, setSameTime] = useState(true)
-  const [selectedWorkDays, setSelectedWorkDays] = useState<string[]>([
-    'monday',
-    'tuesday',
-    'wednesday',
-    'thursday',
-    'satudray'
-  ])
+  // const [selectedWorkDays, setSelectedWorkDays] = useState<string[]>([
+  //   'monday',
+  //   'tuesday',
+  //   'wednesday',
+  //   'thursday',
+  //   'friday'
+  // ])
 
   const toggleMap = () => setMap(prevMap => !prevMap)
-  const toggleTime = () => setSameTime(prevSameTime => !prevSameTime)
 
-  const renderTimeRangeComponent = (day: string) => <TimeRangeComponent index={index} control={control} day={day} />
+  const timeValues = useWatch({ control, name: `company_information.address.${index}.working_hours` })
+
+  console.log(timeValues, 'timeValues')
+
+  const boolean = useWatch({ control, name: `company_information.address.${index}.isSameTime` })
 
   return (
     <div className='mb-6 large:border large:border-raisin-10 rounded-3xl large:py-10 large:px-9 grid grid-cols-1 gap-7'>
@@ -46,25 +50,53 @@ const BranchInfoComponent: React.FC<Props> = ({ index, control }) => {
         name={`company_information.address.${index}.address`}
         control={control}
       />
-      <SwitchField label='ერთნაირი დროის მონიშვნა' value={sameTime} onChange={toggleTime} />
+      <Controller
+        name={`company_information.address.${index}.isSameTime`}
+        control={control}
+        render={({ field: { value, onChange } }) => (
+          <SwitchField label='ერთნაირი დროის მონიშვნა' value={value} onChange={() => onChange(!value)} />
+        )}
+      />
 
-      {sameTime ? (
+      {boolean ? (
         <div className='flex items-center justify-between'>
           <div className='flex items-center gap-4'>
             {days.map(day => (
-              <Controller
-                key={day.value}
-                name={`company_information.address.${index}.working_hours.${day.value}`}
-                control={control}
-                render={({ field: { value, onChange } }) => (
-                  <RoundedTag label={day.label} handleSelect={() => onChange(!value)} selected={value} />
-                )}
-              />
+              <>
+                {console.log(day, 'day')}
+                <Controller
+                  key={day.value}
+                  name={`company_information.address.${index}.working_hours.${day.value}`}
+                  control={control}
+                  render={({ field: { value, onChange } }) => (
+                    <>
+                      {console.log(value, '<= value')}
+                      <RoundedTag
+                        label={day.label}
+                        handleSelect={() => {
+                          // Toggle isSelected and maintain startTime and endTime
+                          const updatedValue = {
+                            ...value,
+                            isSelected: !value.isSelected
+                          }
+                          if (!updatedValue.isSelected) {
+                            updatedValue.startTime = ''
+                            updatedValue.endTime = ''
+                          }
+                          onChange(updatedValue)
+                        }}
+                        // selected={
+                        //   timeValues[day.value]?.startTime?.length > 0 || timeValues[day.value]?.endTime?.length > 0
+                        // }
+                        selected={value?.isSelected}
+                      />
+                    </>
+                  )}
+                />
+              </>
             ))}
           </div>
-          {/* <div className='flex items-center justify-between'>
-            <TimeRangeComponent index={index} control={control} workDays={selectedWorkDays} setValue={setValue} />
-          </div> */}
+          <TimeRangeComponent index={index} control={control} day={'monday'} />
         </div>
       ) : (
         <div className=''>
@@ -73,11 +105,21 @@ const BranchInfoComponent: React.FC<Props> = ({ index, control }) => {
               <Controller
                 name={`company_information.address.${index}.working_hours.${day.value}`}
                 control={control}
-                render={({ field: { value, onChange } }) => (
-                  <RoundedTag label={day.label} handleSelect={() => onChange(!value)} selected={value} />
-                )}
+                render={({ field: { value, onChange } }) => {
+                  return (
+                    <RoundedTag
+                      label={day.label}
+                      handleSelect={() => onChange(value.isSelected)}
+                      // selected={
+                      //   timeValues[selectedWorkDays[0]]?.startTime.length > 0 ||
+                      //   timeValues[selectedWorkDays[0]]?.endTime.length > 0
+                      // }
+                      selected={value?.isSelected}
+                    />
+                  )
+                }}
               />
-              {renderTimeRangeComponent(day.value)}
+              <TimeRangeComponent index={index} control={control} day={day.value} />
             </div>
           ))}
         </div>

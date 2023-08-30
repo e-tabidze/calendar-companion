@@ -31,7 +31,8 @@ const NewCompany = () => {
     addressFields,
     appendAddress,
     phoneFields,
-    appendPhone
+    appendPhone,
+    setValue
   } = useCreateCompany()
 
   const selectOption = (option: any) => setStep(option)
@@ -51,6 +52,38 @@ const NewCompany = () => {
 
   const onSubmit = async () => {
     try {
+      companyValues.company_information.address.forEach(
+        (addr: {
+          isSameTime: boolean
+          working_hours: {
+            [x: string]: {
+              isSelected: boolean
+              endTime: string
+              startTime: string
+            }
+          }
+        }) => {
+          if (addr.isSameTime) {
+            let takeDefaultTime = {
+              startTime: addr.working_hours['monday'].startTime,
+              endTime: addr.working_hours['monday'].endTime
+            }
+
+            for (const day in addr.working_hours) {
+              addr.working_hours[day].startTime ='';
+              addr.working_hours[day].endTime = '';
+              if (addr.working_hours[day].isSelected) {
+                addr.working_hours[day].startTime = takeDefaultTime.startTime
+                addr.working_hours[day].endTime = takeDefaultTime.endTime
+              addr.working_hours[day].isSelected = true;
+              }else{
+              addr.working_hours[day].isSelected = false;
+              }
+            }
+          }
+        }
+      )
+
       console.log(companyValues, 'companyValues')
       await dispatch(createCompany({ AccessToken: Cookie.get('AccessToken'), company: companyValues }))
     } catch (error) {
@@ -71,7 +104,14 @@ const NewCompany = () => {
       >
         <form>
           {step.step === 1 && <StepOne control={control} errors={errors} clearErrors={clearErrors} />}
-          {step.step === 2 && <StepTwo control={control} addressFields={addressFields} appendAddress={appendAddress} />}
+          {step.step === 2 && (
+            <StepTwo
+              control={control}
+              addressFields={addressFields}
+              appendAddress={appendAddress}
+              setValue={setValue}
+            />
+          )}
           {step.step === 3 && (
             <StepThree control={control} errors={errors} phoneFields={phoneFields} appendPhone={appendPhone} />
           )}

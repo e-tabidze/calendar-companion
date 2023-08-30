@@ -22,6 +22,8 @@ const TimeRangeComponent: React.FC<Props> = ({ index, control, day }) => {
 
   const selectOptions = generateTimeOptions()
 
+  console.log(typeof day, 'type')
+
   return (
     <div className='flex items-center gap-1'>
       <SelectField
