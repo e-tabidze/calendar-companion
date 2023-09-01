@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import useWindowDimensions from 'src/hooks/useWindowDimensions'
 import DefaultLayout from 'src/layouts/DefaultLayout'
-import { LargeContainer, FullContainer } from 'src/styled/styles'
+import { FullContainer } from 'src/styled/styles'
 import Divider from 'src/views/components/divider'
 import Image from 'src/views/components/image'
 import MapPicker from 'src/views/components/mapPicker'
@@ -21,25 +21,17 @@ import {
   MapContainer,
   ResponsiveDivider,
   SearchContentsContainer,
-  SearchResultsContainer,
-  Wrapper
+  SearchResultsContainer
 } from '../../views/pages/search/styles'
 import ToggleMapButton from '../../views/pages/search/toggleMapButton'
 
 const SearchPage = () => {
   const { width } = useWindowDimensions()
-  const [mapVisible, setMapVisible] = useState(true)
+  const [mapVisible, setMapVisible] = useState(false)
 
   useEffect(() => {
-    const handleResize = () => {
-      setMapVisible(window.innerWidth >= 1025)
-    }
-
-    window.addEventListener('resize', handleResize)
-    return () => {
-      window.removeEventListener('resize', handleResize)
-    }
-  }, [])
+    setMapVisible(width >= 1025)
+  }, [width])
 
   const handleToggleMapWidth = () => {
     setMapVisible(!mapVisible)
