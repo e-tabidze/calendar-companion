@@ -28,7 +28,7 @@ import ToggleMapButton from '../../views/pages/search/toggleMapButton'
 
 const SearchPage = () => {
   const { width } = useWindowDimensions()
-  const [mapVisible, setMapVisible] = useState(width >= 1025)
+  const [mapVisible, setMapVisible] = useState(true)
 
   useEffect(() => {
     const handleResize = () => {
