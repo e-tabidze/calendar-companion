@@ -66,8 +66,8 @@ const useCreateCompany = () => {
   } = useForm({
     mode: 'onChange',
     reValidateMode: 'onChange',
-    defaultValues: createCompanyDefaultValues
-    // resolver: yupResolver(CompanySchema)
+    defaultValues: createCompanyDefaultValues,
+    resolver: yupResolver(CompanySchema)
   })
 
   const { fields: addressFields, append: appendAddress } = useFieldArray({

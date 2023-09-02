@@ -30,8 +30,6 @@ const NewCompany = () => {
     clearErrors,
     addressFields,
     appendAddress
-    // phoneFields,
-    // appendPhone,
   } = useCreateCompany()
 
   const selectOption = (option: any) => setStep(option)

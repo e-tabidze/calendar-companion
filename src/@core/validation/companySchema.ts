@@ -1,38 +1,45 @@
 import * as Yup from 'yup'
-import { Company, CompanyAddress, PhoneNumber, WorkingHours, WorkingTime } from 'src/types/Company'
+import { Company, CompanyAddress, CompanyInfo, WorkingHours, WorkingTime } from 'src/types/Company'
 
 const WorkingTimeSchema = Yup.object<WorkingTime>().shape({
-  startTime: Yup.string(),
-  endTime: Yup.string()
+  start_time: Yup.string(),
+  end_time: Yup.string(),
+  is_selected: Yup.boolean()
 })
 
-const PhoneNumberSchema = Yup.object<PhoneNumber>().shape({
-  type: Yup.string().required(),
-  number: Yup.string().required()
+const WorkingHoursSchema = Yup.object<WorkingHours>().shape({
+  monday: WorkingTimeSchema,
+  tuesday: WorkingTimeSchema,
+  wednesday: WorkingTimeSchema,
+  thursday: WorkingTimeSchema,
+  friday: WorkingTimeSchema,
+  saturday: WorkingTimeSchema,
+  sunday: WorkingTimeSchema
 })
 
 const CompanyAddressSchema = Yup.object<CompanyAddress>().shape({
   address: Yup.string(),
-  city: Yup.string(),
-  state: Yup.string(),
-  postal_code: Yup.string(),
-  working_hours: Yup.object<WorkingHours>().shape({
-    monday: WorkingTimeSchema,
-    tuesday: WorkingTimeSchema,
-    wednesday: WorkingTimeSchema,
-    thursday: WorkingTimeSchema,
-    friday: WorkingTimeSchema,
-    saturday: WorkingTimeSchema,
-    sunday: WorkingTimeSchema
-  })
+  phone: Yup.string(),
+  email: Yup.string().email('Invalid email format'),
+  lat: Yup.string(),
+  long: Yup.string(),
+  working_hours: WorkingHoursSchema
+})
+
+const CompanyInfoSchema = Yup.object<CompanyInfo>().shape({
+  name: Yup.string().required("required"),
+  logo: Yup.string(),
+  description: Yup.string().required("required"),
+  email: Yup.string().email('Invalid email format'),
+  phone_numbers: Yup.string()
 })
 
 const CompanySchema = Yup.object<Company>().shape({
   identification_number: Yup.number()
-    .required('აუცილებელი ველი')
+    .required('Identification number is required')
     .nullable()
-    .typeError('საინდეტიფიკაციო კოდი უნდა იყოს რიცხვი')
-    .test('is-11-digit', 'კოდი უნდა იყოს 11 ნიშნიანი', value => {
+    .typeError('Identification number must be a number')
+    .test('is-11-digit', 'Identification number must be 11 digits', value => {
       if (value === null || value === undefined) {
         return true
       }
@@ -40,20 +47,11 @@ const CompanySchema = Yup.object<Company>().shape({
       return !isNaN(numericValue) && numericValue.toString().length === 11
     }),
 
-  company_type_id: Yup.mixed().required(),
+  company_type_id: Yup.mixed().required('Company type is required'),
 
-  company_information: Yup.object().shape({
-    name: Yup.string().required('აუცილებელი ველი'),
-    description: Yup.string(),
-    logo: Yup.string(),
+  company_information: CompanyInfoSchema,
 
-    address: Yup.array<CompanyAddress>().of(CompanyAddressSchema),
-
-    contact: Yup.object().shape({
-      email: Yup.string().email('არასწორი ფორმატი').required('აუცილებელი ველი'),
-      phoneNumbers: Yup.array<PhoneNumber>().of(PhoneNumberSchema)
-    })
-  })
+  addresses: Yup.array<CompanyAddress>().of(CompanyAddressSchema)
 })
 
 export { CompanySchema }

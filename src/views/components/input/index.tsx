@@ -41,7 +41,7 @@ interface Props {
 
 export const DefaultInput: React.FC<Props> = ({
   control,
-  name,
+  name = '',
   label,
   id,
   prefix,
@@ -71,17 +71,17 @@ export const DefaultInput: React.FC<Props> = ({
     setIsFocused(false)
   }
 
-  // const labelClasses = `text-sm absolute -translate-y-1/2 transition-transform ${
-  //   rows ? (isFocused || hasValue ? 'top-3' : 'top-6') : isFocused || hasValue ? 'top-3' : 'top-1/2'
-  // }`
+  console.log(errors, 'errors')
 
-  // const labelClasses = `text-sm absolute left-3 text-raisin-50`
+  console.log(Object.keys(errors).length === 0), 'empty?'
+
+  console.log(errors && Object.keys(errors).length > 0 ? eval(`errors?.${name}`) : '<==', 'check')
 
   return (
     <InputContainer key={index} className={`${className} ${disabled && styles.disabledInput}`}>
       <Controller
         control={control}
-        name={name || ''}
+        name={name}
         rules={{ required: true }}
         render={({ field: { onChange, value } }) => (
           <>
@@ -99,7 +99,7 @@ export const DefaultInput: React.FC<Props> = ({
               // }}
               disabled={disabled}
               value={value || ''}
-              className={` ${rows ? '' : 'h-14'} ${styles.input} ${errors[name || ''] && 'border border-red-100'}`}
+              className={` ${rows ? '' : 'h-14'} ${styles.input} ${Object.keys(errors).length > 0 ? 'border border-red-100' : ''}`}
               type='text'
               onChange={e => {
                 onChange(e)
@@ -107,9 +107,9 @@ export const DefaultInput: React.FC<Props> = ({
               pattern={pattern}
               rows={rows}
             />
-            {errors[name || ''] && (
+            {errors && (
               <div id={id} className='text-sm text-red-100'>
-                {errors[name || ''] ? errors[name || ''].message : 'აუცილებელი ველი'}
+                {errors && Object.keys(errors).length > 0 && eval(`errors?.${name}?.message`)}
               </div>
             )}
           </>
