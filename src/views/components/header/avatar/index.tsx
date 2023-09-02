@@ -5,8 +5,9 @@ import Typography from '../../typography'
 import { AvatarContainer, AvatarInnerContainer, AvatarResponsiveContainer } from './styles'
 
 const Avatar = () => {
-  const { user, loading, login, logout } = useContext(AuthContext)
+  const { user } = useContext(AuthContext)
   console.log(user, 'user in header')
+  
   return (
     <AvatarContainer>
       <AvatarInnerContainer>

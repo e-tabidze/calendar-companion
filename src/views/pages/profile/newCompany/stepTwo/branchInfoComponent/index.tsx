@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Controller, useWatch } from 'react-hook-form'
 import { DefaultInput, InputWithComponent } from 'src/views/components/input'
 import RoundedTag from 'src/views/components/roundedTag'
@@ -24,9 +24,6 @@ interface Props {
 }
 
 const BranchInfoComponent: React.FC<Props> = ({ index, control, errors }) => {
-  const [map, setMap] = useState(false)
-
-  const toggleMap = () => setMap(prevMap => !prevMap)
 
   const formState = useWatch({ control })
 
@@ -59,18 +56,20 @@ const BranchInfoComponent: React.FC<Props> = ({ index, control, errors }) => {
 
   return (
     <div className='mb-6 large:border large:border-raisin-10 rounded-3xl large:py-10 large:px-9 grid grid-cols-1 gap-7'>
-      <InputWithComponent
-        label='მისამართი'
-        onComponentClick={toggleMap}
-        name={`addresses.${index}.address`}
-        control={control}
-      />
-      <DefaultInput
-        label='ტელეფონის ნომერი'
-        name={`addresses.${index}.phone`}
-        control={control}
-        errors={errors}
-      />
+      <div className='w-full grid grid-cols-1 laptop:grid-cols-3 gap-4'>
+        <InputWithComponent
+          label='მისამართი'
+          name={`addresses.${index}.address`}
+          control={control}
+          className='laptop:col-span-2'
+        />
+        <DefaultInput
+          label='ტელეფონის'
+          name={`addresses.${index}.phone`}
+          control={control}
+          errors={errors}
+        />
+      </div>
 
       <SwitchField
         name={`addresses.${index}.isSameTime`}
@@ -80,7 +79,7 @@ const BranchInfoComponent: React.FC<Props> = ({ index, control, errors }) => {
       />
 
       {formState.addresses[index]?.isSameTime ? (
-        <div className='flex items-center justify-between' key={index}>
+        <div className='flex flex-col gap-2 laptop:items-center laptop:flex-row justify-between' key={index}>
           <div className='flex items-center gap-4'>{days.map(day => renderDaysSelector(day))}</div>
           {renderTimeRangeComponent('monday')}
         </div>

@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react'
-import { Controller } from 'react-hook-form'
+import React from 'react'
 import SelectField from 'src/views/components/selectField'
 
 interface Props {

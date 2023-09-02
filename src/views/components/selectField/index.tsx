@@ -100,6 +100,7 @@ const SelectField: React.FC<Props> = ({ options, disabled = false, className, ic
             isClearable
             placeholder={''}
             isDisabled={disabled}
+            
             // @ts-ignore
             emoji={
               icon && (

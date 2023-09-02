@@ -1,4 +1,3 @@
-import { IconTextButton } from 'src/views/components/button'
 import { DefaultInput } from 'src/views/components/input'
 
 interface Props {
@@ -8,6 +7,7 @@ interface Props {
 
 const StepThree: React.FC<Props> = ({ control, errors }) => {
   console.log(errors, 'errors')
+  
   return (
     <div>
       <div className='grid grid-cols-1 gap-2'>

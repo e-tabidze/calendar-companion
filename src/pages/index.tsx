@@ -1,10 +1,8 @@
 // ** Interfaces
-import { useContext, useEffect } from 'react'
-import { AuthContext } from 'src/@core/context/AuthContext'
+import { useEffect } from 'react'
 import { TailwindDiv } from 'src/interfaces/tailwind'
 import DefaultLayout from 'src/layouts/DefaultLayout'
-import UserService from 'src/services/UserService'
-import { LargeContainer, ContentContainer, MaxWidthContainer, ResponsiveContainer } from 'src/styled/styles'
+import { LargeContainer, ContentContainer, ResponsiveContainer } from 'src/styled/styles'
 import Carousel from 'src/views/components/carousel'
 import CategoryCard from 'src/views/components/categoryCard'
 import Divider from 'src/views/components/divider'
@@ -18,7 +16,6 @@ import Cookie from 'src/helpers/Cookie'
 // ** Tailwind Styled
 import tw from 'tailwind-styled-components'
 import { useDispatch } from 'react-redux'
-import { fetchUserData } from 'src/store/apps/user'
 import { fetchCompaniesData } from 'src/store/apps/companies'
 
 // ** Styled Components

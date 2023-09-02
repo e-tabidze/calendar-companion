@@ -61,7 +61,7 @@ const NewCompany = () => {
           }
         }) => {
           if (addr.isSameTime) {
-            let takeDefaultTime = {
+            const takeDefaultTime = {
               startTime: addr.working_hours['monday'].startTime,
               endTime: addr.working_hours['monday'].endTime
             }
@@ -89,6 +89,8 @@ const NewCompany = () => {
   }
 
   return (
+
+    // @ts-ignore
     <FormProvider {...control}>
       <NewListingLayout
         options={options}

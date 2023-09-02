@@ -14,6 +14,7 @@ const options2 = [
 ]
 const StepSix = () => {
   const { control } = useForm()
+  
   return (
     <div>
       <Typography type='h4' weight='normal' color='dark' className='mb-4'>

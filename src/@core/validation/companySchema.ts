@@ -44,6 +44,7 @@ const CompanySchema = Yup.object<Company>().shape({
         return true
       }
       const numericValue = parseFloat(value.toString())
+      
       return !isNaN(numericValue) && numericValue.toString().length === 11
     }),
 

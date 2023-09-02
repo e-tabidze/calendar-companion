@@ -11,6 +11,7 @@ interface Props {
 
 const StepTwo: React.FC<Props> = ({ control, addressFields, appendAddress, errors }) => {
   const { defaultAddress } = useCreateCompany()
+  
   return (
     <div>
       {addressFields.map((field: any, index: number) => (

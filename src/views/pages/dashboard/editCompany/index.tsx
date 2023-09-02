@@ -8,6 +8,7 @@ import AddressAndSchedule from '../../profile/company/addressAndSchedule'
 
 const EditCompany = () => {
   const { control } = useForm()
+  
   return (
     <div className='border border-raisin-10 rounded-3xl large:p-8'>
       <div className='flex gap-6 items-center mb-10'>
