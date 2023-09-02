@@ -1,5 +1,5 @@
 // ** Redux Imports
-import { createSlice, createAsyncThunk, createAction } from '@reduxjs/toolkit'
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 
 // ** Service Imports
 import { Dispatch } from 'redux'
@@ -66,6 +66,7 @@ export const appCompaniesSlice = createSlice({
     },
     setCreateCompanyLoadingStatus: (state, action) => {
       state.status = STATUSES.PENDING
+      state.status = action.payload
     },
     setCompanyData: (state, action) => {
       state.createdCompanyData = action.payload
@@ -78,7 +79,6 @@ export const appCompaniesSlice = createSlice({
       state.error = action.payload
     }
   },
-  extraReducers: builder => {}
 })
 
 export const {

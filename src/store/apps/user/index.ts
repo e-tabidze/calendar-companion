@@ -51,7 +51,6 @@ export const appUsersSlice = createSlice({
       state.error = action.payload
     }
   },
-  extraReducers: () => {}
 })
 
 export const { setUserInfoLoadingStatus, setUserData, setError } = appUsersSlice.actions

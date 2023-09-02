@@ -8,6 +8,7 @@ interface Props {
 }
 const DiscountComponent: React.FC<Props> = ({ index, options }) => {
   const { control } = useForm()
+  
   return (
     <div className='flex items-center gap-3 my-3' key={index}>
       <div className='w-5'> {index}. </div>

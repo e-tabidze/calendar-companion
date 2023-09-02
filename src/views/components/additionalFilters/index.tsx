@@ -9,7 +9,6 @@ import Checkbox from '../checkbox'
 import Divider from '../divider'
 import Image from '../image'
 import { DefaultInput } from '../input'
-import SelectField from '../selectField'
 import Tag from '../tag'
 import Typography from '../typography'
 
@@ -69,11 +68,6 @@ const categories = [
   }
 ]
 
-const selectOptions = [
-  { value: 'Mercedes', label: 'Mercedes' },
-  { value: 'Audi', label: 'Audi' },
-  { value: 'BMW', label: 'BMW' }
-]
 const fuelType = ['ელექტრო', 'ჰიბრიდი', 'დატენვადი ჰიბრიდი', 'ბენზინი', 'დიზელი', 'გაზი']
 
 const doors = ['2/3', '4/5', '5+']
@@ -280,7 +274,7 @@ const AdditionalFilters: React.FC<Props> = ({ open, setOpen }) => {
                     ))}
                   </div>
                   <Divider />
-                  <SwitchField label='უფასო მიწოდება' onChange={() => console.log('')} value={false} className='my-8' />
+                  <SwitchField label='უფასო მიწოდება' name='' control={control} defaultValue className='my-8' />
                   <Divider />
 
                   <SectionWrapper>

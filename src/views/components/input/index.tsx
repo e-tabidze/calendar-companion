@@ -1,8 +1,6 @@
 import Image from 'next/image'
 import { useState } from 'react'
 import Typography from '../typography'
-import tw from 'tailwind-styled-components'
-import { TailwindComponent } from 'src/interfaces/tailwind'
 import _ from 'lodash'
 
 import { Controller } from 'react-hook-form'
@@ -46,22 +44,12 @@ export const DefaultInput: React.FC<Props> = ({
   name = '',
   label,
   id,
-  prefix,
   errors,
   pattern,
-  type,
   disabled = false,
-  inputStyles = '',
-  valueSelectorFunction,
-  innerButton = false,
-  innerButtonText = '',
-  innerButtonOnClick = (e: any) => console.log(e),
   rows,
   className,
   index,
-  setError,
-  clearErrors,
-  placeholder
 }) => {
   const [isFocused, setIsFocused] = useState(false)
   const InputComponent = rows ? 'textarea' : 'input'

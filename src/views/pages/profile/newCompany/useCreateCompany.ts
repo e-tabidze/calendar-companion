@@ -4,7 +4,6 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { useDispatch } from 'react-redux'
 import { CompanySchema } from 'src/@core/validation/companySchema'
 import { AppDispatch } from 'src/store'
-import { Company } from 'src/types/Company'
 
 const useCreateCompany = () => {
   const dispatch = useDispatch<AppDispatch>()

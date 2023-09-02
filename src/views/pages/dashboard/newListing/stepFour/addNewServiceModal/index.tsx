@@ -3,8 +3,9 @@ import { Dialog, Transition } from '@headlessui/react'
 import { DefaultButton, IconButton } from 'src/views/components/button'
 import Counter from 'src/views/components/counter'
 import Divider from 'src/views/components/divider'
-import { DefaultInput, MultilineInput } from 'src/views/components/input'
+import { DefaultInput } from 'src/views/components/input'
 import Typography from 'src/views/components/typography'
+import { useForm } from 'react-hook-form'
 
 interface Props {
   open: boolean
@@ -12,6 +13,8 @@ interface Props {
 }
 
 const AddNewServiceModal: React.FC<Props> = ({ open, onClose }) => {
+  const { control } = useForm()
+
   return (
     <Transition appear show={open} as={Fragment}>
       <Dialog as='div' className='relative z-50' onClose={onClose}>
@@ -48,8 +51,8 @@ const AddNewServiceModal: React.FC<Props> = ({ open, onClose }) => {
                 <Divider />
                 <div className='p-6 mb-20'>
                   <div className='flex flex-col gap-4'>
-                    <DefaultInput label='სერვისის დასახელება' />
-                    <MultilineInput label='გადაცემის პირობები' rows={4} />
+                    <DefaultInput label='სერვისის დასახელება' control={control} name="" />
+                    <DefaultInput label='გადაცემის პირობები' control={control} name="" rows={4} />
                   </div>
                   <Typography type='subtitle' className='text-black font-bold mt-9 mb-2'>
                     ღირებულება
@@ -59,7 +62,7 @@ const AddNewServiceModal: React.FC<Props> = ({ open, onClose }) => {
                       მითითებული ფასი განსაზღვრავს დამატებითი სერვისისის 1 დღის ქირაობის ფასს, რომლის ცვალებადობაც
                       დამოკიდებული იქნება დღეების რაოდენობასზე
                     </Typography>
-                    <DefaultInput label='დღიური ღირებულება' className='!w-64' />
+                    <DefaultInput label='დღიური ღირებულება' className='!w-64' control={control} name="" />
                   </div>
 
                   <Typography type='subtitle' className='text-black font-bold mt-12 mb-2'>

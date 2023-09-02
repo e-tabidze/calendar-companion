@@ -28,11 +28,6 @@ interface Props2 {
   prop2: any
 }
 
-interface Props {
-  component: React.ComponentType
-  condition: any
-}
-
 const NewListing: React.FC = () => {
   const router = useRouter()
   const [step, setStep] = useState(options[0])
@@ -68,6 +63,8 @@ const NewListing: React.FC = () => {
   }
 
   return (
+
+    // @ts-ignore
     <NewListingLayout
       options={options}
       onChange={selectOption}

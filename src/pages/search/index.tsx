@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useForm } from 'react-hook-form'
 import useWindowDimensions from 'src/hooks/useWindowDimensions'
 import DefaultLayout from 'src/layouts/DefaultLayout'
 import { LargeContainer } from 'src/styled/styles'
@@ -33,6 +34,8 @@ const SearchPage = () => {
     toggleMapLayout(!mapLayout)
   }
 
+  const { control } = useForm()
+
   return (
     <DefaultLayout>
       <LargeContainer>
@@ -44,7 +47,7 @@ const SearchPage = () => {
             <CategoryPopover />
             <Tag
               label='უფასო მიწოდება'
-              component={<Switcher height='h-5' value={false} onChange={() => console.log('')} />}
+              component={<Switcher height='h-5' name='name' control={control} defaultValue />}
               height='h-10'
             />
             <SeatsPopover />
