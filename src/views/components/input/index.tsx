@@ -81,12 +81,9 @@ export const DefaultInput: React.FC<Props> = ({
         render={({ field: { onChange, value } }) => (
           <>
             <label
-              // className={`${styles.label} ${
-              //   rows ? (isFocused || value ? 'top-3' : 'top-1/2') : isFocused || value ? 'top-3' : 'top-1/2'
-              // }`}
-              // className={`${styles.label} `}
-              // className={`${styles.label} ${isFocused ? 'text-blue-500' : ''}`}
-              className={`absolute left-3 ${isFocused || value ? 'text-sm text-raisin-50' : 'text-2sm text-raisin-80 top-4'}`}
+              className={`absolute left-3 ${
+                isFocused || value ? 'text-sm text-raisin-50' : 'text-2sm text-raisin-80 top-4'
+              }`}
             >
               {label}
             </label>
@@ -188,22 +185,29 @@ export const InputWithComponent: React.FC<Props> = ({ label, className, onCompon
     setIsFocused(true)
   }
 
-  const labelClasses = isFocused
-    ? 'text-sm absolute top-3 -translate-y-1/2 transition-transform'
-    : 'text-sm absolute top-1/2 transform -translate-y-1/2 transition-transform'
+  const handleBlur = () => {
+    setIsFocused(false)
+  }
 
   return (
     <InputContainer className={`${className} h-14 border border-raisin-10 rounded-xl px-3 py-2 flex items-center`}>
-      {isFocused && <label className={`${labelClasses} left-3 text-raisin-50`}>{label}</label>}
       <Controller
         name={name}
         control={control}
         render={({ field: { onChange, value } }) => (
           <>
-            <label className={`${styles.label} focus:border-none focus-visible:border-none`}>{label}</label>
+            <label
+              className={`absolute left-3 ${
+                isFocused || value ? 'text-sm text-raisin-50 top-0' : 'text-2sm text-raisin-80 top-4'
+              }`}
+            >
+              {label}
+            </label>
             <input
               className='focus:border-none focus-visible:border-none focus-visible:outline-none focus-visible:ring-0 h-full w-full'
               value={value}
+              onFocus={handleFocus}
+              onBlur={handleBlur}
               type='text'
               onChange={e => {
                 onChange(e)
@@ -219,60 +223,3 @@ export const InputWithComponent: React.FC<Props> = ({ label, className, onCompon
     </InputContainer>
   )
 }
-
-// export const InputWithComponent: React.FC<Props> = ({
-//   label,
-//   value,
-//   onChange,
-//   onComponentClick,
-//   className,
-//   disabled,
-//   pattern
-// }) => {
-//   const [isFocused, setIsFocused] = useState(false)
-
-//   const handleFocus = () => {
-//     setIsFocused(true)
-//   }
-
-//   const handleBlur = (e: { target: { value: string | any[] } }) => {
-//     setIsFocused(e.target.value.length > 0)
-//   }
-
-//   const labelClasses = isFocused
-//     ? 'text-sm absolute top-3 -translate-y-1/2 transition-transform'
-//     : 'text-sm absolute top-1/2 transform -translate-y-1/2 transition-transform'
-
-//   return (
-//     <InputContainer className={`${className} h-14 border border-raisin-10 rounded-xl px-3 py-2 flex items-center`}>
-//       {isFocused && <label className={`${labelClasses} left-3 text-raisin-50`}>{label}</label>}
-
-//       <>
-//         <label
-//           // className={`${styles.label} ${
-//           //   rows ? (isFocused || value ? 'top-3' : 'top-1/2') : isFocused || value ? 'top-3' : 'top-1/2'
-//           // }`}
-//           className={`${styles.label} focus:border-none focus-visible:border-none`}
-//         >
-//           {label}
-//         </label>
-//         <input
-//           // onFocus={e => {
-//           //   handleFocus()
-//           // }}
-//           className='focus:border-none focus-visible:border-none focus-visible:outline-none focus-visible:ring-0 h-full w-full'
-//           disabled={disabled}
-//           value={value || ''}
-//           // className={` ${rows ? '' : 'h-14'} ${styles.input} ${errors[name] && 'border border-red-100'}`}
-//           type='text'
-//           onChange={onChange}
-//           pattern={pattern}
-//         />
-//       </>
-//       <div className='flex items-center gap-3 w-fit absolute h-full right-0 top-0 border-l border-raisin-10 px-5 cursor-pointer'>
-//         <Image src='/icons/map.svg' alt='' height={24} width={24} onClick={onComponentClick} />
-//         <Typography type='subtitle'>რუკაზე</Typography>
-//       </div>
-//     </InputContainer>
-//   )
-// }
