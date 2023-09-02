@@ -1,11 +1,13 @@
 import Image from 'next/image'
 import Link from 'next/link'
+import { useForm } from 'react-hook-form'
 import Divider from 'src/views/components/divider'
-import { DefaultInput, MultilineInput } from 'src/views/components/input'
+import { DefaultInput } from 'src/views/components/input'
 import Typography from 'src/views/components/typography'
 import AddressAndSchedule from '../../profile/company/addressAndSchedule'
 
 const EditCompany = () => {
+  const { control } = useForm()
   return (
     <div className='border border-raisin-10 rounded-3xl large:p-8'>
       <div className='flex gap-6 items-center mb-10'>
@@ -27,14 +29,16 @@ const EditCompany = () => {
       </div>
       <Divider />
       <div className='grid grid-cols-3 gap-4 mt-10'>
-        <DefaultInput label='დასახელება' value='ბენე პლიუსი' />
-        <DefaultInput label='საიდენტიფიკაციო კოდი' value='402461423' />
-        <DefaultInput label='იურიდიული დასახელება' value='შპს ბენე პლიუსი' />
-        <MultilineInput
-          className='col-span-3'
-          label='აღწერა'
+        <DefaultInput name='' control={control} errors={''} label='დასახელება' />
+        <DefaultInput name='' control={control} errors={''} label='საიდენტიფიკაციო კოდი' />
+        <DefaultInput name='' control={control} errors={''} label='იურიდიული დასახელება' />
+        <DefaultInput
+          name=''
+          control={control}
+          errors={''}
+          label='იურიდიული დასახელება'
           rows={4}
-          value='გთხოვთ გადაამოწმოთ მითითებული პარამეტრები და შემდეგ დაასრულოთ დაჯავშნის პროცესი, ეს პარამეტრები მნიშვნელოვანია შემდგომში თქვენსა და გამქირავებელს შორის კომუნიკაციისთვის'
+          className='col-span-3'
         />
       </div>
       <Typography type='h3' className='font-bold'>

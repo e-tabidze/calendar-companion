@@ -9,6 +9,7 @@ import CompanyDashboard from 'src/views/pages/dashboard/companyDasboard'
 import IncomingOrders from 'src/views/pages/dashboard/incomingOrders'
 import Vehicles from 'src/views/pages/dashboard/vehicles'
 import EditCompany from 'src/views/pages/dashboard/editCompany'
+import NewListing from 'src/views/pages/dashboard/newListing'
 
 const routes = [
   {
@@ -21,7 +22,7 @@ const routes = [
     id: 2,
     icon: '',
     item: 'განცხადების დამატება',
-    path: '/new-listing'
+    path: '/dashboard/new-listing'
   },
   {
     id: 3,
@@ -68,15 +69,15 @@ const Profile = () => {
   const sidebarClassName = `h-fit w-full mx-4 large:mx-4 large:w-fit border border-raisin-10 rounded-3xl p-6 ${
     isSidebarVisible ? 'block' : 'hidden'
   } large:block`
-
-  const contentClassName = `w-full ${isSidebarVisible ? 'hidden' : 'block'} large:block`
+ 
+  const contentClassName = `w-full z-[111] ${isSidebarVisible ? 'hidden' : 'block'} large:block`
 
   const getComponentByPath = (path: any) => {
     switch (path) {
       case '/dashboard/dashboard/':
         return <CompanyDashboard />
       case '/dashboard/new-listing/':
-        return <div>New Listing</div>
+        return <NewListing  />
       case '/dashboard/orders/':
         return <IncomingOrders />
       case '/dashboard/payments/':
@@ -106,7 +107,7 @@ const Profile = () => {
 
   return (
     <DefaultLayout>
-      <div className='w-full m-auto max-w-[1470px] laptop:px-8 2xl:px-0'>
+      <div className='w-full m-auto max-w-[1200px] laptop:px-8 2xl:px-0'>
         <div className='flex gap-none large:gap-4 mt-9'>
           <div className={sidebarClassName}>
             <div

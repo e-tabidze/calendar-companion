@@ -1,7 +1,7 @@
+import React from 'react'
 import Image from 'next/image'
-import React, { useState } from 'react'
+import { Controller } from 'react-hook-form'
 import Select, { ClearIndicatorProps, components, DropdownIndicatorProps, GroupBase } from 'react-select'
-import Typography from '../typography'
 
 const customStyles = {
   indicatorSeparator: () => ({
@@ -15,7 +15,7 @@ const customStyles = {
     borderRadius: '8px',
     border: state.isFocused ? '1px solid #272A37' : '1px solid #E9EAEB',
     boxShadow: state.isFocused ? '1px solid #272A37' : '1px solid #E9EAEB',
-    transition: 'border 0.2s',
+    transition: 'border 0.2s'
   }),
   valueContainer: (provided: any, state: { hasValue: any }) => ({
     ...provided,
@@ -25,7 +25,7 @@ const customStyles = {
     ...provided,
     maxHeight: '150px',
     overflow: 'auto'
-  }),
+  })
 }
 interface Option {
   value: string
@@ -35,9 +35,12 @@ interface Option {
 interface Props {
   placeholder?: string
   options: Option[]
-  disabled: boolean
+  disabled?: boolean
   className?: string
   icon?: boolean
+  control: any
+  name: string
+  defaultValue?: string
 }
 
 const Control = ({ children, ...props }: any) => {
@@ -52,13 +55,7 @@ const Control = ({ children, ...props }: any) => {
   )
 }
 
-const SelectField: React.FC<Props> = ({ placeholder, options, disabled, className, icon }) => {
-  const [selectedOption, setSelectedOption] = useState<Option>()
-
-  const handleChange = (option: any) => {
-    setSelectedOption(option)
-  }
-
+const SelectField: React.FC<Props> = ({ options, disabled = false, className, icon, control, name, defaultValue }) => {
   const { DropdownIndicator, ClearIndicator } = components
 
   const customDropdownIndicator = (
@@ -83,35 +80,36 @@ const SelectField: React.FC<Props> = ({ placeholder, options, disabled, classNam
 
   return (
     <div className={`relative ${className}`}>
-      <Typography
-        type='body'
-        color='light'
-        className={`${selectedOption && selectedOption.value ? 'inline-block absolute z-30 left-3 top-1' : 'hidden'}`}
-      >
-        {placeholder}
-      </Typography>
-      <Select
-        styles={customStyles}
-        options={options}
-        value={selectedOption}
-        onChange={handleChange}
-        components={{
-          DropdownIndicator: customDropdownIndicator,
-          ClearIndicator: customClearIndicator,
-          Control
-        }}
-        isClearable
-        placeholder={placeholder}
-        isDisabled={disabled}
-        
-        // @ts-ignore
-        emoji={
-          icon && (
-            <div className='ml-4'>
-              <Image src='/icons/clock.svg' alt='' height={18} width={18} />
-            </div>
-          )
-        }
+      <Controller
+        name={name}
+        control={control}
+        defaultValue={defaultValue}
+        render={({ field: { onChange, value } }) => (
+          <Select
+            styles={customStyles}
+            options={options}
+            value={options.find(opt => opt.value === value || '')}
+            onChange={(e: any) => {
+              onChange(e?.value || '')
+            }}
+            components={{
+              DropdownIndicator: customDropdownIndicator,
+              ClearIndicator: customClearIndicator,
+              Control
+            }}
+            isClearable
+            placeholder={''}
+            isDisabled={disabled}
+            // @ts-ignore
+            emoji={
+              icon && (
+                <div className='ml-4'>
+                  <Image src='/icons/clock.svg' alt='' height={18} width={18} />
+                </div>
+              )
+            }
+          />
+        )}
       />
     </div>
   )

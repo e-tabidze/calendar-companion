@@ -54,9 +54,7 @@ const LanguagePicker = () => {
                     active ? 'font-semibold' : 'font-normal'
                   } group text-gray-900 flex w-full items-center rounded-md px-2 py-1 text-sm hover:bg-gray-20`}
                 >
-                  <Typography type='subtitle'>
-                    {lang.lan}
-                  </Typography>
+                  <Typography type='subtitle'>{lang.lan}</Typography>
                 </button>
               </Menu.Item>
             ))}

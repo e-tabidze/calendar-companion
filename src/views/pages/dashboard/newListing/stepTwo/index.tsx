@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useForm } from 'react-hook-form'
 import useWindowDimensions from 'src/hooks/useWindowDimensions'
 import CategoryCard from 'src/views/components/categoryCard'
 import Checkbox from 'src/views/components/checkbox'
@@ -124,6 +125,7 @@ const additionalParameters = [
 const StepTwo = () => {
   const [selectedCategories, setSelectedCategoris] = useState<any[]>([])
   const { width } = useWindowDimensions()
+  const { control } = useForm()
 
   const handleSelectCategories = (id: number) => {
     if (selectedCategories.includes(id)) {
@@ -151,7 +153,7 @@ const StepTwo = () => {
           ))}
         </div>
       ) : (
-        <SelectField options={categories} placeholder='კატეგორია' disabled={false} />
+        <SelectField control={control} name="" options={categories} placeholder='კატეგორია' disabled={false} />
       )}
 
       <Typography type='h4' color='dark' className='mt-14'>

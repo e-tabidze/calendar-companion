@@ -1,4 +1,5 @@
 import { JSXElementConstructor, ReactElement, useState } from 'react'
+import { useForm } from 'react-hook-form'
 import useWindowDimensions from 'src/hooks/useWindowDimensions'
 import { IconTextButton } from 'src/views/components/button'
 import CurrencySelector from 'src/views/components/currencySelector'
@@ -27,6 +28,7 @@ const StepThree = () => {
     <DiscountComponent index={1} options={options} key={Math.random()} />
   ])
   const { width } = useWindowDimensions()
+  const { control } = useForm()
 
   const addComponent = () => {
     setDiscountComponents([
@@ -43,7 +45,7 @@ const StepThree = () => {
   return (
     <StepThreeContainer>
       <StepThreePriceContainer>
-        <DefaultInput label='დღიური ღირებულება' />
+        <DefaultInput label='დღიური ღირებულება' control={control} name="" errors={""} />
         <CurrencySelector />
       </StepThreePriceContainer>
       <Typography type='subtitle' className='my-9'>

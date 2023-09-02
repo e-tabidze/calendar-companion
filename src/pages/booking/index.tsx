@@ -68,12 +68,12 @@ const Booking = () => {
               პირადი ინფორმაცია *
             </Typography>
             <div className='grid gap-3 my-6 grid-cols-1 laptop:grid-cols-2 laptop:gap-4'>
-              <DefaultInput label='სახელი, გვარი' value='' onChange={(e: any) => console.log(e.target.value)} />
-              <DefaultInput label='სახელი, გვარი' value='' onChange={(e: any) => console.log(e.target.value)} />
-              <DefaultInput label='სახელი, გვარი' value='' onChange={(e: any) => console.log(e.target.value)} />
-              <DefaultInput label='სახელი, გვარი' value='' onChange={(e: any) => console.log(e.target.value)} />
-              <DefaultInput label='სახელი, გვარი' value='' onChange={(e: any) => console.log(e.target.value)} />
-              <DefaultInput label='სახელი, გვარი' value='' onChange={(e: any) => console.log(e.target.value)} />
+              <DefaultInput label='სახელი, გვარი' value='' control={control} name='' errors={""} />
+              <DefaultInput label='სახელი, გვარი' value='' control={control} name='' errors={""} />
+              <DefaultInput label='სახელი, გვარი' value='' control={control} name='' errors={""} />
+              <DefaultInput label='სახელი, გვარი' value='' control={control} name='' errors={""} />
+              <DefaultInput label='სახელი, გვარი' value='' control={control} name='' errors={""} />
+              <DefaultInput label='სახელი, გვარი' value='' control={control} name='' errors={""} />
             </div>
             <Typography type='body' color='light' className='mb-14'>
               გთხოვთ გადაამოწმოთ მითითებული პარამეტრები და შემდეგ დაასრულოთ დაჯავშნის პროცესი, ეს პარამეტრები
