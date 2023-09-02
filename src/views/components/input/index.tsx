@@ -64,13 +64,9 @@ export const DefaultInput: React.FC<Props> = ({
   const [isFocused, setIsFocused] = useState(false)
   const InputComponent = rows ? 'textarea' : 'input'
 
-  const handleFocus = () => {
-    setIsFocused(true)
-  }
+  const handleFocus = () => setIsFocused(true)
 
-  const handleBlur = () => {
-    setIsFocused(false)
-  }
+  const handleBlur = () => setIsFocused(false)
 
   return (
     <InputContainer key={index} className={`${className} ${disabled && styles.disabledInput}`}>
@@ -88,11 +84,11 @@ export const DefaultInput: React.FC<Props> = ({
               {label}
             </label>
             <InputComponent
-              onFocus={() => handleFocus()}
-              onBlur={() => handleBlur()}
+              onFocus={handleFocus}
+              onBlur={handleBlur}
               disabled={disabled}
               value={value || ''}
-              className={` ${rows ? '' : 'h-14'} ${styles.input} ${!disabled ? 'hover:border-raisin-30' : ''} ${
+              className={` ${rows ? 'pt-4' : 'h-14'} ${styles.input} ${!disabled ? 'hover:border-raisin-30' : ''} ${
                 _.get(errors, name)?.ref.name === name ? 'border border-red-100' : ''
               }`}
               type='text'
@@ -103,7 +99,7 @@ export const DefaultInput: React.FC<Props> = ({
               rows={rows}
             />
             {errors && (
-              <div id={id} className='text-sm text-red-100'>
+              <div id={id} className='text-sm text-red-100 ml-2'>
                 {_.get(errors, name)?.message}
               </div>
             )}
@@ -181,13 +177,9 @@ export const PasswordInput = ({ label, value, className, onChange, ...rest }: an
 
 export const InputWithComponent: React.FC<Props> = ({ label, className, onComponentClick, name, control }) => {
   const [isFocused, setIsFocused] = useState(false)
-  const handleFocus = () => {
-    setIsFocused(true)
-  }
+  const handleFocus = () => setIsFocused(true)
 
-  const handleBlur = () => {
-    setIsFocused(false)
-  }
+  const handleBlur = () => setIsFocused(false)
 
   return (
     <InputContainer className={`${className} h-14 border border-raisin-10 rounded-xl px-3 py-2 flex items-center`}>

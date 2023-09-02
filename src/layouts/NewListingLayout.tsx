@@ -39,7 +39,7 @@ const NewListingLayout: React.FC<Props> = ({
 
   return (
     <MaxWidthContainer className='absolute w-full min-h-screen top-0 left-0 bg-white'>
-      <NewListingHeaderContainer style={{ position: 'sticky' }}>
+      <NewListingHeaderContainer style={{ position: 'sticky', maxWidth: "1470px" }}>
         <div className='flex justify-between items-center py-3 px-2 relative'>
           <Image src='/images/logo-rent.svg' alt='' onClick={onClickLogo} height={40} width={131} />
           {width > 781 && renderNewListingSelect()}

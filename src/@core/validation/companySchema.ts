@@ -20,26 +20,26 @@ const WorkingHoursSchema = Yup.object<WorkingHours>().shape({
 const CompanyAddressSchema = Yup.object<CompanyAddress>().shape({
   address: Yup.string(),
   phone: Yup.string(),
-  email: Yup.string().email('Invalid email format'),
+  email: Yup.string().email('მეილის ფორმატი არასწორია'),
   lat: Yup.string(),
   long: Yup.string(),
   working_hours: WorkingHoursSchema
 })
 
 const CompanyInfoSchema = Yup.object<CompanyInfo>().shape({
-  name: Yup.string().required("required"),
+  name: Yup.string().required("სავალდებულო ველი"),
   logo: Yup.string(),
-  description: Yup.string().required("required"),
-  email: Yup.string().email('Invalid email format'),
+  description: Yup.string().required("სავალდებულო ველი"),
+  email: Yup.string().email('მეილის ფორმატი არასწორია'),
   phone_numbers: Yup.string()
 })
 
 const CompanySchema = Yup.object<Company>().shape({
   identification_number: Yup.number()
-    .required('Identification number is required')
+    .required('საინდეთიფიკაციო ნომერი უნდა იყოს რიცხვი')
     .nullable()
-    .typeError('Identification number must be a number')
-    .test('is-11-digit', 'Identification number must be 11 digits', value => {
+    .typeError('საინდეთიფიკაციო ნომერი უნდა იყოს რიცხვი')
+    .test('is-11-digit', 'საინდეთიფიკაციო ნომერი უნდა იყოს 11 ნიშნიანი', value => {
       if (value === null || value === undefined) {
         return true
       }
