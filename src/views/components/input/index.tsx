@@ -3,6 +3,7 @@ import { useState } from 'react'
 import Typography from '../typography'
 import tw from 'tailwind-styled-components'
 import { TailwindComponent } from 'src/interfaces/tailwind'
+import _ from 'lodash'
 
 import { Controller } from 'react-hook-form'
 import { InputContainer } from './styles'
@@ -10,7 +11,7 @@ import { InputContainer } from './styles'
 const styles = {
   disabledInput: 'opacity-80',
   input:
-    'w-full rounded-xl px-3 py-2 text-sm text-raisin-100 border border-raisin-10 focus:border-raisin-100 focus:outline-none placeholder:text-raisin-100 placeholder:text-2sm',
+    'w-full rounded-xl px-3 py-2 text-2sm text-raisin-100 border border-raisin-10 focus:border-raisin-100 focus:outline-none placeholder:text-raisin-100 placeholder:text-2sm',
   label: 'text-sm absolute left-3 text-raisin-50 focus:top-2'
 }
 
@@ -63,19 +64,13 @@ export const DefaultInput: React.FC<Props> = ({
   const [isFocused, setIsFocused] = useState(false)
   const InputComponent = rows ? 'textarea' : 'input'
 
-  // const handleFocus = () => {
-  //   setIsFocused(true)
-  // }
+  const handleFocus = () => {
+    setIsFocused(true)
+  }
 
   const handleBlur = () => {
     setIsFocused(false)
   }
-
-  console.log(errors, 'errors')
-
-  console.log(Object.keys(errors).length === 0), 'empty?'
-
-  console.log(errors && Object.keys(errors).length > 0 ? eval(`errors?.${name}`) : '<==', 'check')
 
   return (
     <InputContainer key={index} className={`${className} ${disabled && styles.disabledInput}`}>
@@ -89,17 +84,20 @@ export const DefaultInput: React.FC<Props> = ({
               // className={`${styles.label} ${
               //   rows ? (isFocused || value ? 'top-3' : 'top-1/2') : isFocused || value ? 'top-3' : 'top-1/2'
               // }`}
-              className={`${styles.label} `}
+              // className={`${styles.label} `}
+              // className={`${styles.label} ${isFocused ? 'text-blue-500' : ''}`}
+              className={`absolute left-3 ${isFocused || value ? 'text-sm text-raisin-50' : 'text-2sm text-raisin-80 top-4'}`}
             >
               {label}
             </label>
             <InputComponent
-              // onFocus={e => {
-              //   handleFocus()
-              // }}
+              onFocus={() => handleFocus()}
+              onBlur={() => handleBlur()}
               disabled={disabled}
               value={value || ''}
-              className={` ${rows ? '' : 'h-14'} ${styles.input} ${Object.keys(errors).length > 0 ? 'border border-red-100' : ''}`}
+              className={` ${rows ? '' : 'h-14'} ${styles.input} ${!disabled ? 'hover:border-raisin-30' : ''} ${
+                _.get(errors, name)?.ref.name === name ? 'border border-red-100' : ''
+              }`}
               type='text'
               onChange={e => {
                 onChange(e)
@@ -109,7 +107,7 @@ export const DefaultInput: React.FC<Props> = ({
             />
             {errors && (
               <div id={id} className='text-sm text-red-100'>
-                {errors && Object.keys(errors).length > 0 && eval(`errors?.${name}?.message`)}
+                {_.get(errors, name)?.message}
               </div>
             )}
           </>
