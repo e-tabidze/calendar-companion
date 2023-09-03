@@ -41,7 +41,7 @@ const SearchPage = () => {
     <>
       <DefaultLayout fullWidth={true}>
         <Divider />
-        <FullContainer className='px-10'>
+        <FullContainer>
           <FiltersWrapper>
             <MainFilters>
               <PricePopover />
@@ -52,8 +52,12 @@ const SearchPage = () => {
                 component={<Switcher height='h-5' value={false} onChange={() => console.log('')} />}
                 height='h-10'
               />
-              <SeatsPopover />
-              <SuitcasesPopover />
+              <div className="hidden desktop:flex">
+                <SeatsPopover />
+              </div>
+              <div className="hidden desktop:flex">
+                <SuitcasesPopover />
+              </div>
               <Tag
                 label='ყველა ფილტრი'
                 component={<Image src='/icons/filters.svg' alt='' />}
@@ -82,7 +86,7 @@ const SearchPage = () => {
             <Typography type='h5' weight='normal' className='mr-2 mb-5 large:mb-0'>
               სულ ნაპოვნია 71 განცხადება
             </Typography>
-            <div className='flex items-center my-4'>
+            <div className='w-full large:w-auto flex items-center my-4'>
               <span
                 className={`cursor-pointer ml-3 hidden laptop:flex items-center justify-center w-8 h-8 rounded-full ${
                   mapVisible ? '' : 'bg-green-10'
@@ -97,21 +101,24 @@ const SearchPage = () => {
               >
                 <Image src='/icons/gridMap.svg' onClick={handleToggleMapWidth} className='h-[14px]' alt='' />
               </span>
-              <div className='flex large:ml-6'>
-                {width < 1025 && (
+              <div className='w-full large:w-auto flex justify-between large:ml-6'>
+                <div className="flex">
+                  {width < 1025 && (
+                      <Tag
+                          component={<Image src='/icons/filters.svg' alt='' />}
+                          label={'ფილტრი'}
+                          height='h-10'
+                          bg={'bg-grey-60'}
+                      />
+                  )}
                   <Tag
-                    component={<Image src='/icons/filters.svg' alt='' />}
-                    label={'ფილტრი'}
-                    height='h-10'
-                    bg={'bg-grey-60'}
+                      className='mx-4 laptop:mx-0'
+                      component={<Image src='/icons/sort.svg' alt='' />}
+                      label={width > 779 ? 'სორტირება' : ''}
+                      height={width > 1025 ? 'h-12' : 'h-10'}
                   />
-                )}
-                <Tag
-                  className='mx-4'
-                  component={<Image src='/icons/sort.svg' alt='' />}
-                  label={width > 779 ? 'სორტირება' : ''}
-                  height={width > 779 ? 'h-12' : 'h-10'}
-                />
+                </div>
+
                 {width < 1025 && (
                   <Tag
                     component={<Image src='/icons/map.svg' alt='' />}
@@ -143,7 +150,7 @@ const SearchPage = () => {
           </div>
         </SearchContentsContainer>
         <MapContainer
-          className={`absolute z-[111] top-[197px] laptop:top-[0] w-full left-0 laptop:relative overflow-hidden transition-all duration-300 ${
+          className={`absolute z-[111] laptop:z-[1] top-[197px] large:top-[153px] laptop:top-[0] w-full left-0 laptop:relative overflow-hidden transition-all duration-300 ${
             mapVisible ? 'h-[100vh] laptop:w-1/2' : 'h-0 laptop:h-[100vh] laptop:w-[40px]'
           }`}
         >
