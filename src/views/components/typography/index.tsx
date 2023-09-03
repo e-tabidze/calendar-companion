@@ -124,7 +124,7 @@ ${(props: any) => (props.className ? props.className : '')}
 ${(props: any) => (props.color === 'light' ? 'text-raisin-50' : 'text-raisin-130')}
 font-normal text-2sm`
 
-const BodyTypography = tw.p<TextComponent>`font-normal text-sm
+const BodyTypography = tw.p<TextComponent>`whitespace-normal font-normal text-sm 
 ${(props: any) => (props.color === 'light' ? 'text-raisin-50' : 'text-raisin-130')}
 ${(props: any) => (props.className ? props.className : '')}
 `

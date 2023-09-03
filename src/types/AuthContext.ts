@@ -12,9 +12,9 @@ export type RegisterParams = {
 }
 
 export type User = {
-  UserID: number
+  UserID: number | null
   Email: string
-  UserType: number
+  UserType: number | null
   FirstName: string
   LastName: string
 }

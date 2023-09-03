@@ -69,13 +69,13 @@ const Profile = () => {
 
   const router = useRouter()
 
-  const sidebarClassName = `h-fit w-full large:w-4/12 border border-raisin-10 rounded-3xl p-6 ${
+  const sidebarClassName = `h-fit w-full laptop:w-4/12 border border-raisin-10 rounded-3xl p-6 ${
     isSidebarVisible ? 'block' : 'hidden'
-  } large:block`
+  } laptop:block`
 
-  const contentClassName = `w-full z-[111] large:w-8/12 large:border large:border-raisin-10 large:rounded-3xl ${
+  const contentClassName = `w-full z-[111] laptop:w-8/12 laptop:border laptop:border-raisin-10 laptop:rounded-3xl ${
     isSidebarVisible ? 'hidden' : 'block'
-  } large:block`
+  } laptop:block`
 
   const getComponentByPath = (path: any) => {
     switch (path) {
@@ -101,7 +101,7 @@ const Profile = () => {
   const handleRouteChange = (route: any) => {
     router.push(route.path)
     setSelectedRoute(route)
-    width < 779 && setIsSidebarVisible(!isSidebarVisible)
+    width < 1024 && setIsSidebarVisible(!isSidebarVisible)
   }
   useEffect(() => {
     const currentComponent = getComponentByPath(router.asPath)
@@ -121,13 +121,13 @@ const Profile = () => {
               { path: selectedRoute.path, label: selectedRoute.item }
             ]}
             onClick={() => {
-              if (width < 781) {
+              if (width < 1024) {
                 toggleSidebar
               }
             }}
           />
 
-          <div className='flex gap-none large:gap-6 mt-9'>
+          <div className='flex gap-none laptop:gap-6 mt-9'>
             <div className={sidebarClassName}>
               <div className='flex items-center justify-between mb-4'>
                 <div className='flex items-center gap-5'>
@@ -161,7 +161,7 @@ const Profile = () => {
               </div>
             </div>
             <div></div>
-            {width < 779 && isSidebarVisible ? (
+            {width < 1024 && isSidebarVisible ? (
               <></>
             ) : (
               <div className={contentClassName}>
