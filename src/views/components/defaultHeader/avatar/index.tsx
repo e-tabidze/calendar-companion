@@ -6,7 +6,6 @@ import { AvatarContainer, AvatarInnerContainer, AvatarResponsiveContainer } from
 
 const Avatar = () => {
   const { user } = useContext(AuthContext)
-  console.log(user, 'user in header')
   
   return (
     <AvatarContainer>

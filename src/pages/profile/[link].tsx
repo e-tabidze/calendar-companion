@@ -14,6 +14,11 @@ import PersonalInfo from 'src/views/pages/profile/personal-information'
 import NewCompany from 'src/views/pages/profile/newCompany'
 import CardsAndTransactions from 'src/views/pages/profile/cardsAndTransactions'
 import Company from 'src/views/pages/profile/company'
+import { store } from 'src/store'
+import { fetchUserData } from 'src/store/apps/user'
+
+import { ACCESS_TOKEN_NAME } from 'src/env'
+import Cookie from 'src/helpers/Cookie'
 
 const routes = [
   {
@@ -66,6 +71,16 @@ const Profile = () => {
   const [component, setComponent] = useState<any>(<Orders />)
   const [isSidebarVisible, setIsSidebarVisible] = useState(true)
   const [selectedRoute, setSelectedRoute] = useState<any>(routes[0])
+
+  const getUser = async () => {
+    let userData = await store.dispatch(fetchUserData({ AccessToken: Cookie.get(ACCESS_TOKEN_NAME) }))
+    console.log(userData, 'userData')
+    return userData
+  }
+
+  useEffect(() => {
+    getUser()
+  }, [store.dispatch])
 
   const router = useRouter()
 
