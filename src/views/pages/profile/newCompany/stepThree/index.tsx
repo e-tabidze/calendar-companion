@@ -1,28 +1,24 @@
-import { JSXElementConstructor, ReactElement, useState } from 'react'
-import { IconTextButton } from 'src/views/components/button'
 import { DefaultInput } from 'src/views/components/input'
 
-const   StepThree = () => {
-  const [phoneNumberComponents, setPhoneNumberComponents] = useState<any>([
-    <DefaultInput label='მობილურის ნომერი' key={Math.random()} />
-  ])
+interface Props {
+  control: any
+  errors: any
+}
 
-  const addComponent = () => {
-    setPhoneNumberComponents([
-      ...phoneNumberComponents,
-      <DefaultInput label='მობილურის ნომერი' index={phoneNumberComponents.length + 1} key={Math.random()} />
-    ])
-  }
-
+const StepThree: React.FC<Props> = ({ control, errors }) => {
+  console.log(errors, 'errors')
+  
   return (
-    <div className='grid grid-cols-1 gap-2'>
-      <DefaultInput label='ელ. ფოსტა' />
-      <DefaultInput label='ოფისი ნომერი' />
-      <DefaultInput label='ფაქსი' />
-      {phoneNumberComponents.map((component: ReactElement<any, string | JSXElementConstructor<any>>, index: number) => (
-        <div key={index}>{component}</div>
-      ))}
-      <IconTextButton label='სხვა  ნომრის  დამატება' icon='/icons/add.svg' onClick={addComponent} />
+    <div>
+      <div className='grid grid-cols-1 gap-2'>
+        <DefaultInput label='ელ. ფოსტა' control={control} errors={errors} name='company_information.email' />
+        <DefaultInput
+          label='ოფისის ნომერი'
+          control={control}
+          errors={errors}
+          name='company_information.phone_numbers'
+        />
+      </div>
     </div>
   )
 }

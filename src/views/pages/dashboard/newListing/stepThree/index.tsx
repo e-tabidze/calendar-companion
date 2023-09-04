@@ -1,4 +1,5 @@
 import { JSXElementConstructor, ReactElement, useState } from 'react'
+import { useForm } from 'react-hook-form'
 import useWindowDimensions from 'src/hooks/useWindowDimensions'
 import { IconTextButton } from 'src/views/components/button'
 import CurrencySelector from 'src/views/components/currencySelector'
@@ -22,11 +23,12 @@ const options = [
 ]
 
 const StepThree = () => {
-  const [applyDiscount, setApplyDiscount] = useState(false)
+  const [applyDiscount] = useState(false)
   const [discountComponents, setDiscountComponents] = useState<any>([
     <DiscountComponent index={1} options={options} key={Math.random()} />
   ])
   const { width } = useWindowDimensions()
+  const { control } = useForm()
 
   const addComponent = () => {
     setDiscountComponents([
@@ -43,7 +45,7 @@ const StepThree = () => {
   return (
     <StepThreeContainer>
       <StepThreePriceContainer>
-        <DefaultInput label='დღიური ღირებულება' />
+        <DefaultInput label='დღიური ღირებულება' control={control} name='' errors={''} />
         <CurrencySelector />
       </StepThreePriceContainer>
       <Typography type='subtitle' className='my-9'>
@@ -57,8 +59,9 @@ const StepThree = () => {
       <DiscountContainer>
         <SwitchField
           label='ფასდაკლება გაქირავების ხანგრძლივობის მიხედვით'
-          onChange={() => setApplyDiscount(!applyDiscount)}
-          value={applyDiscount}
+          control={control}
+          name=''
+          defaultValue={false}
           className='my-8'
         />
       </DiscountContainer>

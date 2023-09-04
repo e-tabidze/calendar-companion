@@ -6,6 +6,7 @@ import { Divider } from '../../favorites/listComponent/styles'
 import RoundedTag from 'src/views/components/roundedTag'
 import SwitchField from 'src/views/components/switchField'
 import TimeRangeComponent from '../../newCompany/stepTwo/timeRangeComponent'
+import { useForm } from 'react-hook-form'
 
 const days = [
   {
@@ -51,11 +52,8 @@ const EditScheduleModal: React.FC<Props> = ({ open, onClose }) => {
     'friday',
     'saturday'
   ])
-  const [sameTime, setSameTime] = useState(true)
 
-  const togleTime = () => {
-    setSameTime(!sameTime)
-  }
+  const { control } = useForm()
 
   const handleselectedWorkDays = (value: string) => {
     if (selectedWorkDays.includes(value)) {
@@ -101,8 +99,9 @@ const EditScheduleModal: React.FC<Props> = ({ open, onClose }) => {
                 <Divider />
                 <div className='mb-20'>
                   <div className='px-9 grid grid-cols-1 gap-7'>
-                    <SwitchField label='ერთნაირი დროის მონიშვნა' value={sameTime} onChange={togleTime} />
-                    {sameTime ? (
+                    <SwitchField label='ერთნაირი დროის მონიშვნა' name='' control={control} defaultValue />
+
+                    {/* {sameTime ? ( */}
                       <div className='flex items-center justify-between'>
                         <div className='flex items-center gap-4'>
                           {days.map((day, index) => (
@@ -114,9 +113,10 @@ const EditScheduleModal: React.FC<Props> = ({ open, onClose }) => {
                             />
                           ))}
                         </div>
-                        <TimeRangeComponent />
+                        <TimeRangeComponent index={1} control={control} />
                       </div>
-                    ) : (
+
+                    {/* ) : (
                       <div className=''>
                         <div className=''>
                           {days.map((day, index) => (
@@ -126,16 +126,22 @@ const EditScheduleModal: React.FC<Props> = ({ open, onClose }) => {
                                 handleSelect={() => handleselectedWorkDays(day.value)}
                                 selected={selectedWorkDays.includes(day.value)}
                               />
-                              <TimeRangeComponent />
+                              <TimeRangeComponent index={1} control={control} />
                             </div>
                           ))}
                         </div>
                       </div>
-                    )}
+                    )} */}
+                    
                   </div>
                 </div>
                 <div className='flex justify-end bottom-0 w-full shadow-md'>
-                  <DefaultButton text='დამატება' bg='bg-green-100' className='my-4 mr-10' textColor="text-white"></DefaultButton>
+                  <DefaultButton
+                    text='დამატება'
+                    bg='bg-green-100'
+                    className='my-4 mr-10'
+                    textColor='text-white'
+                  ></DefaultButton>
                 </div>
               </Dialog.Panel>
             </Transition.Child>

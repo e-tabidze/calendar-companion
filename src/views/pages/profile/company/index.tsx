@@ -1,9 +1,10 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
+import { useForm } from 'react-hook-form'
 import { DefaultButton, IconTextButton } from 'src/views/components/button'
 import Divider from 'src/views/components/divider'
-import { DefaultInput, MultilineInput } from 'src/views/components/input'
+import { DefaultInput } from 'src/views/components/input'
 import Typography from 'src/views/components/typography'
 import AddressAndSchedule from './addressAndSchedule'
 
@@ -13,6 +14,8 @@ const Company = () => {
   const addComponent = () => {
     setScheduleComponents([...scheduleComponents, <AddressAndSchedule key={Math.random()} />])
   }
+
+  const { control } = useForm()
 
   return (
     <div>
@@ -30,21 +33,17 @@ const Company = () => {
         </div>
         <Divider />
         <div className='grid grid-cols-2 gap-4 my-5'>
-          <DefaultInput label='საიდენტიფიკაციო კოდი' value='402461423' onChange={() => console.log('')} />
-          <DefaultInput label='იურიდიული დასახელება' value='შპს ბენე პლიუსი' onChange={() => console.log('')} />
+          <DefaultInput name='' control={control} errors={''} label='საიდენტიფიკაციო კოდი' value='402461423' />
+          <DefaultInput name='' control={control} errors={''} label='იურიდიული დასახელება' value='შპს ბენე პლიუსი' />
           <DefaultInput
+            name=''
+            control={control}
+            errors={''}
             label='დასახელება'
             value='ბენე პლიუსი'
             className='col-span-2'
-            onChange={() => console.log('')}
           />
-          <MultilineInput
-            className='col-span-2'
-            onChange={() => console.log('')}
-            rows={4}
-            label='აღწერა'
-            value='გთხოვთ გადაამოწმოთ მითითებული პარამეტრები და შემდეგ დაასრულოთ დაჯავშნის პროცესი, ეს პარამეტრები მნიშვნელოვანია შემდგომში თქვენსა და გამქირავებელს შორის კომუნიკაციისთვის'
-          />
+          <DefaultInput name='' errors={''} control={control} className='col-span-2' rows={4} label='აღწერა' />
         </div>
         <Typography type='h3' className='font-bold'>
           მისამართები და განრიგი
@@ -57,10 +56,10 @@ const Company = () => {
           საკონტაქტო
         </Typography>
         <div className='grid grid-cols-2 gap-4 my-5'>
-          <DefaultInput label='ელ. ფოსტა' value='kukuri.kukunava@yahoo.com' onChange={() => console.log('')} />
-          <DefaultInput label='ოფისი ნომერი' onChange={() => console.log('')} />
-          <DefaultInput label='ფაქსი' onChange={() => console.log('')} />
-          <DefaultInput label='მობილური' value='599 010101' onChange={() => console.log('')} />
+          <DefaultInput name='' control={control} errors={''} label='ელ. ფოსტა' />
+          <DefaultInput name='' control={control} errors={''} label='ოფისი ნომერი' />
+          <DefaultInput name='' control={control} errors={''} label='ფაქსი' />
+          <DefaultInput name='' control={control} errors={''} label='მობილური' />
         </div>
       </div>
       <Divider />

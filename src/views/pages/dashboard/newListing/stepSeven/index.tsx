@@ -2,7 +2,7 @@ import Radio from 'src/views/components/radio'
 import Typography from 'src/views/components/typography'
 import { useForm } from 'react-hook-form'
 import Checkbox from 'src/views/components/checkbox'
-import FileUpload from '../../../components/fileUpload'
+import FileUpload from '../../../../components/fileUpload'
 import Divider from 'src/views/components/divider'
 
 const StepSeven = () => {
