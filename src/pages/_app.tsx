@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { FC } from 'react'
 import { AppProps } from 'next/app'
 import type { NextPage } from 'next'
 
@@ -6,7 +6,7 @@ import type { NextPage } from 'next'
 import '../../styles/globals.css'
 
 // ** Store Imports
-import { store } from '../store'
+import { wrapper } from '../store'
 import { Provider } from 'react-redux'
 
 // ** Third Party Import
@@ -18,16 +18,19 @@ type ExtendedAppProps = AppProps & {
   Component: NextPage
 }
 
-const App = (props: ExtendedAppProps) => {
-  const { Component, pageProps } = props
+const App: FC<AppProps> = ({ Component, ...rest }) => {
+  const { store, props } = wrapper.useWrappedStore(rest)
+  const { pageProps } = props
 
   return (
-    <Provider store={store}>
-      <AuthProvider>
-        <Component {...pageProps} />
-        <Toaster position={'top-right'} toastOptions={{ className: 'react-hot-toast' }} />
-      </AuthProvider>
-    </Provider>
+    <>
+      <Provider store={store}>
+        <AuthProvider>
+          <Component {...pageProps} />
+        </AuthProvider>
+      </Provider>
+      <Toaster position={'top-right'} toastOptions={{ className: 'react-hot-toast' }} />
+    </>
   )
 }
 

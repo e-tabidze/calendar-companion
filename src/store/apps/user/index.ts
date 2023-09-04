@@ -1,10 +1,12 @@
 // ** Redux Imports
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import { createSlice, createAsyncThunk, createAction } from '@reduxjs/toolkit'
 
 // ** Service Imports
 import UserService from 'src/services/UserService'
 
 import { Dispatch } from 'redux'
+import { HYDRATE } from 'next-redux-wrapper'
+import { AppState } from 'src/store'
 import STATUSES from 'src/configs/loadingStatuses'
 
 interface Redux {
@@ -31,6 +33,8 @@ export const fetchUserData = createAsyncThunk(
     }
   }
 )
+
+const hydrate = createAction<AppState>(HYDRATE)
 
 export const appUsersSlice = createSlice({
   name: 'appUsers',
@@ -71,6 +75,15 @@ export const appUsersSlice = createSlice({
       state.status = STATUSES.FAILED
       state.error = action.payload
     }
+  },
+  extraReducers: builder => {
+    builder.addCase(hydrate, (state, action) => {
+      console.log(state, action, 'state, action')
+      return {
+        ...state,
+        ...action.payload
+      }
+    })
   }
 })
 
