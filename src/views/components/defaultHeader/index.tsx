@@ -8,7 +8,6 @@ import User from './user'
 const DefaultHeader = () => {
   const { isAuth } = useDefaultHeader()
 
-  console.log(isAuth, 'isAuth')
   const router = useRouter()
 
   const onClickLogo = () => {

@@ -38,7 +38,7 @@ const PersonalInfo = () => {
         <Typography type='h3' className='hidden large:inline-block'>
           პარამეტრები
         </Typography>
-        <div className='border border-raisin-10 p-4 rounded-2xl flex items-center gap-3 mt-8 '>
+        <div className='border border-raisin-10 p-4 large:border-none large:p-0 rounded-2xl flex items-center gap-3 mt-8 '>
           <Image src='/images/avatar.png' height={96} width={96} alt='' className='rounded-full large:rounded-3xl' />
           <div className='flex flex-col gap-2'>
             <Typography type='h3' className='text-md large:text-2lg font-medium large:font-bold'>

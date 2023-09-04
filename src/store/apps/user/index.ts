@@ -36,11 +36,26 @@ export const appUsersSlice = createSlice({
   name: 'appUsers',
   initialState: {
     data: {
-      UserID: null,
+      UserID: '',
       Email: '',
-      UserType: null,
+      UserType: '',
       FirstName: '',
-      LastName: ''
+      LastName: '',
+      gender_id: '',
+      birth_year: '',
+      birth_date: '',
+      phone: '',
+      information: {
+        profile_pic: '',
+        gender: '',
+        birth_date: '',
+        identification_number: '',
+        driver_license_expiration: '',
+        verified_at: '',
+        created_at: '',
+        updated_at: '',
+        deleted_at: ''
+      }
     },
     status: 'pending',
     error: null
@@ -50,7 +65,7 @@ export const appUsersSlice = createSlice({
       state.status = action.payload
     },
     setUserData: (state, action) => {
-      state.data = action.payload
+      state.data = action.payload.result.data
     },
     setError: (state, action) => {
       state.status = STATUSES.FAILED
