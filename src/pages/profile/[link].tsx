@@ -11,7 +11,7 @@ import Image from 'next/image'
 import Favourites from 'src/views/pages/profile/favorites'
 import { IconButton } from 'src/views/components/button'
 import PersonalInfo from 'src/views/pages/profile/personal-information'
-import NewCompany from 'src/views/pages/profile/newCompany'
+import CreateCompany from 'src/views/pages/profile/createCompany'
 import CardsAndTransactions from 'src/views/pages/profile/cardsAndTransactions'
 import Company from 'src/views/pages/profile/company'
 import { fetchUserData } from 'src/store/apps/user'
@@ -106,7 +106,7 @@ const Profile = () => {
       case '/profile/bedina-plus/':
         return <Company />
       case '/profile/create-company/':
-        return <NewCompany />
+        return <CreateCompany />
       default:
         return component
     }
@@ -125,76 +125,82 @@ const Profile = () => {
   const toggleSidebar = () => setIsSidebarVisible(!isSidebarVisible)
 
   return (
-    <DefaultLayout>
-      <ContentContainer>
-        <div>
-          <Breadcrumb
-            items={[
-              { path: '/', label: 'მთავარი' },
-              { path: '/profile', label: 'ჩემი გვერდი' },
-              { path: selectedRoute.path, label: selectedRoute.item }
-            ]}
-            onClick={() => {
-              if (width < 1024) {
-                toggleSidebar
-              }
-            }}
-          />
+    <>
+      {router.asPath === '/profile/create-company/' ? (
+        <CreateCompany />
+      ) : (
+        <DefaultLayout>
+          <ContentContainer>
+            <div>
+              <Breadcrumb
+                items={[
+                  { path: '/', label: 'მთავარი' },
+                  { path: '/profile', label: 'ჩემი გვერდი' },
+                  { path: selectedRoute.path, label: selectedRoute.item }
+                ]}
+                onClick={() => {
+                  if (width < 1024) {
+                    toggleSidebar
+                  }
+                }}
+              />
 
-          <div className='flex gap-none laptop:gap-6 mt-9'>
-            <div className={sidebarClassName}>
-              <div className='flex items-center justify-between mb-4'>
-                <div className='flex items-center gap-5'>
-                  <Image src='/images/avatar.png' alt='' className='rounded-full' width={48} height={48} />
-                  <Typography type='h5' weight='medium'>
-                    ზაური ათაბეგაშვილი
-                  </Typography>
-                </div>
-                <Image src='/icons/chevron.svg' alt='' width={9} height={8} />
-              </div>
-              <Divider />
-              <div>
-                {routes.map((route, index) => (
-                  <div key={route.id} onClick={() => handleRouteChange(route)}>
-                    <div className='flex items-center gap-8 my-4 cursor-pointer'>
-                      <div className={`h-8 w-8 rounded-lg bg-raisin-10`}>
-                        <Image src={route.icon} alt='' width={3} height={3} />
-                      </div>
-                      <Typography
-                        type='h5'
-                        className={`${
-                          selectedRoute.path.split('/')[2] === route.path.split('/')[2] ? 'text-orange-100' : ''
-                        }'`}
-                      >
-                        {route.item}
+              <div className='flex gap-none laptop:gap-6 mt-9'>
+                <div className={sidebarClassName}>
+                  <div className='flex items-center justify-between mb-4'>
+                    <div className='flex items-center gap-5'>
+                      <Image src='/images/avatar.png' alt='' className='rounded-full' width={48} height={48} />
+                      <Typography type='h5' weight='medium'>
+                        ზაური ათაბეგაშვილი
                       </Typography>
                     </div>
-                    {dividerIndexes.includes(index) && <Divider />}
+                    <Image src='/icons/chevron.svg' alt='' width={9} height={8} />
                   </div>
-                ))}
+                  <Divider />
+                  <div>
+                    {routes.map((route, index) => (
+                      <div key={route.id} onClick={() => handleRouteChange(route)}>
+                        <div className='flex items-center gap-8 my-4 cursor-pointer'>
+                          <div className={`h-8 w-8 rounded-lg bg-raisin-10`}>
+                            <Image src={route.icon} alt='' width={3} height={3} />
+                          </div>
+                          <Typography
+                            type='h5'
+                            className={`${
+                              selectedRoute.path.split('/')[2] === route.path.split('/')[2] ? 'text-orange-100' : ''
+                            }'`}
+                          >
+                            {route.item}
+                          </Typography>
+                        </div>
+                        {dividerIndexes.includes(index) && <Divider />}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                <div></div>
+                {width < 1024 && isSidebarVisible ? (
+                  <></>
+                ) : (
+                  <div className={contentClassName}>
+                    {width < 779 && (
+                      <IconButton
+                        icon='/icons/chevronLeft.svg'
+                        text='ჩემი გვერდი'
+                        onClick={toggleSidebar}
+                        height={8}
+                        width={5}
+                      />
+                    )}
+                    {component}
+                  </div>
+                )}
               </div>
             </div>
-            <div></div>
-            {width < 1024 && isSidebarVisible ? (
-              <></>
-            ) : (
-              <div className={contentClassName}>
-                {width < 779 && (
-                  <IconButton
-                    icon='/icons/chevronLeft.svg'
-                    text='ჩემი გვერდი'
-                    onClick={toggleSidebar}
-                    height={8}
-                    width={5}
-                  />
-                )}
-                {component}
-              </div>
-            )}
-          </div>
-        </div>
-      </ContentContainer>
-    </DefaultLayout>
+          </ContentContainer>
+        </DefaultLayout>
+      )}
+    </>
   )
 }
 

@@ -9,7 +9,7 @@ import { createCompany } from 'src/store/apps/companies'
 import Cookie from 'src/helpers/Cookie'
 import useCreateCompany from './useCreateCompany'
 
-const NewCompany = () => {
+const CreateCompany = () => {
   const options = [
     { value: '1/3 ნაბიჯი', label: 'კომპანიის დამატება', step: 1 },
     { value: '2/3 ნაბიჯი', label: 'მისამართები და სამუშაო საათები', step: 2 },
@@ -111,4 +111,4 @@ const NewCompany = () => {
   )
 }
 
-export default NewCompany
+export default CreateCompany

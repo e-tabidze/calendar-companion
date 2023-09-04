@@ -38,7 +38,7 @@ const NewListingLayout: React.FC<Props> = ({
   )
 
   return (
-    <MaxWidthContainer className='absolute w-full min-h-screen top-0 left-0 bg-white'>
+    <MaxWidthContainer>
       <NewListingHeaderContainer style={{ position: 'sticky', maxWidth: "1470px" }}>
         <div className='flex justify-between items-center py-3 px-2 relative'>
           <Image src='/images/logo-rent.svg' alt='' onClick={onClickLogo} height={40} width={131} />
@@ -57,7 +57,7 @@ const NewListingLayout: React.FC<Props> = ({
         className='max-w-[850px] pb-32 m-auto px-4 laptop:w-10/12 laptop:p-5 laptop:px-0 2xl:p-0'
         style={{ maxWidth: '850px' }}
       >
-        <div className='my-20'>{children}</div>
+        <div className='mt-20 pb-20 h-full'>{children}</div>
       </div>
       <div className='fixed w-full bottom-0 bg-white py-5 border border-t-raisin-10 z-10'>
         <div
