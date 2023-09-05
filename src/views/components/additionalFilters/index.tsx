@@ -9,7 +9,6 @@ import Checkbox from '../checkbox'
 import Divider from '../divider'
 import Image from '../image'
 import { DefaultInput } from '../input'
-import SelectField from '../selectField'
 import Tag from '../tag'
 import Typography from '../typography'
 
@@ -19,6 +18,7 @@ import { Dialog, Transition } from '@headlessui/react'
 // Styles
 import { ListWrapper, SectionWrapper } from './styles'
 import SwitchField from '../switchField'
+import { useForm } from 'react-hook-form'
 
 interface Props {
   open: boolean
@@ -68,11 +68,6 @@ const categories = [
   }
 ]
 
-const selectOptions = [
-  { value: 'Mercedes', label: 'Mercedes' },
-  { value: 'Audi', label: 'Audi' },
-  { value: 'BMW', label: 'BMW' }
-]
 const fuelType = ['ელექტრო', 'ჰიბრიდი', 'დატენვადი ჰიბრიდი', 'ბენზინი', 'დიზელი', 'გაზი']
 
 const doors = ['2/3', '4/5', '5+']
@@ -140,6 +135,7 @@ const AdditionalFilters: React.FC<Props> = ({ open, setOpen }) => {
   const [selectedCategories, setSelectedCategories] = useState<any[]>([])
   const cancelButtonRef = useRef(null)
   const { width } = useWindowDimensions()
+  const { control } = useForm()
 
   const handleSelectCategories = (id: number) => {
     if (selectedCategories.includes(id)) {
@@ -189,19 +185,17 @@ const AdditionalFilters: React.FC<Props> = ({ open, setOpen }) => {
                   </Typography>
                   <div className='w-full flex items-center mb-20 mt-8'>
                     <DefaultInput
+                      name=''
+                      control={control}
                       label={width > 641 ? 'მინიმუმ ფასი დღიურად' : 'მინ. ფასი დღიურად'}
-                      value={''}
-                      onChange={function (e: any): void {
-                        throw new Error('Function not implemented.', e)
-                      }}
+                      errors={''}
                     />
                     <div className='w-3 h-px bg-base-100 mx-2' />
                     <DefaultInput
+                      name=''
+                      control={control}
                       label={width > 641 ? 'მინიმუმ ფასი დღიურად' : 'მინ. ფასი დღიურად'}
-                      value={''}
-                      onChange={function (e: any): void {
-                        throw new Error('Function not implemented.', e)
-                      }}
+                      errors={''}
                     />
                   </div>
                   <div className='my-8'>
@@ -227,9 +221,30 @@ const AdditionalFilters: React.FC<Props> = ({ open, setOpen }) => {
                     <Typography type='h5' weight='normal'>
                       ავტომობილის პარამეტრები
                     </Typography>
-                    <SelectField options={selectOptions} placeholder='მწარმოებელი' disabled={false} className='my-2' />
-                    <SelectField options={selectOptions} placeholder='მოდელი' disabled={false} className='my-2' />
-                    <SelectField options={selectOptions} placeholder='წელი' disabled={false} className='my-2' />
+                    {/* <SelectField
+                      name=''
+                      control={control}
+                      options={selectOptions}
+                      placeholder='მწარმოებელი'
+                      disabled={false}
+                      className='my-2'
+                    />
+                    <SelectField
+                      name=''
+                      control={control}
+                      options={selectOptions}
+                      placeholder='მოდელი'
+                      disabled={false}
+                      className='my-2'
+                    />
+                    <SelectField
+                      name=''
+                      control={control}
+                      options={selectOptions}
+                      placeholder='წელი'
+                      disabled={false}
+                      className='my-2'
+                    /> */}
                   </div>
 
                   <Typography type='h5' weight='normal'>
@@ -259,7 +274,7 @@ const AdditionalFilters: React.FC<Props> = ({ open, setOpen }) => {
                     ))}
                   </div>
                   <Divider />
-                  <SwitchField label='უფასო მიწოდება' onChange={() => console.log('')} value={false} className='my-8' />
+                  <SwitchField label='უფასო მიწოდება' name='' control={control} defaultValue className='my-8' />
                   <Divider />
 
                   <SectionWrapper>

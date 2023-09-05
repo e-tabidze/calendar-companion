@@ -1,4 +1,5 @@
 // ** Interfaces
+import { useEffect } from 'react'
 import { TailwindDiv } from 'src/interfaces/tailwind'
 import DefaultLayout from 'src/layouts/DefaultLayout'
 import { LargeContainer, ContentContainer, ResponsiveContainer } from 'src/styled/styles'
@@ -10,9 +11,12 @@ import Typography from 'src/views/components/typography'
 import ActionCard from 'src/views/pages/main/actionCard'
 import Cities from 'src/views/pages/main/cities'
 import Hero from 'src/views/pages/main/hero'
+import Cookie from 'src/helpers/Cookie'
 
 // ** Tailwind Styled
 import tw from 'tailwind-styled-components'
+import { useDispatch } from 'react-redux'
+import { fetchCompaniesData } from 'src/store/apps/companies'
 
 // ** Styled Components
 const MainPageBox = tw.div<TailwindDiv>`flex w-full items-center flex-col`
@@ -95,71 +99,85 @@ const categoryArray = [
 ]
 
 const categories = categoryArray.map((item, key) => <CategoryCard category={item.type} key={key} />)
-const MainPage = () => (
-  <DefaultLayout>
-    <MainPageBox>
-      <LargeContainer>
-        <Hero />
-      </LargeContainer>
-      <ContentContainer>
-        <Typography type='h3' className='mt-12'>
-          მოძებნე კატეგორიების მიხედვით
-        </Typography>
-        <Typography type='subtitle' color='light' className='mb-12'>
-          იპოვეთ თქვენთვის სასურველი ავტომობილი კონკრეტული საჭიროებისთვის ერთ სივრცეში
-        </Typography>
-      </ContentContainer>
-      <LargeContainer>
-        <Carousel itemsArray={categories} type='categories' />
-      </LargeContainer>
-      <LargeContainer>
-        <Divider />
-      </LargeContainer>
-      <ContentContainer>
-        <Typography type='h3' className='mt-12'>
-          ბოლოს ნანახი
-        </Typography>
-        <Typography type='subtitle' color='light' className='mb-12'>
-          ცნობილი ფაქტია, რომ გვერდის წაკითხვად შიგთავსს შეუძლია მკითხველის ყურადღება მიიზიდოს
-        </Typography>
-      </ContentContainer>
-      <LargeContainer>
-        <Carousel itemsArray={productArray} type='products' />
-      </LargeContainer>
-      <ContentContainer>
-        <Typography type='h3' className='mt-12'>
-          პოპულარული მანქანები
-        </Typography>
-        <Typography type='subtitle' color='light' className='mb-12'>
-          ცნობილი ფაქტია, რომ გვერდის წაკითხვად შიგთავსს შეუძლია მკითხველის ყურადღება მიიზიდოს
-        </Typography>
-      </ContentContainer>
-      <LargeContainer>
-        <Carousel itemsArray={productArray} type='products' />
-      </LargeContainer>
-      <ResponsiveContainer className='mt-20'>
-        <Cities />
-      </ResponsiveContainer>
-      <ContentContainer className='z-10'>
-        <ActionCardsWrapper>
-          <ActionCard
-            title='იქირავე'
-            body='ცნობილი ფაქტია, რომ გვერდის წაკითხვად შიგთავსს შეუძლია მკითხველის ყურადღება მიიზიდოს'
-            actioBtnLabel='მოძებნე'
-            actonBtnClick={() => console.log('click')}
-            image='/images/rent.png'
-          />
-          <ActionCard
-            title='გააქირავე'
-            body='ცნობილი ფაქტია, რომ გვერდის წაკითხვად შიგთავსს შეუძლია მკითხველის ყურადღება მიიზიდოს'
-            actioBtnLabel='დაამატე'
-            actonBtnClick={() => console.log('click')}
-            image='/images/rent2.png'
-          />
-        </ActionCardsWrapper>
-      </ContentContainer>
-    </MainPageBox>
-  </DefaultLayout>
-)
+
+const MainPage = () => {
+  // await dispatch(({ AccessToken: Cookie.get('AccessToken') }))
+
+  const dispatch = useDispatch()
+
+  console.log({ AccessToken: Cookie.get('AccessToken') }, 'accesstoken')
+
+  useEffect(() => {
+    // @ts-ignore
+    dispatch(fetchCompaniesData({ AccessToken: Cookie.get('AccessToken') }))
+  }, [dispatch])
+
+  return (
+    <DefaultLayout>
+      <MainPageBox>
+        <LargeContainer>
+          <Hero />
+        </LargeContainer>
+        <ContentContainer>
+          <Typography type='h3' className='mt-12'>
+            მოძებნე კატეგორიების მიხედვით
+          </Typography>
+          <Typography type='subtitle' color='light' className='mb-12'>
+            იპოვეთ თქვენთვის სასურველი ავტომობილი კონკრეტული საჭიროებისთვის ერთ სივრცეში
+          </Typography>
+        </ContentContainer>
+        <LargeContainer>
+          <Carousel itemsArray={categories} type='categories' />
+        </LargeContainer>
+        <LargeContainer>
+          <Divider />
+        </LargeContainer>
+        <ContentContainer>
+          <Typography type='h3' className='mt-12'>
+            ბოლოს ნანახი
+          </Typography>
+          <Typography type='subtitle' color='light' className='mb-12'>
+            ცნობილი ფაქტია, რომ გვერდის წაკითხვად შიგთავსს შეუძლია მკითხველის ყურადღება მიიზიდოს
+          </Typography>
+        </ContentContainer>
+        <LargeContainer>
+          <Carousel itemsArray={productArray} type='products' />
+        </LargeContainer>
+        <ContentContainer>
+          <Typography type='h3' className='mt-12'>
+            პოპულარული მანქანები
+          </Typography>
+          <Typography type='subtitle' color='light' className='mb-12'>
+            ცნობილი ფაქტია, რომ გვერდის წაკითხვად შიგთავსს შეუძლია მკითხველის ყურადღება მიიზიდოს
+          </Typography>
+        </ContentContainer>
+        <LargeContainer>
+          <Carousel itemsArray={productArray} type='products' />
+        </LargeContainer>
+        <ResponsiveContainer className='mt-20'>
+          <Cities />
+        </ResponsiveContainer>
+        <ContentContainer className='z-10'>
+          <ActionCardsWrapper>
+            <ActionCard
+              title='იქირავე'
+              body='ცნობილი ფაქტია, რომ გვერდის წაკითხვად შიგთავსს შეუძლია მკითხველის ყურადღება მიიზიდოს'
+              actioBtnLabel='მოძებნე'
+              actonBtnClick={() => console.log('click')}
+              image='/images/rent.png'
+            />
+            <ActionCard
+              title='გააქირავე'
+              body='ცნობილი ფაქტია, რომ გვერდის წაკითხვად შიგთავსს შეუძლია მკითხველის ყურადღება მიიზიდოს'
+              actioBtnLabel='დაამატე'
+              actonBtnClick={() => console.log('click')}
+              image='/images/rent2.png'
+            />
+          </ActionCardsWrapper>
+        </ContentContainer>
+      </MainPageBox>
+    </DefaultLayout>
+  )
+}
 
 export default MainPage

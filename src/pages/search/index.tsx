@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { useForm } from 'react-hook-form'
 import useWindowDimensions from 'src/hooks/useWindowDimensions'
 import DefaultLayout from 'src/layouts/DefaultLayout'
 import { FullContainer } from 'src/styled/styles'
@@ -37,42 +38,39 @@ const SearchPage = () => {
     setMapVisible(!mapVisible)
   }
 
+  const { control } = useForm()
+
   return (
     <>
       <DefaultLayout fullWidth={true}>
         <Divider />
-        <FullContainer>
-          <FiltersWrapper>
-            <MainFilters>
-              <PricePopover />
-              <FuelTypePopover />
-              <CategoryPopover />
-              <Tag
-                label='უფასო მიწოდება'
-                component={<Switcher height='h-5' value={false} onChange={() => console.log('')} />}
-                height='h-10'
-              />
-              <div className="hidden desktop:flex">
-                <SeatsPopover />
-              </div>
-              <div className="hidden desktop:flex">
-                <SuitcasesPopover />
-              </div>
-              <Tag
-                label='ყველა ფილტრი'
-                component={<Image src='/icons/filters.svg' alt='' />}
-                height='h-10'
-                bg={'bg-grey-60'}
-              />
-            </MainFilters>
-            <ClearFiltersWrapper>
-              <Image src='/icons/return.svg' className='w-4' alt='' />
-              <Typography type='body' className='text-orange-120 w-20'>
-                ფილტრის გასუფთავება
-              </Typography>
-            </ClearFiltersWrapper>
-          </FiltersWrapper>
-        </FullContainer>
+        <FiltersWrapper>
+          <MainFilters>
+            <PricePopover />
+            <FuelTypePopover />
+            <CategoryPopover />
+            <Tag
+              label='უფასო მიწოდება'
+              component={<Switcher height='h-5' name='name' control={control} defaultValue />}
+              height='h-10'
+            />
+            <SeatsPopover />
+            <SuitcasesPopover />
+            <Tag
+              label='ყველა ფილტრი'
+              component={<Image src='/icons/filters.svg' alt='' />}
+              height='h-10'
+              bg={'bg-grey-60'}
+            />
+          </MainFilters>
+          <ClearFiltersWrapper>
+            <Image src='/icons/return.svg' className='w-4' alt='' />
+            <Typography type='body' className='text-orange-120 w-20'>
+              ფილტრის გასუფთავება
+            </Typography>
+          </ClearFiltersWrapper>
+        </FiltersWrapper>
+
         <ResponsiveDivider />
       </DefaultLayout>
 

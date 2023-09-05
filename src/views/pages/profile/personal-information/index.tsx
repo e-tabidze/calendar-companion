@@ -19,7 +19,7 @@ const options = [
   { label: 'მდედრობითი', value: 'მდედრობითი' }
 ]
 
-const Parameters = () => {
+const PersonalInfo = () => {
   const [activeTab, setActiveTab] = useState(Tabs.PROFILE)
 
   const { control } = useForm()
@@ -27,7 +27,7 @@ const Parameters = () => {
   const handleTabClick = (tab: Tabs) => {
     setActiveTab(tab)
   }
-  
+
   return (
     <div className=''>
       <div className='p-2 large:p-4'>
@@ -69,10 +69,10 @@ const Parameters = () => {
               <div className='grid gap-2 grid-cols-1 large:grid-cols-2'>
                 <Radio options={options} control={control} color='bg-orange-100' name='' horizontal />
                 <div></div>
-                <DefaultInput label='სახელი, გვარი' />
-                <DefaultInput label='პირადი ნომერი' />
-                <DefaultInput label='მობილურის ნომერი' />
-                <DefaultInput label='ელ.ფოსტა' />
+                <DefaultInput control={control} name='' errors={''} label='სახელი, გვარი' />
+                <DefaultInput control={control} name='' errors={''} label='პირადი ნომერი' />
+                <DefaultInput control={control} name='' errors={''} label='მობილურის ნომერი' />
+                <DefaultInput control={control} name='' errors={''} label='ელ.ფოსტა' />
                 <DateDropdown label={'აირჩიე დაბადების თარიღი'} />
                 <DateDropdown label={'მართვის მოწმობის მოქმედების ვადა'} />
               </div>
@@ -98,4 +98,4 @@ const Parameters = () => {
   )
 }
 
-export default Parameters
+export default PersonalInfo

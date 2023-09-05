@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useForm } from 'react-hook-form'
 import Divider from 'src/views/components/divider'
 import NumberInputWithSelect from 'src/views/components/numberInputWithSelect'
 import SwitchField from 'src/views/components/switchField'
@@ -14,7 +14,8 @@ const options2 = [
 ]
 
 const StepFive = () => {
-  const [minPeriod, setMinPeriod] = useState(false)
+
+  const {control} = useForm()
   
   return (
     <div>
@@ -22,23 +23,26 @@ const StepFive = () => {
         ქირაობის მინიმალური ვადა
       </Typography>
       <Divider />
-      <SwitchField label='ნებისმიერი ვადა' value={false} onChange={() => console.log('OK')} className='my-8' />
+      <SwitchField label='ნებისმიერი ვადა' name="" defaultValue control={control} className='my-8' />
       <Divider />
       <SwitchField
         label='მინიმალური ვადა'
-        value={minPeriod}
-        onChange={() => setMinPeriod(!minPeriod)}
         description='ავტომობილის გაქირავების მინიმალური ხანგრძლივობა (მაგ. 3 დღე)'
         className='my-8'
+        name=""
+        defaultValue
+        control={control}
       />
-      {minPeriod && (
+
+      {/* {minPeriod && ( */}
         <div className='flex items-center gap-8 mb-10'>
           <NumberInputWithSelect options={options2} onChange={() => console.log('OK')} />
           <Typography type='body' color='light' className='w-1/2'>
             ამ პარამეტრის გააქტიურებით თქვენ ადგენთ ავტომობილის გაქირავების პერიოდის მაქსიმალურ ლიმიტს
           </Typography>
         </div>
-      )}
+
+      {/* )} */}
       <Divider />
       <Typography type='h4' weight='normal' color='dark' className='mt-16'>
         მოსამზადებელი პერიოდი
