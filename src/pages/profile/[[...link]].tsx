@@ -18,6 +18,9 @@ import { fetchUserData } from 'src/store/apps/user'
 
 import { ACCESS_TOKEN_NAME } from 'src/env'
 import Cookie from 'src/helpers/Cookie'
+import useProfile from 'src/hooks/useProfile'
+import STATUSES from 'src/configs/loadingStatuses'
+import { useDispatch } from 'react-redux'
 
 const routes = [
   {
@@ -71,17 +74,9 @@ const Profile = () => {
   const [isSidebarVisible, setIsSidebarVisible] = useState(true)
   const [selectedRoute, setSelectedRoute] = useState<any>(routes[0])
 
-  // const getUser = async () => {
-  //   let userData = await store.dispatch(fetchUserData({ AccessToken: Cookie.get(ACCESS_TOKEN_NAME) }))
-  //   console.log(userData, 'userData')
-  //   return userData
-  // }
+  const { showProfile, setShowProfile, showRightTab, setShowRightTab, userData, router } = useProfile()
 
-  // useEffect(() => {
-  //   getUser()
-  // }, [store.dispatch])
-
-  const router = useRouter()
+  console.log(userData, 'userData')
 
   const sidebarClassName = `h-fit w-full laptop:w-4/12 border border-raisin-10 rounded-3xl p-6 ${
     isSidebarVisible ? 'block' : 'hidden'
@@ -102,7 +97,7 @@ const Profile = () => {
       case '/profile/transactions/':
         return <CardsAndTransactions />
       case '/profile/personal-information/':
-        return <PersonalInfo />
+        return <PersonalInfo userData={userData} />
       case '/profile/bedina-plus/':
         return <Company />
       case '/profile/create-company/':
@@ -123,6 +118,26 @@ const Profile = () => {
   }, [router.asPath])
 
   const toggleSidebar = () => setIsSidebarVisible(!isSidebarVisible)
+
+  // const accessToken = Cookie.get(ACCESS_TOKEN_NAME)
+
+  // const dispatch = useDispatch()
+
+  // const fetchUserDataAndDispatch = async () => {
+  //   try {
+  //     const AccessToken = Cookie.get(ACCESS_TOKEN_NAME) || ''; // Adjust as needed
+
+  //     // Dispatch the fetchUserData async thunk with the AccessToken
+  //     await dispatch(fetchUserData({ AccessToken }));
+  //   } catch (e) {
+  //     console.error('Error fetching user data:', e);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   // Example: Fetch user data when the component mounts
+  //   fetchUserDataAndDispatch()
+  // }, [])
 
   return (
     <>

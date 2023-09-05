@@ -1,11 +1,11 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import NewListingLayout from 'src/layouts/NewListingLayout'
 import StepOne from './stepOne'
 import StepThree from './stepThree'
 import StepTwo from './stepTwo'
 import { FormProvider } from 'react-hook-form'
-import { createCompany } from 'src/store/apps/companies'
+// import { createCompany } from 'src/store/apps/companies'
 import Cookie from 'src/helpers/Cookie'
 import useCreateCompany from './useCreateCompany'
 
@@ -29,7 +29,8 @@ const CreateCompany = () => {
     companyValues,
     clearErrors,
     addressFields,
-    appendAddress
+    appendAddress,
+    createCompany
   } = useCreateCompany()
 
   const selectOption = (option: any) => setStep(option)
@@ -54,27 +55,27 @@ const CreateCompany = () => {
           isSameTime: boolean
           working_hours: {
             [x: string]: {
-              isSelected: boolean
-              endTime: string
-              startTime: string
+              is_selected: boolean
+              end_time: string
+              start_time: string
             }
           }
         }) => {
           if (addr.isSameTime) {
             const takeDefaultTime = {
-              startTime: addr.working_hours['monday'].startTime,
-              endTime: addr.working_hours['monday'].endTime
+              start_time: addr.working_hours['monday'].start_time,
+              end_time: addr.working_hours['monday'].end_time
             }
 
             for (const day in addr.working_hours) {
-              addr.working_hours[day].startTime = ''
-              addr.working_hours[day].endTime = ''
-              if (addr.working_hours[day].isSelected) {
-                addr.working_hours[day].startTime = takeDefaultTime.startTime
-                addr.working_hours[day].endTime = takeDefaultTime.endTime
-                addr.working_hours[day].isSelected = true
+              addr.working_hours[day].start_time = ''
+              addr.working_hours[day].end_time = ''
+              if (addr.working_hours[day].is_selected) {
+                addr.working_hours[day].start_time = takeDefaultTime.start_time
+                addr.working_hours[day].end_time = takeDefaultTime.end_time
+                addr.working_hours[day].is_selected = true
               } else {
-                addr.working_hours[day].isSelected = false
+                addr.working_hours[day].is_selected = false
               }
             }
           }
@@ -82,14 +83,14 @@ const CreateCompany = () => {
       )
 
       console.log(companyValues, 'companyValues')
-      await dispatch(createCompany({ AccessToken: Cookie.get('AccessToken'), company: companyValues }))
+
+      await createCompany({ AccessToken: Cookie.get('AccessToken'), company: companyValues })
     } catch (error) {
       console.error('An error occurred:', error)
     }
   }
 
   return (
-
     // @ts-ignore
     <FormProvider {...control}>
       <NewListingLayout
@@ -103,7 +104,9 @@ const CreateCompany = () => {
       >
         <form>
           {step.step === 1 && <StepOne control={control} errors={errors} clearErrors={clearErrors} />}
-          {step.step === 2 && <StepTwo control={control} addressFields={addressFields} appendAddress={appendAddress} errors={errors} />}
+          {step.step === 2 && (
+            <StepTwo control={control} addressFields={addressFields} appendAddress={appendAddress} errors={errors} />
+          )}
           {step.step === 3 && <StepThree control={control} errors={errors} />}
         </form>
       </NewListingLayout>

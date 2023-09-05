@@ -6,7 +6,6 @@ import UserService from 'src/services/UserService'
 
 import { Dispatch } from 'redux'
 import { HYDRATE } from 'next-redux-wrapper'
-import { AppState } from 'src/store'
 import STATUSES from 'src/configs/loadingStatuses'
 
 interface Redux {
@@ -34,24 +33,24 @@ export const fetchUserData = createAsyncThunk(
   }
 )
 
-const hydrate = createAction<AppState>(HYDRATE)
+const hydrate = createAction<any>(HYDRATE)
 
 export const appUsersSlice = createSlice({
   name: 'appUsers',
   initialState: {
     data: {
-      UserID: '',
+      UserID: 0,
       Email: '',
-      UserType: '',
+      UserType: 0,
       FirstName: '',
       LastName: '',
-      gender_id: '',
-      birth_year: '',
+      gender_id: 0,
+      birth_year: 0,
       birth_date: '',
       phone: '',
       information: {
         profile_pic: '',
-        gender: '',
+        gender: 0,
         birth_date: '',
         identification_number: '',
         driver_license_expiration: '',
@@ -61,7 +60,8 @@ export const appUsersSlice = createSlice({
         deleted_at: ''
       }
     },
-    status: 'pending',
+    status: STATUSES.INITIAL,
+    // status: 'pending',
     error: null
   },
   reducers: {
@@ -70,6 +70,8 @@ export const appUsersSlice = createSlice({
     },
     setUserData: (state, action) => {
       state.data = action.payload.result.data
+
+      console.log(state.data, 'state.data', action.payload, 'action.payload')
     },
     setError: (state, action) => {
       state.status = STATUSES.FAILED
@@ -78,7 +80,6 @@ export const appUsersSlice = createSlice({
   },
   extraReducers: builder => {
     builder.addCase(hydrate, (state, action) => {
-      console.log(state, action, 'state, action')
       return {
         ...state,
         ...action.payload

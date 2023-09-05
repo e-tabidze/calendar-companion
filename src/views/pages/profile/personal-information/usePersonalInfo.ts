@@ -1,14 +1,19 @@
 import { useForm, useWatch } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
+// import { UserInfoSchema, PasswordSchema } from 'src/@core/validation/UserInfoSchema'
 
 import { useDispatch } from 'react-redux'
 import { AppDispatch } from 'src/store'
-import { User } from 'src/types/AuthContext'
+import { UserData } from 'src/types/User'
 
-const usePersonalInfo = (userData: User) => {
+const usePersonalInfo = (userData: UserData) => {
   const defaultValues = {
+    gender: userData.gender_id,
     email: userData.Email,
-    firstName: userData.FirstName,
-    lastName: userData.LastName
+    first_name: userData.FirstName,
+    last_name: userData.LastName,
+    phone: userData.phone,
+    code: ''
   }
 
   const dispatch = useDispatch<AppDispatch>()
@@ -24,7 +29,8 @@ const usePersonalInfo = (userData: User) => {
     handleSubmit: passwordHandleSubmit,
     formState: passwordState
   } = useForm({
-    defaultValues: passwordDefaultValues
+    defaultValues: passwordDefaultValues,
+    // resolver: yupResolver(PasswordSchema)
   })
 
   const {
@@ -35,7 +41,8 @@ const usePersonalInfo = (userData: User) => {
     setError,
     clearErrors
   } = useForm({
-    defaultValues
+    defaultValues,
+    // resolver: yupResolver(UserInfoSchema)
   })
 
   const userInfoValues: any = useWatch({ control })

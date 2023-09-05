@@ -7,6 +7,8 @@ import Typography from 'src/views/components/typography'
 import { Tab } from '@headlessui/react'
 import ProfileInfoForm from './profileInfoForm'
 import PasswordForm from './passwordForm'
+import { UserData } from 'src/types/User'
+import usePersonalInfo from './usePersonalInfo'
 
 const cat = [
   {
@@ -23,7 +25,20 @@ function tabs(...classes: any) {
   return classes.filter(Boolean).join(' ')
 }
 
-const PersonalInfo = () => {
+const PersonalInfo = ({ userData }: { userData: UserData }) => {
+  const {
+    control,
+    errors,
+    handleSubmit,
+    passwordControl,
+    passwordHandleSubmit,
+    passwordState,
+    dirtyFields,
+    resetField,
+    setError,
+    clearErrors
+  } = usePersonalInfo(userData)
+
   const renderTabContent = (id: any) => {
     if (id === 0) {
       return <ProfileInfoForm />
