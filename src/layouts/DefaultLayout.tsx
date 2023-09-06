@@ -4,13 +4,14 @@ import Header from 'src/views/components/header'
 
 interface Props {
   children?: any,
-  fullWidth?:boolean
+  fullWidth?:boolean,
+  fixedHeader?:boolean
 }
 
-const DefaultLayout = ({ children, fullWidth }: Props) => {
+const DefaultLayout = ({ children, fullWidth, fixedHeader }: Props) => {
   return (
     <main>
-      <HeaderContainer style={{position: 'sticky'}} className={`${fullWidth?'w-full px-10':'max-w-[1470px] px-2 laptop:px-8 2xl:px-0'}`}>
+      <HeaderContainer className={`${fixedHeader?'fixed z-[111]':'sticky'} ${fullWidth?'w-full px-10':'max-w-[1470px] px-2 laptop:px-8 2xl:px-0'}`}>
         <Header />
       </HeaderContainer>
       <div>{children}</div>

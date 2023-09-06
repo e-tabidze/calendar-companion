@@ -42,7 +42,7 @@ const SearchPage = () => {
 
   return (
     <>
-      <DefaultLayout fullWidth={true}>
+      <DefaultLayout fullWidth={true} fixedHeader={true}>
         <Divider />
         <FiltersWrapper>
           <MainFilters>
@@ -65,7 +65,7 @@ const SearchPage = () => {
           </MainFilters>
           <ClearFiltersWrapper>
             <Image src='/icons/return.svg' className='w-4' alt='' />
-            <Typography type='body' className='text-orange-120 w-20'>
+            <Typography type='body' className='text-orange-120'>
               ფილტრის გასუფთავება
             </Typography>
           </ClearFiltersWrapper>
@@ -74,7 +74,7 @@ const SearchPage = () => {
         <ResponsiveDivider />
       </DefaultLayout>
 
-      <FullContainer className='laptop:flex'>
+      <FullContainer className='laptop:flex pt-[185px]'>
         <SearchContentsContainer
           className={`w-full px-5 large:pl-10 transition-all duration-300 ${
             mapVisible ? 'laptop:w-1/2 pr-8' : 'w-full laptop:pr-0'
@@ -148,7 +148,7 @@ const SearchPage = () => {
           </div>
         </SearchContentsContainer>
         <MapContainer
-          className={`absolute z-[111] laptop:z-[1] top-[197px] large:top-[153px] laptop:top-[0] w-full left-0 laptop:relative overflow-hidden transition-all duration-300 ${
+          className={`absolute z-[111] laptop:z-[1] top-[197px] large:top-[153px] laptop:top-[0] w-full left-0 laptop:fixed laptop:right-0 laptop:left-auto laptop:top-0 overflow-hidden transition-all duration-300 ${
             mapVisible ? 'h-[100vh] laptop:w-1/2' : 'h-0 laptop:h-[100vh] laptop:w-[40px]'
           }`}
         >
