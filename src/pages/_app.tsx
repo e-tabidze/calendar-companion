@@ -9,6 +9,8 @@ import '../../styles/globals.css'
 import { store } from '../store'
 import { Provider } from 'react-redux'
 
+import NextNProgress from 'nextjs-progressbar'
+
 // ** Third Party Import
 import { Toaster } from 'react-hot-toast'
 
@@ -26,6 +28,8 @@ const App: FC<AppProps> = ({ Component, pageProps, ...rest }) => {
   return (
     <>
       <Provider store={store}>
+        <NextNProgress showOnShallow={true} options={{ showSpinner: false }} />
+
         <QueryClientProvider client={queryClient}>
           <Hydrate state={pageProps.dehydratedState}>
             <Component {...pageProps} />

@@ -14,13 +14,15 @@ import PersonalInfo from 'src/views/pages/profile/personal-information'
 import CreateCompany from 'src/views/pages/profile/createCompany'
 import CardsAndTransactions from 'src/views/pages/profile/cardsAndTransactions'
 import Company from 'src/views/pages/profile/company'
-import { fetchUserData } from 'src/store/apps/user'
+// import { fetchUserData } from 'src/store/apps/user'
+import { QueryClient, dehydrate } from '@tanstack/react-query'
 
 import { ACCESS_TOKEN_NAME } from 'src/env'
 import Cookie from 'src/helpers/Cookie'
-import useProfile from 'src/hooks/useProfile'
+import useProfile, { getUserInfo } from 'src/hooks/useProfile'
 import STATUSES from 'src/configs/loadingStatuses'
 import { useDispatch } from 'react-redux'
+import { UserInfo } from 'src/types/User'
 
 const routes = [
   {
@@ -67,16 +69,45 @@ const routes = [
   }
 ]
 
+const ProfileRouter = ({ userInfo }: { userInfo: UserInfo }) => {
+  const router = useRouter()
+  let key = ''
+
+  if (router.query.link?.length) {
+    key = router.query?.link[0]
+  }
+
+  if (router.query.link?.length == 2) {
+    key = 'profile'
+  }
+
+  switch (key) {
+    case 'profile':
+      return <Orders />
+    case 'orders':
+      return <Orders />
+    case 'favourites':
+      return <Favourites />
+    case 'transactions':
+      return <CardsAndTransactions />
+    case 'personal-information':
+      return <PersonalInfo userData={userInfo} />
+    case 'bedina-plus':
+      return <Company />
+    case 'create-company':
+      return <CreateCompany />
+    default:
+      return <></>
+  }
+}
+
 const Profile = () => {
   const { width } = useWindowDimensions()
   const [dividerIndexes] = useState([2, 4])
-  const [component, setComponent] = useState<any>(<Orders />)
   const [isSidebarVisible, setIsSidebarVisible] = useState(true)
   const [selectedRoute, setSelectedRoute] = useState<any>(routes[0])
 
-  const { showProfile, setShowProfile, showRightTab, setShowRightTab, userData, router } = useProfile()
-
-  console.log(userData, 'userData')
+  const { showProfile, setShowProfile, showRightTab, setShowRightTab, userInfo, router, isLoading } = useProfile()
 
   const sidebarClassName = `h-fit w-full laptop:w-4/12 border border-raisin-10 rounded-3xl p-6 ${
     isSidebarVisible ? 'block' : 'hidden'
@@ -86,58 +117,16 @@ const Profile = () => {
     isSidebarVisible ? 'hidden' : 'block'
   } laptop:block`
 
-  const getComponentByPath = (path: any) => {
-    switch (path) {
-      case '/profile':
-        return <Orders />
-      case '/profile/orders/':
-        return <Orders />
-      case '/profile/favourites/':
-        return <Favourites />
-      case '/profile/transactions/':
-        return <CardsAndTransactions />
-      case '/profile/personal-information/':
-        return <PersonalInfo userData={userData} />
-      case '/profile/bedina-plus/':
-        return <Company />
-      case '/profile/create-company/':
-        return <CreateCompany />
-      default:
-        return component
-    }
-  }
+  console.log(userInfo, 'userInfo')
+  console.log(isLoading, 'isLoading')
 
   const handleRouteChange = (route: any) => {
     router.push(route.path)
     setSelectedRoute(route)
     width < 1024 && setIsSidebarVisible(!isSidebarVisible)
   }
-  useEffect(() => {
-    const currentComponent = getComponentByPath(router.asPath)
-    setComponent(currentComponent)
-  }, [router.asPath])
 
   const toggleSidebar = () => setIsSidebarVisible(!isSidebarVisible)
-
-  // const accessToken = Cookie.get(ACCESS_TOKEN_NAME)
-
-  // const dispatch = useDispatch()
-
-  // const fetchUserDataAndDispatch = async () => {
-  //   try {
-  //     const AccessToken = Cookie.get(ACCESS_TOKEN_NAME) || ''; // Adjust as needed
-
-  //     // Dispatch the fetchUserData async thunk with the AccessToken
-  //     await dispatch(fetchUserData({ AccessToken }));
-  //   } catch (e) {
-  //     console.error('Error fetching user data:', e);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   // Example: Fetch user data when the component mounts
-  //   fetchUserDataAndDispatch()
-  // }, [])
 
   return (
     <>
@@ -166,7 +155,7 @@ const Profile = () => {
                     <div className='flex items-center gap-5'>
                       <Image src='/images/avatar.png' alt='' className='rounded-full' width={48} height={48} />
                       <Typography type='h5' weight='medium'>
-                        ზაური ათაბეგაშვილი
+                        {userInfo?.FirstName} {userInfo?.LastName}
                       </Typography>
                     </div>
                     <Image src='/icons/chevron.svg' alt='' width={9} height={8} />
@@ -207,7 +196,8 @@ const Profile = () => {
                         width={5}
                       />
                     )}
-                    {component}
+                    {/* {!isLoading && userInfo ? component : <div>Loading...</div>} */}
+                    <ProfileRouter userInfo={userInfo} />
                   </div>
                 )}
               </div>

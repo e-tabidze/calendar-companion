@@ -4,15 +4,15 @@ import { yupResolver } from '@hookform/resolvers/yup'
 
 import { useDispatch } from 'react-redux'
 import { AppDispatch } from 'src/store'
-import { UserData } from 'src/types/User'
+import { UserInfo } from 'src/types/User'
 
-const usePersonalInfo = (userData: UserData) => {
+const usePersonalInfo = (userData: UserInfo) => {
   const defaultValues = {
-    gender: userData.gender_id,
-    email: userData.Email,
-    first_name: userData.FirstName,
-    last_name: userData.LastName,
-    phone: userData.phone,
+    gender: userData?.gender_id,
+    email: userData?.Email,
+    first_name: userData?.FirstName,
+    last_name: userData?.LastName,
+    phone: userData?.phone,
     code: ''
   }
 
@@ -29,7 +29,7 @@ const usePersonalInfo = (userData: UserData) => {
     handleSubmit: passwordHandleSubmit,
     formState: passwordState
   } = useForm({
-    defaultValues: passwordDefaultValues,
+    defaultValues: passwordDefaultValues
     // resolver: yupResolver(PasswordSchema)
   })
 
@@ -41,7 +41,7 @@ const usePersonalInfo = (userData: UserData) => {
     setError,
     clearErrors
   } = useForm({
-    defaultValues,
+    defaultValues
     // resolver: yupResolver(UserInfoSchema)
   })
 

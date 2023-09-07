@@ -1,4 +1,4 @@
-export type UserData = {
+export type UserInfo = {
   UserID: number
   Email: string
   UserType: number

@@ -7,7 +7,7 @@ import Typography from 'src/views/components/typography'
 import { Tab } from '@headlessui/react'
 import ProfileInfoForm from './profileInfoForm'
 import PasswordForm from './passwordForm'
-import { UserData } from 'src/types/User'
+import { UserInfo } from 'src/types/User'
 import usePersonalInfo from './usePersonalInfo'
 
 const cat = [
@@ -25,19 +25,25 @@ function tabs(...classes: any) {
   return classes.filter(Boolean).join(' ')
 }
 
-const PersonalInfo = ({ userData }: { userData: UserData }) => {
-  const {
-    control,
-    errors,
-    handleSubmit,
-    passwordControl,
-    passwordHandleSubmit,
-    passwordState,
-    dirtyFields,
-    resetField,
-    setError,
-    clearErrors
-  } = usePersonalInfo(userData)
+interface Props {
+  userData: UserInfo
+}
+
+const PersonalInfo: React.FC<Props> = ({ userData }) => {
+  // const {
+  //   control,
+  //   errors,
+  //   handleSubmit,
+  //   passwordControl,
+  //   passwordHandleSubmit,
+  //   passwordState,
+  //   dirtyFields,
+  //   resetField,
+  //   setError,
+  //   clearErrors
+  // } = usePersonalInfo(userData)
+
+  console.log(userData, 'userdata in perosnal information')
 
   const renderTabContent = (id: any) => {
     if (id === 0) {
@@ -54,10 +60,16 @@ const PersonalInfo = ({ userData }: { userData: UserData }) => {
           პარამეტრები
         </Typography>
         <div className='border border-raisin-10 p-4 large:border-none large:p-0 rounded-2xl flex items-center gap-3 mt-8 '>
-          <Image src='/images/avatar.png' height={96} width={96} alt='' className='rounded-full large:rounded-3xl' />
+          <Image
+            src={userData?.information.profile_pic}
+            height={96}
+            width={96}
+            alt=''
+            className='rounded-full large:rounded-3xl'
+          />
           <div className='flex flex-col gap-2'>
             <Typography type='h3' className='text-md large:text-2lg font-medium large:font-bold'>
-              ზაური ათაბეგაშვილი
+              {userData?.FirstName} {userData?.LastName}
             </Typography>
             <Link href='/' className='text-2sm underline text-blue-100 font-normal'>
               სურათის შეცვლა

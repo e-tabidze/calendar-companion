@@ -14,24 +14,24 @@ interface Redux {
 }
 
 // ** Fetch User Data
-export const fetchUserData = createAsyncThunk(
-  'appUsers/fetchData',
-  async (params: { AccessToken: string }, { dispatch }: Redux) => {
-    try {
-      dispatch(setUserInfoLoadingStatus(STATUSES.PENDING))
-      const response: any = await UserService.getUserData(params.AccessToken)
-      console.log(response, 'response')
-      dispatch(setUserData(response.data))
-      dispatch(setUserInfoLoadingStatus(STATUSES.SUCCESS))
+// export const fetchUserData = createAsyncThunk(
+//   'appUsers/fetchData',
+//   async (params: { AccessToken: string }, { dispatch }: Redux) => {
+//     try {
+//       dispatch(setUserInfoLoadingStatus(STATUSES.PENDING))
+//       const response: any = await UserService.getUserData(params.AccessToken)
+//       console.log(response, 'response')
+//       dispatch(setUserData(response.data))
+//       dispatch(setUserInfoLoadingStatus(STATUSES.SUCCESS))
 
-      return response.data
-    } catch (error) {
-      dispatch(setError(error))
+//       return response.data
+//     } catch (error) {
+//       dispatch(setError(error))
 
-      return error
-    }
-  }
-)
+//       return error
+//     }
+//   }
+// )
 
 const hydrate = createAction<any>(HYDRATE)
 
