@@ -1,8 +1,8 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import useWindowDimensions from 'src/hooks/useWindowDimensions'
 import DefaultLayout from 'src/layouts/DefaultLayout'
-import { LargeContainer } from 'src/styled/styles'
+import { FullContainer } from 'src/styled/styles'
 import Divider from 'src/views/components/divider'
 import Image from 'src/views/components/image'
 import MapPicker from 'src/views/components/mapPicker'
@@ -22,23 +22,27 @@ import {
   MapContainer,
   ResponsiveDivider,
   SearchContentsContainer,
-  SearchResultsContainer,
-  Wrapper
+  SearchResultsContainer
 } from '../../views/pages/search/styles'
+import ToggleMapButton from '../../views/pages/search/toggleMapButton'
 
 const SearchPage = () => {
   const { width } = useWindowDimensions()
-  const [mapLayout, toggleMapLayout] = useState(true)
+  const [mapVisible, setMapVisible] = useState(true)
 
-  const handleToggleMap = () => {
-    toggleMapLayout(!mapLayout)
+  useEffect(() => {
+    setMapVisible(width >= 1025)
+  }, [width])
+
+  const handleToggleMapWidth = () => {
+    setMapVisible(!mapVisible)
   }
 
   const { control } = useForm()
 
   return (
-    <DefaultLayout>
-      <LargeContainer>
+    <>
+      <DefaultLayout fullWidth={true} fixedHeader={true}>
         <Divider />
         <FiltersWrapper>
           <MainFilters>
@@ -61,68 +65,106 @@ const SearchPage = () => {
           </MainFilters>
           <ClearFiltersWrapper>
             <Image src='/icons/return.svg' className='w-4' alt='' />
-            <Typography type='body' className='text-orange-120 w-20'>
+            <Typography type='body' className='text-orange-120'>
               ფილტრის გასუფთავება
             </Typography>
           </ClearFiltersWrapper>
         </FiltersWrapper>
 
         <ResponsiveDivider />
-        <SearchContentsContainer>
-          <Wrapper>
-            <SearchResultsContainer>
-              <Typography type='h5' weight='normal' className='mr-2 mb-5 large:mb-0'>
-                სულ ნაპოვნია 71 განცხადება
-              </Typography>
-              <div className='flex gap-5 my-4'>
-                <Image src='/icons/grid.svg' onClick={handleToggleMap} className='hidden large:block' alt='' />
-                <Image src='/icons/gridMap.svg' onClick={handleToggleMap} className='hidden large:block' alt='' />
-                {width < 781 && (
+      </DefaultLayout>
+
+      <FullContainer className='laptop:flex pt-[185px]'>
+        <SearchContentsContainer
+          className={`w-full px-5 large:pl-10 transition-all duration-300 ${
+            mapVisible ? 'laptop:w-1/2 pr-8' : 'w-full laptop:pr-0'
+          }`}
+        >
+          <SearchResultsContainer>
+            <Typography type='h5' weight='normal' className='mr-2 mb-5 large:mb-0'>
+              სულ ნაპოვნია 71 განცხადება
+            </Typography>
+            <div className='w-full large:w-auto flex items-center my-4'>
+              <span
+                className={`cursor-pointer ml-3 hidden laptop:flex items-center justify-center w-8 h-8 rounded-full ${
+                  mapVisible ? '' : 'bg-green-10'
+                }`}
+              >
+                <Image src='/icons/grid.svg' onClick={handleToggleMapWidth} className='h-[14px]' alt='' />
+              </span>
+              <span
+                className={`cursor-pointer ml-3 hidden laptop:flex items-center justify-center w-8 h-8 rounded-full ${
+                  mapVisible ? 'bg-green-10' : ''
+                }`}
+              >
+                <Image src='/icons/gridMap.svg' onClick={handleToggleMapWidth} className='h-[14px]' alt='' />
+              </span>
+              <div className='w-full large:w-auto flex justify-between large:ml-6'>
+                <div className="flex">
+                  {width < 1025 && (
+                      <Tag
+                          component={<Image src='/icons/filters.svg' alt='' />}
+                          label={'ფილტრი'}
+                          height='h-10'
+                          bg={'bg-grey-60'}
+                      />
+                  )}
                   <Tag
-                    component={<Image src='/icons/filters.svg' alt='' />}
-                    label={'ფილტრი'}
-                    height='h-10'
-                    bg={'bg-grey-60'}
+                      className='mx-4 laptop:mx-0'
+                      component={<Image src='/icons/sort.svg' alt='' />}
+                      label={width > 779 ? 'სორტირება' : ''}
+                      height={width > 1025 ? 'h-12' : 'h-10'}
                   />
-                )}
-                <Tag
-                  component={<Image src='/icons/sort.svg' alt='' />}
-                  label={width > 779 ? 'სორტირება' : ''}
-                  height={width > 779 ? 'h-12' : 'h-10'}
-                />
-                {width < 781 && (
+                </div>
+
+                {width < 1025 && (
                   <Tag
                     component={<Image src='/icons/map.svg' alt='' />}
                     label='რუკაზე'
                     height='h-10'
-                    handleClick={handleToggleMap}
+                    handleClick={handleToggleMapWidth}
                   />
                 )}
               </div>
-            </SearchResultsContainer>
-            <div className={`grid gap-4 ${mapLayout ? 'grid-cols-2' : 'grid-cols-4'}`}>
-              <ProductCard />
-              <ProductCard />
-              <ProductCard />
-              <ProductCard />
-              <ProductCard />
-              <ProductCard />
-              <ProductCard />
-              <ProductCard />
-              <ProductCard />
-              <ProductCard />
-              <ProductCard />
-              <ProductCard />
             </div>
-          </Wrapper>
-          {mapLayout && width > 779 && (
-            <MapContainer>
-              <MapPicker height='700px' borderRadius={width > 557 ? '30px' : '0px'} />
-            </MapContainer>
-          )}
+          </SearchResultsContainer>
+          <div
+            className={`grid tablet:grid-cols-2 gap-6 ${
+              mapVisible ? 'grid-cols-2 2xl:grid-cols-3' : 'laptop:grid-cols-4 2xl:grid-cols-5'
+            }`}
+          >
+            <ProductCard />
+            <ProductCard />
+            <ProductCard />
+            <ProductCard />
+            <ProductCard />
+            <ProductCard />
+            <ProductCard />
+            <ProductCard />
+            <ProductCard />
+            <ProductCard />
+            <ProductCard />
+            <ProductCard />
+          </div>
         </SearchContentsContainer>
-      </LargeContainer>
-    </DefaultLayout>
+        <MapContainer
+          className={`absolute z-[111] laptop:z-[1] top-[197px] large:top-[153px] laptop:top-[0] w-full left-0 laptop:fixed laptop:right-0 laptop:left-auto laptop:top-0 overflow-hidden transition-all duration-300 ${
+            mapVisible ? 'h-[100vh] laptop:w-1/2' : 'h-0 laptop:h-[100vh] laptop:w-[40px]'
+          }`}
+        >
+          <MapPicker
+            width='100%'
+            height='100vh'
+            className={`${
+              mapVisible
+                ? ''
+                : "after:content-[''] after:bg-white after:absolute after:z-[11] after:top-0 after:left-0 after:w-full after:h-full"
+            }`}
+          />
+          <ToggleMapButton mapVisible={mapVisible} onClick={handleToggleMapWidth} />
+        </MapContainer>
+      </FullContainer>
+    </>
   )
 }
 
