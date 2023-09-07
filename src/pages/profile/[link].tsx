@@ -106,6 +106,7 @@ const Profile = () => {
   useEffect(() => {
     const currentComponent = getComponentByPath(router.asPath)
     setComponent(currentComponent)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router.asPath])
 
   const toggleSidebar = () => setIsSidebarVisible(!isSidebarVisible)
