@@ -157,6 +157,9 @@ module.exports = {
         lg: '0px 8px 16px rgba(0, 0, 0, 0.1)'
       }
     }
-  }
-  // plugins: [require('@tailwindcss/line-clamp'), require('flowbite/plugin'), require('@headlessui/tailwindcss')]
+  },
+  plugins: [
+    require('@tailwindcss/aspect-ratio'),
+    require('@tailwindcss/line-clamp'),
+  ]
 }
