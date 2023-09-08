@@ -54,8 +54,12 @@ const SearchPage = () => {
               component={<Switcher height='h-5' name='name' control={control} defaultValue />}
               height='h-10'
             />
-            <SeatsPopover />
-            <SuitcasesPopover />
+            <div className="hidden desktop:flex">
+              <SeatsPopover />
+            </div>
+            <div className="hidden desktop:flex">
+              <SuitcasesPopover />
+            </div>
             <Tag
               label='ყველა ფილტრი'
               component={<Image src='/icons/filters.svg' alt='' />}
@@ -74,7 +78,7 @@ const SearchPage = () => {
         <ResponsiveDivider />
       </DefaultLayout>
 
-      <FullContainer className='laptop:flex pt-[185px]'>
+      <FullContainer className='laptop:flex pt-20 laptop:pt-[185px]'>
         <SearchContentsContainer
           className={`w-full px-5 large:pl-10 transition-all duration-300 ${
             mapVisible ? 'laptop:w-1/2 pr-8' : 'w-full laptop:pr-0'
