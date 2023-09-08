@@ -9,7 +9,7 @@ import { InputContainer } from './styles'
 const styles = {
   disabledInput: 'opacity-80',
   input:
-    'w-full rounded-xl px-3 py-2 text-2sm text-raisin-100 border border-raisin-10 focus:border-raisin-100 focus:outline-none placeholder:text-raisin-100 placeholder:text-2sm placeholder:text-raisin-50 placeholder:text-2sm focus:placeholder-opacity-0',
+    'w-full rounded-xl px-3 text-2sm text-raisin-100 border border-raisin-10 focus:border-raisin-100 focus:outline-none placeholder:text-raisin-100 placeholder:text-2sm placeholder:text-raisin-50 placeholder:text-2sm focus:placeholder-opacity-0',
   label: 'text-sm absolute left-3 text-raisin-50 focus:top-2'
 }
 
@@ -69,7 +69,7 @@ export const DefaultInput: React.FC<Props> = ({
           <>
             <label
               className={`absolute left-3 ${
-                isFocused || value ? 'text-sm text-raisin-50' : 'hidden'
+                isFocused || value ? 'text-sm text-raisin-50 top-[2px]' : 'hidden'
               }`}
             >
               {label}
@@ -80,7 +80,7 @@ export const DefaultInput: React.FC<Props> = ({
               onBlur={handleBlur}
               disabled={disabled}
               value={value || ''}
-              className={`${rows ? 'pt-4' : 'h-14'} ${styles.input} ${!disabled ? 'hover:border-raisin-30' : ''} ${
+              className={`${rows ? 'pt-4' : 'h-12'} ${styles.input} ${value || isFocused ? 'pb-1 pt-4' : 'pt-2 pb-2'} ${!disabled ? 'hover:border-raisin-30' : ''} ${
                 _.get(errors, name)?.ref.name === name ? 'border border-red-100' : ''
               }`}
               type='text'

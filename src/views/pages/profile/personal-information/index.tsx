@@ -117,7 +117,7 @@ const PersonalInfo: React.FC<Props> = ({ userData }) => {
         </div>
         <Divider className='hidden large:block' />
         <div className='flex items-center gap-3 p-2 large:p-4'>
-          <DefaultButton type="submit" text='შენახვა' textColor='text-white' bg='bg-orange-100'></DefaultButton>
+          <DefaultButton type='submit' text='შენახვა' textColor='text-white' bg='bg-orange-100'></DefaultButton>
           <DefaultButton text='უარყოფა' bg='bg-grey-100'></DefaultButton>
         </div>
       </form>

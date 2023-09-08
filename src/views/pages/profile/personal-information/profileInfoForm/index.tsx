@@ -1,4 +1,3 @@
-import { useForm } from 'react-hook-form'
 import { DefaultInput } from 'src/views/components/input'
 import Radio from 'src/views/components/radio'
 import Typography from 'src/views/components/typography'
@@ -29,8 +28,8 @@ const ProfileInfoForm: React.FC<Props> = ({ control }) => {
         <DefaultInput control={control} name='identification_number' errors={''} label='პირადი ნომერი' />
         <DefaultInput control={control} name='phone' errors={''} label='მობილურის ნომერი' />
         <DefaultInput control={control} name='Email' errors={''} label='ელ.ფოსტა' disabled />
-        <DateDropdown label={'აირჩიე დაბადების თარიღი'} />
-        <DateDropdown label={'მართვის მოწმობის მოქმედების ვადა'} />
+        <DateDropdown label={'აირჩიე დაბადების თარიღი'} name='birth_date' control={control} />
+        <DateDropdown label={'მართვის მოწმობის მოქმედების ვადა'} name='driver_license_expiration' control={control} />
       </div>
     </div>
   )
