@@ -4,9 +4,11 @@ import Radio from 'src/views/components/radio'
 import Typography from 'src/views/components/typography'
 import DateDropdown from '../dateDropdown'
 
-const ProfileInfoForm = () => {
-  const { control } = useForm()
+interface Props {
+  control: any
+}
 
+const ProfileInfoForm: React.FC<Props> = ({ control }) => {
   const options = [
     { label: 'მამრობითი', value: 'მამრობითი' },
     { label: 'მდედრობითი', value: 'მდედრობითი' }

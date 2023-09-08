@@ -5,6 +5,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { useDispatch } from 'react-redux'
 import { AppDispatch } from 'src/store'
 import { UserInfo } from 'src/types/User'
+import UserService from 'src/services/UserService'
 
 const usePersonalInfo = (userData: UserInfo) => {
   const defaultValues = {
@@ -12,9 +13,11 @@ const usePersonalInfo = (userData: UserInfo) => {
     email: userData?.Email,
     first_name: userData?.FirstName,
     last_name: userData?.LastName,
-    phone: userData?.phone,
+    // phone: userData?.phone,
     code: ''
   }
+
+  console.log(defaultValues, 'defaultValues')
 
   const dispatch = useDispatch<AppDispatch>()
 
@@ -47,6 +50,19 @@ const usePersonalInfo = (userData: UserInfo) => {
 
   const userInfoValues: any = useWatch({ control })
 
+  const updateUserInfo = async (params: { AccessToken: any; userInfo: any }) => {
+    const { AccessToken, userInfo } = params
+
+    try {
+      const response: any = await UserService.updateUserInfo(AccessToken, userInfo)
+
+      return response.data
+    } catch (error) {
+      console.error('Error updating user info:', error)
+      throw error
+    }
+  }
+
   return {
     control,
     handleSubmit,
@@ -59,7 +75,8 @@ const usePersonalInfo = (userData: UserInfo) => {
     dirtyFields,
     resetField,
     setError,
-    clearErrors
+    clearErrors,
+    updateUserInfo
   }
 }
 

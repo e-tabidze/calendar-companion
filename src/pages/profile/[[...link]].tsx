@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import DefaultLayout from 'src/layouts/DefaultLayout'
 import { ContentContainer } from 'src/styled/styles'
 import Breadcrumb from 'src/views/components/breadcrumb'
@@ -14,14 +14,7 @@ import PersonalInfo from 'src/views/pages/profile/personal-information'
 import CreateCompany from 'src/views/pages/profile/createCompany'
 import CardsAndTransactions from 'src/views/pages/profile/cardsAndTransactions'
 import Company from 'src/views/pages/profile/company'
-// import { fetchUserData } from 'src/store/apps/user'
-import { QueryClient, dehydrate } from '@tanstack/react-query'
-
-import { ACCESS_TOKEN_NAME } from 'src/env'
-import Cookie from 'src/helpers/Cookie'
-import useProfile, { getUserInfo } from 'src/hooks/useProfile'
-import STATUSES from 'src/configs/loadingStatuses'
-import { useDispatch } from 'react-redux'
+import useProfile from 'src/hooks/useProfile'
 import { UserInfo } from 'src/types/User'
 
 const routes = [
