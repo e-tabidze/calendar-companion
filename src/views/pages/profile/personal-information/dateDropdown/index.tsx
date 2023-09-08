@@ -1,7 +1,4 @@
-import { Menu, Transition } from '@headlessui/react'
-import { Fragment, useState } from 'react'
-import Typography from 'src/views/components/typography'
-import { DateSelectContainer, InnerDateSelectContainer } from './styles'
+import { useState } from 'react'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import Image from 'next/image'
@@ -22,18 +19,18 @@ interface CalendarInputProps {
 }
 
 const CustomDateInput: React.FC<CalendarInputProps> = ({ value, onClick, isCalendarOpen, label }) => (
-  <div className='relative w-full h-12'>
+  <div className='relative w-full h-14'>
     <div className='absolute inset-y-0 left-0 flex items-center pl-3'>
       <Image src='/icons/calendar.svg' alt='calendar' height={24} width={24} />
     </div>
     <input
       type='text'
-      className='w-full h-full pl-12 pr-8 pb-1 pt-4 rounded-xl border border-raisin-10 text-2sm outline-none focus:ring-0 bg-transparent'
+      className='w-full h-full pl-12 pr-8 pb-1 pt-3 rounded-xl border border-raisin-10 text-2sm outline-none focus:ring-0 bg-transparent'
       value={value}
       onClick={onClick}
       readOnly
     />
-    <label className={`absolute left-12 ${value ? 'text-sm text-raisin-50 top-[2px]' : 'hidden'}`}>{label}</label>
+    <label className={`absolute left-12 ${value ? 'text-sm text-raisin-50 top-[3px]' : 'hidden'}`}>{label}</label>
     <div className='absolute inset-y-0 right-0 flex items-center pr-3'>
       <Image
         src='/icons/chevron.svg'

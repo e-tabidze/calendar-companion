@@ -69,7 +69,7 @@ export const DefaultInput: React.FC<Props> = ({
           <>
             <label
               className={`absolute left-3 ${
-                isFocused || value ? 'text-sm text-raisin-50 top-[2px]' : 'hidden'
+                isFocused || value ? 'text-sm text-raisin-50 top-[3px]' : 'hidden'
               }`}
             >
               {label}
@@ -80,7 +80,7 @@ export const DefaultInput: React.FC<Props> = ({
               onBlur={handleBlur}
               disabled={disabled}
               value={value || ''}
-              className={`${rows ? 'pt-4' : 'h-12'} ${styles.input} ${value || isFocused ? 'pb-1 pt-4' : 'pt-2 pb-2'} ${!disabled ? 'hover:border-raisin-30' : ''} ${
+              className={`${rows ? 'pt-4' : 'h-14'} ${styles.input} ${value || isFocused ? 'pb-1 pt-3' : 'pt-2 pb-2'} ${!disabled ? 'hover:border-raisin-30' : ''} ${
                 _.get(errors, name)?.ref.name === name ? 'border border-red-100' : ''
               }`}
               type='text'
