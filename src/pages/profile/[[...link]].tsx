@@ -84,7 +84,7 @@ const ProfileRouter = ({ userInfo }: { userInfo: UserInfo }) => {
     case 'transactions':
       return <CardsAndTransactions />
     case 'personal-information':
-      return <PersonalInfo userData={userInfo} />
+      return userInfo && <PersonalInfo userData={userInfo} />
     case 'bedina-plus':
       return <Company />
     case 'create-company':

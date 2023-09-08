@@ -9,15 +9,17 @@ import UserService from 'src/services/UserService'
 
 const usePersonalInfo = (userData: UserInfo) => {
   const defaultValues = {
-    gender: userData?.gender_id,
+    profile_pic: userData?.information.profile_pic,
+    gender: userData?.information.gender,
+    birth_date: userData?.information.birth_date,
+    identification_number: userData?.information.identification_number,
+    driver_license_expiration: userData?.information.driver_license_expiration,
     email: userData?.Email,
-    first_name: userData?.FirstName,
-    last_name: userData?.LastName,
-    // phone: userData?.phone,
-    code: ''
+    first_name: userData?.information.first_name,
+    last_name: userData?.information.last_name,
+    Email: userData?.Email,
+    phone: userData?.phone
   }
-
-  console.log(defaultValues, 'defaultValues')
 
   const dispatch = useDispatch<AppDispatch>()
 
@@ -50,7 +52,7 @@ const usePersonalInfo = (userData: UserInfo) => {
 
   const userInfoValues: any = useWatch({ control })
 
-  const updateUserInfo = async (params: { AccessToken: any; userInfo: any }) => {
+  const updateUserInfo = async (params: { AccessToken: any; userInfo: UserInfo }) => {
     const { AccessToken, userInfo } = params
 
     try {

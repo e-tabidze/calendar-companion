@@ -66,7 +66,7 @@ const PersonalInfo: React.FC<Props> = ({ userData }) => {
   return (
     // @ts-ignore
     <FormProvider {...control}>
-      <form>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <div className='p-2 large:p-10'>
           <Typography type='h3' className='hidden large:inline-block'>
             პარამეტრები
