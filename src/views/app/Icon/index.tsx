@@ -2,13 +2,13 @@ import React, { useState, useEffect } from 'react';
 
 type SvgProps = {
     svgPath: string;
-    width?: number;
-    height?: number;
+    width?: number | string;
+    height?: number | string;
     color?: string;
     className?: string;
 };
 
-function Icon({ svgPath, width, height, className = '', color }: SvgProps) {
+function Icon({ svgPath, width='auto', height='auto', className = '', color }: SvgProps) {
     const [svgContent, setSvgContent] = useState(null);
 
     useEffect(() => {

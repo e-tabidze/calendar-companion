@@ -26,6 +26,8 @@ import {
 } from '../../views/pages/search/styles'
 import ToggleMapButton from '../../views/pages/search/toggleMapButton'
 
+// import Icon from 'src/views/app/Icon'
+
 const SearchPage = () => {
   const { width } = useWindowDimensions()
   const [mapVisible, setMapVisible] = useState(true)
@@ -94,7 +96,11 @@ const SearchPage = () => {
                   mapVisible ? '' : 'bg-green-10'
                 }`}
               >
-                <Image src='/icons/grid.svg' onClick={handleToggleMapWidth} className='h-[14px]' alt='' />
+                <Image src='/icons/add.svg' onClick={handleToggleMapWidth} className='h-[14px]' alt='' />
+
+                {/* <Icon svgPath='vuesax_linear_menu' width={20} height={20} className='fill-red-500 transition-all duration-500 hover:fill-red-100' /> */}
+
+
               </span>
               <span
                 className={`cursor-pointer ml-3 hidden laptop:flex items-center justify-center w-8 h-8 rounded-full ${
