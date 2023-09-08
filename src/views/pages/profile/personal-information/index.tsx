@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { DefaultButton } from 'src/views/components/button'
 import Divider from 'src/views/components/divider'
 import Typography from 'src/views/components/typography'
+import Cookie from 'src/helpers/Cookie'
 
 import { Tab } from '@headlessui/react'
 import ProfileInfoForm from './profileInfoForm'
@@ -42,7 +43,8 @@ const PersonalInfo: React.FC<Props> = ({ userData }) => {
     resetField,
     setError,
     clearErrors,
-    userInfoValues
+    userInfoValues,
+    updateUserInfo
   } = usePersonalInfo(userData)
 
   console.log(userData, 'userdata in perosnal information')
@@ -58,6 +60,7 @@ const PersonalInfo: React.FC<Props> = ({ userData }) => {
   const onSubmit = async () => {
     try {
       console.log(userInfoValues, 'userInfoValues')
+      await updateUserInfo({ AccessToken: Cookie.get('AccessToken'), userInfo: userInfoValues })
     } catch (error) {
       console.error('An error occurred:', error)
     }

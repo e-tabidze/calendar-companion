@@ -3,6 +3,7 @@ import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import Image from 'next/image'
 import { Controller } from 'react-hook-form'
+import { format } from 'date-fns'
 
 interface Props {
   name: string
@@ -51,23 +52,22 @@ const DateDropdown: React.FC<Props> = ({ name, control, defaultValue, label }) =
       control={control}
       defaultValue={defaultValue}
       render={({ field: { onChange, value } }) => (
-        <>
-          {console.log(value, 'value')}
-          <DatePicker
-            selected={new Date(value)}
-            onChange={date => onChange(date)}
-            customInput={
-              <CustomDateInput
-                value={value}
-                onClick={() => setIsCalendarOpen(!isCalendarOpen)}
-                isCalendarOpen
-                label={label}
-              />
-            }
-            onCalendarOpen={() => setIsCalendarOpen(true)}
-            onCalendarClose={() => setIsCalendarOpen(false)}
-          />
-        </>
+        <DatePicker
+          selected={new Date(value)}
+          // onChange={date => onChange(date)}
+          onChange={date => onChange(format(date, 'yyyy-MM-dd'))}
+          dateFormat='yyyy-MM-dd'
+          customInput={
+            <CustomDateInput
+              value={value}
+              onClick={() => setIsCalendarOpen(!isCalendarOpen)}
+              isCalendarOpen
+              label={label}
+            />
+          }
+          onCalendarOpen={() => setIsCalendarOpen(true)}
+          onCalendarClose={() => setIsCalendarOpen(false)}
+        />
       )}
     />
   )

@@ -1,3 +1,4 @@
+import { Controller } from 'react-hook-form'
 import { DefaultInput } from 'src/views/components/input'
 import Radio from 'src/views/components/radio'
 import Typography from 'src/views/components/typography'
@@ -21,7 +22,14 @@ const ProfileInfoForm: React.FC<Props> = ({ control }) => {
       </Typography>
       <Typography type='body'>აირჩიე სქესი</Typography>
       <div className='grid gap-2 grid-cols-1 large:grid-cols-2'>
-        <Radio options={options} control={control} color='bg-orange-100' name='' horizontal />
+        {/* <Radio options={options} control={control} color='bg-orange-100' name='' horizontal /> */}
+        <Controller
+          name='gender'
+          control={control}
+          render={({ field }) => (
+            <Radio options={options} control={control} color='bg-orange-100' name={field.name} horizontal />
+          )}
+        />
         <div></div>
         <DefaultInput control={control} name='first_name' errors={''} label='სახელი' />
         <DefaultInput control={control} name='last_name' errors={''} label='გვარი' />

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useRouter } from 'next/router'
 import NewListingLayout from 'src/layouts/NewListingLayout'
 import StepOne from './stepOne'
