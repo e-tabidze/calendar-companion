@@ -50,7 +50,6 @@ export const DefaultInput: React.FC<Props> = ({
   rows,
   className,
   index,
-  placeholder
 }) => {
   const [isFocused, setIsFocused] = useState(false)
   const InputComponent = rows ? 'textarea' : 'input'

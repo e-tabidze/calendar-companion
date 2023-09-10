@@ -100,7 +100,7 @@ const Profile = () => {
   const [isSidebarVisible, setIsSidebarVisible] = useState(true)
   const [selectedRoute, setSelectedRoute] = useState<any>(routes[0])
 
-  const { showProfile, setShowProfile, showRightTab, setShowRightTab, userInfo, router, isLoading } = useProfile()
+  const { userInfo, router, isLoading } = useProfile()
 
   const sidebarClassName = `h-fit w-full laptop:w-4/12 border border-raisin-10 rounded-3xl p-6 ${
     isSidebarVisible ? 'block' : 'hidden'

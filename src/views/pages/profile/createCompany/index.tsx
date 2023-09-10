@@ -24,7 +24,6 @@ const CreateCompany = () => {
     control,
     handleSubmit,
     errors,
-    dispatch,
     companyValues,
     clearErrors,
     addressFields,
@@ -88,6 +87,7 @@ const CreateCompany = () => {
   }
 
   return (
+    
     // @ts-ignore
     <FormProvider {...control}>
       <NewListingLayout

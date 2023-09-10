@@ -2,12 +2,9 @@ import { useRouter } from 'next/router'
 import { DefaultButton } from '../button'
 import Image from '../image'
 import { InnerContainer } from './styles'
-import useDefaultHeader from './useDefaultHeader'
 import User from './user'
 
 const DefaultHeader = () => {
-  const { isAuth } = useDefaultHeader()
-
   const router = useRouter()
 
   const onClickLogo = () => {

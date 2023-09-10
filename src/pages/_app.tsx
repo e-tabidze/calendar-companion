@@ -1,6 +1,5 @@
 import React, { FC } from 'react'
 import { AppProps } from 'next/app'
-import type { NextPage } from 'next'
 
 // ** Global css styles
 import '../../styles/globals.css'
@@ -17,12 +16,7 @@ import { Toaster } from 'react-hot-toast'
 import { Hydrate, QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
-// ** Extend App Props with Emotion
-type ExtendedAppProps = AppProps & {
-  Component: NextPage
-}
-
-const App: FC<AppProps> = ({ Component, pageProps, ...rest }) => {
+const App: FC<AppProps> = ({ Component, pageProps }) => {
   const [queryClient] = React.useState(() => new QueryClient())
 
   return (
