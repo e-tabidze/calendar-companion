@@ -54,8 +54,7 @@ const DateDropdown: React.FC<Props> = ({ name, control, defaultValue, label }) =
       render={({ field: { onChange, value } }) => (
         <DatePicker
           selected={new Date(value)}
-          // onChange={date => onChange(date)}
-          onChange={date => onChange(format(date, 'yyyy-MM-dd'))}
+          onChange={date => onChange(date && format(date, 'yyyy-MM-dd'))}
           dateFormat='yyyy-MM-dd'
           customInput={
             <CustomDateInput

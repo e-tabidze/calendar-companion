@@ -51,7 +51,7 @@ const PersonalInfo: React.FC<Props> = ({ userData }) => {
 
   const renderTabContent = (id: any) => {
     if (id === 0) {
-      return <ProfileInfoForm control={control} />
+      return <ProfileInfoForm control={control} errors={errors} />
     } else {
       return <PasswordForm />
     }

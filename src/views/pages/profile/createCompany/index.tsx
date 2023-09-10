@@ -81,8 +81,6 @@ const CreateCompany = () => {
         }
       )
 
-      console.log(companyValues, 'companyValues')
-
       await createCompany({ AccessToken: Cookie.get('AccessToken'), company: companyValues })
     } catch (error) {
       console.error('An error occurred:', error)

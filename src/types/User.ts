@@ -14,7 +14,7 @@ export type UserInfo = {
     profile_pic: string
     gender: number
     birth_date: string
-    identification_number: string
+    identification_number: number
     driver_license_expiration: string
     verified_at: string
     created_at: null

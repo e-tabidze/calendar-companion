@@ -6,12 +6,13 @@ import DateDropdown from '../dateDropdown'
 
 interface Props {
   control: any
+  errors: object
 }
 
-const ProfileInfoForm: React.FC<Props> = ({ control }) => {
+const ProfileInfoForm: React.FC<Props> = ({ control, errors }) => {
   const options = [
-    { label: 'მამრობითი', value: '1' },
-    { label: 'მდედრობითი', value: '0' }
+    { label: 'მამრობითი', value: 1 },
+    { label: 'მდედრობითი', value: 0 }
   ]
 
   return (
@@ -22,7 +23,6 @@ const ProfileInfoForm: React.FC<Props> = ({ control }) => {
       </Typography>
       <Typography type='body'>აირჩიე სქესი</Typography>
       <div className='grid gap-2 grid-cols-1 large:grid-cols-2'>
-        {/* <Radio options={options} control={control} color='bg-orange-100' name='' horizontal /> */}
         <Controller
           name='gender'
           control={control}
@@ -31,11 +31,11 @@ const ProfileInfoForm: React.FC<Props> = ({ control }) => {
           )}
         />
         <div></div>
-        <DefaultInput control={control} name='first_name' errors={''} label='სახელი' />
-        <DefaultInput control={control} name='last_name' errors={''} label='გვარი' />
-        <DefaultInput control={control} name='identification_number' errors={''} label='პირადი ნომერი' />
-        <DefaultInput control={control} name='phone' errors={''} label='მობილურის ნომერი' />
-        <DefaultInput control={control} name='Email' errors={''} label='ელ.ფოსტა' disabled />
+        <DefaultInput control={control} name='first_name' errors={errors} label='სახელი' />
+        <DefaultInput control={control} name='last_name' errors={errors} label='გვარი' />
+        <DefaultInput control={control} name='identification_number' errors={errors} label='პირადი ნომერი' />
+        <DefaultInput control={control} name='phone' errors={errors} label='მობილურის ნომერი' />
+        <DefaultInput control={control} name='Email' errors={errors} label='ელ.ფოსტა' disabled />
         <DateDropdown label={'აირჩიე დაბადების თარიღი'} name='birth_date' control={control} />
         <DateDropdown label={'მართვის მოწმობის მოქმედების ვადა'} name='driver_license_expiration' control={control} />
       </div>
