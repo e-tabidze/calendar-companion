@@ -7,7 +7,6 @@ export type UserInfo = {
   gender_id: number
   birth_year: number
   birth_date: string
-  phone: string
   information: {
     first_name: string
     last_name: string
@@ -20,5 +19,6 @@ export type UserInfo = {
     created_at: null
     updated_at: string
     deleted_at: null
+    phone: number
   }
 }

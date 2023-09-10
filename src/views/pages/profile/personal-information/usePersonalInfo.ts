@@ -17,7 +17,7 @@ const usePersonalInfo = (userData: UserInfo) => {
     first_name: userData?.information.first_name,
     last_name: userData?.information.last_name,
     Email: userData?.Email,
-    phone: userData?.phone
+    phone: userData?.information.phone
   }
 
   const dispatch = useDispatch<AppDispatch>()

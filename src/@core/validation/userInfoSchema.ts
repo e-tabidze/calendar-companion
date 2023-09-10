@@ -11,7 +11,8 @@ const UserInfoSchema = Yup.object().shape({
       const numericValue = parseFloat(value.toString())
 
       return !isNaN(numericValue) && numericValue.toString().length === 11
-    })
+    }),
+  phone: Yup.number().typeError('ტელეფონის ნომერი უნდა იყოს რიცხვი').required('აუცილებელი ველი')
 })
 
 export { UserInfoSchema }

@@ -1,7 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   mode: 'jit',
-  content: ['./src/pages/**/*.{js,ts,jsx,tsx}', './src/@core/**/*.{js,ts,jsx,tsx}', './src/views/**/*.{js,ts,jsx,tsx}'],
+  content: ['./src/pages/**/*.{js,ts,jsx,tsx}', './src/@core/**/*.{js,ts,jsx,tsx}', './src/views/**/*.{js,ts,jsx,tsx}', './src/layouts/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
       fontFamily: {
@@ -157,6 +157,9 @@ module.exports = {
         lg: '0px 8px 16px rgba(0, 0, 0, 0.1)'
       }
     }
-  }
-  // plugins: [require('@tailwindcss/line-clamp'), require('flowbite/plugin'), require('@headlessui/tailwindcss')]
+  },
+  plugins: [
+    require('@tailwindcss/aspect-ratio'),
+    require('@tailwindcss/line-clamp'),
+  ]
 }
