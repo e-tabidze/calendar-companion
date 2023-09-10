@@ -34,6 +34,7 @@ export default useProfile
 export const getUserInfo = async (accessToken = '') => {
   try {
     const response: any = await UserService.getUserInfo(accessToken)
+    
     return response.data
   } catch (error) {
     console.error(error)

@@ -36,13 +36,6 @@ const PersonalInfo: React.FC<Props> = ({ userData }) => {
     control,
     errors,
     handleSubmit,
-    passwordControl,
-    passwordHandleSubmit,
-    passwordState,
-    dirtyFields,
-    resetField,
-    setError,
-    clearErrors,
     userInfoValues,
     updateUserInfo
   } = usePersonalInfo(userData)
@@ -67,6 +60,7 @@ const PersonalInfo: React.FC<Props> = ({ userData }) => {
   }
 
   return (
+    
     // @ts-ignore
     <FormProvider {...control}>
       <form onSubmit={handleSubmit(onSubmit)}>

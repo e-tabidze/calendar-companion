@@ -1,17 +1,10 @@
 // ** Redux Imports
-import { createSlice, createAsyncThunk, createAction } from '@reduxjs/toolkit'
+import { createSlice, createAction } from '@reduxjs/toolkit'
 
-// ** Service Imports
-import UserService from 'src/services/UserService'
 
-import { Dispatch } from 'redux'
 import { HYDRATE } from 'next-redux-wrapper'
 import STATUSES from 'src/configs/loadingStatuses'
 
-interface Redux {
-  getState: any
-  dispatch: Dispatch<any>
-}
 
 // ** Fetch User Data
 // export const fetchUserData = createAsyncThunk(
@@ -61,7 +54,6 @@ export const appUsersSlice = createSlice({
       }
     },
     status: STATUSES.INITIAL,
-    // status: 'pending',
     error: null
   },
   reducers: {

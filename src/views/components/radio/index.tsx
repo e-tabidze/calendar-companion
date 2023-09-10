@@ -37,6 +37,7 @@ const Radio: React.FC<Props> = ({ name, options, control, color, horizontal }) =
             {({ checked }) => (
               <div className='my-2'>
                 <div
+                
                   //   className={`'flex justify-between items-center w-full
                   //   ${checked ? 'border border-orange-100 py-4 px-4 w-full rounded-xl' : ''}
                   //   ${horizontal && 'border border-raisin-10 py-4 w-full px-4 rounded-xl'}

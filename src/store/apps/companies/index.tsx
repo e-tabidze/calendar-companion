@@ -5,7 +5,6 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { Dispatch } from 'redux'
 import STATUSES from 'src/configs/loadingStatuses'
 import CompanyService from 'src/services/CompanyService'
-import { Company } from 'src/types/Company'
 
 interface Redux {
   getState: any
