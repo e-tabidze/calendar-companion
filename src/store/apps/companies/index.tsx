@@ -32,25 +32,25 @@ export const fetchCompaniesData = createAsyncThunk(
   }
 )
 
-export const createCompany = createAsyncThunk(
-  'appCompanies/createCompany',
-  async (params: { AccessToken: string; company: Company }, { dispatch }) => {
-    try {
-      const { AccessToken, company } = params
-      dispatch(setCreateCompanyLoadingStatus(STATUSES.PENDING))
+// export const createCompany = createAsyncThunk(
+//   'appCompanies/createCompany',
+//   async (params: { AccessToken: string; company: Company }, { dispatch }) => {
+//     try {
+//       const { AccessToken, company } = params
+//       dispatch(setCreateCompanyLoadingStatus(STATUSES.PENDING))
 
-      const response: any = await CompanyService.createCompany(AccessToken, company)
+//       const response: any = await CompanyService.createCompany(AccessToken, company)
 
-      dispatch(setCompanyData(response.data))
-      dispatch(setCreateCompanyLoadingStatus(STATUSES.SUCCESS))
+//       dispatch(setCompanyData(response.data))
+//       dispatch(setCreateCompanyLoadingStatus(STATUSES.SUCCESS))
 
-      return response.data
-    } catch (error) {
-      dispatch(setError(error))
-      throw error
-    }
-  }
-)
+//       return response.data
+//     } catch (error) {
+//       dispatch(setError(error))
+//       throw error
+//     }
+//   }
+// )
 
 export const appCompaniesSlice = createSlice({
   name: 'appCompanies',

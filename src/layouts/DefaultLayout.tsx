@@ -1,6 +1,6 @@
 import React from 'react'
 import { HeaderContainer } from 'src/styled/styles'
-import Header from 'src/views/components/header'
+import DefaultHeader from 'src/views/components/defaultHeader'
 
 interface Props {
   children?: any,
@@ -12,7 +12,7 @@ const DefaultLayout = ({ children, fullWidth, fixedHeader }: Props) => {
   return (
     <main>
       <HeaderContainer className={`${fixedHeader?'fixed z-[111]':'sticky'} ${fullWidth?'w-full px-10':'max-w-[1470px] px-2 laptop:px-8 2xl:px-0'}`}>
-        <Header />
+        <DefaultHeader />
       </HeaderContainer>
       <div>{children}</div>
     </main>

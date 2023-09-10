@@ -64,7 +64,7 @@ const BranchInfoComponent: React.FC<Props> = ({ index, control, errors }) => {
           className='laptop:col-span-2'
         />
         <DefaultInput
-          label='ტელეფონის'
+          label='ტელეფონი'
           name={`addresses.${index}.phone`}
           control={control}
           errors={errors}

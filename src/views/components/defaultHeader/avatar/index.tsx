@@ -1,13 +1,8 @@
-import { useContext } from 'react'
-import { AuthContext } from 'src/@core/context/AuthContext'
 import Image from '../../image'
 import Typography from '../../typography'
 import { AvatarContainer, AvatarInnerContainer, AvatarResponsiveContainer } from './styles'
 
 const Avatar = () => {
-  const { user } = useContext(AuthContext)
-  console.log(user, 'user in header')
-  
   return (
     <AvatarContainer>
       <AvatarInnerContainer>
@@ -15,7 +10,7 @@ const Avatar = () => {
       </AvatarInnerContainer>
       <AvatarResponsiveContainer>
         <Typography type='button' color='dark' weight='normal'>
-          {user?.FirstName}
+          name
         </Typography>
         <Image src='/icons/chevron.svg' alt='img' />
       </AvatarResponsiveContainer>
