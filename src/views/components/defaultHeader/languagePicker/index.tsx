@@ -28,7 +28,7 @@ const LanguagePicker = () => {
 
   return (
     <LanPickerContainer>
-      <div className='h-[7px] w-px bg-neutral-400 mr-4 desktop:mr-5'></div>
+      <div className='h-[7px] w-px bg-neutral-400 mr-4 xl:mr-5'></div>
       <Menu as='div' className='relative inline-block text-left'>
         <Menu.Button className='text-raisin-130 px-2 font-normal inline-flex items-center gap-2 w-full rounded-2xl justify-around py-2 text-2sm hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 hover:bg-[#e7eaf3]'>
           <Image src='/icons/globe.svg' alt='img' />
@@ -61,7 +61,7 @@ const LanguagePicker = () => {
           </Menu.Items>
         </Transition>
       </Menu>
-      <div className='h-[7px] w-px bg-neutral-400 ml-4 desktop:ml-5' />
+      <div className='h-[7px] w-px bg-neutral-400 ml-4 xl:ml-5' />
     </LanPickerContainer>
   )
 }

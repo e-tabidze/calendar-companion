@@ -45,7 +45,7 @@ const NewListingLayout: React.FC<Props> = ({
           {width > 781 && renderNewListingSelect()}
           <Image src='/icons/close.svg' alt='' onClick={onClose} height={40} width={40} />
         </div>
-        <ProgressBar color='green-100' progress={selectedOption.step / options.length} className='large:mt-2' />
+        <ProgressBar color='green-100' progress={selectedOption.step / options.length} className='md:mt-2' />
       </NewListingHeaderContainer>
       {width < 780 && (
         <div className='w-full flex justify-center top-20 bg-white z-[111]' style={{ position: 'sticky' }}>
@@ -54,14 +54,14 @@ const NewListingLayout: React.FC<Props> = ({
       )}
 
       <div
-        className='max-w-[850px] pb-32 m-auto px-4 laptop:w-10/12 laptop:p-5 laptop:px-0 2xl:p-0'
+        className='max-w-[850px] pb-32 m-auto px-4 lg:w-10/12 lg:p-5 lg:px-0 2xl:p-0'
         style={{ maxWidth: '850px' }}
       >
         <div className='mt-20 pb-20 h-full'>{children}</div>
       </div>
       <div className='fixed w-full bottom-0 bg-white py-5 border border-t-raisin-10 z-10'>
         <div
-          className='max-w-[850px] m-auto flex justify-between px-4 laptop:w-10/12 laptop:px-0 2xl:px-0'
+          className='max-w-[850px] m-auto flex justify-between px-4 lg:w-10/12 lg:px-0 2xl:px-0'
           style={{ maxWidth: '850px' }}
         >
           {selectedOption.step !== 1 ? <DefaultButton text='უკან' onClick={onPrevStep}></DefaultButton> : <div></div>}

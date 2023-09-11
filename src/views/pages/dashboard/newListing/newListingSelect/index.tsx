@@ -18,7 +18,7 @@ const NewListingSelect: React.FC<Props> = ({ options, onChange, selectedOption }
   return (
     <Menu as='div' className='inline-block text-left'>
       <div className='flex flex-col items-center'>
-        <Typography type='h4' weight='normal' color='dark' className='text-md text-center large:text-3md'>
+        <Typography type='h4' weight='normal' color='dark' className='text-md text-center md:text-3md'>
           {selectedOption.label}
         </Typography>
         <Menu.Button className='text-raisin-130 px-2 font-normal inline-flex items-center gap-2 w-max rounded-2xl justify-around text-2sm focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75'>
@@ -38,7 +38,7 @@ const NewListingSelect: React.FC<Props> = ({ options, onChange, selectedOption }
         leaveFrom='transform opacity-100 scale-100'
         leaveTo='transform opacity-0 scale-95'
       >
-        <Menu.Items className='absolute left-0 w-full flex justify-between top-[-14px] large:top-20 h-[75px] bg-white shadow-lg overflow-x-auto whitespace-nowrap large:overflow-hidden'>
+        <Menu.Items className='absolute left-0 w-full flex justify-between top-[-14px] md:top-20 h-[75px] bg-white shadow-lg overflow-x-auto whitespace-nowrap md:overflow-hidden'>
           {options.map((option, index) => (
             <Menu.Item key={option.value}>
               <button

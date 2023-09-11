@@ -5,7 +5,7 @@ const Transaction = () => {
   return (
     <div>
       <div className='flex items-center justify-between my-3'>
-        <div className='flex fle-col large:gap-10 large:items-center large:flex-row'>
+        <div className='flex fle-col md:gap-10 md:items-center md:flex-row'>
           <Typography type='body' color='light'>
             05 ივლ 2022
           </Typography>

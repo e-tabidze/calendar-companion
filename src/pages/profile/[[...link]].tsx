@@ -102,13 +102,13 @@ const Profile = () => {
 
   const { userInfo, router, isLoading } = useProfile()
 
-  const sidebarClassName = `h-fit w-full laptop:w-4/12 border border-raisin-10 rounded-3xl p-6 ${
+  const sidebarClassName = `h-fit w-full lg:w-4/12 border border-raisin-10 rounded-3xl p-6 ${
     isSidebarVisible ? 'block' : 'hidden'
-  } laptop:block`
+  } lg:block`
 
-  const contentClassName = `w-full z-[111] laptop:w-8/12 laptop:border laptop:border-raisin-10 laptop:rounded-3xl ${
+  const contentClassName = `w-full z-[111] lg:w-8/12 lg:border lg:border-raisin-10 lg:rounded-3xl ${
     isSidebarVisible ? 'hidden' : 'block'
-  } laptop:block`
+  } lg:block`
 
   console.log(userInfo, 'userInfo')
   console.log(isLoading, 'isLoading')
@@ -142,7 +142,7 @@ const Profile = () => {
                 }}
               />
 
-              <div className='flex gap-none laptop:gap-6 mt-9'>
+              <div className='flex gap-none lg:gap-6 mt-9'>
                 <div className={sidebarClassName}>
                   <div className='flex items-center justify-between mb-4'>
                     <div className='flex items-center gap-5'>

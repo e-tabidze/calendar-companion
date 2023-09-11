@@ -51,7 +51,7 @@ const Radio: React.FC<Props> = ({ name, options, control, color, horizontal }) =
                     <Circle checked={checked}>
                       {checked && <Image src='/icons/check.svg' alt='' height={12} width={16} />}
                     </Circle>
-                    <span className='text-2sm large:md'>{option.label}</span>
+                    <span className='text-2sm md:md'>{option.label}</span>
                   </RadioGroup.Label>
                   {option.info && (
                     <RadioGroup.Description className='text-raisin-130' as='span'>

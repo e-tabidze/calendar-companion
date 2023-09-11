@@ -6,7 +6,7 @@ import { FilterContainer, InnerFilterContainer, ListItemBtn } from './styles'
 
 const LocationDropdown = () => {
   return (
-    <Menu as='div' className='relative inline-block text-left w-full tablet:max-w-72'>
+    <Menu as='div' className='relative inline-block text-left w-full sm:max-w-72'>
       <Menu.Button className='py-5 px-4 inline-flex w-full justify-center rounded-md bg-raisin bg-opacity-20 text-sm font-medium text-white focus-visible:ring-white focus-visible:ring-opacity-75'>
         <FilterContainer>
           <Typography type='body' color='dark'>

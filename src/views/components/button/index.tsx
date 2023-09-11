@@ -40,12 +40,12 @@ export const IconButton = ({
       {...props}
       onClick={onClick}
       ref={innerRef}
-      className={`flex group items-center cursor-pointer ${hasBg ? 'p-4 desktop:p-5' : ''} rounded-2xl ${
+      className={`flex group items-center cursor-pointer ${hasBg ? 'p-4 xl:p-5' : ''} rounded-2xl ${
         text && 'gap-2'
       } w-fit h-12 max-w-[30%] ${hasBg ? `bg-${bg}` : ''} ${className}`}
     >
       <Image src={icon} height={height} width={width} alt='' className={`group-disabled:opacity-30 !max-w-none `} />
-      <div className={`${responsive && 'large:hidden'} text-sm ${hasBg ? 'text-white' : 'text-base-100'}`}>{text}</div>
+      <div className={`${responsive && 'md:hidden'} text-sm ${hasBg ? 'text-white' : 'text-base-100'}`}>{text}</div>
     </div>
   )
 }

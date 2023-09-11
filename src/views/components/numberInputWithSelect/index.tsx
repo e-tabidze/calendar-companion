@@ -37,11 +37,11 @@ const NumberInputWithSelect: React.FC<Props> = ({ options, onChange }) => {
         className='w-1/3 px-3 py-2 border-none text-3md outline-none rounded-xl text-center'
       />
       <div className='h-full w-px bg-raisin-10' />
-      <div className='relative w-2/3 pl-1 large:pl-3 flex justify-center'>
+      <div className='relative w-2/3 pl-1 md:pl-3 flex justify-center'>
         <button
           type='button'
           onClick={toggleOpen}
-          className='flex items-center gap-2 large:gap-6 text-2sm text-raisin-130'
+          className='flex items-center gap-2 md:gap-6 text-2sm text-raisin-130'
         >
           <span>{selectedOption.value}</span>
           <Image src='/icons/chevron.svg' alt='' />

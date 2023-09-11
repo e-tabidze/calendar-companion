@@ -27,7 +27,7 @@ const Filters = () => {
             label={'დამატებითი ფილტრი'}
             icon={'/icons/filters.svg'}
             bg='white'
-            labelClassname='text-xs text-base-100 text-left large:hidden'
+            labelClassname='text-xs text-base-100 text-left md:hidden'
             className='max-w-[20%]'
             onClick={() => toggleFilters(!filters)}
           />
@@ -35,9 +35,9 @@ const Filters = () => {
             label={'ძებნა'}
             icon={'/icons/search.svg'}
             bg='bg-red-100'
-            labelClassname='text-2sm text-white large:hidden'
+            labelClassname='text-2sm text-white md:hidden'
             onClick={onClickSearch}
-            className="mr-4 laptop:mr-0"
+            className="mr-4 lg:mr-0"
           />
         </ExtraFiltersContainer>
       </FiltersContainer>

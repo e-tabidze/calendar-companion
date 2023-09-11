@@ -9,7 +9,7 @@ const User = () => {
     <UserContainer>
       <RentBtn>
         <Image src={'/icons/plus.svg'} alt='img' />
-        <Typography type='button' weight='normal' color='dark' className='hidden desktop:inline-flex text-sm'>
+        <Typography type='button' weight='normal' color='dark' className='hidden xl:inline-flex text-sm'>
           გაქირავება
         </Typography>
       </RentBtn>

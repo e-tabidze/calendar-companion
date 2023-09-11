@@ -10,7 +10,7 @@ const EditCompany = () => {
   const { control } = useForm()
   
   return (
-    <div className='border border-raisin-10 rounded-3xl large:p-8'>
+    <div className='border border-raisin-10 rounded-3xl md:p-8'>
       <div className='flex gap-6 items-center mb-10'>
         <Image src='/images/avatar.png' width={96} height={96} alt='' className='border border-raisin-10 rounded-3xl' />
         <div>
@@ -19,7 +19,7 @@ const EditCompany = () => {
               ბენე ექსკლუზივი
             </Typography>
             <Image src='/icons/warning.svg' height={20} width={20} alt='' />
-            <Typography type='subtitle' className='hidden large:flex text-raisin-100 bg-yellow-10 p-2 rounded-2xl'>
+            <Typography type='subtitle' className='hidden md:flex text-raisin-100 bg-yellow-10 p-2 rounded-2xl'>
               არავერიფიცირებული
             </Typography>
           </div>

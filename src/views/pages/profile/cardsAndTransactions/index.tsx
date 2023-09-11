@@ -8,7 +8,7 @@ const CardsAndTransactions = () => {
   const { width } = useWindowDimensions()
   
   return (
-    <div className='p-2 large:p-6'>
+    <div className='p-2 md:p-6'>
       <div className='flex justify-between items-center my-10'>
         <Typography type='h3'>ბარათები და ტრანზაქციები</Typography>
         <IconTextButton

@@ -19,7 +19,7 @@ const Company = () => {
 
   return (
     <div>
-      <div className='p-2 large:p-6'>
+      <div className='p-2 md:p-6'>
         <div className='flex items-center gap-6'>
           <Image src='/images/avatar.png' alt='' height={96} width={97} className='rounded-3xl' />
           <div>
@@ -63,7 +63,7 @@ const Company = () => {
         </div>
       </div>
       <Divider />
-      <div className='flex justify-between items-center p-2 large:p-6'>
+      <div className='flex justify-between items-center p-2 md:p-6'>
         <DefaultButton text='შენახვა' bg='bg-orange-100' textColor='text-white' />
         <IconTextButton
           label='კომპანიის წაშლა'

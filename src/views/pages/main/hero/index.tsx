@@ -8,11 +8,11 @@ const Hero = () => {
       <Copy>
         <Typography
           type='h1'
-          className='text-white font-bold max-w-screen-sm text-3md desktop:text-[54px] desktop:leading-tight desktop:heading-[78px]'
+          className='text-white font-bold max-w-screen-sm text-3md xl:text-[54px] xl:leading-tight xl:heading-[78px]'
         >
           მიიღეთ მეტი, ვიდრე ავტომობილია
         </Typography>
-        <Typography type='h3' className='text-white  max-w-lg text-base mt-4 hidden desktop:inline-block'>
+        <Typography type='h3' className='text-white  max-w-lg text-base mt-4 hidden xl:inline-block'>
           შეარჩიეთ სასურველი ავტომობილი ონლაინ და გაიმარტივეთ ქირაობის პროცესი. ისარგებლეთ დამატებითი სერვისებით და
           შეიქმენით მაქსიმალური კომფორტი.
         </Typography>

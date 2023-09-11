@@ -66,11 +66,11 @@ const Profile = () => {
 
   const router = useRouter()
 
-  const sidebarClassName = `h-fit w-full mx-4 laptop:mx-4 laptop:w-fit border border-raisin-10 rounded-3xl p-6 ${
+  const sidebarClassName = `h-fit w-full mx-4 lg:mx-4 lg:w-fit border border-raisin-10 rounded-3xl p-6 ${
     isSidebarVisible ? 'block' : 'hidden'
-  } laptop:block`
+  } lg:block`
  
-  const contentClassName = `w-full z-[111] ${isSidebarVisible ? 'hidden' : 'block'} laptop:block`
+  const contentClassName = `w-full z-[111] ${isSidebarVisible ? 'hidden' : 'block'} lg:block`
 
   const getComponentByPath = (path: any) => {
     switch (path) {
@@ -108,8 +108,8 @@ const Profile = () => {
 
   return (
     <DefaultLayout>
-      <div className='w-full m-auto max-w-[1200px] laptop:px-8 2xl:px-0'>
-        <div className='flex gap-none laptop:gap-4 mt-9'>
+      <div className='w-full m-auto max-w-[1200px] lg:px-8 2xl:px-0'>
+        <div className='flex gap-none lg:gap-4 mt-9'>
           <div className={sidebarClassName}>
             <div
               className={`flex items-center justify-between mb-4 gap-4 w-full ${

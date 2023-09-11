@@ -11,7 +11,7 @@ const LocationDropdown = () => {
   const [startDate, endDate] = dateRange
 
   return (
-    <Menu as='div' className='inline-block text-left mx-2 w-full tablet:max-w-72'>
+    <Menu as='div' className='inline-block text-left mx-2 w-full sm:max-w-72'>
       <Menu.Button className='py-5 px-4 inline-flex w-full justify-center rounded-md bg-raisin bg-opacity-20 text-sm font-medium text-white focus-visible:ring-white focus-visible:ring-opacity-75'>
         <FilterContainer>
           <Typography type='body' color='dark'>

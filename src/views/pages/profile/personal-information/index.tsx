@@ -64,20 +64,20 @@ const PersonalInfo: React.FC<Props> = ({ userData }) => {
     // @ts-ignore
     <FormProvider {...control}>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className='p-2 large:p-10'>
-          <Typography type='h3' className='hidden large:inline-block'>
+        <div className='p-2 md:p-10'>
+          <Typography type='h3' className='hidden md:inline-block'>
             პარამეტრები
           </Typography>
-          <div className='border border-raisin-10 p-4 large:border-none large:p-0 rounded-2xl flex items-center gap-3 mt-8 '>
+          <div className='border border-raisin-10 p-4 md:border-none md:p-0 rounded-2xl flex items-center gap-3 mt-8 '>
             <Image
               src={userData?.information.profile_pic}
               height={96}
               width={96}
               alt=''
-              className='rounded-full large:rounded-3xl'
+              className='rounded-full md:rounded-3xl'
             />
             <div className='flex flex-col gap-2'>
-              <Typography type='h3' className='text-md large:text-2lg font-medium large:font-bold'>
+              <Typography type='h3' className='text-md md:text-2lg font-medium md:font-bold'>
                 {userData?.FirstName} {userData?.LastName}
               </Typography>
               <Link href='/' className='text-2sm underline text-blue-100 font-normal'>
@@ -112,8 +112,8 @@ const PersonalInfo: React.FC<Props> = ({ userData }) => {
             </Tab.Panels>
           </Tab.Group>
         </div>
-        <Divider className='hidden large:block' />
-        <div className='flex items-center gap-3 p-2 large:p-4'>
+        <Divider className='hidden md:block' />
+        <div className='flex items-center gap-3 p-2 md:p-4'>
           <DefaultButton type='submit' text='შენახვა' textColor='text-white' bg='bg-orange-100'></DefaultButton>
           <DefaultButton text='უარყოფა' bg='bg-grey-100'></DefaultButton>
         </div>

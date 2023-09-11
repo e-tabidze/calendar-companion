@@ -14,7 +14,7 @@ const StepOne = () => {
 
   return (
     <div>
-      <div className='grid gap-4 grid-cold-1 large:grid-cols-2'>
+      <div className='grid gap-4 grid-cold-1 md:grid-cols-2'>
         <DefaultInput name='' control={control} errors={''} label='ვინ კოდი' />
         <DefaultInput name='' control={control} errors={''} label='სახელმწიფო ნომერი' />
         <SelectField name='name' control={control} placeholder='select' options={options} disabled={false} />

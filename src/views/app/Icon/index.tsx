@@ -43,7 +43,7 @@ export default Icon;
 
 // ** usage example **
 
-{/* <Typography type='h5' weight='medium' className='mobile:text-sm flex laptop:text-sd desktop:text-2sm group hover:text-blue-500 '>
+{/* <Typography type='h5' weight='medium' className='sm:text-sm flex lg:text-sd xl:text-2sm group hover:text-blue-500 '>
      <Icon svgPath='lunch_dining' className='fill-black group-hover:fill-blue-500' />
      კვება
 </Typography> */}

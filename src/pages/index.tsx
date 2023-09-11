@@ -20,7 +20,7 @@ import { fetchCompaniesData } from 'src/store/apps/companies'
 
 // ** Styled Components
 const MainPageBox = tw.div<TailwindDiv>`flex w-full items-center flex-col`
-const ActionCardsWrapper = tw.div<TailwindDiv>`flex gap-6 flex-col -mt-16 tablet:flex-row tablet:mt-16`
+const ActionCardsWrapper = tw.div<TailwindDiv>`flex gap-6 flex-col -mt-16 sm:flex-row sm:mt-16`
 
 const productArray = [
   <ProductCard key={1} />,

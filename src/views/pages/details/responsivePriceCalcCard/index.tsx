@@ -9,7 +9,7 @@ interface Props {
 const ResponsivePriceCalcCard = ({ toggleDrawer }: Props) => {
   return (
     <section
-      className='fixed w-full justify-between bg-white bottom-0 shadow-top z-50 rounded-t-3xl flex p-4 large:hidden'
+      className='fixed w-full justify-between bg-white bottom-0 shadow-top z-50 rounded-t-3xl flex p-4 md:hidden'
       onClick={toggleDrawer}
     >
       <div className='flex gap-2 items-center'>

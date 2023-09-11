@@ -18,7 +18,7 @@ const SubNavItem: React.FC<SubNavItemProps> = ({ section, activeSection, handleC
   return (
     <Typography
       type='subtitle'
-      className={`text-raisin-130 cursor-pointer text-sm large:text-2sm block relative after:absolute after:bottom-0 ${
+      className={`text-raisin-130 cursor-pointer text-sm md:text-2sm block relative after:absolute after:bottom-0 ${
         isActive
           ? 'after:left-0 after:w-full after:h-[3px] after:bg-orange-100 after:rounded-xl after:top-[42px] after:z-40'
           : ''

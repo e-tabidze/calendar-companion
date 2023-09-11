@@ -10,10 +10,10 @@ interface Props {
 const LessorInformationCard = ({ id }: Props) => {
   return (
     <div className='bg-raisin-5 rounded-3xl pt-12 pl-11 pb-11 pr-20' id={id}>
-      <Typography type='h3' className='mb-5 hidden laptop:block'>
+      <Typography type='h3' className='mb-5 hidden lg:block'>
         ინფორმაცია გამქირავებელზე
       </Typography>
-      <div className='flex gap-3 items-center mb-9 laptop:hidden'>
+      <div className='flex gap-3 items-center mb-9 lg:hidden'>
         <Review review={4.89} size='normal' />
         <Typography type='subtitle'>206 შეფასება</Typography>
       </div>
@@ -35,7 +35,7 @@ const LessorInformationCard = ({ id }: Props) => {
           </div>
         </div>
 
-        <div className='hidden laptop:flex gap-3 items-center'>
+        <div className='hidden lg:flex gap-3 items-center'>
           <Review review={4.89} size='normal' />
           <Typography type='subtitle'>206 შეფასება</Typography>
         </div>

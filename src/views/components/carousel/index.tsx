@@ -115,7 +115,7 @@ const Carousel = ({
         loop={loop}
         thumbs={{ swiper: thumbsSwiper }}
       >
-        <div className='absolute inset-y-0 left-16 mobile:left-2 flex items-center rotate-180 z-50' ref={prevRef}>
+        <div className='absolute inset-y-0 left-16 sm:left-2 flex items-center rotate-180 z-50' ref={prevRef}>
           <IconButton
             icon='/icons/chevronRight.svg'
             width={width > 779 ? 14 : 12}
@@ -128,7 +128,7 @@ const Carousel = ({
             <div ref={element => (slideRefs.current[index] = element)}>{item}</div>
           </SwiperSlide>
         ))}
-        <div className='absolute inset-y-0 right-16 mobile:right-2 flex items-center z-10' ref={nextRef}>
+        <div className='absolute inset-y-0 right-16 sm:right-2 flex items-center z-10' ref={nextRef}>
           <IconButton
             icon='/icons/chevronRight.svg'
             width={width > 779 ? 14 : 12}
