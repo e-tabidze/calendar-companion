@@ -189,7 +189,6 @@ const Profile = () => {
                         width={5}
                       />
                     )}
-                    {/* {!isLoading && userInfo ? component : <div>Loading...</div>} */}
                     <ProfileRouter userInfo={userInfo} />
                   </div>
                 )}
