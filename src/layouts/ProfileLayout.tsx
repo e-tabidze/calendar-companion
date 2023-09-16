@@ -4,6 +4,7 @@ import useWindowDimensions from 'src/hooks/useWindowDimensions'
 import { HeaderContainer } from 'src/styled/styles'
 import DefaultHeader from 'src/views/components/defaultHeader'
 import ProfileNavigation from 'src/views/components/profileNavigation'
+import { isMobile } from 'react-device-detect'
 
 interface Route {
   id: number
@@ -16,9 +17,10 @@ interface Props {
   routes: Route[]
   dividerIndexes: number[]
   children: any
+  pagination?: boolean
 }
 
-const ProfileLayout: React.FC<Props> = ({ routes, dividerIndexes, children }) => {
+const ProfileLayout: React.FC<Props> = ({ routes, dividerIndexes, children, pagination = false }) => {
   const router = useRouter()
   const { width } = useWindowDimensions()
   const [selectedRoute, setSelectedRoute] = useState<any>(routes[0])

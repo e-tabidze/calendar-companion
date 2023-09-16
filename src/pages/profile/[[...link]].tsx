@@ -1,6 +1,4 @@
 import { useRouter } from 'next/router'
-import { useState } from 'react'
-
 import Orders from 'src/views/pages/profile/orders'
 import Favourites from 'src/views/pages/profile/favorites'
 import PersonalInfo from 'src/views/pages/profile/personal-information'
@@ -69,8 +67,6 @@ const ProfileRouter = ({ userInfo }: { userInfo: UserInfo }) => {
   }
 
   switch (key) {
-    case 'profile':
-      return <Orders />
     case 'orders':
       return <Orders />
     case 'favourites':
