@@ -20,6 +20,8 @@ const CreateCompany = () => {
 
   const handleClose = () => router.push('/profile/orders/')
 
+  const selectOption = (option: any) => setStep(option)
+
   const {
     control,
     handleSubmit,
@@ -31,7 +33,6 @@ const CreateCompany = () => {
     createCompany
   } = useCreateCompany()
 
-  const selectOption = (option: any) => setStep(option)
 
   const handleGoNextStep = () => {
     const currentIndex = options.findIndex(option => option.value === step.value)
@@ -82,7 +83,7 @@ const CreateCompany = () => {
 
       await createCompany({ AccessToken: Cookie.get('AccessToken'), company: companyValues })
     } catch (error) {
-      console.error('An error occurred:', error)
+      console.error('An error occurred while creating new company:', error)
     }
   }
 

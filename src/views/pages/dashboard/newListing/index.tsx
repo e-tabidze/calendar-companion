@@ -9,6 +9,7 @@ import StepFive from 'src/views/pages/dashboard/newListing/stepFive'
 import StepSix from 'src/views/pages/dashboard/newListing/stepSix'
 import StepSeven from 'src/views/pages/dashboard/newListing/stepSeven'
 import { useRouter } from 'next/router'
+import useNewListing from './useNewListing'
 
 const options = [
   { value: '1/7 ნაბიჯი', label: 'ავტომობილის შესახებ', step: 1 },
@@ -20,29 +21,16 @@ const options = [
   { value: '7/7 ნაბიჯი', label: 'ადგილმდებარეობა', step: 7 }
 ]
 
-interface Props1 {
-  prop1: any
-}
-
-interface Props2 {
-  prop2: any
-}
-
 const NewListing: React.FC = () => {
-  const router = useRouter()
   const [step, setStep] = useState(options[0])
 
-  const RenderStepOne = HOC<Props1>(StepOne, step.step === 1)
-  const RenderStepTwo = HOC<Props2>(StepTwo, step.step === 2)
-  const RenderStepThree = HOC<Props2>(StepThree, step.step === 3)
-  const RenderStepFour = HOC<Props2>(StepFour, step.step === 4)
-  const RenderStepFive = HOC<Props2>(StepFive, step.step === 5)
-  const RenderStepSix = HOC<Props2>(StepSix, step.step === 6)
-  const RenderStepSeven = HOC<Props2>(StepSeven, step.step === 7)
+  const router = useRouter()
 
-  const selectOption = (option: any) => {
-    setStep(option)
-  }
+  const selectOption = (option: any) => setStep(option)
+
+  const handleClose = () => router.push('/dashboard/dashboard')
+
+  const { control, handleSubmit, errors, clearErrors, newListingValues } = useNewListing()
 
   const handleGoNextStep = () => {
     const currentIndex = options.findIndex(option => option === step)
@@ -58,29 +46,34 @@ const NewListing: React.FC = () => {
     }
   }
 
-  const handleClose = () => {
-    router.push('/dashboard/dashboard')
+  const onSubmit = async () => {
+    try {
+      console.log(newListingValues, 'newListingValues')
+    } catch (error) {
+      console.error('An error occurred while creating new listing:', error)
+    }
   }
 
   return (
-    
-    // @ts-ignore
-    <NewListingLayout
-      options={options}
-      onChange={selectOption}
-      selectedOption={step}
-      onNextStep={handleGoNextStep}
-      onPrevStep={handleGoPrevStep}
-      onClose={handleClose}
-    >
-      <RenderStepOne prop1='Prop 1' />
-      <RenderStepTwo prop2='Prop 2' />
-      <RenderStepThree prop2='Prop 2' />
-      <RenderStepFour prop2='Prop 2' />
-      <RenderStepFive prop2='Prop 2' />
-      <RenderStepSix prop2='Prop 2' />
-      <RenderStepSeven prop2='Prop 2' />
-    </NewListingLayout>
+    <form>
+      <NewListingLayout
+        options={options}
+        onChange={selectOption}
+        selectedOption={step}
+        onNextStep={handleGoNextStep}
+        onPrevStep={handleGoPrevStep}
+        onClose={handleClose}
+        onSubmit={handleSubmit(onSubmit)}
+      >
+        {step.step === 1 && <StepOne />}
+        {step.step === 2 && <StepTwo />}
+        {step.step === 3 && <StepThree />}
+        {step.step === 4 && <StepFour />}
+        {step.step === 5 && <StepFive />}
+        {step.step === 6 && <StepSix />}
+        {step.step === 7 && <StepSeven />}
+      </NewListingLayout>
+    </form>
   )
 }
 

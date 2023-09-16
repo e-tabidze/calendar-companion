@@ -1,14 +1,11 @@
 import { useFieldArray, useForm, useWatch } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 
-import { useDispatch } from 'react-redux'
 import { CompanySchema } from 'src/@core/validation/companySchema'
-import { AppDispatch } from 'src/store'
 import { Company } from 'src/types/Company'
 import CompanyService from 'src/services/CompanyService'
 
 const useCreateCompany = () => {
-  const dispatch = useDispatch<AppDispatch>()
 
   const defaultWorkDayWorkingTime = {
     start_time: '09:00',
@@ -95,7 +92,6 @@ const useCreateCompany = () => {
     control,
     handleSubmit,
     errors,
-    dispatch,
     companyValues,
     dirtyFields,
     resetField,
