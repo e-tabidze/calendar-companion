@@ -1,15 +1,16 @@
 import { useState } from 'react'
 import NewListingLayout from 'src/layouts/NewListingLayout'
-import StepOne from 'src/views/pages/dashboard/newListing/stepOne'
-import StepThree from 'src/views/pages/dashboard/newListing/stepThree'
-import StepTwo from 'src/views/pages/dashboard/newListing/stepTwo'
-import StepFour from 'src/views/pages/dashboard/newListing/stepFour'
-import StepFive from 'src/views/pages/dashboard/newListing/stepFive'
-import StepSix from 'src/views/pages/dashboard/newListing/stepSix'
-import StepSeven from 'src/views/pages/dashboard/newListing/stepSeven'
+
 import { useRouter } from 'next/router'
-import useNewListing from './useNewListing'
 import { FormProvider } from 'react-hook-form'
+import useNewProduct from './useProduct'
+import StepFive from './stepFive'
+import StepFour from './stepFour'
+import StepOne from './stepOne'
+import StepSeven from './stepSeven'
+import StepSix from './stepSix'
+import StepThree from './stepThree'
+import StepTwo from './stepTwo'
 
 const options = [
   { value: '1/7 ნაბიჯი', label: 'ავტომობილის შესახებ', step: 1 },
@@ -21,7 +22,7 @@ const options = [
   { value: '7/7 ნაბიჯი', label: 'ადგილმდებარეობა', step: 7 }
 ]
 
-const NewListing: React.FC = () => {
+const NewProduct: React.FC = () => {
   const [step, setStep] = useState(options[0])
 
   const router = useRouter()
@@ -30,7 +31,7 @@ const NewListing: React.FC = () => {
 
   const handleClose = () => router.push('/dashboard/dashboard')
 
-  const { control, handleSubmit, errors, clearErrors, newListingValues } = useNewListing()
+  const { control, handleSubmit, errors, clearErrors, newProductValues } = useNewProduct()
 
   const handleGoNextStep = () => {
     const currentIndex = options.findIndex(option => option.value === step.value)
@@ -47,14 +48,15 @@ const NewListing: React.FC = () => {
 
   const onSubmit = async () => {
     try {
-      console.log(newListingValues, 'newListingValues')
+      console.log(newProductValues, 'newProductValues')
     } catch (error) {
       console.error('An error occurred while creating new listing:', error)
     }
   }
 
   return (
-    <FormProvider {...control}> 
+    // @ts-ignore
+    <FormProvider {...control}>
       <NewListingLayout
         options={options}
         onChange={selectOption}
@@ -78,4 +80,4 @@ const NewListing: React.FC = () => {
   )
 }
 
-export default NewListing
+export default NewProduct

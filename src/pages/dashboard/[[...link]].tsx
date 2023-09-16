@@ -3,7 +3,8 @@ import CompanyDashboard from 'src/views/pages/dashboard/companyDasboard'
 import IncomingOrders from 'src/views/pages/dashboard/incomingOrders'
 import Vehicles from 'src/views/pages/dashboard/vehicles'
 import EditCompany from 'src/views/pages/dashboard/editCompany'
-import NewListing from 'src/views/pages/dashboard/newListing'
+import NewProduct from 'src/views/pages/dashboard/newProduct'
+import { isMobile } from 'react-device-detect'
 import ProfileLayout from 'src/layouts/ProfileLayout'
 
 const routes = [
@@ -67,7 +68,7 @@ const ProfileRouter = () => {
     case 'dashboard':
       return <CompanyDashboard />
     case 'new-listing':
-      return <NewListing />
+      return <NewProduct />
     case 'orders':
       return <IncomingOrders />
     case 'payments':
@@ -89,7 +90,7 @@ const Profile = () => {
   return (
     <>
       {router.asPath === '/dashboard/new-listing/' ? (
-        <NewListing />
+        <NewProduct />
       ) : (
         <ProfileLayout routes={routes} dividerIndexes={[5]}>
           <ProfileRouter />

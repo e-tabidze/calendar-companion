@@ -2,9 +2,9 @@ import { MaxWidthContainer, NewListingHeaderContainer } from 'src/styled/styles'
 import { DefaultButton } from 'src/views/components/button'
 import Image from 'next/image'
 import ProgressBar from 'src/views/components/progressBar'
-import NewListingSelect from 'src/views/pages/dashboard/newListing/newListingSelect'
 import { useRouter } from 'next/router'
 import useWindowDimensions from 'src/hooks/useWindowDimensions'
+import NewListingSelect from 'src/views/components/newListingSelect'
 
 interface Props {
   children: any

@@ -1,7 +1,7 @@
 import { useFieldArray, useForm, useWatch } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 
-const useCreateCompany = () => {
+const useNewProduct = () => {
   const {
     control,
     handleSubmit,
@@ -15,7 +15,7 @@ const useCreateCompany = () => {
     reValidateMode: 'onChange'
   })
 
-  const newListingValues: any = useWatch({ control })
+  const newProductValues: any = useWatch({ control })
 
 
   return {
@@ -27,8 +27,8 @@ const useCreateCompany = () => {
     setError,
     clearErrors,
     setValue,
-    newListingValues
+    newProductValues
   }
 }
 
-export default useCreateCompany
+export default useNewProduct
