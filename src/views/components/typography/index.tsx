@@ -120,9 +120,9 @@ text-md
 `
 
 const SubtitleTypography = tw.p<TextComponent>`
-${(props: any) => (props.className ? props.className : 'whitespace-normal')}
+${(props: any) => (props.className ? props.className : '')}
 ${(props: any) => (props.color === 'light' ? 'text-raisin-50' : 'text-raisin-130')}
-font-normal text-2sm`
+font-normal text-2sm whitespace-normal`
 
 const BodyTypography = tw.p<TextComponent>`whitespace-normal font-normal text-sm 
 ${(props: any) => (props.color === 'light' ? 'text-raisin-50' : 'text-raisin-130')}

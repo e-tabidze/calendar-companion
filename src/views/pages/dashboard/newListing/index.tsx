@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import HOC from 'src/hoc'
 import NewListingLayout from 'src/layouts/NewListingLayout'
 import StepOne from 'src/views/pages/dashboard/newListing/stepOne'
 import StepThree from 'src/views/pages/dashboard/newListing/stepThree'
@@ -10,6 +9,7 @@ import StepSix from 'src/views/pages/dashboard/newListing/stepSix'
 import StepSeven from 'src/views/pages/dashboard/newListing/stepSeven'
 import { useRouter } from 'next/router'
 import useNewListing from './useNewListing'
+import { FormProvider } from 'react-hook-form'
 
 const options = [
   { value: '1/7 ნაბიჯი', label: 'ავტომობილის შესახებ', step: 1 },
@@ -33,14 +33,13 @@ const NewListing: React.FC = () => {
   const { control, handleSubmit, errors, clearErrors, newListingValues } = useNewListing()
 
   const handleGoNextStep = () => {
-    const currentIndex = options.findIndex(option => option === step)
+    const currentIndex = options.findIndex(option => option.value === step.value)
     if (currentIndex < options.length - 1) {
       setStep(options[currentIndex + 1])
     }
   }
-
   const handleGoPrevStep = () => {
-    const currentIndex = options.findIndex(option => option === step)
+    const currentIndex = options.findIndex(option => option.step === step.step)
     if (currentIndex > 0) {
       setStep(options[currentIndex - 1])
     }
@@ -55,7 +54,7 @@ const NewListing: React.FC = () => {
   }
 
   return (
-    <form>
+    <FormProvider {...control}> 
       <NewListingLayout
         options={options}
         onChange={selectOption}
@@ -65,15 +64,17 @@ const NewListing: React.FC = () => {
         onClose={handleClose}
         onSubmit={handleSubmit(onSubmit)}
       >
-        {step.step === 1 && <StepOne />}
-        {step.step === 2 && <StepTwo />}
-        {step.step === 3 && <StepThree />}
-        {step.step === 4 && <StepFour />}
-        {step.step === 5 && <StepFive />}
-        {step.step === 6 && <StepSix />}
-        {step.step === 7 && <StepSeven />}
+        <form>
+          {step.step === 1 && <StepOne />}
+          {step.step === 2 && <StepTwo />}
+          {step.step === 3 && <StepThree />}
+          {step.step === 4 && <StepFour />}
+          {step.step === 5 && <StepFive />}
+          {step.step === 6 && <StepSix />}
+          {step.step === 7 && <StepSeven />}
+        </form>
       </NewListingLayout>
-    </form>
+    </FormProvider>
   )
 }
 
