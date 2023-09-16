@@ -1,3 +1,6 @@
+import { useRouter } from 'next/router'
+import { useState } from 'react'
+import useWindowDimensions from 'src/hooks/useWindowDimensions'
 import { HeaderContainer } from 'src/styled/styles'
 import DefaultHeader from 'src/views/components/defaultHeader'
 import ProfileNavigation from 'src/views/components/profileNavigation'
@@ -11,25 +14,25 @@ interface Route {
 
 interface Props {
   routes: Route[]
-  sidebarCollapsed: boolean
-  isSidebarVisible: boolean
-  handleRouteChange: (route: Route) => void
-  toggleSidebarCollapse: () => void
-  selectedRoute: Route
   dividerIndexes: number[]
   children: any
 }
 
-const ProfileLayout: React.FC<Props> = ({
-  routes,
-  sidebarCollapsed,
-  isSidebarVisible,
-  handleRouteChange,
-  toggleSidebarCollapse,
-  selectedRoute,
-  dividerIndexes,
-  children
-}) => {
+const ProfileLayout: React.FC<Props> = ({ routes, dividerIndexes, children }) => {
+  const router = useRouter()
+  const { width } = useWindowDimensions()
+  const [selectedRoute, setSelectedRoute] = useState<any>(routes[0])
+  const [isSidebarVisible, setIsSidebarVisible] = useState(true)
+  const [sidebarCollapsed, setSidebarCollapsed] = useState<boolean>(false)
+
+  const handleRouteChange = (route: any) => {
+    router.push(route.path)
+    setSelectedRoute(route)
+    width < 1024 && setIsSidebarVisible(!isSidebarVisible)
+  }
+
+  const toggleSidebarCollapse = () => setSidebarCollapsed(!sidebarCollapsed)
+
   return (
     <main>
       <HeaderContainer>

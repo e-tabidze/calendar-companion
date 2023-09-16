@@ -1,6 +1,4 @@
-import { useState } from 'react'
 import { useRouter } from 'next/router'
-import useWindowDimensions from 'src/hooks/useWindowDimensions'
 import CompanyDashboard from 'src/views/pages/dashboard/companyDasboard'
 import IncomingOrders from 'src/views/pages/dashboard/incomingOrders'
 import Vehicles from 'src/views/pages/dashboard/vehicles'
@@ -87,35 +85,14 @@ const ProfileRouter = () => {
 }
 
 const Profile = () => {
-  const { width } = useWindowDimensions()
-  const [isSidebarVisible, setIsSidebarVisible] = useState(true)
-  const [selectedRoute, setSelectedRoute] = useState<any>(routes[0])
-  const [sidebarCollapsed, setSidebarCollapsed] = useState<boolean>(false)
-
   const router = useRouter()
-
-  const handleRouteChange = (route: any) => {
-    router.push(route.path)
-    setSelectedRoute(route)
-    width < 1024 && setIsSidebarVisible(!isSidebarVisible)
-  }
-
-  const toggleSidebarCollapse = () => setSidebarCollapsed(!sidebarCollapsed)
 
   return (
     <>
       {router.asPath === '/dashboard/new-listing/' ? (
         <NewListing />
       ) : (
-        <ProfileLayout
-          routes={routes}
-          sidebarCollapsed={sidebarCollapsed}
-          isSidebarVisible={isSidebarVisible}
-          handleRouteChange={handleRouteChange}
-          selectedRoute={selectedRoute}
-          dividerIndexes={[5]}
-          toggleSidebarCollapse={toggleSidebarCollapse}
-        >
+        <ProfileLayout routes={routes} dividerIndexes={[5]}>
           <ProfileRouter />
         </ProfileLayout>
       )}

@@ -2,7 +2,6 @@ import { useRouter } from 'next/router'
 import { useState } from 'react'
 
 import Orders from 'src/views/pages/profile/orders'
-import useWindowDimensions from 'src/hooks/useWindowDimensions'
 import Favourites from 'src/views/pages/profile/favorites'
 import PersonalInfo from 'src/views/pages/profile/personal-information'
 import CreateCompany from 'src/views/pages/profile/createCompany'
@@ -90,37 +89,17 @@ const ProfileRouter = ({ userInfo }: { userInfo: UserInfo }) => {
 }
 
 const Profile = () => {
-  const { width } = useWindowDimensions()
-  const [isSidebarVisible, setIsSidebarVisible] = useState(true)
-  const [selectedRoute, setSelectedRoute] = useState<any>(routes[0])
-  const [sidebarCollapsed, setSidebarCollapsed] = useState<boolean>(false)
   const { userInfo, router, isLoading } = useProfile()
 
   console.log(userInfo, 'userInfo')
   console.log(isLoading, 'isLoading')
-
-  const handleRouteChange = (route: any) => {
-    router.push(route.path)
-    setSelectedRoute(route)
-    width < 1024 && setIsSidebarVisible(!isSidebarVisible)
-  }
-
-  const toggleSidebarCollapse = () => setSidebarCollapsed(!sidebarCollapsed)
 
   return (
     <>
       {router.asPath === '/profile/create-company/' ? (
         <CreateCompany />
       ) : (
-        <ProfileLayout
-          routes={routes}
-          sidebarCollapsed={sidebarCollapsed}
-          isSidebarVisible={isSidebarVisible}
-          handleRouteChange={handleRouteChange}
-          selectedRoute={selectedRoute}
-          dividerIndexes={[2, 4]}
-          toggleSidebarCollapse={toggleSidebarCollapse}
-        >
+        <ProfileLayout routes={routes} dividerIndexes={[2, 4]}>
           <ProfileRouter userInfo={userInfo} />
         </ProfileLayout>
       )}

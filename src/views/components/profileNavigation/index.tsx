@@ -42,7 +42,7 @@ const ProfileNavigation: React.FC<Props> = ({
           </Typography>
         </div>
         <div
-          className='w-6 h-6 rounded-full bg-raisin-10 flex justify-center items-center'
+          className='hidden lg:flex w-6 h-6 rounded-full bg-raisin-10 justify-center items-center'
           onClick={toggleSidebarCollapse}
         >
           <Image
@@ -59,8 +59,8 @@ const ProfileNavigation: React.FC<Props> = ({
         {routes.map((route, index) => (
           <div key={route.id} onClick={() => handleRouteChange(route)}>
             <div className='flex items-center gap-8 my-4 cursor-pointer'>
-              <div className={`h-8 w-8 rounded-lg bg-raisin-10`}>
-                <Image src={route.icon} alt='' width={3} height={3} />
+              <div className={`h-8 w-8 rounded-lg bg-raisin-10 flex items-center justify-center`}>
+                <Image src={route.icon} alt='' width={20} height={20} />
               </div>
               {!sidebarCollapsed && (
                 <Typography
