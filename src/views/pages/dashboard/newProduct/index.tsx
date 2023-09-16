@@ -31,7 +31,7 @@ const NewProduct: React.FC = () => {
 
   const handleClose = () => router.push('/dashboard/dashboard')
 
-  const { control, handleSubmit, errors, clearErrors, newProductValues } = useNewProduct()
+  const { control, handleSubmit, errors, clearErrors, newProductValues, seatTypes } = useNewProduct()
 
   const handleGoNextStep = () => {
     const currentIndex = options.findIndex(option => option.value === step.value)
@@ -54,6 +54,8 @@ const NewProduct: React.FC = () => {
     }
   }
 
+  console.log(seatTypes, 'seatTypes')
+
   return (
     // @ts-ignore
     <FormProvider {...control}>
@@ -67,7 +69,7 @@ const NewProduct: React.FC = () => {
         onSubmit={handleSubmit(onSubmit)}
       >
         <form>
-          {step.step === 1 && <StepOne />}
+          {step.step === 1 && <StepOne control={control} />}
           {step.step === 2 && <StepTwo />}
           {step.step === 3 && <StepThree />}
           {step.step === 4 && <StepFour />}

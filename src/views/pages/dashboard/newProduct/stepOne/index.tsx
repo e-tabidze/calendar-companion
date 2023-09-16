@@ -1,16 +1,17 @@
-import { useForm } from 'react-hook-form'
 import { DefaultInput } from 'src/views/components/input'
 import SelectField from 'src/views/components/selectField'
 import ImagesInput from './imagesInput'
 
-const StepOne = () => {
+interface Props {
+  control: any
+}
+
+const StepOne: React.FC<Props> = ({ control }) => {
   const options = [
     { value: 'option1', label: 'Option 1' },
     { value: 'option2', label: 'Option 2' },
     { value: 'option3', label: 'Option 3' }
   ]
-
-  const { control } = useForm()
 
   return (
     <div>
