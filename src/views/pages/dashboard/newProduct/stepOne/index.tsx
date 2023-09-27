@@ -3,9 +3,9 @@ import { useEffect } from 'react'
 import { DefaultInput } from 'src/views/components/input'
 import SelectField from 'src/views/components/selectField'
 import TwoOptionSelector from 'src/views/components/twoOptionSelector'
-import useNewProduct, { getManufacturerModels } from '../useProduct'
 import ImagesInput from './imagesInput'
 import Cookie from 'src/helpers/Cookie'
+import useProductInfo, { getManufacturerModels } from '../useProductInfo'
 
 interface Props {
   control: any
@@ -13,7 +13,7 @@ interface Props {
 }
 
 const StepOne: React.FC<Props> = ({ control, newProductValues }) => {
-  const { manufacturers } = useNewProduct()
+  const { manufacturers } = useProductInfo()
 
   const selectedManufacturerId = newProductValues.manufacturer
 
@@ -31,7 +31,7 @@ const StepOne: React.FC<Props> = ({ control, newProductValues }) => {
 
   useEffect(() => {
     refetch()
-  }, [newProductValues.manufacturer])
+  }, [selectedManufacturerId])
 
   const generateYearsArray = () => {
     const currentYear = new Date().getFullYear()

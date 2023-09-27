@@ -3,7 +3,7 @@ import NewListingLayout from 'src/layouts/NewListingLayout'
 
 import { useRouter } from 'next/router'
 import { FormProvider } from 'react-hook-form'
-import useNewProduct from './useProduct'
+import useNewProduct from './useNewProduct'
 import StepFive from './stepFive'
 import StepFour from './stepFour'
 import StepOne from './stepOne'

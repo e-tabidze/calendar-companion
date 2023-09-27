@@ -1,29 +1,14 @@
-import { useFieldArray, useForm, useWatch } from 'react-hook-form'
-import { yupResolver } from '@hookform/resolvers/yup'
+import { useQuery } from '@tanstack/react-query'
 import ProductService from 'src/services/ProductService'
-import { useInfiniteQuery } from '@tanstack/react-query'
 
-const useNewProduct = () => {
-  const {
-    control,
-    handleSubmit,
-    formState: { errors, dirtyFields },
-    resetField,
-    setError,
-    clearErrors,
-    setValue
-  } = useForm({
-    mode: 'onSubmit',
-    reValidateMode: 'onSubmit'
-  })
-
-  const useProductDetails: any = useInfiniteQuery({
+const useProductInfo = () => {
+  const useProductDetails: any = useQuery({
     queryKey: ['productDetails'],
     queryFn: () => getProductDetails(),
     staleTime: Infinity
   })
 
-  const useManufacturers: any = useInfiniteQuery({
+  const useManufacturers: any = useQuery({
     queryKey: ['manufacturers'],
     queryFn: () => getManufacturers(),
     staleTime: Infinity
@@ -31,27 +16,15 @@ const useNewProduct = () => {
 
   const productDetails = useProductDetails?.data
 
-  const manufacturers = useManufacturers?.data?.pages[0]?.result?.data
-
-  const newProductValues: any = useWatch({ control })
+  const manufacturers = useManufacturers?.data?.result?.data
 
   return {
-    control,
-    handleSubmit,
-    errors,
-    dirtyFields,
-    resetField,
-    setError,
-    clearErrors,
-    setValue,
-    newProductValues,
-    // manufacturerModels,
-    manufacturers,
-    productDetails
+    productDetails,
+    manufacturers
   }
 }
 
-export default useNewProduct
+export default useProductInfo
 
 export const getProductDetails = async (accessToken = '') => {
   try {
