@@ -25,11 +25,18 @@ const customStyles = {
     ...provided,
     maxHeight: '150px',
     overflow: 'auto'
-  })
+  }),
+  placeholder: (defaultStyles: any) => {
+    return {
+      ...defaultStyles,
+      fontSize: '14px',
+      color: '#93959B'
+    }
+  }
 }
+
 interface Option {
-  value: string
-  label: string
+  [key: string]: any
 }
 
 interface Props {
@@ -41,6 +48,8 @@ interface Props {
   control: any
   name: string
   defaultValue?: string
+  valueKey?: string
+  labelKey?: string
 }
 
 const Control = ({ children, ...props }: any) => {
@@ -55,7 +64,18 @@ const Control = ({ children, ...props }: any) => {
   )
 }
 
-const SelectField: React.FC<Props> = ({ options, disabled = false, className, icon, control, name, defaultValue }) => {
+const SelectField: React.FC<Props> = ({
+  options,
+  disabled = false,
+  className,
+  icon,
+  control,
+  name,
+  defaultValue,
+  valueKey,
+  labelKey,
+  placeholder
+}) => {
   const { DropdownIndicator, ClearIndicator } = components
 
   const customDropdownIndicator = (
@@ -88,19 +108,19 @@ const SelectField: React.FC<Props> = ({ options, disabled = false, className, ic
           <Select
             styles={customStyles}
             options={options}
-            value={options.find(opt => opt.value === value || '')}
+            value={options?.find(opt => (valueKey ? opt[valueKey] === value || '' : opt.value === value || ''))}
             onChange={(e: any) => {
-              onChange(e?.value || '')
+              onChange(valueKey ? e[valueKey] : e.value || '')
             }}
+            getOptionLabel={labelKey ? option => option.title : undefined}
             components={{
               DropdownIndicator: customDropdownIndicator,
               ClearIndicator: customClearIndicator,
               Control
             }}
             isClearable
-            placeholder={''}
+            placeholder={placeholder}
             isDisabled={disabled}
-            
             // @ts-ignore
             emoji={
               icon && (

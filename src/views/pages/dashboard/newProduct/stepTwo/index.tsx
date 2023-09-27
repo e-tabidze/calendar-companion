@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { useForm } from 'react-hook-form'
 import useWindowDimensions from 'src/hooks/useWindowDimensions'
 import CategoryCard from 'src/views/components/categoryCard'
 import Checkbox from 'src/views/components/checkbox'
@@ -9,57 +8,9 @@ import SelectField from 'src/views/components/selectField'
 import Tag from 'src/views/components/tag'
 import Typography from 'src/views/components/typography'
 
-const categories = [
-  {
-    id: 1,
-    label: 'ეკონომიური',
-    available: 231,
-    value: 'ეკონომიური'
-  },
-  {
-    id: 2,
-    label: 'ეკონომიური',
-    available: 231,
-    value: 'ეკონომიური'
-  },
-  {
-    id: 3,
-    label: 'ეკონომიური',
-    available: 231,
-    value: 'ეკონომიური'
-  },
-  {
-    id: 4,
-    label: 'ეკონომიური',
-    available: 231,
-    value: 'ეკონომიური'
-  },
-  {
-    id: 5,
-    label: 'ეკონომიური',
-    available: 231,
-    value: 'ეკონომიური'
-  },
-  {
-    id: 6,
-    label: 'ეკონომიური',
-    available: 231,
-    value: 'ეკონომიური'
-  },
-  {
-    id: 7,
-    label: 'ეკონომიური',
-    available: 231,
-    value: 'ეკონომიური'
-  },
-  {
-    id: 8,
-    label: 'ეკონომიური',
-    available: 231,
-    value: 'ეკონომიური'
-  }
-]
-const fuelType = ['ელექტრო', 'ჰიბრიდი', 'დატენვადი ჰიბრიდი', 'ბენზინი', 'დიზელი', 'გაზი']
+interface Props {
+  control: any
+}
 
 const seats = ['ნებისმიერი', '1', '2', '3', '4', '5', '6', '7', '8+']
 
@@ -122,10 +73,9 @@ const additionalParameters = [
   }
 ]
 
-const StepTwo = () => {
+const StepTwo: React.FC<Props> = ({ control }) => {
   const [selectedCategories, setSelectedCategoris] = useState<any[]>([])
   const { width } = useWindowDimensions()
-  const { control } = useForm()
 
   const handleSelectCategories = (id: number) => {
     if (selectedCategories.includes(id)) {
@@ -140,12 +90,12 @@ const StepTwo = () => {
       <Typography type='h4' color='dark'>
         ავტომობილის კატეგორია
       </Typography>
-      {width > 779 ? (
+      {/* {width > 779 ? (
         <div className='flex flex-wrap gap-4 my-6'>
-          {categories.map(category => (
+          {categories?.map(category => (
             <CategoryCard
               border
-              category={category.label}
+              category={category.title}
               key={category.id}
               selected={selectedCategories.includes(category.id)}
               handleSelect={() => handleSelectCategories(category.id)}
@@ -153,16 +103,16 @@ const StepTwo = () => {
           ))}
         </div>
       ) : (
-        <SelectField control={control} name="" options={categories} placeholder='კატეგორია' disabled={false} />
-      )}
+        <SelectField control={control} name='' options={categories} placeholder='კატეგორია' disabled={false} />
+      )} */}
 
       <Typography type='h4' color='dark' className='mt-14'>
         საწვავის ტიპი
       </Typography>
       <div className='flex flex-wrap gap-3 my-6'>
-        {fuelType.map((type, idx) => (
-          <Tag label={type} key={idx} component={<Image src='/icons/electric.svg' alt='' />} height='h-12' />
-        ))}
+        {/* {fuels?.map((type, idx) => (
+          <Tag label={type.title} key={idx} component={<Image src='/icons/electric.svg' alt='' />} height='h-12' />
+        ))} */}
       </div>
       <Typography type='h5' weight='normal' className=' mt-14'>
         ადგილების რაოდენობა

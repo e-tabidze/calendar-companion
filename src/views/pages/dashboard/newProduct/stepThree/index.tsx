@@ -2,7 +2,7 @@ import { JSXElementConstructor, ReactElement, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import useWindowDimensions from 'src/hooks/useWindowDimensions'
 import { IconTextButton } from 'src/views/components/button'
-import CurrencySelector from 'src/views/components/currencySelector'
+import TwoOptionSelector from 'src/views/components/twoOptionSelector'
 import Divider from 'src/views/components/divider'
 import { DefaultInput } from 'src/views/components/input'
 import SwitchField from 'src/views/components/switchField'
@@ -15,6 +15,7 @@ import {
   StepThreeContainer,
   StepThreePriceContainer
 } from './styles'
+import Icon from 'src/views/app/Icon'
 
 const options = [
   { value: 'დღე', label: 'დღე', id: '1' },
@@ -46,7 +47,12 @@ const StepThree = () => {
     <StepThreeContainer>
       <StepThreePriceContainer>
         <DefaultInput label='დღიური ღირებულება' control={control} name='' errors={''} />
-        <CurrencySelector />
+        <TwoOptionSelector
+          options={[
+            { value: '0', icon: 'gridMap' },
+            { value: '1', icon: 'gridMap' }
+          ]}
+        />
       </StepThreePriceContainer>
       <Typography type='subtitle' className='my-9'>
         მითითებული ფასი განსაზღვრავს ავტომობილის 1 დღის ქირაობის ფასს, რომლის ცვლილებაც დამოკიდებული იქნება დაქირავებული

@@ -31,7 +31,7 @@ const NewProduct: React.FC = () => {
 
   const handleClose = () => router.push('/dashboard/dashboard')
 
-  const { control, handleSubmit, errors, clearErrors, newProductValues, seatTypes } = useNewProduct()
+  const { control, handleSubmit, errors, clearErrors, newProductValues } = useNewProduct()
 
   const handleGoNextStep = () => {
     const currentIndex = options.findIndex(option => option.value === step.value)
@@ -54,7 +54,28 @@ const NewProduct: React.FC = () => {
     }
   }
 
-  console.log(seatTypes, 'seatTypes')
+  console.log(newProductValues, 'newProductValues')
+
+  const renderStepComponent = () => {
+    switch (step.step) {
+      case 1:
+        return <StepOne control={control} newProductValues={newProductValues} />
+      case 2:
+        return <StepTwo control={control} />
+      case 3:
+        return <StepThree />
+      case 4:
+        return <StepFour />
+      case 5:
+        return <StepFive />
+      case 6:
+        return <StepSix />
+      case 7:
+        return <StepSeven />
+      default:
+        return null
+    }
+  }
 
   return (
     // @ts-ignore
@@ -68,15 +89,7 @@ const NewProduct: React.FC = () => {
         onClose={handleClose}
         onSubmit={handleSubmit(onSubmit)}
       >
-        <form>
-          {step.step === 1 && <StepOne control={control} />}
-          {step.step === 2 && <StepTwo />}
-          {step.step === 3 && <StepThree />}
-          {step.step === 4 && <StepFour />}
-          {step.step === 5 && <StepFive />}
-          {step.step === 6 && <StepSix />}
-          {step.step === 7 && <StepSeven />}
-        </form>
+        <form>{renderStepComponent()}</form>
       </NewListingLayout>
     </FormProvider>
   )

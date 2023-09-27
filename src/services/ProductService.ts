@@ -1,38 +1,17 @@
 import HttpService from './HttpService'
 
 class ProductService extends HttpService {
-  getSeatTypes(AccessToken = '') {
-    return this.get('/seat-types', {}, AccessToken ? { Authorization: `${AccessToken}` } : {})
-  }
-
-  getDoorTypes(AccessToken = '') {
-    return this.get('/door-types', {}, AccessToken ? { Authorization: `${AccessToken}` } : {})
-  }
-
-  getDriveTypes(AccessToken = '') {
-    return this.get('/drive-tires', {}, AccessToken ? { Authorization: `${AccessToken}` } : {})
-  }
-
-  getTransmissionTypes(AccessToken = '') {
-    return this.get('/transmission-types', {}, AccessToken ? { Authorization: `${AccessToken}` } : {})
-  }
-
-  getCategories(AccessToken = '') {
-    return this.get('/categories', {}, AccessToken ? { Authorization: `${AccessToken}` } : {})
-  }
-
   getManufacturers(AccessToken = '') {
     return this.get('/manufacturers', {}, AccessToken ? { Authorization: `${AccessToken}` } : {})
   }
 
-  getManufacturerModels(AccessToken = '') {
-    return this.get('/manufacturer-models', {}, AccessToken ? { Authorization: `${AccessToken}` } : {})
+  getManufacturerModels(AccessToken = '', manufacturerId: string) {
+    return this.get(`/manufacturer-models?manufacturer_id=${manufacturerId}`, {}, AccessToken ? { Authorization: `${AccessToken}` } : {})
   }
 
-  getFuels(AccessToken = '') {
-    return this.get('/fuels', {}, AccessToken ? { Authorization: `${AccessToken}` } : {})
+  getProductDetails(AccessToken = '') {
+    return this.get('/product-details', {}, AccessToken ? { Authorization: `${AccessToken}` } : {})
   }
-
 }
 
 export default new ProductService()
