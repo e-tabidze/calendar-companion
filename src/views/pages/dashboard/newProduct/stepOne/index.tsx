@@ -24,9 +24,15 @@ const StepOne: React.FC<Props> = ({ control, newProductValues }) => {
     isRefetching
   } = useQuery({
     queryKey: ['manufacturerModels'],
-    queryFn: () => getManufacturerModels(Cookie.get('AccessToken'), selectedManufacturerId),
+    queryFn: () => {
+      if (selectedManufacturerId !== undefined) {
+        return getManufacturerModels(Cookie.get('AccessToken'), selectedManufacturerId)
+      } else {
+        return null
+      }
+    },
     staleTime: Infinity,
-    enabled: !!selectedManufacturerId
+    enabled: true
   })
 
   useEffect(() => {
@@ -63,6 +69,7 @@ const StepOne: React.FC<Props> = ({ control, newProductValues }) => {
           options={manufacturerModels?.result?.data}
           valueKey='id'
           labelKey='title'
+          disabled={!selectedManufacturerId}
         />
         <SelectField name='name' control={control} placeholder='წელი' options={generateYearsArray()} />
         <div className='flex gap-4 justify-center'>

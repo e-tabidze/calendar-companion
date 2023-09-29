@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { Key, useState } from 'react'
 import useWindowDimensions from 'src/hooks/useWindowDimensions'
 import CategoryCard from 'src/views/components/categoryCard'
 import Checkbox from 'src/views/components/checkbox'
@@ -7,14 +7,13 @@ import Image from 'src/views/components/image'
 import SelectField from 'src/views/components/selectField'
 import Tag from 'src/views/components/tag'
 import Typography from 'src/views/components/typography'
+import useProductInfo from '../useProductInfo'
 
 interface Props {
   control: any
 }
 
 const seats = ['ნებისმიერი', '1', '2', '3', '4', '5', '6', '7', '8+']
-
-const doors = ['2/3', '4/5', '5+']
 
 const tires = ['წინა', 'უკანა', '4x4']
 
@@ -77,6 +76,8 @@ const StepTwo: React.FC<Props> = ({ control }) => {
   const [selectedCategories, setSelectedCategoris] = useState<any[]>([])
   const { width } = useWindowDimensions()
 
+  const { productDetails } = useProductInfo()
+
   const handleSelectCategories = (id: number) => {
     if (selectedCategories.includes(id)) {
       setSelectedCategoris(selectedCategories.filter(category => category !== id))
@@ -90,9 +91,9 @@ const StepTwo: React.FC<Props> = ({ control }) => {
       <Typography type='h4' color='dark'>
         ავტომობილის კატეგორია
       </Typography>
-      {/* {width > 779 ? (
+      {width > 779 ? (
         <div className='flex flex-wrap gap-4 my-6'>
-          {categories?.map(category => (
+          {productDetails?.categories?.map((category: { title: string; id: number }) => (
             <CategoryCard
               border
               category={category.title}
@@ -103,23 +104,30 @@ const StepTwo: React.FC<Props> = ({ control }) => {
           ))}
         </div>
       ) : (
-        <SelectField control={control} name='' options={categories} placeholder='კატეგორია' disabled={false} />
-      )} */}
+        <SelectField
+          control={control}
+          name=''
+          options={productDetails?.categories}
+          placeholder='კატეგორია'
+          valueKey='id'
+          labelKey='title'
+        />
+      )}
 
       <Typography type='h4' color='dark' className='mt-14'>
         საწვავის ტიპი
       </Typography>
       <div className='flex flex-wrap gap-3 my-6'>
-        {/* {fuels?.map((type, idx) => (
-          <Tag label={type.title} key={idx} component={<Image src='/icons/electric.svg' alt='' />} height='h-12' />
-        ))} */}
+        {productDetails?.fuel_types?.map((fuel: { title: string; id: Key }) => (
+          <Tag label={fuel.title} key={fuel.id} component={<Image src='/icons/electric.svg' alt='' />} height='h-12' />
+        ))}
       </div>
       <Typography type='h5' weight='normal' className=' mt-14'>
         ადგილების რაოდენობა
       </Typography>
       <div className='flex flex-wrap gap-4 my-6'>
-        {seats.map((place, idx) => (
-          <Tag label={place} key={idx} height='h-10' />
+        {productDetails?.seat_types.map((seat: { title: string; id: Key }) => (
+          <Tag label={seat.title} key={seat.id} height='h-10' />
         ))}
       </div>
       <Typography type='h5' weight='normal' className=' mt-14'>
@@ -136,8 +144,8 @@ const StepTwo: React.FC<Props> = ({ control }) => {
           კარის რაოდენობა
         </Typography>
         <div className='flex w-max gap-2'>
-          {doors.map((type, idx) => (
-            <Tag label={type} key={idx} component={<Image src='/icons/doors.svg' alt='' />} height='h-12' />
+          {productDetails?.door_types.map((door: { title: string; id: Key }) => (
+            <Tag label={door.title} key={door.id} component={<Image src='/icons/doors.svg' alt='' />} height='h-12' />
           ))}
         </div>
       </div>
@@ -161,8 +169,8 @@ const StepTwo: React.FC<Props> = ({ control }) => {
           ტრანსმისია
         </Typography>
         <div className='flex w-max gap-2'>
-          {tires.map((type, idx) => (
-            <Tag label={type} key={idx} height={'h-10'} />
+          {productDetails?.transmission_types?.map((transmission: { title: string; id: Key }) => (
+            <Tag label={transmission.title} key={transmission.id} height={'h-10'} />
           ))}
         </div>
       </div>

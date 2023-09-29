@@ -14,7 +14,7 @@ const useProductInfo = () => {
     staleTime: Infinity
   })
 
-  const productDetails = useProductDetails?.data
+  const productDetails = useProductDetails?.data?.result?.data
 
   const manufacturers = useManufacturers?.data?.result?.data
 
