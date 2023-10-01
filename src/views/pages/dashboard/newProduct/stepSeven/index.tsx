@@ -5,9 +5,11 @@ import Checkbox from 'src/views/components/checkboxField'
 import FileUpload from '../../../../components/fileUpload'
 import Divider from 'src/views/components/divider'
 
-const StepSeven = () => {
-  const { control } = useForm()
+interface Props {
+  control: any
+}
 
+const StepSeven: React.FC<Props> = ({ control }) => {
   const Insured = () => (
     <div className='flex flex-col gap-5 m-12'>
       <FileUpload title='სადაზღვევო პოლისი' description='ატვირთეთ დაზღვევის დამადასტურებელი დოკუმენტი' />
@@ -42,7 +44,7 @@ const StepSeven = () => {
           -დან, რომელსაც თან ერთვის 1914 წელს ჰ. რექჰამის შესრულებული ინგლისურენოვანი
         </Typography>
       </div>
-      <Checkbox label='წავიკითხე და ვეთანხმები წესებსა და პირობებს' value='' />
+      {/* <Checkbox label='წავიკითხე და ვეთანხმები წესებსა და პირობებს' value='' /> */}
     </div>
   )
 

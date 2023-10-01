@@ -10,18 +10,18 @@ interface Props {
 const DiscountComponent: React.FC<Props> = ({ index, options, control }) => {
   return (
     <div className='flex items-center gap-3 my-3' key={index}>
-      <div className='w-5'> {index}. </div>
+      <div className='w-5'> {index + 1} .</div>
       <NumberInputWithSelect
         options={options}
-        inputName={`discount_item.${index}.number_of_days`}
-        selectName={`discount_item.${index}.period`}
+        inputName={`discount.${index}.number`}
+        selectName={`discount.${index}.period`}
         control={control}
       />
       <DefaultInput
         label='ფასდაკლება'
         className='text-center'
         control={control}
-        name={`discount_item.${index}.amount`}
+        name={`discount.${index}.discount_percent`}
         errors={''}
       />
     </div>

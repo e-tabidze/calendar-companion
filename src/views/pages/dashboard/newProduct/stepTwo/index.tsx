@@ -12,7 +12,6 @@ import useProductInfo from '../useProductInfo'
 interface Props {
   control: any
   appendAdditionalParam: any
-  additionalParams: any
 }
 
 const StepTwo: React.FC<Props> = ({ control, appendAdditionalParam }) => {
@@ -128,7 +127,7 @@ const StepTwo: React.FC<Props> = ({ control, appendAdditionalParam }) => {
         შეგიძლია მონიშნო ერთი ან რამდენიმე პარამეტრი
       </Typography>
       <div className='py-9 grid grid-cols-1 md:grid-cols-2'>
-        {additionalParams.map((param: { id: Key | null | undefined; title: string }, index: any) => (
+        {additionalParams?.map((param: { id: Key | null | undefined; title: string }, index: any) => (
           <div className='my-2' key={param.id}>
             <CheckboxField
               name={`additional_options.${index}`}

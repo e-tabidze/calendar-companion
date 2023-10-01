@@ -1,4 +1,4 @@
-import { JSXElementConstructor, ReactElement, useState } from 'react'
+import { JSXElementConstructor, ReactElement, useEffect, useState } from 'react'
 import useWindowDimensions from 'src/hooks/useWindowDimensions'
 import { IconTextButton } from 'src/views/components/button'
 import TwoOptionSelector from 'src/views/components/twoOptionSelector'
@@ -21,6 +21,7 @@ interface Props {
   control: any
   discountItems: any
   appendDiscountItem: any
+  remove: any
 }
 
 const options = [
@@ -29,15 +30,15 @@ const options = [
   { value: 'თვე', label: 'თვე', id: '3' }
 ]
 
-const StepThree: React.FC<Props> = ({ control, discountItems, appendDiscountItem }) => {
-  const { discount_item } = useNewProduct()
+const StepThree: React.FC<Props> = ({ control, discountItems, appendDiscountItem, remove }) => {
+  const { discount_item, setValue } = useNewProduct()
   const { width } = useWindowDimensions()
-
   const formState = useWatch({ control })
 
-  console.log(formState, 'formState')
+  console.log(formState.discount.length, 'discount')
+  console.log(formState.apply_discount, 'discount')
 
-  console.log(discountItems, 'discountItems')
+  useEffect(() => {}, [formState.discount.length])
 
   return (
     <StepThreeContainer>
@@ -66,32 +67,29 @@ const StepThree: React.FC<Props> = ({ control, discountItems, appendDiscountItem
           control={control}
           name='apply_discount'
           defaultValue={false}
-          className='my-8'
         />
       </DiscountContainer>
       {formState.apply_discount ? (
         <DiscountComponentWrapper>
           {discountItems.map((component: ReactElement<any, string | JSXElementConstructor<any>>, index: number) => (
             <DiscountInputsWrapper key={index}>
-              <DiscountComponent
-                index={index}
-                options={options}
-                control={control}
-                name={`discount_item.${index}`}
-              />
-
+              <DiscountComponent index={index} options={options} control={control} name={`discount.${index}`} />
               {index === discountItems.length - 1 && (
                 <IconTextButton
                   label={width > 779 ? 'წაშლა' : ''}
                   icon='/icons/clear.svg'
                   labelClassname='text-orange-120'
-                  // onClick={() => deleteComponent(index)}
+                  onClick={() => {
+                    remove(index)
+                    formState.discount.length === 0 && setValue('apply_discount', false)
+                  }}
                   className='p-0 md:p-4'
                 />
               )}
             </DiscountInputsWrapper>
           ))}
           <IconTextButton
+            className='mt-6 mb-8'
             label='ახალი ფასდაკლების დამატება'
             icon='/icons/add.svg'
             onClick={() => appendDiscountItem(discount_item)}

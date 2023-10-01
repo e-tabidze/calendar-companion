@@ -11,6 +11,7 @@ import StepSeven from './stepSeven'
 import StepSix from './stepSix'
 import StepThree from './stepThree'
 import StepTwo from './stepTwo'
+import Cookie from 'src/helpers/Cookie'
 
 const options = [
   { value: '1/7 ნაბიჯი', label: 'ავტომობილის შესახებ', step: 1 },
@@ -34,13 +35,12 @@ const NewProduct: React.FC = () => {
   const {
     control,
     handleSubmit,
-    errors,
-    clearErrors,
-    newProductValues,
-    additionalParams,
+    productValues,
     appendAdditionalParam,
     discountItems,
-    appendDiscountItem
+    appendDiscountItem,
+    remove,
+    createNewProduct
   } = useNewProduct()
 
   const handleGoNextStep = () => {
@@ -58,36 +58,36 @@ const NewProduct: React.FC = () => {
 
   const onSubmit = async () => {
     try {
-      console.log(newProductValues, 'newProductValues')
+      console.log(productValues, 'productValues')
+      await createNewProduct({ AccessToken: Cookie.get('AccessToken'), product: productValues })
     } catch (error) {
       console.error('An error occurred while creating new listing:', error)
     }
   }
 
-  console.log(newProductValues, 'newProductValues')
-
   const renderStepComponent = () => {
     switch (step.step) {
       case 1:
-        return <StepOne control={control} newProductValues={newProductValues} />
+        return <StepOne control={control} productValues={productValues} />
       case 2:
+        return <StepTwo control={control} appendAdditionalParam={appendAdditionalParam} />
+      case 3:
         return (
-          <StepTwo
+          <StepThree
             control={control}
-            additionalParams={additionalParams}
-            appendAdditionalParam={appendAdditionalParam}
+            discountItems={discountItems}
+            appendDiscountItem={appendDiscountItem}
+            remove={remove}
           />
         )
-      case 3:
-        return <StepThree control={control} discountItems={discountItems} appendDiscountItem={appendDiscountItem} />
       case 4:
-        return <StepFour />
+        return <StepFour control={control} />
       case 5:
-        return <StepFive />
+        return <StepFive control={control} />
       case 6:
-        return <StepSix />
+        return <StepSix control={control} />
       case 7:
-        return <StepSeven />
+        return <StepSeven control={control} />
       default:
         return null
     }

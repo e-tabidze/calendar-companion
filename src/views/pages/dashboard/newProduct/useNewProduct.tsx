@@ -1,5 +1,7 @@
 import { useFieldArray, useForm, useWatch } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
+import ProductService from 'src/services/ProductService'
+import { Product } from 'src/types/product'
 
 const useNewProduct = () => {
   const discount_item = {
@@ -9,8 +11,9 @@ const useNewProduct = () => {
   }
   const newListingDefaultValues = {
     apply_discount: false,
-    discount_item: [discount_item],
-    additional_options: []
+    discount: [discount_item],
+    additional_options: [],
+    identification_number: '123456789'
   }
   const {
     control,
@@ -21,8 +24,8 @@ const useNewProduct = () => {
     clearErrors,
     setValue
   } = useForm({
-    mode: 'onSubmit',
-    reValidateMode: 'onSubmit',
+    mode: 'onChange',
+    reValidateMode: 'onChange',
     defaultValues: newListingDefaultValues
   })
 
@@ -31,12 +34,29 @@ const useNewProduct = () => {
     name: 'additional_options'
   })
 
-  const { fields: discountItems, append: appendDiscountItem } = useFieldArray({
+  const {
+    fields: discountItems,
+    append: appendDiscountItem,
+    remove
+  } = useFieldArray({
     control,
-    name: 'discount_item'
+    name: 'discount'
   })
 
-  const newProductValues: any = useWatch({ control })
+  const productValues: any = useWatch({ control })
+
+  const createNewProduct = async (params: { AccessToken: any; product: Product }) => {
+    const { AccessToken, product } = params
+
+    try {
+      const response: any = await ProductService.createNewProduct(AccessToken, product)
+
+      return response.data
+    } catch (error) {
+      console.error('Error creating product:', error)
+      throw error
+    }
+  }
 
   return {
     control,
@@ -47,12 +67,14 @@ const useNewProduct = () => {
     setError,
     clearErrors,
     setValue,
-    newProductValues,
+    productValues,
     additionalParams,
     appendAdditionalParam,
     discountItems,
     appendDiscountItem,
-    discount_item
+    discount_item,
+    remove,
+    createNewProduct
   }
 }
 

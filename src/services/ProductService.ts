@@ -1,3 +1,4 @@
+import { Product } from 'src/types/product'
 import HttpService from './HttpService'
 
 class ProductService extends HttpService {
@@ -6,7 +7,11 @@ class ProductService extends HttpService {
   }
 
   getManufacturerModels(AccessToken = '', manufacturerId: string) {
-    return this.get(`/manufacturer-models?manufacturer_id=${manufacturerId}`, {}, AccessToken ? { Authorization: `${AccessToken}` } : {})
+    return this.get(
+      `/manufacturer-models?manufacturer_id=${manufacturerId}`,
+      {},
+      AccessToken ? { Authorization: `${AccessToken}` } : {}
+    )
   }
 
   getProductDetails(AccessToken = '') {
@@ -15,6 +20,10 @@ class ProductService extends HttpService {
 
   getAdditionalParams(AccessToken = '') {
     return this.get('/additional-information', {}, AccessToken ? { Authorization: `${AccessToken}` } : {})
+  }
+
+  createNewProduct(AccessToken = '', product: Product) {
+    return this.post('/products', product, AccessToken ? { Authorization: `${AccessToken}` } : {})
   }
 }
 

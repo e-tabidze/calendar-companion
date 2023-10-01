@@ -6,8 +6,11 @@ import SwitchField from 'src/views/components/switchField'
 import Typography from 'src/views/components/typography'
 import AddNewServiceModal from './addNewServiceModal'
 
-const StepFour = () => {
-  const { control } = useForm()
+interface Props {
+  control: any
+}
+
+const StepFour: React.FC<Props> = ({ control }) => {
   const components = [
     <SwitchField
       label='უფასო მიწოდება - ავტომობილს მოყვანა სასურველ ადგილზე'

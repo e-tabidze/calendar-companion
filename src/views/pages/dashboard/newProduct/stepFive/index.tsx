@@ -13,34 +13,35 @@ const options2 = [
   { value: 'თვე', label: 'თვე' }
 ]
 
-const StepFive = () => {
+interface Props {
+  control: any
+}
 
-  const {control} = useForm()
-  
+const StepFive: React.FC<Props> = ({ control }) => {
   return (
     <div>
       <Typography type='h4' weight='normal' color='dark' className='mb-4'>
         ქირაობის მინიმალური ვადა
       </Typography>
       <Divider />
-      <SwitchField label='ნებისმიერი ვადა' name="" defaultValue control={control} className='my-8' />
+      <SwitchField label='ნებისმიერი ვადა' name='' defaultValue control={control} className='my-8' />
       <Divider />
       <SwitchField
         label='მინიმალური ვადა'
         description='ავტომობილის გაქირავების მინიმალური ხანგრძლივობა (მაგ. 3 დღე)'
         className='my-8'
-        name=""
+        name=''
         defaultValue
         control={control}
       />
 
       {/* {minPeriod && ( */}
-        <div className='flex items-center gap-8 mb-10'>
-          <NumberInputWithSelect options={options2} onChange={() => console.log('OK')} />
-          <Typography type='body' color='light' className='w-1/2'>
-            ამ პარამეტრის გააქტიურებით თქვენ ადგენთ ავტომობილის გაქირავების პერიოდის მაქსიმალურ ლიმიტს
-          </Typography>
-        </div>
+      <div className='flex items-center gap-8 mb-10'>
+        <NumberInputWithSelect options={options2} control={control} inputName='' selectName='' />
+        <Typography type='body' color='light' className='w-1/2'>
+          ამ პარამეტრის გააქტიურებით თქვენ ადგენთ ავტომობილის გაქირავების პერიოდის მაქსიმალურ ლიმიტს
+        </Typography>
+      </div>
 
       {/* )} */}
       <Divider />
@@ -52,9 +53,7 @@ const StepFive = () => {
         მონიშნული პერიოდი ავტომატურად დაიბლოკება ყოველ მომდევნო ჯავშნამდე
       </Typography>
       <div className='flex flex-wrap gap-2 mt-14 '>
-        {options.map((type, idx) => (
-          <Tag label={type} key={idx} height={'h-10'} />
-        ))}
+        <Tag height={'h-10'} options={options} name='' control={control} />
       </div>
     </div>
   )

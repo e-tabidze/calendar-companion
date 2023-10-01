@@ -9,13 +9,13 @@ import useProductInfo, { getManufacturerModels } from '../useProductInfo'
 
 interface Props {
   control: any
-  newProductValues: any
+  productValues: any
 }
 
-const StepOne: React.FC<Props> = ({ control, newProductValues }) => {
+const StepOne: React.FC<Props> = ({ control, productValues }) => {
   const { manufacturers } = useProductInfo()
 
-  const selectedManufacturerId = newProductValues.man_id
+  const selectedManufacturerId = productValues.man_id
 
   const {
     data: manufacturerModels,
