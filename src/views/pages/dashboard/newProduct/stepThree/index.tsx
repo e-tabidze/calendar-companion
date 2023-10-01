@@ -1,5 +1,4 @@
 import { JSXElementConstructor, ReactElement, useState } from 'react'
-import { useForm } from 'react-hook-form'
 import useWindowDimensions from 'src/hooks/useWindowDimensions'
 import { IconTextButton } from 'src/views/components/button'
 import TwoOptionSelector from 'src/views/components/twoOptionSelector'
@@ -15,7 +14,14 @@ import {
   StepThreeContainer,
   StepThreePriceContainer
 } from './styles'
-import Icon from 'src/views/app/Icon'
+import { useWatch } from 'react-hook-form'
+import useNewProduct from '../useNewProduct'
+
+interface Props {
+  control: any
+  discountItems: any
+  appendDiscountItem: any
+}
 
 const options = [
   { value: 'დღე', label: 'დღე', id: '1' },
@@ -23,34 +29,41 @@ const options = [
   { value: 'თვე', label: 'თვე', id: '3' }
 ]
 
-const StepThree = () => {
-  const [applyDiscount] = useState(false)
-  const [discountComponents, setDiscountComponents] = useState<any>([
-    <DiscountComponent index={1} options={options} key={Math.random()} />
-  ])
+const StepThree: React.FC<Props> = ({ control, discountItems, appendDiscountItem }) => {
+  const { discount_item } = useNewProduct()
+  // const [discountComponents, setDiscountComponents] = useState<any>([
+  //   <DiscountComponent index={1} options={options} key={Math.random()} />
+  // ])
   const { width } = useWindowDimensions()
-  const { control } = useForm()
 
-  const addComponent = () => {
-    setDiscountComponents([
-      ...discountComponents,
-      <DiscountComponent index={discountComponents.length + 1} options={options} key={Math.random()} />
-    ])
-  }
+  // const addComponent = () => {
+  //   setDiscountComponents([
+  //     ...discountComponents,
+  //     <DiscountComponent index={discountComponents.length + 1} options={options} key={Math.random()} />
+  //   ])
+  // }
 
-  const deleteComponent = (index: number) => {
-    const updatedComponents = discountComponents.filter((_: any, i: number) => i !== index)
-    setDiscountComponents(updatedComponents)
-  }
+  // const deleteComponent = (index: number) => {
+  //   const updatedComponents = discountComponents.filter((_: any, i: number) => i !== index)
+  //   setDiscountComponents(updatedComponents)
+  // }
+
+  const formState = useWatch({ control })
+
+  console.log(formState, 'formState')
+
+  console.log(discountItems, 'discountItems')
 
   return (
     <StepThreeContainer>
       <StepThreePriceContainer>
-        <DefaultInput label='დღიური ღირებულება' control={control} name='' errors={''} />
+        <DefaultInput label='დღიური ღირებულება' control={control} name='daily_price.amount' errors={''} />
         <TwoOptionSelector
+          control={control}
+          name='daily_price.currency'
           options={[
-            { value: '0', icon: 'gridMap' },
-            { value: '1', icon: 'gridMap' }
+            { value: 'GEL', icon: 'gridMap' },
+            { value: 'USD', icon: 'gridMap' }
           ]}
         />
       </StepThreePriceContainer>
@@ -66,31 +79,41 @@ const StepThree = () => {
         <SwitchField
           label='ფასდაკლება გაქირავების ხანგრძლივობის მიხედვით'
           control={control}
-          name=''
+          name='discount.apply_discount'
           defaultValue={false}
           className='my-8'
         />
       </DiscountContainer>
-      {applyDiscount && (
+      {formState.discount.apply_discount ? (
         <DiscountComponentWrapper>
-          {discountComponents.map(
-            (component: ReactElement<any, string | JSXElementConstructor<any>>, index: number) => (
-              <DiscountInputsWrapper key={index}>
-                {component}
-                {index === discountComponents.length - 1 && (
-                  <IconTextButton
-                    label={width > 779 ? 'წაშლა' : ''}
-                    icon='/icons/clear.svg'
-                    labelClassname='text-orange-120'
-                    onClick={() => deleteComponent(index)}
-                    className='p-0 md:p-4'
-                  />
-                )}
-              </DiscountInputsWrapper>
-            )
-          )}
-          <IconTextButton label='ახალი ფასდაკლების დამატება' icon='/icons/add.svg' onClick={addComponent} />
+          {discountItems.map((component: ReactElement<any, string | JSXElementConstructor<any>>, index: number) => (
+            <DiscountInputsWrapper key={index}>
+              <DiscountComponent
+                index={index}
+                options={options}
+                control={control}
+                name={`discount.discount_item.${index}`}
+              />
+
+              {index === discountItems.length - 1 && (
+                <IconTextButton
+                  label={width > 779 ? 'წაშლა' : ''}
+                  icon='/icons/clear.svg'
+                  labelClassname='text-orange-120'
+                  // onClick={() => deleteComponent(index)}
+                  className='p-0 md:p-4'
+                />
+              )}
+            </DiscountInputsWrapper>
+          ))}
+          <IconTextButton
+            label='ახალი ფასდაკლების დამატება'
+            icon='/icons/add.svg'
+            onClick={() => appendDiscountItem(discount_item)}
+          />
         </DiscountComponentWrapper>
+      ) : (
+        <></>
       )}
       <Divider />
     </StepThreeContainer>

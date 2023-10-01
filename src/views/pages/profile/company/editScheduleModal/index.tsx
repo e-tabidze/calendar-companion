@@ -100,39 +100,19 @@ const EditScheduleModal: React.FC<Props> = ({ open, onClose }) => {
                 <div className='mb-20'>
                   <div className='px-9 grid grid-cols-1 gap-7'>
                     <SwitchField label='ერთნაირი დროის მონიშვნა' name='' control={control} defaultValue />
-
-                    {/* {sameTime ? ( */}
-                      <div className='flex items-center justify-between'>
-                        <div className='flex items-center gap-4'>
-                          {days.map((day, index) => (
-                            <RoundedTag
-                              key={index}
-                              label={day.label}
-                              handleSelect={() => handleselectedWorkDays(day.value)}
-                              selected={selectedWorkDays.includes(day.value)}
-                            />
-                          ))}
-                        </div>
-                        <TimeRangeComponent index={1} control={control} />
+                    <div className='flex items-center justify-between'>
+                      <div className='flex items-center gap-4'>
+                        {days.map((day, index) => (
+                          <RoundedTag
+                            key={index}
+                            label={day.label}
+                            handleSelect={() => handleselectedWorkDays(day.value)}
+                            selected={selectedWorkDays.includes(day.value)}
+                          />
+                        ))}
                       </div>
-
-                    {/* ) : (
-                      <div className=''>
-                        <div className=''>
-                          {days.map((day, index) => (
-                            <div className='flex items-center gap-6' key={index}>
-                              <RoundedTag
-                                label={day.label}
-                                handleSelect={() => handleselectedWorkDays(day.value)}
-                                selected={selectedWorkDays.includes(day.value)}
-                              />
-                              <TimeRangeComponent index={1} control={control} />
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    )} */}
-                    
+                      <TimeRangeComponent index={1} control={control} />
+                    </div>
                   </div>
                 </div>
                 <div className='flex justify-end bottom-0 w-full shadow-md'>

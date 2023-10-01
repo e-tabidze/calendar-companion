@@ -74,7 +74,7 @@ const BranchInfoComponent: React.FC<Props> = ({ index, control, errors }) => {
       <SwitchField
         name={`addresses.${index}.isSameTime`}
         label='ერთნაირი დროის მონიშვნა'
-        defaultValue={true}
+        defaultValue
         control={control}
       />
 

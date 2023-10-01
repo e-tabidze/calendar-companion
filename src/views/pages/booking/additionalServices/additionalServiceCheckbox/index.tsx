@@ -1,4 +1,4 @@
-import Checkbox from 'src/views/components/checkbox'
+import Checkbox from 'src/views/components/checkboxField'
 import Counter from 'src/views/components/counter'
 import Typography from 'src/views/components/typography'
 

@@ -5,7 +5,7 @@ import useWindowDimensions from 'src/hooks/useWindowDimensions'
 
 // Components
 import CategoryCard from '../categoryCard'
-import Checkbox from '../checkbox'
+import Checkbox from '../checkboxField'
 import Divider from '../divider'
 import Image from '../image'
 import { DefaultInput } from '../input'

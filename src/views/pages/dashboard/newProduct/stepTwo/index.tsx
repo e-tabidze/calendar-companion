@@ -1,7 +1,6 @@
-import { Key, useState } from 'react'
 import useWindowDimensions from 'src/hooks/useWindowDimensions'
 import CategoryCard from 'src/views/components/categoryCard'
-import Checkbox from 'src/views/components/checkbox'
+import CheckboxField from 'src/views/components/checkboxField'
 import Divider from 'src/views/components/divider'
 import Image from 'src/views/components/image'
 import SelectField from 'src/views/components/selectField'
@@ -11,80 +10,68 @@ import useProductInfo from '../useProductInfo'
 
 interface Props {
   control: any
+  appendAdditionalParam: any
+  additionalParams: any
 }
-
-const seats = ['ნებისმიერი', '1', '2', '3', '4', '5', '6', '7', '8+']
-
-const tires = ['წინა', 'უკანა', '4x4']
 
 const additionalParameters = [
   {
     id: 1,
-    label: 'შშმპ პირებზე ოპტიმიზირებული'
+    title: 'შშმპ პირებზე ოპტიმიზირებული'
   },
   {
     id: 2,
-    label: 'Android Auto'
+    title: 'Android Auto'
   },
   {
     id: 3,
-    label: 'პარკინგის სენსორი'
+    title: 'პარკინგის სენსორი'
   },
   {
     id: 4,
-    label: 'GPS'
+    title: 'GPS'
   },
   {
     id: 5,
-    label: 'ცხოველების დაშვება'
+    title: 'ცხოველების დაშვება'
   },
   {
     id: 6,
-    label: 'USB დამტენი'
+    title: 'USB დამტენი'
   },
   {
     id: 7,
-    label: '4 წამყვანი თვალი'
+    title: '4 წამყვანი თვალი'
   },
   {
     id: 8,
-    label: 'Apple CarPlay'
+    title: 'Apple CarPlay'
   },
   {
     id: 9,
-    label: 'უკანა კამერა'
+    title: 'უკანა კამერა'
   },
   {
     id: 10,
-    label: 'Bluetooth'
+    title: 'Bluetooth'
   },
   {
     id: 11,
-    label: 'სავარძლის გათბობა'
+    title: 'სავარძლის გათბობა'
   },
   {
     id: 12,
-    label: 'ზამთრის საბურავები'
+    title: 'ზამთრის საბურავები'
   },
   {
     id: 13,
-    label: 'USB პორტი'
+    title: 'USB პორტი'
   }
 ]
 
-const StepTwo: React.FC<Props> = ({ control }) => {
-  const [selectedCategories, setSelectedCategoris] = useState<any[]>([])
+const StepTwo: React.FC<Props> = ({ control, appendAdditionalParam, additionalParams }) => {
   const { width } = useWindowDimensions()
-
-  const { productDetails } = useProductInfo()
-
-  const handleSelectCategories = (id: number) => {
-    if (selectedCategories.includes(id)) {
-      setSelectedCategoris(selectedCategories.filter(category => category !== id))
-    } else {
-      setSelectedCategoris(prevState => [...prevState, id])
-    }
-  }
+  const { productDetails, additionalOptions } = useProductInfo()
 
   return (
     <div>
@@ -93,20 +80,12 @@ const StepTwo: React.FC<Props> = ({ control }) => {
       </Typography>
       {width > 779 ? (
         <div className='flex flex-wrap gap-4 my-6'>
-          {productDetails?.categories?.map((category: { title: string; id: number }) => (
-            <CategoryCard
-              border
-              category={category.title}
-              key={category.id}
-              selected={selectedCategories.includes(category.id)}
-              handleSelect={() => handleSelectCategories(category.id)}
-            />
-          ))}
+          <CategoryCard name='category' control={control} options={productDetails?.categories} border />
         </div>
       ) : (
         <SelectField
           control={control}
-          name=''
+          name='category'
           options={productDetails?.categories}
           placeholder='კატეგორია'
           valueKey='id'
@@ -118,25 +97,33 @@ const StepTwo: React.FC<Props> = ({ control }) => {
         საწვავის ტიპი
       </Typography>
       <div className='flex flex-wrap gap-3 my-6'>
-        {productDetails?.fuel_types?.map((fuel: { title: string; id: Key }) => (
-          <Tag label={fuel.title} key={fuel.id} component={<Image src='/icons/electric.svg' alt='' />} height='h-12' />
-        ))}
+        <Tag
+          name='fuel_type'
+          control={control}
+          options={productDetails?.fuel_types}
+          component={<Image src='/icons/electric.svg' alt='' />}
+          height='h-12'
+        />
       </div>
       <Typography type='h5' weight='normal' className=' mt-14'>
         ადგილების რაოდენობა
       </Typography>
       <div className='flex flex-wrap gap-4 my-6'>
-        {productDetails?.seat_types.map((seat: { title: string; id: Key }) => (
-          <Tag label={seat.title} key={seat.id} height='h-10' />
-        ))}
+        <Tag
+          name='seat_type'
+          control={control}
+          options={productDetails?.seat_types}
+          component={<Image src='/icons/electric.svg' alt='' />}
+          height='h-12'
+        />
       </div>
       <Typography type='h5' weight='normal' className=' mt-14'>
         ჩემოდნების რაოდენობა
       </Typography>
       <div className='flex flex-wrap gap-4 my-6'>
-        {seats.map((place, idx) => (
+        {/* {seats.map((place, idx) => (
           <Tag label={place} key={idx} height='h-10' />
-        ))}
+        ))} */}
       </div>
       <Divider />
       <div className='flex justify-between my-10 flex-col items-baseline md:items-center md:flex-row'>
@@ -144,9 +131,13 @@ const StepTwo: React.FC<Props> = ({ control }) => {
           კარის რაოდენობა
         </Typography>
         <div className='flex w-max gap-2'>
-          {productDetails?.door_types.map((door: { title: string; id: Key }) => (
-            <Tag label={door.title} key={door.id} component={<Image src='/icons/doors.svg' alt='' />} height='h-12' />
-          ))}
+          <Tag
+            name='door_type'
+            control={control}
+            options={productDetails?.door_types}
+            component={<Image src='/icons/electric.svg' alt='' />}
+            height='h-12'
+          />
         </div>
       </div>
 
@@ -157,9 +148,13 @@ const StepTwo: React.FC<Props> = ({ control }) => {
           წამყვანი საბურავები
         </Typography>
         <div className='flex w-max gap-2'>
-          {tires.map((type, idx) => (
-            <Tag label={type} key={idx} height='h-10' />
-          ))}
+          <Tag
+            name='drive_tire'
+            control={control}
+            options={productDetails?.drive_tires}
+            component={<Image src='/icons/electric.svg' alt='' />}
+            height='h-12'
+          />
         </div>
       </div>
       <Divider />
@@ -169,9 +164,13 @@ const StepTwo: React.FC<Props> = ({ control }) => {
           ტრანსმისია
         </Typography>
         <div className='flex w-max gap-2'>
-          {productDetails?.transmission_types?.map((transmission: { title: string; id: Key }) => (
-            <Tag label={transmission.title} key={transmission.id} height={'h-10'} />
-          ))}
+          <Tag
+            name='transmission_type'
+            control={control}
+            options={productDetails?.transmission_types}
+            component={<Image src='/icons/electric.svg' alt='' />}
+            height='h-12'
+          />
         </div>
       </div>
       <Divider />
@@ -183,9 +182,14 @@ const StepTwo: React.FC<Props> = ({ control }) => {
         შეგიძლია მონიშნო ერთი ან რამდენიმე პარამეტრი
       </Typography>
       <div className='py-9 grid grid-cols-1 md:grid-cols-2'>
-        {additionalParameters.map(parameter => (
-          <div className='my-2' key={parameter.id}>
-            <Checkbox label={parameter.label} value={parameter.label} />
+        {additionalParameters.map((param, index) => (
+          <div className='my-2' key={param.id}>
+            <CheckboxField
+              name={`additional_parameters.${index}`}
+              control={control}
+              title={param.title}
+              append={() => appendAdditionalParam({ id: param.id, title: param.title })}
+            />
           </div>
         ))}
       </div>

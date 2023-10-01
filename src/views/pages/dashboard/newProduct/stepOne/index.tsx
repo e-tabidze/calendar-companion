@@ -71,20 +71,28 @@ const StepOne: React.FC<Props> = ({ control, newProductValues }) => {
           labelKey='title'
           disabled={!selectedManufacturerId}
         />
-        <SelectField name='name' control={control} placeholder='წელი' options={generateYearsArray()} />
+        <SelectField name='production_year' control={control} placeholder='წელი' options={generateYearsArray()} />
         <div className='flex gap-4 justify-center'>
-          <DefaultInput name='' control={control} errors={''} label='გარბენი' className='flex-grow' />
+          <DefaultInput name='odometer.run' control={control} errors={''} label='გარბენი' className='flex-grow' />
           <TwoOptionSelector
+            control={control}
+            name='odometer.measure'
             options={[
-              { value: '0', label: 'კმ' },
-              { value: '1', label: 'მილი' }
+              { value: 'km', label: 'კმ' },
+              { value: 'mile', label: 'მილი' }
             ]}
           />
         </div>
       </div>
       <div className='grid grid-cols-1 gap-4 mt-4'>
-        <DefaultInput name='' control={control} errors={''} label='დამატებითი ინფორმაცია' rows={4} />
-        <DefaultInput name='' control={control} errors={''} label='გამოყენების ინსტრუქცია' rows={4} />
+        <DefaultInput
+          name='additional_information'
+          control={control}
+          errors={''}
+          label='დამატებითი ინფორმაცია'
+          rows={4}
+        />
+        <DefaultInput name='instruction_manual' control={control} errors={''} label='გამოყენების ინსტრუქცია' rows={4} />
       </div>
       <div className='flex flex-wrap gap-2 mt-4'>
         <ImagesInput label='ავტომობილის ფოტოები' infoText='(მაქს. ზომა 10 მბ, JPG, PNG, SVG)' icon bg='bg-green-10' />

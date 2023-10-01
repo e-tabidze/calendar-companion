@@ -31,7 +31,17 @@ const NewProduct: React.FC = () => {
 
   const handleClose = () => router.push('/dashboard/dashboard')
 
-  const { control, handleSubmit, errors, clearErrors, newProductValues } = useNewProduct()
+  const {
+    control,
+    handleSubmit,
+    errors,
+    clearErrors,
+    newProductValues,
+    additionalParams,
+    appendAdditionalParam,
+    discountItems,
+    appendDiscountItem
+  } = useNewProduct()
 
   const handleGoNextStep = () => {
     const currentIndex = options.findIndex(option => option.value === step.value)
@@ -61,9 +71,15 @@ const NewProduct: React.FC = () => {
       case 1:
         return <StepOne control={control} newProductValues={newProductValues} />
       case 2:
-        return <StepTwo control={control} />
+        return (
+          <StepTwo
+            control={control}
+            additionalParams={additionalParams}
+            appendAdditionalParam={appendAdditionalParam}
+          />
+        )
       case 3:
-        return <StepThree />
+        return <StepThree control={control} discountItems={discountItems} appendDiscountItem={appendDiscountItem} />
       case 4:
         return <StepFour />
       case 5:
