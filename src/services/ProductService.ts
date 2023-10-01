@@ -13,8 +13,8 @@ class ProductService extends HttpService {
     return this.get('/product-details', {}, AccessToken ? { Authorization: `${AccessToken}` } : {})
   }
 
-  getAdditionalOptions(AccessToken = '') {
-    return this.get('/additional-options', {}, AccessToken ? { Authorization: `${AccessToken}` } : {})
+  getAdditionalParams(AccessToken = '') {
+    return this.get('/additional-information', {}, AccessToken ? { Authorization: `${AccessToken}` } : {})
   }
 }
 

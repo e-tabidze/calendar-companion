@@ -31,22 +31,7 @@ const options = [
 
 const StepThree: React.FC<Props> = ({ control, discountItems, appendDiscountItem }) => {
   const { discount_item } = useNewProduct()
-  // const [discountComponents, setDiscountComponents] = useState<any>([
-  //   <DiscountComponent index={1} options={options} key={Math.random()} />
-  // ])
   const { width } = useWindowDimensions()
-
-  // const addComponent = () => {
-  //   setDiscountComponents([
-  //     ...discountComponents,
-  //     <DiscountComponent index={discountComponents.length + 1} options={options} key={Math.random()} />
-  //   ])
-  // }
-
-  // const deleteComponent = (index: number) => {
-  //   const updatedComponents = discountComponents.filter((_: any, i: number) => i !== index)
-  //   setDiscountComponents(updatedComponents)
-  // }
 
   const formState = useWatch({ control })
 
@@ -79,12 +64,12 @@ const StepThree: React.FC<Props> = ({ control, discountItems, appendDiscountItem
         <SwitchField
           label='ფასდაკლება გაქირავების ხანგრძლივობის მიხედვით'
           control={control}
-          name='discount.apply_discount'
+          name='apply_discount'
           defaultValue={false}
           className='my-8'
         />
       </DiscountContainer>
-      {formState.discount.apply_discount ? (
+      {formState.apply_discount ? (
         <DiscountComponentWrapper>
           {discountItems.map((component: ReactElement<any, string | JSXElementConstructor<any>>, index: number) => (
             <DiscountInputsWrapper key={index}>
@@ -92,7 +77,7 @@ const StepThree: React.FC<Props> = ({ control, discountItems, appendDiscountItem
                 index={index}
                 options={options}
                 control={control}
-                name={`discount.discount_item.${index}`}
+                name={`discount_item.${index}`}
               />
 
               {index === discountItems.length - 1 && (

@@ -16,7 +16,7 @@ const useProductInfo = () => {
 
   const useAdditionalParams: any = useQuery({
     queryKey: ['additionalParams'],
-    queryFn: () => getAdditionalOptions(),
+    queryFn: () => getAdditionalParams(),
     staleTime: Infinity
   })
 
@@ -24,12 +24,12 @@ const useProductInfo = () => {
 
   const manufacturers = useManufacturers?.data?.result?.data
 
-  const additionalOptions = useAdditionalParams?.data?.result?.data
+  const additionalParams = useAdditionalParams?.data?.result?.data
 
   return {
     productDetails,
     manufacturers,
-    additionalOptions
+    additionalParams
   }
 }
 
@@ -68,9 +68,9 @@ export const getManufacturerModels = async (accessToken = '', manufacturerId: st
   }
 }
 
-export const getAdditionalOptions = async (accessToken = '') => {
+export const getAdditionalParams = async (accessToken = '') => {
   try {
-    const response: any = await ProductService.getAdditionalOptions(accessToken)
+    const response: any = await ProductService.getAdditionalParams(accessToken)
 
     return response.data
   } catch (error) {

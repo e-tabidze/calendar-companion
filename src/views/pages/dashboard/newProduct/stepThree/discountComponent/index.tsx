@@ -1,4 +1,3 @@
-import { Controller, useForm } from 'react-hook-form'
 import { DefaultInput } from 'src/views/components/input'
 import NumberInputWithSelect from 'src/views/components/numberInputWithSelect'
 
@@ -8,25 +7,24 @@ interface Props {
   control: any
   name: string
 }
-const DiscountComponent: React.FC<Props> = ({ index, options, control, name }) => {
+const DiscountComponent: React.FC<Props> = ({ index, options, control }) => {
   return (
-    <Controller
-      name={name}
-      control={control}
-      render={({ field: { onChange, value } }) => (
-        <div className='flex items-center gap-3 my-3' key={index}>
-          <div className='w-5'> {index}. </div>
-          <NumberInputWithSelect options={options} onChange={() => console.log('change')} name='' control={control} />
-          <DefaultInput
-            label='ფასდაკლება'
-            className='text-center'
-            control={control}
-            name={`discount.discount_item.${index}.amount`}
-            errors={''}
-          />
-        </div>
-      )}
-    />
+    <div className='flex items-center gap-3 my-3' key={index}>
+      <div className='w-5'> {index}. </div>
+      <NumberInputWithSelect
+        options={options}
+        inputName={`discount_item.${index}.number_of_days`}
+        selectName={`discount_item.${index}.period`}
+        control={control}
+      />
+      <DefaultInput
+        label='ფასდაკლება'
+        className='text-center'
+        control={control}
+        name={`discount_item.${index}.amount`}
+        errors={''}
+      />
+    </div>
   )
 }
 

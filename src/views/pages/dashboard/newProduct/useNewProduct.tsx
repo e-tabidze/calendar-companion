@@ -2,22 +2,15 @@ import { useFieldArray, useForm, useWatch } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 
 const useNewProduct = () => {
-  const additional_parameter = {
-    id: '',
-    title: ''
-  }
-
   const discount_item = {
-    number_of_days: 1,
+    number: 1,
     period: '',
-    amount: ''
+    discount_percent: ''
   }
   const newListingDefaultValues = {
-    discount: {
-      apply_discount: false,
-      discount_item: [discount_item]
-    },
-    additional_parameters: [additional_parameter]
+    apply_discount: false,
+    discount_item: [discount_item],
+    additional_options: []
   }
   const {
     control,
@@ -35,12 +28,12 @@ const useNewProduct = () => {
 
   const { fields: additionalParams, append: appendAdditionalParam } = useFieldArray({
     control,
-    name: 'additional_parameters'
+    name: 'additional_options'
   })
 
   const { fields: discountItems, append: appendDiscountItem } = useFieldArray({
     control,
-    name: 'discount.discount_item'
+    name: 'discount_item'
   })
 
   const newProductValues: any = useWatch({ control })
