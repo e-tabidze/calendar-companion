@@ -55,16 +55,16 @@ const BranchInfoComponent: React.FC<Props> = ({ index, control, errors }) => {
   const renderTimeRangeComponent = (day: string) => <TimeRangeComponent index={index} control={control} day={day} />
 
   return (
-    <div className='mb-6 large:border large:border-raisin-10 rounded-3xl large:py-10 large:px-9 grid grid-cols-1 gap-7'>
-      <div className='w-full grid grid-cols-1 laptop:grid-cols-3 gap-4'>
+    <div className='mb-6 md:border md:border-raisin-10 rounded-3xl md:py-10 md:px-9 grid grid-cols-1 gap-7'>
+      <div className='w-full grid grid-cols-1 lg:grid-cols-3 gap-4'>
         <InputWithComponent
           label='მისამართი'
           name={`addresses.${index}.address`}
           control={control}
-          className='laptop:col-span-2'
+          className='lg:col-span-2'
         />
         <DefaultInput
-          label='ტელეფონის'
+          label='ტელეფონი'
           name={`addresses.${index}.phone`}
           control={control}
           errors={errors}
@@ -79,7 +79,7 @@ const BranchInfoComponent: React.FC<Props> = ({ index, control, errors }) => {
       />
 
       {formState.addresses[index]?.isSameTime ? (
-        <div className='flex flex-col gap-2 laptop:items-center laptop:flex-row justify-between' key={index}>
+        <div className='flex flex-col gap-2 lg:items-center lg:flex-row justify-between' key={index}>
           <div className='flex items-center gap-4'>{days.map(day => renderDaysSelector(day))}</div>
           {renderTimeRangeComponent('monday')}
         </div>

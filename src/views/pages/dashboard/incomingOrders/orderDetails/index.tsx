@@ -25,7 +25,7 @@ const OrderDetails: React.FC<Props> = ({ toggleDetails }) => {
 
   return (
     <OrderDetailsContainer>
-      <div className='hidden large:flex items-center large:w-full gap-6 p-4'>
+      <div className='hidden md:flex items-center md:w-full gap-6 p-4'>
         <IconTextButton icon='/icons/backWithBg.svg' label='შემოსული ჯავშნები' onClick={toggleDetails} />
       </div>
       <Divider />
@@ -48,7 +48,7 @@ const OrderDetails: React.FC<Props> = ({ toggleDetails }) => {
       <Divider />
       <Divider />
       <PriceDetailsContainer>
-        <div className='w-full large:w-7/12'>
+        <div className='w-full md:w-7/12'>
           <Typography type='h3' className='font-bold'>
             ლევან გეჯაძე
           </Typography>
@@ -142,7 +142,7 @@ const OrderDetails: React.FC<Props> = ({ toggleDetails }) => {
             </PriceDetailsWrapper>
           </div>
         </div>
-        <div className='w-full mb-6 large:mb-0 large:w-5/12 flex flex-col items-center'>
+        <div className='w-full mb-6 md:mb-0 md:w-5/12 flex flex-col items-center'>
           <Image src='/images/car.png' alt='' height={150} width={200} className='m-auto rounded-lg' />
           <div>
             <Typography type='h5' className='font-bold mt-6'>

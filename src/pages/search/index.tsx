@@ -26,6 +26,8 @@ import {
 } from '../../views/pages/search/styles'
 import ToggleMapButton from '../../views/pages/search/toggleMapButton'
 
+import Icon from 'src/views/app/Icon'
+
 const SearchPage = () => {
   const { width } = useWindowDimensions()
   const [mapVisible, setMapVisible] = useState(true)
@@ -54,10 +56,10 @@ const SearchPage = () => {
               component={<Switcher height='h-5' name='name' control={control} defaultValue />}
               height='h-10'
             />
-            <div className="hidden desktop:flex">
+            <div className="hidden xl:flex">
               <SeatsPopover />
             </div>
-            <div className="hidden desktop:flex">
+            <div className="hidden xl:flex">
               <SuitcasesPopover />
             </div>
             <Tag
@@ -78,32 +80,33 @@ const SearchPage = () => {
         <ResponsiveDivider />
       </DefaultLayout>
 
-      <FullContainer className='laptop:flex pt-20 laptop:pt-[185px]'>
+      <FullContainer className='lg:flex pt-20 lg:pt-[185px]'>
         <SearchContentsContainer
-          className={`w-full px-5 large:pl-10 transition-all duration-300 ${
-            mapVisible ? 'laptop:w-1/2 pr-8' : 'w-full laptop:pr-0'
+          className={`w-full px-5 md:px-10 transition-all duration-300 ${
+            mapVisible ? 'lg:w-1/2 pr-8' : 'lg:w-[calc(100%-40px)] lg:pr-0'
           }`}
         >
           <SearchResultsContainer>
-            <Typography type='h5' weight='normal' className='mr-2 mb-5 large:mb-0'>
+            <Typography type='h5' weight='normal' className='mr-2 mb-5 md:mb-0'>
               სულ ნაპოვნია 71 განცხადება
             </Typography>
-            <div className='w-full large:w-auto flex items-center my-4'>
-              <span
-                className={`cursor-pointer ml-3 hidden laptop:flex items-center justify-center w-8 h-8 rounded-full ${
+            <div className='w-full md:w-auto flex items-center my-4'>
+              <span onClick={handleToggleMapWidth}
+                className={`cursor-pointer group hover:bg-green-10 ml-3 hidden lg:flex items-center justify-center w-8 h-8 rounded-full ${
                   mapVisible ? '' : 'bg-green-10'
                 }`}
               >
-                <Image src='/icons/grid.svg' onClick={handleToggleMapWidth} className='h-[14px]' alt='' />
+                 <Icon svgPath='grid' width={14} height={14} className={`${mapVisible? 'fill-raisin-30': 'fill-green-100'}  group-hover:fill-green-100`} />
+
               </span>
-              <span
-                className={`cursor-pointer ml-3 hidden laptop:flex items-center justify-center w-8 h-8 rounded-full ${
+              <span onClick={handleToggleMapWidth}
+                className={`cursor-pointer group hover:bg-green-10 ml-3 hidden lg:flex items-center justify-center w-8 h-8 rounded-full ${
                   mapVisible ? 'bg-green-10' : ''
                 }`}
               >
-                <Image src='/icons/gridMap.svg' onClick={handleToggleMapWidth} className='h-[14px]' alt='' />
+                 <Icon svgPath='gridMap' width={17} height={15} className={`${mapVisible? 'fill-green-100': 'fill-raisin-30'} group-hover:fill-green-100`} />
               </span>
-              <div className='w-full large:w-auto flex justify-between large:ml-6'>
+              <div className='w-full md:w-auto flex justify-between md:ml-6'>
                 <div className="flex">
                   {width < 1025 && (
                       <Tag
@@ -114,7 +117,7 @@ const SearchPage = () => {
                       />
                   )}
                   <Tag
-                      className='mx-4 laptop:mx-0'
+                      className='mx-4 lg:mx-0'
                       component={<Image src='/icons/sort.svg' alt='' />}
                       label={width > 779 ? 'სორტირება' : ''}
                       height={width > 1025 ? 'h-12' : 'h-10'}
@@ -133,8 +136,8 @@ const SearchPage = () => {
             </div>
           </SearchResultsContainer>
           <div
-            className={`grid tablet:grid-cols-2 gap-6 ${
-              mapVisible ? 'grid-cols-2 2xl:grid-cols-3' : 'laptop:grid-cols-4 2xl:grid-cols-5'
+            className={`grid sm:grid-cols-2 gap-6 ${
+              mapVisible ? 'grid-cols-2 2xl:grid-cols-3' : 'lg:grid-cols-4 2xl:grid-cols-5'
             }`}
           >
             <ProductCard />
@@ -152,8 +155,8 @@ const SearchPage = () => {
           </div>
         </SearchContentsContainer>
         <MapContainer
-          className={`absolute z-[111] laptop:z-[1] top-[197px] large:top-[153px] laptop:top-[0] w-full left-0 laptop:fixed laptop:right-0 laptop:left-auto laptop:top-0 overflow-hidden transition-all duration-300 ${
-            mapVisible ? 'h-[100vh] laptop:w-1/2' : 'h-0 laptop:h-[100vh] laptop:w-[40px]'
+          className={`absolute z-[111] lg:z-[1] top-[197px] md:top-[153px] lg:top-[0] w-full left-0 lg:fixed lg:right-0 lg:left-auto lg:top-0 overflow-hidden transition-all duration-300 ${
+            mapVisible ? 'h-[100vh] lg:w-1/2' : 'h-0 lg:h-[100vh] lg:w-[40px]'
           }`}
         >
           <MapPicker

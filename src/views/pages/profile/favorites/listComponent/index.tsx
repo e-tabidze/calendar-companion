@@ -10,17 +10,17 @@ const ListComponent = () => {
   
   return (
     <>
-      <div className='flex flex-col tablet:flex-row gap-6 w-full tablet:my-5 border border-raisin-10 my-2 tablet:my-none rounded-2xl tablet:rounded-none p-4 tablet:p-none tablet:border-none'>
+      <div className='flex flex-col sm:flex-row gap-6 w-full sm:my-5 border border-raisin-10 my-2 sm:my-none rounded-2xl sm:rounded-none p-4 sm:p-none sm:border-none'>
         <div className=''>
           <Image
             src='/images/car.png'
             width={width > 640 ? 230 : 350}
             height={width > 640 ? 150 : 256}
             alt=''
-            className='rounded-2xl w-full h-auto tablet:w-[250px] tablet:h-[150px] object-cover'
+            className='rounded-2xl w-full h-auto sm:w-[250px] sm:h-[150px] object-cover'
           />
         </div>
-        <div className='relative w-full tablet:h-[140px] tablet:m-auto flex flex-col justify-between'>
+        <div className='relative w-full sm:h-[140px] sm:m-auto flex flex-col justify-between'>
           <div className=''>
             <Typography type='h4' weight='normal' color='dark'>
               hyunday elantra 2011
@@ -34,7 +34,7 @@ const ListComponent = () => {
               </Typography>
             </div>
           </div>
-          <div className='flex justify-between w-full mt-3 tablet:mt-none'>
+          <div className='flex justify-between w-full mt-3 sm:mt-none'>
             <div className='flex items-center gap-6'>
               <Typography type='h4' weight='medium' color='dark'>
                 <PriceContainer>

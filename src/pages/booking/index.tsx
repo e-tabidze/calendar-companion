@@ -50,10 +50,10 @@ const Booking = () => {
 
   return (
     <>
-      <LargeContainer className='flex items-baseline pt-5 flex-col large:flex-row'>
+      <LargeContainer className='flex items-baseline pt-5 flex-col md:flex-row'>
         <Image src='/images/logo-rent.svg' alt='logo' onClick={onClickLogo} />
         <ContentContainer className='flex gap-12'>
-          <div className='w-full large:w-8/12'>
+          <div className='w-full md:w-8/12'>
             <div className='flex justify-between my-8'>
               <div className='flex items-baseline gap-3'>
                 <Typography type='h3' className='font-bold'>
@@ -67,7 +67,7 @@ const Booking = () => {
             <Typography type='h3' className='mt-11'>
               პირადი ინფორმაცია *
             </Typography>
-            <div className='grid gap-3 my-6 grid-cols-1 laptop:grid-cols-2 laptop:gap-4'>
+            <div className='grid gap-3 my-6 grid-cols-1 lg:grid-cols-2 lg:gap-4'>
               <DefaultInput label='სახელი, გვარი' value='' control={control} name='' errors={""} />
               <DefaultInput label='სახელი, გვარი' value='' control={control} name='' errors={""} />
               <DefaultInput label='სახელი, გვარი' value='' control={control} name='' errors={""} />
@@ -112,7 +112,7 @@ const Booking = () => {
             </div>
           </div>
 
-          <div className='hidden large:inline-block w-5/12 laptop:w-4/12'>
+          <div className='hidden md:inline-block w-5/12 lg:w-4/12'>
             <PriceCalcCard />
           </div>
         </ContentContainer>

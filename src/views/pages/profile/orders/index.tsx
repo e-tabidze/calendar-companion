@@ -18,7 +18,7 @@ const Orders = () => {
         <OrderComponent toggleDetails={toggleDetails} />
       ) : (
         <div className=''>
-          <div className='flex justify-between p-2 large:p-4 items-center'>
+          <div className='flex justify-between p-2 md:p-4 items-center'>
             <Typography type='h3'>ჩემი შეკვეთები</Typography>
             <div className='flex'>
               <IconTextButton label={width > 779 ? 'ფილტრი' : ''} icon={'/icons/filters.svg'} />

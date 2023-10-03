@@ -18,28 +18,28 @@ const Filters = () => {
   return (
     <>
       <FiltersContainer>
-        <LocationDropdown />
-        <Divider />
-        <PeriodDropdown />
-        <Divider />
+          <LocationDropdown />
+          <Divider />
+          <PeriodDropdown />
+          <Divider />
         <ExtraFiltersContainer>
-          <IconTextButton
-            label={'დამატებითი ფილტრი'}
-            icon={'/icons/filters.svg'}
-            bg='white'
-            labelClassname='text-xs text-base-100 text-left large:hidden'
-            className='max-w-[20%]'
-            onClick={() => toggleFilters(!filters)}
-          />
-          <IconTextButton
-            label={'ძებნა'}
-            icon={'/icons/search.svg'}
-            bg='bg-red-100'
-            labelClassname='text-2sm text-white large:hidden'
-            onClick={onClickSearch}
-            className="mr-4 laptop:mr-0"
-          />
-        </ExtraFiltersContainer>
+            <IconTextButton
+                label={'დამატებითი ფილტრი'}
+                icon={'/icons/filters.svg'}
+                bg='white'
+                labelClassname='text-xs text-base-100 text-left md:hidden'
+                className='mr-[16px]'
+                onClick={() => toggleFilters(!filters)}
+            />
+            <IconTextButton
+                label={'ძებნა'}
+                icon={'/icons/search.svg'}
+                bg='bg-red-100'
+                labelClassname='text-2sm text-white md:hidden'
+                onClick={onClickSearch}
+                className=""
+            />
+          </ExtraFiltersContainer>
       </FiltersContainer>
       <AdditionalFilters open={filters} setOpen={() => toggleFilters(!filters)} />
     </>

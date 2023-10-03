@@ -6,7 +6,7 @@ import { FilterContainer, InnerFilterContainer, ListItemBtn } from './styles'
 
 const LocationDropdown = () => {
   return (
-    <Menu as='div' className='relative inline-block text-left w-full tablet:max-w-72'>
+    <Menu as='div' className='relative flex text-left w-full'>
       <Menu.Button className='py-5 px-4 inline-flex w-full justify-center rounded-md bg-raisin bg-opacity-20 text-sm font-medium text-white focus-visible:ring-white focus-visible:ring-opacity-75'>
         <FilterContainer>
           <Typography type='body' color='dark'>
@@ -29,7 +29,7 @@ const LocationDropdown = () => {
         leaveFrom='transform opacity-100 scale-100'
         leaveTo='transform opacity-0 scale-95'
       >
-        <Menu.Items className='absolute z-10 p-4 mt-2 w-full origin-top-right divide-y divide-gray-100 rounded-2xl bg-white shadow-lg focus:outline-none'>
+        <Menu.Items className='absolute top-full z-10 p-4 mt-2 w-full origin-top-right divide-y divide-gray-100 rounded-2xl bg-white shadow-lg focus:outline-none'>
           <div className='px-1 py-1 '>
             <Menu.Item>
               <ListItemBtn>

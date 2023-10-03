@@ -181,8 +181,8 @@ const StepTwo = () => {
         ))}
       </div>
       <Divider />
-      <div className='flex justify-between my-10 flex-col items-baseline large:items-center large:flex-row'>
-        <Typography type='h5' weight='normal' className=' mb-4 large:mb-0'>
+      <div className='flex justify-between my-10 flex-col items-baseline md:items-center md:flex-row'>
+        <Typography type='h5' weight='normal' className=' mb-4 md:mb-0'>
           კარის რაოდენობა
         </Typography>
         <div className='flex w-max gap-2'>
@@ -194,8 +194,8 @@ const StepTwo = () => {
 
       <Divider />
 
-      <div className='flex justify-between my-10 flex-col items-baseline large:items-center large:flex-row'>
-        <Typography type='h5' weight='normal' className='mb-4 large:mb-0'>
+      <div className='flex justify-between my-10 flex-col items-baseline md:items-center md:flex-row'>
+        <Typography type='h5' weight='normal' className='mb-4 md:mb-0'>
           წამყვანი საბურავები
         </Typography>
         <div className='flex w-max gap-2'>
@@ -206,8 +206,8 @@ const StepTwo = () => {
       </div>
       <Divider />
 
-      <div className='flex justify-between my-10 flex-col items-baseline large:items-center large:flex-row'>
-        <Typography type='h5' weight='normal' className='mb-4 large:mb-0'>
+      <div className='flex justify-between my-10 flex-col items-baseline md:items-center md:flex-row'>
+        <Typography type='h5' weight='normal' className='mb-4 md:mb-0'>
           ტრანსმისია
         </Typography>
         <div className='flex w-max gap-2'>
@@ -224,7 +224,7 @@ const StepTwo = () => {
       <Typography type='body' color='light'>
         შეგიძლია მონიშნო ერთი ან რამდენიმე პარამეტრი
       </Typography>
-      <div className='py-9 grid grid-cols-1 large:grid-cols-2'>
+      <div className='py-9 grid grid-cols-1 md:grid-cols-2'>
         {additionalParameters.map(parameter => (
           <div className='my-2' key={parameter.id}>
             <Checkbox label={parameter.label} value={parameter.label} />

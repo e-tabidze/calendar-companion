@@ -10,7 +10,7 @@ interface Props {
 const StepOne: React.FC<Props> = ({ control, errors, clearErrors }) => {
   return (
     <div>
-      <div className='grid grid-cols-1 pb-6 large:grid-cols-2 gap-2'>
+      <div className='grid grid-cols-1 pb-6 md:grid-cols-2 gap-2'>
         <DefaultInput
           label='საიდენტიფიკაციო კოდი'
           control={control}
@@ -28,14 +28,14 @@ const StepOne: React.FC<Props> = ({ control, errors, clearErrors }) => {
         <DefaultInput
           label='კომპანიის დასახელება'
           control={control}
-          className='large:col-span-2'
+          className='md:col-span-2'
           name='company_information.name'
           errors={errors}
         />
         <DefaultInput
           label='აღწერა'
           control={control}
-          className='large:col-span-2'
+          className='md:col-span-2'
           name='company_information.description'
           rows={4}
           errors={errors}

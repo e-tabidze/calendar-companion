@@ -4,7 +4,7 @@ import Image from '../image'
 import { InnerContainer } from './styles'
 import User from './user'
 
-const Header = () => {
+const DefaultHeader = () => {
   const router = useRouter()
 
   const onClickLogo = () => {
@@ -25,4 +25,4 @@ const Header = () => {
   )
 }
 
-export default Header
+export default DefaultHeader

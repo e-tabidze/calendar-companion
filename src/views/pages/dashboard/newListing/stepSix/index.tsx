@@ -20,14 +20,14 @@ const StepSix = () => {
       <Typography type='h4' weight='normal' color='dark' className='mb-4'>
         საიდან წაიყვანს მომხმარებელი მანქანას
       </Typography>
-      <div className='grid gap-6 mb-10 mt-4 grid-cols-1 large:grid-cols-2'>
+      <div className='grid gap-6 mb-10 mt-4 grid-cols-1 md:grid-cols-2'>
         <SelectField control={control} name="" placeholder='აირჩიე ქალაქი' options={options} disabled={false} />
         <SelectField control={control} name="" placeholder='აირჩიე ფილიალი' options={options2} disabled={false} />
       </div>
       <Typography type='h4' weight='normal' color='dark' className='mb-4'>
         სად დააბრუნებს მომხმარებელი მანქანას
       </Typography>
-      <div className='grid gap-6 mb-10 mt-4 grid-cols-1 large:grid-cols-2'>
+      <div className='grid gap-6 mb-10 mt-4 grid-cols-1 md:grid-cols-2'>
         <SelectField control={control} name="" placeholder='აირჩიე ქალაქი' options={options} disabled={false} />
         <SelectField control={control} name="" placeholder='აირჩიე ფილიალი' options={options2} disabled={false} />
       </div>

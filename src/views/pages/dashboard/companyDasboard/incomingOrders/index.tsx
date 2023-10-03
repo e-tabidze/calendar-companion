@@ -41,8 +41,8 @@ const IncomingOrders = () => {
 
   return (
     <div className='border border-raisin-10 rounded-2xl mt-11'>
-      <div className='flex justify-between items-center my-4 px-2 large:px-8'>
-        <Typography type='h3' className='text-md large:text-2lg'>
+      <div className='flex justify-between items-center my-4 px-2 md:px-8'>
+        <Typography type='h3' className='text-md md:text-2lg'>
           შემოსული ჯავშნები
         </Typography>
         <div className='flex'>
@@ -51,12 +51,12 @@ const IncomingOrders = () => {
         </div>
       </div>
       <Divider />
-      <div className='hidden laptop:flex gap-3 p-2 large:p-8'>
+      <div className='hidden lg:flex gap-3 p-2 md:p-8'>
         {filters.map(filter => (
           <Tag label={filter.label} height='h-10' key={filter.id} className='rounded-xl' />
         ))}
       </div>
-      <div className='px-none large:px-8'>
+      <div className='px-none md:px-8'>
         <OrderListComponent toggleDetails={toggleDetails} />
         <OrderListComponent toggleDetails={toggleDetails} />
         <OrderListComponent toggleDetails={toggleDetails} />

@@ -25,7 +25,7 @@ const OrderComponent: React.FC<Props> = ({ toggleDetails }) => {
 
   return (
     <div>
-      <div className='flex items-center large:w-full gap-6 p-4'>
+      <div className='flex items-center md:w-full gap-6 p-4'>
         <IconTextButton icon='/icons/backWithBg.svg' label='ჩემი შეკვეთები' onClick={toggleDetails} />
       </div>
       <Divider />
@@ -48,14 +48,14 @@ const OrderComponent: React.FC<Props> = ({ toggleDetails }) => {
           </Typography>
           <Typography type='subtitle'>შპს ბენე+</Typography>
         </RentalDetailsWrapper>
-        <div className='hidden large:flex items-center border border-green-80 rounded-lg gap-2 p-2'>
+        <div className='hidden md:flex items-center border border-green-80 rounded-lg gap-2 p-2'>
           <Image src='/icons/phone.svg' alt='' height={16} width={16} />
           <Typography type='subtitle'>+995 599 33 16 54</Typography>
         </div>
       </RentalDetailsContainer>
       <Divider />
       <PriceDetailsContainer>
-        <div className='w-full large:w-7/12'>
+        <div className='w-full md:w-7/12'>
           <div className=''>
             <TakeAwayInfoContsiner>
               <TakeAwayWrapper>

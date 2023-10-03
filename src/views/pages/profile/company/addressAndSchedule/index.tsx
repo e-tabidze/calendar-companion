@@ -67,7 +67,7 @@ const AddressAndSchedule = () => {
       <div className='border border-raisin-10 rounded-xl my-4'>
         <InputWithComponent label='დასახელება' className='border-none' control={control} name='' errors={''} />
         <Divider />
-        <div className='w-full flex flex-col justify-between p-4 laptop:flex-row laptop:items-center'>
+        <div className='w-full flex flex-col justify-between p-4 lg:flex-row lg:items-center'>
           <div className='flex items-center gap-4'>
             {days.map((day, index) => (
               <RoundedTag

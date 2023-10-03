@@ -4,7 +4,7 @@ import ListComponent from './listComponent'
 
 const Favourites = () => {
   return (
-    <div className='p-2 tablet:p-4'>
+    <div className='p-2 sm:p-4'>
       <div className='flex justify-between items-center'>
         <Typography type='h3'>ფავორიტები</Typography>
         <div className='flex'>

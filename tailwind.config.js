@@ -24,22 +24,11 @@ module.exports = {
         1: '1px'
       },
       screens: {
-        mobile: '320px',
-
-        // => @media (min-width: 640px) { ... }
-        tablet: '640px',
-
-        large: '780px',
-
-        // => @media (min-width: 1024px) { ... }
-        laptop: '1024px',
-
-        // => @media (min-width: 1080px) { ... }
-        desktop: '1280px',
-
-        // => @media (min-width: 1600px) { ... }
-        xl: '1470px',
-
+        // xs: '480px',
+        sm: '640px',
+        md: '768px',
+        lg: '1024px',
+        xl: '1280px',
         '2xl': '1536px'
       },
       colors: {

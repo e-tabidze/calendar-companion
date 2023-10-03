@@ -4,6 +4,8 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { useDispatch } from 'react-redux'
 import { CompanySchema } from 'src/@core/validation/companySchema'
 import { AppDispatch } from 'src/store'
+import { Company } from 'src/types/Company'
+import CompanyService from 'src/services/CompanyService'
 
 const useCreateCompany = () => {
   const dispatch = useDispatch<AppDispatch>()
@@ -76,6 +78,19 @@ const useCreateCompany = () => {
 
   const companyValues: any = useWatch({ control })
 
+  const createCompany = async (params: { AccessToken: any; company: Company }) => {
+    const { AccessToken, company } = params
+
+    try {
+      const response: any = await CompanyService.createCompany(AccessToken, company)
+
+      return response.data
+    } catch (error) {
+      console.error('Error creating company:', error)
+      throw error
+    }
+  }
+
   return {
     control,
     handleSubmit,
@@ -89,7 +104,8 @@ const useCreateCompany = () => {
     setValue,
     addressFields,
     appendAddress,
-    defaultAddress
+    defaultAddress,
+    createCompany
   }
 }
 

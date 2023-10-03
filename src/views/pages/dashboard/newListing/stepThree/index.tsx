@@ -77,7 +77,7 @@ const StepThree = () => {
                     icon='/icons/clear.svg'
                     labelClassname='text-orange-120'
                     onClick={() => deleteComponent(index)}
-                    className='p-0 large:p-4'
+                    className='p-0 md:p-4'
                   />
                 )}
               </DiscountInputsWrapper>

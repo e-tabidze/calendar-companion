@@ -1,51 +1,75 @@
-import { Menu, Transition } from '@headlessui/react'
-import { Fragment, useState } from 'react'
-import Typography from 'src/views/components/typography'
-import { DateSelectContainer, InnerDateSelectContainer } from './styles'
+import { useState } from 'react'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import Image from 'next/image'
+import { Controller } from 'react-hook-form'
+import { format } from 'date-fns'
 
 interface Props {
+  name: string
+  control: any
+  defaultValue?: string
   label: string
 }
 
-const DateDropdown: React.FC<Props> = ({ label }) => {
-  const [selectedDate, setSelectedDate] = useState<Date | null>(null)
+interface CalendarInputProps {
+  value: string
+  onClick: () => void
+  isCalendarOpen: boolean
+  label: string
+}
 
+const CustomDateInput: React.FC<CalendarInputProps> = ({ value, onClick, isCalendarOpen, label }) => (
+  <div className='relative w-full h-14'>
+    <div className='absolute inset-y-0 left-0 flex items-center pl-3'>
+      <Image src='/icons/calendar.svg' alt='calendar' height={24} width={24} />
+    </div>
+    <input
+      type='text'
+      className='w-full h-full pl-12 pr-8 pb-1 pt-3 rounded-xl border border-raisin-10 text-2sm outline-none focus:ring-0 bg-transparent'
+      value={value}
+      onClick={onClick}
+      readOnly
+    />
+    <label className={`absolute left-12 ${value ? 'text-sm text-raisin-50 top-[3px]' : 'hidden'}`}>{label}</label>
+    <div className='absolute inset-y-0 right-0 flex items-center pr-3'>
+      <Image
+        src='/icons/chevron.svg'
+        alt='chevron'
+        height={6}
+        width={10}
+        className={`transform ${isCalendarOpen ? 'rotate-0' : 'rotate-180'}`}
+      />
+    </div>
+  </div>
+)
+
+const DateDropdown: React.FC<Props> = ({ name, control, defaultValue, label }) => {
+  const [isCalendarOpen, setIsCalendarOpen] = useState(false)
+  
   return (
-    <Menu as='div' className='inline-block text-left w-full border border-raisin-10 rounded-xl'>
-      <Menu.Button className='inline-flex w-full justify-center rounded-md text-sm font-medium text-white focus-visible:ring-white focus-visible:ring-opacity-75'>
-        <DateSelectContainer>
-          <InnerDateSelectContainer>
-            <Image src='/icons/calendar.svg' alt='' height={24} width={24} />
-            <Typography type='subtitle'>{label}</Typography>
-          </InnerDateSelectContainer>
-          <Image src='/icons/chevron.svg' className='inline fill-white m-2' alt='img' height={6} width={10} />
-        </DateSelectContainer>
-      </Menu.Button>
-      <Transition
-        as={Fragment}
-        enter='transition ease-out duration-100'
-        enterFrom='transform opacity-0 scale-95'
-        enterTo='transform opacity-100 scale-100'
-        leave='transition ease-in duration-75'
-        leaveFrom='transform opacity-100 scale-100'
-        leaveTo='transform opacity-0 scale-95'
-      >
-        <Menu.Items className='absolute z-10 p-1 -ml-4 mt-4 flex justify-center origin-top-right divide-y divide-gray-100 rounded-2xl bg-white shadow-lg focus:outline-none'>
-          <DatePicker
-            className='text-center border-l-4 border-red-500 w-full p-3 rounded text-sm  outline-none  focus:ring-0 bg-transparent'
-            inline
-            selected={selectedDate}
-            monthsShown={1}
-            onChange={date => {
-              setSelectedDate(date)
-            }}
-          />
-        </Menu.Items>
-      </Transition>
-    </Menu>
+    <Controller
+      name={name}
+      control={control}
+      defaultValue={defaultValue}
+      render={({ field: { onChange, value } }) => (
+        <DatePicker
+          selected={new Date(value)}
+          onChange={date => onChange(date && format(date, 'yyyy-MM-dd'))}
+          dateFormat='yyyy-MM-dd'
+          customInput={
+            <CustomDateInput
+              value={value}
+              onClick={() => setIsCalendarOpen(!isCalendarOpen)}
+              isCalendarOpen
+              label={label}
+            />
+          }
+          onCalendarOpen={() => setIsCalendarOpen(true)}
+          onCalendarClose={() => setIsCalendarOpen(false)}
+        />
+      )}
+    />
   )
 }
 

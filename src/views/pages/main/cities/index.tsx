@@ -20,12 +20,12 @@ const Cities = () => {
       <CitiesInnerContainer>
         <CitiesListContainer>
           <ViewAllCitiesContainer>
-            <Image src='/icons/location.svg' className='hidden desktop:inline-block' alt='img'/>
+            <Image src='/icons/location.svg' className='hidden xl:inline-block' alt='img'/>
             <Container>
               <Typography type='h3' className=' text-3xl mb-8'>
                 ავტომობილები ტოპ ქალაქების მიხედვით
               </Typography>
-              <DefaultButton text={'ყველა ნახვა'} className="hidden desktop:inline-block" />
+              <DefaultButton text={'ყველა ნახვა'} className="hidden xl:inline-block" />
             </Container>
           </ViewAllCitiesContainer>
           <CitiesWrapper>

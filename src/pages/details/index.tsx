@@ -164,7 +164,7 @@ const ProductDetails = () => {
       <MaxWidthContainer className={`${isSticky ? 'mt-20' : ''} z-40`}></MaxWidthContainer>
       <ContentContainer>
         <div className='flex gap-11 mt-8'>
-          <div className='w-full large:w-7/12 laptop:w-8/12'>
+          <div className='w-full md:w-7/12 lg:w-8/12'>
             <div id='details'>
               <Typography type='h3' className='font-bold'>
                 SOLVO XC60 2022
@@ -187,7 +187,7 @@ const ProductDetails = () => {
             </div>
             <div className='my-8' id='features'>
               <Typography type='h3'>მახასიათებლები</Typography>
-              <div className='mt-8 mb-11 grid grid-cols-1 laptop:grid-cols-2 gap-4'>
+              <div className='mt-8 mb-11 grid grid-cols-1 lg:grid-cols-2 gap-4'>
                 {features.map(feature => (
                   <ProductFeature feature={feature.feature} icon={feature.icon} key={feature.id} />
                 ))}
@@ -196,7 +196,7 @@ const ProductDetails = () => {
             <Divider />
             <div className='my-8'>
               <Typography type='h3'>ფასი მოიცავს</Typography>
-              <div className='mt-8 mb-11 grid grid-cols-1 laptop:grid-cols-2 gap-4'>
+              <div className='mt-8 mb-11 grid grid-cols-1 lg:grid-cols-2 gap-4'>
                 {features.map(feature => (
                   <ProductFeature feature={feature.feature} icon={feature.icon} key={feature.id} />
                 ))}
@@ -212,7 +212,7 @@ const ProductDetails = () => {
                   </Typography>
                   <Typography type='subtitle'>| 6 days</Typography>
                 </div>
-                <div className='hidden laptop:flex gap-4 cursor-pointer '>
+                <div className='hidden lg:flex gap-4 cursor-pointer '>
                   <Image src='/icons/rotate.svg' alt='' />
                   <Typography type='body' color='light' className='border-b-[1px] w-fit pb-px'>
                     გასუფთავება
@@ -233,20 +233,20 @@ const ProductDetails = () => {
             </div>
             <Divider />
 
-            <div className='mt-11 mb-16 large:mb-28 overflow-auto' id='insurance'>
+            <div className='mt-11 mb-16 md:mb-28 overflow-auto' id='insurance'>
               <Typography type='h3'>დაზღვევა</Typography>
-              <div className='flex gap-6 mt-10 w-[160%] large:w-full'>
-                <div className='w-8/12 large:w-full'>
+              <div className='flex gap-6 mt-10 w-[160%] md:w-full'>
+                <div className='w-8/12 md:w-full'>
                   <InsuranceCard selected />
                 </div>
-                <div className='w-8/12 laptop:w-full'>
+                <div className='w-8/12 lg:w-full'>
                   <InsuranceCard />
                 </div>
               </div>
             </div>
             <Divider />
 
-            <div className='mt-20 large:mt-40'>
+            <div className='mt-20 md:mt-40'>
               <Typography type='h3'>ადგილმდებარეობა</Typography>
               <div className='flex gap-4 items-center mt-10 mb-6'>
                 <Image src='/icons/locationOutline.svg' alt='' />
@@ -269,7 +269,7 @@ const ProductDetails = () => {
                 </Typography>
               </div>
 
-              <div className='flex overflow-scroll laptop:grid grid-cols-1 laptop:grid-cols-2 gap-4 mb-20'>
+              <div className='flex overflow-scroll lg:grid grid-cols-1 lg:grid-cols-2 gap-4 mb-20'>
                 <ReviewCard />
                 <ReviewCard />
                 <ReviewCard />
@@ -279,11 +279,11 @@ const ProductDetails = () => {
               </div>
             </div>
           </div>
-          <div className='hidden large:inline-block w-5/12 laptop:w-4/12'>
+          <div className='hidden md:inline-block w-5/12 lg:w-4/12'>
             <PriceCalcCard />
           </div>
         </div>
-        <Typography type='h3' className='block my-6 laptop:hidden'>
+        <Typography type='h3' className='block my-6 lg:hidden'>
           ფასი მოიცავს
         </Typography>
         <LessorInformationCard id='informationcard' />
