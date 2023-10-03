@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useForm } from 'react-hook-form'
 import Divider from 'src/views/components/divider'
 import { InputWithComponent } from 'src/views/components/input'
 import RoundedTag from 'src/views/components/roundedTag'
@@ -47,6 +48,8 @@ const AddressAndSchedule = () => {
     'saturday'
   ])
 
+  const { control } = useForm()
+
   const handleselectedWorkDays = (value: string) => {
     if (selectedWorkDays.includes(value)) {
       setSelectedWorkDays(selectedWorkDays.filter(day => day !== value))
@@ -62,14 +65,9 @@ const AddressAndSchedule = () => {
   return (
     <>
       <div className='border border-raisin-10 rounded-xl my-4'>
-        <InputWithComponent
-          label='დასახელება'
-          value='თბილისი, იაკობ ცურტაველის #22'
-          onChange={() => console.log('')}
-          className='border-none'
-        />
+        <InputWithComponent label='დასახელება' className='border-none' control={control} name='' errors={''} />
         <Divider />
-        <div className='w-full flex flex-col justify-between p-4 laptop:flex-row laptop:items-center'>
+        <div className='w-full flex flex-col justify-between p-4 lg:flex-row lg:items-center'>
           <div className='flex items-center gap-4'>
             {days.map((day, index) => (
               <RoundedTag

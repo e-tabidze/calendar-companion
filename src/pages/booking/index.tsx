@@ -8,7 +8,7 @@ import Typography from 'src/views/components/typography'
 import PriceCalcCard from 'src/views/pages/details/priceCalcCard'
 import { useForm } from 'react-hook-form'
 import AdditionalServices from 'src/views/pages/booking/additionalServices'
-import { LargerContainer, SmallerContainer } from 'src/styled/styles'
+import { LargeContainer, ContentContainer } from 'src/styled/styles'
 import { useRouter } from 'next/router'
 import useWindowDimensions from 'src/hooks/useWindowDimensions'
 import Drawer from 'src/views/pages/details/drawer'
@@ -50,10 +50,10 @@ const Booking = () => {
 
   return (
     <>
-      <LargerContainer className='flex items-baseline pt-5 flex-col large:flex-row'>
+      <LargeContainer className='flex items-baseline pt-5 flex-col md:flex-row'>
         <Image src='/images/logo-rent.svg' alt='logo' onClick={onClickLogo} />
-        <SmallerContainer className='flex gap-12'>
-          <div className='w-full large:w-8/12'>
+        <ContentContainer className='flex gap-12'>
+          <div className='w-full md:w-8/12'>
             <div className='flex justify-between my-8'>
               <div className='flex items-baseline gap-3'>
                 <Typography type='h3' className='font-bold'>
@@ -67,13 +67,13 @@ const Booking = () => {
             <Typography type='h3' className='mt-11'>
               პირადი ინფორმაცია *
             </Typography>
-            <div className='grid gap-3 my-6 grid-cols-1 laptop:grid-cols-2 laptop:gap-4'>
-              <DefaultInput label='სახელი, გვარი' value='' onChange={(e: any) => console.log(e.target.value)} />
-              <DefaultInput label='სახელი, გვარი' value='' onChange={(e: any) => console.log(e.target.value)} />
-              <DefaultInput label='სახელი, გვარი' value='' onChange={(e: any) => console.log(e.target.value)} />
-              <DefaultInput label='სახელი, გვარი' value='' onChange={(e: any) => console.log(e.target.value)} />
-              <DefaultInput label='სახელი, გვარი' value='' onChange={(e: any) => console.log(e.target.value)} />
-              <DefaultInput label='სახელი, გვარი' value='' onChange={(e: any) => console.log(e.target.value)} />
+            <div className='grid gap-3 my-6 grid-cols-1 lg:grid-cols-2 lg:gap-4'>
+              <DefaultInput label='სახელი, გვარი' value='' control={control} name='' errors={""} />
+              <DefaultInput label='სახელი, გვარი' value='' control={control} name='' errors={""} />
+              <DefaultInput label='სახელი, გვარი' value='' control={control} name='' errors={""} />
+              <DefaultInput label='სახელი, გვარი' value='' control={control} name='' errors={""} />
+              <DefaultInput label='სახელი, გვარი' value='' control={control} name='' errors={""} />
+              <DefaultInput label='სახელი, გვარი' value='' control={control} name='' errors={""} />
             </div>
             <Typography type='body' color='light' className='mb-14'>
               გთხოვთ გადაამოწმოთ მითითებული პარამეტრები და შემდეგ დაასრულოთ დაჯავშნის პროცესი, ეს პარამეტრები
@@ -112,11 +112,11 @@ const Booking = () => {
             </div>
           </div>
 
-          <div className='hidden large:inline-block w-5/12 laptop:w-4/12'>
+          <div className='hidden md:inline-block w-5/12 lg:w-4/12'>
             <PriceCalcCard />
           </div>
-        </SmallerContainer>
-      </LargerContainer>
+        </ContentContainer>
+      </LargeContainer>
       {isOpenDrawer && width < 779 ? (
         <Drawer isOpenDrawer={isOpenDrawer} setIsOpenDrawer={setIsOpenDrawer} />
       ) : (

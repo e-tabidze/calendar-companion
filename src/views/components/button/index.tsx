@@ -40,20 +40,20 @@ export const IconButton = ({
       {...props}
       onClick={onClick}
       ref={innerRef}
-      className={`flex group items-center cursor-pointer ${hasBg ? 'p-4 desktop:p-5' : ''} rounded-2xl ${
+      className={`flex group items-center cursor-pointer ${hasBg ? 'p-4 xl:p-5' : ''} rounded-2xl ${
         text && 'gap-2'
       } w-fit h-12 max-w-[30%] ${hasBg ? `bg-${bg}` : ''} ${className}`}
     >
       <Image src={icon} height={height} width={width} alt='' className={`group-disabled:opacity-30 !max-w-none `} />
-      <div className={`${responsive && 'large:hidden'} text-sm ${hasBg ? 'text-white' : 'text-base-100'}`}>{text}</div>
+      <div className={`${responsive && 'md:hidden'} text-sm ${hasBg ? 'text-white' : 'text-base-100'}`}>{text}</div>
     </div>
   )
 }
 
 export const IconTextButton = ({ label, icon, bg, className, onClick, labelClassname }: any) => {
   return (
-    <button className={`flex gap-2 rounded-2xl items-center ${bg} p-4 ${className}`} onClick={onClick}>
-      <img src={icon} className='max-w-none' alt='img' /> <span className={`${labelClassname} text-2sm`}>{label}</span>
+    <button className={`flex px-[16px] md:px-0 md:w-[52px] lg:w-[64px] h-[52px] md:h-[52px] lg:h-[64px] rounded-2xl items-center justify-center focus:outline-none ${bg} ${className}`} onClick={onClick} type="button">
+      <img src={icon} className='mr-[12px] md:mr-0 max-w-none' alt='img' /> <span className={`${labelClassname} text-2sm`}>{label}</span>
     </button>
   )
 }

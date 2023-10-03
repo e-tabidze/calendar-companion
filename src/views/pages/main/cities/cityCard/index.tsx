@@ -14,11 +14,11 @@ interface Props {
 const CityCard = ({ src, city, numberOfCars }: Props) => {
   return (
     <Container>
-      <Image src={src} className='rounded-2xl mb-4 max-w-32 desktop:w-auto desktop:max-w-xs' alt='img' />
-      <Typography type='h4' weight='normal' color='dark' className='text-center desktop:text-left'>
+      <Image src={src} className='rounded-2xl mb-4 max-w-32 xl:w-auto xl:max-w-xs' alt='img' />
+      <Typography type='h4' weight='normal' color='dark' className='text-center xl:text-left'>
         {city}
       </Typography>
-      <Typography type='body' color='light' className='text-center desktop:text-left'>
+      <Typography type='body' color='light' className='text-center xl:text-left'>
         {numberOfCars} ავტომობილი
       </Typography>
     </Container>

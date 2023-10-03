@@ -10,11 +10,10 @@
     url('/fonts/tbc/TBCXLight.woff') format('woff'), url('/fonts/tbc/TBCXLight.woff2') format('woff2');
 }
 
-
 /* Date Picek */
 .react-datepicker {
   border: none !important;
-  z-index: -1 !important;
+  /* z-index: -1 !important; */
 }
 .react-datepicker__header {
   background-color: #ffffff !important;
@@ -23,6 +22,7 @@
 
 .react-datepicker__month-container {
   border: none !important;
+  box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.15) !important
 }
 
 .react-datepicker__year-read-view--down-arrow,
@@ -71,6 +71,10 @@
   width: 46px !important;
   line-height: 46px !important;
   border-radius: 14px !important;
+}
+
+.react-datepicker__triangle {
+  display: none !important;
 }
 
 /* @media only screen and (max-width: 1024px) {
@@ -146,4 +150,43 @@
 
 .css-24zbih-ValueContainer {
   margin-top: 0px !important;
+}
+
+/* html {
+  overflow-x: hidden;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+} */
+
+html {
+  overflow-x: hidden;
+  scrollbar-width: none;
+  white-space: nowrap;
+  -ms-overflow-style: none;
+}
+
+body {
+  overflow-x: hidden;
+  max-width: 4000px;
+  scrollbar-width: none;
+  white-space: nowrap !important;
+  -ms-overflow-style: none;
+}
+
+input:focus::placeholder {
+  color: transparent;
+}
+
+textarea:focus::placeholder {
+  color: transparent;
 }

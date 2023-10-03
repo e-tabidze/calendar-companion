@@ -1,7 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   mode: 'jit',
-  content: ['./src/pages/**/*.{js,ts,jsx,tsx}', './src/@core/**/*.{js,ts,jsx,tsx}', './src/views/**/*.{js,ts,jsx,tsx}'],
+  content: ['./src/pages/**/*.{js,ts,jsx,tsx}', './src/@core/**/*.{js,ts,jsx,tsx}', './src/views/**/*.{js,ts,jsx,tsx}', './src/layouts/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
       fontFamily: {
@@ -24,22 +24,11 @@ module.exports = {
         1: '1px'
       },
       screens: {
-        mobile: '320px',
-
-        // => @media (min-width: 640px) { ... }
-        tablet: '640px',
-
-        large: '780px',
-
-        // => @media (min-width: 1024px) { ... }
-        laptop: '1024px',
-
-        // => @media (min-width: 1080px) { ... }
-        desktop: '1280px',
-
-        // => @media (min-width: 1600px) { ... }
-        xl: '1470px',
-
+        // xs: '480px',
+        sm: '640px',
+        md: '768px',
+        lg: '1024px',
+        xl: '1280px',
         '2xl': '1536px'
       },
       colors: {
@@ -157,6 +146,9 @@ module.exports = {
         lg: '0px 8px 16px rgba(0, 0, 0, 0.1)'
       }
     }
-  }
-  // plugins: [require('@tailwindcss/line-clamp'), require('flowbite/plugin'), require('@headlessui/tailwindcss')]
+  },
+  plugins: [
+    require('@tailwindcss/aspect-ratio'),
+    require('@tailwindcss/line-clamp'),
+  ]
 }

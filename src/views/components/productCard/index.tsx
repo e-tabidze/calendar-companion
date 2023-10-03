@@ -18,11 +18,14 @@ const ProductCard = () => {
 
   return (
     <ProductCardContainer onClick={() => router.push('/details')}>
-      <Image
-        src='/images/car.png'
-        alt=''
-        className='rounded-tl-3xl rounded-tr-3xl w-full h-auto cursor-pointer desktop:h-60'
-      />
+      <div className="overflow-hidden aspect-w-16 aspect-h-9 cursor-pointer">
+        <Image
+            src='/images/car.png'
+            alt=''
+            className='rounded-tl-3xl rounded-tr-3xl object-cover'
+        />
+      </div>
+
       <FavIconWrapper>
         <Image src='/icons/favIconOutline.svg' alt='' />
       </FavIconWrapper>

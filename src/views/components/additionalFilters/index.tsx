@@ -9,7 +9,6 @@ import Checkbox from '../checkbox'
 import Divider from '../divider'
 import Image from '../image'
 import { DefaultInput } from '../input'
-import SelectField from '../selectField'
 import Tag from '../tag'
 import Typography from '../typography'
 
@@ -19,6 +18,7 @@ import { Dialog, Transition } from '@headlessui/react'
 // Styles
 import { ListWrapper, SectionWrapper } from './styles'
 import SwitchField from '../switchField'
+import { useForm } from 'react-hook-form'
 
 interface Props {
   open: boolean
@@ -68,11 +68,6 @@ const categories = [
   }
 ]
 
-const selectOptions = [
-  { value: 'Mercedes', label: 'Mercedes' },
-  { value: 'Audi', label: 'Audi' },
-  { value: 'BMW', label: 'BMW' }
-]
 const fuelType = ['ელექტრო', 'ჰიბრიდი', 'დატენვადი ჰიბრიდი', 'ბენზინი', 'დიზელი', 'გაზი']
 
 const doors = ['2/3', '4/5', '5+']
@@ -140,6 +135,7 @@ const AdditionalFilters: React.FC<Props> = ({ open, setOpen }) => {
   const [selectedCategories, setSelectedCategories] = useState<any[]>([])
   const cancelButtonRef = useRef(null)
   const { width } = useWindowDimensions()
+  const { control } = useForm()
 
   const handleSelectCategories = (id: number) => {
     if (selectedCategories.includes(id)) {
@@ -165,43 +161,40 @@ const AdditionalFilters: React.FC<Props> = ({ open, setOpen }) => {
         </Transition.Child>
 
         <div className='fixed inset-0 z-10 h-screen overflow-y-auto'>
-          <div className='flex min-h-full items-end justify-center p-4 text-center large:items-center large:p-0'>
+          <div className='absolute left-1/2 -translate-x-1/2 w-11/12 max-w-[790px] flex min-h-full items-end justify-center p-4 text-center md:items-center md:p-0'>
             <Transition.Child
               as={Fragment}
               enter='ease-out duration-300'
-              enterFrom='opacity-0 translate-y-4 large:translate-y-0 large:scale-95'
-              enterTo='opacity-100 translate-y-0 large:scale-100'
+              enterFrom='opacity-0 translate-y-4 md:translate-y-0 md:scale-95'
+              enterTo='opacity-100 translate-y-0 md:scale-100'
               leave='ease-in duration-200'
-              leaveFrom='opacity-100 translate-y-0 large:scale-100'
-              leaveTo='opacity-0 translate-y-4 large:translate-y-0 large:scale-95'
+              leaveFrom='opacity-100 translate-y-0 md:scale-100'
+              leaveTo='opacity-0 translate-y-4 md:translate-y-0 md:scale-95'
             >
-              <Dialog.Panel className='relative transform overflow-hidden rounded-3xl bg-white text-left shadow-xl transition-all w-full large:my-4 large:max-w-3xl'>
-                <div className='w-full flex justify-between items-center px-4 py-5 tablet:py-6 tablet:px-10 '>
+              <Dialog.Panel className='relative transform overflow-hidden rounded-3xl bg-white text-left shadow-xl transition-all w-full md:my-4 md:max-w-3xl'>
+                <div className='w-full flex justify-between items-center px-4 py-5 sm:py-6 sm:px-10 border-b-1 border-grey-90'>
                   <Dialog.Title as='h3' className='text-2md text-base-100 leading-6'>
                     დამატებითი ფილტრები
                   </Dialog.Title>
                   <Image src='/icons/close.svg' onClick={setOpen} alt='' height={40} width={40} />
                 </div>
-                <div className='w-full h-px bg-grey-90' />
-                <div className=' px-4 py-5 tablet:py-6 tablet:px-10 w-max-full'>
+                <div className='overflow-auto h-[70vh] px-4 py-5 sm:py-6 sm:px-10 w-max-full'>
                   <Typography type='body' color='dark' className='max-w-[30%]'>
                     ავტომობილები დღიური ფასის მიხედვით
                   </Typography>
                   <div className='w-full flex items-center mb-20 mt-8'>
                     <DefaultInput
+                      name=''
+                      control={control}
                       label={width > 641 ? 'მინიმუმ ფასი დღიურად' : 'მინ. ფასი დღიურად'}
-                      value={''}
-                      onChange={function (e: any): void {
-                        throw new Error('Function not implemented.', e)
-                      }}
+                      errors={''}
                     />
                     <div className='w-3 h-px bg-base-100 mx-2' />
                     <DefaultInput
+                      name=''
+                      control={control}
                       label={width > 641 ? 'მინიმუმ ფასი დღიურად' : 'მინ. ფასი დღიურად'}
-                      value={''}
-                      onChange={function (e: any): void {
-                        throw new Error('Function not implemented.', e)
-                      }}
+                      errors={''}
                     />
                   </div>
                   <div className='my-8'>
@@ -227,9 +220,30 @@ const AdditionalFilters: React.FC<Props> = ({ open, setOpen }) => {
                     <Typography type='h5' weight='normal'>
                       ავტომობილის პარამეტრები
                     </Typography>
-                    <SelectField options={selectOptions} placeholder='მწარმოებელი' disabled={false} className='my-2' />
-                    <SelectField options={selectOptions} placeholder='მოდელი' disabled={false} className='my-2' />
-                    <SelectField options={selectOptions} placeholder='წელი' disabled={false} className='my-2' />
+                    {/* <SelectField
+                      name=''
+                      control={control}
+                      options={selectOptions}
+                      placeholder='მწარმოებელი'
+                      disabled={false}
+                      className='my-2'
+                    />
+                    <SelectField
+                      name=''
+                      control={control}
+                      options={selectOptions}
+                      placeholder='მოდელი'
+                      disabled={false}
+                      className='my-2'
+                    />
+                    <SelectField
+                      name=''
+                      control={control}
+                      options={selectOptions}
+                      placeholder='წელი'
+                      disabled={false}
+                      className='my-2'
+                    /> */}
                   </div>
 
                   <Typography type='h5' weight='normal'>
@@ -259,7 +273,7 @@ const AdditionalFilters: React.FC<Props> = ({ open, setOpen }) => {
                     ))}
                   </div>
                   <Divider />
-                  <SwitchField label='უფასო მიწოდება' onChange={() => console.log('')} value={false} className='my-8' />
+                  <SwitchField label='უფასო მიწოდება' name='' control={control} defaultValue className='my-8' />
                   <Divider />
 
                   <SectionWrapper>
@@ -310,6 +324,17 @@ const AdditionalFilters: React.FC<Props> = ({ open, setOpen }) => {
                         <Checkbox label={parameter.label} value={parameter.label} />
                       </div>
                     ))}
+                  </div>
+                </div>
+                <div className="w-full flex items-center justify-between py-[16px] px-10 border-t-1 border-grey-90">
+                  <button className="flex items-center text-raisin-50 text-[12px]">
+                    <Image src='/icons/return.svg' alt='' className="flex mr-2" />
+                    გასუფთავება</button>
+                  <div className="flex items-center [text-16px]">
+                    სულ 136 შედეგი
+                    <button className="ml-[24px] px-[24px] h-[56px] bg-orange text-white text-[16px] flex items-center bg-orange-100 rounded-[12px]">
+                      <Image src='/icons/search.svg' alt='' className="flex mr-2" />
+                      ძებნა</button>
                   </div>
                 </div>
               </Dialog.Panel>

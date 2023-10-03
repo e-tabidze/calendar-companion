@@ -3,12 +3,13 @@ import Typography from '../typography'
 
 interface Props {
   label: string
-  onChange: () => void
-  value: boolean
   className?: string
   description?: string
+  name: string
+  control: any
+  defaultValue: boolean
 }
-const SwitchField: React.FC<Props> = ({ label, onChange, value, className, description }) => {
+const SwitchField: React.FC<Props> = ({ label, className, description, control, name, defaultValue }) => {
   return (
     <div className={`flex justify-between items-center w-full ${className}`}>
       <div>
@@ -21,7 +22,7 @@ const SwitchField: React.FC<Props> = ({ label, onChange, value, className, descr
           </Typography>
         )}
       </div>
-      <Switcher height='h-8' onChange={onChange} value={value} />
+      <Switcher height='h-8' name={name} control={control} defaultValue={defaultValue} />
     </div>
   )
 }

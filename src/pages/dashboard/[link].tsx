@@ -9,6 +9,7 @@ import CompanyDashboard from 'src/views/pages/dashboard/companyDasboard'
 import IncomingOrders from 'src/views/pages/dashboard/incomingOrders'
 import Vehicles from 'src/views/pages/dashboard/vehicles'
 import EditCompany from 'src/views/pages/dashboard/editCompany'
+import NewListing from 'src/views/pages/dashboard/newListing'
 
 const routes = [
   {
@@ -21,7 +22,7 @@ const routes = [
     id: 2,
     icon: '',
     item: 'განცხადების დამატება',
-    path: '/new-listing'
+    path: '/dashboard/new-listing'
   },
   {
     id: 3,
@@ -65,18 +66,18 @@ const Profile = () => {
 
   const router = useRouter()
 
-  const sidebarClassName = `h-fit w-full mx-4 large:mx-4 large:w-fit border border-raisin-10 rounded-3xl p-6 ${
+  const sidebarClassName = `h-fit w-full mx-4 lg:mx-4 lg:w-fit border border-raisin-10 rounded-3xl p-6 ${
     isSidebarVisible ? 'block' : 'hidden'
-  } large:block`
-
-  const contentClassName = `w-full ${isSidebarVisible ? 'hidden' : 'block'} large:block`
+  } lg:block`
+ 
+  const contentClassName = `w-full z-[111] ${isSidebarVisible ? 'hidden' : 'block'} lg:block`
 
   const getComponentByPath = (path: any) => {
     switch (path) {
       case '/dashboard/dashboard/':
         return <CompanyDashboard />
       case '/dashboard/new-listing/':
-        return <div>New Listing</div>
+        return <NewListing  />
       case '/dashboard/orders/':
         return <IncomingOrders />
       case '/dashboard/payments/':
@@ -95,19 +96,20 @@ const Profile = () => {
   const handleRouteChange = (route: any) => {
     router.push(route.path)
     setSelectedRoute(route)
-    width < 779 && setIsSidebarVisible(!isSidebarVisible)
+    width < 1024 && setIsSidebarVisible(!isSidebarVisible)
   }
   useEffect(() => {
     const currentComponent = getComponentByPath(router.asPath)
     setComponent(currentComponent)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router.asPath])
 
   const toggleSidebarCollapse = () => setSidebarCollapsed(!sidebarCollapsed)
 
   return (
     <DefaultLayout>
-      <div className='w-full m-auto max-w-[1470px] laptop:px-8 2xl:px-0'>
-        <div className='flex gap-none large:gap-4 mt-9'>
+      <div className='w-full m-auto max-w-[1200px] lg:px-8 2xl:px-0'>
+        <div className='flex gap-none lg:gap-4 mt-9'>
           <div className={sidebarClassName}>
             <div
               className={`flex items-center justify-between mb-4 gap-4 w-full ${
@@ -158,7 +160,7 @@ const Profile = () => {
             </div>
           </div>
           <div></div>
-          {width < 779 && isSidebarVisible ? <></> : <div className={contentClassName}>{component}</div>}
+          {width < 1024 && isSidebarVisible ? <></> : <div className={contentClassName}>{component}</div>}
         </div>
       </div>
     </DefaultLayout>

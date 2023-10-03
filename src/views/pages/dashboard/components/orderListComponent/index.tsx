@@ -13,7 +13,7 @@ const OrderListComponent: React.FC<Props> = ({ toggleDetails }) => {
 
   return (
     <div className='' onClick={toggleDetails}>
-      <div className='flex flex-col px-2 py-4 large:w-full gap-6 large:px-0 large:flex-row large:items-center'>
+      <div className='flex flex-col px-2 py-4 md:w-full gap-6 md:px-0 md:flex-row md:items-center'>
         <div className='flex gap-6 min-w-max'>
           <Image src='/images/car.png' alt='' height={48} width={64} className='rounded-lg object-cover' />
           <div className='min-w-max'>
@@ -24,15 +24,15 @@ const OrderListComponent: React.FC<Props> = ({ toggleDetails }) => {
             </Typography>
           </div>
         </div>
-        <div className='flex flex-col items-baseline large:flex-row large:items-center justify-between w-none large:w-full'>
-          <div className='flex gap-2 ml-[90px] large:mx-none large:w-max large:gap-10 large:justify-between large:ml-0'>
-            <Typography type='subtitle' className='hidden laptop:inline-block'>
+        <div className='flex flex-col items-baseline md:flex-row md:items-center justify-between w-none md:w-full'>
+          <div className='flex gap-2 ml-[90px] md:mx-none md:w-max md:gap-10 md:justify-between md:ml-0'>
+            <Typography type='subtitle' className='hidden lg:inline-block'>
               მერი კვინიკაური
             </Typography>
-            <Typography type='subtitle' className='hidden laptop:inline-block'>
+            <Typography type='subtitle' className='hidden lg:inline-block'>
               100$
             </Typography>
-            <Typography type='subtitle' className='hidden laptop:inline-block'>
+            <Typography type='subtitle' className='hidden lg:inline-block'>
               5 დღე
             </Typography>
             <Typography type='subtitle'>500$</Typography>
