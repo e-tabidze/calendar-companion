@@ -20,7 +20,7 @@ import { fetchCompaniesData } from 'src/store/apps/companies'
 
 // ** Styled Components
 const MainPageBox = tw.div<TailwindDiv>`flex w-full items-center flex-col`
-const ActionCardsWrapper = tw.div<TailwindDiv>`flex gap-6 flex-col -mt-16 sm:flex-row sm:mt-16`
+const ActionCardsWrapper = tw.div<TailwindDiv>`flex gap-6 flex-col -mt-20 sm:flex-row sm:mt-16`
 
 const productArray = [
   <ProductCard key={1} />,
@@ -157,24 +157,6 @@ const MainPage = () => {
         <ResponsiveContainer className='mt-20'>
           <Cities />
         </ResponsiveContainer>
-        <ContentContainer className='z-10'>
-          <ActionCardsWrapper>
-            <ActionCard
-              title='იქირავე'
-              body='ცნობილი ფაქტია, რომ გვერდის წაკითხვად შიგთავსს შეუძლია მკითხველის ყურადღება მიიზიდოს'
-              actioBtnLabel='მოძებნე'
-              actonBtnClick={() => console.log('click')}
-              image='/images/rent.png'
-            />
-            <ActionCard
-              title='გააქირავე'
-              body='ცნობილი ფაქტია, რომ გვერდის წაკითხვად შიგთავსს შეუძლია მკითხველის ყურადღება მიიზიდოს'
-              actioBtnLabel='დაამატე'
-              actonBtnClick={() => console.log('click')}
-              image='/images/rent2.png'
-            />
-          </ActionCardsWrapper>
-        </ContentContainer>
       </MainPageBox>
     </DefaultLayout>
   )
