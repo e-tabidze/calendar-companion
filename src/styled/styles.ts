@@ -7,8 +7,8 @@ export const NewListingHeaderContainer = tw.div`sticky top-0 w-full z-40 bg-whit
 
 // content
 export const FullContainer = tw.div<TailwindDiv>`w-full`
-export const LargeContainer = tw.div<TailwindDiv>`w-full m-auto max-w-[1470px] px-2 lg:px-8 2xl:px-0`
-export const ContentContainer = tw.div<TailwindDiv>`w-full m-auto max-w-[1240px] px-4 lg:px-8 2xl:px-0`
+export const LargeContainer = tw.div<TailwindDiv>`w-full m-auto max-w-[1470px] px-5 lg:px-8 2xl:px-0`
+export const ContentContainer = tw.div<TailwindDiv>`w-full m-auto max-w-[1240px] px-5 lg:px-8 2xl:px-0`
 export const ResponsiveContainer = tw.div<TailwindDiv>`w-full max-w-[1470px] px-0 lg:px-8 2xl:px-0`
 export const MaxWidthContainer = tw.div<TailwindDiv>`w-full m-auto max-w-maxWidth`
 export const ExtraSmallContainer = tw.div<TailwindDiv>`w-full max-w-[850px] m-auto px-4 lg:w-10/12 lg:px-0 2xl:px-0 w-full`
