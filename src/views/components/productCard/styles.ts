@@ -1,7 +1,7 @@
 import tw from 'tailwind-styled-components'
 import { TailwindComponent } from 'src/interfaces/tailwind'
 
-export const ProductCardContainer = tw.div<TailwindComponent>`md:w-[320px] xl:w-[400px] relative after:absolute after:top-0 after:left-0 after:w-full after:h-full after:rounded-3xl after:border after:border-transparent after:transition-all hover:after:border-raisin-100`
+export const ProductCardContainer = tw.div<TailwindComponent>`relative after:absolute after:top-0 after:left-0 after:w-full after:h-full after:rounded-3xl after:border after:border-transparent after:transition-all hover:after:border-raisin-100`
 export const DetailsContainer = tw.div<TailwindComponent>`rounded-bl-3xl rounded-br-3xl border-l-1 border-r-1 border-b-1 border-gray-90 pt-6 pl-5 pb-5 pr-5`
 export const InnerDetailsContainer = tw.div<TailwindComponent>`flex flex-col sm:flex-row justify-between mt-6`
 export const DetailsWrapper = tw.div<TailwindComponent>`flex sm:pl-0 gap-5 items-center h-fit`

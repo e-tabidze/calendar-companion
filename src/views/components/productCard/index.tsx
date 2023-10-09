@@ -13,12 +13,16 @@ import {
   ReviewContainer
 } from './styles'
 
-const ProductCard = () => {
+interface Props {
+  swiperCard?: boolean
+}
+
+const ProductCard = ({swiperCard}:Props) => {
   const router = useRouter()
 
   return (
     <ProductCardContainer onClick={() => router.push('/details')}>
-      <div className="overflow-hidden aspect-w-16 aspect-h-9 cursor-pointer">
+      <div className={`overflow-hidden aspect-w-16 aspect-h-9 cursor-pointer ${swiperCard ? 'md:w-[320px] xl:w-[400px]' : 'sticky'} `}>
         <Image
             src='/images/car.png'
             alt=''
