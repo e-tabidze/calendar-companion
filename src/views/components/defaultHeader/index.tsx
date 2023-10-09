@@ -1,5 +1,4 @@
 import { useRouter } from 'next/router'
-import { DefaultButton } from '../button'
 import Image from '../image'
 import { InnerContainer } from './styles'
 import User from './user'

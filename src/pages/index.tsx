@@ -8,7 +8,6 @@ import CategoryCard from 'src/views/components/categoryCard'
 import Divider from 'src/views/components/divider'
 import ProductCard from 'src/views/components/productCard'
 import Typography from 'src/views/components/typography'
-import ActionCard from 'src/views/pages/main/actionCard'
 import Cities from 'src/views/pages/main/cities'
 import Hero from 'src/views/pages/main/hero'
 import Cookie from 'src/helpers/Cookie'
@@ -20,7 +19,6 @@ import { fetchCompaniesData } from 'src/store/apps/companies'
 
 // ** Styled Components
 const MainPageBox = tw.div<TailwindDiv>`flex w-full items-center flex-col`
-const ActionCardsWrapper = tw.div<TailwindDiv>`flex gap-6 flex-col -mt-20 sm:flex-row sm:mt-16`
 
 const productArray = [
   <ProductCard key={1} />,
