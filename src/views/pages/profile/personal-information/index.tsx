@@ -11,6 +11,7 @@ import PasswordForm from './passwordForm'
 import { UserInfo } from 'src/types/User'
 import usePersonalInfo from './usePersonalInfo'
 import { FormProvider } from 'react-hook-form'
+import useProfile from 'src/hooks/useProfile'
 
 const cat = [
   {
@@ -23,7 +24,7 @@ const cat = [
   }
 ]
 
-function tabs(...classes: any) {
+const tabs = (...classes: any) => {
   return classes.filter(Boolean).join(' ')
 }
 
@@ -32,13 +33,8 @@ interface Props {
 }
 
 const PersonalInfo: React.FC<Props> = ({ userData }) => {
-  const {
-    control,
-    errors,
-    handleSubmit,
-    userInfoValues,
-    updateUserInfo
-  } = usePersonalInfo(userData)
+  const { control, errors, handleSubmit, userInfoValues, updateUserInfo } = usePersonalInfo(userData)
+  const { refetch } = useProfile()
 
   console.log(userData, 'userdata in perosnal information')
 
@@ -54,13 +50,13 @@ const PersonalInfo: React.FC<Props> = ({ userData }) => {
     try {
       console.log(userInfoValues, 'userInfoValues')
       await updateUserInfo({ AccessToken: Cookie.get('AccessToken'), userInfo: userInfoValues })
+      refetch()
     } catch (error) {
-      console.error('An error occurred:', error)
+      console.error('An error occurred while updating userdata:', error)
     }
   }
 
   return (
-    
     // @ts-ignore
     <FormProvider {...control}>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -78,7 +74,7 @@ const PersonalInfo: React.FC<Props> = ({ userData }) => {
             />
             <div className='flex flex-col gap-2'>
               <Typography type='h3' className='text-md md:text-2lg font-medium md:font-bold'>
-                {userData?.FirstName} {userData?.LastName}
+                {userData?.information?.first_name} {userData?.information?.last_name}
               </Typography>
               <Link href='/' className='text-2sm underline text-blue-100 font-normal'>
                 სურათის შეცვლა

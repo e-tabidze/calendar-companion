@@ -87,9 +87,6 @@ const ProfileRouter = ({ userInfo }: { userInfo: UserInfo }) => {
 const Profile = () => {
   const { userInfo, router, isLoading } = useProfile()
 
-  console.log(userInfo, 'userInfo')
-  console.log(isLoading, 'isLoading')
-
   return (
     <>
       {router.asPath === '/profile/create-company/' ? (

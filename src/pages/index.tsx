@@ -98,7 +98,7 @@ const categoryArray = [
   }
 ]
 
-const categories = categoryArray.map((item, key) => <CategoryCard category={item.type} key={key} />)
+// const categories = categoryArray.map((item, key) => <CategoryCard category={item.type} key={key} />)
 
 const MainPage = () => {
   // await dispatch(({ AccessToken: Cookie.get('AccessToken') }))
@@ -127,7 +127,7 @@ const MainPage = () => {
           </Typography>
         </ContentContainer>
         <LargeContainer>
-          <Carousel itemsArray={categories} type='categories' />
+          {/* <Carousel itemsArray={categories} type='categories' /> */}
         </LargeContainer>
         <LargeContainer>
           <Divider />

@@ -18,7 +18,7 @@ const routes = [
     id: 2,
     icon: '',
     item: 'განცხადების დამატება',
-    path: '/dashboard/new-listing'
+    path: '/dashboard/new-product'
   },
   {
     id: 3,
@@ -67,7 +67,7 @@ const ProfileRouter = () => {
   switch (key) {
     case 'dashboard':
       return <CompanyDashboard />
-    case 'new-listing':
+    case 'new-product':
       return <NewProduct />
     case 'orders':
       return <IncomingOrders />
@@ -89,7 +89,7 @@ const Profile = () => {
 
   return (
     <>
-      {router.asPath === '/dashboard/new-listing/' ? (
+      {router.asPath === '/dashboard/new-product/' ? (
         <NewProduct />
       ) : (
         <ProfileLayout routes={routes} dividerIndexes={[5]}>

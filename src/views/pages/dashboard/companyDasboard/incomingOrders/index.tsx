@@ -52,9 +52,9 @@ const IncomingOrders = () => {
       </div>
       <Divider />
       <div className='hidden lg:flex gap-3 p-2 md:p-8'>
-        {filters.map(filter => (
+        {/* {filters.map(filter => (
           <Tag label={filter.label} height='h-10' key={filter.id} className='rounded-xl' />
-        ))}
+        ))} */}
       </div>
       <div className='px-none md:px-8'>
         <OrderListComponent toggleDetails={toggleDetails} />

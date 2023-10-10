@@ -13,11 +13,13 @@ const useProfile = () => {
 
   const userInfo = usePersonalInfo.data?.result?.data
   const isLoading = usePersonalInfo.isLoading
+  const refetch = usePersonalInfo.refetch
 
   return {
     router,
     userInfo,
-    isLoading
+    isLoading,
+    refetch
   }
 }
 

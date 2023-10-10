@@ -35,10 +35,11 @@ const StepThree: React.FC<Props> = ({ control, discountItems, appendDiscountItem
   const { width } = useWindowDimensions()
   const formState = useWatch({ control })
 
-  console.log(formState.discount.length, 'discount')
-  console.log(formState.apply_discount, 'discount')
-
-  useEffect(() => {}, [formState.discount.length])
+  useEffect(() => {
+    if (discountItems.length === 0) {
+      setValue('apply_discount', false)
+    }
+  }, [discountItems, setValue])
 
   return (
     <StepThreeContainer>
@@ -74,18 +75,16 @@ const StepThree: React.FC<Props> = ({ control, discountItems, appendDiscountItem
           {discountItems.map((component: ReactElement<any, string | JSXElementConstructor<any>>, index: number) => (
             <DiscountInputsWrapper key={index}>
               <DiscountComponent index={index} options={options} control={control} name={`discount.${index}`} />
-              {index === discountItems.length - 1 && (
-                <IconTextButton
-                  label={width > 779 ? 'წაშლა' : ''}
-                  icon='/icons/clear.svg'
-                  labelClassname='text-orange-120'
-                  onClick={() => {
-                    remove(index)
-                    formState.discount.length === 0 && setValue('apply_discount', false)
-                  }}
-                  className='p-0 md:p-4'
-                />
-              )}
+              <IconTextButton
+                label={width > 779 ? 'წაშლა' : ''}
+                icon='/icons/clear.svg'
+                labelClassname='text-orange-120'
+                onClick={() => {
+                  remove(index)
+                  formState.discount.length === 0 && setValue('apply_discount', false)
+                }}
+                className='p-0 md:p-4'
+              />
             </DiscountInputsWrapper>
           ))}
           <IconTextButton

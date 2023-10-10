@@ -1,13 +1,22 @@
 import HttpService from './HttpService'
 import { Company } from 'src/types/Company'
+import { NewService } from 'src/types/Product'
 
 class CompanyService extends HttpService {
   getCompanies(AccessToken = '') {
-    return this.get('/user-companies', {}, AccessToken ? { Authorization: `${AccessToken}` } : {})
+    return this.get('/companies', {}, AccessToken ? { Authorization: `${AccessToken}` } : {})
   }
 
   createCompany(AccessToken = '', company: Company) {
-    return this.post("/companies", company, AccessToken ? { Authorization: `${AccessToken}` } : {})
+    return this.post('/companies', company, AccessToken ? { Authorization: `${AccessToken}` } : {})
+  }
+
+  getCompanyServices(AccessToken = '', company_id: number) {
+    return this.get(`/company-services?company_id=${company_id}`, AccessToken ? { Authorization: `${AccessToken}` } : {})
+  }
+
+  postCompanyServices(service: NewService, AccessToken = '') {
+    return this.post('/company-services', service, AccessToken ? { Authorization: `${AccessToken}` } : {})
   }
 }
 

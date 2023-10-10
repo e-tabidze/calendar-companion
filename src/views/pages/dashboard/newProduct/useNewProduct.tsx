@@ -2,14 +2,17 @@ import { useFieldArray, useForm, useWatch } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import ProductService from 'src/services/ProductService'
 import { Product } from 'src/types/product'
+import CompanyService from 'src/services/CompanyService'
 
 const useNewProduct = () => {
   const discount_item = {
     number: 1,
-    period: '',
+    period: 'დღე',
     discount_percent: ''
   }
+
   const newListingDefaultValues = {
+    company_id: 102,
     apply_discount: false,
     discount: [discount_item],
     additional_options: [],

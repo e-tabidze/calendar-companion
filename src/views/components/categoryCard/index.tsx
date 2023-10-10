@@ -16,7 +16,7 @@ const CategoryCard = ({ border, name, control, options }: Props) => {
       control={control}
       render={({ field: { onChange, value } }) => (
         <>
-          {options.map(option => (
+          {options?.map(option => (
             <div
               onClick={() => onChange(option.id)}
               key={option.id}
@@ -24,7 +24,9 @@ const CategoryCard = ({ border, name, control, options }: Props) => {
                 border && 'border border-gray-20 rounded-2xl'
               } ${value === option.id ? 'border-2 border-green-100 bg-green-20' : ''} `}
             >
+              <>{console.log(option.icon, 'icons')}</>
               <Icon
+                // svgPath={option.icon}
                 svgPath={option.icon}
                 width='70'
                 height='20'

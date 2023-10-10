@@ -18,7 +18,7 @@ const DiscountComponent: React.FC<Props> = ({ index, options, control }) => {
         control={control}
       />
       <DefaultInput
-        label='ფასდაკლება'
+        label='% ფასდაკლება'
         className='text-center'
         control={control}
         name={`discount.${index}.discount_percent`}

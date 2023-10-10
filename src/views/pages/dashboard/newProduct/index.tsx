@@ -65,6 +65,8 @@ const NewProduct: React.FC = () => {
     }
   }
 
+  console.log(productValues, 'productValues')
+
   const renderStepComponent = () => {
     switch (step.step) {
       case 1:

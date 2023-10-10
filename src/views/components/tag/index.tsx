@@ -18,7 +18,7 @@ const Tag: React.FC<Props> = ({ bg, component, height, className, name, control,
       control={control}
       render={({ field: { onChange, value } }) => (
         <>
-          {options.map(option => (
+          {options?.map(option => (
             <div
               key={option.id}
               className={`flex items-center w-max ${height} ${
