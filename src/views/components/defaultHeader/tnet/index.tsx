@@ -1,15 +1,9 @@
 import { Menu, Transition } from '@headlessui/react'
-import { Fragment, useState } from 'react'
+import { Fragment } from 'react'
 import Image from '../../image'
 import Typography from '../../typography'
 
 const Tnet = () => {
-    const [active, setActive] = useState('ქართული')
-
-    const handleChangeLanguage = (e: any) => {
-        setActive(e.target.value)
-    }
-
     return (
         <Menu as='div' className='relative inline-block text-left'>
                 <Menu.Button className='bg-transparent border-[#E9EAEB] hover:border-[#3c74ff] relative rounded-full border w-[40px] h-[40px] flex items-center justify-center ml-[16px] transition-all'>
@@ -28,9 +22,9 @@ const Tnet = () => {
 
                         <div className="px-[16px]">
 
-                            <Typography type='h5' weight='normal' className="font-bold text-[18px] text-[#000000] mb-[8px]">TNET</Typography>
+                            <Typography type='h5' weight='normal' className='font-bold text-[18px] text-[#000000] mb-[8px]'>TNET</Typography>
 
-                            <Typography type='body' weight='normal' className="font-medium text-[12px] text-[#7D7F87] mb-[16px]">
+                            <Typography type='body' className='font-medium text-[12px] text-[#7D7F87] mb-[16px]'>
                             ყველაზე დიდი ტექნოლოგიური ეკოსისტემა, რომელიც აერთიანებს 11 პლატფორმას:
                             </Typography>
                         </div>
