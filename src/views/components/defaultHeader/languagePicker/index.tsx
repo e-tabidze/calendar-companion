@@ -6,21 +6,21 @@ import { LanPickerContainer } from './styles'
 
 const langs = [
   {
-    lan: 'EN',
+    lan: 'English',
     id: 1
   },
   {
-    lan: 'KA',
+    lan: 'ქართული',
     id: 2
   },
   {
-    lan: 'RU',
+    lan: 'Русский',
     id: 3
   }
 ]
 
 const LanguagePicker = () => {
-  const [active, setActive] = useState('KA')
+  const [active, setActive] = useState('ქართული')
 
   const handleChangeLanguage = (e: any) => {
     setActive(e.target.value)
@@ -28,12 +28,11 @@ const LanguagePicker = () => {
 
   return (
     <LanPickerContainer>
-      <div className='h-[7px] w-px bg-neutral-400 mr-4 xl:mr-5'></div>
       <Menu as='div' className='relative inline-block text-left'>
-        <Menu.Button className='text-raisin-130 px-2 font-normal inline-flex items-center gap-2 w-full rounded-2xl justify-around py-2 text-2sm hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 hover:bg-[#e7eaf3]'>
-          <Image src='/icons/globe.svg' alt='img' />
+        <Menu.Button className='flex h-[40px] rounded-[12px] items-center px-[12px] font-medium text-[#272A37] text-[14px] border transition-all  border-[#E9EAEB] hover:bg-[#F2F3F6] hover:border-[#BEBFC3]'>
+          <Image src='/icons/globe.svg' alt='img' className="mr-2"/>
           {active}
-          <Image src='/icons/chevron.svg' alt='img' />
+          <Image src='/icons/chevron.svg' alt='img' className="ml-2"/>
         </Menu.Button>
         <Transition
           as={Fragment}
@@ -44,16 +43,16 @@ const LanguagePicker = () => {
           leaveFrom='transform opacity-100 scale-100'
           leaveTo='transform opacity-0 scale-95'
         >
-          <Menu.Items className='absolute rounded-sm bg-white header-shadow px-5px py-5px text-xs top-100 left-0 right-0 '>
+          <Menu.Items className='min-w-[200px] absolute z-[2] left-1/2 -translate-x-1/2  bg-[#ffffff] rounded-[16px]  shadow-[0px_6px_18px_#000000/10] py-[16px] top-full mt-[20px]'>
             {langs.map(lang => (
               <Menu.Item key={lang.id}>
                 <button
                   value={lang.lan}
                   onClick={handleChangeLanguage}
-                  className={`${
-                    active ? 'font-semibold' : 'font-normal'
-                  } group text-gray-900 flex w-full items-center rounded-md px-2 py-1 text-sm hover:bg-gray-20`}
+                  className="w-full flex items-center text-[#1B1D27] text-[14px] font-medium py-[8px] hover:bg-[#F2F3F6] px-[24px] cursor-pointer"
                 >
+                  {/*TODO active add class border-[8px] border-[#FD4100*/}
+                  <span className={`${active? 'border-[#E9EAEB]': ''} w-[24px] h-[24px] border rounded-full flex mr-[16px]`}></span>
                   <Typography type='subtitle'>{lang.lan}</Typography>
                 </button>
               </Menu.Item>
@@ -61,7 +60,6 @@ const LanguagePicker = () => {
           </Menu.Items>
         </Transition>
       </Menu>
-      <div className='h-[7px] w-px bg-neutral-400 ml-4 xl:ml-5' />
     </LanPickerContainer>
   )
 }

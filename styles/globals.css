@@ -176,7 +176,7 @@ html {
 }
 
 body {
-  overflow-x: hidden;
+  /*overflow-x: hidden;*/
   max-width: 4000px;
   scrollbar-width: none;
   white-space: nowrap !important;
