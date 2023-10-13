@@ -5,7 +5,7 @@ import Typography from '../../typography'
 
 const Tnet = () => {
     return (
-        <Menu as='div' className='relative inline-block text-left'>
+        <Menu as='div' className='relative text-left hidden md:flex'>
                 <Menu.Button className='bg-transparent border-[#E9EAEB] hover:border-[#3c74ff] relative rounded-full border w-[40px] h-[40px] flex items-center justify-center ml-[16px] transition-all'>
                     <Image src='/icons/tnet/tnet.svg' alt='img'/>
                 </Menu.Button>

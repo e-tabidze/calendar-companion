@@ -28,7 +28,7 @@ const LanguagePicker = () => {
 
   return (
     <LanPickerContainer>
-      <Menu as='div' className='relative inline-block text-left'>
+      <Menu as='div' className='relative text-left hidden md:flex'>
         <Menu.Button className='flex h-[40px] rounded-[12px] items-center px-[12px] font-medium text-[#272A37] text-[14px] border transition-all  border-[#E9EAEB] hover:bg-[#F2F3F6] hover:border-[#BEBFC3]'>
           <Image src='/icons/globe.svg' alt='img' className="mr-2"/>
           {active}

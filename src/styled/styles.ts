@@ -2,7 +2,7 @@ import tw from 'tailwind-styled-components'
 import { TailwindDiv } from 'src/interfaces/tailwind'
 
 // headers
-export const HeaderContainer = tw.div<TailwindDiv>`top-0 w-full z-40 bg-white m-auto max-w-maxWidth px-2 lg:px-8`
+export const HeaderContainer = tw.div<TailwindDiv>`top-0 w-full z-40 bg-white m-auto max-w-maxWidth`
 export const NewListingHeaderContainer = tw.div`sticky top-0 w-full z-40 bg-white m-auto max-w-maxWidth h-20`
 
 // content

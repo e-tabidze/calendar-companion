@@ -2,6 +2,10 @@ import { useRouter } from 'next/router'
 import Image from '../image'
 import { InnerContainer } from './styles'
 import User from './user'
+import Tnet from "./tnet";
+import TnetBtn from "./tnetBtn";
+import BurgerBtn from "./burgerBtn";
+import NavigationBar from "./navigationBar";
 
 const DefaultHeader = () => {
   const router = useRouter()
@@ -19,7 +23,13 @@ const DefaultHeader = () => {
       {/*  }*/}
       {/*  text='AUTH'*/}
       {/*/>*/}
-      <User />
+      <div className="flex items-center">
+          <User />
+        <BurgerBtn/>
+        <Tnet/>
+        <TnetBtn/>
+      </div>
+        <NavigationBar/>
     </InnerContainer>
   )
 }
