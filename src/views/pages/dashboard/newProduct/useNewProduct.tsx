@@ -1,23 +1,47 @@
 import { useFieldArray, useForm, useWatch } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import ProductService from 'src/services/ProductService'
-import { Product } from 'src/types/product'
+import { NewService, Product } from 'src/types/Product'
 import CompanyService from 'src/services/CompanyService'
+import { NewProductSchema } from 'src/@core/validation/newProductSchema'
+import useProductInfo from './useProductInfo'
+import { useEffect } from 'react'
 
 const useNewProduct = () => {
+  const { companyServices } = useProductInfo()
+
+  const services = companyServices?.map((service: any) => ({
+    id: service.id,
+    price: '',
+    currency: '',
+    quantity: ''
+  }))
   const discount_item = {
     number: 1,
     period: 'დღე',
     discount_percent: ''
   }
 
-  const newListingDefaultValues = {
+  const newProductDefaultValues = {
     company_id: 102,
     apply_discount: false,
     discount: [discount_item],
     additional_options: [],
-    identification_number: '123456789'
+    identification_number: '123456789',
+    company_services: [],
+    any_period: true,
+    min_period: {
+      has_min_period: false,
+      time_interval: 'კვირა',
+      time_span: 1
+    }
   }
+  useEffect(() => {
+    if (companyServices) {
+      setValue('company_services', services)
+    }
+  }, [companyServices])
+
   const {
     control,
     handleSubmit,
@@ -29,7 +53,8 @@ const useNewProduct = () => {
   } = useForm({
     mode: 'onChange',
     reValidateMode: 'onChange',
-    defaultValues: newListingDefaultValues
+    defaultValues: newProductDefaultValues,
+    resolver: yupResolver(NewProductSchema)
   })
 
   const { fields: additionalParams, append: appendAdditionalParam } = useFieldArray({

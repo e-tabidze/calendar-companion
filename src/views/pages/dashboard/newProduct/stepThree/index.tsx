@@ -49,8 +49,8 @@ const StepThree: React.FC<Props> = ({ control, discountItems, appendDiscountItem
           control={control}
           name='daily_price.currency'
           options={[
-            { value: 'GEL', icon: 'gridMap' },
-            { value: 'USD', icon: 'gridMap' }
+            { value: 'GEL', icon: 'gel', width: '11', height: '12' },
+            { value: 'USD', icon: 'usd', width: '7', height: '12' }
           ]}
         />
       </StepThreePriceContainer>

@@ -14,6 +14,14 @@ interface Props {
   appendAdditionalParam: any
 }
 
+const suitcases = [
+  { title: 1, id: 1 },
+  { title: 2, id: 2 },
+  { title: 3, id: 3 },
+  { title: 4, id: 4 },
+  { title: 5, id: 5 }
+]
+
 const StepTwo: React.FC<Props> = ({ control, appendAdditionalParam }) => {
   const { width } = useWindowDimensions()
   const { productDetails, additionalParams } = useProductInfo()
@@ -66,9 +74,7 @@ const StepTwo: React.FC<Props> = ({ control, appendAdditionalParam }) => {
         ჩემოდნების რაოდენობა
       </Typography>
       <div className='flex flex-wrap gap-4 my-6'>
-        {/* {seats.map((place, idx) => (
-          <Tag label={place} key={idx} height='h-10' />
-        ))} */}
+        <Tag name='suitcases' control={control} options={suitcases} height='h-10' />
       </div>
       <Divider />
       <div className='flex justify-between my-10 flex-col items-baseline md:items-center md:flex-row'>

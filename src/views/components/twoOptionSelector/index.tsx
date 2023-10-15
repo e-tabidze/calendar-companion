@@ -8,6 +8,8 @@ interface Option {
   value: string
   label?: string | JSX.Element
   icon?: string
+  width?: string
+  height?: string
 }
 
 interface Props {
@@ -36,8 +38,8 @@ const TwoOptionSelector: React.FC<Props> = ({ options, name, control }) => {
               {option.icon ? (
                 <Icon
                   svgPath={option.icon}
-                  width='20'
-                  height='20'
+                  width={option.width}
+                  height={option.height}
                   color={value === option.value ? '#272A37' : '#8C929B'}
                   className='icon-class'
                 />

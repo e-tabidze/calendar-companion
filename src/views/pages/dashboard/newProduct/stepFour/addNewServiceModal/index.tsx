@@ -82,29 +82,6 @@ const AddNewServiceModal: React.FC<Props> = ({ open, onClose }) => {
                       <DefaultInput label='აღწერა' control={control} name='description' rows={4} />
                     </div>
                     <SelectField options={options} control={control} name='type_id' />
-                    <Typography type='subtitle' className='text-black font-bold mt-9 mb-2'>
-                      ღირებულება
-                    </Typography>
-                    <div className='flex justify-between items-center w-full gag-6'>
-                      <Typography type='body' className='w-7/12'>
-                        მითითებული ფასი განსაზღვრავს დამატებითი სერვისისის 1 დღის ქირაობის ფასს, რომლის ცვალებადობაც
-                        დამოკიდებული იქნება დღეების რაოდენობასზე
-                      </Typography>
-                      <DefaultInput label='დღიური ღირებულება' className='!w-64' control={control} name='' />
-                    </div>
-
-                    <Typography type='subtitle' className='text-black font-bold mt-12 mb-2'>
-                      ღირებულება
-                    </Typography>
-                    <div className='flex justify-between items-center w-full gag-6'>
-                      <Typography type='body' className='w-7/12'>
-                        მითითებული ფასი განსაზღვრავს დამატებითი სერვისისის 1 დღის ქირაობის ფასს, რომლის ცვალებადობაც
-                        დამოკიდებული იქნება დღეების რაოდენობასზე
-                      </Typography>
-                      <div className='flex justify-center items-center border border-px-raisin-130 w-64 rounded-2xl h-14'>
-                        <Counter />
-                      </div>
-                    </div>
                   </div>
                   <div className='flex justify-end absolute bottom-0 w-full shadow-md'>
                     <DefaultButton
