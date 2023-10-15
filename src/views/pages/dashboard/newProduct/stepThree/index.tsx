@@ -40,7 +40,9 @@ const StepThree: React.FC<Props> = ({ control, discountItems, appendDiscountItem
     if (discountItems.length === 0) {
       setValue('apply_discount', false)
     }
-  }, [discountItems, setValue])
+
+    console.log(discountItems, 'discountItems')
+  }, [setValue, discountItems])
 
   return (
     <StepThreeContainer>
@@ -76,16 +78,18 @@ const StepThree: React.FC<Props> = ({ control, discountItems, appendDiscountItem
           {discountItems.map((component: ReactElement<any, string | JSXElementConstructor<any>>, index: number) => (
             <DiscountInputsWrapper key={index}>
               <DiscountComponent index={index} options={options} control={control} name={`discount.${index}`} />
-              <IconTextButton
-                label={width > 779 ? 'წაშლა' : ''}
-                icon='/icons/clear.svg'
-                labelClassname='text-orange-120'
-                onClick={() => {
-                  remove(index)
-                  formState.discount.length === 0 && setValue('apply_discount', false)
-                }}
-                className='p-0 md:p-4'
-              />
+              {index > 0 && (
+                <IconTextButton
+                  label={width > 779 ? 'წაშლა' : ''}
+                  icon='/icons/clear.svg'
+                  labelClassname='text-orange-120'
+                  onClick={() => {
+                    remove(index)
+                    formState.discount.length === 0 && setValue('apply_discount', false)
+                  }}
+                  className='p-0 md:p-4'
+                />
+              )}
             </DiscountInputsWrapper>
           ))}
           <IconTextButton

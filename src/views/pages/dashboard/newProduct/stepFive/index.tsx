@@ -29,8 +29,6 @@ interface Props {
 const StepFive: React.FC<Props> = ({ control, setValue }) => {
   const formState = useWatch({ control })
 
-  console.log(formState.has_min_period, 'formState')
-
   useEffect(() => {
     if (formState.any_period) {
       setValue('min_period.has_min_period', false)
