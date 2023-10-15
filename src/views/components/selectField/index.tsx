@@ -2,6 +2,7 @@ import React from 'react'
 import Image from 'next/image'
 import { Controller } from 'react-hook-form'
 import Select, { ClearIndicatorProps, components, DropdownIndicatorProps, GroupBase } from 'react-select'
+import _ from 'lodash'
 
 const customStyles = {
   indicatorSeparator: () => ({
@@ -25,11 +26,18 @@ const customStyles = {
     ...provided,
     maxHeight: '150px',
     overflow: 'auto'
-  })
+  }),
+  placeholder: (defaultStyles: any) => {
+    return {
+      ...defaultStyles,
+      fontSize: '14px',
+      color: '#93959B'
+    }
+  }
 }
+
 interface Option {
-  value: string
-  label: string
+  [key: string]: any
 }
 
 interface Props {
@@ -41,6 +49,9 @@ interface Props {
   control: any
   name: string
   defaultValue?: string
+  valueKey?: string
+  labelKey?: string
+  errors?: any
 }
 
 const Control = ({ children, ...props }: any) => {
@@ -55,7 +66,19 @@ const Control = ({ children, ...props }: any) => {
   )
 }
 
-const SelectField: React.FC<Props> = ({ options, disabled = false, className, icon, control, name, defaultValue }) => {
+const SelectField: React.FC<Props> = ({
+  options,
+  disabled = false,
+  className,
+  icon,
+  control,
+  name,
+  defaultValue,
+  valueKey,
+  labelKey,
+  placeholder,
+  errors
+}) => {
   const { DropdownIndicator, ClearIndicator } = components
 
   const customDropdownIndicator = (
@@ -85,31 +108,39 @@ const SelectField: React.FC<Props> = ({ options, disabled = false, className, ic
         control={control}
         defaultValue={defaultValue}
         render={({ field: { onChange, value } }) => (
-          <Select
-            styles={customStyles}
-            options={options}
-            value={options.find(opt => opt.value === value || '')}
-            onChange={(e: any) => {
-              onChange(e?.value || '')
-            }}
-            components={{
-              DropdownIndicator: customDropdownIndicator,
-              ClearIndicator: customClearIndicator,
-              Control
-            }}
-            isClearable
-            placeholder={''}
-            isDisabled={disabled}
-            
-            // @ts-ignore
-            emoji={
-              icon && (
-                <div className='ml-4'>
-                  <Image src='/icons/clock.svg' alt='' height={18} width={18} />
-                </div>
-              )
-            }
-          />
+          <>
+            <Select
+              styles={customStyles}
+              options={options}
+              value={options?.find(opt => (valueKey ? opt[valueKey] === value || '' : opt.value === value || ''))}
+              onChange={(e: any) => {
+                onChange(valueKey ? e[valueKey] : e.value || '')
+              }}
+              getOptionLabel={labelKey ? option => option.title : undefined}
+              components={{
+                DropdownIndicator: customDropdownIndicator,
+                ClearIndicator: customClearIndicator,
+                Control
+              }}
+              isClearable
+              placeholder={placeholder}
+              isDisabled={disabled}
+              
+              // @ts-ignore
+              emoji={
+                icon && (
+                  <div className='ml-4'>
+                    <Image src='/icons/clock.svg' alt='' height={18} width={18} />
+                  </div>
+                )
+              }
+            />
+            {errors && (
+              <div id={name} className='text-sm text-red-100 ml-2'>
+                {_.get(errors, name)?.message}
+              </div>
+            )}
+          </>
         )}
       />
     </div>

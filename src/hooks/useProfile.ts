@@ -1,12 +1,8 @@
-import { useState } from 'react'
-import { useRouter } from 'next/router'
 import UserService from 'src/services/UserService'
+import { useRouter } from 'next/router'
 import { useQuery } from '@tanstack/react-query'
 
 const useProfile = () => {
-  const [showProfile, setShowProfile] = useState(true)
-  const [showRightTab, setShowRightTab] = useState(true)
-
   const router = useRouter()
 
   const usePersonalInfo: any = useQuery({
@@ -17,15 +13,13 @@ const useProfile = () => {
 
   const userInfo = usePersonalInfo.data?.result?.data
   const isLoading = usePersonalInfo.isLoading
+  const refetch = usePersonalInfo.refetch
 
   return {
-    showProfile,
-    setShowProfile,
-    showRightTab,
-    setShowRightTab,
     router,
     userInfo,
-    isLoading
+    isLoading,
+    refetch
   }
 }
 
@@ -34,7 +28,7 @@ export default useProfile
 export const getUserInfo = async (accessToken = '') => {
   try {
     const response: any = await UserService.getUserInfo(accessToken)
-    
+
     return response.data
   } catch (error) {
     console.error(error)

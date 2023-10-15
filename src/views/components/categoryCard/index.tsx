@@ -1,29 +1,50 @@
-import Image from '../image'
+import { Controller } from 'react-hook-form'
+import Icon from 'src/views/app/Icon'
 import Typography from '../typography'
 
 interface Props {
   border?: boolean
-  category: string
-  selected?: boolean
-  handleSelect?: any
+  name: string
+  control: any
+  options: any[]
 }
 
-const CategoryCard = ({ border, category, selected, handleSelect }: Props) => {
+const CategoryCard = ({ border, name, control, options }: Props) => {
   return (
-    <div
-      onClick={handleSelect}
-      className={`flex flex-col items-center justify-center cursor-pointer w-28 h-28 sm:w-36 sm:h-36 ${
-        border && 'border border-gray-20 rounded-2xl'
-      } ${selected ? 'border-2 border-green-100 bg-green-20' : ''} `}
-    >
-      <Image src='/icons/vehicleCategory.svg' className='h-5' alt='img' />
-      <Typography type='body' color='dark' className='mt-4'>
-        {category}
-      </Typography>
-      <Typography type='body' color={selected ? 'dark' : 'light'} className='text-md font-light'>
-        177
-      </Typography>
-    </div>
+    <Controller
+      name={name}
+      control={control}
+      render={({ field: { onChange, value } }) => (
+        <>
+          {options?.map(option => (
+            <div
+              onClick={() => onChange(option.id)}
+              key={option.id}
+              className={`flex flex-col items-center justify-center cursor-pointer w-28 h-28 sm:w-36 sm:h-36 ${
+                border && 'border border-gray-20 rounded-2xl'
+              } ${value === option.id ? 'border-2 border-green-100 bg-green-20' : ''} `}
+            >
+              <>{console.log(option.icon, 'icons')}</>
+              <Icon
+              
+                // svgPath={option.icon}
+                svgPath={option.icon}
+                width='70'
+                height='20'
+                color={value === option.id ? '#549684' : '#000000'}
+                className='icon-class'
+              />
+              <Typography type='body' color='dark' className='mt-4'>
+                {}
+              </Typography>
+              <Typography type='body' color={value === option.id ? 'dark' : 'light'} className='text-md font-light'>
+                {option.title}
+              </Typography>
+            </div>
+          ))}
+        </>
+      )}
+    />
   )
 }
 

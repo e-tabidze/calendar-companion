@@ -2,36 +2,8 @@ import { useRouter } from 'next/router'
 import useWindowDimensions from 'src/hooks/useWindowDimensions'
 import { IconTextButton } from 'src/views/components/button'
 import Divider from 'src/views/components/divider'
-import Tag from 'src/views/components/tag'
 import Typography from 'src/views/components/typography'
 import OrderListComponent from 'src/views/pages/dashboard/components/orderListComponent'
-
-const filters = [
-  {
-    label: 'ყველა',
-    id: '1'
-  },
-  {
-    label: 'დასრულებული',
-    id: '2'
-  },
-  {
-    label: 'მოლოდინში',
-    id: '3'
-  },
-  {
-    label: 'გაუქმებული',
-    id: '4'
-  },
-  {
-    label: 'დადასტურებული',
-    id: '5'
-  },
-  {
-    label: 'უარყოფილი',
-    id: '6'
-  }
-]
 
 const IncomingOrders = () => {
   const { width } = useWindowDimensions()
@@ -52,9 +24,9 @@ const IncomingOrders = () => {
       </div>
       <Divider />
       <div className='hidden lg:flex gap-3 p-2 md:p-8'>
-        {filters.map(filter => (
+        {/* {filters.map(filter => (
           <Tag label={filter.label} height='h-10' key={filter.id} className='rounded-xl' />
-        ))}
+        ))} */}
       </div>
       <div className='px-none md:px-8'>
         <OrderListComponent toggleDetails={toggleDetails} />

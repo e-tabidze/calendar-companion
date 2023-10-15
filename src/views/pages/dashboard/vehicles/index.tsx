@@ -33,7 +33,7 @@ const Vehicles = () => {
   
   return (
     <div>
-      <div className='border border-raisin-10 rounded-2xl mt-11 md:px-8'>
+      <div className='border border-raisin-10 rounded-2xl md:px-8'>
         <div className='flex justify-between items-center my-4 px-2'>
           <Typography type='h3' className='text-md md:text-2lg'>
             ავტომობილები

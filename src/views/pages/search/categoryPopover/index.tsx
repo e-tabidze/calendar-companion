@@ -1,5 +1,5 @@
 import PopoverDropdown from 'src/views/components/popoverDropdown'
-import Checkbox from 'src/views/components/checkbox'
+import Checkbox from 'src/views/components/checkboxField'
 
 const CategoryPopover = () => {
   return (

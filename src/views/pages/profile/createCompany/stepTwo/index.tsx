@@ -11,9 +11,9 @@ interface Props {
 
 const StepTwo: React.FC<Props> = ({ control, addressFields, appendAddress, errors }) => {
   const { defaultAddress } = useCreateCompany()
-  
+
   return (
-    <div>
+    <>
       {addressFields.map((field: any, index: number) => (
         <BranchInfoComponent index={index} control={control} key={field.id} errors={errors} />
       ))}
@@ -26,7 +26,7 @@ const StepTwo: React.FC<Props> = ({ control, addressFields, appendAddress, error
         }}
         type='button'
       />
-    </div>
+    </>
   )
 }
 
