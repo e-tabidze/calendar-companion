@@ -20,12 +20,12 @@ const Cities = () => {
       <CitiesInnerContainer>
         <CitiesListContainer>
           <ViewAllCitiesContainer>
-            <Image src='/icons/location.svg' className='hidden xl:inline-block' alt='img'/>
+            <Image src='/icons/location.svg' className='hidden sm:inline-flex' alt='img'/>
             <Container>
-              <Typography type='h3' className=' text-3xl mb-8'>
+              <Typography type='h3' className='text-[20px] lg:text-[30px] mb-8'>
                 ავტომობილები ტოპ ქალაქების მიხედვით
               </Typography>
-              <DefaultButton text={'ყველა ნახვა'} className="hidden xl:inline-block" />
+              <DefaultButton text={'ყველა ნახვა'} className="hidden lg:inline-flex" />
             </Container>
           </ViewAllCitiesContainer>
           <CitiesWrapper>
@@ -34,6 +34,7 @@ const Cities = () => {
             <CityCard src='/images/city.png' city='თბილისი' numberOfCars={345} />
             <CityCard src='/images/city.png' city='თბილისი' numberOfCars={345} />
           </CitiesWrapper>
+          <DefaultButton text={'ყველა ნახვა'} className="inline-flex lg:hidden" />
         </CitiesListContainer>
         <Divider />
         <BenefitsContainer>

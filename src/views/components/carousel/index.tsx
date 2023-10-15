@@ -124,7 +124,7 @@ const Carousel = ({
           />
         </div>
         {itemsArray.map((item, index) => (
-          <SwiperSlide key={index} className='!w-fit mx-2'>
+          <SwiperSlide key={index} className='!w-fit'>
             <div ref={element => (slideRefs.current[index] = element)}>{item}</div>
           </SwiperSlide>
         ))}

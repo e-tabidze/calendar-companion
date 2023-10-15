@@ -8,7 +8,6 @@ import CategoryCard from 'src/views/components/categoryCard'
 import Divider from 'src/views/components/divider'
 import ProductCard from 'src/views/components/productCard'
 import Typography from 'src/views/components/typography'
-import ActionCard from 'src/views/pages/main/actionCard'
 import Cities from 'src/views/pages/main/cities'
 import Hero from 'src/views/pages/main/hero'
 import Cookie from 'src/helpers/Cookie'
@@ -20,19 +19,18 @@ import { fetchCompaniesData } from 'src/store/apps/companies'
 
 // ** Styled Components
 const MainPageBox = tw.div<TailwindDiv>`flex w-full items-center flex-col`
-const ActionCardsWrapper = tw.div<TailwindDiv>`flex gap-6 flex-col -mt-16 sm:flex-row sm:mt-16`
 
 const productArray = [
-  <ProductCard key={1} />,
-  <ProductCard key={2} />,
-  <ProductCard key={3} />,
-  <ProductCard key={4} />,
-  <ProductCard key={5} />,
-  <ProductCard key={6} />,
-  <ProductCard key={7} />,
-  <ProductCard key={8} />,
-  <ProductCard key={9} />,
-  <ProductCard key={10} />
+  <ProductCard key={1} swiperCard={true} />,
+  <ProductCard key={2} swiperCard={true} />,
+  <ProductCard key={3} swiperCard={true} />,
+  <ProductCard key={4} swiperCard={true} />,
+  <ProductCard key={5} swiperCard={true} />,
+  <ProductCard key={6} swiperCard={true} />,
+  <ProductCard key={7} swiperCard={true} />,
+  <ProductCard key={8} swiperCard={true} />,
+  <ProductCard key={9} swiperCard={true} />,
+  <ProductCard key={10} swiperCard={true} />
 ]
 
 const categoryArray = [
@@ -157,24 +155,6 @@ const MainPage = () => {
         <ResponsiveContainer className='mt-20'>
           <Cities />
         </ResponsiveContainer>
-        <ContentContainer className='z-10'>
-          <ActionCardsWrapper>
-            <ActionCard
-              title='იქირავე'
-              body='ცნობილი ფაქტია, რომ გვერდის წაკითხვად შიგთავსს შეუძლია მკითხველის ყურადღება მიიზიდოს'
-              actioBtnLabel='მოძებნე'
-              actonBtnClick={() => console.log('click')}
-              image='/images/rent.png'
-            />
-            <ActionCard
-              title='გააქირავე'
-              body='ცნობილი ფაქტია, რომ გვერდის წაკითხვად შიგთავსს შეუძლია მკითხველის ყურადღება მიიზიდოს'
-              actioBtnLabel='დაამატე'
-              actonBtnClick={() => console.log('click')}
-              image='/images/rent2.png'
-            />
-          </ActionCardsWrapper>
-        </ContentContainer>
       </MainPageBox>
     </DefaultLayout>
   )

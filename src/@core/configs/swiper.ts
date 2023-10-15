@@ -3,14 +3,14 @@ export const ProductCardSlider = {
   320: {
     slidesPerView: 1,
     slidesPerGroup: 1,
-    spaceBetween: 0,
+    spaceBetween: 16,
     slidesOffsetBefore: 0,
     slidesOffsetAfter: 0
   },
   530: {
     slidesPerView: "auto",
     slidesPerGroup: 1,
-    spaceBetween: 15,
+    spaceBetween: 16,
     slidesOffsetBefore: 10,
     slidesOffsetAfter: 50
   },
@@ -31,7 +31,7 @@ export const ProductCardSlider = {
   1280: {
     slidesPerView: "auto",
     slidesPerGroup: 1,
-    spaceBetween: 20,
+    spaceBetween: 24,
     slidesOffsetBefore: 120,
     slidesOffsetAfter: 100
   }

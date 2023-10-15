@@ -4,7 +4,7 @@ import React from 'react'
 export const DefaultButton = ({ text, onClick, bg, className, textColor }: any) => {
   return (
     <button
-      className={`${bg} 'rounded-xl rounded-xl ${bg ? `${textColor}` : 'text-raisin-130'} text-2sm w-max ${
+      className={`${bg} rounded-xl rounded-xl ${bg ? `${textColor}` : 'text-raisin-130'} text-2sm w-max ${
         bg ? 'border-none' : 'border border-px-raisin-130'
       } py-3 px-6 font-normal' ${className}`}
       onClick={onClick}
