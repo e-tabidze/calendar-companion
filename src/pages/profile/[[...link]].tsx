@@ -85,7 +85,7 @@ const ProfileRouter = ({ userInfo }: { userInfo: UserInfo }) => {
 }
 
 const Profile = () => {
-  const { userInfo, router, isLoading } = useProfile()
+  const { userInfo, router } = useProfile()
 
   return (
     <>

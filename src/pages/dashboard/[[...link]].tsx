@@ -4,7 +4,6 @@ import IncomingOrders from 'src/views/pages/dashboard/incomingOrders'
 import Vehicles from 'src/views/pages/dashboard/vehicles'
 import EditCompany from 'src/views/pages/dashboard/editCompany'
 import NewProduct from 'src/views/pages/dashboard/newProduct'
-import { isMobile } from 'react-device-detect'
 import ProfileLayout from 'src/layouts/ProfileLayout'
 
 const routes = [

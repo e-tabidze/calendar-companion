@@ -1,4 +1,4 @@
-import { JSXElementConstructor, ReactElement, useEffect, useState } from 'react'
+import { JSXElementConstructor, ReactElement, useEffect } from 'react'
 import useWindowDimensions from 'src/hooks/useWindowDimensions'
 import { IconTextButton } from 'src/views/components/button'
 import TwoOptionSelector from 'src/views/components/twoOptionSelector'

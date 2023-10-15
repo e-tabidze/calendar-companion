@@ -1,4 +1,4 @@
-import { Product } from 'src/types/product'
+import { Product } from 'src/types/Product'
 import HttpService from './HttpService'
 
 class ProductService extends HttpService {

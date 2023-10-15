@@ -1,7 +1,7 @@
 import { useFieldArray, useForm, useWatch } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import ProductService from 'src/services/ProductService'
-import { NewService, Product } from 'src/types/Product'
+import { Product } from 'src/types/Product'
 import { NewProductSchema } from 'src/@core/validation/newProductSchema'
 import useProductInfo from './useProductInfo'
 import { useEffect } from 'react'

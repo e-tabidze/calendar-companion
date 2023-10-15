@@ -55,11 +55,12 @@ const SearchPage = () => {
               label='უფასო მიწოდება'
               component={<Switcher height='h-5' name='name' control={control} defaultValue />}
               height='h-10'
+              control={control}
             />
-            <div className="hidden xl:flex">
+            <div className='hidden xl:flex'>
               <SeatsPopover />
             </div>
-            <div className="hidden xl:flex">
+            <div className='hidden xl:flex'>
               <SuitcasesPopover />
             </div>
             <Tag
@@ -91,36 +92,47 @@ const SearchPage = () => {
               სულ ნაპოვნია 71 განცხადება
             </Typography>
             <div className='w-full md:w-auto flex items-center my-4'>
-              <span onClick={handleToggleMapWidth}
+              <span
+                onClick={handleToggleMapWidth}
                 className={`cursor-pointer group hover:bg-green-10 ml-3 hidden lg:flex items-center justify-center w-8 h-8 rounded-full ${
                   mapVisible ? '' : 'bg-green-10'
                 }`}
               >
-                 <Icon svgPath='grid' width={14} height={14} className={`${mapVisible? 'fill-raisin-30': 'fill-green-100'}  group-hover:fill-green-100`} />
-
+                <Icon
+                  svgPath='grid'
+                  width={14}
+                  height={14}
+                  className={`${mapVisible ? 'fill-raisin-30' : 'fill-green-100'}  group-hover:fill-green-100`}
+                />
               </span>
-              <span onClick={handleToggleMapWidth}
+              <span
+                onClick={handleToggleMapWidth}
                 className={`cursor-pointer group hover:bg-green-10 ml-3 hidden lg:flex items-center justify-center w-8 h-8 rounded-full ${
                   mapVisible ? 'bg-green-10' : ''
                 }`}
               >
-                 <Icon svgPath='gridMap' width={17} height={15} className={`${mapVisible? 'fill-green-100': 'fill-raisin-30'} group-hover:fill-green-100`} />
+                <Icon
+                  svgPath='gridMap'
+                  width={17}
+                  height={15}
+                  className={`${mapVisible ? 'fill-green-100' : 'fill-raisin-30'} group-hover:fill-green-100`}
+                />
               </span>
               <div className='w-full md:w-auto flex justify-between md:ml-6'>
-                <div className="flex">
+                <div className='flex'>
                   {width < 1025 && (
-                      <Tag
-                          component={<Image src='/icons/filters.svg' alt='' />}
-                          label={'ფილტრი'}
-                          height='h-10'
-                          bg={'bg-grey-60'}
-                      />
+                    <Tag
+                      component={<Image src='/icons/filters.svg' alt='' />}
+                      label={'ფილტრი'}
+                      height='h-10'
+                      bg={'bg-grey-60'}
+                    />
                   )}
                   <Tag
-                      className='mx-4 lg:mx-0'
-                      component={<Image src='/icons/sort.svg' alt='' />}
-                      label={width > 779 ? 'სორტირება' : ''}
-                      height={width > 1025 ? 'h-12' : 'h-10'}
+                    className='mx-4 lg:mx-0'
+                    component={<Image src='/icons/sort.svg' alt='' />}
+                    label={width > 779 ? 'სორტირება' : ''}
+                    height={width > 1025 ? 'h-12' : 'h-10'}
                   />
                 </div>
 

@@ -26,6 +26,7 @@ const CategoryCard = ({ border, name, control, options }: Props) => {
             >
               <>{console.log(option.icon, 'icons')}</>
               <Icon
+              
                 // svgPath={option.icon}
                 svgPath={option.icon}
                 width='70'

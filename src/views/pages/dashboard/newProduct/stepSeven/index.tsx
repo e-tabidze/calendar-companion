@@ -1,7 +1,5 @@
 import Radio from 'src/views/components/radio'
 import Typography from 'src/views/components/typography'
-import { useForm } from 'react-hook-form'
-import Checkbox from 'src/views/components/checkboxField'
 import FileUpload from '../../../../components/fileUpload'
 import Divider from 'src/views/components/divider'
 

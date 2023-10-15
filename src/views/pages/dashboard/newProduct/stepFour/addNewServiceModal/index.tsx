@@ -1,7 +1,6 @@
 import { Fragment } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { DefaultButton, IconButton } from 'src/views/components/button'
-import Counter from 'src/views/components/counter'
 import Divider from 'src/views/components/divider'
 import { DefaultInput } from 'src/views/components/input'
 import Typography from 'src/views/components/typography'

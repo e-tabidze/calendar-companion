@@ -57,6 +57,7 @@ const PersonalInfo: React.FC<Props> = ({ userData }) => {
   }
 
   return (
+    
     // @ts-ignore
     <FormProvider {...control}>
       <form onSubmit={handleSubmit(onSubmit)}>

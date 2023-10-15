@@ -4,7 +4,6 @@ import { TailwindDiv } from 'src/interfaces/tailwind'
 import DefaultLayout from 'src/layouts/DefaultLayout'
 import { LargeContainer, ContentContainer, ResponsiveContainer } from 'src/styled/styles'
 import Carousel from 'src/views/components/carousel'
-import CategoryCard from 'src/views/components/categoryCard'
 import Divider from 'src/views/components/divider'
 import ProductCard from 'src/views/components/productCard'
 import Typography from 'src/views/components/typography'
@@ -31,69 +30,6 @@ const productArray = [
   <ProductCard key={8} swiperCard={true} />,
   <ProductCard key={9} swiperCard={true} />,
   <ProductCard key={10} swiperCard={true} />
-]
-
-const categoryArray = [
-  {
-    id: 1,
-    type: 'ეკონომიური',
-    available: 231
-  },
-  {
-    id: 2,
-    type: 'ეკონომიური',
-    available: 231
-  },
-  {
-    id: 3,
-    type: 'ეკონომიური',
-    available: 231
-  },
-  {
-    id: 4,
-    type: 'ეკონომიური',
-    available: 231
-  },
-  {
-    id: 5,
-    type: 'ეკონომიური',
-    available: 231
-  },
-  {
-    id: 6,
-    type: 'ეკონომიური',
-    available: 231
-  },
-  {
-    id: 7,
-    type: 'ეკონომიური',
-    available: 231
-  },
-  {
-    id: 8,
-    type: 'ეკონომიური',
-    available: 231
-  },
-  {
-    id: 8,
-    type: 'ეკონომიური',
-    available: 231
-  },
-  {
-    id: 8,
-    type: 'ეკონომიური',
-    available: 231
-  },
-  {
-    id: 8,
-    type: 'ეკონომიური',
-    available: 231
-  },
-  {
-    id: 8,
-    type: 'ეკონომიური',
-    available: 231
-  }
 ]
 
 // const categories = categoryArray.map((item, key) => <CategoryCard category={item.type} key={key} />)
@@ -124,9 +60,7 @@ const MainPage = () => {
             იპოვეთ თქვენთვის სასურველი ავტომობილი კონკრეტული საჭიროებისთვის ერთ სივრცეში
           </Typography>
         </ContentContainer>
-        <LargeContainer>
-          {/* <Carousel itemsArray={categories} type='categories' /> */}
-        </LargeContainer>
+        <LargeContainer>{/* <Carousel itemsArray={categories} type='categories' /> */}</LargeContainer>
         <LargeContainer>
           <Divider />
         </LargeContainer>
