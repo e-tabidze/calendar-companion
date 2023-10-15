@@ -22,6 +22,7 @@ interface Props {
   discountItems: any
   appendDiscountItem: any
   remove: any
+  errors: any
 }
 
 const options = [
@@ -30,7 +31,7 @@ const options = [
   { value: 'თვე', label: 'თვე', id: '3' }
 ]
 
-const StepThree: React.FC<Props> = ({ control, discountItems, appendDiscountItem, remove }) => {
+const StepThree: React.FC<Props> = ({ control, discountItems, appendDiscountItem, remove, errors }) => {
   const { discount_item, setValue } = useNewProduct()
   const { width } = useWindowDimensions()
   const formState = useWatch({ control })
@@ -44,7 +45,7 @@ const StepThree: React.FC<Props> = ({ control, discountItems, appendDiscountItem
   return (
     <StepThreeContainer>
       <StepThreePriceContainer>
-        <DefaultInput label='დღიური ღირებულება' control={control} name='daily_price.amount' errors={''} />
+        <DefaultInput label='დღიური ღირებულება' control={control} name='daily_price.amount' errors={errors} />
         <TwoOptionSelector
           control={control}
           name='daily_price.currency'

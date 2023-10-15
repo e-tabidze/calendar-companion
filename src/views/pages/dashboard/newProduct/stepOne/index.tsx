@@ -10,9 +10,10 @@ import useProductInfo, { getManufacturerModels } from '../useProductInfo'
 interface Props {
   control: any
   productValues: any
+  errors: any
 }
 
-const StepOne: React.FC<Props> = ({ control, productValues }) => {
+const StepOne: React.FC<Props> = ({ control, productValues, errors }) => {
   const { manufacturers } = useProductInfo()
 
   const selectedManufacturerId = productValues.man_id
@@ -52,8 +53,8 @@ const StepOne: React.FC<Props> = ({ control, productValues }) => {
   return (
     <div>
       <div className='grid gap-4 grid-cold-1 md:grid-cols-2'>
-        <DefaultInput name='vin' control={control} errors={''} label='ვინ კოდი' />
-        <DefaultInput name='plate' control={control} errors={''} label='სახელმწიფო ნომერი' />
+        <DefaultInput name='vin' control={control} errors={errors} label='ვინ კოდი' />
+        <DefaultInput name='plate' control={control} errors={errors} label='სახელმწიფო ნომერი' />
         <SelectField
           name='man_id'
           control={control}
@@ -61,6 +62,7 @@ const StepOne: React.FC<Props> = ({ control, productValues }) => {
           options={manufacturers}
           valueKey='id'
           labelKey='title'
+          errors={errors}
         />
         <SelectField
           name='model_id'
@@ -70,10 +72,11 @@ const StepOne: React.FC<Props> = ({ control, productValues }) => {
           valueKey='id'
           labelKey='title'
           disabled={!selectedManufacturerId}
+          errors={errors}
         />
         <SelectField name='prod_year' control={control} placeholder='წელი' options={generateYearsArray()} />
         <div className='flex gap-4 justify-center'>
-          <DefaultInput name='odometer.run' control={control} errors={''} label='გარბენი' className='flex-grow' />
+          <DefaultInput name='odometer.run' control={control} errors={errors} label='გარბენი' className='flex-grow' />
           <TwoOptionSelector
             control={control}
             name='odometer.measure'
