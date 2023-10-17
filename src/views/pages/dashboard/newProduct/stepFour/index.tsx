@@ -13,17 +13,16 @@ import AddNewServiceModal from './addNewServiceModal'
 
 interface Props {
   control: any
+  step: number
 }
 
-const StepFour: React.FC<Props> = ({ control }) => {
-  const { companyServices } = useProductInfo()
+const StepFour: React.FC<Props> = ({ control, step }) => {
+  const { companyServices } = useProductInfo(step)
   const [newServiceModal, setNewServiceModal] = useState(false)
 
   const handleNewServiceModal = () => setNewServiceModal(!newServiceModal)
 
   const formState = useWatch({ control })
-
-  console.log(formState, 'company_services')
 
   const renderServiceComponent = (service: NewService, index: number) => {
     if (service.type_id === 1 || 2) {

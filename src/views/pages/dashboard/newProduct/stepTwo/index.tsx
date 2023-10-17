@@ -12,6 +12,7 @@ import useProductInfo from '../useProductInfo'
 interface Props {
   control: any
   appendAdditionalParam: any
+  step: number
 }
 
 const suitcases = [
@@ -22,9 +23,11 @@ const suitcases = [
   { title: 5, id: 5 }
 ]
 
-const StepTwo: React.FC<Props> = ({ control, appendAdditionalParam }) => {
+const StepTwo: React.FC<Props> = ({ control, appendAdditionalParam, step }) => {
   const { width } = useWindowDimensions()
-  const { productDetails, additionalParams } = useProductInfo()
+  const { productDetails, additionalParams } = useProductInfo(step)
+
+  console.log(step, 'step')
 
   return (
     <div>

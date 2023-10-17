@@ -20,20 +20,10 @@ const StepOne: React.FC<Props> = ({ control, productValues, errors }) => {
 
   const { data: manufacturerModels, refetch } = useQuery({
     queryKey: ['manufacturerModels'],
-    queryFn: () => {
-      if (selectedManufacturerId !== undefined) {
-        return getManufacturerModels(Cookie.get('AccessToken'), selectedManufacturerId)
-      } else {
-        return null
-      }
-    },
+    queryFn: () => getManufacturerModels(Cookie.get('AccessToken'), selectedManufacturerId),
     staleTime: Infinity,
-    enabled: true
+    enabled: !!selectedManufacturerId
   })
-
-  useEffect(() => {
-    refetch()
-  }, [selectedManufacturerId, refetch])
 
   const generateYearsArray = () => {
     const currentYear = new Date().getFullYear()
@@ -42,7 +32,7 @@ const StepOne: React.FC<Props> = ({ control, productValues, errors }) => {
     for (let i = currentYear; i >= startYear; i--) {
       years.push({ value: i, label: i })
     }
-    
+
     return years
   }
 

@@ -2,11 +2,12 @@ import { useQuery } from '@tanstack/react-query'
 import CompanyService from 'src/services/CompanyService'
 import ProductService from 'src/services/ProductService'
 
-const useProductInfo = () => {
+const useProductInfo = (step?: number | undefined) => {
   const useProductDetails: any = useQuery({
     queryKey: ['productDetails'],
     queryFn: () => getProductDetails(),
-    staleTime: Infinity
+    staleTime: Infinity,
+    enabled: step === 2
   })
 
   const useManufacturers: any = useQuery({
@@ -18,13 +19,15 @@ const useProductInfo = () => {
   const useAdditionalParams: any = useQuery({
     queryKey: ['additionalParams'],
     queryFn: () => getAdditionalParams(),
-    staleTime: Infinity
+    staleTime: Infinity,
+    enabled: step === 2
   })
 
   const useComapnyServices: any = useQuery({
     queryKey: ['companyServices'],
     queryFn: () => getCompanyServices(),
-    staleTime: Infinity
+    staleTime: Infinity,
+    enabled: step === 4
   })
 
   const productDetails = useProductDetails?.data?.result?.data
