@@ -41,12 +41,6 @@ const routes = [
     path: '/profile/create-company'
   },
   {
-    id: 6,
-    icon: '',
-    item: 'გასვლა',
-    path: '/profile/sign-out'
-  },
-  {
     id: 7,
     icon: '',
     item: 'ბედინა',
@@ -85,14 +79,35 @@ const ProfileRouter = ({ userInfo }: { userInfo: UserInfo }) => {
 }
 
 const Profile = () => {
-  const { userInfo, router } = useProfile()
+  const { userInfo, router, userCompanies, isCompaniesLoading } = useProfile()
+
+  const companyRoutes =
+    userCompanies?.map((company: any, index: number) => ({
+      id: 8 + company?.id,
+      icon: '',
+      item: company?.information.name,
+      path: `/profile/company/${company?.information?.name?.replace(' ', '-')}`
+    })) || []
+
+  const allRoutes = [
+    ...routes,
+    ...companyRoutes,
+    {
+      id: 9,
+      icon: '',
+      item: 'გასვლა',
+      path: '/profile/sign-out'
+    }
+  ]
+
+  console.log(companyRoutes, 'companyRoutes')
 
   return (
     <>
       {router.asPath === '/profile/create-company/' ? (
         <CreateCompany />
       ) : (
-        <ProfileLayout routes={routes} dividerIndexes={[2, 4]}>
+        <ProfileLayout routes={isCompaniesLoading ? routes : allRoutes} dividerIndexes={[2, 4,]}>
           <ProfileRouter userInfo={userInfo} />
         </ProfileLayout>
       )}

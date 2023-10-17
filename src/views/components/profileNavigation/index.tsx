@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import useProfile from 'src/hooks/useProfile'
 import Divider from '../divider'
 import Typography from '../typography'
 
@@ -26,6 +27,7 @@ const ProfileNavigation: React.FC<Props> = ({
   selectedRoute,
   dividerIndexes
 }) => {
+  const { isCompaniesLoading } = useProfile()
   return (
     <div
       className={`h-fit w-full mx-4 lg:mx-4 lg:w-fit border border-raisin-10 rounded-3xl p-6 ${
@@ -69,7 +71,7 @@ const ProfileNavigation: React.FC<Props> = ({
                     selectedRoute.path.split('/')[2] === route.path.split('/')[2] ? 'text-orange-100' : ''
                   }'`}
                 >
-                  {route.item}
+                  {isCompaniesLoading ? <>Loading</> : route.item}
                 </Typography>
               )}
             </div>

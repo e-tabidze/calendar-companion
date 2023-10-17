@@ -26,6 +26,8 @@ const ProfileLayout: React.FC<Props> = ({ routes, dividerIndexes, children }) =>
   const [isSidebarVisible, setIsSidebarVisible] = useState(true)
   const [sidebarCollapsed, setSidebarCollapsed] = useState<boolean>(false)
 
+  console.log(routes, 'routes')
+
   const handleRouteChange = (route: any) => {
     router.push(route.path)
     setSelectedRoute(route)

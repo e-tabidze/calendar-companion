@@ -11,25 +11,25 @@ interface Redux {
   dispatch: Dispatch<any>
 }
 
-export const fetchCompaniesData = createAsyncThunk(
-  'appCompanies/fetchData',
-  async (params: { AccessToken: string }, { dispatch }: Redux) => {
-    try {
-      dispatch(setCompaniesInfoLoadingStatus(STATUSES.PENDING))
-      console.log(params, 'params')
-      const response: any = await CompanyService.getCompanies(params.AccessToken)
-      console.log(response, 'response')
-      dispatch(setCompaniesData(response.data))
-      dispatch(setCompaniesInfoLoadingStatus(STATUSES.SUCCESS))
+// export const fetchCompaniesData = createAsyncThunk(
+//   'appCompanies/fetchData',
+//   async (params: { AccessToken: string }, { dispatch }: Redux) => {
+//     try {
+//       dispatch(setCompaniesInfoLoadingStatus(STATUSES.PENDING))
+//       console.log(params, 'params')
+//       const response: any = await CompanyService.getCompanies(params.AccessToken)
+//       console.log(response, 'response')
+//       dispatch(setCompaniesData(response.data))
+//       dispatch(setCompaniesInfoLoadingStatus(STATUSES.SUCCESS))
 
-      return response.data
-    } catch (error) {
-      dispatch(setError(error))
+//       return response.data
+//     } catch (error) {
+//       dispatch(setError(error))
 
-      return error
-    }
-  }
-)
+//       return error
+//     }
+//   }
+// )
 
 export const appCompaniesSlice = createSlice({
   name: 'appCompanies',
