@@ -1,5 +1,12 @@
 import { Controller } from 'react-hook-form'
+import Icon from 'src/views/app/Icon'
 import Typography from '../typography'
+
+interface Option {
+  id: string | number
+  title: string | number
+  icon?: string
+}
 
 interface Props {
   bg?: string
@@ -8,7 +15,7 @@ interface Props {
   className?: string
   name?: string
   control?: any
-  options?: any[]
+  options?: Option[]
   label?: string
   handleClick?: any
 }
@@ -37,6 +44,7 @@ const Tag: React.FC<Props> = ({ bg, component, height, className, name, control,
                   onClick={() => onChange(option.id)}
                 >
                   {component}
+                  {option.icon && <Icon svgPath={option.icon} width='18' height='18' />}
                   <Typography
                     type='body'
                     className={`w-max ${option.id === value && (height === 'h-12' ? '' : 'text-white')}`}

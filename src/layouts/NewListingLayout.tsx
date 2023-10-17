@@ -45,7 +45,7 @@ const NewListingLayout: React.FC<Props> = ({
           {width > 781 && renderNewListingSelect()}
           <Image src='/icons/close.svg' alt='' onClick={onClose} height={40} width={40} />
         </div>
-        <ProgressBar color='green-100' progress={selectedOption.step / options.length} className='md:mt-2' />
+        <ProgressBar color='green-100' progress={selectedOption.step / options.length} />
       </NewListingHeaderContainer>
       {width < 780 && (
         <div className='w-full flex justify-center top-20 bg-white z-[111]' style={{ position: 'sticky' }}>

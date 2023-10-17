@@ -23,7 +23,7 @@ const useProductInfo = (step?: number | undefined) => {
     enabled: step === 2
   })
 
-  const useComapnyServices: any = useQuery({
+  const useCompanyServices: any = useQuery({
     queryKey: ['companyServices'],
     queryFn: () => getCompanyServices(),
     staleTime: Infinity,
@@ -36,13 +36,17 @@ const useProductInfo = (step?: number | undefined) => {
 
   const additionalParams = useAdditionalParams?.data?.result?.data
 
-  const companyServices = useComapnyServices?.data?.result?.data
+  const companyServices = useCompanyServices?.data?.result?.data
 
   return {
     productDetails,
     manufacturers,
     additionalParams,
-    companyServices
+    companyServices,
+    isProductDetailsLoading: useProductDetails.isLoading,
+    isManufacturersLoading: useManufacturers.isLoading,
+    isAdditionalParamsLoading: useAdditionalParams.isLoading,
+    isCompanyServicesLoading: useCompanyServices.isLoading
   }
 }
 

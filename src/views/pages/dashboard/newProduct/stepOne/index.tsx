@@ -18,7 +18,7 @@ const StepOne: React.FC<Props> = ({ control, productValues, errors }) => {
 
   const selectedManufacturerId = productValues.man_id
 
-  const { data: manufacturerModels, refetch } = useQuery({
+  const { data: manufacturerModels } = useQuery({
     queryKey: ['manufacturerModels'],
     queryFn: () => getManufacturerModels(Cookie.get('AccessToken'), selectedManufacturerId),
     staleTime: Infinity,
