@@ -1,10 +1,9 @@
-import { useState } from 'react'
-import Image from 'src/views/components/image'
 import Typography from 'src/views/components/typography'
 import Tag from 'src/views/components/tag'
 import PopoverDropdown from 'src/views/components/popoverDropdown'
 import { DefaultButton, IconButton } from 'src/views/components/button'
 import { ActionsWrapper, TagsWrapper } from './styles'
+import { useForm } from 'react-hook-form'
 
 const fuelType = [
   {
@@ -30,15 +29,7 @@ const fuelType = [
 ]
 
 const FuelTypePopover = () => {
-  const [selectedFuelTypes, setSelectedFuelTypes] = useState<any[]>([])
-
-  const handleSelectCategories = (id: number) => {
-    if (selectedFuelTypes.includes(id)) {
-      setSelectedFuelTypes(selectedFuelTypes.filter(category => category !== id))
-    } else {
-      setSelectedFuelTypes(prevState => [...prevState, id])
-    }
-  }
+  const control = useForm()
 
   return (
     <PopoverDropdown label='საწვავის ტიპი' maxWidth='max-w-sm'>
@@ -46,20 +37,11 @@ const FuelTypePopover = () => {
         შეგიძლიათ მონიშნოთ ერთი ან რამდენიმე
       </Typography>
       <TagsWrapper>
-        {fuelType.map((type, idx) => (
-          <Tag
-            label={type.label}
-            key={idx}
-            component={<Image src='/icons/electric.svg' alt="" />}
-            height='h-12'
-            handleClick={() => handleSelectCategories(type.id)}
-            selected={selectedFuelTypes.includes(type.id)}
-          />
-        ))}
+        <Tag options={fuelType} name='' control={control} height='h-10' />
       </TagsWrapper>
       <ActionsWrapper>
         <IconButton icon='/icons/rotate.svg' text='გასუფთავება' width={16} height={16} />
-        <DefaultButton text='შენახვა' bg='bg-orange-100' textColor="text-white" />
+        <DefaultButton text='შენახვა' bg='bg-orange-100' textColor='text-white' />
       </ActionsWrapper>
     </PopoverDropdown>
   )

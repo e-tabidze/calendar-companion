@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useForm } from 'react-hook-form'
 import { IconButton } from 'src/views/components/button'
 import PopoverDropdown from 'src/views/components/popoverDropdown'
 import Tag from 'src/views/components/tag'
@@ -44,28 +44,12 @@ const seats = [
 ]
 
 const SeatsPopover = () => {
-  const [selectedSeats, setSelectedSeats] = useState<any[]>([1])
-
-  const handleSelectedSeats = (id: number) => {
-    if (selectedSeats.includes(id)) {
-      setSelectedSeats(selectedSeats.filter(type => type !== id))
-    } else {
-      setSelectedSeats(prevState => [...prevState, id])
-    }
-  }
+  const control = useForm()
 
   return (
     <PopoverDropdown label='ადგილების რაოდენობა' maxWidth='max-w-xs'>
       <TagsWrapper>
-        {seats.map(seat => (
-          <Tag
-            label={seat.label}
-            key={seat.id}
-            height='h-10'
-            selected={selectedSeats.includes(seat.id)}
-            handleClick={() => handleSelectedSeats(seat.id)}
-          />
-        ))}
+        <Tag options={seats} name='' control={control} height='h-10' />
       </TagsWrapper>
       <IconButton icon='/icons/rotate.svg' text='გასუფთავება' width={16} height={16} />
     </PopoverDropdown>
