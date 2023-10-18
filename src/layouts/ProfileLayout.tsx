@@ -49,7 +49,7 @@ const ProfileLayout: React.FC<Props> = ({ routes, dividerIndexes, children }) =>
           selectedRoute={selectedRoute}
           dividerIndexes={dividerIndexes}
         />
-        <div className={`w-full z-[111] ${isSidebarVisible ? 'hidden' : 'block'} lg:block`}>{children}</div>
+        <div className={`w-full z-[11] ${isSidebarVisible ? 'hidden' : 'block'} lg:block`}>{children}</div>
       </div>
     </main>
   )

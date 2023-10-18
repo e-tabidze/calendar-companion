@@ -50,7 +50,7 @@ const NewListingLayout: React.FC<Props> = ({
         <ProgressBar color='green-100' progress={selectedOption.step / options.length} className='md:mt-2' />
       </HeaderWrapper>
       {width < 780 && (
-        <div className='w-full flex justify-center top-20 bg-white z-[111]' style={{ position: 'sticky' }}>
+        <div className='w-full flex justify-center top-20 bg-white z-[11]' style={{ position: 'sticky' }}>
           {renderNewListingSelect()}
         </div>
       )}
