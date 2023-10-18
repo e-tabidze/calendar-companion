@@ -28,42 +28,42 @@ const Tnet = () => {
                             ყველაზე დიდი ტექნოლოგიური ეკოსისტემა, რომელიც აერთიანებს 11 პლატფორმას:
                             </Typography>
                         </div>
-                        <div className="grid gap-4 grid-cols-3">
-                        <a className="icon-h-24px h-[80px] py-[24px]  px-[16px] flex items-center justify-center bg-[#F5F5F8] hover:bg-[#F5F5F8] rounded-[8px] transition-all"
+                        <div className="grid gap-[4px] grid-cols-3">
+                        <a className="h-[80px] py-[24px] px-[16px] flex items-center justify-center bg-[#F5F5F8] hover:bg-[#F5F5F8] rounded-[8px] transition-all"
                            href="https://www.myauto.ge/ka/" target="_blank" rel="noreferrer">
-                            <Image src='/icons/tnet/myauto.svg' alt='img'/>
+                            <Image src='/icons/tnet/myauto.svg' alt='img' width={80} height={24}/>
                         </a>
-                        <a className="icon-h-24px h-[80px] py-[24px]  px-[16px] flex items-center justify-center hover:bg-[#F5F5F8] rounded-[8px] transition-all"
+                        <a className="h-[80px] py-[24px] px-[16px] flex items-center justify-center hover:bg-[#F5F5F8] rounded-[8px] transition-all"
                            href="https://www.myhome.ge/ka/" target="_blank" rel="noreferrer">
-                            <Image src='/icons/tnet/myhome.svg' alt='img'/>
+                            <Image src='/icons/tnet/myhome.svg' alt='img' width={80} height={24}/>
                         </a>
-                        <a className="icon-h-24px h-[80px] py-[24px]  px-[16px] flex items-center justify-center hover:bg-[#F5F5F8] rounded-[8px] transition-all"
+                        <a className="h-[80px] py-[24px] px-[16px] flex items-center justify-center hover:bg-[#F5F5F8] rounded-[8px] transition-all"
                            href="https://www.myhome.ge/ka/" target="_blank" rel="noreferrer">
-                            <Image src='/icons/tnet/mymarket.svg' alt='img'/>
+                            <Image src='/icons/tnet/mymarket.svg' alt='img' width={83} height={24}/>
                         </a>
-                        <a className="icon-h-24px h-[80px] py-[24px]  px-[16px] flex items-center justify-center hover:bg-[#F5F5F8] rounded-[8px] transition-all"
+                        <a className="h-[80px] py-[24px] px-[16px] flex items-center justify-center hover:bg-[#F5F5F8] rounded-[8px] transition-all"
                            href="https://www.myhome.ge/ka/" target="_blank" rel="noreferrer">
-                            <Image src='/icons/tnet/myparts.svg' alt='img'/>
+                            <Image src='/icons/tnet/myparts.svg' alt='img' width={82} height={24}/>
                         </a>
-                        <a className="icon-h-24px h-[80px] py-[24px]  px-[16px] flex items-center justify-center hover:bg-[#F5F5F8] rounded-[8px] transition-all"
+                        <a className="h-[80px] py-[24px] px-[16px] flex items-center justify-center hover:bg-[#F5F5F8] rounded-[8px] transition-all"
                            href="https://www.myhome.ge/ka/" target="_blank" rel="noreferrer">
-                            <Image src='/icons/tnet/vendoo.svg' alt='img'/>
+                            <Image src='/icons/tnet/vendoo.svg' alt='img' width={64} height={14}/>
                         </a>
-                        <a className="icon-h-24px h-[80px] py-[24px]  px-[16px] flex items-center justify-center hover:bg-[#F5F5F8] rounded-[8px] transition-all"
+                        <a className="h-[80px] py-[24px] px-[16px] flex items-center justify-center hover:bg-[#F5F5F8] rounded-[8px] transition-all"
                            href="https://www.myhome.ge/ka/" target="_blank" rel="noreferrer">
-                            <Image src='/icons/tnet/swoop.svg' alt='img'/>
+                            <Image src='/icons/tnet/swoop.svg' alt='img' width={83} height={24}/>
                         </a>
-                        <a className="icon-h-24px h-[80px] py-[24px]  px-[16px] flex items-center justify-center hover:bg-[#F5F5F8] rounded-[8px] transition-all"
+                        <a className="h-[80px] py-[24px] px-[16px] flex items-center justify-center hover:bg-[#F5F5F8] rounded-[8px] transition-all"
                            href="https://www.myhome.ge/ka/" target="_blank" rel="noreferrer">
-                            <Image src='/icons/tnet/tkt.svg' alt='img'/>
+                            <Image src='/icons/tnet/tkt.svg' alt='img' width={67} height={18}/>
                         </a>
-                        <a className="icon-h-24px h-[80px] py-[24px]  px-[16px] flex items-center justify-center hover:bg-[#F5F5F8] rounded-[8px] transition-all"
+                        <a className="h-[80px] py-[24px] px-[16px] flex items-center justify-center hover:bg-[#F5F5F8] rounded-[8px] transition-all"
                            href="https://www.myhome.ge/ka/" target="_blank" rel="noreferrer">
-                            <Image src='/icons/tnet/livo.svg' alt='img'/>
+                            <Image src='/icons/tnet/livo.svg' alt='img' width={59} height={20}/>
                         </a>
-                        <a className="icon-h-24px h-[80px] py-[24px]  px-[16px] flex items-center justify-center hover:bg-[#F5F5F8] rounded-[8px] transition-all"
+                        <a className="h-[80px] py-[24px] px-[16px] flex items-center justify-center hover:bg-[#F5F5F8] rounded-[8px] transition-all"
                            href="https://www.myhome.ge/ka/" target="_blank" rel="noreferrer">
-                            <Image src='/icons/tnet/saba.png' alt='img'/>
+                            <Image src='/icons/tnet/saba.png' alt='img' width={52} height={24}/>
                         </a>
                         </div>
                     </Menu.Items>

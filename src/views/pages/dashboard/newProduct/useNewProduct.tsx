@@ -53,11 +53,15 @@ const useNewProduct = () => {
     mode: 'onChange',
     reValidateMode: 'onChange',
     defaultValues: newProductDefaultValues,
+
+    // @ts-ignore
     resolver: yupResolver(NewProductSchema)
   })
 
   const { fields: additionalParams, append: appendAdditionalParam } = useFieldArray({
     control,
+
+    // @ts-ignore
     name: 'additional_options'
   })
 

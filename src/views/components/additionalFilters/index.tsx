@@ -1,4 +1,4 @@
-import { Fragment, useRef, useState } from 'react'
+import { Fragment, useRef } from 'react'
 
 // CustomHooks
 import useWindowDimensions from 'src/hooks/useWindowDimensions'
@@ -132,18 +132,9 @@ const additionalParameters = [
 ]
 
 const AdditionalFilters: React.FC<Props> = ({ open, setOpen }) => {
-  const [selectedCategories, setSelectedCategories] = useState<any[]>([])
   const cancelButtonRef = useRef(null)
   const { width } = useWindowDimensions()
   const { control } = useForm()
-
-  const handleSelectCategories = (id: number) => {
-    if (selectedCategories.includes(id)) {
-      setSelectedCategories(selectedCategories.filter(category => category !== id))
-    } else {
-      setSelectedCategories(prevState => [...prevState, id])
-    }
-  }
 
   return (
     <Transition.Root show={open} as={Fragment}>
@@ -205,15 +196,7 @@ const AdditionalFilters: React.FC<Props> = ({ open, setOpen }) => {
                       შეგიძლია მონიშნო ერთი ან რამდენიმე კატეგორია
                     </Typography>
                     <div className='flex flex-wrap gap-4 my-6'>
-                      {categories.map(category => (
-                        <CategoryCard
-                          border
-                          category={category.type}
-                          key={category.id}
-                          selected={selectedCategories.includes(category.id)}
-                          handleSelect={() => handleSelectCategories(category.id)}
-                        />
-                      ))}
+                      <CategoryCard border options={categories} name='' control={control} />
                     </div>
                   </div>
                   <div className='my-12'>
@@ -321,20 +304,22 @@ const AdditionalFilters: React.FC<Props> = ({ open, setOpen }) => {
                   <div className='py-9 grid grid-cols-2'>
                     {additionalParameters.map(parameter => (
                       <div className='my-2' key={parameter.id}>
-                        <Checkbox label={parameter.label} value={parameter.label} />
+                        <Checkbox title={parameter.label} name='' control={control} />
                       </div>
                     ))}
                   </div>
                 </div>
-                <div className="w-full flex items-center justify-between py-[16px] px-10 border-t-1 border-grey-90">
-                  <button className="flex items-center text-raisin-50 text-[12px]">
-                    <Image src='/icons/return.svg' alt='' className="flex mr-2" />
-                    გასუფთავება</button>
-                  <div className="flex items-center [text-16px]">
+                <div className='w-full flex items-center justify-between py-[16px] px-10 border-t-1 border-grey-90'>
+                  <button className='flex items-center text-raisin-50 text-[12px]'>
+                    <Image src='/icons/return.svg' alt='' className='flex mr-2' />
+                    გასუფთავება
+                  </button>
+                  <div className='flex items-center [text-16px]'>
                     სულ 136 შედეგი
-                    <button className="ml-[24px] px-[24px] h-[56px] bg-orange text-white text-[16px] flex items-center bg-orange-100 rounded-[12px]">
-                      <Image src='/icons/search.svg' alt='' className="flex mr-2" />
-                      ძებნა</button>
+                    <button className='ml-[24px] px-[24px] h-[56px] bg-orange text-white text-[16px] flex items-center bg-orange-100 rounded-[12px]'>
+                      <Image src='/icons/search.svg' alt='' className='flex mr-2' />
+                      ძებნა
+                    </button>
                   </div>
                 </div>
               </Dialog.Panel>

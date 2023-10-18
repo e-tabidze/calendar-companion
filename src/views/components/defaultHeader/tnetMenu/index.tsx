@@ -1,5 +1,6 @@
 import { Fragment, useRef } from 'react'
 import Image from '../../image'
+import Typography from 'src/views/components/typography'
 
 // Libraries
 import { Dialog, Transition } from '@headlessui/react'
@@ -39,91 +40,92 @@ const TnetMenu: React.FC<Props> = ({ open, setOpen }) => {
                             leaveTo='opacity-0 translate-y-4 md:translate-y-0 md:scale-95'
                         >
                             <Dialog.Panel className='relative transform overflow-hidden bg-white text-left transition-all w-full'>
-                                <div className='flex items-center justify-between mt-[20px] mb-[16px]'>
+                                <div className='flex items-center justify-center mt-[20px] mb-[16px]'>
                                     <Dialog.Title as='h3' className='font-bold text-[20px] text-[#000000]'>
                                         TNET
                                     </Dialog.Title>
-                                    <Image src='/icons/close.svg' onClick={setOpen} alt='' height={40} width={40} />
+                                    <Image src='/icons/close.svg' onClick={setOpen} alt='' height={40} width={40} className="absolute top-5 right-6" />
                                 </div>
                                 <div className="flex flex-col items-center text-center md:px-[16px]">
-                                    <p
+                                    <Typography type='body'
                                     className="text-[14px] text-[#7D7F87] mb-[16px] whitespace-normal">ყველაზე დიდი ტექნოლოგიური
-                                    ეკოსისტემა, რომელიც აერთიანებს 11 პლატფორმას:</p></div>
+                                        ეკოსისტემა, რომელიც აერთიანებს 11 პლატფორმას:</Typography>
+                                </div>
                                 <div className="flex flex-wrap border border-[#E9EAEB] rounded-[12px]">
                                     <div className="w-1/2 border-r-[1px] border-[#E9EAEB]">
-                                        <a className="icon-h-32px h-[92px]   bg-[#F5F5F8] hover:bg-[#F5F5F8] border-b-[1px] border-[#E9EAEB] px-[16px] flex items-center justify-center"
+                                        <a className="h-[92px] bg-[#F5F5F8] hover:bg-[#F5F5F8] border-b-[1px] border-[#E9EAEB] px-[16px] flex items-center justify-center"
                                            href="https://www.myauto.ge/ka/" target="_blank" rel="noreferrer">
-                                            <Image src='/icons/tnet/myauto.svg' alt='img'/>
+                                            <Image src='/icons/tnet/myauto.svg' alt='img' width={106} height={32}/>
                                         </a>
                                     </div>
                                     <div className="w-1/2">
                                         <a
-                                        className="icon-h-32px h-[92px]   border-b-[1px] border-[#E9EAEB] px-[16px] flex items-center justify-center"
+                                        className="h-[92px] border-b-[1px] border-[#E9EAEB] px-[16px] flex items-center justify-center"
                                         href="https://www.myhome.ge/ka/" target="_blank" rel="noreferrer">
-                                        <Image src='/icons/tnet/myhome.svg' alt='img'/>
+                                        <Image src='/icons/tnet/myhome.svg' alt='img' width={107} height={32}/>
                                     </a>
                                     </div>
                                     <div className="w-1/2 border-r-[1px] border-[#E9EAEB]">
                                         <a
-                                            className="icon-h-32px h-[92px]   border-b-[1px] border-[#E9EAEB] px-[16px] flex items-center justify-center"
+                                            className="h-[92px] border-b-[1px] border-[#E9EAEB] px-[16px] flex items-center justify-center"
                                             href="https://www.myhome.ge/ka/" target="_blank" rel="noreferrer">
-                                            <Image src='/icons/tnet/mymarket.svg' alt='img'/>
+                                            <Image src='/icons/tnet/mymarket.svg' alt='img' width={125} height={32}/>
                                         </a>
                                     </div>
                                     <div className="w-1/2">
                                         <a
-                                            className="icon-h-32px h-[92px]   border-b-[1px] border-[#E9EAEB] px-[16px] flex items-center justify-center"
+                                            className="h-[92px] border-b-[1px] border-[#E9EAEB] px-[16px] flex items-center justify-center"
                                             href="https://www.myhome.ge/ka/" target="_blank" rel="noreferrer">
-                                            <Image src='/icons/tnet/myparts.svg' alt='img'/>
+                                            <Image src='/icons/tnet/myparts.svg' alt='img' width={109} height={32}/>
                                         </a>
                                     </div>
                                     <div className="w-1/2 border-r-[1px] border-[#E9EAEB]">
                                         <a
-                                            className="icon-h-32px h-[92px]   border-b-[1px] border-[#E9EAEB] px-[16px] flex items-center justify-center"
+                                            className="h-[92px] border-b-[1px] border-[#E9EAEB] px-[16px] flex items-center justify-center"
                                             href="https://www.myhome.ge/ka/" target="_blank" rel="noreferrer">
-                                            <Image src='/icons/tnet/vendoo.svg' alt='img'/>
+                                            <Image src='/icons/tnet/vendoo.svg' alt='img' width={91} height={20}/>
                                         </a>
                                     </div>
                                     <div className="w-1/2">
                                         <a
-                                            className="icon-h-32px h-[92px]   border-b-[1px] border-[#E9EAEB] px-[16px] flex items-center justify-center"
+                                            className="h-[92px] border-b-[1px] border-[#E9EAEB] px-[16px] flex items-center justify-center"
                                             href="https://www.myhome.ge/ka/" target="_blank" rel="noreferrer">
-                                            <Image src='/icons/tnet/swoop.svg' alt='img'/>
+                                            <Image src='/icons/tnet/swoop.svg' alt='img' width={114} height={24}/>
                                         </a>
                                     </div>
                                     <div className="w-1/2 border-r-[1px] border-[#E9EAEB]">
                                         <a
-                                            className="icon-h-32px h-[92px]   border-b-[1px] border-[#E9EAEB] px-[16px] flex items-center justify-center"
+                                            className="h-[92px] border-b-[1px] border-[#E9EAEB] px-[16px] flex items-center justify-center"
                                             href="https://www.myhome.ge/ka/" target="_blank" rel="noreferrer">
-                                            <Image src='/icons/tnet/tkt.svg' alt='img'/>
+                                            <Image src='/icons/tnet/tkt.svg' alt='img' width={104} height={28}/>
                                         </a>
                                     </div>
                                     <div className="w-1/2">
                                         <a
-                                            className="icon-h-32px h-[92px]   border-b-[1px] border-[#E9EAEB] px-[16px] flex items-center justify-center"
+                                            className="h-[92px] border-b-[1px] border-[#E9EAEB] px-[16px] flex items-center justify-center"
                                             href="https://www.myhome.ge/ka/" target="_blank" rel="noreferrer">
-                                            <Image src='/icons/tnet/livo.svg' alt='img'/>
+                                            <Image src='/icons/tnet/livo.svg' alt='img' width={83} height={28}/>
                                         </a>
                                     </div>
                                     <div className="w-1/2 border-r-[1px] border-[#E9EAEB]">
                                         <a
-                                            className="icon-h-32px h-[92px]   border-b-[1px] border-[#E9EAEB] px-[16px] flex items-center justify-center"
+                                            className="h-[92px] border-b-[1px] border-[#E9EAEB] px-[16px] flex items-center justify-center"
                                             href="https://www.myhome.ge/ka/" target="_blank" rel="noreferrer">
                                             <Image src='/icons/tnet/saba.png' alt='img' height={32} width={69}/>
                                         </a>
                                     </div>
                                     <div className="w-1/2">
                                         <a
-                                            className="icon-h-32px h-[92px]   border-b-[1px] border-[#E9EAEB] px-[16px] flex items-center justify-center"
+                                            className="h-[92px] border-b-[1px] border-[#E9EAEB] px-[16px] flex items-center justify-center"
                                             href="https://www.myhome.ge/ka/" target="_blank" rel="noreferrer">
-                                            <Image src='/icons/tnet/myshop.svg' alt='img'/>
+                                            <Image src='/icons/tnet/myshop.svg' alt='img' width={104} height={18}/>
                                         </a>
                                     </div>
                                     <div className="w-full">
                                         <a
-                                            className="icon-h-32px h-[92px]   px-[16px] flex items-center justify-center"
+                                            className="h-[92px] px-[16px] flex items-center justify-center"
                                             href="https://www.myhome.ge/ka/" target="_blank" rel="noreferrer">
-                                            <Image src='/icons/tnet/super-app.svg' alt='img'/>
+                                            <Image src='/icons/tnet/super-app.svg' alt='img' width={110} height={34}/>
                                         </a>
                                     </div>
                                 </div>
