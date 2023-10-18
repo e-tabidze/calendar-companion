@@ -17,14 +17,18 @@ const DefaultHeader = () => {
   return (
     <InnerContainer>
       <Image src='/images/logo-rent.svg' onClick={onClickLogo} alt='logo' className='w-24 md:w-32 cursor-pointer' />
-      {/*<DefaultButton*/}
-      {/*  onClick={() =>*/}
-      {/*    router.push('https://test.auth.tnet.ge/ka/user/login/?Continue=https://test-front-rent.myauto.ge/')*/}
-      {/*  }*/}
-      {/*  text='AUTH'*/}
-      {/*/>*/}
       <div className="flex items-center">
           <User />
+          {/*TODO autharization btn*/}
+          {/*<button*/}
+          {/*    className="hidden md:flex h-[40px] rounded-[12px] items-center pl-[12px] pr-[16px] font-medium text-raisin-100 hover:bg-grey-100 hover:border-raisin-30 text-[12px] lg:text-[14px] border border-raisin-10 ml-[16px] cursor-pointer transition-all"*/}
+          {/*  onClick={() =>*/}
+          {/*    router.push('https://test.auth.tnet.ge/ka/user/login/?Continue=https://test-front-rent.myauto.ge/')*/}
+          {/*  }*/}
+          {/*>*/}
+          {/*    <Image src='/icons/auth.svg' alt='' width={22} height={22}/>*/}
+          {/*    შესვლა*/}
+          {/*</button>*/}
         <BurgerBtn/>
         <Tnet/>
         <TnetBtn/>

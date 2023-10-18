@@ -24,12 +24,21 @@ const NavigationBar = () => {
         </span></div>
                 </a></li>
                 <li><a href="https://www.myauto.ge/ka/mypage/myads">
-                    <div className="flex flex-col items-center text-[#686A73] "><span
+                    <div className="flex flex-col items-center text-[#686A73]"><span
                         className="w-[24px] h-[24px] relative flex items-center justify-center rounded-full overflow-hidden">
                         <Image src='/images/avatar.png' alt='' width={24} height={24} />
                     </span><span
                         className="text-[10px] mt-[4px]">პროფილი</span></div>
                 </a></li>
+                {/*TODO autharization btn*/}
+                {/*<li>*/}
+                {/*    <button*/}
+                {/*        className="flex flex-col items-center text-[#686A73] text-[10px]"*/}
+                {/*    >*/}
+                {/*        <Image src='/icons/auth.svg' alt='' width={24} height={24}/>*/}
+                {/*        შესვლა*/}
+                {/*    </button>*/}
+                {/*</li>*/}
             </ul>
         </div>
     )

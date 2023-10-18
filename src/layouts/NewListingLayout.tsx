@@ -1,10 +1,12 @@
-import { MaxWidthContainer, NewListingHeaderContainer } from 'src/styled/styles'
+import { MaxWidthContainer } from 'src/styled/styles'
 import { DefaultButton } from 'src/views/components/button'
-import Image from 'next/image'
 import ProgressBar from 'src/views/components/progressBar'
 import { useRouter } from 'next/router'
 import useWindowDimensions from 'src/hooks/useWindowDimensions'
 import NewListingSelect from 'src/views/components/newListingSelect'
+import HeaderWrapper from "src/views/components/headerWrapper";
+import {InnerContainer} from "../views/components/defaultHeader/styles";
+import Image from "../views/components/image";
 
 interface Props {
   children: any
@@ -39,14 +41,14 @@ const NewListingLayout: React.FC<Props> = ({
 
   return (
     <MaxWidthContainer>
-      <NewListingHeaderContainer style={{ position: 'sticky', maxWidth: "1470px" }}>
-        <div className='flex justify-between items-center py-3 px-2 relative'>
-          <Image src='/images/logo-rent.svg' alt='' onClick={onClickLogo} height={40} width={131} />
+      <HeaderWrapper fullWidth>
+        <InnerContainer>
+          <Image src='/images/logo-rent.svg' alt='' onClick={onClickLogo} className='w-24 md:w-32 cursor-pointer' />
           {width > 781 && renderNewListingSelect()}
           <Image src='/icons/close.svg' alt='' onClick={onClose} height={40} width={40} />
-        </div>
+        </InnerContainer>
         <ProgressBar color='green-100' progress={selectedOption.step / options.length} className='md:mt-2' />
-      </NewListingHeaderContainer>
+      </HeaderWrapper>
       {width < 780 && (
         <div className='w-full flex justify-center top-20 bg-white z-[111]' style={{ position: 'sticky' }}>
           {renderNewListingSelect()}
