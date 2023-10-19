@@ -35,8 +35,12 @@ interface Props {
   clearErrors?: any
   onComponentClick?: () => void
   value?: string
-  onChange?: (e: any) => void
+  handleChange?: (e: any) => void
   placeholder?: string
+  inputValue?: string
+  autocompleteOptions?: any
+  isLoading?: boolean
+  inputComponent?: any
 }
 
 export const DefaultInput: React.FC<Props> = ({
@@ -49,7 +53,7 @@ export const DefaultInput: React.FC<Props> = ({
   disabled = false,
   rows,
   className,
-  index,
+  index
 }) => {
   const [isFocused, setIsFocused] = useState(false)
   const InputComponent = rows ? 'textarea' : 'input'
@@ -66,11 +70,7 @@ export const DefaultInput: React.FC<Props> = ({
         rules={{ required: true }}
         render={({ field: { onChange, value } }) => (
           <>
-            <label
-              className={`absolute left-3 ${
-                isFocused || value ? 'text-sm text-raisin-50 top-[3px]' : 'hidden'
-              }`}
-            >
+            <label className={`absolute left-3 ${isFocused || value ? 'text-sm text-raisin-50 top-[3px]' : 'hidden'}`}>
               {label}
             </label>
             <InputComponent
@@ -79,9 +79,9 @@ export const DefaultInput: React.FC<Props> = ({
               onBlur={handleBlur}
               disabled={disabled}
               value={value || ''}
-              className={`${rows ? 'pt-4' : 'h-14'} ${styles.input} ${value || isFocused ? 'pb-1 pt-3' : 'pt-2 pb-2'} ${!disabled ? 'hover:border-raisin-30' : ''} ${
-                _.get(errors, name)?.ref.name === name ? 'border border-red-100' : ''
-              }`}
+              className={`${rows ? 'pt-4' : 'h-14'} ${styles.input} ${value || isFocused ? 'pb-1 pt-3' : 'pt-2 pb-2'} ${
+                !disabled ? 'hover:border-raisin-30' : ''
+              } ${_.get(errors, name)?.ref.name === name ? 'border border-red-100' : ''}`}
               type='text'
               onChange={e => {
                 onChange(e)
@@ -166,43 +166,74 @@ export const PasswordInput = ({ label, value, className, onChange, ...rest }: an
   )
 }
 
-export const InputWithComponent: React.FC<Props> = ({ label, className, onComponentClick, name, control }) => {
+export const InputWithComponent: React.FC<Props> = ({
+  label,
+  className,
+  onComponentClick,
+  name,
+  control,
+  autocompleteOptions,
+  isLoading
+}) => {
   const [isFocused, setIsFocused] = useState(false)
+
   const handleFocus = () => setIsFocused(true)
 
   const handleBlur = () => setIsFocused(false)
 
   return (
-    <InputContainer className={`${className} h-14 border border-raisin-10 rounded-xl px-3 py-2 flex items-center`}>
-      <Controller
-        name={name}
-        control={control}
-        render={({ field: { onChange, value } }) => (
-          <>
-            <label
-              className={`absolute left-3 ${
-                isFocused || value ? 'text-sm text-raisin-50 top-0' : 'text-2sm text-raisin-80 top-4'
-              }`}
-            >
-              {label}
-            </label>
-            <input
-              className='focus:border-none focus-visible:border-none focus-visible:outline-none focus-visible:ring-0 h-full w-full'
-              value={value}
-              onFocus={handleFocus}
-              onBlur={handleBlur}
-              type='text'
-              onChange={e => {
-                onChange(e)
-              }}
-            />
-          </>
-        )}
-      />
-      <div className='flex items-center gap-3 w-fit absolute h-full right-0 top-0 border-l border-raisin-10 px-5 cursor-pointer'>
-        <Image src='/icons/map.svg' alt='' height={24} width={24} onClick={onComponentClick} />
-        <Typography type='subtitle'>რუკაზე</Typography>
-      </div>
-    </InputContainer>
+    <>
+      <InputContainer className={`${className} h-14 border border-raisin-10 rounded-xl px-3 py-2 flex items-center`}>
+        <Controller
+          name={name}
+          control={control}
+          render={({ field: { onChange, value } }) => (
+            <>
+              <label
+                className={`absolute left-3 ${
+                  isFocused || value ? 'text-sm text-raisin-50 top-0' : 'text-2sm text-raisin-80 top-4'
+                }`}
+              >
+                {label}
+              </label>
+              <input
+                className='focus:border-none focus-visible:border-none focus-visible:outline-none focus-visible:ring-0 h-full w-full'
+                value={value}
+                onFocus={handleFocus}
+                onBlur={handleBlur}
+                type='text'
+                onChange={e => onChange(e)}
+              />
+
+              {value.length >= 3 && (
+                <ul className='absolute left-0 top-16 z-10 w-full border border-raisin-10 rounded-xl bg-white max-h-36 overflow-y-auto'>
+                  <>
+                    {isLoading ? (
+                      <>Loading</>
+                    ) : (
+                      <>
+                        {autocompleteOptions?.map((option: any, index: number) => (
+                          <li key={index} className='px-2 cursor-pointer hover:bg-grey-100'>
+                            {option.locations.map((item: any, index: number) => (
+                              <Typography type='body' key={index} className='p-1 inline'>
+                                {item}
+                              </Typography>
+                            ))}
+                          </li>
+                        ))}
+                      </>
+                    )}
+                  </>
+                </ul>
+              )}
+            </>
+          )}
+        />
+        <div className='flex items-center gap-3 w-fit absolute h-full right-0 top-0 border-l border-raisin-10 px-5 cursor-pointer'>
+          <Image src='/icons/map.svg' alt='' height={24} width={24} onClick={onComponentClick} />
+          <Typography type='subtitle'>რუკაზე</Typography>
+        </div>
+      </InputContainer>
+    </>
   )
 }

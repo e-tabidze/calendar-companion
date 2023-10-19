@@ -5,9 +5,10 @@ import PersonalInfo from 'src/views/pages/profile/personal-information'
 import CreateCompany from 'src/views/pages/profile/createCompany'
 import CardsAndTransactions from 'src/views/pages/profile/cardsAndTransactions'
 import Company from 'src/views/pages/profile/company'
-import useProfile from 'src/hooks/useProfile'
+import useProfile, { getUserInfo } from 'src/hooks/useProfile'
 import { UserInfo } from 'src/types/User'
 import ProfileLayout from 'src/layouts/ProfileLayout'
+import { dehydrate, QueryClient } from '@tanstack/query-core'
 
 const routes = [
   {
@@ -56,12 +57,14 @@ const ProfileRouter = ({ userInfo }: { userInfo: UserInfo }) => {
     key = router.query?.link[0]
   }
 
-  if (router.query.link?.length == 2) {
-    key = 'profile'
-  }
+  // if (router.query.link?.length == 2) {
+  //   key = 'profile'
+  // }
+
+  console.log(key, '<= key')
 
   switch (key) {
-    case 'orders':
+    case 'orders' || '':
       return <Orders />
     case 'favourites':
       return <Favourites />
@@ -74,15 +77,15 @@ const ProfileRouter = ({ userInfo }: { userInfo: UserInfo }) => {
     case 'create-company':
       return <CreateCompany />
     default:
-      return <></>
+      return <Orders />
   }
 }
 
 const Profile = () => {
-  const { userInfo, router, userCompanies, isCompaniesLoading } = useProfile()
+  const { userInfo, router } = useProfile()
 
   const companyRoutes =
-    userCompanies?.map((company: any, index: number) => ({
+    userInfo?.companies?.map((company: any, index: number) => ({
       id: 8 + company?.id,
       icon: '',
       item: company?.information.name,
@@ -100,19 +103,37 @@ const Profile = () => {
     }
   ]
 
-  console.log(companyRoutes, 'companyRoutes')
-
   return (
     <>
       {router.asPath === '/profile/create-company/' ? (
         <CreateCompany />
       ) : (
-        <ProfileLayout routes={isCompaniesLoading ? routes : allRoutes} dividerIndexes={[2, 4,]}>
+        <ProfileLayout routes={allRoutes} dividerIndexes={[2, 4]}>
           <ProfileRouter userInfo={userInfo} />
         </ProfileLayout>
       )}
     </>
   )
+}
+
+const queryClient = new QueryClient()
+
+export async function getServerSideProps() {
+  try {
+    await queryClient.prefetchQuery({
+      queryKey: ['userInfo'],
+      queryFn: () => getUserInfo(),
+      staleTime: Infinity
+    })
+
+    return {
+      props: {
+        dehydratedState: dehydrate(queryClient)
+      }
+    }
+  } catch (e) {
+    return { notFound: true }
+  }
 }
 
 export default Profile

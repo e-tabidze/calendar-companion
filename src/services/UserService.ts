@@ -5,10 +5,6 @@ class UserService extends HttpService {
     return this.get('/user', {}, AccessToken ? { Authorization: `${AccessToken}` } : {})
   }
 
-  getUserCompanies(AccessToken = '') {
-    return this.get('/companies', {}, AccessToken ? { Authorization: `${AccessToken}` } : {})
-  }
-
   updateUserInfo(AccessToken = '', userInfo: any) {
     return this.post('/user-informations', userInfo, AccessToken ? { Authorization: `${AccessToken}` } : {})
   }

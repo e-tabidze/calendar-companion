@@ -79,7 +79,7 @@ const ProfileRouter = () => {
     case 'sign-out':
       return <div>Sign Out</div>
     default:
-      return <></>
+      return <CompanyDashboard />
   }
 }
 

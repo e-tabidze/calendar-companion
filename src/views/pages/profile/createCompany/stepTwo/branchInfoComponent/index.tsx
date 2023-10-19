@@ -1,8 +1,10 @@
+import { useQuery } from '@tanstack/react-query'
 import React from 'react'
 import { Controller, useWatch } from 'react-hook-form'
 import { DefaultInput, InputWithComponent } from 'src/views/components/input'
 import RoundedTag from 'src/views/components/roundedTag'
 import SwitchField from 'src/views/components/switchField'
+import useCreateCompany from '../../useCreateCompany'
 import TimeRangeComponent from '../timeRangeComponent'
 
 const days = [
@@ -24,8 +26,24 @@ interface Props {
 }
 
 const BranchInfoComponent: React.FC<Props> = ({ index, control, errors }) => {
+  const { getLocationSuggestions } = useCreateCompany()
 
   const formState = useWatch({ control })
+
+  const {
+    data: locationSuggestions,
+    isLoading,
+    isError,
+    error
+  } = useQuery(
+    ['locationSuggestions', formState?.addresses[index]?.address],
+    () => getLocationSuggestions(formState?.addresses[index]?.address),
+    {
+      enabled: formState?.addresses[index]?.address.length >= 3
+    }
+  )
+
+  console.log(locationSuggestions?.result?.data, 'locationSuggestions')
 
   const renderDaysSelector = (day: any) => (
     <Controller
@@ -54,6 +72,15 @@ const BranchInfoComponent: React.FC<Props> = ({ index, control, errors }) => {
 
   const renderTimeRangeComponent = (day: string) => <TimeRangeComponent index={index} control={control} day={day} />
 
+  const autocompleteOptions = [
+    { id: 1, name: 'Wade Cooper' },
+    { id: 2, name: 'Arlene Mccoy' },
+    { id: 3, name: 'Devon Webb' },
+    { id: 4, name: 'Tom Cook' },
+    { id: 5, name: 'Tanya Fox' },
+    { id: 6, name: 'Hellen Schmidt' }
+  ]
+
   return (
     <div className='mb-6 md:border md:border-raisin-10 rounded-3xl md:py-10 md:px-9 grid grid-cols-1 gap-7'>
       <div className='w-full grid grid-cols-1 lg:grid-cols-3 gap-4'>
@@ -62,13 +89,11 @@ const BranchInfoComponent: React.FC<Props> = ({ index, control, errors }) => {
           name={`addresses.${index}.address`}
           control={control}
           className='lg:col-span-2'
+          autocompleteOptions={locationSuggestions?.result?.data}
+          isLoading={isLoading}
         />
-        <DefaultInput
-          label='ტელეფონი'
-          name={`addresses.${index}.phone`}
-          control={control}
-          errors={errors}
-        />
+
+        <DefaultInput label='ტელეფონი' name={`addresses.${index}.phone`} control={control} errors={errors} />
       </div>
 
       <SwitchField

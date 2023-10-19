@@ -27,7 +27,8 @@ const ProfileNavigation: React.FC<Props> = ({
   selectedRoute,
   dividerIndexes
 }) => {
-  const { isCompaniesLoading } = useProfile()
+  const { userInfo } = useProfile()
+
   return (
     <div
       className={`h-fit w-full mx-4 lg:mx-4 lg:w-fit border border-raisin-10 rounded-3xl p-6 ${
@@ -40,7 +41,7 @@ const ProfileNavigation: React.FC<Props> = ({
         <div className='flex items-center gap-5'>
           <Image src='/images/avatar.png' alt='' className='rounded-full' width={48} height={48} />
           <Typography type='h5' weight='medium' className={`${sidebarCollapsed ? 'hidden' : 'inline-block'}`}>
-            ბენე ექსკლუზივი
+            {userInfo?.information?.first_name} {userInfo?.information?.last_name}
           </Typography>
         </div>
         <div
@@ -71,7 +72,7 @@ const ProfileNavigation: React.FC<Props> = ({
                     selectedRoute.path.split('/')[2] === route.path.split('/')[2] ? 'text-orange-100' : ''
                   }'`}
                 >
-                  {isCompaniesLoading ? <>Loading</> : route.item}
+                  {route.item}
                 </Typography>
               )}
             </div>
