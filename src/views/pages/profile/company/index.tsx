@@ -8,7 +8,11 @@ import { DefaultInput } from 'src/views/components/input'
 import Typography from 'src/views/components/typography'
 import AddressAndSchedule from './addressAndSchedule'
 
-const Company = () => {
+interface Props {
+  companyName?: string
+}
+
+const Company: React.FC<Props> = ({ companyName }) => {
   const [scheduleComponents, setScheduleComponents] = useState<any>([<AddressAndSchedule key={Math.random()} />])
 
   const addComponent = () => {

@@ -53,12 +53,20 @@ const ProfileRouter = ({ userInfo }: { userInfo: UserInfo }) => {
   const router = useRouter()
   let key = ''
 
+  console.log(router, 'router')
+
   if (router.query.link?.length) {
+    console.log(router.query, '<= query')
     key = router.query?.link[0]
   }
 
   // if (router.query.link?.length == 2) {
   //   key = 'profile'
+  // }
+
+  // if (key.startsWith('company/')) {
+  //   const companyName = key.split('/')[1]
+  //   return <CompanyPage />
   // }
 
   console.log(key, '<= key')

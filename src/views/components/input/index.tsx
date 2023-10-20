@@ -38,9 +38,6 @@ interface Props {
   handleChange?: (e: any) => void
   placeholder?: string
   inputValue?: string
-  autocompleteOptions?: any
-  isLoading?: boolean
-  inputComponent?: any
 }
 
 export const DefaultInput: React.FC<Props> = ({
@@ -166,15 +163,7 @@ export const PasswordInput = ({ label, value, className, onChange, ...rest }: an
   )
 }
 
-export const InputWithComponent: React.FC<Props> = ({
-  label,
-  className,
-  onComponentClick,
-  name,
-  control,
-  autocompleteOptions,
-  isLoading
-}) => {
+export const InputWithComponent: React.FC<Props> = ({ label, className, onComponentClick, name, control }) => {
   const [isFocused, setIsFocused] = useState(false)
 
   const handleFocus = () => setIsFocused(true)
@@ -204,28 +193,6 @@ export const InputWithComponent: React.FC<Props> = ({
                 type='text'
                 onChange={e => onChange(e)}
               />
-
-              {value.length >= 3 && (
-                <ul className='absolute left-0 top-16 z-10 w-full border border-raisin-10 rounded-xl bg-white max-h-36 overflow-y-auto'>
-                  <>
-                    {isLoading ? (
-                      <>Loading</>
-                    ) : (
-                      <>
-                        {autocompleteOptions?.map((option: any, index: number) => (
-                          <li key={index} className='px-2 cursor-pointer hover:bg-grey-100'>
-                            {option.locations.map((item: any, index: number) => (
-                              <Typography type='body' key={index} className='p-1 inline'>
-                                {item}
-                              </Typography>
-                            ))}
-                          </li>
-                        ))}
-                      </>
-                    )}
-                  </>
-                </ul>
-              )}
             </>
           )}
         />

@@ -5,7 +5,7 @@ import { DefaultButton, IconButton } from 'src/views/components/button'
 import { Divider } from '../../favorites/listComponent/styles'
 import RoundedTag from 'src/views/components/roundedTag'
 import SwitchField from 'src/views/components/switchField'
-import TimeRangeComponent from '../../createCompany/stepTwo/timeRangeComponent'
+import TimeRangeComponent from '../../createCompany/stepTwo/branchInfoComponent/timeRangeComponent'
 import { useForm } from 'react-hook-form'
 
 const days = [
