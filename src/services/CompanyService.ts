@@ -17,6 +17,10 @@ class CompanyService extends HttpService {
   postCompanyServices(service: NewService, AccessToken = '') {
     return this.post('/company-services', service, AccessToken ? { Authorization: `${AccessToken}` } : {})
   }
+
+  getCompanyBranches(AccessToken = '', company_id: number) {
+    return this.get(`/company-branches/${company_id}`, AccessToken ? { Authorization: `${AccessToken}` } : {})
+  }
 }
 
 export default new CompanyService()

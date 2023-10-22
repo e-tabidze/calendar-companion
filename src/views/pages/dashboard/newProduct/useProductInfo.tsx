@@ -30,6 +30,13 @@ const useProductInfo = (step?: number | undefined) => {
     enabled: step === 4
   })
 
+  const useCompanyBranches: any = useQuery({
+    queryKey: ['companyBranches'],
+    queryFn: () => getCompanyBranches(),
+    staleTime: Infinity,
+    enabled: true
+  })
+
   const productDetails = useProductDetails?.data?.result?.data
 
   const manufacturers = useManufacturers?.data?.result?.data
@@ -37,6 +44,8 @@ const useProductInfo = (step?: number | undefined) => {
   const additionalParams = useAdditionalParams?.data?.result?.data
 
   const companyServices = useCompanyServices?.data?.result?.data
+
+  const companyBranches = useCompanyBranches?.data?.result?.data
 
   return {
     productDetails,
@@ -46,7 +55,8 @@ const useProductInfo = (step?: number | undefined) => {
     isProductDetailsLoading: useProductDetails.isLoading,
     isManufacturersLoading: useManufacturers.isLoading,
     isAdditionalParamsLoading: useAdditionalParams.isLoading,
-    isCompanyServicesLoading: useCompanyServices.isLoading
+    isCompanyServicesLoading: useCompanyServices.isLoading,
+    companyBranches
   }
 }
 
@@ -96,9 +106,20 @@ export const getAdditionalParams = async (accessToken = '') => {
   }
 }
 
-export const getCompanyServices = async (accessToken = '', company_id = 102) => {
+export const getCompanyServices = async (accessToken = '', company_id = 112) => {
   try {
     const response: any = await CompanyService.getCompanyServices(accessToken, company_id)
+
+    return response.data
+  } catch (error) {
+    console.error(error)
+    throw error
+  }
+}
+
+export const getCompanyBranches = async (accessToken = '', company_id = 112) => {
+  try {
+    const response: any = await CompanyService.getCompanyBranches(accessToken, company_id)
 
     return response.data
   } catch (error) {

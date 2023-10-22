@@ -33,7 +33,9 @@ const useNewProduct = () => {
       has_min_period: false,
       time_interval: 'კვირა',
       time_span: 1
-    }
+    },
+    start_city: '',
+    end_city: ''
   }
   useEffect(() => {
     if (companyServices) {
