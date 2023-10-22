@@ -93,7 +93,7 @@ const Profile = () => {
   const { userInfo, router } = useProfile()
 
   const companyRoutes =
-    userInfo?.companies?.map((company: any, index: number) => ({
+    userInfo?.companies?.map((company: any) => ({
       id: 8 + company?.id,
       icon: '',
       item: company?.information.name,

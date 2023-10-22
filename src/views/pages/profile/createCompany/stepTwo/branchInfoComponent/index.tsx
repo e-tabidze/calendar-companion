@@ -7,8 +7,6 @@ import SwitchField from 'src/views/components/switchField'
 import useCreateCompany from '../../useCreateCompany'
 import LocationSuggestions from './locationSuggestions'
 import TimeRangeComponent from './timeRangeComponent'
-import { Fragment, useState } from 'react'
-import { Combobox, Transition } from '@headlessui/react'
 
 const days = [
   { label: 'ორშ', value: 'monday' },
@@ -34,12 +32,7 @@ const BranchInfoComponent: React.FC<Props> = ({ index, control, errors, setValue
 
   const formState = useWatch({ control })
 
-  const {
-    data: locationSuggestions,
-    isLoading,
-    isError,
-    error
-  } = useQuery(
+  const { data: locationSuggestions, isLoading } = useQuery(
     ['locationSuggestions', formState?.addresses[index]?.address],
     () => getLocationSuggestions(formState?.addresses[index]?.address),
     {

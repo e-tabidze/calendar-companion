@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react'
 import Typography from 'src/views/components/typography'
-import { Combobox, Transition } from '@headlessui/react'
+import { Transition } from '@headlessui/react'
 
 interface Props {
   options: any
@@ -16,7 +16,7 @@ const LocationSuggestions: React.FC<Props> = ({ options, isLoading, onClick }) =
           <>Loading</>
         ) : (
           <>
-            {options.map((option: any, optionIndex: number) => (
+            {options.map((option: any) => (
               <li
                 key={`${option?.locations}`}
                 className='px-2 cursor-pointer hover-bg-grey-100'

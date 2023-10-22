@@ -12,7 +12,7 @@ interface Props {
   companyName?: string
 }
 
-const Company: React.FC<Props> = ({ companyName }) => {
+const Company: React.FC<Props> = () => {
   const [scheduleComponents, setScheduleComponents] = useState<any>([<AddressAndSchedule key={Math.random()} />])
 
   const addComponent = () => {

@@ -1,15 +1,8 @@
 // ** Redux Imports
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'
 
 // ** Service Imports
-import { Dispatch } from 'redux'
 import STATUSES from 'src/configs/loadingStatuses'
-import CompanyService from 'src/services/CompanyService'
-
-interface Redux {
-  getState: any
-  dispatch: Dispatch<any>
-}
 
 export const appCompaniesSlice = createSlice({
   name: 'appCompanies',

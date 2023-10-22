@@ -91,6 +91,7 @@ const useCreateCompany = () => {
   const getLocationSuggestions = async (address: string) => {
     try {
       const response: any = await locationService.getLocationSuggestions(address)
+      
       return response.data
     } catch (error) {
       console.error('Error fetching location suggestions:', error)

@@ -102,6 +102,7 @@ const NewProduct: React.FC = () => {
   }
 
   return (
+    
     // @ts-ignore
     <FormProvider {...control}>
       <NewListingLayout

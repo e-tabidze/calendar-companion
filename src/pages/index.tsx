@@ -1,5 +1,3 @@
-// ** Interfaces
-import { useEffect } from 'react'
 import { TailwindDiv } from 'src/interfaces/tailwind'
 import DefaultLayout from 'src/layouts/DefaultLayout'
 import { LargeContainer, ContentContainer, ResponsiveContainer } from 'src/styled/styles'
@@ -13,7 +11,6 @@ import Cookie from 'src/helpers/Cookie'
 
 // ** Tailwind Styled
 import tw from 'tailwind-styled-components'
-import { useDispatch } from 'react-redux'
 
 // ** Styled Components
 const MainPageBox = tw.div<TailwindDiv>`flex w-full items-center flex-col`
@@ -35,8 +32,6 @@ const productArray = [
 
 const MainPage = () => {
   // await dispatch(({ AccessToken: Cookie.get('AccessToken') }))
-
-  const dispatch = useDispatch()
 
   console.log({ AccessToken: Cookie.get('AccessToken') }, 'accesstoken')
 
