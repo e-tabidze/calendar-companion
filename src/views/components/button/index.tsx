@@ -53,11 +53,11 @@ export const IconButton = ({
 export const IconTextButton = ({ label, icon, bg, className, onClick, labelClassname }: any) => {
   return (
     <button
-      className={`flex gap-2 focus:outline-none rounded-2xl ${bg} ${bg ? 'p-4' : ''} ${className}`}
+      className={`ml-8 flex items-center focus:outline-none rounded-2xl ${bg} ${bg ? 'p-4' : ''} ${className}`}
       onClick={onClick}
       type='button'
     >
-      <img src={icon} className='max-w-none' alt='img' /> <span className={`${labelClassname} text-2sm`}>{label}</span>
+      <img src={icon} className='max-w-none mr-3' alt='img' /> <span className={`${labelClassname} text-2sm`}>{label}</span>
     </button>
   )
 }

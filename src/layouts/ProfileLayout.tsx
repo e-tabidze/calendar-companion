@@ -35,7 +35,7 @@ const ProfileLayout: React.FC<Props> = ({ routes, dividerIndexes, children }) =>
   const toggleSidebarCollapse = () => setSidebarCollapsed(!sidebarCollapsed)
 
   return (
-    <main>
+    <main className="pb-20 lg:pb-0">
       <HeaderWrapper fullWidth>
         <DefaultHeader />
       </HeaderWrapper>
@@ -49,7 +49,7 @@ const ProfileLayout: React.FC<Props> = ({ routes, dividerIndexes, children }) =>
           selectedRoute={selectedRoute}
           dividerIndexes={dividerIndexes}
         />
-        <div className={`w-full z-[11] ${isSidebarVisible ? 'hidden' : 'block'} lg:block`}>{children}</div>
+        <div className="transition-all duration-300 w-full z-[11]">{children}</div>
       </div>
     </main>
   )

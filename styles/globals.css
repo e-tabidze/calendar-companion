@@ -10,6 +10,11 @@
     url('/fonts/tbc/TBCXLight.woff') format('woff'), url('/fonts/tbc/TBCXLight.woff2') format('woff2');
 }
 
+* {
+  outline: none;
+}
+
+
 /* Date Picek */
 .react-datepicker {
   border: none !important;
