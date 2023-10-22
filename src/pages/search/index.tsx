@@ -164,7 +164,7 @@ const SearchPage = () => {
             </div>
           </SearchContentsContainer>
           <MapContainer
-              className={`absolute z-[111] lg:z-[1] top-[197px] md:top-[153px] lg:top-[0] w-full left-0 lg:fixed lg:right-0 lg:left-auto lg:top-0 overflow-hidden transition-all duration-300 ${
+              className={`absolute z-[11] lg:z-[1] top-[197px] md:top-[153px] lg:top-[0] w-full left-0 lg:fixed lg:right-0 lg:left-auto lg:top-0 overflow-hidden transition-all duration-300 ${
                   mapVisible ? 'h-[100vh] lg:w-1/2' : 'h-0 lg:h-[100vh] lg:w-[40px]'
               }`}
           >

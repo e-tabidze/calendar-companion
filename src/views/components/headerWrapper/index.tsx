@@ -12,8 +12,9 @@ interface Props {
 const HeaderWrapper = ({fixedHeader, fullWidth, children}: Props) => {
     return (
         <HeaderContainer
-            className={`${fixedHeader?'fixed z-[111]':'sticky'} ${fullWidth?'w-full px-5 md:px-10':'max-w-[1470px] px-5 lg:px-8 2xl:px-0'}`}>
-            {children}
+            className={`${fixedHeader?'fixed z-[111]':'sticky'} ${fullWidth?'px-5 md:px-10':'px-5 lg:px-8 2xl:px-0'}`}>
+
+            <div className={`${fullWidth?'w-full':'max-w-[1470px] mx-auto'}`}>{children}</div>
         </HeaderContainer>
     )
 }
