@@ -33,7 +33,7 @@ const useNewProduct = () => {
     company_id: 102,
     apply_discount: false,
     discount: [discount_item],
-    additional_options: [{}],
+    additional_options: [] as any[],
     identification_number: '123456789',
     company_services: [] as any[],
     any_period: true,
