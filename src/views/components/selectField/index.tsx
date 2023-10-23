@@ -114,7 +114,7 @@ const SelectField: React.FC<Props> = ({
               options={options}
               value={options?.find(opt => (valueKey ? opt[valueKey] === value || '' : opt.value === value || ''))}
               onChange={(e: any) => {
-                onChange(valueKey ? e[valueKey] : e.value || '')
+                onChange(valueKey ? e[valueKey] : e?.value || '')
               }}
               getOptionLabel={labelKey ? option => option.title : undefined}
               components={{
