@@ -7,29 +7,35 @@ import useProductInfo from './useProductInfo'
 import { useEffect } from 'react'
 
 const useNewProduct = () => {
-  const { companyServices } = useProductInfo()
+  // const { companyServices } = useProductInfo()
 
-  const services = companyServices?.map((service: any) => ({
-    id: service.id,
-    price: '',
-    currency: '',
-    quantity: ''
-  }))
+  // const services = companyServices?.map((service: any) => ({
+  //   id: service.id,
+  //   price: '',
+  //   currency: '',
+  //   quantity: ''
+  // }))
+
+  // const serviceItem = {
+  //   id: null,
+  //   price: '',
+  //   currency: '',
+  //   quantity: ''
+  // }
+
   const discount_item = {
     number: 1,
     period: 'დღე',
     discount_percent: ''
   }
 
-  console.log(companyServices, 'companyServices')
-
   const newProductDefaultValues = {
     company_id: 102,
     apply_discount: false,
     discount: [discount_item],
-    additional_options: [],
+    additional_options: [{}],
     identification_number: '123456789',
-    company_services: [],
+    company_services: [] as any[],
     any_period: true,
     min_period: {
       has_min_period: false,
@@ -39,11 +45,11 @@ const useNewProduct = () => {
     start_city: '',
     end_city: ''
   }
-  useEffect(() => {
-    if (companyServices) {
-      setValue('company_services', services)
-    }
-  }, [companyServices])
+  // useEffect(() => {
+  //   if (companyServices) {
+  //     setValue('company_services', services)
+  //   }
+  // }, [companyServices])
 
   const {
     control,
@@ -64,9 +70,12 @@ const useNewProduct = () => {
 
   const { fields: additionalParams, append: appendAdditionalParam } = useFieldArray({
     control,
-
-    // @ts-ignore
     name: 'additional_options'
+  })
+
+  const { fields: serviceItems, append: appendServiceItem } = useFieldArray({
+    control,
+    name: 'company_services'
   })
 
   const {
@@ -109,7 +118,9 @@ const useNewProduct = () => {
     appendDiscountItem,
     discount_item,
     remove,
-    createNewProduct
+    createNewProduct,
+    serviceItems,
+    appendServiceItem
   }
 }
 

@@ -77,7 +77,7 @@ const StepThree: React.FC<Props> = ({ control, discountItems, appendDiscountItem
         <DiscountComponentWrapper>
           {discountItems.map((component: ReactElement<any, string | JSXElementConstructor<any>>, index: number) => (
             <DiscountInputsWrapper key={index}>
-              <DiscountComponent index={index} options={options} control={control} name={`discount.${index}`} />
+              <DiscountComponent index={index} options={options} control={control} name={`discount.${index}`} errors={errors} />
               {index > 0 && (
                 <IconTextButton
                   label={width > 779 ? 'წაშლა' : ''}

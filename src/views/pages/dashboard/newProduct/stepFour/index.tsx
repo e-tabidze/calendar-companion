@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useWatch } from 'react-hook-form'
 import { NewService } from 'src/types/Product'
 import { IconTextButton } from 'src/views/components/button'
+import CheckboxField from 'src/views/components/checkboxField'
 import Divider from 'src/views/components/divider'
 import SwitchField from 'src/views/components/switchField'
 import Typography from 'src/views/components/typography'
@@ -12,10 +13,12 @@ import ServiceDetails from './serviceDetails'
 interface Props {
   control: any
   step: number
+  appendServiceItem: any
+  setValue?: any
 }
 
-const StepFour: React.FC<Props> = ({ control, step }) => {
-  const { companyServices } = useProductInfo(step)
+const StepFour: React.FC<Props> = ({ control, step, appendServiceItem, setValue }) => {
+  const { companyServices, isCompanyServicesLoading } = useProductInfo(step)
   const [newServiceModal, setNewServiceModal] = useState(false)
 
   const handleNewServiceModal = () => setNewServiceModal(!newServiceModal)
@@ -48,6 +51,8 @@ const StepFour: React.FC<Props> = ({ control, step }) => {
     }
   }
 
+  console.log(companyServices, 'companyServices')
+
   return (
     <>
       <div>
@@ -61,21 +66,26 @@ const StepFour: React.FC<Props> = ({ control, step }) => {
           სერვისების ჩამონათვალი
         </Typography>
         <div className='mt-14'>
-          {companyServices?.map((service: NewService, index: number) => (
-            <div key={service?.id}>
-              <SwitchField
-                label={service.title}
-                className='my-8'
-                description={service.description}
-                control={control}
-                name={`company_services.${index}`}
-                defaultValue={false}
-                key={service.id}
-              />
-              {formState.company_services[index] && renderServiceDetails(service, index)}
-              <Divider />
-            </div>
-          ))}
+          {isCompanyServicesLoading ? (
+            <>Loading...</>
+          ) : (
+            <>
+              {companyServices?.map((service: NewService, index: number) => (
+                <div key={index}>
+                  <SwitchField
+                    label={service.title}
+                    className='my-8'
+                    description={service.description}
+                    control={control}
+                    name={`company_services.${index}`}
+                    append={() => appendServiceItem({ id: service.id, price: '', currency: '', quantity: '' })}
+                  />
+                  {formState.company_services[index] && renderServiceDetails(service, index)}
+                  <Divider />
+                </div>
+              ))}
+            </>
+          )}
         </div>
       </div>
       <NewServiceModal open={newServiceModal} onClose={handleNewServiceModal} />

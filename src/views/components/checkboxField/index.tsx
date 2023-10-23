@@ -7,7 +7,7 @@ interface Props {
   iconPath?: string
   name: string
   control: any
-  append?: any
+  append?: () => void
   title: string
 }
 

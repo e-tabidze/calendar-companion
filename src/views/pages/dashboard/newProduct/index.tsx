@@ -44,7 +44,8 @@ const NewProduct: React.FC = () => {
     remove,
     createNewProduct,
     setValue,
-    errors
+    errors,
+    appendServiceItem,
   } = useNewProduct()
 
   const handleGoNextStep = () => {
@@ -71,7 +72,6 @@ const NewProduct: React.FC = () => {
 
   console.log(productValues, 'productValues')
 
-
   const renderStepComponent = () => {
     switch (step.step) {
       case 1:
@@ -89,7 +89,7 @@ const NewProduct: React.FC = () => {
           />
         )
       case 4:
-        return <StepFour control={control} step={step.step} />
+        return <StepFour control={control} step={step.step} appendServiceItem={appendServiceItem} setValue={setValue} />
       case 5:
         return <StepFive control={control} setValue={setValue} />
       case 6:
@@ -102,7 +102,6 @@ const NewProduct: React.FC = () => {
   }
 
   return (
-    
     // @ts-ignore
     <FormProvider {...control}>
       <NewListingLayout
