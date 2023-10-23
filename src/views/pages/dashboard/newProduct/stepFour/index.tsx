@@ -2,7 +2,6 @@ import { useState } from 'react'
 import { useWatch } from 'react-hook-form'
 import { NewService } from 'src/types/Product'
 import { IconTextButton } from 'src/views/components/button'
-import CheckboxField from 'src/views/components/checkboxField'
 import Divider from 'src/views/components/divider'
 import SwitchField from 'src/views/components/switchField'
 import Typography from 'src/views/components/typography'
@@ -13,11 +12,9 @@ import ServiceDetails from './serviceDetails'
 interface Props {
   control: any
   step: number
-  appendServiceItem: any
-  setValue?: any
 }
 
-const StepFour: React.FC<Props> = ({ control, step, appendServiceItem, setValue }) => {
+const StepFour: React.FC<Props> = ({ control, step }) => {
   const { companyServices, isCompanyServicesLoading } = useProductInfo(step)
   const [newServiceModal, setNewServiceModal] = useState(false)
 
@@ -51,8 +48,6 @@ const StepFour: React.FC<Props> = ({ control, step, appendServiceItem, setValue 
     }
   }
 
-  console.log(companyServices, 'companyServices')
-
   return (
     <>
       <div>
@@ -77,10 +72,9 @@ const StepFour: React.FC<Props> = ({ control, step, appendServiceItem, setValue 
                     className='my-8'
                     description={service.description}
                     control={control}
-                    name={`company_services.${index}`}
-                    append={() => appendServiceItem({ id: service.id, price: '', currency: '', quantity: '' })}
+                    name={`company_services.${index}.isSelected`}
                   />
-                  {formState.company_services[index] && renderServiceDetails(service, index)}
+                  {formState.company_services[index]?.isSelected && renderServiceDetails(service, index)}
                   <Divider />
                 </div>
               ))}

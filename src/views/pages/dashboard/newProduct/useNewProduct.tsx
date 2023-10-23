@@ -7,21 +7,15 @@ import useProductInfo from './useProductInfo'
 import { useEffect } from 'react'
 
 const useNewProduct = () => {
-  // const { companyServices } = useProductInfo()
+  const { companyServices } = useProductInfo()
 
-  // const services = companyServices?.map((service: any) => ({
-  //   id: service.id,
-  //   price: '',
-  //   currency: '',
-  //   quantity: ''
-  // }))
-
-  // const serviceItem = {
-  //   id: null,
-  //   price: '',
-  //   currency: '',
-  //   quantity: ''
-  // }
+  const services = companyServices?.map((service: any) => ({
+    id: service.id,
+    price: '',
+    currency: '',
+    quantity: '',
+    isSelected: false
+  }))
 
   const discount_item = {
     number: 1,
@@ -35,7 +29,7 @@ const useNewProduct = () => {
     discount: [discount_item],
     additional_options: [] as any[],
     identification_number: '123456789',
-    company_services: [] as any[],
+    company_services: [services],
     any_period: true,
     min_period: {
       has_min_period: false,
@@ -45,11 +39,11 @@ const useNewProduct = () => {
     start_city: '',
     end_city: ''
   }
-  // useEffect(() => {
-  //   if (companyServices) {
-  //     setValue('company_services', services)
-  //   }
-  // }, [companyServices])
+  useEffect(() => {
+    if (companyServices) {
+      setValue('company_services', services)
+    }
+  }, [companyServices])
 
   const {
     control,
@@ -73,15 +67,10 @@ const useNewProduct = () => {
     name: 'additional_options'
   })
 
-  const { fields: serviceItems, append: appendServiceItem } = useFieldArray({
-    control,
-    name: 'company_services'
-  })
-
   const {
     fields: discountItems,
     append: appendDiscountItem,
-    remove
+    remove: removeDiscountItem
   } = useFieldArray({
     control,
     name: 'discount'
@@ -117,10 +106,8 @@ const useNewProduct = () => {
     discountItems,
     appendDiscountItem,
     discount_item,
-    remove,
-    createNewProduct,
-    serviceItems,
-    appendServiceItem
+    removeDiscountItem,
+    createNewProduct
   }
 }
 

@@ -8,9 +8,8 @@ interface Props {
   name: string
   control: any
   defaultValue?: any
-  append?: () => void
 }
-const SwitchField: React.FC<Props> = ({ label, className, description, control, name, defaultValue, append }) => {
+const SwitchField: React.FC<Props> = ({ label, className, description, control, name, defaultValue }) => {
   return (
     <div className={`flex justify-between items-center w-full ${className}`}>
       <div>
@@ -23,7 +22,7 @@ const SwitchField: React.FC<Props> = ({ label, className, description, control, 
           </Typography>
         )}
       </div>
-      <Switcher height='h-8' name={name} control={control} defaultValue={defaultValue} append={append} />
+      <Switcher height='h-8' name={name} control={control} defaultValue={defaultValue} />
     </div>
   )
 }

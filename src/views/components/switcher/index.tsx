@@ -5,9 +5,8 @@ interface Props {
   name: string
   control: any
   defaultValue?: boolean
-  append?: () => void
 }
-const Switcher: React.FC<Props> = ({ height, name, control, defaultValue, append }) => {
+const Switcher: React.FC<Props> = ({ height, name, control, defaultValue }) => {
   return (
     <Controller
       name={name}
@@ -15,18 +14,12 @@ const Switcher: React.FC<Props> = ({ height, name, control, defaultValue, append
       defaultValue={defaultValue}
       render={({ field: { onChange, value } }) => (
         <label className='relative inline-flex items-center cursor-pointer'>
-          <>{console.log(value, '<== value')}</>
           <input
-            checked={value}
+            checked={!!value}
             type='checkbox'
             value={value}
             className='sr-only peer'
-            onChange={() => {
-              if (append) {
-                append()
-              }
-              onChange(!value)
-            }}
+            onChange={() => onChange(!value)}
           />
 
           <div

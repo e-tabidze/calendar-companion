@@ -41,11 +41,10 @@ const NewProduct: React.FC = () => {
     appendAdditionalParam,
     discountItems,
     appendDiscountItem,
-    remove,
+    removeDiscountItem,
     createNewProduct,
     setValue,
-    errors,
-    appendServiceItem,
+    errors
   } = useNewProduct()
 
   const handleGoNextStep = () => {
@@ -84,12 +83,12 @@ const NewProduct: React.FC = () => {
             control={control}
             discountItems={discountItems}
             appendDiscountItem={appendDiscountItem}
-            remove={remove}
+            remove={removeDiscountItem}
             errors={errors}
           />
         )
       case 4:
-        return <StepFour control={control} step={step.step} appendServiceItem={appendServiceItem} setValue={setValue} />
+        return <StepFour control={control} step={step.step} />
       case 5:
         return <StepFive control={control} setValue={setValue} />
       case 6:
