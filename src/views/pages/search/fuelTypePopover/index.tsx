@@ -8,23 +8,23 @@ import { useForm } from 'react-hook-form'
 const fuelType = [
   {
     id: 1,
-    label: 'ელექტრო'
+    title: 'ელექტრო'
   },
   {
     id: 2,
-    label: 'ჰიბრიდი'
+    title: 'ჰიბრიდი'
   },
   {
     id: 3,
-    label: 'დატენვადი ჰიბრიდი'
+    title: 'დატენვადი ჰიბრიდი'
   },
   {
     id: 4,
-    label: 'დიზელი'
+    title: 'დიზელი'
   },
   {
     id: 5,
-    label: 'გაზი'
+    title: 'გაზი'
   }
 ]
 
