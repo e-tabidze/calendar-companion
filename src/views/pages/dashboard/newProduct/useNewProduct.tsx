@@ -21,6 +21,8 @@ const useNewProduct = () => {
     discount_percent: ''
   }
 
+  console.log(companyServices, 'companyServices')
+
   const newProductDefaultValues = {
     company_id: 102,
     apply_discount: false,
