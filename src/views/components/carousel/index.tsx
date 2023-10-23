@@ -84,7 +84,7 @@ const Carousel = ({
   return (
     <>
       <Swiper
-        className='w-full relative flex justify-between !overflow-visible'
+        className='w-full relative flex justify-between'
         watchSlidesProgress
         ref={swiperRef}
 

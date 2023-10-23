@@ -8,7 +8,7 @@ interface Props {
 
 const DefaultLayout = ({ children}: Props) => {
   return (
-    <main>
+    <main className="pb-20 lg:pb-0">
         <HeaderWrapper>
             <DefaultHeader />
         </HeaderWrapper>

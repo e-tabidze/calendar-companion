@@ -35,11 +35,11 @@ const ProfileLayout: React.FC<Props> = ({ routes, dividerIndexes, children }) =>
   const toggleSidebarCollapse = () => setSidebarCollapsed(!sidebarCollapsed)
 
   return (
-    <main>
+    <main className="pb-20 lg:pb-0">
       <HeaderWrapper fullWidth>
         <DefaultHeader />
       </HeaderWrapper>
-      <div className='w-full m-auto max-w-[1200px] lg:px-8 2xl:px-0 flex gap-none lg:gap-4 mt-9'>
+      <div className='w-full m-auto 2xl:max-w-[1470px] lg:px-8 2xl:px-0 flex gap-none lg:gap-4 mt-9'>
         <ProfileNavigation
           routes={routes}
           sidebarCollapsed={sidebarCollapsed}
@@ -49,7 +49,7 @@ const ProfileLayout: React.FC<Props> = ({ routes, dividerIndexes, children }) =>
           selectedRoute={selectedRoute}
           dividerIndexes={dividerIndexes}
         />
-        <div className={`w-full z-[11] ${isSidebarVisible ? 'hidden' : 'block'} lg:block`}>{children}</div>
+        <div className="transition-all duration-300 w-full z-[11]">{children}</div>
       </div>
     </main>
   )
