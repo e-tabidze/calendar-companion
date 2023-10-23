@@ -7,13 +7,15 @@ import Typography from 'src/views/components/typography'
 import SelectField from 'src/views/components/selectField'
 import Cookie from 'src/helpers/Cookie'
 import useNewService from './useNewService'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { NewService } from 'src/types/Product'
 
 interface Props {
   open: boolean
   onClose: () => void
 }
 
-const AddNewServiceModal: React.FC<Props> = ({ open, onClose }) => {
+const NewServiceModal: React.FC<Props> = ({ open, onClose }) => {
   const { control, handleSubmit, createNewService, serviceValues } = useNewService()
 
   const options = [
@@ -31,13 +33,32 @@ const AddNewServiceModal: React.FC<Props> = ({ open, onClose }) => {
     }
   ]
 
-  const onSubmit = async () => {
-    try {
-      console.log(serviceValues, 'serviceValues')
-      await createNewService(serviceValues, Cookie.get('AccessToken'))
-    } catch (error) {
-      console.error('An error occurred while creating new listing:', error)
+  // const onSubmit = async () => {
+  //   try {
+  //     console.log(serviceValues, 'serviceValues')
+  //     await createNewService(serviceValues, Cookie.get('AccessToken'))
+  //   } catch (error) {
+  //     console.error('An error occurred while creating new listing:', error)
+  //   }
+  // }
+
+  const queryClient = useQueryClient()
+
+  const createNewServiceMutation = useMutation(
+    (newServiceData: NewService) => {
+      return createNewService(newServiceData, Cookie.get('AccessToken'))
+    },
+    {
+      onSuccess: () => {
+        // Invalidate and refetch the service list query after a successful mutation
+        queryClient.invalidateQueries(['serviceList']) // Adjust 'serviceList' to your actual query key
+        onClose() // Close the modal
+      }
     }
+  )
+
+  const onSubmit = () => {
+    createNewServiceMutation.mutate(serviceValues)
   }
 
   return (
@@ -101,4 +122,4 @@ const AddNewServiceModal: React.FC<Props> = ({ open, onClose }) => {
   )
 }
 
-export default AddNewServiceModal
+export default NewServiceModal

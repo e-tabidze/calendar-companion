@@ -2,11 +2,12 @@ import { useQuery } from '@tanstack/react-query'
 import CompanyService from 'src/services/CompanyService'
 import ProductService from 'src/services/ProductService'
 
-const useProductInfo = () => {
+const useProductInfo = (step?: number | undefined) => {
   const useProductDetails: any = useQuery({
     queryKey: ['productDetails'],
     queryFn: () => getProductDetails(),
-    staleTime: Infinity
+    staleTime: Infinity,
+    enabled: step === 2
   })
 
   const useManufacturers: any = useQuery({
@@ -18,13 +19,22 @@ const useProductInfo = () => {
   const useAdditionalParams: any = useQuery({
     queryKey: ['additionalParams'],
     queryFn: () => getAdditionalParams(),
-    staleTime: Infinity
+    staleTime: Infinity,
+    enabled: step === 2
   })
 
-  const useComapnyServices: any = useQuery({
+  const useCompanyServices: any = useQuery({
     queryKey: ['companyServices'],
     queryFn: () => getCompanyServices(),
-    staleTime: Infinity
+    staleTime: Infinity,
+    enabled: step === 4
+  })
+
+  const useCompanyBranches: any = useQuery({
+    queryKey: ['companyBranches'],
+    queryFn: () => getCompanyBranches(),
+    staleTime: Infinity,
+    enabled: true
   })
 
   const productDetails = useProductDetails?.data?.result?.data
@@ -33,13 +43,20 @@ const useProductInfo = () => {
 
   const additionalParams = useAdditionalParams?.data?.result?.data
 
-  const companyServices = useComapnyServices?.data?.result?.data
+  const companyServices = useCompanyServices?.data?.result?.data
+
+  const companyBranches = useCompanyBranches?.data?.result?.data
 
   return {
     productDetails,
     manufacturers,
     additionalParams,
-    companyServices
+    companyServices,
+    isProductDetailsLoading: useProductDetails.isLoading,
+    isManufacturersLoading: useManufacturers.isLoading,
+    isAdditionalParamsLoading: useAdditionalParams.isLoading,
+    isCompanyServicesLoading: useCompanyServices.isLoading,
+    companyBranches
   }
 }
 
@@ -89,9 +106,20 @@ export const getAdditionalParams = async (accessToken = '') => {
   }
 }
 
-export const getCompanyServices = async (accessToken = '', company_id = 102) => {
+export const getCompanyServices = async (accessToken = '', company_id = 112) => {
   try {
     const response: any = await CompanyService.getCompanyServices(accessToken, company_id)
+
+    return response.data
+  } catch (error) {
+    console.error(error)
+    throw error
+  }
+}
+
+export const getCompanyBranches = async (accessToken = '', company_id = 112) => {
+  try {
+    const response: any = await CompanyService.getCompanyBranches(accessToken, company_id)
 
     return response.data
   } catch (error) {

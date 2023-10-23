@@ -21,6 +21,8 @@ const useNewProduct = () => {
     discount_percent: ''
   }
 
+  console.log(companyServices, 'companyServices')
+
   const newProductDefaultValues = {
     company_id: 102,
     apply_discount: false,
@@ -33,7 +35,9 @@ const useNewProduct = () => {
       has_min_period: false,
       time_interval: 'კვირა',
       time_span: 1
-    }
+    },
+    start_city: '',
+    end_city: ''
   }
   useEffect(() => {
     if (companyServices) {

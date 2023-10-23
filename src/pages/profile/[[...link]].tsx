@@ -5,9 +5,10 @@ import PersonalInfo from 'src/views/pages/profile/personal-information'
 import CreateCompany from 'src/views/pages/profile/createCompany'
 import CardsAndTransactions from 'src/views/pages/profile/cardsAndTransactions'
 import Company from 'src/views/pages/profile/company'
-import useProfile from 'src/hooks/useProfile'
+import useProfile, { getUserInfo } from 'src/hooks/useProfile'
 import { UserInfo } from 'src/types/User'
 import ProfileLayout from 'src/layouts/ProfileLayout'
+import { dehydrate, QueryClient } from '@tanstack/query-core'
 
 const routes = [
   {
@@ -41,12 +42,6 @@ const routes = [
     path: '/profile/create-company'
   },
   {
-    id: 6,
-    icon: '',
-    item: 'გასვლა',
-    path: '/profile/sign-out'
-  },
-  {
     id: 7,
     icon: '',
     item: 'ბედინა',
@@ -58,16 +53,26 @@ const ProfileRouter = ({ userInfo }: { userInfo: UserInfo }) => {
   const router = useRouter()
   let key = ''
 
+  console.log(router, 'router')
+
   if (router.query.link?.length) {
+    console.log(router.query, '<= query')
     key = router.query?.link[0]
   }
 
-  if (router.query.link?.length == 2) {
-    key = 'profile'
-  }
+  // if (router.query.link?.length == 2) {
+  //   key = 'profile'
+  // }
+
+  // if (key.startsWith('company/')) {
+  //   const companyName = key.split('/')[1]
+  //   return <CompanyPage />
+  // }
+
+  console.log(key, '<= key')
 
   switch (key) {
-    case 'orders':
+    case 'orders' || '':
       return <Orders />
     case 'favourites':
       return <Favourites />
@@ -80,24 +85,63 @@ const ProfileRouter = ({ userInfo }: { userInfo: UserInfo }) => {
     case 'create-company':
       return <CreateCompany />
     default:
-      return <></>
+      return <Orders />
   }
 }
 
 const Profile = () => {
   const { userInfo, router } = useProfile()
 
+  const companyRoutes =
+    userInfo?.companies?.map((company: any) => ({
+      id: 8 + company?.id,
+      icon: '',
+      item: company?.information.name,
+      path: `/profile/company/${company?.information?.name?.replace(' ', '-')}`
+    })) || []
+
+  const allRoutes = [
+    ...routes,
+    ...companyRoutes,
+    {
+      id: 9,
+      icon: '',
+      item: 'გასვლა',
+      path: '/profile/sign-out'
+    }
+  ]
+
   return (
     <>
       {router.asPath === '/profile/create-company/' ? (
         <CreateCompany />
       ) : (
-        <ProfileLayout routes={routes} dividerIndexes={[2, 4]}>
+        <ProfileLayout routes={allRoutes} dividerIndexes={[2, 4]}>
           <ProfileRouter userInfo={userInfo} />
         </ProfileLayout>
       )}
     </>
   )
+}
+
+const queryClient = new QueryClient()
+
+export async function getServerSideProps() {
+  try {
+    await queryClient.prefetchQuery({
+      queryKey: ['userInfo'],
+      queryFn: () => getUserInfo(),
+      staleTime: Infinity
+    })
+
+    return {
+      props: {
+        dehydratedState: dehydrate(queryClient)
+      }
+    }
+  } catch (e) {
+    return { notFound: true }
+  }
 }
 
 export default Profile

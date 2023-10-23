@@ -24,13 +24,10 @@ const CategoryCard = ({ border, name, control, options }: Props) => {
                 border && 'border border-gray-20 rounded-2xl'
               } ${value === option.id ? 'border-2 border-green-100 bg-green-20' : ''} `}
             >
-              <>{console.log(option.icon, 'icons')}</>
               <Icon
-              
-                // svgPath={option.icon}
                 svgPath={option.icon}
-                width='70'
-                height='20'
+                width='48'
+                height='48'
                 color={value === option.id ? '#549684' : '#000000'}
                 className='icon-class'
               />

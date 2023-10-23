@@ -1,5 +1,4 @@
 import { useQuery } from '@tanstack/react-query'
-import { useEffect } from 'react'
 import { DefaultInput } from 'src/views/components/input'
 import SelectField from 'src/views/components/selectField'
 import TwoOptionSelector from 'src/views/components/twoOptionSelector'
@@ -18,22 +17,12 @@ const StepOne: React.FC<Props> = ({ control, productValues, errors }) => {
 
   const selectedManufacturerId = productValues.man_id
 
-  const { data: manufacturerModels, refetch } = useQuery({
+  const { data: manufacturerModels } = useQuery({
     queryKey: ['manufacturerModels'],
-    queryFn: () => {
-      if (selectedManufacturerId !== undefined) {
-        return getManufacturerModels(Cookie.get('AccessToken'), selectedManufacturerId)
-      } else {
-        return null
-      }
-    },
+    queryFn: () => getManufacturerModels(Cookie.get('AccessToken'), selectedManufacturerId),
     staleTime: Infinity,
-    enabled: true
+    enabled: !!selectedManufacturerId
   })
-
-  useEffect(() => {
-    refetch()
-  }, [selectedManufacturerId, refetch])
 
   const generateYearsArray = () => {
     const currentYear = new Date().getFullYear()
@@ -42,7 +31,7 @@ const StepOne: React.FC<Props> = ({ control, productValues, errors }) => {
     for (let i = currentYear; i >= startYear; i--) {
       years.push({ value: i, label: i })
     }
-    
+
     return years
   }
 

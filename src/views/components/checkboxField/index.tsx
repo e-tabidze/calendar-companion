@@ -21,11 +21,10 @@ const CheckboxField: React.FC<Props> = ({ iconPath, name, control, append, title
           <label className='flex gap-7 items-center'>
             <input
               type='checkbox'
-              className='accent-green-100 relative w-4 h-4 rounded-lg'
+              className='accent-green-100 relative w-5 h-5 rounded-lg'
               value={value}
               onChange={append ? append : () => onChange(value)}
             />
-            <div className='absolute'> </div>
             {iconPath ? <Image src={iconPath} className='w-12' alt='' /> : null}
             <Typography type='button' color='dark' weight='normal'>
               {title}

@@ -3,7 +3,6 @@ import useWindowDimensions from 'src/hooks/useWindowDimensions'
 import CategoryCard from 'src/views/components/categoryCard'
 import CheckboxField from 'src/views/components/checkboxField'
 import Divider from 'src/views/components/divider'
-import Image from 'src/views/components/image'
 import SelectField from 'src/views/components/selectField'
 import Tag from 'src/views/components/tag'
 import Typography from 'src/views/components/typography'
@@ -12,6 +11,7 @@ import useProductInfo from '../useProductInfo'
 interface Props {
   control: any
   appendAdditionalParam: any
+  step: number
 }
 
 const suitcases = [
@@ -22,53 +22,65 @@ const suitcases = [
   { title: 5, id: 5 }
 ]
 
-const StepTwo: React.FC<Props> = ({ control, appendAdditionalParam }) => {
+const StepTwo: React.FC<Props> = ({ control, appendAdditionalParam, step }) => {
   const { width } = useWindowDimensions()
-  const { productDetails, additionalParams } = useProductInfo()
+  const { productDetails, additionalParams, isProductDetailsLoading, isAdditionalParamsLoading } = useProductInfo(step)
 
   return (
     <div>
       <Typography type='h4' color='dark'>
         ავტომობილის კატეგორია
       </Typography>
-      {width > 779 ? (
-        <div className='flex flex-wrap gap-4 my-6'>
-          <CategoryCard name='category_id' control={control} options={productDetails?.categories} border />
-        </div>
+      {isProductDetailsLoading ? (
+        <>Loading</>
       ) : (
-        <SelectField
-          control={control}
-          name='category_id'
-          options={productDetails?.categories}
-          placeholder='კატეგორია'
-          valueKey='id'
-          labelKey='title'
-        />
+        <>
+          {width > 779 ? (
+            <div className='flex flex-wrap gap-4 my-6'>
+              <CategoryCard name='category_id' control={control} options={productDetails?.categories} border />
+            </div>
+          ) : (
+            <SelectField
+              control={control}
+              name='category_id'
+              options={productDetails?.categories}
+              placeholder='კატეგორია'
+              valueKey='id'
+              labelKey='title'
+            />
+          )}
+        </>
       )}
 
       <Typography type='h4' color='dark' className='mt-14'>
         საწვავის ტიპი
       </Typography>
       <div className='flex flex-wrap gap-3 my-6'>
-        <Tag
-          name='fuel_type_id'
-          control={control}
-          options={productDetails?.fuel_types}
-          component={<Image src='/icons/electric.svg' alt='' />}
-          height='h-12'
-        />
+        {isProductDetailsLoading ? (
+          <>Loading</>
+        ) : (
+          <Tag
+            name='fuel_type_id'
+            control={control}
+            options={productDetails?.fuel_types}
+            height='h-12'
+          />
+        )}
       </div>
       <Typography type='h5' weight='normal' className=' mt-14'>
         ადგილების რაოდენობა
       </Typography>
       <div className='flex flex-wrap gap-4 my-6'>
-        <Tag
-          name='seat_type_id'
-          control={control}
-          options={productDetails?.seat_types}
-          component={<Image src='/icons/electric.svg' alt='' />}
-          height='h-12'
-        />
+        {isProductDetailsLoading ? (
+          <>Loading</>
+        ) : (
+          <Tag
+            name='seat_type_id'
+            control={control}
+            options={productDetails?.seat_types}
+            height='h-12'
+          />
+        )}
       </div>
       <Typography type='h5' weight='normal' className=' mt-14'>
         ჩემოდნების რაოდენობა
@@ -82,13 +94,16 @@ const StepTwo: React.FC<Props> = ({ control, appendAdditionalParam }) => {
           კარის რაოდენობა
         </Typography>
         <div className='flex w-max gap-2'>
-          <Tag
-            name='door_type_id'
-            control={control}
-            options={productDetails?.door_types}
-            component={<Image src='/icons/electric.svg' alt='' />}
-            height='h-12'
-          />
+          {isProductDetailsLoading ? (
+            <>Loading</>
+          ) : (
+            <Tag
+              name='door_type_id'
+              control={control}
+              options={productDetails?.door_types}
+              height='h-12'
+            />
+          )}
         </div>
       </div>
 
@@ -99,13 +114,16 @@ const StepTwo: React.FC<Props> = ({ control, appendAdditionalParam }) => {
           წამყვანი საბურავები
         </Typography>
         <div className='flex w-max gap-2'>
-          <Tag
-            name='drive_tires_id'
-            control={control}
-            options={productDetails?.drive_tires}
-            component={<Image src='/icons/electric.svg' alt='' />}
-            height='h-12'
-          />
+          {isProductDetailsLoading ? (
+            <>Loading</>
+          ) : (
+            <Tag
+              name='drive_tires_id'
+              control={control}
+              options={productDetails?.drive_tires}
+              height='h-12'
+            />
+          )}
         </div>
       </div>
       <Divider />
@@ -115,13 +133,16 @@ const StepTwo: React.FC<Props> = ({ control, appendAdditionalParam }) => {
           ტრანსმისია
         </Typography>
         <div className='flex w-max gap-2'>
-          <Tag
-            name='transmission_type_id'
-            control={control}
-            options={productDetails?.transmission_types}
-            component={<Image src='/icons/electric.svg' alt='' />}
-            height='h-12'
-          />
+          {isProductDetailsLoading ? (
+            <>Loading</>
+          ) : (
+            <Tag
+              name='transmission_type_id'
+              control={control}
+              options={productDetails?.transmission_types}
+              height='h-12'
+            />
+          )}
         </div>
       </div>
       <Divider />
@@ -133,16 +154,22 @@ const StepTwo: React.FC<Props> = ({ control, appendAdditionalParam }) => {
         შეგიძლია მონიშნო ერთი ან რამდენიმე პარამეტრი
       </Typography>
       <div className='py-9 grid grid-cols-1 md:grid-cols-2'>
-        {additionalParams?.map((param: { id: Key | null | undefined; title: string }, index: any) => (
-          <div className='my-2' key={param.id}>
-            <CheckboxField
-              name={`additional_options.${index}`}
-              control={control}
-              title={param.title}
-              append={() => appendAdditionalParam({ id: param.id, title: param.title })}
-            />
-          </div>
-        ))}
+        {isAdditionalParamsLoading ? (
+          <>Loading</>
+        ) : (
+          <>
+            {additionalParams?.map((param: { id: Key | null | undefined; title: string }, index: any) => (
+              <div className='my-2' key={param.id}>
+                <CheckboxField
+                  name={`additional_options.${index}`}
+                  control={control}
+                  title={param.title}
+                  append={() => appendAdditionalParam({ id: param.id, title: param.title })}
+                />
+              </div>
+            ))}
+          </>
+        )}
       </div>
     </div>
   )

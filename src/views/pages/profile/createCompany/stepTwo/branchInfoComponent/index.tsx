@@ -1,9 +1,12 @@
+import { useQuery } from '@tanstack/react-query'
 import React from 'react'
 import { Controller, useWatch } from 'react-hook-form'
 import { DefaultInput, InputWithComponent } from 'src/views/components/input'
 import RoundedTag from 'src/views/components/roundedTag'
 import SwitchField from 'src/views/components/switchField'
-import TimeRangeComponent from '../timeRangeComponent'
+import useCreateCompany from '../../useCreateCompany'
+import LocationSuggestions from './locationSuggestions'
+import TimeRangeComponent from './timeRangeComponent'
 
 const days = [
   { label: 'ორშ', value: 'monday' },
@@ -21,11 +24,21 @@ interface Props {
   workingHoursObject?: any
   control: any
   errors: any
+  setValue: any
 }
 
-const BranchInfoComponent: React.FC<Props> = ({ index, control, errors }) => {
+const BranchInfoComponent: React.FC<Props> = ({ index, control, errors, setValue }) => {
+  const { getLocationSuggestions } = useCreateCompany()
 
   const formState = useWatch({ control })
+
+  const { data: locationSuggestions, isLoading } = useQuery(
+    ['locationSuggestions', formState?.addresses[index]?.address],
+    () => getLocationSuggestions(formState?.addresses[index]?.address),
+    {
+      enabled: formState?.addresses[index]?.address?.length >= 3
+    }
+  )
 
   const renderDaysSelector = (day: any) => (
     <Controller
@@ -56,19 +69,37 @@ const BranchInfoComponent: React.FC<Props> = ({ index, control, errors }) => {
 
   return (
     <div className='mb-6 md:border md:border-raisin-10 rounded-3xl md:py-10 md:px-9 grid grid-cols-1 gap-7'>
-      <div className='w-full grid grid-cols-1 lg:grid-cols-3 gap-4'>
-        <InputWithComponent
-          label='მისამართი'
+      <div className='w-full grid grid-cols-1 lg:grid-cols-3 gap-4 relative'>
+        <Controller
           name={`addresses.${index}.address`}
           control={control}
-          className='lg:col-span-2'
+          render={({ field: { onChange, value } }) => (
+            <>
+              <InputWithComponent
+                label='მისამართი'
+                name={`addresses.${index}.address`}
+                control={control}
+                className='lg:col-span-2'
+              />
+              {locationSuggestions?.result?.data && value.length >= 3 && (
+                <LocationSuggestions
+                  options={locationSuggestions.result.data}
+                  isLoading={isLoading}
+                  onClick={(option: any) => {
+                    const locations = option?.locations || []
+                    if (locations.length >= 2) {
+                      const firstValue = locations[0]
+                      onChange(locations.join(', '))
+                      setValue(`addresses.${index}.city`, firstValue)
+                    }
+                  }}
+                />
+              )}
+            </>
+          )}
         />
-        <DefaultInput
-          label='ტელეფონი'
-          name={`addresses.${index}.phone`}
-          control={control}
-          errors={errors}
-        />
+
+        <DefaultInput label='ტელეფონი' name={`addresses.${index}.phone`} control={control} errors={errors} />
       </div>
 
       <SwitchField
