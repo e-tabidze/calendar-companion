@@ -1,14 +1,18 @@
 import { useRouter } from 'next/router'
-import Orders from 'src/views/pages/profile/orders'
-import Favourites from 'src/views/pages/profile/favorites'
-import PersonalInfo from 'src/views/pages/profile/personal-information'
-import CreateCompany from 'src/views/pages/profile/createCompany'
-import CardsAndTransactions from 'src/views/pages/profile/cardsAndTransactions'
-import Company from 'src/views/pages/profile/company'
+import dynamic from 'next/dynamic'
+
 import useProfile, { getUserInfo } from 'src/hooks/useProfile'
 import { UserInfo } from 'src/types/User'
-import ProfileLayout from 'src/layouts/ProfileLayout'
 import { dehydrate, QueryClient } from '@tanstack/query-core'
+import useCompanyInfo from 'src/views/pages/profile/company/useCompanyInfo'
+
+const Orders = dynamic(() => import('src/views/pages/profile/orders'), { ssr: true })
+const Favourites = dynamic(() => import('src/views/pages/profile/favorites'), { ssr: true })
+const PersonalInfo = dynamic(() => import('src/views/pages/profile/personal-information'), { ssr: true })
+const CreateCompany = dynamic(() => import('src/views/pages/profile/createCompany'), { ssr: true })
+const CardsAndTransactions = dynamic(() => import('src/views/pages/profile/cardsAndTransactions'), { ssr: true })
+const Company = dynamic(() => import('src/views/pages/profile/company'), { ssr: true })
+const ProfileLayout = dynamic(() => import('src/layouts/ProfileLayout'), { ssr: true })
 
 const routes = [
   {
@@ -45,31 +49,42 @@ const routes = [
     id: 7,
     icon: '',
     item: 'ბედინა',
-    path: '/profile/bedina-plus'
+    path: '/profile/company/bedina-plus'
   }
 ]
 
 const ProfileRouter = ({ userInfo }: { userInfo: UserInfo }) => {
   const router = useRouter()
   let key = ''
-
-  console.log(router, 'router')
+  let companyid
 
   if (router.query.link?.length) {
-    console.log(router.query, '<= query')
     key = router.query?.link[0]
   }
 
-  // if (router.query.link?.length == 2) {
-  //   key = 'profile'
-  // }
+  if (router.query.link?.length == 2) {
+    key = 'profile'
+  }
 
-  // if (key.startsWith('company/')) {
-  //   const companyName = key.split('/')[1]
-  //   return <CompanyPage />
-  // }
+  if (router.query.link.includes('company')) {
+    companyid = router.query.link[router.query.link.length - 1]
 
-  console.log(key, '<= key')
+    key = `/company/${companyid}`
+  }
+  const { companyInfo, isLoading } = useCompanyInfo(Number(companyid))
+
+  if (isLoading) {
+    return <div>Loading...</div>
+  }
+
+  if (key.startsWith('/company/')) {
+    if (companyid) {
+      const queryKey = ['companyInfo', companyid]
+      queryClient.invalidateQueries(queryKey)
+    }
+
+    return companyid && companyInfo ? <Company id={Number(companyid)} /> : <></>
+  }
 
   switch (key) {
     case 'orders' || '':
@@ -80,12 +95,12 @@ const ProfileRouter = ({ userInfo }: { userInfo: UserInfo }) => {
       return <CardsAndTransactions />
     case 'personal-information':
       return userInfo && <PersonalInfo userData={userInfo} />
-    case 'bedina-plus':
-      return <Company />
+    case 'create-company':
+      return <CreateCompany />
     case 'create-company':
       return <CreateCompany />
     default:
-      return <Orders />
+      return <></>
   }
 }
 
@@ -97,7 +112,7 @@ const Profile = () => {
       id: 8 + company?.id,
       icon: '',
       item: company?.information.name,
-      path: `/profile/company/${company?.information?.name?.replace(' ', '-')}`
+      path: `/profile/company/${company?.id}`
     })) || []
 
   const allRoutes = [
