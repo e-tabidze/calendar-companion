@@ -15,7 +15,7 @@ interface Props {
 }
 
 const StepFour: React.FC<Props> = ({ control, step }) => {
-  const { companyServices } = useProductInfo(step)
+  const { companyServices, isCompanyServicesLoading } = useProductInfo(step)
   const [newServiceModal, setNewServiceModal] = useState(false)
 
   const handleNewServiceModal = () => setNewServiceModal(!newServiceModal)
@@ -61,21 +61,25 @@ const StepFour: React.FC<Props> = ({ control, step }) => {
           სერვისების ჩამონათვალი
         </Typography>
         <div className='mt-14'>
-          {companyServices?.map((service: NewService, index: number) => (
-            <div key={service?.id}>
-              <SwitchField
-                label={service.title}
-                className='my-8'
-                description={service.description}
-                control={control}
-                name={`company_services.${index}`}
-                defaultValue={false}
-                key={service.id}
-              />
-              {formState.company_services[index] && renderServiceDetails(service, index)}
-              <Divider />
-            </div>
-          ))}
+          {isCompanyServicesLoading ? (
+            <>Loading...</>
+          ) : (
+            <>
+              {companyServices?.map((service: NewService, index: number) => (
+                <div key={index}>
+                  <SwitchField
+                    label={service.title}
+                    className='my-8'
+                    description={service.description}
+                    control={control}
+                    name={`company_services.${index}.isSelected`}
+                  />
+                  {formState.company_services[index]?.isSelected && renderServiceDetails(service, index)}
+                  <Divider />
+                </div>
+              ))}
+            </>
+          )}
         </div>
       </div>
       <NewServiceModal open={newServiceModal} onClose={handleNewServiceModal} />

@@ -7,7 +7,7 @@ interface Props {
   description?: string
   name: string
   control: any
-  defaultValue: any
+  defaultValue?: any
 }
 const SwitchField: React.FC<Props> = ({ label, className, description, control, name, defaultValue }) => {
   return (

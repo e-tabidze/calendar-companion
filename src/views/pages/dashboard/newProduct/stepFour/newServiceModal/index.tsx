@@ -3,7 +3,6 @@ import { Dialog, Transition } from '@headlessui/react'
 import { DefaultButton, IconButton } from 'src/views/components/button'
 import Divider from 'src/views/components/divider'
 import { DefaultInput } from 'src/views/components/input'
-import Typography from 'src/views/components/typography'
 import SelectField from 'src/views/components/selectField'
 import Cookie from 'src/helpers/Cookie'
 import useNewService from './useNewService'
@@ -16,7 +15,7 @@ interface Props {
 }
 
 const NewServiceModal: React.FC<Props> = ({ open, onClose }) => {
-  const { control, handleSubmit, createNewService, serviceValues } = useNewService()
+  const { control, handleSubmit, createNewService, serviceValues, errors } = useNewService()
 
   const options = [
     {
@@ -33,15 +32,6 @@ const NewServiceModal: React.FC<Props> = ({ open, onClose }) => {
     }
   ]
 
-  // const onSubmit = async () => {
-  //   try {
-  //     console.log(serviceValues, 'serviceValues')
-  //     await createNewService(serviceValues, Cookie.get('AccessToken'))
-  //   } catch (error) {
-  //     console.error('An error occurred while creating new listing:', error)
-  //   }
-  // }
-
   const queryClient = useQueryClient()
 
   const createNewServiceMutation = useMutation(
@@ -50,9 +40,8 @@ const NewServiceModal: React.FC<Props> = ({ open, onClose }) => {
     },
     {
       onSuccess: () => {
-        // Invalidate and refetch the service list query after a successful mutation
-        queryClient.invalidateQueries(['serviceList']) // Adjust 'serviceList' to your actual query key
-        onClose() // Close the modal
+        queryClient.invalidateQueries(['companyServices'])
+        onClose()
       }
     }
   )
@@ -90,18 +79,16 @@ const NewServiceModal: React.FC<Props> = ({ open, onClose }) => {
               <Dialog.Panel className='w-full max-w-[800px] transform overflow-hidden rounded-2xl bg-white text-left align-middle shadow-xl transition-all'>
                 <form onSubmit={handleSubmit(onSubmit)}>
                   <Dialog.Title as='h3' className='w-full flex items-center justify-between px-10 py-6'>
-                    <Typography type='h5' weight='normal' className='text-2md'>
-                      ახალი სერვისის დამატება
-                    </Typography>
+                    ახალი სერვისის დამატება
                     <IconButton icon='/icons/close.svg' onClick={onClose} width={40} height={40} />
                   </Dialog.Title>
                   <Divider />
                   <div className='p-6 mb-20'>
                     <div className='flex flex-col gap-4'>
-                      <DefaultInput label='სერვისის დასახელება' control={control} name='title' />
-                      <DefaultInput label='აღწერა' control={control} name='description' rows={4} />
+                      <DefaultInput label='სერვისის დასახელება' control={control} name='title' errors={errors} />
+                      <DefaultInput label='აღწერა' control={control} name='description' rows={4} errors={errors} />
                     </div>
-                    <SelectField options={options} control={control} name='type_id' />
+                    <SelectField options={options} control={control} name='type_id' errors={errors} />
                   </div>
                   <div className='flex justify-end absolute bottom-0 w-full shadow-md'>
                     <DefaultButton

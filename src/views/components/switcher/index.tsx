@@ -4,9 +4,9 @@ interface Props {
   height: 'h-5' | 'h-8'
   name: string
   control: any
-  defaultValue: boolean
+  defaultValue?: boolean
 }
-const Switcher: React.FC<Props> = ({ height, name, control, defaultValue = false }) => {
+const Switcher: React.FC<Props> = ({ height, name, control, defaultValue }) => {
   return (
     <Controller
       name={name}
@@ -14,7 +14,14 @@ const Switcher: React.FC<Props> = ({ height, name, control, defaultValue = false
       defaultValue={defaultValue}
       render={({ field: { onChange, value } }) => (
         <label className='relative inline-flex items-center cursor-pointer'>
-          <input type='checkbox' value='' className='sr-only peer' checked={value} onChange={onChange} />
+          <input
+            checked={!!value}
+            type='checkbox'
+            value={value}
+            className='sr-only peer'
+            onChange={() => onChange(!value)}
+          />
+
           <div
             className={`${height} ${
               height === 'h-8' ? 'w-14' : 'w-8'

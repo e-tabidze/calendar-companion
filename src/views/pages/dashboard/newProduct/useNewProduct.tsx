@@ -13,23 +13,23 @@ const useNewProduct = () => {
     id: service.id,
     price: '',
     currency: '',
-    quantity: ''
+    quantity: '',
+    isSelected: false
   }))
+
   const discount_item = {
     number: 1,
     period: 'დღე',
     discount_percent: ''
   }
 
-  console.log(companyServices, 'companyServices')
-
   const newProductDefaultValues = {
     company_id: 102,
     apply_discount: false,
     discount: [discount_item],
-    additional_options: [],
+    additional_options: [] as any[],
     identification_number: '123456789',
-    company_services: [],
+    company_services: [services],
     any_period: true,
     min_period: {
       has_min_period: false,
@@ -64,15 +64,13 @@ const useNewProduct = () => {
 
   const { fields: additionalParams, append: appendAdditionalParam } = useFieldArray({
     control,
-
-    // @ts-ignore
     name: 'additional_options'
   })
 
   const {
     fields: discountItems,
     append: appendDiscountItem,
-    remove
+    remove: removeDiscountItem
   } = useFieldArray({
     control,
     name: 'discount'
@@ -108,7 +106,7 @@ const useNewProduct = () => {
     discountItems,
     appendDiscountItem,
     discount_item,
-    remove,
+    removeDiscountItem,
     createNewProduct
   }
 }

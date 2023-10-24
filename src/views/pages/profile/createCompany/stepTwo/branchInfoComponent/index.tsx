@@ -102,12 +102,7 @@ const BranchInfoComponent: React.FC<Props> = ({ index, control, errors, setValue
         <DefaultInput label='ტელეფონი' name={`addresses.${index}.phone`} control={control} errors={errors} />
       </div>
 
-      <SwitchField
-        name={`addresses.${index}.isSameTime`}
-        label='ერთნაირი დროის მონიშვნა'
-        defaultValue
-        control={control}
-      />
+      <SwitchField name={`addresses.${index}.isSameTime`} label='ერთნაირი დროის მონიშვნა' control={control} />
 
       {formState.addresses[index]?.isSameTime ? (
         <div className='flex flex-col gap-2 lg:items-center lg:flex-row justify-between' key={index}>

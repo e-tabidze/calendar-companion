@@ -41,7 +41,7 @@ const NewProduct: React.FC = () => {
     appendAdditionalParam,
     discountItems,
     appendDiscountItem,
-    remove,
+    removeDiscountItem,
     createNewProduct,
     setValue,
     errors
@@ -71,7 +71,6 @@ const NewProduct: React.FC = () => {
 
   console.log(productValues, 'productValues')
 
-
   const renderStepComponent = () => {
     switch (step.step) {
       case 1:
@@ -84,7 +83,7 @@ const NewProduct: React.FC = () => {
             control={control}
             discountItems={discountItems}
             appendDiscountItem={appendDiscountItem}
-            remove={remove}
+            remove={removeDiscountItem}
             errors={errors}
           />
         )

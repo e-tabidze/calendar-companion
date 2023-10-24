@@ -256,7 +256,7 @@ const AdditionalFilters: React.FC<Props> = ({ open, setOpen }) => {
                     ))}
                   </div>
                   <Divider />
-                  <SwitchField label='უფასო მიწოდება' name='' control={control} defaultValue className='my-8' />
+                  <SwitchField label='უფასო მიწოდება' name='' control={control} className='my-8' />
                   <Divider />
 
                   <SectionWrapper>

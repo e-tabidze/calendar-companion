@@ -21,7 +21,7 @@ const ServiceDetails: React.FC<Props> = ({ control, index, label, description })
           {description}
         </Typography>
         <div className='flex gap-4 justify-center'>
-          <DefaultInput label={label} className='!w-64' control={control} name={`company_services?.${index}.price`} />
+          <DefaultInput label={label} className='!w-64' control={control} name={`company_services.${index}.price`} />
           <TwoOptionSelector
             control={control}
             name={`company_services.${index}.currency`}
@@ -42,7 +42,7 @@ const ServiceDetails: React.FC<Props> = ({ control, index, label, description })
           იქნება დღეების რაოდენობასზე
         </Typography>
         <div className='flex justify-center items-center border border-px-raisin-130 w-64 rounded-2xl h-14'>
-          <Counter control={control} name={`company_services?.${index}.quantity`} />
+          <Counter control={control} name={`company_services.${index}.quantity`} />
         </div>
       </div>
     </div>

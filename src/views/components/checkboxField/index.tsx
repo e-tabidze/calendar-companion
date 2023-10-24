@@ -7,7 +7,7 @@ interface Props {
   iconPath?: string
   name: string
   control: any
-  append?: any
+  append?: () => void
   title: string
 }
 
@@ -18,6 +18,7 @@ const CheckboxField: React.FC<Props> = ({ iconPath, name, control, append, title
       control={control}
       render={({ field: { onChange, value } }) => (
         <div className=''>
+          <>{console.log(value, 'checkbox value')}</>
           <label className='flex gap-7 items-center'>
             <input
               type='checkbox'
