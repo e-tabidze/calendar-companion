@@ -28,7 +28,7 @@ const useCreateCompany = () => {
     postal_code: '',
     lat: '',
     long: '',
-    isSameTime: true,
+    is_same_time: true,
     working_hours: {
       monday: defaultWorkDayWorkingTime,
       tuesday: defaultWorkDayWorkingTime,
@@ -91,7 +91,7 @@ const useCreateCompany = () => {
   const getLocationSuggestions = async (address: string) => {
     try {
       const response: any = await locationService.getLocationSuggestions(address)
-      
+
       return response.data
     } catch (error) {
       console.error('Error fetching location suggestions:', error)

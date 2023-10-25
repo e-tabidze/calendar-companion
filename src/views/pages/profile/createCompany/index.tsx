@@ -52,7 +52,7 @@ const CreateCompany = () => {
     try {
       companyValues.addresses.forEach(
         (addr: {
-          isSameTime: boolean
+          is_same_time: boolean
           working_hours: {
             [x: string]: {
               is_selected: boolean
@@ -61,7 +61,7 @@ const CreateCompany = () => {
             }
           }
         }) => {
-          if (addr.isSameTime) {
+          if (addr.is_same_time) {
             const takeDefaultTime = {
               start_time: addr.working_hours['monday'].start_time,
               end_time: addr.working_hours['monday'].end_time
