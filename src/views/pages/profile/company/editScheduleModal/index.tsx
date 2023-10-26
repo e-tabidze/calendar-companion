@@ -9,36 +9,6 @@ import TimeRangeComponent from '../../createCompany/stepTwo/branchInfoComponent/
 import { Controller, useForm, useWatch } from 'react-hook-form'
 import SelectField from 'src/views/components/selectField'
 
-// const days = [
-//   {
-//     label: 'ორშ',
-//     value: 'monday'
-//   },
-//   {
-//     label: 'სამ',
-//     value: 'tuesday'
-//   },
-//   {
-//     label: 'ოთხ',
-//     value: 'wednesday'
-//   },
-//   {
-//     label: 'ხუთ',
-//     value: 'thursday'
-//   },
-//   {
-//     label: 'პარ',
-//     value: 'friday'
-//   },
-//   {
-//     label: 'შაბ',
-//     value: 'saturday'
-//   },
-//   {
-//     label: 'კვი',
-//     value: 'sunday'
-//   }
-// ]
 interface Props {
   open: boolean
   onClose: () => void
@@ -50,30 +20,11 @@ interface Props {
 const EditScheduleModal: React.FC<Props> = ({ open, onClose, control, workDayData, index }) => {
   const formState = useWatch({ control })
 
-  console.log(formState, 'formstat')
-
-  // const [selectedWorkDays, setSelectedWorkDays] = useState<any[]>([
-  //   'monday',
-  //   'tuesday',
-  //   'wednesday',
-  //   'thursday',
-  //   'friday',
-  //   'saturday'
-  // ])
-
-  // const handleselectedWorkDays = (value: string) => {
-  //   if (selectedWorkDays.includes(value)) {
-  //     setSelectedWorkDays(selectedWorkDays.filter(day => day !== value))
-  //   } else {
-  //     setSelectedWorkDays(prevState => [...prevState, value])
-  //   }
-  // }
-
   const generateTimeOptions = () => {
     const options = []
 
     for (let hour = 0; hour < 24; hour++) {
-      const time = hour.toString().padStart(2, '0') + ':00'
+      const time = hour.toString().padStart(2, '0') + ':00' + ':00'
       options.push({ value: time, label: time })
     }
 
@@ -108,18 +59,21 @@ const EditScheduleModal: React.FC<Props> = ({ open, onClose, control, workDayDat
             >
               <Dialog.Panel className='w-full max-w-[800px] transform overflow-hidden rounded-2xl bg-white text-left align-middle shadow-xl transition-all'>
                 <Dialog.Title as='h3' className='w-full flex items-center justify-between px-10 py-6'>
-                  <Typography type='h5' weight='normal' className='text-2md'>
-                    საათების რედაქტირება
-                  </Typography>
+                  საათების რედაქტირება
                   <IconButton icon='/icons/close.svg' onClick={onClose} width={40} height={40} />
                 </Dialog.Title>
                 <Divider />
                 <div className='mb-20'>
                   <div className='px-9 grid grid-cols-1 gap-7'>
-                    <SwitchField label='ერთნაირი დროის მონიშვნა' name='' control={control} defaultValue />
+                    <SwitchField
+                      label='ერთნაირი დროის მონიშვნა'
+                      name={`addresses.${index}.is_same_time`}
+                      control={control}
+                      defaultValue
+                    />
                     <div>
                       {workDayData.map((dayData: any) => (
-                        <div className='flex items-center gap-4'>
+                        <div className='flex items-center gap-4' key={dayData.day}>
                           <>{console.log(dayData, 'dayData')}</>
                           <> {console.log(`addresses.${index}.working_hours.${dayData.day}.start_time`, '<==?')} </>
                           <Controller
@@ -129,17 +83,17 @@ const EditScheduleModal: React.FC<Props> = ({ open, onClose, control, workDayDat
                             render={({ field: { value, onChange } }) => (
                               <RoundedTag
                                 label={dayData.label}
-                                handleSelect={() => {
-                                  const updatedValue = {
-                                    ...value,
-                                    is_selected: !value.is_selected
-                                  }
-                                  if (!updatedValue.is_selected) {
-                                    updatedValue.start_time = ''
-                                    updatedValue.end_time = ''
-                                  }
-                                  onChange(updatedValue)
-                                }}
+                                // handleSelect={() => {
+                                //   const updatedValue = {
+                                //     ...value,
+                                //     is_selected: !value.is_selected
+                                //   }
+                                //   if (!updatedValue.is_selected) {
+                                //     updatedValue.start_time = ''
+                                //     updatedValue.end_time = ''
+                                //   }
+                                //   onChange(updatedValue)
+                                // }}
                                 selected={value?.is_selected}
                               />
                             )}

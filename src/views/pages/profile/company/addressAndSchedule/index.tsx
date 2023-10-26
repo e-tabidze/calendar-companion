@@ -36,9 +36,9 @@ const AddressAndSchedule: React.FC<Props> = ({ index, control, isSameTime = 0, w
     return Object.keys(workingHours).map(day => ({
       day,
       label: customLabels[day],
-      startTime: workingHours[day].start_time,
-      endTime: workingHours[day].end_time,
-      isSelected: workingHours[day].is_selected
+      start_time: workingHours[day].start_time,
+      end_time: workingHours[day].end_time,
+      is_selected: workingHours[day].is_selected
     }))
   }
 
@@ -65,7 +65,7 @@ const AddressAndSchedule: React.FC<Props> = ({ index, control, isSameTime = 0, w
               <div className='w-full flex justify-between items-center'>
                 <div className='flex gap-4'>
                   {workDayData().map(day => (
-                    <RoundedTag key={index} label={day.label} selected={day.isSelected} />
+                    <RoundedTag key={day.day} label={day.label} selected={day.is_selected} />
                   ))}
                 </div>
                 <Typography type='subtitle'>09:00 - 21:00</Typography>
@@ -73,10 +73,10 @@ const AddressAndSchedule: React.FC<Props> = ({ index, control, isSameTime = 0, w
             ) : (
               <div className='w-full'>
                 {workDayData().map(day => (
-                  <div className='flex justify-between w-max gap-8 items-center mb-4'>
-                    <RoundedTag key={index} label={day.label} selected={day.isSelected} />
+                  <div className='flex justify-between w-max gap-8 items-center mb-4' key={day.day}>
+                    <RoundedTag key={index} label={day.label} selected={day.is_selected} />
                     <Typography type='subtitle'>
-                      {day.startTime} - {day.endTime}
+                      {day.start_time} - {day.end_time}
                     </Typography>
                   </div>
                 ))}

@@ -48,7 +48,6 @@ interface Props {
   icon?: boolean
   control: any
   name: string
-  defaultValue?: string
   valueKey?: string
   labelKey?: string
   errors?: any
@@ -73,7 +72,6 @@ const SelectField: React.FC<Props> = ({
   icon,
   control,
   name,
-  defaultValue,
   valueKey,
   labelKey,
   placeholder,
@@ -106,9 +104,10 @@ const SelectField: React.FC<Props> = ({
       <Controller
         name={name}
         control={control}
-        defaultValue={defaultValue}
         render={({ field: { onChange, value } }) => (
           <>
+            {console.log(value, '<= select value')}
+            {console.log(options, 'options')}
             <Select
               styles={customStyles}
               options={options}
@@ -125,7 +124,6 @@ const SelectField: React.FC<Props> = ({
               isClearable
               placeholder={placeholder}
               isDisabled={disabled}
-              
               // @ts-ignore
               emoji={
                 icon && (

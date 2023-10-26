@@ -87,7 +87,6 @@ const Company: React.FC<Props> = ({ id }) => {
               <AddressAndSchedule
                 index={index}
                 control={control}
-                key={index}
                 isSameTime={address?.is_same_time}
                 workingHours={address.working_hours}
               />

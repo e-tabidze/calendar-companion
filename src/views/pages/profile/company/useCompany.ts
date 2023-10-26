@@ -9,7 +9,7 @@ const useCompany = (id: number) => {
 
   console.log(companyInfo, 'companyInfo')
 
-  const defaultAddress: CompanyAddress = companyInfo?.addresses?.map((address: any) => ({
+  const defaultAddress: CompanyAddress[] = companyInfo?.addresses?.map((address: any) => ({
     id: address.id,
     address: address.address,
     phone: address.phone,
@@ -58,8 +58,6 @@ const useCompany = (id: number) => {
       }
     }
   }))
-
-  console.log(defaultAddress, 'defaultAddress')
 
   const defaultWorkDayWorkingTime = {
     start_time: '09:00',
