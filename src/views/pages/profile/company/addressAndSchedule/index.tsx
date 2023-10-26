@@ -22,8 +22,8 @@ const AddressAndSchedule: React.FC<Props> = ({ index, control, isSameTime = 0, w
     setOpenEditModal(!openEditModal)
   }
 
-  const mapObjectToCustomArray = () => {
-    const customLabels = {
+  const workDayData = () => {
+    const customLabels: Record<string, string> = {
       monday: 'ორშ',
       tuesday: 'სამ',
       wednesday: 'ოთხ',
@@ -34,12 +34,15 @@ const AddressAndSchedule: React.FC<Props> = ({ index, control, isSameTime = 0, w
     }
 
     return Object.keys(workingHours).map(day => ({
+      day,
       label: customLabels[day],
       startTime: workingHours[day].start_time,
       endTime: workingHours[day].end_time,
       isSelected: workingHours[day].is_selected
     }))
   }
+
+  console.log(workDayData(), 'data ')
 
   return (
     <>
@@ -61,7 +64,7 @@ const AddressAndSchedule: React.FC<Props> = ({ index, control, isSameTime = 0, w
             {!!isSameTime ? (
               <div className='w-full flex justify-between items-center'>
                 <div className='flex gap-4'>
-                  {mapObjectToCustomArray().map(day => (
+                  {workDayData().map(day => (
                     <RoundedTag key={index} label={day.label} selected={day.isSelected} />
                   ))}
                 </div>
@@ -69,7 +72,7 @@ const AddressAndSchedule: React.FC<Props> = ({ index, control, isSameTime = 0, w
               </div>
             ) : (
               <div className='w-full'>
-                {mapObjectToCustomArray().map(day => (
+                {workDayData().map(day => (
                   <div className='flex justify-between w-max gap-8 items-center mb-4'>
                     <RoundedTag key={index} label={day.label} selected={day.isSelected} />
                     <Typography type='subtitle'>
@@ -85,7 +88,7 @@ const AddressAndSchedule: React.FC<Props> = ({ index, control, isSameTime = 0, w
           </Typography>
         </div>
       </div>
-      <EditScheduleModal open={openEditModal} onClose={toggleEditModal} />
+      <EditScheduleModal open={openEditModal} onClose={toggleEditModal} control={control} workDayData={workDayData()} index={index} />
     </>
   )
 }

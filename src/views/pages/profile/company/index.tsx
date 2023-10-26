@@ -76,9 +76,8 @@ const Company: React.FC<Props> = ({ id }) => {
             მისამართები და განრიგი
           </Typography>
 
-          {addressFields.map((address, index) => (
-            <>
-              {console.log(address, '<== address')}
+          {addressFields.map((address: CompanyAddress, index) => (
+            <div key={address.id}>
               <IconTextButton
                 label='მისამართის წაშლა'
                 icon='/icons/trash.svg'
@@ -92,7 +91,7 @@ const Company: React.FC<Props> = ({ id }) => {
                 isSameTime={address?.is_same_time}
                 workingHours={address.working_hours}
               />
-            </>
+            </div>
           ))}
 
           <IconTextButton

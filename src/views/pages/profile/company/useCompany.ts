@@ -59,6 +59,41 @@ const useCompany = (id: number) => {
     }
   }))
 
+  console.log(defaultAddress, 'defaultAddress')
+
+  const defaultWorkDayWorkingTime = {
+    start_time: '09:00',
+    end_time: '18:00',
+    is_selected: true
+  }
+
+  const defaultWeekendWorkingTime = {
+    start_time: '',
+    end_time: '',
+    is_selected: false
+  }
+
+  const defaultEmptyAddress: CompanyAddress = {
+    address: '',
+    phone: '',
+    email: '',
+    city: '',
+    state: '',
+    postal_code: '',
+    lat: '',
+    id: '',
+    is_same_time: 1,
+    working_hours: {
+      monday: defaultWorkDayWorkingTime,
+      tuesday: defaultWorkDayWorkingTime,
+      wednesday: defaultWorkDayWorkingTime,
+      thursday: defaultWorkDayWorkingTime,
+      friday: defaultWorkDayWorkingTime,
+      saturday: defaultWeekendWorkingTime,
+      sunday: defaultWeekendWorkingTime
+    }
+  }
+
   const defaultValues = {
     company_id: id,
     identification_number: companyInfo?.identification_number,
@@ -69,7 +104,7 @@ const useCompany = (id: number) => {
       email: companyInfo?.information?.email,
       phone_numbers: companyInfo?.information?.phone_numbers
     },
-    addresses: [...defaultAddress]
+    addresses: defaultAddress
   }
 
   const {
@@ -88,39 +123,6 @@ const useCompany = (id: number) => {
     // @ts-ignore
     resolver: yupResolver(NewProductSchema)
   })
-
-  const defaultWorkDayWorkingTime = {
-    start_time: '09:00',
-    end_time: '18:00',
-    is_selected: true
-  }
-
-  const defaultWeekendWorkingTime = {
-    start_time: '',
-    end_time: '',
-    is_selected: false
-  }
-
-  const defaultEmptyAddress = {
-    address: '',
-    phone: '',
-    email: '',
-    city: '',
-    state: '',
-    postal_code: '',
-    lat: '',
-    id: '',
-    is_same_time: true,
-    working_hours: {
-      monday: defaultWorkDayWorkingTime,
-      tuesday: defaultWorkDayWorkingTime,
-      wednesday: defaultWorkDayWorkingTime,
-      thursday: defaultWorkDayWorkingTime,
-      friday: defaultWorkDayWorkingTime,
-      saturday: defaultWeekendWorkingTime,
-      sunday: defaultWeekendWorkingTime
-    }
-  }
 
   const {
     fields: addressFields,
