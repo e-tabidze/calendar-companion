@@ -4,7 +4,6 @@ import NewListingLayout from 'src/layouts/NewListingLayout'
 import StepOne from './stepOne'
 import StepThree from './stepThree'
 import StepTwo from './stepTwo'
-import { FormProvider } from 'react-hook-form'
 import Cookie from 'src/helpers/Cookie'
 import useCreateCompany from './useCreateCompany'
 
@@ -34,7 +33,6 @@ const CreateCompany = () => {
     setValue
   } = useCreateCompany()
 
-
   const handleGoNextStep = () => {
     const currentIndex = options.findIndex(option => option.value === step.value)
     if (currentIndex < options.length - 1) {
@@ -50,38 +48,6 @@ const CreateCompany = () => {
 
   const onSubmit = async () => {
     try {
-      companyValues.addresses.forEach(
-        (addr: {
-          isSameTime: boolean
-          working_hours: {
-            [x: string]: {
-              is_selected: boolean
-              end_time: string
-              start_time: string
-            }
-          }
-        }) => {
-          if (addr.isSameTime) {
-            const takeDefaultTime = {
-              start_time: addr.working_hours['monday'].start_time,
-              end_time: addr.working_hours['monday'].end_time
-            }
-
-            for (const day in addr.working_hours) {
-              addr.working_hours[day].start_time = ''
-              addr.working_hours[day].end_time = ''
-              if (addr.working_hours[day].is_selected) {
-                addr.working_hours[day].start_time = takeDefaultTime.start_time
-                addr.working_hours[day].end_time = takeDefaultTime.end_time
-                addr.working_hours[day].is_selected = true
-              } else {
-                addr.working_hours[day].is_selected = false
-              }
-            }
-          }
-        }
-      )
-
       await createCompany({ AccessToken: Cookie.get('AccessToken'), company: companyValues })
     } catch (error) {
       console.error('An error occurred while creating new company:', error)
@@ -91,9 +57,8 @@ const CreateCompany = () => {
   console.log(companyValues, 'companyValues')
 
   return (
-    
-    // @ts-ignore
-    <FormProvider {...control}>
+    <form onSubmit={handleSubmit(onSubmit)}>
+      {/* <FormProvider {...control}> */}
       <NewListingLayout
         options={options}
         onChange={selectOption}
@@ -103,15 +68,20 @@ const CreateCompany = () => {
         onClose={handleClose}
         onSubmit={handleSubmit(onSubmit)}
       >
-        <form>
-          {step.step === 1 && <StepOne control={control} errors={errors} clearErrors={clearErrors} />}
-          {step.step === 2 && (
-            <StepTwo control={control} addressFields={addressFields} appendAddress={appendAddress} errors={errors} setValue={setValue} />
-          )}
-          {step.step === 3 && <StepThree control={control} errors={errors} />}
-        </form>
+        {step.step === 1 && <StepOne control={control} errors={errors} clearErrors={clearErrors} />}
+        {step.step === 2 && (
+          <StepTwo
+            control={control}
+            addressFields={addressFields}
+            appendAddress={appendAddress}
+            errors={errors}
+            setValue={setValue}
+          />
+        )}
+        {step.step === 3 && <StepThree control={control} errors={errors} />}
       </NewListingLayout>
-    </FormProvider>
+      {/* </FormProvider> */}
+    </form>
   )
 }
 

@@ -2,7 +2,7 @@ import React from 'react';
 import Typography from '../typography';
 
 interface Props {
-  handleSelect: any;
+  handleSelect?: any;
   selected: boolean;
   label: string;
 }

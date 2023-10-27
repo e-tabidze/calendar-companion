@@ -28,7 +28,9 @@ const useCreateCompany = () => {
     postal_code: '',
     lat: '',
     long: '',
-    isSameTime: true,
+    is_same_time: true,
+    start_time: '09:00',
+    end_time: '18:00',
     working_hours: {
       monday: defaultWorkDayWorkingTime,
       tuesday: defaultWorkDayWorkingTime,
@@ -70,7 +72,8 @@ const useCreateCompany = () => {
 
   const { fields: addressFields, append: appendAddress } = useFieldArray({
     control,
-    name: 'addresses'
+    name: 'addresses',
+    rules: {minLength: 1}
   })
 
   const companyValues: any = useWatch({ control })
@@ -91,7 +94,7 @@ const useCreateCompany = () => {
   const getLocationSuggestions = async (address: string) => {
     try {
       const response: any = await locationService.getLocationSuggestions(address)
-      
+
       return response.data
     } catch (error) {
       console.error('Error fetching location suggestions:', error)
