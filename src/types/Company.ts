@@ -23,7 +23,9 @@ export type CompanyAddress = {
   lat?: string
   long?: string
   working_hours: WorkingHours
-  is_same_time: 0 | 1
+  is_same_time: Boolean | 0 | 1
+  start_time: string
+  end_time: string
   id: string
 }
 

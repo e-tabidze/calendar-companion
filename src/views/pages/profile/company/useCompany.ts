@@ -20,6 +20,8 @@ const useCompany = (id: number) => {
     lat: address.lat,
     long: address.long,
     is_same_time: address.is_same_time,
+    start_time: address.start_time,
+    end_time: address.end_time,
     working_hours: {
       monday: {
         start_time: address?.working_hours?.monday?.start_time,
@@ -81,6 +83,8 @@ const useCompany = (id: number) => {
     lat: '',
     id: '',
     is_same_time: 1,
+    start_time: '',
+    end_time: '',
     working_hours: {
       monday: defaultWorkDayWorkingTime,
       tuesday: defaultWorkDayWorkingTime,

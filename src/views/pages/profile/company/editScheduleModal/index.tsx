@@ -11,11 +11,11 @@ interface Props {
   open: boolean
   onClose: () => void
   control: any
-  workDayData: any
+  address: any
   index: number
 }
 
-const EditScheduleModal: React.FC<Props> = ({ open, onClose, control, workDayData, index }) => {
+const EditScheduleModal: React.FC<Props> = ({ open, onClose, control, address, index }) => {
   const formState = useWatch({ control })
 
   const generateTimeOptions = () => {
@@ -29,7 +29,25 @@ const EditScheduleModal: React.FC<Props> = ({ open, onClose, control, workDayDat
     return options
   }
 
-  console.log(formState, "form")
+  const workDayData = () => {
+    const customLabels: Record<string, string> = {
+      monday: 'ორშ',
+      tuesday: 'სამ',
+      wednesday: 'ოთხ',
+      thursday: 'ხუთ ',
+      friday: 'პარ',
+      saturday: 'შაბ ',
+      sunday: 'კვი'
+    }
+
+    return Object.keys(address.working_hours).map(day => ({
+      day,
+      label: customLabels[day],
+      start_time: address.working_hours[day].start_time,
+      end_time: address.working_hours[day].end_time,
+      is_selected: address.working_hours[day].is_selected
+    }))
+  }
 
   return (
     <Transition appear show={open} as={Fragment}>
@@ -72,7 +90,7 @@ const EditScheduleModal: React.FC<Props> = ({ open, onClose, control, workDayDat
                     />
                     {formState.addresses[index].is_same_time === 1 ? (
                       <div className='flex items-center gap-4'>
-                        {workDayData.map((dayData: any) => (
+                        {workDayData().map((dayData: any) => (
                           <div key={dayData.day}>
                             <Controller
                               key={dayData.day}
@@ -91,8 +109,12 @@ const EditScheduleModal: React.FC<Props> = ({ open, onClose, control, workDayDat
                                       updatedValue.start_time = ''
                                       updatedValue.end_time = ''
                                     } else {
-                                      updatedValue.start_time = workDayData.find((item: any) => item.is_selected === 1)?.start_time
-                                      updatedValue.end_time = workDayData.find((item: any) => item.is_selected === 1)?.end_time
+                                      updatedValue.start_time = workDayData().find(
+                                        (item: any) => item.is_selected === 1
+                                      )?.start_time
+                                      updatedValue.end_time = workDayData().find(
+                                        (item: any) => item.is_selected === 1
+                                      )?.end_time
                                     }
                                     onChange(updatedValue)
                                   }}
@@ -107,9 +129,7 @@ const EditScheduleModal: React.FC<Props> = ({ open, onClose, control, workDayDat
                             options={generateTimeOptions()}
                             className='my-2'
                             icon
-                            name={`addresses.${index}.working_hours.${
-                              workDayData.find((item: any) => item.is_selected === 1)?.day
-                            }.start_time`}
+                            name={`addresses.${index}.start_time`}
                             control={control}
                           />
                           <div className='h-px w-[6px] bg-raisin-130' />
@@ -118,15 +138,13 @@ const EditScheduleModal: React.FC<Props> = ({ open, onClose, control, workDayDat
                             className='my-2'
                             icon
                             control={control}
-                            name={`addresses.${index}.working_hours.${
-                              workDayData.find((item: any) => item.is_selected === 1)?.day
-                            }.end_time`}
+                            name={`addresses.${index}.end_time`}
                           />
                         </div>
                       </div>
                     ) : (
                       <div>
-                        {workDayData.map((dayData: any) => (
+                        {workDayData().map((dayData: any) => (
                           <>
                             <div className='flex items-center gap-4' key={dayData.day}>
                               <Controller

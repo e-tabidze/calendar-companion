@@ -133,7 +133,6 @@ class HttpService {
       headers = {
         ...headers,
         Authorization: `${this.getToken(serverReq)}`,
-        apipassphrase: 'rameaxali'
       }
     }
 

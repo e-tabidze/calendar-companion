@@ -22,6 +22,8 @@ const Company: React.FC<Props> = ({ id }) => {
 
   console.log(companyValues, 'companyValues')
 
+  console.log(addressFields, 'addressFields')
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className='md:border border-raisin-10 rounded-3xl'>
@@ -75,13 +77,14 @@ const Company: React.FC<Props> = ({ id }) => {
 
           {addressFields.map((address: CompanyAddress, index) => (
             <div key={address.id}>
+              <> {console.log(address, '<==?')} </>
               <IconTextButton
                 label='მისამართის წაშლა'
                 icon='/icons/trash.svg'
                 onClick={() => remove(index)}
                 className='text-orange-130'
               />
-              <AddressAndSchedule index={index} control={control} workingHours={address.working_hours} />
+              <AddressAndSchedule index={index} control={control} address={address} />
             </div>
           ))}
 

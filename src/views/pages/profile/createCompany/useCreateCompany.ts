@@ -73,7 +73,7 @@ const useCreateCompany = () => {
   const { fields: addressFields, append: appendAddress } = useFieldArray({
     control,
     name: 'addresses',
-    rules: {minLength: 1}
+    rules: { minLength: 1 }
   })
 
   const companyValues: any = useWatch({ control })
