@@ -45,7 +45,7 @@ const EditCompany = () => {
       <Typography type='h3' className='font-bold'>
         მისამართები და განრიგი
       </Typography>
-      <AddressAndSchedule />
+      {/* <AddressAndSchedule /> */}
     </div>
   )
 }

@@ -29,6 +29,8 @@ const useCreateCompany = () => {
     lat: '',
     long: '',
     is_same_time: true,
+    start_time: '09:00',
+    end_time: '18:00'
     working_hours: {
       monday: defaultWorkDayWorkingTime,
       tuesday: defaultWorkDayWorkingTime,
@@ -70,7 +72,8 @@ const useCreateCompany = () => {
 
   const { fields: addressFields, append: appendAddress } = useFieldArray({
     control,
-    name: 'addresses'
+    name: 'addresses',
+    rules: {minLength: 1}
   })
 
   const companyValues: any = useWatch({ control })

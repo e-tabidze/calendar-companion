@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useWatch } from 'react-hook-form'
 import Divider from 'src/views/components/divider'
 import { InputWithComponent } from 'src/views/components/input'
 import RoundedTag from 'src/views/components/roundedTag'
@@ -8,19 +9,15 @@ import EditScheduleModal from '../editScheduleModal'
 interface Props {
   index: number
   control: any
-  isSameTime: 0 | 1
   workingHours: any
 }
 
-const AddressAndSchedule: React.FC<Props> = ({ index, control, isSameTime = 0, workingHours }) => {
+const AddressAndSchedule: React.FC<Props> = ({ index, control, workingHours }) => {
   const [openEditModal, setOpenEditModal] = useState(false)
 
-  console.log(workingHours, 'workingHours')
-  console.log(isSameTime, 'isSameTime')
+  const toggleEditModal = () => setOpenEditModal(!openEditModal)
 
-  const toggleEditModal = () => {
-    setOpenEditModal(!openEditModal)
-  }
+  const formState = useWatch({ control })
 
   const workDayData = () => {
     const customLabels: Record<string, string> = {
@@ -42,7 +39,7 @@ const AddressAndSchedule: React.FC<Props> = ({ index, control, isSameTime = 0, w
     }))
   }
 
-  console.log(workDayData(), 'data ')
+  console.log(formState, 'state')
 
   return (
     <>
@@ -57,18 +54,21 @@ const AddressAndSchedule: React.FC<Props> = ({ index, control, isSameTime = 0, w
         <Divider />
         <div
           className={`w-full flex flex-col justify-between p-4 lg:flex-row ${
-            !!isSameTime ? 'lg:items-center' : 'lg:items-start'
+            formState.addresses[index].is_same_time === 1 ? 'lg:items-center' : 'lg:items-start'
           } gap-12`}
         >
           <div className='flex items-center gap-4 w-full'>
-            {!!isSameTime ? (
+            {formState.addresses[index].is_same_time === 1 ? (
               <div className='w-full flex justify-between items-center'>
                 <div className='flex gap-4'>
                   {workDayData().map(day => (
                     <RoundedTag key={day.day} label={day.label} selected={day.is_selected} />
                   ))}
                 </div>
-                <Typography type='subtitle'>09:00 - 21:00</Typography>
+                <Typography type='subtitle'>
+                  {workDayData().find(item => item.is_selected === 1)?.start_time} -{' '}
+                  {workDayData().find(item => item.is_selected === 1)?.end_time}
+                </Typography>
               </div>
             ) : (
               <div className='w-full'>
@@ -88,7 +88,13 @@ const AddressAndSchedule: React.FC<Props> = ({ index, control, isSameTime = 0, w
           </Typography>
         </div>
       </div>
-      <EditScheduleModal open={openEditModal} onClose={toggleEditModal} control={control} workDayData={workDayData()} index={index} />
+      <EditScheduleModal
+        open={openEditModal}
+        onClose={toggleEditModal}
+        control={control}
+        workDayData={workDayData()}
+        index={index}
+      />
     </>
   )
 }
