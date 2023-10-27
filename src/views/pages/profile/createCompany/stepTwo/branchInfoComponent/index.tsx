@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Controller, useWatch } from 'react-hook-form'
 import { DefaultInput, InputWithComponent } from 'src/views/components/input'
 import RoundedTag from 'src/views/components/roundedTag'
@@ -40,6 +40,28 @@ const BranchInfoComponent: React.FC<Props> = ({ index, control, errors, setValue
     }
   )
 
+  useEffect(() => {
+    if (formState.addresses[index].is_same_time) {
+      const selectedWorkDays = Object.keys(formState.addresses[index].working_hours).filter(
+        day => formState.addresses[index].working_hours[day].is_selected
+      )
+
+      const startTime = formState.addresses[index].start_time
+      const endTime = formState.addresses[index].end_time
+
+      const shouldUpdate =
+        selectedWorkDays.some(day => formState.addresses[index].working_hours[day].start_time !== startTime) ||
+        selectedWorkDays.some(day => formState.addresses[index].working_hours[day].end_time !== endTime)
+
+      if (shouldUpdate) {
+        selectedWorkDays.forEach(day => {
+          setValue(`addresses.${index}.working_hours.${day}.start_time`, startTime)
+          setValue(`addresses.${index}.working_hours.${day}.end_time`, endTime)
+        })
+      }
+    }
+  }, [formState.addresses[index], index, setValue])
+
   const renderDaysSelector = (day: any) => (
     <Controller
       key={day.value}
@@ -64,8 +86,6 @@ const BranchInfoComponent: React.FC<Props> = ({ index, control, errors, setValue
       )}
     />
   )
-
-  const renderTimeRangeComponent = (day: string) => <TimeRangeComponent index={index} control={control} day={day} />
 
   return (
     <div className='mb-6 md:border md:border-raisin-10 rounded-3xl md:py-10 md:px-9 grid grid-cols-1 gap-7'>
@@ -107,14 +127,23 @@ const BranchInfoComponent: React.FC<Props> = ({ index, control, errors, setValue
       {formState.addresses[index]?.is_same_time ? (
         <div className='flex flex-col gap-2 lg:items-center lg:flex-row justify-between' key={index}>
           <div className='flex items-center gap-4'>{days.map(day => renderDaysSelector(day))}</div>
-          {renderTimeRangeComponent('monday')}
+          <TimeRangeComponent
+            control={control}
+            startTimeName={`addresses.${index}.start_time`}
+            endTimeName={`addresses.${index}.end_time`}
+          />
         </div>
       ) : (
         <div>
           {days.map(day => (
             <div className='flex items-center gap-6' key={day.value}>
               {renderDaysSelector(day)}
-              {renderTimeRangeComponent(day.value)}
+              <> {console.log(day, 'day')} </>
+              <TimeRangeComponent
+                control={control}
+                startTimeName={`addresses.${index}.working_hours.${day.value}.start_time`}
+                endTimeName={`addresses.${index}.working_hours.${day.value}.end_time`}
+              />
             </div>
           ))}
         </div>

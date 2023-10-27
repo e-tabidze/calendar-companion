@@ -17,39 +17,10 @@ const Company: React.FC<Props> = ({ id }) => {
     useCompany(id)
 
   const onSubmit = () => {
-    companyValues.addresses.forEach(
-      (addr: {
-        is_same_time: boolean
-        working_hours: {
-          [x: string]: {
-            is_selected: boolean
-            end_time: string
-            start_time: string
-          }
-        }
-      }) => {
-        if (addr.is_same_time) {
-          const takeDefaultTime = {
-            start_time: addr.working_hours['monday'].start_time,
-            end_time: addr.working_hours['monday'].end_time
-          }
-
-          for (const day in addr.working_hours) {
-            addr.working_hours[day].start_time = ''
-            addr.working_hours[day].end_time = ''
-            if (addr.working_hours[day].is_selected) {
-              addr.working_hours[day].start_time = takeDefaultTime.start_time
-              addr.working_hours[day].end_time = takeDefaultTime.end_time
-              addr.working_hours[day].is_selected = true
-            } else {
-              addr.working_hours[day].is_selected = false
-            }
-          }
-        }
-      }
-    )
     console.log(companyValues, 'companyValues')
   }
+
+  console.log(companyValues, 'companyValues')
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>

@@ -4,13 +4,13 @@ export type WorkingTime = {
   is_selected: boolean
 }
 export type WorkingHours = {
-  monday?: WorkingTime
-  tuesday?: WorkingTime
-  wednesday?: WorkingTime
-  thursday?: WorkingTime
-  friday?: WorkingTime
-  saturday?: WorkingTime
-  sunday?: WorkingTime
+  monday: WorkingTime
+  tuesday: WorkingTime
+  wednesday: WorkingTime
+  thursday: WorkingTime
+  friday: WorkingTime
+  saturday: WorkingTime
+  sunday: WorkingTime
 }
 
 export type CompanyAddress = {
@@ -22,7 +22,7 @@ export type CompanyAddress = {
   postal_code?: string
   lat?: string
   long?: string
-  working_hours?: WorkingHours
+  working_hours: WorkingHours
   is_same_time: 0 | 1
   id: string
 }

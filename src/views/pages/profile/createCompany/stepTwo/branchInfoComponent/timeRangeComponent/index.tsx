@@ -2,12 +2,14 @@ import React from 'react'
 import SelectField from 'src/views/components/selectField'
 
 interface Props {
-  index: number
+  index?: number
   control: any
   day?: string
+  startTimeName: string
+  endTimeName: string
 }
 
-const TimeRangeComponent: React.FC<Props> = ({ index, control, day }) => {
+const TimeRangeComponent: React.FC<Props> = ({ index, control, day, startTimeName, endTimeName }) => {
   const generateTimeOptions = () => {
     const options = []
 
@@ -25,7 +27,8 @@ const TimeRangeComponent: React.FC<Props> = ({ index, control, day }) => {
         options={generateTimeOptions()}
         className='my-2'
         icon
-        name={`addresses.${index}.working_hours.${day}.start_time`}
+        // name={`addresses.${index}.working_hours.${day}.start_time`}
+        name={startTimeName}
         control={control}
       />
       <div className='h-px w-[6px] bg-raisin-130' />
@@ -34,7 +37,8 @@ const TimeRangeComponent: React.FC<Props> = ({ index, control, day }) => {
         className='my-2'
         icon
         control={control}
-        name={`addresses.${index}.working_hours.${day}.end_time`}
+        // name={`addresses.${index}.working_hours.${day}.end_time`}
+        name={endTimeName}
       />
     </div>
   )

@@ -49,68 +49,38 @@ const CreateCompany = () => {
 
   const onSubmit = async () => {
     try {
-      // companyValues.addresses.forEach(
-      //   (addr: {
-      //     is_same_time: boolean
-      //     working_hours: {
-      //       [x: string]: {
-      //         is_selected: boolean
-      //         end_time: string
-      //         start_time: string
-      //       }
-      //     }
-      //   }) => {
-      //     if (addr.is_same_time) {
-      //       const takeDefaultTime = {
-      //         start_time: addr.working_hours['monday'].start_time,
-      //         end_time: addr.working_hours['monday'].end_time
-      //       }
-
-      //       for (const day in addr.working_hours) {
-      //         addr.working_hours[day].start_time = ''
-      //         addr.working_hours[day].end_time = ''
-      //         if (addr.working_hours[day].is_selected) {
-      //           addr.working_hours[day].start_time = takeDefaultTime.start_time
-      //           addr.working_hours[day].end_time = takeDefaultTime.end_time
-      //           addr.working_hours[day].is_selected = true
-      //         } else {
-      //           addr.working_hours[day].is_selected = false
-      //         }
-      //       }
-      //     }
-      //   }
-      // )
-
       await createCompany({ AccessToken: Cookie.get('AccessToken'), company: companyValues })
     } catch (error) {
       console.error('An error occurred while creating new company:', error)
     }
   }
 
+  console.log(companyValues, 'companyValues')
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       {/* <FormProvider {...control}> */}
-        <NewListingLayout
-          options={options}
-          onChange={selectOption}
-          selectedOption={step}
-          onNextStep={handleGoNextStep}
-          onPrevStep={handleGoPrevStep}
-          onClose={handleClose}
-          onSubmit={handleSubmit(onSubmit)}
-        >
-          {step.step === 1 && <StepOne control={control} errors={errors} clearErrors={clearErrors} />}
-          {step.step === 2 && (
-            <StepTwo
-              control={control}
-              addressFields={addressFields}
-              appendAddress={appendAddress}
-              errors={errors}
-              setValue={setValue}
-            />
-          )}
-          {step.step === 3 && <StepThree control={control} errors={errors} />}
-        </NewListingLayout>
+      <NewListingLayout
+        options={options}
+        onChange={selectOption}
+        selectedOption={step}
+        onNextStep={handleGoNextStep}
+        onPrevStep={handleGoPrevStep}
+        onClose={handleClose}
+        onSubmit={handleSubmit(onSubmit)}
+      >
+        {step.step === 1 && <StepOne control={control} errors={errors} clearErrors={clearErrors} />}
+        {step.step === 2 && (
+          <StepTwo
+            control={control}
+            addressFields={addressFields}
+            appendAddress={appendAddress}
+            errors={errors}
+            setValue={setValue}
+          />
+        )}
+        {step.step === 3 && <StepThree control={control} errors={errors} />}
+      </NewListingLayout>
       {/* </FormProvider> */}
     </form>
   )
