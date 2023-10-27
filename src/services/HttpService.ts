@@ -132,7 +132,8 @@ class HttpService {
     if (!headers || (headers && !headers.hasOwnProperty('Authorization'))) {
       headers = {
         ...headers,
-        Authorization: `${this.getToken(serverReq)}`
+        Authorization: `${this.getToken(serverReq)}`,
+        apipassphrase: 'rameaxali'
       }
     }
 
