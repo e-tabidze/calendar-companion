@@ -1,12 +1,11 @@
-import { Fragment, useState } from 'react'
+import { Fragment } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import Typography from 'src/views/components/typography'
 import { DefaultButton, IconButton } from 'src/views/components/button'
 import { Divider } from '../../../favorites/listComponent/styles'
 import RoundedTag from 'src/views/components/roundedTag'
 import SwitchField from 'src/views/components/switchField'
-import { Controller, useForm, useWatch } from 'react-hook-form'
-import TimeRangeComponent from './timeTangeComponent'
+import { Controller, useWatch } from 'react-hook-form'
 
 // const days = [
 //   {
@@ -93,10 +92,6 @@ const EditScheduleModal: React.FC<Props> = ({ open, onClose, control, index, dat
   //   />
   // )
 
-  let sameTime = 0
-
-  console.log(data, 'data')
-
   return (
     <Transition appear show={open} as={Fragment}>
       <Dialog as='div' className='relative z-50' onClose={onClose}>
@@ -139,7 +134,7 @@ const EditScheduleModal: React.FC<Props> = ({ open, onClose, control, index, dat
                       control={control}
                     />
 
-                    {sameTime === 1 ? (
+                    {formState.addresses[index].is_same_time === 1 ? (
                       <div className='flex items-center justify-between gap-4'>
                         <div className='flex items-center gap-4'>
                           {data.map((day: any) => (
@@ -172,16 +167,16 @@ const EditScheduleModal: React.FC<Props> = ({ open, onClose, control, index, dat
                             </>
                           ))}
                         </div>
-                        <TimeRangeComponent index={index} control={control} />
+
+                        {/* <TimeRangeComponent index={index} control={control} /> */}
                       </div>
                     ) : (
                       <div className=''>
                         <div className=''>
                           {data.map((day: any) => (
-                            <div className='flex items-center gap-6'>
+                            <div className='flex items-center gap-6' key={day.value}>
                               <>{console.log(day, 'day')}</>
                               <Controller
-                                key={day.value}
                                 name={`addresses.${index}.working_hours.${day.day}.${day.is_selected}`}
                                 control={control}
                                 render={({ field: { value, onChange } }) => (
@@ -209,7 +204,8 @@ const EditScheduleModal: React.FC<Props> = ({ open, onClose, control, index, dat
                                   </>
                                 )}
                               />
-                              <TimeRangeComponent index={index} control={control} />
+
+                              {/* <TimeRangeComponent index={index} control={control} /> */}
                             </div>
                           ))}
                         </div>

@@ -4,7 +4,6 @@ import NewListingLayout from 'src/layouts/NewListingLayout'
 import StepOne from './stepOne'
 import StepThree from './stepThree'
 import StepTwo from './stepTwo'
-import { FormProvider } from 'react-hook-form'
 import Cookie from 'src/helpers/Cookie'
 import useCreateCompany from './useCreateCompany'
 

@@ -6,7 +6,7 @@ import { DefaultInput } from 'src/views/components/input'
 import Typography from 'src/views/components/typography'
 import AddressAndSchedule from './addressAndSchedule'
 import useCompany from './useCompany'
-import { CompanyAddress, CompanyInfo, WorkingHours, WorkingTime } from 'src/types/Company'
+import { CompanyAddress } from 'src/types/Company'
 
 interface Props {
   id: number

@@ -4,7 +4,6 @@ import { useForm } from 'react-hook-form'
 import Divider from 'src/views/components/divider'
 import { DefaultInput } from 'src/views/components/input'
 import Typography from 'src/views/components/typography'
-import AddressAndSchedule from '../../profile/company/addressAndSchedule'
 
 const EditCompany = () => {
   const { control } = useForm()
