@@ -106,7 +106,7 @@ export const getAdditionalParams = async (accessToken = '') => {
   }
 }
 
-export const getCompanyServices = async (accessToken = '', company_id = 112) => {
+export const getCompanyServices = async (accessToken = '', company_id = 111) => {
   try {
     const response: any = await CompanyService.getCompanyServices(accessToken, company_id)
 
@@ -117,7 +117,7 @@ export const getCompanyServices = async (accessToken = '', company_id = 112) => 
   }
 }
 
-export const getCompanyBranches = async (accessToken = '', company_id = 112) => {
+export const getCompanyBranches = async (accessToken = '', company_id = 111) => {
   try {
     const response: any = await CompanyService.getCompanyBranches(accessToken, company_id)
 

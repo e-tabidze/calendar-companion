@@ -2,24 +2,24 @@ import { useFieldArray, useForm, useWatch } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 
 import { CompanySchema } from 'src/@core/validation/companySchema'
-import { Company } from 'src/types/Company'
+import { Company, CompanyAddress, WorkingTime } from 'src/types/Company'
 import CompanyService from 'src/services/CompanyService'
 import locationService from 'src/services/locationService'
 
 const useCreateCompany = () => {
-  const defaultWorkDayWorkingTime = {
+  const defaultWorkDayWorkingTime: WorkingTime = {
     start_time: '09:00',
     end_time: '18:00',
     is_selected: true
   }
 
-  const defaultWeekendWorkingTime = {
+  const defaultWeekendWorkingTime: WorkingTime = {
     start_time: '',
     end_time: '',
     is_selected: false
   }
 
-  const defaultAddress = {
+  const defaultAddress: CompanyAddress = {
     address: '',
     phone: '',
     email: '',
@@ -28,7 +28,9 @@ const useCreateCompany = () => {
     postal_code: '',
     lat: '',
     long: '',
-    isSameTime: true,
+    is_same_time: true,
+    start_time: '09:00',
+    end_time: '18:00',
     working_hours: {
       monday: defaultWorkDayWorkingTime,
       tuesday: defaultWorkDayWorkingTime,
@@ -40,7 +42,7 @@ const useCreateCompany = () => {
     }
   }
 
-  const createCompanyDefaultValues = {
+  const createCompanyDefaultValues: Company = {
     identification_number: null,
     company_type_id: '1',
     company_information: {
@@ -70,7 +72,8 @@ const useCreateCompany = () => {
 
   const { fields: addressFields, append: appendAddress } = useFieldArray({
     control,
-    name: 'addresses'
+    name: 'addresses',
+    rules: { minLength: 1 }
   })
 
   const companyValues: any = useWatch({ control })
@@ -91,7 +94,7 @@ const useCreateCompany = () => {
   const getLocationSuggestions = async (address: string) => {
     try {
       const response: any = await locationService.getLocationSuggestions(address)
-      
+
       return response.data
     } catch (error) {
       console.error('Error fetching location suggestions:', error)

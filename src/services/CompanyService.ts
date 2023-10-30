@@ -21,6 +21,18 @@ class CompanyService extends HttpService {
   getCompanyBranches(AccessToken = '', company_id: number) {
     return this.get(`/company-branches/${company_id}`, AccessToken ? { Authorization: `${AccessToken}` } : {})
   }
+
+  getCompanyInfo(AccessToken = '', company_id: number) {
+    return this.get(`/companies/${company_id}`, AccessToken ? { Authorization: `${AccessToken}` } : {})
+  }
+
+  updateCompanyInfo(AccessToken = '', company_id: number, company: any) {
+    return this.put(`/companies/${company_id}`, company, AccessToken ? { Authorization: `${AccessToken}` } : {})
+  }
+
+  deleteCompany(AccessToken = '', company_id: number) {
+    return this.delete(`/companies/${company_id}`, AccessToken ? { Authorization: `${AccessToken}` } : {})
+  }
 }
 
 export default new CompanyService()
