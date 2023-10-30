@@ -23,10 +23,10 @@ export type CompanyAddress = {
   lat?: string
   long?: string
   working_hours: WorkingHours
-  is_same_time: Boolean | 0 | 1
-  start_time: string
-  end_time: string
-  id: string
+  is_same_time?: any
+  start_time?: string
+  end_time?: string
+  id?: string
 }
 
 export type CompanyInfo = {
@@ -42,4 +42,5 @@ export type Company = {
   company_type_id: number | string
   company_information: CompanyInfo
   addresses: CompanyAddress[]
+  company_id?: number
 }

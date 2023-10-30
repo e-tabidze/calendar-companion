@@ -28,10 +28,10 @@ const CompanyAddressSchema = Yup.object<CompanyAddress>().shape({
 
 const CompanyInfoSchema = Yup.object<CompanyInfo>().shape({
   name: Yup.string().required("სავალდებულო ველი"),
-  logo: Yup.string(),
+  logo: Yup.string().required(),
   description: Yup.string().required("სავალდებულო ველი"),
-  email: Yup.string().email('მეილის ფორმატი არასწორია'),
-  phone_numbers: Yup.string()
+  email: Yup.string().required().email('მეილის ფორმატი არასწორია'),
+  phone_numbers: Yup.string().required()
 })
 
 const CompanySchema = Yup.object<Company>().shape({

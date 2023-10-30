@@ -75,7 +75,7 @@ const EditScheduleModal: React.FC<Props> = ({ open, onClose, control, address, i
               leaveFrom='opacity-100 scale-100'
               leaveTo='opacity-0 scale-95'
             >
-              <Dialog.Panel className='w-full max-w-[800px] transform overflow-hidden rounded-2xl bg-white text-left align-middle shadow-xl transition-all'>
+              <Dialog.Panel className='w-full max-w-[900px] transform overflow-hidden rounded-2xl bg-white text-left align-middle shadow-xl transition-all'>
                 <Dialog.Title as='h3' className='w-full flex items-center justify-between px-10 py-6'>
                   საათების რედაქტირება
                   <IconButton icon='/icons/close.svg' onClick={onClose} width={40} height={40} />
@@ -200,6 +200,8 @@ const EditScheduleModal: React.FC<Props> = ({ open, onClose, control, address, i
                     bg='bg-green-100'
                     className='my-4 mr-10'
                     textColor='text-white'
+                    type="submit"
+                    onClick={onClose}
                   ></DefaultButton>
                 </div>
               </Dialog.Panel>

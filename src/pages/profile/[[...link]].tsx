@@ -66,18 +66,17 @@ const ProfileRouter = ({ userInfo }: { userInfo: UserInfo }) => {
     key = 'profile'
   }
 
-  if (router.query.link.includes('company')) {
+  if (router.query.link?.includes('company')) {
     companyid = router.query.link[router.query.link.length - 1]
 
     key = `/company/${companyid}`
   }
   const { companyInfo, isLoading } = useCompanyInfo(Number(companyid))
 
-  if (isLoading) {
-    return <div>Loading...</div>
-  }
-
   if (key.startsWith('/company/')) {
+    if (isLoading) {
+      return <div>Loading...</div>
+    }
     if (companyid) {
       const queryKey = ['companyInfo', companyid]
       queryClient.invalidateQueries(queryKey)

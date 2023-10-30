@@ -20,9 +20,10 @@ interface Props {
   index: number
   control: any
   address: any
+  errors: any
 }
 
-const AddressAndSchedule: React.FC<Props> = ({ index, control, address }) => {
+const AddressAndSchedule: React.FC<Props> = ({ index, control, address, errors }) => {
   const [openEditModal, setOpenEditModal] = useState(false)
 
   const toggleEditModal = () => setOpenEditModal(!openEditModal)
@@ -46,7 +47,7 @@ const AddressAndSchedule: React.FC<Props> = ({ index, control, address }) => {
           className='border-none'
           control={control}
           name={`addresses.${index}.address`}
-          errors={''}
+          errors={errors}
         />
         <Divider />
         <div
