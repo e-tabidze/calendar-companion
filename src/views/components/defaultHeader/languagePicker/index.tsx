@@ -28,11 +28,11 @@ const LanguagePicker = () => {
 
   return (
     <LanPickerContainer>
-      <Menu as='div' className='relative text-left hidden md:flex'>
-        <Menu.Button className='flex h-[40px] rounded-[12px] items-center px-[12px] font-medium text-[#272A37] text-[14px] border transition-all  border-[#E9EAEB] hover:bg-[#F2F3F6] hover:border-[#BEBFC3]'>
+      <Menu as='div' className='relative text-left flex'>
+        <Menu.Button className='flex h-[40px] md:rounded-[12px] items-center md:px-[12px] font-medium text-[#272A37] text-[14px] md:border transition-all  md:border-[#E9EAEB] md:hover:bg-[#F2F3F6] md:hover:border-[#BEBFC3]'>
           <Image src='/icons/globe.svg' alt='img' className="mr-2"/>
-          {active}
-          <Image src='/icons/chevron.svg' alt='img' className="ml-2"/>
+          <span className="hidden md:flex">{active}</span>
+          <Image src='/icons/chevron.svg' alt='img' className="hidden md:flex md:ml-2"/>
         </Menu.Button>
         <Transition
           as={Fragment}
@@ -43,7 +43,7 @@ const LanguagePicker = () => {
           leaveFrom='transform opacity-100 scale-100'
           leaveTo='transform opacity-0 scale-95'
         >
-          <Menu.Items className='min-w-[200px] absolute z-[2] left-1/2 -translate-x-1/2  bg-[#ffffff] rounded-[16px]  shadow-[0px_6px_18px_#000000/10] py-[16px] top-full mt-[20px]'>
+          <Menu.Items className='hidden md:block min-w-[200px] absolute z-[2] left-1/2 -translate-x-1/2  bg-[#ffffff] rounded-[16px]  shadow-[0px_6px_18px_#000000/10] py-[16px] top-full mt-[20px]'>
             {langs.map(lang => (
               <Menu.Item key={lang.id}>
                 <button

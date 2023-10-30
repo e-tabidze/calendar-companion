@@ -5,11 +5,11 @@ import Image from '../../image'
 import { Dialog, Transition } from '@headlessui/react'
 
 interface Props {
+    user: any
     open: boolean
     setOpen: () => void
 }
-
-const BurgerMenu: React.FC<Props> = ({ open, setOpen }) => {
+const BurgerMenu: React.FC<Props> = ({ open, setOpen, user }) => {
     const cancelButtonRef = useRef(null)
 
     return (
@@ -45,72 +45,140 @@ const BurgerMenu: React.FC<Props> = ({ open, setOpen }) => {
                                     </Dialog.Title>
                                     <Image src='/icons/close.svg' onClick={setOpen} alt='' height={40} width={40} />
                                 </div>
-                                <nav className="burger-nav active">
-                                    <ul className="burger-main-menu">
-                                        <li><a target="_blank" href=""
+                                <nav>
+                                    {user == 1 &&
+                                    <ul>
+                                        <li>
+                                            <a target="_blank" href=""
                                                className="flex text-[16px] text-[#272A37] py-[8px]" rel="noreferrer">
-                                            გაფორმება
-                                        </a></li>
-                                        <li><a target="_blank" href=""
+                                                დეშბორდი
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a target="_blank" href=""
                                                className="flex text-[16px] text-[#272A37] py-[8px]" rel="noreferrer">
-                                            VIN-ის შემოწმება
-                                        </a></li>
-                                        <li><a target="_blank" href=""
+                                                განცხადების დამატება
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a target="_blank" href=""
                                                className="flex text-[16px] text-[#272A37] py-[8px]" rel="noreferrer">
-                                            დილერები
-                                        </a></li>
-                                        <li><a target="_blank" href=""
+                                                შემოსული ჯაშნები
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a target="_blank" href=""
                                                className="flex text-[16px] text-[#272A37] py-[8px]" rel="noreferrer">
-                                            ავტოსალონები
-                                        </a></li>
-                                        <li><a target="_blank" href=""
+                                                გადახდები
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a target="_blank" href=""
                                                className="flex text-[16px] text-[#272A37] py-[8px]" rel="noreferrer">
-                                            აუქციონი
-                                        </a></li>
-                                        <li><a target="_blank" href=""
+                                                ავტომობილები
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a target="_blank" href=""
                                                className="flex text-[16px] text-[#272A37] py-[8px]" rel="noreferrer">
-                                            ავტონაწილები
-                                        </a></li>
-                                        <li><a target="_blank" href=""
-                                               className="flex text-[16px] text-[#272A37] py-[8px]" rel="noreferrer">
-                                            კატალოგი
-                                        </a></li>
-                                        <li><a target="_blank" href=""
-                                               className="flex text-[16px] text-[#272A37] py-[8px]" rel="noreferrer">
-                                            ბლოგი
-                                        </a></li>
+                                                კომპანიის რედაქტირება
+                                            </a>
+                                        </li>
                                     </ul>
-                                    <ul className="burger-help-menu py-[24px] border-t-[1px] border-[#E9EAEB] mt-[24px]">
-                                        <li><a target="_blank" href=""
+                                    }
+                                    {user == 0 &&
+                                    <ul>
+                                        <li>
+                                            <a target="_blank" href=""
                                                className="flex text-[16px] text-[#272A37] py-[8px]" rel="noreferrer">
-                                            დახმარება
-                                        </a></li>
-                                        <li><a target="_blank" href=""
+                                                ჩემი შეკვეთები
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a target="_blank" href=""
                                                className="flex text-[16px] text-[#272A37] py-[8px]" rel="noreferrer">
-                                            კონტაქტი
-                                        </a></li>
+                                                ბარათები დატრანზაქციები
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a target="_blank" href=""
+                                               className="flex text-[16px] text-[#272A37] py-[8px]" rel="noreferrer">
+                                                პარამეტრები
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a target="_blank" href=""
+                                               className="flex text-[16px] text-[#272A37] py-[8px]" rel="noreferrer">
+                                                კომპანიის შექმნა
+                                            </a>
+                                        </li>
+                                    </ul>
+                                    }
+                                    <ul className="py-[24px] border-t-[1px] border-[#E9EAEB] mt-[24px]">
+                                        <li>
+                                            <a href="">
+                                                <div className="py-3 hover:bg-[#F2F3F6] flex items-center justify-between">
+                                                    <div className="flex items-center text-[14px]">
+                                           <span
+                                               className="w-10 h-10 mr-4 relative flex items-center justify-center rounded-full overflow-hidden">
+                                                <Image src='/images/avatar.png' className='rounded-full' alt='avatar' />
+                                          </span>
+                                                        <div className="flex flex-col">
+                                                            <span className="flex text-[14px]">ბენე ექსლუზივი </span>
+                                                            <span className="flex text-[12px] text-raisin-80">ID: 79428749</span>
+                                                        </div>
+
+                                                    </div>
+                                                    <span className="after:content-[''] after:w-3 after:h-3 after:rounded-full after:bg-black ml-6 w-6 h-6 rounded-full flex items-center justify-center border border-2 border-black"></span>
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="">
+                                                <div className="py-3 hover:bg-[#F2F3F6] flex items-center justify-between">
+                                                    <div className="flex items-center text-[14px]">
+                                       <span
+                                           className="w-10 h-10 mr-4 relative flex items-center justify-center rounded-full overflow-hidden">
+                                            <Image src='/images/avatar.png' className='rounded-full' alt='avatar' />
+                                      </span>
+                                                        <div className="flex flex-col">
+                                                            <span className="flex text-[14px]">ბენე მოტო </span>
+                                                            <span className="flex text-[12px] text-raisin-80">ID: 79428749</span>
+                                                        </div>
+                                                    </div>
+                                                    <span className="ml-6 w-6 h-6 rounded-full flex items-center justify-center border border-2 border-black"></span>
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="">
+                                                <div className="py-3 hover:bg-[#F2F3F6] flex items-center justify-between">
+                                                    <div className="flex items-center text-[14px]">
+                                       <span
+                                           className="w-10 h-10 mr-4 relative flex items-center justify-center rounded-full overflow-hidden">
+                                            <Image src='/images/avatar.png' className='rounded-full' alt='avatar'/>
+                                      </span>
+                                      <div className="flex flex-col">
+                                        <span className="flex text-[14px]">name name </span>
+                                        <span className="flex text-[12px] text-raisin-80">ID: 79428749</span>
+                                    </div>
+                                      </div>
+                                                    <span
+                                                        className="ml-6 w-6 h-6 rounded-full flex items-center justify-center border border-2 border-black"></span>
+                                                </div>
+                                            </a>
+                                        </li>
+
+                                    </ul>
+                                    <ul className="py-[24px] border-t-[1px] border-[#E9EAEB]">
+                                        <li>
+                                            <a target="_blank" href=""
+                                               className="flex text-[16px] text-[#272A37] py-[8px]" rel="noreferrer">
+                                                გასვლა
+                                            </a>
+                                        </li>
                                     </ul>
                                 </nav>
-                                <div
-                                    className="burger-menu-langs flex items-center border-t-[1px] border-[#E9EAEB] pt-[32px] active">
-                                    <ul className="flex">
-                                        <li className="mr-[8px]">
-                                            <div className="lng lng-ka"><a
-                                                className="h-[40px] flex items-center text-[#1B1D27] text-[12px] font-medium px-[8px] cursor-pointer rounded-[8px] bg-[#F2F3F6] border border-[#1B1D27]"><span
-                                                className="lang-code">ქართული</span></a></div>
-                                        </li>
-                                        <li className="mr-[8px]">
-                                            <div className="lng lng-en"><a
-                                                className="h-[40px] flex items-center text-[#1B1D27] text-[12px] font-medium px-[8px] cursor-pointer border border-[#D4D4D7] rounded-[8px]"
-                                                href=""><span className="lang-code">English</span></a></div>
-                                        </li>
-                                        <li className="mr-[8px]">
-                                            <div className="lng lng-ru"><a
-                                                className="h-[40px] flex items-center text-[#1B1D27] text-[12px] font-medium px-[8px] cursor-pointer border border-[#D4D4D7] rounded-[8px]"
-                                                href=""><span className="lang-code">Русский</span></a></div>
-                                        </li>
-                                    </ul>
-                                </div>
                             </Dialog.Panel>
                         </Transition.Child>
                     </div>
