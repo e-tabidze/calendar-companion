@@ -12,11 +12,10 @@ const DefaultHeader = () => {
     router.push('/')
   }
     const user = 1
+
     // if (typeof window !== 'undefined') {
     //     user = localStorage.getItem('isCompany')
     // }
-
-
 
     return (
     <InnerContainer>
