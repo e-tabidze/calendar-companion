@@ -11,8 +11,6 @@ interface Props {
 const User:React.FC<Props> = ({user}) => {
   return (
     <UserContainer>
-        {/*{user=1 && <div>gbeijgbeigbei</div>}*/}
-        {/*{user=1? <div>ggg</div>:<div>rrrr</div>}*/}
         {user == 1 &&
             <RentBtn className="hidden md:flex">
                 <Image src={'/icons/plus.svg'} alt='img'/>
