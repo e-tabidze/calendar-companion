@@ -35,8 +35,7 @@ const Company: React.FC<Props> = ({ id }) => {
 
   const onSubmit = () => {
     console.log(companyValues, 'companyValues')
-
-    // updateCompanyMutation.mutate(companyValues)
+    updateCompanyMutation.mutate(companyValues)
   }
 
   // const onSubmit = () => {

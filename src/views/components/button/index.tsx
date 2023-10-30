@@ -15,7 +15,7 @@ export const DefaultButton = ({ text, onClick, bg, className, textColor, type }:
   )
 }
 
-export const OutlinedButton = ({ label, onClick, type="button" }: any) => {
+export const OutlinedButton = ({ label, onClick, type = 'button' }: any) => {
   return (
     <button className='border border-raisin-130 rounded-2xl px-3 py-2 h-max text-sm' onClick={onClick} type={type}>
       {label}
@@ -28,12 +28,11 @@ export const IconButton = ({
   innerRef,
   hasBg,
   bg,
-  responsive,
   className,
   onClick,
   height,
   width,
-  type="button",
+  type = 'button',
   ...props
 }: any) => {
   return (
@@ -51,7 +50,7 @@ export const IconButton = ({
   )
 }
 
-export const IconTextButton = ({ label, icon, bg, className, onClick, labelClassname, type="button" }: any) => {
+export const IconTextButton = ({ label, icon, bg, className, onClick, labelClassname, type = 'button' }: any) => {
   return (
     <button
       className={`flex items-center focus:outline-none rounded-2xl ${bg} ${bg ? 'p-4' : ''} ${className}`}
