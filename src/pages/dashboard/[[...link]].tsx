@@ -5,9 +5,9 @@ const IncomingOrders = dynamic(() => import('src/views/pages/dashboard/incomingO
 const Vehicles = dynamic(() => import('src/views/pages/dashboard/vehicles'), { ssr: true })
 const EditCompany = dynamic(() => import('src/views/pages/dashboard/editCompany'), { ssr: true })
 const NewProduct = dynamic(() => import('src/views/pages/dashboard/newProduct'), { ssr: true })
-const ProfileLayout = dynamic(() => import('src/layouts/ProfileLayout'), { ssr: true })
 
 import dynamic from 'next/dynamic'
+import ProfileLayout from 'src/layouts/ProfileLayout'
 
 const routes = [
   {
@@ -62,12 +62,14 @@ const ProfileRouter = () => {
     key = router.query?.link[0]
   }
 
-  if (router.query.link?.length == 2) {
-    key = 'profile'
+  if (!!router.query.link) {
+    key = 'dashboard'
   }
 
+  console.log(router.query.link, 'key')
+
   switch (key) {
-    case 'dashboard':
+    case 'dashboard' || '':
       return <CompanyDashboard />
     case 'new-product':
       return <NewProduct />
@@ -82,7 +84,7 @@ const ProfileRouter = () => {
     case 'sign-out':
       return <div>Sign Out</div>
     default:
-      return <CompanyDashboard />
+      return <></>
   }
 }
 

@@ -1,3 +1,4 @@
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import Image from 'next/image'
 import Link from 'next/link'
 import { DefaultButton, IconTextButton } from 'src/views/components/button'
@@ -6,27 +7,46 @@ import { DefaultInput } from 'src/views/components/input'
 import Typography from 'src/views/components/typography'
 import AddressAndSchedule from './addressAndSchedule'
 import useCompany from './useCompany'
-import { CompanyAddress } from 'src/types/Company'
 
 interface Props {
   id: number
 }
 
 const Company: React.FC<Props> = ({ id }) => {
-  const { control, errors, addressFields, appendAddress, defaultEmptyAddress, companyValues, remove, handleSubmit } =
-    useCompany(id)
+  const {
+    control,
+    errors,
+    addressFields,
+    appendAddress,
+    defaultEmptyAddress,
+    companyValues,
+    remove,
+    handleSubmit,
+    updateCompanyInfo
+  } = useCompany(id)
+
+  const queryClient = useQueryClient()
+
+  const updateCompanyMutation = useMutation(() => updateCompanyInfo(companyValues), {
+    onSuccess: () => {
+      queryClient.invalidateQueries(['companyInfo'])
+    }
+  })
 
   const onSubmit = () => {
     console.log(companyValues, 'companyValues')
+    updateCompanyMutation.mutate(companyValues)
   }
 
-  console.log(companyValues, 'companyValues')
+  // const onSubmit = () => {
+  //   console.log(companyValues, 'companyValues')
+  // }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className='md:border border-raisin-10 rounded-3xl'>
         <div className='p-2 md:p-6'>
-          <div className='flex items-center gap-6'>
+          <div className='flex items-center gap-6 mb-10'>
             <Image src='/images/avatar.png' alt='' height={96} width={97} className='rounded-3xl' />
             <div>
               <Typography type='h3' className='font-bold'>
@@ -38,14 +58,8 @@ const Company: React.FC<Props> = ({ id }) => {
             </div>
           </div>
           <Divider />
-          <div className='grid grid-cols-2 gap-4 my-5'>
-            <DefaultInput
-              name='identification_number'
-              control={control}
-              errors={errors}
-              label='საიდენტიფიკაციო კოდი'
-              disabled
-            />
+          <div className='grid grid-cols-2 gap-4 my-10'>
+            <DefaultInput name='identification_number' control={control} errors={errors} label='საიდენტიფიკაციო კოდი' />
             <DefaultInput
               name='company_information.name'
               control={control}
@@ -73,28 +87,32 @@ const Company: React.FC<Props> = ({ id }) => {
             მისამართები და განრიგი
           </Typography>
 
-          {addressFields.map((address: CompanyAddress, index) => (
+          {addressFields.map((address, index) => (
             <div key={address.id}>
-              <IconTextButton
-                label='მისამართის წაშლა'
-                icon='/icons/trash.svg'
-                onClick={() => remove(index)}
-                className='text-orange-130'
-              />
-              <AddressAndSchedule index={index} control={control} workingHours={address.working_hours} />
+              <AddressAndSchedule index={index} control={control} address={address} errors={errors} />
+              <div className='w-full flex justify-end pr-8'>
+                <IconTextButton
+                  icon='/icons/clear.svg'
+                  label='წაშლა'
+                  width={16}
+                  height={16}
+                  onClick={() => remove(index)}
+                />
+              </div>
             </div>
           ))}
 
           <IconTextButton
             label='მისამართის დამატება'
             icon='/icons/add.svg'
+            className='ml-4'
             onClick={() => {
               appendAddress(defaultEmptyAddress)
             }}
             type='button'
           />
 
-          <Typography type='h3' className='font-bold'>
+          <Typography type='h3' className='font-bold mt-24'>
             საკონტაქტო
           </Typography>
           <div className='grid grid-cols-2 gap-4 my-5'>

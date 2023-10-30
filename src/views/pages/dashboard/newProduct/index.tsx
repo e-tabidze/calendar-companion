@@ -2,7 +2,6 @@ import { useState } from 'react'
 import NewListingLayout from 'src/layouts/NewListingLayout'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
-import { FormProvider } from 'react-hook-form'
 import useNewProduct from './useNewProduct'
 
 const StepOne = dynamic(() => import('./stepOne'), { ssr: false })
@@ -101,21 +100,17 @@ const NewProduct: React.FC = () => {
   }
 
   return (
-    
-    // @ts-ignore
-    <FormProvider {...control}>
-      <NewListingLayout
-        options={options}
-        onChange={selectOption}
-        selectedOption={step}
-        onNextStep={handleGoNextStep}
-        onPrevStep={handleGoPrevStep}
-        onClose={handleClose}
-        onSubmit={handleSubmit(onSubmit)}
-      >
-        <form>{renderStepComponent()}</form>
-      </NewListingLayout>
-    </FormProvider>
+    <NewListingLayout
+      options={options}
+      onChange={selectOption}
+      selectedOption={step}
+      onNextStep={handleGoNextStep}
+      onPrevStep={handleGoPrevStep}
+      onClose={handleClose}
+      onSubmit={handleSubmit(onSubmit)}
+    >
+      <form>{renderStepComponent()}</form>
+    </NewListingLayout>
   )
 }
 

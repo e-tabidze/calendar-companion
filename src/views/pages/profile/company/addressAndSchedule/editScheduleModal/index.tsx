@@ -1,7 +1,7 @@
 import { Fragment } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import Typography from 'src/views/components/typography'
-import { DefaultButton, IconButton } from 'src/views/components/button'
+import { DefaultButton, IconTextButton } from 'src/views/components/button'
 import { Divider } from '../../../favorites/listComponent/styles'
 import RoundedTag from 'src/views/components/roundedTag'
 import SwitchField from 'src/views/components/switchField'
@@ -123,7 +123,7 @@ const EditScheduleModal: React.FC<Props> = ({ open, onClose, control, index, dat
                   <Typography type='h5' weight='normal' className='text-2md'>
                     საათების რედაქტირება
                   </Typography>
-                  <IconButton icon='/icons/close.svg' onClick={onClose} width={40} height={40} />
+                  <IconTextButton icon='/icons/close.svg' onClick={onClose} width={40} height={40} />
                 </Dialog.Title>
                 <Divider />
                 <div className='mb-20'>
