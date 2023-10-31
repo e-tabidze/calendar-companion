@@ -11,7 +11,7 @@ const DefaultHeader = () => {
   const onClickLogo = () => {
     router.push('/')
   }
-    const user = 1
+    const user = 0
 
     // if (typeof window !== 'undefined') {
     //     user = localStorage.getItem('isCompany')
