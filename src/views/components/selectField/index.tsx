@@ -106,8 +106,6 @@ const SelectField: React.FC<Props> = ({
         control={control}
         render={({ field: { onChange, value } }) => (
           <>
-            {console.log(value, '<= select value')}
-            {console.log(options, 'options')}
             <Select
               styles={customStyles}
               options={options}
@@ -124,7 +122,6 @@ const SelectField: React.FC<Props> = ({
               isClearable
               placeholder={placeholder}
               isDisabled={disabled}
-              
               // @ts-ignore
               emoji={
                 icon && (

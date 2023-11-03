@@ -36,7 +36,7 @@ const NewServiceModal: React.FC<Props> = ({ open, onClose }) => {
 
   const createNewServiceMutation = useMutation(
     (newServiceData: NewService) => {
-      return createNewService(newServiceData, Cookie.get('AccessToken'))
+      return createNewService(newServiceData, '')
     },
     {
       onSuccess: () => {

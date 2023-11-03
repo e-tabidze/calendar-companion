@@ -31,10 +31,6 @@ const productArray = [
 // const categories = categoryArray.map((item, key) => <CategoryCard category={item.type} key={key} />)
 
 const MainPage = () => {
-  // await dispatch(({ AccessToken: Cookie.get('AccessToken') }))
-
-  console.log({ AccessToken: Cookie.get('AccessToken') }, 'accesstoken')
-
   return (
     <DefaultLayout>
       <MainPageBox>

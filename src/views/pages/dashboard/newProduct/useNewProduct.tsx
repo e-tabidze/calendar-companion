@@ -5,9 +5,13 @@ import { Product } from 'src/types/Product'
 import { NewProductSchema } from 'src/@core/validation/newProductSchema'
 import useProductInfo from './useProductInfo'
 import { useEffect } from 'react'
+import useProfile from 'src/hooks/useProfile'
 
 const useNewProduct = () => {
   const { companyServices } = useProductInfo()
+  const { actveProfileId } = useProfile()
+
+  console.log(actveProfileId, 'actveProfileId')
 
   const services = companyServices?.map((service: any) => ({
     id: service.id,
@@ -24,6 +28,7 @@ const useNewProduct = () => {
   }
 
   const newProductDefaultValues = {
+    company_id: actveProfileId,
     is_active: '1',
     apply_discount: false,
     discount: [discount_item],
@@ -45,6 +50,12 @@ const useNewProduct = () => {
     }
   }, [companyServices])
 
+  useEffect(() => {
+    if (actveProfileId) {
+      setValue('company_id', actveProfileId)
+    }
+  }, [actveProfileId])
+
   const {
     control,
     handleSubmit,
@@ -57,8 +68,6 @@ const useNewProduct = () => {
     mode: 'onChange',
     reValidateMode: 'onChange',
     defaultValues: newProductDefaultValues,
-
-    // @ts-ignore
     resolver: yupResolver(NewProductSchema)
   })
 
@@ -78,9 +87,7 @@ const useNewProduct = () => {
 
   const productValues: any = useWatch({ control })
 
-  const createNewProduct = async (params: { AccessToken: any; product: Product }) => {
-    const { AccessToken, product } = params
-
+  const createNewProduct = async (AccessToken = '', product: Product) => {
     try {
       const response: any = await ProductService.createNewProduct(AccessToken, product)
 

@@ -1,8 +1,10 @@
 import { useQuery } from '@tanstack/react-query'
+import useProfile from 'src/hooks/useProfile'
 import CompanyService from 'src/services/CompanyService'
 import ProductService from 'src/services/ProductService'
 
 const useProductInfo = (step?: number | undefined) => {
+  const { actveProfileId } = useProfile()
   const useProductDetails: any = useQuery({
     queryKey: ['productDetails'],
     queryFn: () => getProductDetails(),
@@ -25,16 +27,16 @@ const useProductInfo = (step?: number | undefined) => {
 
   const useCompanyServices: any = useQuery({
     queryKey: ['companyServices'],
-    queryFn: () => getCompanyServices(),
+    queryFn: () => getCompanyServices('', actveProfileId),
     staleTime: Infinity,
-    enabled: step === 4
+    enabled: step === 4 && !!actveProfileId
   })
 
   const useCompanyBranches: any = useQuery({
     queryKey: ['companyBranches'],
-    queryFn: () => getCompanyBranches(),
+    queryFn: () => getCompanyBranches('', actveProfileId),
     staleTime: Infinity,
-    enabled: true
+    enabled: !!actveProfileId
   })
 
   const productDetails = useProductDetails?.data?.result?.data
@@ -106,7 +108,7 @@ export const getAdditionalParams = async (accessToken = '') => {
   }
 }
 
-export const getCompanyServices = async (accessToken = '', company_id = 111) => {
+export const getCompanyServices = async (accessToken = '', company_id: number) => {
   try {
     const response: any = await CompanyService.getCompanyServices(accessToken, company_id)
 
@@ -117,7 +119,7 @@ export const getCompanyServices = async (accessToken = '', company_id = 111) => 
   }
 }
 
-export const getCompanyBranches = async (accessToken = '', company_id = 111) => {
+export const getCompanyBranches = async (accessToken = '', company_id: number) => {
   try {
     const response: any = await CompanyService.getCompanyBranches(accessToken, company_id)
 

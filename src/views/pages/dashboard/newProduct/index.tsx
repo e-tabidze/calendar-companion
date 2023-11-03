@@ -13,6 +13,8 @@ const StepSix = dynamic(() => import('./stepSix'), { ssr: false })
 const StepSeven = dynamic(() => import('./stepSeven'), { ssr: false })
 
 import Cookie from 'src/helpers/Cookie'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { Product } from 'src/types/Product'
 
 const options = [
   { value: '1/7 ნაბიჯი', label: 'ავტომობილის შესახებ', step: 1 },
@@ -46,6 +48,8 @@ const NewProduct: React.FC = () => {
     errors
   } = useNewProduct()
 
+  const queryClient = useQueryClient()
+
   const handleGoNextStep = () => {
     const currentIndex = options.findIndex(option => option.value === step.value)
     if (currentIndex < options.length - 1) {
@@ -59,13 +63,21 @@ const NewProduct: React.FC = () => {
     }
   }
 
-  const onSubmit = async () => {
-    try {
-      console.log(productValues, 'productValues')
-      await createNewProduct({ AccessToken: Cookie.get('AccessToken'), product: productValues })
-    } catch (error) {
-      console.error('An error occurred while creating new listing:', error)
+  const createNewProducteMutation = useMutation(
+    (product: Product) => {
+      return createNewProduct('', product)
+    },
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries([])
+      }
     }
+  )
+
+  console.log(errors, 'errors')
+
+  const onSubmit = () => {
+    createNewProducteMutation.mutate(productValues)
   }
 
   console.log(productValues, 'productValues')
