@@ -45,9 +45,6 @@ const Company: React.FC<Props> = ({ id }) => {
     updateCompanyMutation.mutate(companyValues)
   }
 
-  console.log(errors, 'errors')
-  // console.log(companyValues, 'companyValues')
-
   const deletCompany = () => {
     deleteCompanyMutation.mutate()
   }

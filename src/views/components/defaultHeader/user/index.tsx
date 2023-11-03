@@ -11,6 +11,7 @@ interface Props {
 }
 const User:React.FC<Props> = ({user}) => {
   const {isLoading} = useProfile()
+  
   return (
     <UserContainer>
         {user == 1 &&

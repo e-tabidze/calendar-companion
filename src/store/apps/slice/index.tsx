@@ -12,7 +12,7 @@ export const slice = createSlice({
     error: null
   },
   reducers: {
-    setDataLoadingStatus: (state, action) => {
+    setDataLoadingStatus: (state) => {
       state.status = STATUSES.PENDING
     },
 

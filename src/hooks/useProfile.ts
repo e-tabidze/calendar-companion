@@ -14,6 +14,7 @@ const useProfile = () => {
   const postSwitchProfile = async (accessToken = '', active_profile_id: string) => {
     try {
       const response: any = await UserService.postSwitchProfile(accessToken, active_profile_id)
+      
       return response.data
     } catch (error) {
       console.error(error)

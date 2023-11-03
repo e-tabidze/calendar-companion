@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 import CompanyService from 'src/services/CompanyService'
 
-const useProducts = (step?: number | undefined) => {
+const useProducts = () => {
   const useCompanyProducts: any = useQuery({
     queryKey: ['companyProducts'],
     queryFn: () => getCompanyProducts(),

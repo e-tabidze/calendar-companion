@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react'
+import React, { FC } from 'react'
 import { AppProps } from 'next/app'
 
 // ** Global css styles
@@ -15,8 +15,6 @@ import { Toaster } from 'react-hot-toast'
 
 import { Hydrate, QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
-import { useRouter } from 'next/router'
-import useProfile from 'src/hooks/useProfile'
 
 const App: FC<AppProps> = ({ Component, pageProps }) => {
   const [queryClient] = React.useState(() => new QueryClient())

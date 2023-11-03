@@ -27,6 +27,7 @@ const ProfileNavigation: React.FC<Props> = ({
   dividerIndexes
 }) => {
   const { userInfo, actveProfileInfo } = useProfile()
+  
   return (
     <div
       className={`hidden lg:flex h-fit mx-3 border border-raisin-10 rounded-3xl py-8 shrink-0  flex-col transition-all duration-300

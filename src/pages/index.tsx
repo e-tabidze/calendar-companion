@@ -7,7 +7,6 @@ import ProductCard from 'src/views/components/productCard'
 import Typography from 'src/views/components/typography'
 import Cities from 'src/views/pages/main/cities'
 import Hero from 'src/views/pages/main/hero'
-import Cookie from 'src/helpers/Cookie'
 
 // ** Tailwind Styled
 import tw from 'tailwind-styled-components'

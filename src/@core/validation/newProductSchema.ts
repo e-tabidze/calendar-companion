@@ -1,3 +1,4 @@
+import { Product } from 'src/types/Product'
 import * as Yup from 'yup'
 
 const NewProductPrice = Yup.object().shape({
@@ -9,7 +10,7 @@ const Odometer = Yup.object().shape({
   run: Yup.number().required('აუცილებელი ველი')
 })
 
-const NewProductSchema = Yup.object().shape({
+const NewProductSchema: Product = Yup.object().shape({
   company_id: Yup.number().required(),
   man_id: Yup.mixed().required('აუცილებელი ველი'),
   model_id: Yup.mixed().required('აუცილებელი ველი'),

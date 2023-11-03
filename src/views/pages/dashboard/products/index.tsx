@@ -5,8 +5,12 @@ import { IconTextButton } from 'src/views/components/button'
 import Divider from 'src/views/components/divider'
 import Tag from 'src/views/components/tag'
 import Typography from 'src/views/components/typography'
+
 const Pagination = dynamic(() => import('src/views/components/pagination'), { ssr: false })
-const VehicleListComponent = dynamic(() => import('src/views/pages/dashboard/components/vehicleListComponent'), { ssr: true })
+const VehicleListComponent = dynamic(() => import('src/views/pages/dashboard/components/vehicleListComponent'), {
+  ssr: true
+})
+
 import useProducts from './useProducts'
 
 const filters = [
@@ -58,6 +62,7 @@ const Products = () => {
         <div>
           {companyProducts?.map((product: Products) => (
             <VehicleListComponent
+              key={product.id}
               price={product.price}
               startCity={product.start_city}
               prodYear={product.prod_year}
