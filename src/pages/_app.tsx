@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, useEffect } from 'react'
 import { AppProps } from 'next/app'
 
 // ** Global css styles
@@ -15,6 +15,8 @@ import { Toaster } from 'react-hot-toast'
 
 import { Hydrate, QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+import { useRouter } from 'next/router'
+import useProfile from 'src/hooks/useProfile'
 
 const App: FC<AppProps> = ({ Component, pageProps }) => {
   const [queryClient] = React.useState(() => new QueryClient())
@@ -28,7 +30,7 @@ const App: FC<AppProps> = ({ Component, pageProps }) => {
           <Hydrate state={pageProps.dehydratedState}>
             <Component {...pageProps} />
           </Hydrate>
-          <ReactQueryDevtools initialIsOpen={false} />  
+          <ReactQueryDevtools initialIsOpen={false} />
         </QueryClientProvider>
       </Provider>
       <Toaster position={'top-right'} toastOptions={{ className: 'react-hot-toast' }} />

@@ -14,7 +14,6 @@ const useProfile = () => {
   const postSwitchProfile = async (accessToken = '', active_profile_id: string) => {
     try {
       const response: any = await UserService.postSwitchProfile(accessToken, active_profile_id)
-
       return response.data
     } catch (error) {
       console.error(error)
@@ -28,6 +27,7 @@ const useProfile = () => {
   const refetch = usePersonalInfo.refetch
   const actveProfileInfo = usePersonalInfo?.data?.result?.data?.active_profile
   const actveProfileId = usePersonalInfo?.data?.result?.data?.active_profile_id
+  const activeCompany = usePersonalInfo?.data?.result?.data?.active_profile
 
   return {
     router,
@@ -37,7 +37,8 @@ const useProfile = () => {
     userCompanies,
     postSwitchProfile,
     actveProfileInfo,
-    actveProfileId
+    actveProfileId,
+    activeCompany
   }
 }
 

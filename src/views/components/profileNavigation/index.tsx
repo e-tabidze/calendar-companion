@@ -16,6 +16,7 @@ interface Props {
   toggleSidebarCollapse: () => void
   selectedRoute: Route
   dividerIndexes: number[]
+  userInfo: any
 }
 const ProfileNavigation: React.FC<Props> = ({
   routes,
@@ -23,7 +24,8 @@ const ProfileNavigation: React.FC<Props> = ({
   handleRouteChange,
   toggleSidebarCollapse,
   selectedRoute,
-  dividerIndexes
+  dividerIndexes,
+  userInfo
 }) => {
   return (
     <div
@@ -46,7 +48,7 @@ const ProfileNavigation: React.FC<Props> = ({
               sidebarCollapsed ? 'w-0 opacity-0' : 'ml-4 w-full opacity-1'
             }`}
           >
-            ბენე ექსკლუზივი
+            {userInfo?.information.first_name} {userInfo?.information.last_name}
           </Typography>
         </div>
         <div

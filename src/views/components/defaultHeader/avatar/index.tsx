@@ -2,7 +2,7 @@ import Image from '../../image'
 import Typography from '../../typography'
 import { AvatarContainer, AvatarInnerContainer, AvatarResponsiveContainer } from './styles'
 import { Menu, Transition } from '@headlessui/react'
-import { Fragment } from 'react'
+import { Fragment, useEffect } from 'react'
 import useProfile from 'src/hooks/useProfile'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 
@@ -10,8 +10,20 @@ interface Props {
   user: any
 }
 const Avatar: React.FC<Props> = ({ user }) => {
-  const { userInfo, userCompanies, postSwitchProfile, actveProfileInfo, actveProfileId } = useProfile()
+  const { userInfo, userCompanies, postSwitchProfile, actveProfileInfo, activeCompany, router } = useProfile()
   const queryClient = useQueryClient()
+
+  useEffect(() => {
+    if (!!actveProfileInfo && router?.pathname.includes('profile')) {
+      router.push(`/dashboard/dashboard`)
+    } else if (actveProfileInfo === null && router?.pathname.includes('dashboard')) {
+      router.push('/profile/orders')
+    }
+  }, [!!actveProfileInfo])
+
+  console.log(actveProfileInfo, 'actveProfileInfo')
+
+  console.log(!!actveProfileInfo, 'actveProfileInfo')
 
   const switchProfileMutation = useMutation((active_profile_id: string) => postSwitchProfile('', active_profile_id), {
     onSettled: () => {
@@ -41,7 +53,7 @@ const Avatar: React.FC<Props> = ({ user }) => {
               weight='normal'
               className='text-[#272A37] text-[14px] font-medium text-nowrap'
             >
-              {!!actveProfileId ? actveProfileInfo.information.name : userInfo?.information?.first_name}
+              {!!activeCompany ? actveProfileInfo.information.name : userInfo?.information?.first_name}
             </Typography>
             <Image src='/icons/chevron.svg' alt='img' className='flex ml-[8px] transition-all' />
           </AvatarResponsiveContainer>
@@ -126,6 +138,7 @@ const Avatar: React.FC<Props> = ({ user }) => {
                   {/* </a> */}
                 </li>
               ))}
+              <div onClick={() => handleProfileSwitch(userInfo?.UserID)}> Personal </div>
 
               {/* <li>
                             <a href="">
