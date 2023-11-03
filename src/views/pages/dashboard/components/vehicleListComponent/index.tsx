@@ -4,7 +4,16 @@ import Divider from 'src/views/components/divider'
 import Typography from 'src/views/components/typography'
 import Action from './action'
 
-const VehicleListComponent: React.FC = ({}) => {
+interface Props {
+  price: string
+  startCity: string
+  modelId: number
+  manufacturerId: number
+  prodYear: number
+  active: number
+}
+
+const VehicleListComponent: React.FC<Props> = ({ price, startCity, prodYear, modelId, manufacturerId, active }) => {
   const { width } = useWindowDimensions()
 
   return (
@@ -20,15 +29,17 @@ const VehicleListComponent: React.FC = ({}) => {
           />
           <div className='min-w-max'>
             <Typography type='body' color='light'>
-              თბილისი
+              {startCity}
             </Typography>
-            <Typography type='subtitle'>Mercedes E Class 2022</Typography>
+            <Typography type='subtitle'>
+              {manufacturerId} {modelId} {prodYear}
+            </Typography>
             <div className='flex items-center gap-10 md:mt-10'>
               <Typography type='h4' weight={width > 779 ? 'medium' : 'normal'} color='dark'>
-                27₾ დღე
+                {price} ₾ დღე
               </Typography>
               <Typography type='subtitle' className=''>
-                გამორთული
+                {active}
               </Typography>
             </div>
           </div>

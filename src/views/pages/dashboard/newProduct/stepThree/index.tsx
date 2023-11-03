@@ -28,7 +28,6 @@ interface Props {
 const options = [
   { value: 'დღე', label: 'დღე', id: '1' },
   { value: 'კვირა', label: 'კვირა', id: '2' },
-  { value: 'თვე', label: 'თვე', id: '3' }
 ]
 
 const StepThree: React.FC<Props> = ({ control, discountItems, appendDiscountItem, remove, errors }) => {

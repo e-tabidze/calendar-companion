@@ -1,4 +1,5 @@
 import useWindowDimensions from 'src/hooks/useWindowDimensions'
+import { Product } from 'src/types/Product'
 import { IconTextButton } from 'src/views/components/button'
 import Divider from 'src/views/components/divider'
 import Pagination from 'src/views/components/pagination'
@@ -54,9 +55,16 @@ const Products = () => {
           ))}
         </div>
         <div>
-          <VehicleListComponent />
-          <VehicleListComponent />
-          <VehicleListComponent />
+          {companyProducts?.map((product: any) => (
+            <VehicleListComponent
+              price={product.price}
+              startCity={product.start_city}
+              prodYear={product.prod_year}
+              modelId={product.model_id}
+              manufacturerId={product.man_id}
+              active={product.is_active}
+            />
+          ))}
         </div>
       </div>
       <Pagination totalPages={6} onPageChange={() => console.log('change Page')} />
