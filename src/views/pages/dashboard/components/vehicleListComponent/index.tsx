@@ -5,7 +5,7 @@ import Typography from 'src/views/components/typography'
 import Action from './action'
 
 interface Props {
-  price: string
+  price: number
   startCity: string
   modelId: number
   manufacturerId: number

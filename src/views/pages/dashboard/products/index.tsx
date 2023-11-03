@@ -1,11 +1,12 @@
+import dynamic from 'next/dynamic'
 import useWindowDimensions from 'src/hooks/useWindowDimensions'
-import { Product } from 'src/types/Product'
+import { Products } from 'src/types/Products'
 import { IconTextButton } from 'src/views/components/button'
 import Divider from 'src/views/components/divider'
-import Pagination from 'src/views/components/pagination'
 import Tag from 'src/views/components/tag'
 import Typography from 'src/views/components/typography'
-import VehicleListComponent from 'src/views/pages/dashboard/components/vehicleListComponent'
+const Pagination = dynamic(() => import('src/views/components/pagination'), { ssr: false })
+const VehicleListComponent = dynamic(() => import('src/views/pages/dashboard/components/vehicleListComponent'), { ssr: true })
 import useProducts from './useProducts'
 
 const filters = [
@@ -55,7 +56,7 @@ const Products = () => {
           ))}
         </div>
         <div>
-          {companyProducts?.map((product: any) => (
+          {companyProducts?.map((product: Products) => (
             <VehicleListComponent
               price={product.price}
               startCity={product.start_city}
