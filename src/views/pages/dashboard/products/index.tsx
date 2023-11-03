@@ -5,6 +5,7 @@ import Pagination from 'src/views/components/pagination'
 import Tag from 'src/views/components/tag'
 import Typography from 'src/views/components/typography'
 import VehicleListComponent from 'src/views/pages/dashboard/components/vehicleListComponent'
+import useProducts from './useProducts'
 
 const filters = [
   {
@@ -28,9 +29,12 @@ const filters = [
     id: '5'
   }
 ]
-const Vehicles = () => {
+const Products = () => {
   const { width } = useWindowDimensions()
-  
+  const { companyProducts } = useProducts()
+
+  console.log(companyProducts, 'companyProducts')
+
   return (
     <div>
       <div className='border border-raisin-10 rounded-2xl md:px-8'>
@@ -60,4 +64,4 @@ const Vehicles = () => {
   )
 }
 
-export default Vehicles
+export default Products
