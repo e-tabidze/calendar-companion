@@ -2,8 +2,8 @@ import * as Yup from 'yup'
 import { Company, CompanyAddress, CompanyInfo, WorkingHours, WorkingTime } from 'src/types/Company'
 
 const WorkingTimeSchema = Yup.object<WorkingTime>().shape({
-  start_time: Yup.string(),
-  end_time: Yup.string(),
+  start_time: Yup.string().nullable(),
+  end_time: Yup.string().nullable(),
   is_selected: Yup.boolean()
 })
 
@@ -19,10 +19,10 @@ const WorkingHoursSchema = Yup.object<WorkingHours>().shape({
 
 const CompanyAddressSchema = Yup.object<CompanyAddress>().shape({
   address: Yup.string(),
-  phone: Yup.string(),
-  email: Yup.string().email('მეილის ფორმატი არასწორია'),
-  lat: Yup.string(),
-  long: Yup.string(),
+  phone: Yup.string().nullable(),
+  email: Yup.string().email('მეილის ფორმატი არასწორია').nullable(),
+  lat: Yup.string().nullable(),
+  long: Yup.string().nullable(),
   working_hours: WorkingHoursSchema
 })
 

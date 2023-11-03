@@ -121,7 +121,7 @@ const useCompany = (id: number) => {
     mode: 'onChange',
     reValidateMode: 'onChange',
     defaultValues,
-    resolver: yupResolver(CompanySchema)
+    resolver: yupResolver(CompanySchema) 
   })
 
   const {
