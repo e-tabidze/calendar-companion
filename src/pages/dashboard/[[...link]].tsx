@@ -62,10 +62,6 @@ const ProfileRouter = () => {
     key = router.query?.link[0]
   }
 
-  if (!!router.query.link) {
-    key = 'dashboard'
-  }
-
   switch (key) {
     case 'dashboard' || '':
       return <CompanyDashboard />

@@ -3,6 +3,8 @@ import NewListingLayout from 'src/layouts/NewListingLayout'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 import useNewProduct from './useNewProduct'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { Product } from 'src/types/Product'
 
 const StepOne = dynamic(() => import('./stepOne'), { ssr: false })
 const StepTwo = dynamic(() => import('./stepTwo'), { ssr: false })
@@ -12,9 +14,7 @@ const StepFive = dynamic(() => import('./stepFive'), { ssr: false })
 const StepSix = dynamic(() => import('./stepSix'), { ssr: false })
 const StepSeven = dynamic(() => import('./stepSeven'), { ssr: false })
 
-import Cookie from 'src/helpers/Cookie'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { Product } from 'src/types/Product'
+
 
 const options = [
   { value: '1/7 ნაბიჯი', label: 'ავტომობილის შესახებ', step: 1 },
@@ -74,13 +74,9 @@ const NewProduct: React.FC = () => {
     }
   )
 
-  console.log(errors, 'errors')
-
   const onSubmit = () => {
     createNewProducteMutation.mutate(productValues)
   }
-
-  console.log(productValues, 'productValues')
 
   const renderStepComponent = () => {
     switch (step.step) {
