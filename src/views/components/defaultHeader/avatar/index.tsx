@@ -21,10 +21,6 @@ const Avatar: React.FC<Props> = ({ user }) => {
     }
   }, [!!actveProfileInfo])
 
-  console.log(actveProfileInfo, 'actveProfileInfo')
-
-  console.log(!!actveProfileInfo, 'actveProfileInfo')
-
   const switchProfileMutation = useMutation((active_profile_id: string) => postSwitchProfile('', active_profile_id), {
     onSettled: () => {
       queryClient.invalidateQueries(['profileInfo'])

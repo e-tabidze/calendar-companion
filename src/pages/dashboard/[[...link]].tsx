@@ -8,7 +8,6 @@ const NewProduct = dynamic(() => import('src/views/pages/dashboard/newProduct'),
 
 import dynamic from 'next/dynamic'
 import ProfileLayout from 'src/layouts/ProfileLayout'
-import { userInfo } from 'os'
 
 const routes = [
   {
@@ -95,7 +94,7 @@ const Profile = () => {
       {router.asPath === '/dashboard/new-product/' ? (
         <NewProduct />
       ) : (
-        <ProfileLayout routes={routes} dividerIndexes={[5]} userInfo={userInfo}>
+        <ProfileLayout routes={routes} dividerIndexes={[5]}>
           <ProfileRouter />
         </ProfileLayout>
       )}

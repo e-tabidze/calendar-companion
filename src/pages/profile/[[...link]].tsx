@@ -79,8 +79,6 @@ const ProfileRouter = ({ userInfo }: { userInfo: UserInfo }) => {
     return companyid && companyInfo ? <Company id={Number(companyid)} /> : <></>
   }
 
-  console.log(userInfo, 'info?')
-
   switch (key) {
     case 'orders' || '':
       return <Orders />
@@ -126,7 +124,7 @@ const Profile = () => {
       {router.asPath === '/profile/create-company/' ? (
         <CreateCompany />
       ) : (
-        <ProfileLayout routes={allRoutes} dividerIndexes={[2, 4]} userInfo={userInfo}>
+        <ProfileLayout routes={allRoutes} dividerIndexes={[2, 4]}>
           <ProfileRouter userInfo={userInfo} />
         </ProfileLayout>
       )}

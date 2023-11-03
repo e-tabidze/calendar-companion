@@ -17,10 +17,9 @@ interface Props {
   dividerIndexes: number[]
   children: any
   pagination?: boolean
-  userInfo: any
 }
 
-const ProfileLayout: React.FC<Props> = ({ routes, dividerIndexes, children, userInfo }) => {
+const ProfileLayout: React.FC<Props> = ({ routes, dividerIndexes, children }) => {
   const router = useRouter()
   const { width } = useWindowDimensions()
   const [selectedRoute, setSelectedRoute] = useState<any>(routes[0])
@@ -49,7 +48,6 @@ const ProfileLayout: React.FC<Props> = ({ routes, dividerIndexes, children, user
           toggleSidebarCollapse={toggleSidebarCollapse}
           selectedRoute={selectedRoute}
           dividerIndexes={dividerIndexes}
-          userInfo={userInfo}
         />
         <div className="transition-all duration-300 w-full z-[11]">{children}</div>
       </div>
