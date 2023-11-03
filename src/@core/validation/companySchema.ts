@@ -28,7 +28,7 @@ const CompanyAddressSchema = Yup.object<CompanyAddress>().shape({
 
 const CompanyInfoSchema = Yup.object<CompanyInfo>().shape({
   name: Yup.string().required('სავალდებულო ველი'),
-  logo: Yup.string().required(),
+  logo: Yup.string(),
   description: Yup.string().required('სავალდებულო ველი'),
   email: Yup.string().required().email('მეილის ფორმატი არასწორია'),
   phone_numbers: Yup.string().required().max(9, 'მაქსიმუმ 9 რიცხვი')

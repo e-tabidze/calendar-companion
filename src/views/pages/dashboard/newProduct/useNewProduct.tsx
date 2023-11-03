@@ -24,7 +24,6 @@ const useNewProduct = () => {
   }
 
   const newProductDefaultValues = {
-    company_id: 102,
     is_active: '1',
     apply_discount: false,
     discount: [discount_item],
