@@ -69,7 +69,7 @@ const NewProduct: React.FC = () => {
     },
     {
       onSuccess: () => {
-        queryClient.invalidateQueries([])
+        queryClient.invalidateQueries(['companyProducts'])
       }
     }
   )
