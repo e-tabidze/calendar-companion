@@ -8,13 +8,13 @@ const CardsAndTransactions = () => {
   const { width } = useWindowDimensions()
   
   return (
-    <div className='p-2 md:p-6'>
+    <div className='px-5 md:px-10'>
       <div className='flex justify-between items-center my-10'>
         <Typography type='h3'>ბარათები და ტრანზაქციები</Typography>
         <IconTextButton
           label='ახალი ბარათი'
           icon='/icons/add.svg'
-          className='border border-raisin-10'
+          className='border border-raisin-10 h-8 px-4'
           onClick={() => console.log('CLICK')}
         />
       </div>

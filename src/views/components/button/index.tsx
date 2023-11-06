@@ -53,7 +53,7 @@ export const IconButton = ({
 export const IconTextButton = ({ label, icon, bg, className, onClick, labelClassname, type = 'button' }: any) => {
   return (
     <button
-      className={`flex items-center focus:outline-none rounded-2xl ${bg} ${bg ? 'p-4' : ''} ${className}`}
+      className={`flex items-center focus:outline-none rounded-2xl ml-6 md:ml-8 ${bg} ${bg ? 'p-4' : ''} ${className}`}
       onClick={onClick}
       type={type}
     >

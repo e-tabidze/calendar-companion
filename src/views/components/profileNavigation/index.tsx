@@ -86,10 +86,11 @@ const ProfileNavigation: React.FC<Props> = ({
       {routes.map((route, index) => (
         <div key={route.id} onClick={() => handleRouteChange(route)}>
           <div
-            className={`flex items-center my-2  cursor-pointer transition-all duration-300 ${
+            className={`group relative flex items-center my-2  cursor-pointer transition-all duration-300 ${
               sidebarCollapsed ? 'px-5' : 'lg:px-5 xl:px-0 2xl:px-4'
             }`}
           >
+            <span className="transition-all duration-300 opacity-0 group-hover:opacity-100 xl:group-hover:opacity-0 z-[111] after:content[''] after:absolute after:left-[-6px] after:w-0 after:h-0 after:border-t-[6px] after:border-b-[6px] after:border-r-[6px] after:border-t-transparent  after:border-b-transparent after:border-r-raisin-100 absolute flex items-center bg-raisin-100 left-full ml-[-10px] top-1/2 -translate-y-1/2 text-white text-[12px] h-[32px] px-[12px] rounded-[8px]">{route.item}</span>
             <div className={`h-8 w-8 rounded-lg bg-raisin-10 flex items-center justify-center shrink-0`}>
               <Image src={route.icon} alt='' width={20} height={20} />
             </div>
