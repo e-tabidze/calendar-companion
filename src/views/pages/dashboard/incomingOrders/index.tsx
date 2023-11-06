@@ -49,7 +49,7 @@ const IncomingOrders = () => {
       ) : (
         <div className='mx-4 md:mx-0'>
           <div className='border border-raisin-10 rounded-2xl'>
-            <div className='flex justify-between items-center my-4 px-2 md:px-8'>
+            <div className='flex justify-between items-center my-4 px-2 md:px-6 2xl:px-8'>
               <Typography type='h3' className='text-md md:text-2lg'>
                 შემოსული ჯავშნები
               </Typography>
@@ -63,7 +63,7 @@ const IncomingOrders = () => {
                 <Tag label={filter.label} height='h-10' key={filter.id} className='rounded-xl' />
               ))}
             </div>
-            <div className='px-none md:px-8'>
+            <div className='px-none md:px-6 2xl:px-8'>
               <Divider />
               <ListComponent toggleDetails={toggleDetails} />
               <ListComponent toggleDetails={toggleDetails} />
