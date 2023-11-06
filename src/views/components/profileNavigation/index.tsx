@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import useProfile from 'src/hooks/useProfile'
 import Divider from '../divider'
 import Typography from '../typography'
 
@@ -25,6 +26,8 @@ const ProfileNavigation: React.FC<Props> = ({
   selectedRoute,
   dividerIndexes
 }) => {
+  const { userInfo, actveProfileInfo } = useProfile()
+  
   return (
     <div
       className={`hidden lg:flex h-fit mx-3 border border-raisin-10 rounded-3xl py-8 shrink-0  flex-col transition-all duration-300
@@ -45,8 +48,9 @@ const ProfileNavigation: React.FC<Props> = ({
             className={`overflow-hidden transition-all duration-300 ${
               sidebarCollapsed ? 'w-0 opacity-0' : 'ml-4 w-full opacity-1'
             }`}
-          >
-            ბენე ექსკლუზივი
+          > 
+          {!!actveProfileInfo  ? actveProfileInfo?.information.name : <>  {userInfo?.information.first_name} {userInfo?.information.last_name} </>}
+           
           </Typography>
         </div>
         <div

@@ -4,8 +4,8 @@ import NewListingLayout from 'src/layouts/NewListingLayout'
 import StepOne from './stepOne'
 import StepThree from './stepThree'
 import StepTwo from './stepTwo'
-import Cookie from 'src/helpers/Cookie'
 import useCreateCompany from './useCreateCompany'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 
 const CreateCompany = () => {
   const options = [
@@ -33,6 +33,8 @@ const CreateCompany = () => {
     setValue
   } = useCreateCompany()
 
+  const queryClient = useQueryClient()
+
   const handleGoNextStep = () => {
     const currentIndex = options.findIndex(option => option.value === step.value)
     if (currentIndex < options.length - 1) {
@@ -46,19 +48,18 @@ const CreateCompany = () => {
     }
   }
 
-  const onSubmit = async () => {
-    try {
-      await createCompany({ AccessToken: Cookie.get('AccessToken'), company: companyValues })
-    } catch (error) {
-      console.error('An error occurred while creating new company:', error)
+  const createCompanyMutation = useMutation(() => createCompany('', companyValues), {
+    onSuccess: () => {
+      queryClient.invalidateQueries(['profileInfo'])
     }
-  }
+  })
 
-  console.log(companyValues, 'companyValues')
+  const onSubmit = () => {
+    createCompanyMutation.mutate(companyValues)
+  }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      {/* <FormProvider {...control}> */}
       <NewListingLayout
         options={options}
         onChange={selectOption}
@@ -80,7 +81,6 @@ const CreateCompany = () => {
         )}
         {step.step === 3 && <StepThree control={control} errors={errors} />}
       </NewListingLayout>
-      {/* </FormProvider> */}
     </form>
   )
 }

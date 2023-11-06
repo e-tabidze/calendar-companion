@@ -4,7 +4,6 @@ import { DefaultButton, IconButton } from 'src/views/components/button'
 import Divider from 'src/views/components/divider'
 import { DefaultInput } from 'src/views/components/input'
 import SelectField from 'src/views/components/selectField'
-import Cookie from 'src/helpers/Cookie'
 import useNewService from './useNewService'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { NewService } from 'src/types/Product'
@@ -36,7 +35,7 @@ const NewServiceModal: React.FC<Props> = ({ open, onClose }) => {
 
   const createNewServiceMutation = useMutation(
     (newServiceData: NewService) => {
-      return createNewService(newServiceData, Cookie.get('AccessToken'))
+      return createNewService(newServiceData, '')
     },
     {
       onSuccess: () => {

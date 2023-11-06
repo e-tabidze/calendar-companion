@@ -22,7 +22,8 @@ const Company: React.FC<Props> = ({ id }) => {
     companyValues,
     remove,
     handleSubmit,
-    updateCompanyInfo
+    updateCompanyInfo,
+    deleteCompany
   } = useCompany(id)
 
   const queryClient = useQueryClient()
@@ -33,14 +34,20 @@ const Company: React.FC<Props> = ({ id }) => {
     }
   })
 
+  const deleteCompanyMutation = useMutation(() => deleteCompany(), {
+    onSuccess: () => {
+      queryClient.invalidateQueries(['profileInfo'])
+    }
+  })
+
   const onSubmit = () => {
     console.log(companyValues, 'companyValues')
     updateCompanyMutation.mutate(companyValues)
   }
 
-  // const onSubmit = () => {
-  //   console.log(companyValues, 'companyValues')
-  // }
+  const deletCompany = () => {
+    deleteCompanyMutation.mutate()
+  }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -128,7 +135,12 @@ const Company: React.FC<Props> = ({ id }) => {
         <Divider />
         <div className='flex justify-between items-center p-2 md:p-6'>
           <DefaultButton text='შენახვა' bg='bg-orange-100' textColor='text-white' type='submit' />
-          <IconTextButton label='კომპანიის წაშლა' icon='/icons/trash.svg' className='text-orange-130' />
+          <IconTextButton
+            label='კომპანიის წაშლა'
+            icon='/icons/trash.svg'
+            className='text-orange-130'
+            onClick={deletCompany}
+          />
         </div>
       </div>
     </form>

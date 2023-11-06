@@ -9,7 +9,6 @@ import Typography from 'src/views/components/typography'
 const options = [
   { value: 'დღე', label: 'დღე', id: '1' },
   { value: 'კვირა', label: 'კვირა', id: '2' },
-  { value: 'თვე', label: 'თვე', id: '3' }
 ]
 
 const preparationPeriod = [

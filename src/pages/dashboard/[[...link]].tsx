@@ -2,7 +2,7 @@ import { useRouter } from 'next/router'
 
 const CompanyDashboard = dynamic(() => import('src/views/pages/dashboard/companyDasboard'), { ssr: true })
 const IncomingOrders = dynamic(() => import('src/views/pages/dashboard/incomingOrders'), { ssr: true })
-const Vehicles = dynamic(() => import('src/views/pages/dashboard/vehicles'), { ssr: true })
+const Products = dynamic(() => import('src/views/pages/dashboard/products'), { ssr: true })
 const EditCompany = dynamic(() => import('src/views/pages/dashboard/editCompany'), { ssr: true })
 const NewProduct = dynamic(() => import('src/views/pages/dashboard/newProduct'), { ssr: true })
 
@@ -62,12 +62,6 @@ const ProfileRouter = () => {
     key = router.query?.link[0]
   }
 
-  if (!!router.query.link) {
-    key = 'dashboard'
-  }
-
-  console.log(router.query.link, 'key')
-
   switch (key) {
     case 'dashboard' || '':
       return <CompanyDashboard />
@@ -78,7 +72,7 @@ const ProfileRouter = () => {
     case 'payments':
       return <div>Payments</div>
     case 'vehicles':
-      return <Vehicles />
+      return <Products />
     case 'edit-company':
       return <EditCompany />
     case 'sign-out':

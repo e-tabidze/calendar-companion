@@ -121,7 +121,7 @@ const useCompany = (id: number) => {
     mode: 'onChange',
     reValidateMode: 'onChange',
     defaultValues,
-    resolver: yupResolver(CompanySchema)
+    resolver: yupResolver(CompanySchema) 
   })
 
   const {
@@ -146,6 +146,17 @@ const useCompany = (id: number) => {
     }
   }
 
+  const deleteCompany = async () => {
+    try {
+      const response: any = await CompanyService.deleteCompany('', id)
+
+      return response
+    } catch (error) {
+      console.error('Error deleting company:', error)
+      throw error
+    }
+  }
+
   return {
     control,
     handleSubmit,
@@ -160,7 +171,8 @@ const useCompany = (id: number) => {
     appendAddress,
     defaultEmptyAddress,
     remove,
-    updateCompanyInfo
+    updateCompanyInfo,
+    deleteCompany
   }
 }
 

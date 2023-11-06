@@ -44,12 +44,6 @@ const routes = [
     icon: '',
     item: 'კომპანიის შექმნა',
     path: '/profile/create-company'
-  },
-  {
-    id: 7,
-    icon: '',
-    item: 'ბედინა',
-    path: '/profile/company/bedina-plus'
   }
 ]
 
@@ -104,10 +98,10 @@ const ProfileRouter = ({ userInfo }: { userInfo: UserInfo }) => {
 }
 
 const Profile = () => {
-  const { userInfo, router } = useProfile()
+  const { userInfo, router, userCompanies } = useProfile()
 
   const companyRoutes =
-    userInfo?.companies?.map((company: any) => ({
+    userCompanies?.map((company: any) => ({
       id: 8 + company?.id,
       icon: '',
       item: company?.information.name,
