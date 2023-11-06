@@ -1,4 +1,3 @@
-import { Product } from 'src/types/Product'
 import * as Yup from 'yup'
 
 const NewProductPrice = Yup.object().shape({
