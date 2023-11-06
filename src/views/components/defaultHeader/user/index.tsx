@@ -4,11 +4,14 @@ import Typography from '../../typography'
 import LanguagePicker from '../languagePicker'
 import Avatar from '../avatar'
 import Notification from "../notification";
+import useProfile from 'src/hooks/useProfile'
 
 interface Props {
     user: any
 }
 const User:React.FC<Props> = ({user}) => {
+  const {isLoading} = useProfile()
+  
   return (
     <UserContainer>
         {user == 1 &&
@@ -27,7 +30,7 @@ const User:React.FC<Props> = ({user}) => {
             </FavoriteBtn>
         }
         <Notification />
-      <Avatar user={user}/>
+      {isLoading ? <>Loading</> : <Avatar user={user} />}
     </UserContainer>
   )
 }

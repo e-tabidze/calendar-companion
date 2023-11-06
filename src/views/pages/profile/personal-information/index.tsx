@@ -48,7 +48,7 @@ const PersonalInfo: React.FC<Props> = ({ userData }) => {
     () => updateUserInfo({ AccessToken: Cookie.get('AccessToken'), userInfo: userInfoValues }),
     {
       onSuccess: () => {
-        queryClient.invalidateQueries(['personalInfo'])
+        queryClient.invalidateQueries(['profileInfo'])
       }
     }
   )

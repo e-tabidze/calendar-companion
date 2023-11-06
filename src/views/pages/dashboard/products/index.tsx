@@ -1,10 +1,17 @@
+import dynamic from 'next/dynamic'
 import useWindowDimensions from 'src/hooks/useWindowDimensions'
+import { Products } from 'src/types/Products'
 import { IconTextButton } from 'src/views/components/button'
 import Divider from 'src/views/components/divider'
-import Pagination from 'src/views/components/pagination'
 import Tag from 'src/views/components/tag'
 import Typography from 'src/views/components/typography'
-import VehicleListComponent from 'src/views/pages/dashboard/components/vehicleListComponent'
+
+const Pagination = dynamic(() => import('src/views/components/pagination'), { ssr: false })
+const VehicleListComponent = dynamic(() => import('src/views/pages/dashboard/components/vehicleListComponent'), {
+  ssr: true
+})
+
+import useProducts from './useProducts'
 
 const filters = [
   {
@@ -28,9 +35,12 @@ const filters = [
     id: '5'
   }
 ]
-const Vehicles = () => {
+const Products = () => {
   const { width } = useWindowDimensions()
-  
+  const { companyProducts } = useProducts()
+
+  console.log(companyProducts, 'companyProducts')
+
   return (
     <div>
       <div className='border border-raisin-10 rounded-2xl md:px-8'>
@@ -50,9 +60,17 @@ const Vehicles = () => {
           ))}
         </div>
         <div>
-          <VehicleListComponent />
-          <VehicleListComponent />
-          <VehicleListComponent />
+          {companyProducts?.map((product: Products) => (
+            <VehicleListComponent
+              key={product.id}
+              price={product.price}
+              startCity={product.start_city}
+              prodYear={product.prod_year}
+              modelId={product.model_id}
+              manufacturerId={product.man_id}
+              active={product.is_active}
+            />
+          ))}
         </div>
       </div>
       <Pagination totalPages={6} onPageChange={() => console.log('change Page')} />
@@ -60,4 +78,4 @@ const Vehicles = () => {
   )
 }
 
-export default Vehicles
+export default Products

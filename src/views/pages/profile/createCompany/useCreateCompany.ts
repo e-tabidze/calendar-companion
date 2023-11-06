@@ -78,9 +78,7 @@ const useCreateCompany = () => {
 
   const companyValues: any = useWatch({ control })
 
-  const createCompany = async (params: { AccessToken: any; company: Company }) => {
-    const { AccessToken, company } = params
-
+  const createCompany = async (AccessToken = '', company: Company) => {
     try {
       const response: any = await CompanyService.createCompany(AccessToken, company)
 

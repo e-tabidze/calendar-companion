@@ -28,7 +28,7 @@ const App: FC<AppProps> = ({ Component, pageProps }) => {
           <Hydrate state={pageProps.dehydratedState}>
             <Component {...pageProps} />
           </Hydrate>
-          <ReactQueryDevtools initialIsOpen={false} />  
+          <ReactQueryDevtools initialIsOpen={false} />
         </QueryClientProvider>
       </Provider>
       <Toaster position={'top-right'} toastOptions={{ className: 'react-hot-toast' }} />
