@@ -10,7 +10,7 @@ const Odometer = Yup.object().shape({
   run: Yup.number().required('აუცილებელი ველი')
 })
 
-const NewProductSchema: Product = Yup.object().shape({
+const NewProductSchema = Yup.object().shape({
   company_id: Yup.number().required(),
   man_id: Yup.mixed().required('აუცილებელი ველი'),
   model_id: Yup.mixed().required('აუცილებელი ველი'),

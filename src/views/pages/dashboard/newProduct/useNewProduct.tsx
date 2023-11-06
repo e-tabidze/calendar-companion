@@ -68,6 +68,8 @@ const useNewProduct = () => {
     mode: 'onChange',
     reValidateMode: 'onChange',
     defaultValues: newProductDefaultValues,
+
+    // @ts-ignore
     resolver: yupResolver(NewProductSchema)
   })
 
