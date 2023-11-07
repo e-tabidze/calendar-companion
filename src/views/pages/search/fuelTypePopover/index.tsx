@@ -3,33 +3,14 @@ import Tag from 'src/views/components/tag'
 import PopoverDropdown from 'src/views/components/popoverDropdown'
 import { DefaultButton, IconTextButton } from 'src/views/components/button'
 import { ActionsWrapper, TagsWrapper } from './styles'
-import { useForm } from 'react-hook-form'
+import useFilters from 'src/hooks/useFilters'
 
-const fuelType = [
-  {
-    id: 1,
-    title: 'ელექტრო'
-  },
-  {
-    id: 2,
-    title: 'ჰიბრიდი'
-  },
-  {
-    id: 3,
-    title: 'დატენვადი ჰიბრიდი'
-  },
-  {
-    id: 4,
-    title: 'დიზელი'
-  },
-  {
-    id: 5,
-    title: 'გაზი'
-  }
-]
+interface Props {
+  control: any
+}
 
-const FuelTypePopover = () => {
-  const control = useForm()
+const FuelTypePopover: React.FC<Props> = ({ control }) => {
+  const { fuelTypesFilter, isLoading } = useFilters()
 
   return (
     <PopoverDropdown label='საწვავის ტიპი' maxWidth='max-w-sm'>
@@ -37,7 +18,7 @@ const FuelTypePopover = () => {
         შეგიძლიათ მონიშნოთ ერთი ან რამდენიმე
       </Typography>
       <TagsWrapper>
-        <Tag options={fuelType} name='' control={control} height='h-10' />
+        {isLoading ? <>Loading</> : <Tag options={fuelTypesFilter} name='type' control={control} height='h-10' />}
       </TagsWrapper>
       <ActionsWrapper>
         <IconTextButton icon='/icons/rotate.svg' label='გასუფთავება' width={16} height={16} />

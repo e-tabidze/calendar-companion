@@ -21,6 +21,7 @@ interface Props {
 }
 
 const Tag: React.FC<Props> = ({ bg, component, height, className, name, control, options, label, handleClick }) => {
+  console.log(options, 'options')
   return (
     <>
       {control && name ? (

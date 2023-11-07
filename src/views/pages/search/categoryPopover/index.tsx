@@ -1,13 +1,22 @@
 import PopoverDropdown from 'src/views/components/popoverDropdown'
 import Checkbox from 'src/views/components/checkboxField'
-import { useForm } from 'react-hook-form'
+import useFilters from 'src/hooks/useFilters'
 
-const CategoryPopover = () => {
-  const control = useForm()
-  
+interface Props {
+  control: any
+}
+
+const CategoryPopover: React.FC<Props> = ({ control }) => {
+  const { categoriesFilter, isLoading } = useFilters()
+
+  console.log(categoriesFilter)
   return (
     <PopoverDropdown label='კატეგორია' maxWidth='max-w-md'>
-      <Checkbox title='ეკონომიური' iconPath='/icons/vehicleCategory.svg' name="" control={control} />
+      {categoriesFilter?.map((category: any) => (
+        <div key={category.id} className="my-2">
+          <Checkbox title={category.title} iconPath={category.icon} name='name' control={control} />
+        </div>
+      ))}
     </PopoverDropdown>
   )
 }

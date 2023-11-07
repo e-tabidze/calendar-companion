@@ -1,6 +1,6 @@
 import React from 'react'
 import { Controller } from 'react-hook-form'
-import Image from '../image'
+import Icon from 'src/views/app/Icon'
 import Typography from '../typography'
 
 interface Props {
@@ -18,7 +18,6 @@ const CheckboxField: React.FC<Props> = ({ iconPath, name, control, append, title
       control={control}
       render={({ field: { onChange, value } }) => (
         <div className=''>
-          <>{console.log(value, 'checkbox value')}</>
           <label className='flex gap-7 items-center'>
             <input
               type='checkbox'
@@ -26,7 +25,7 @@ const CheckboxField: React.FC<Props> = ({ iconPath, name, control, append, title
               value={value}
               onChange={append ? append : () => onChange(value)}
             />
-            {iconPath ? <Image src={iconPath} className='w-12' alt='' /> : null}
+            {iconPath ? <Icon svgPath={iconPath} className='w-12' width={20} height={20} /> : null}
             <Typography type='button' color='dark' weight='normal'>
               {title}
             </Typography>
