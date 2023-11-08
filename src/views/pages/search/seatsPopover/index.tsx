@@ -17,7 +17,7 @@ const SeatsPopover: React.FC<Props> = ({ control }) => {
   return (
     <PopoverDropdown label='ადგილების რაოდენობა' maxWidth='max-w-xs'>
       <TagsWrapper>
-        <Tag options={seatTypesFilter} name='seats' control={control} height='h-10' />
+        <Tag options={seatTypesFilter} name='seats`' control={control} height='h-10' />
       </TagsWrapper>
       <IconButton icon='/icons/rotate.svg' text='გასუფთავება' width={16} height={16} />
     </PopoverDropdown>

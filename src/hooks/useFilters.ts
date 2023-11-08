@@ -1,5 +1,5 @@
-import searchService from 'src/services/searchService'
 import { useQuery } from '@tanstack/react-query'
+import SearchService from 'src/services/SearchService'
 
 const useFilters = () => {
   const useProductFilters: any = useQuery({
@@ -38,7 +38,7 @@ export default useFilters
 
 export const getProductFilters = async () => {
   try {
-    const response: any = await searchService.getProductFilters()
+    const response: any = await SearchService.getProductFilters()
 
     return response.data
   } catch (error) {
