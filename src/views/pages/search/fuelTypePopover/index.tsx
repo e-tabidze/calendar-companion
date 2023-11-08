@@ -8,10 +8,9 @@ import useFilters from 'src/hooks/useFilters'
 interface Props {
   control: any
   appendFuelType: any
-  fuelTypes: any
 }
 
-const FuelTypePopover: React.FC<Props> = ({ control, appendFuelType, fuelTypes }) => {
+const FuelTypePopover: React.FC<Props> = ({ control, appendFuelType }) => {
   const { fuelTypesFilter, isLoading } = useFilters()
 
   return (

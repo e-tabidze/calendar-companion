@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import { useForm } from 'react-hook-form'
 import useWindowDimensions from 'src/hooks/useWindowDimensions'
 import { FullContainer } from 'src/styled/styles'
 import Divider from 'src/views/components/divider'
@@ -29,11 +28,9 @@ import ToggleMapButton from '../../views/pages/search/toggleMapButton'
 import Icon from 'src/views/app/Icon'
 import SearchLayout from '../../layouts/SearchLayout'
 import useSearch from 'src/hooks/useSearch'
-import { dehydrate, QueryClient } from '@tanstack/react-query'
-import { getProductFilters } from 'src/hooks/useFilters'
 
 const SearchPage = () => {
-  const { control, searchValues, handleSubmit, appendFuelType, fuel_types, appendCategory } = useSearch()
+  const { control, searchValues, handleSubmit, appendFuelType, appendCategory, appendSeatType } = useSearch()
   const { width } = useWindowDimensions()
   const [mapVisible, setMapVisible] = useState(true)
   const [filters, toggleFilters] = useState(false)
@@ -60,7 +57,7 @@ const SearchPage = () => {
           <FiltersWrapper>
             <MainFilters>
               <PricePopover control={control} />
-              <FuelTypePopover control={control} appendFuelType={appendFuelType} fuelTypes={fuel_types} />
+              <FuelTypePopover control={control} appendFuelType={appendFuelType} />
               <CategoryPopover control={control} appendCategory={appendCategory} />
               <Tag
                 label='უფასო მიწოდება'
@@ -69,7 +66,7 @@ const SearchPage = () => {
                 control={control}
               />
               <div className='hidden xl:flex'>
-                <SeatsPopover control={control} />
+                <SeatsPopover control={control} appendSeatType={appendSeatType} />
               </div>
               <div className='hidden xl:flex'>
                 <SuitcasesPopover />
@@ -198,25 +195,5 @@ const SearchPage = () => {
     </>
   )
 }
-
-const queryClient = new QueryClient()
-
-// export async function getServerSideProps() {
-//   try {
-//     await queryClient.prefetchQuery({
-//       queryKey: ['searchFilters'],
-//       queryFn: () => getProductFilters(),
-//       staleTime: Infinity,
-//     })
-
-//     return {
-//       props: {
-//         dehydratedState: dehydrate(queryClient)
-//       }
-//     }
-//   } catch (e) {
-//     return { notFound: true }
-//   }
-// }
 
 export default SearchPage

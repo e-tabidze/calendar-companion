@@ -25,6 +25,11 @@ const useSearch = () => {
     name: 'category'
   })
 
+  const { fields: seatTypes, append: appendSeatType } = useFieldArray({
+    control,
+    name: 'seat_types'
+  })
+
   return {
     control,
     handleSubmit,
@@ -38,7 +43,9 @@ const useSearch = () => {
     fuel_types,
     appendFuelType,
     category,
-    appendCategory
+    appendCategory,
+    seatTypes,
+    appendSeatType
   }
 }
 
