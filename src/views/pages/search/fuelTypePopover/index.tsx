@@ -7,9 +7,11 @@ import useFilters from 'src/hooks/useFilters'
 
 interface Props {
   control: any
+  appendFuelType: any
+  fuelTypes: any
 }
 
-const FuelTypePopover: React.FC<Props> = ({ control }) => {
+const FuelTypePopover: React.FC<Props> = ({ control, appendFuelType, fuelTypes }) => {
   const { fuelTypesFilter, isLoading } = useFilters()
 
   return (
@@ -18,7 +20,11 @@ const FuelTypePopover: React.FC<Props> = ({ control }) => {
         შეგიძლიათ მონიშნოთ ერთი ან რამდენიმე
       </Typography>
       <TagsWrapper>
-        {isLoading ? <>Loading</> : <Tag options={fuelTypesFilter} name='type' control={control} height='h-10' />}
+        {isLoading ? (
+          <>Loading</>
+        ) : (
+          <Tag options={fuelTypesFilter} name='fuel_types' control={control} height='h-10' append={appendFuelType} />
+        )}
       </TagsWrapper>
       <ActionsWrapper>
         <IconTextButton icon='/icons/rotate.svg' label='გასუფთავება' width={16} height={16} />

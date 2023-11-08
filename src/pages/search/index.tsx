@@ -33,7 +33,7 @@ import { dehydrate, QueryClient } from '@tanstack/react-query'
 import { getProductFilters } from 'src/hooks/useFilters'
 
 const SearchPage = () => {
-  const { control, searchValues, handleSubmit } = useSearch()
+  const { control, searchValues, handleSubmit, appendFuelType, fuel_types } = useSearch()
   const { width } = useWindowDimensions()
   const [mapVisible, setMapVisible] = useState(true)
   const [filters, toggleFilters] = useState(false)
@@ -60,11 +60,11 @@ const SearchPage = () => {
           <FiltersWrapper>
             <MainFilters>
               <PricePopover control={control} />
-              <FuelTypePopover control={control} />
+              <FuelTypePopover control={control} appendFuelType={appendFuelType} fuelTypes={fuel_types} />
               <CategoryPopover control={control} />
               <Tag
                 label='უფასო მიწოდება'
-                component={<Switcher height='h-5' name='name' control={control} defaultValue />}
+                component={<Switcher height='h-5' name='free' control={control} defaultValue />}
                 height='h-10'
                 control={control}
               />
@@ -201,22 +201,22 @@ const SearchPage = () => {
 
 const queryClient = new QueryClient()
 
-export async function getServerSideProps() {
-  try {
-    await queryClient.prefetchQuery({
-      queryKey: ['searchFilters'],
-      queryFn: () => getProductFilters(),
-      staleTime: Infinity
-    })
+// export async function getServerSideProps() {
+//   try {
+//     await queryClient.prefetchQuery({
+//       queryKey: ['searchFilters'],
+//       queryFn: () => getProductFilters(),
+//       staleTime: Infinity,
+//     })
 
-    return {
-      props: {
-        dehydratedState: dehydrate(queryClient)
-      }
-    }
-  } catch (e) {
-    return { notFound: true }
-  }
-}
+//     return {
+//       props: {
+//         dehydratedState: dehydrate(queryClient)
+//       }
+//     }
+//   } catch (e) {
+//     return { notFound: true }
+//   }
+// }
 
 export default SearchPage

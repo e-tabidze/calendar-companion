@@ -1,14 +1,7 @@
 import { useFieldArray, useForm, useWatch } from 'react-hook-form'
-import { yupResolver } from '@hookform/resolvers/yup'
-import ProductService from 'src/services/ProductService'
-import { useEffect } from 'react'
-import useProfile from 'src/hooks/useProfile'
-import searchService from 'src/services/searchService'
-import { useQuery } from '@tanstack/react-query'
 
 const useSearch = () => {
-  const defaultValues = {}
-
+  
   const {
     control,
     handleSubmit,
@@ -18,12 +11,19 @@ const useSearch = () => {
     clearErrors,
     setValue
   } = useForm({
-    mode: 'onChange',
-    reValidateMode: 'onChange',
-    defaultValues
+    mode: 'onChange'
   })
 
   const searchValues: any = useWatch({ control })
+
+  const {
+    fields: fuel_types,
+    append: appendFuelType,
+    remove: removeFuelType
+  } = useFieldArray({
+    control,
+    name: 'fuel_types',
+  })
 
   return {
     control,
@@ -34,7 +34,10 @@ const useSearch = () => {
     setError,
     clearErrors,
     setValue,
-    searchValues
+    searchValues,
+    fuel_types,
+    appendFuelType,
+    removeFuelType
   }
 }
 

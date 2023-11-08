@@ -9,7 +9,6 @@ interface Props {
 const CategoryPopover: React.FC<Props> = ({ control }) => {
   const { categoriesFilter, isLoading } = useFilters()
 
-  console.log(categoriesFilter)
   return (
     <PopoverDropdown label='კატეგორია' maxWidth='max-w-md'>
       {categoriesFilter?.map((category: any) => (

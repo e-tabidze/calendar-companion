@@ -18,44 +18,73 @@ interface Props {
   options?: Option[]
   label?: string
   handleClick?: any
+  multiselect?: boolean
+  append?: any
 }
 
-const Tag: React.FC<Props> = ({ bg, component, height, className, name, control, options, label, handleClick }) => {
-  console.log(options, 'options')
+const Tag: React.FC<Props> = ({
+  bg,
+  component,
+  height,
+  className,
+  name,
+  control,
+  options,
+  label,
+  handleClick,
+  append
+}) => {
   return (
     <>
       {control && name ? (
         <Controller
           name={name}
           control={control}
-          render={({ field: { onChange, value } }) => (
-            <>
-              {options?.map(option => (
-                <div
-                  key={option.id}
-                  className={`flex items-center w-max ${height} ${
-                    option.id === value ? (height === 'h-12' ? `${bg}` : 'bg-green-100') : `${bg}`
-                  }  ${component ? 'gap-3' : ''} ${component ? 'rounded-xl' : 'rounded-2xl'} ${
-                    option.id === value
-                      ? height === 'h-12'
-                        ? 'border border-raisin-90'
-                        : 'border border-green-100'
-                      : 'border border-gray-90'
-                  } px-4 cursor-pointer ${className}`}
-                  onClick={() => onChange(option.id)}
-                >
-                  {component}
-                  {option.icon && <Icon svgPath={option.icon} width='18' height='18' />}
-                  <Typography
-                    type='body'
-                    className={`w-max ${option.id === value && (height === 'h-12' ? '' : 'text-white')}`}
-                  >
-                    {option.title}
-                  </Typography>
-                </div>
-              ))}
-            </>
-          )}
+          render={({ field: { onChange, value } }) => {
+            const selectedOptions = Array.isArray(value) ? value : [value]
+            return (
+              <>
+                {options?.map(option => (
+                  <>
+                    <div
+                      key={option.id}
+                      className={`flex items-center w-max ${height} ${
+                        selectedOptions.includes(option.id) ? (height === 'h-12' ? `${bg}` : 'bg-green-100') : `${bg}`
+                      }  ${component ? 'gap-3' : ''} ${component ? 'rounded-xl' : 'rounded-2xl'} ${
+                        selectedOptions.includes(option.id)
+                          ? height === 'h-12'
+                            ? 'border border-raisin-90'
+                            : 'border border-green-100'
+                          : 'border border-gray-90'
+                      } px-4 cursor-pointer ${className}`}
+                      onClick={() => {
+                        if (append) {
+                          if (selectedOptions.includes(option.id)) {
+                            onChange(selectedOptions.filter(val => val !== option.id))
+                          } else {
+                            onChange([...selectedOptions, option.id])
+                          }
+                        } else {
+                          onChange(option.id)
+                        }
+                      }}
+                    >
+                      {component}
+                      {option.icon && <Icon svgPath={option.icon} width='18' height='18' />}
+                      <Typography
+                        type='body'
+                        className={`w-max ${
+                          selectedOptions.includes(option.id) && (height === 'h-12' ? '' : 'text-white')
+                        }`}
+                      >
+                        {option.title}
+                      </Typography>
+                    </div>
+                  </>
+                ))}
+              </>
+            )
+          }}
         />
       ) : (
         <div
