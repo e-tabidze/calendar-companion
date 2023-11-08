@@ -1,7 +1,6 @@
 import { useFieldArray, useForm, useWatch } from 'react-hook-form'
 
 const useSearch = () => {
-  
   const {
     control,
     handleSubmit,
@@ -16,13 +15,14 @@ const useSearch = () => {
 
   const searchValues: any = useWatch({ control })
 
-  const {
-    fields: fuel_types,
-    append: appendFuelType,
-    remove: removeFuelType
-  } = useFieldArray({
+  const { fields: fuel_types, append: appendFuelType } = useFieldArray({
     control,
-    name: 'fuel_types',
+    name: 'fuel_types'
+  })
+
+  const { fields: category, append: appendCategory } = useFieldArray({
+    control,
+    name: 'category'
   })
 
   return {
@@ -37,7 +37,8 @@ const useSearch = () => {
     searchValues,
     fuel_types,
     appendFuelType,
-    removeFuelType
+    category,
+    appendCategory
   }
 }
 
