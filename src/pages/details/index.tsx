@@ -139,7 +139,7 @@ const ProductDetails = () => {
           pagination={true}
         />
       </MaxWidthContainer>
-      <MaxWidthContainer className={`${isSticky ? 'fixed top-20' : ''} bg-white z-[11]`} ref={ref} id='head'>
+      <MaxWidthContainer className={`${isSticky ? 'sticky top-20' : ''} bg-white z-[11]`} ref={ref} id='head'>
         <ContentContainer className='overflow-x-auto bg-white z-30'>
           <div className='flex gap-8 my-6 w-max'>
             <SubNavItem section='details' activeSection={section} handleClick={handleClick}>

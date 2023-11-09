@@ -74,16 +74,21 @@ const Avatar: React.FC<Props> = ({ user }) => {
           <div className='overflow-hidden rounded-[16px]'>
             {user == 0 && (
               <>
-                <div className='flex border-b-[1px] border-[#E9EAEB] px-[24px] py-[16px]'>
-                  <span className='w-[40px] h-[40px] mr-[12px] relative flex items-center justify-center rounded-full overflow-hidden'>
+                <div className='flex items-center justify-between border-b-[1px] border-[#E9EAEB] px-[24px] py-[16px]'>
+                  <div className="flex items-center">
+                    <span className='w-[40px] h-[40px] mr-[12px] relative flex items-center justify-center rounded-full overflow-hidden'>
                     <Image src='/images/avatar.png' className='rounded-full' alt='avatar' />
                   </span>
-                  <div className='flex flex-col '>
+                    <div className='flex flex-col '>
                     <span className='text-[14px] text-[#272A37] overflow-hidden text-ellipsis whitespace-nowrap max-w-[150px] inline-block'>
                       namename@gmail.com
                     </span>
-                    <span className='flex text-[14px] text-[#272A37]'>ID: 146797</span>
+                      <span className='flex text-[14px] text-[#272A37]'>ID: 146797</span>
+                    </div>
                   </div>
+                  <button className="cursor-pointer flex">
+                    <Image src='/icons/chevron-right.svg' alt='chevron' />
+                  </button>
                 </div>
                 <ul className='py-[8px] border-b-1 border-raisin-10'>
                   <li>
