@@ -30,7 +30,7 @@ import SearchLayout from '../../layouts/SearchLayout'
 import useSearch from 'src/hooks/useSearch'
 
 const SearchPage = () => {
-  const { control, searchValues, handleSubmit, appendFuelType, appendCategory, appendSeatType } = useSearch()
+  const { control, searchValues, handleSubmit, appendFuelType, appendCategory, appendSeatType, appendLuggageNumbers } = useSearch()
   const { width } = useWindowDimensions()
   const [mapVisible, setMapVisible] = useState(true)
   const [filters, toggleFilters] = useState(false)
@@ -69,7 +69,7 @@ const SearchPage = () => {
                 <SeatsPopover control={control} appendSeatType={appendSeatType} />
               </div>
               <div className='hidden xl:flex'>
-                <SuitcasesPopover />
+                <SuitcasesPopover control={control} appendLuggageNumbers={appendLuggageNumbers} />
               </div>
               <Tag
                 label='ყველა ფილტრი'

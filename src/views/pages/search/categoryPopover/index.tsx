@@ -13,8 +13,14 @@ const CategoryPopover: React.FC<Props> = ({ control, appendCategory }) => {
   return (
     <PopoverDropdown label='კატეგორია' maxWidth='max-w-md'>
       {categoriesFilter?.map((category: any, index: number) => (
-        <div key={category.id} className="my-2">
-          <Checkbox title={category.title} iconPath={category.icon} name={`category.${index}`} control={control} append={() => appendCategory(category.id)} />
+        <div key={category.id} className='my-2'>
+          <Checkbox
+            title={category.title}
+            iconPath={category.icon}
+            name={`category.${index}`}
+            control={control}
+            append={() => appendCategory(category.id)}
+          />
         </div>
       ))}
     </PopoverDropdown>

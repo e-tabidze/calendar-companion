@@ -17,13 +17,14 @@ const CheckboxField: React.FC<Props> = ({ iconPath, name, control, append, title
       name={name}
       control={control}
       render={({ field: { onChange, value } }) => (
-        <div className=''>
+        <>
           <> {console.log(value, 'value')} </>
           <label className='flex gap-7 items-center'>
             <input
               type='checkbox'
               className='accent-green-100 relative w-5 h-5 rounded-lg'
-              value={value}
+              // value={value}
+              checked={value}
               onChange={append ? append : () => onChange(value)}
             />
             {iconPath ? <Icon svgPath={iconPath} className='w-12' width={20} height={20} /> : null}
@@ -31,7 +32,7 @@ const CheckboxField: React.FC<Props> = ({ iconPath, name, control, append, title
               {title}
             </Typography>
           </label>
-        </div>
+        </>
       )}
     />
   )
