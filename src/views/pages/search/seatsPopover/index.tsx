@@ -12,8 +12,6 @@ interface Props {
 const SeatsPopover: React.FC<Props> = ({ control, appendSeatType }) => {
   const { seatTypesFilter } = useFilters()
 
-  console.log(seatTypesFilter, 'seatTypesFilter')
-
   return (
     <PopoverDropdown label='ადგილების რაოდენობა' maxWidth='max-w-xs'>
       <TagsWrapper>

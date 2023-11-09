@@ -9,9 +9,11 @@ interface Props {
   control: any
   append?: () => void
   title: string
+  customValue?: any
+  remove?: () => any
 }
 
-const CheckboxField: React.FC<Props> = ({ iconPath, name, control, append, title }) => {
+const CheckboxField: React.FC<Props> = ({ iconPath, name, control, title, customValue, remove }) => {
   return (
     <Controller
       name={name}
@@ -23,9 +25,25 @@ const CheckboxField: React.FC<Props> = ({ iconPath, name, control, append, title
             <input
               type='checkbox'
               className='accent-green-100 relative w-5 h-5 rounded-lg'
+
               // value={value}
-              checked={value}
-              onChange={append ? append : () => onChange(value)}
+              checked={value === customValue}
+              
+              // onChange={append ? append : () => onChange(value)}
+              // onChange={e => {
+              //   const newValue = e.target.checked ? customValue : undefined
+              //   onChange(newValue)
+              //   if (append && e.target.checked) {
+              //     append()
+              //   }
+              // }}
+              onChange={e => {
+                const newValue = e.target.checked ? customValue : undefined
+                onChange(newValue)
+                if (!e.target.checked && remove) {
+                  remove()
+                }
+              }}
             />
             {iconPath ? <Icon svgPath={iconPath} className='w-12' width={20} height={20} /> : null}
             <Typography type='button' color='dark' weight='normal'>

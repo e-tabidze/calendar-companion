@@ -78,6 +78,8 @@ const NewProduct: React.FC = () => {
     createNewProducteMutation.mutate(productValues)
   }
 
+  console.log(productValues, 'productValues')
+
   const renderStepComponent = () => {
     switch (step.step) {
       case 1:

@@ -5,10 +5,11 @@ import useFilters from 'src/hooks/useFilters'
 interface Props {
   control: any
   appendCategory: any
+  removeCategory: any
 }
 
-const CategoryPopover: React.FC<Props> = ({ control, appendCategory }) => {
-  const { categoriesFilter, isLoading } = useFilters()
+const CategoryPopover: React.FC<Props> = ({ control, appendCategory, removeCategory }) => {
+  const { categoriesFilter } = useFilters()
 
   return (
     <PopoverDropdown label='კატეგორია' maxWidth='max-w-md'>
@@ -20,6 +21,8 @@ const CategoryPopover: React.FC<Props> = ({ control, appendCategory }) => {
             name={`category.${index}`}
             control={control}
             append={() => appendCategory(category.id)}
+            customValue={category.id} 
+            remove={() => removeCategory(index)}
           />
         </div>
       ))}

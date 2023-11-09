@@ -30,7 +30,7 @@ import SearchLayout from '../../layouts/SearchLayout'
 import useSearch from 'src/hooks/useSearch'
 
 const SearchPage = () => {
-  const { control, searchValues, handleSubmit, appendFuelType, appendCategory, appendSeatType, appendLuggageNumbers } = useSearch()
+  const { control, searchValues, handleSubmit, appendFuelType, appendCategory, appendSeatType, appendLuggageNumbers, removeCategory } = useSearch()
   const { width } = useWindowDimensions()
   const [mapVisible, setMapVisible] = useState(true)
   const [filters, toggleFilters] = useState(false)
@@ -58,7 +58,7 @@ const SearchPage = () => {
             <MainFilters>
               <PricePopover control={control} />
               <FuelTypePopover control={control} appendFuelType={appendFuelType} />
-              <CategoryPopover control={control} appendCategory={appendCategory} />
+              <CategoryPopover control={control} appendCategory={appendCategory} removeCategory={removeCategory} />
               <Tag
                 label='უფასო მიწოდება'
                 component={<Switcher height='h-5' name='free' control={control} defaultValue />}
