@@ -4,12 +4,9 @@ import CompanyService from 'src/services/CompanyService'
 import { useQueryClient } from '@tanstack/react-query'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { NewServiceSchema } from 'src/@core/validation/newServiceSchema'
-import useProfile from 'src/hooks/useProfile'
 
 const useNewService = () => {
-  const { actveProfileId } = useProfile()
   const newServiceDefaultValues = {
-    company_id: actveProfileId,
     title: '',
     description: '',
     type_id: ''

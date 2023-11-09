@@ -59,12 +59,7 @@ const StepTwo: React.FC<Props> = ({ control, appendAdditionalParam, step }) => {
         {isProductDetailsLoading ? (
           <>Loading</>
         ) : (
-          <Tag
-            name='fuel_type_id'
-            control={control}
-            options={productDetails?.fuel_types}
-            height='h-12'
-          />
+          <Tag name='fuel_type_id' control={control} options={productDetails?.fuel_types} height='h-12' />
         )}
       </div>
       <Typography type='h5' weight='normal' className=' mt-14'>
@@ -74,12 +69,7 @@ const StepTwo: React.FC<Props> = ({ control, appendAdditionalParam, step }) => {
         {isProductDetailsLoading ? (
           <>Loading</>
         ) : (
-          <Tag
-            name='seat_type_id'
-            control={control}
-            options={productDetails?.seat_types}
-            height='h-12'
-          />
+          <Tag name='seat_type_id' control={control} options={productDetails?.seat_types} height='h-12' />
         )}
       </div>
       <Typography type='h5' weight='normal' className=' mt-14'>
@@ -97,12 +87,7 @@ const StepTwo: React.FC<Props> = ({ control, appendAdditionalParam, step }) => {
           {isProductDetailsLoading ? (
             <>Loading</>
           ) : (
-            <Tag
-              name='door_type_id'
-              control={control}
-              options={productDetails?.door_types}
-              height='h-12'
-            />
+            <Tag name='door_type_id' control={control} options={productDetails?.door_types} height='h-12' />
           )}
         </div>
       </div>
@@ -117,12 +102,7 @@ const StepTwo: React.FC<Props> = ({ control, appendAdditionalParam, step }) => {
           {isProductDetailsLoading ? (
             <>Loading</>
           ) : (
-            <Tag
-              name='drive_tires_id'
-              control={control}
-              options={productDetails?.drive_tires}
-              height='h-12'
-            />
+            <Tag name='drive_tires_id' control={control} options={productDetails?.drive_tires} height='h-12' />
           )}
         </div>
       </div>
