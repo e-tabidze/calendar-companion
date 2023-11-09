@@ -1,7 +1,11 @@
-import { useForm } from 'react-hook-form'
 import { IconButton } from 'src/views/components/button'
 import PopoverDropdown from 'src/views/components/popoverDropdown'
 import Tag from 'src/views/components/tag'
+
+interface Props {
+  control: any
+  appendLuggageNumbers: any
+}
 
 const suitcases = [
   {
@@ -41,13 +45,11 @@ const suitcases = [
     title: '8+'
   }
 ]
-const SuitcasesPopover = () => {
-  const control = useForm()
-
+const SuitcasesPopover: React.FC<Props> = ({ control, appendLuggageNumbers }) => {
   return (
     <PopoverDropdown label='ჩემოდნების რაოდენობა' maxWidth='max-w-xs'>
       <div className='flex flex-wrap gap-4 my-6'>
-        <Tag options={suitcases} height='h-10' name='' control={control} />
+        <Tag options={suitcases} height='h-10' name='luggage_numbers' control={control} append={appendLuggageNumbers} />
       </div>
       <IconButton icon='/icons/rotate.svg' text='გასუფთავება' width={16} height={16} />
     </PopoverDropdown>

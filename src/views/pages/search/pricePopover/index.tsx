@@ -2,17 +2,18 @@ import { DefaultInput } from 'src/views/components/input'
 import PopoverDropdown from 'src/views/components/popoverDropdown'
 import { DefaultButton, IconButton } from 'src/views/components/button'
 import { ActionsWrapper, Divider, TagsWrapper } from './styles'
-import { useForm } from 'react-hook-form'
 
-const PricePopover = () => {
-  const { control } = useForm()
+interface Props {
+  control: any
+}
 
+const PricePopover: React.FC<Props> = ({ control }) => {
   return (
     <PopoverDropdown label='ფასი' maxWidth='max-w-md'>
       <TagsWrapper>
-        <DefaultInput label={'მინიმუმ ფასი დღიურად'} name='' control={control} />
+        <DefaultInput label={'მინიმუმ ფასი დღიურად'} name='price_min' control={control} />
         <Divider />
-        <DefaultInput label={'მინიმუმ ფასი დღიურად'} name='' control={control} />
+        <DefaultInput label={'მაქსიმუმ ფასი დღიურად'} name='price_max' control={control} />
       </TagsWrapper>
 
       <ActionsWrapper>

@@ -10,8 +10,14 @@ interface Props {
   user: any
 }
 const Avatar: React.FC<Props> = ({ user }) => {
-  const { userInfo, userCompanies, postSwitchProfile, actveProfileInfo, activeCompany, router } = useProfile()
+  const { userInfo, userCompanies, postSwitchProfile, actveProfileInfo, activeCompany, router, isAuthenticated } = useProfile()
   const queryClient = useQueryClient()
+
+  console.log(isAuthenticated, 'isAuthenticated')
+
+  console.log(activeCompany, 'activecompany')
+
+  console.log(actveProfileInfo, 'actveProfileInfo')
 
   useEffect(() => {
     if (!!actveProfileInfo && router?.pathname.includes('profile')) {
@@ -49,7 +55,7 @@ const Avatar: React.FC<Props> = ({ user }) => {
               weight='normal'
               className='text-[#272A37] text-[14px] font-medium text-nowrap'
             >
-              {!!activeCompany ? actveProfileInfo.information.name : userInfo?.information?.first_name}
+              { isAuthenticated ? !!activeCompany ? actveProfileInfo.information.name : userInfo?.information?.first_name : "LOGIN"}
             </Typography>
             <Image src='/icons/chevron.svg' alt='img' className='flex ml-[8px] transition-all' />
           </AvatarResponsiveContainer>
