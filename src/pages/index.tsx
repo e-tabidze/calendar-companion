@@ -1,6 +1,6 @@
 import { TailwindDiv } from 'src/interfaces/tailwind'
 import DefaultLayout from 'src/layouts/DefaultLayout'
-import { LargeContainer, ContentContainer, ResponsiveContainer } from 'src/styled/styles'
+import { LargeContainer, ContentContainer, ResponsiveContainer, FullContainer } from 'src/styled/styles'
 import Carousel from 'src/views/components/carousel'
 import Divider from 'src/views/components/divider'
 import ProductCard from 'src/views/components/productCard'
@@ -56,9 +56,9 @@ const MainPage = () => {
             ცნობილი ფაქტია, რომ გვერდის წაკითხვად შიგთავსს შეუძლია მკითხველის ყურადღება მიიზიდოს
           </Typography>
         </ContentContainer>
-        <LargeContainer>
+        <FullContainer>
           <Carousel itemsArray={productArray} type='products' />
-        </LargeContainer>
+        </FullContainer>
         <ContentContainer>
           <Typography type='h3' className='mt-12'>
             პოპულარული მანქანები
@@ -67,9 +67,9 @@ const MainPage = () => {
             ცნობილი ფაქტია, რომ გვერდის წაკითხვად შიგთავსს შეუძლია მკითხველის ყურადღება მიიზიდოს
           </Typography>
         </ContentContainer>
-        <LargeContainer>
+        <FullContainer>
           <Carousel itemsArray={productArray} type='products' />
-        </LargeContainer>
+        </FullContainer>
         <ResponsiveContainer className='mt-20'>
           <Cities />
         </ResponsiveContainer>

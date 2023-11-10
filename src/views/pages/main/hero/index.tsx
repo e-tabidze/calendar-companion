@@ -13,7 +13,7 @@ const Hero = () => {
           >
             მიიღეთ მეტი, ვიდრე ავტომობილია
           </Typography>
-          <Typography type='h3' className='text-white text-[16px] mt-3 hidden md:inline-block'>
+          <Typography type='h3' className='text-white text-[16px] mt-3 hidden md:block'>
             შეარჩიეთ სასურველი ავტომობილი ონლაინ და გაიმარტივეთ ქირაობის პროცესი. ისარგებლეთ დამატებითი სერვისებით და
             შეიქმენით მაქსიმალური კომფორტი.
           </Typography>

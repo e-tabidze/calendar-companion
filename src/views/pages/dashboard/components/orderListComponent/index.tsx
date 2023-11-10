@@ -13,8 +13,8 @@ const OrderListComponent: React.FC<Props> = ({ toggleDetails }) => {
 
   return (
     <div className='' onClick={toggleDetails}>
-      <div className='flex flex-col px-2 py-4 md:w-full gap-6 md:px-0 md:flex-row md:items-center'>
-        <div className='flex gap-6 min-w-max'>
+      <div className='flex flex-col px-2 py-4 md:w-full gap-10 md:px-0 md:flex-row md:items-center'>
+        <div className='flex gap-4 2xl:gap-6 min-w-max'>
           <Image src='/images/car.png' alt='' height={48} width={64} className='rounded-lg object-cover' />
           <div className='min-w-max'>
             <Typography type='subtitle'>Mercedes E Class 2022</Typography>
@@ -25,7 +25,7 @@ const OrderListComponent: React.FC<Props> = ({ toggleDetails }) => {
           </div>
         </div>
         <div className='flex flex-col items-baseline md:flex-row md:items-center justify-between w-none md:w-full'>
-          <div className='flex gap-2 ml-[90px] md:mx-none md:w-max md:gap-10 md:justify-between md:ml-0'>
+          <div className='flex gap-2 ml-[90px] md:mx-none md:w-max md:gap-6 2xl:gap-10 md:justify-between md:ml-0'>
             <Typography type='subtitle' className='hidden lg:inline-block'>
               მერი კვინიკაური
             </Typography>

@@ -19,7 +19,7 @@ const VehicleListComponent: React.FC<Props> = ({ price, startCity, prodYear, mod
   return (
     <div className='relative'>
       <div className='flex flex-col px-2 py-4 md:w-full justify-between gap-6 md:px-0 md:flex-row md:items-center'>
-        <div className='flex gap-6 min-w-max'>
+        <div className='flex gap-6 2xl:gap-6 min-w-max'>
           <Image
             src='/images/car.png'
             alt=''

@@ -14,7 +14,9 @@
   outline: none;
 }
 
-
+.react-datepicker__tab-loop {
+ position: absolute;
+}
 /* Date Picek */
 .react-datepicker {
   border: none !important;

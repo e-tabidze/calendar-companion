@@ -13,7 +13,7 @@ const LocationDropdown = () => {
             ადგილმდებარეობა
           </Typography>
           <InnerFilterContainer>
-            <Typography type='subtitle' className='text-raisin-50'>
+            <Typography type='subtitle' className='text-raisin-50 whitespace-nowrap'>
               ქალაქი, აეროპორტი, მისამართი...
             </Typography>
             <Image src='/icons/chevron.svg' className='inline fill-white m-2' alt='img' />

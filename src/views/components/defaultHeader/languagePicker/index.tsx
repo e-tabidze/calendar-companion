@@ -43,7 +43,7 @@ const LanguagePicker = () => {
           leaveFrom='transform opacity-100 scale-100'
           leaveTo='transform opacity-0 scale-95'
         >
-          <Menu.Items className='hidden md:block min-w-[200px] absolute z-[2] left-1/2 -translate-x-1/2  bg-[#ffffff] rounded-[16px]  shadow-[0px_6px_18px_#000000/10] py-[16px] top-full mt-[20px]'>
+          <Menu.Items className='min-w-[200px] absolute z-[2] right-0 left-auto md:right-0 md:left-1/2 md:-translate-x-1/2  bg-[#ffffff] rounded-[16px]  shadow-[0px_6px_18px_#000000/10] py-[16px] top-full mt-[20px]'>
             {langs.map(lang => (
               <Menu.Item key={lang.id}>
                 <button
