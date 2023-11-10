@@ -55,6 +55,11 @@ const useSearch = () => {
     name: 'additional_information'
   })
 
+  const { fields: manufacturerFilters, append: appendManufacturerFilters } = useFieldArray({
+    control,
+    name: 'manufacturer'
+  })
+
   return {
     control,
     handleSubmit,
@@ -81,7 +86,9 @@ const useSearch = () => {
     transmissionType,
     appendTransmissionType,
     additionalInformation,
-    appendAdditionalInformation
+    appendAdditionalInformation,
+    // manufacturerFilters,
+    // appendManufacturerFilters
   }
 }
 

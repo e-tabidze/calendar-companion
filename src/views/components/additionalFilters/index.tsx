@@ -34,6 +34,7 @@ interface Props {
   appendDoorType: any
   appendTransmissionType: any
   appendAdditionalInformation: any
+  appendManufacturerFilters: any
 }
 
 const AdditionalFilters: React.FC<Props> = ({
@@ -47,7 +48,8 @@ const AdditionalFilters: React.FC<Props> = ({
   appendDriveTire,
   appendDoorType,
   appendTransmissionType,
-  appendAdditionalInformation
+  appendAdditionalInformation,
+  appendManufacturerFilters
 }) => {
   const cancelButtonRef = useRef(null)
   const { width } = useWindowDimensions()
@@ -59,10 +61,17 @@ const AdditionalFilters: React.FC<Props> = ({
     driveTiresFilter,
     transmisisonTypesFilter,
     luggageNumbers,
-    additionalInformationFilters
+    additionalInformationFilters,
+    manufacturerFilters
   } = useFilters()
 
-  console.log(additionalInformationFilters, 'additionalInformationFilters')
+  console.log(manufacturerFilters, 'manufacturerFilters')
+
+  const options = [
+    { id: 'chocolate', title: 'Chocolate' },
+    { id: 'strawberry', title: 'Strawberry' },
+    { id: 'vanilla', title: 'Vanilla' }
+  ]
 
   return (
     <Transition.Root show={open} as={Fragment}>
@@ -137,11 +146,11 @@ const AdditionalFilters: React.FC<Props> = ({
                       ) : (
                         <SelectField
                           control={control}
+                          valueKey='id'
+                          labelKey='title'
                           name='category'
                           options={categoriesFilter}
                           placeholder='კატეგორია'
-                          valueKey='id'
-                          labelKey='title'
                         />
                       )}
                     </>
@@ -150,15 +159,17 @@ const AdditionalFilters: React.FC<Props> = ({
                     <Typography type='h5' weight='normal'>
                       ავტომობილის პარამეტრები
                     </Typography>
-                    {/* <SelectField
-                      name=''
-                      control={control}
-                      options={selectOptions}
-                      placeholder='მწარმოებელი'
-                      disabled={false}
-                      className='my-2'
-                    />
                     <SelectField
+                      name='manufacturer'
+                      isMulti
+                      control={control}
+                      options={manufacturerFilters}
+                      placeholder='მწარმოებელი'
+                      className='my-2'
+                      valueKey='id'
+                      labelKey='title'
+                    />
+                    {/* <SelectField
                       name=''
                       control={control}
                       options={selectOptions}
@@ -272,13 +283,6 @@ const AdditionalFilters: React.FC<Props> = ({
                   <Typography type='body' color='light'>
                     შეგიძლია მონიშნო ერთი ან რამდენიმე პარამეტრი
                   </Typography>
-                  {/* <div className='py-9 grid grid-cols-2'>
-                    {additionalParameters.map(parameter => (
-                      <div className='my-2' key={parameter.id}>
-                        <Checkbox title={parameter.label} name='' control={control} />
-                      </div>
-                    ))}
-                  </div> */}
                   <div className='my-2'>
                     <CheckboxField
                       name={'additional_information'}

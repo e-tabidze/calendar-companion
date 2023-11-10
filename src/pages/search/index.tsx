@@ -41,7 +41,8 @@ const SearchPage = () => {
     appendDriveTire,
     appendDoorType,
     appendTransmissionType,
-    appendAdditionalInformation
+    appendAdditionalInformation,
+    appendManufacturerFilters
   } = useSearch()
   const { width } = useWindowDimensions()
   const [mapVisible, setMapVisible] = useState(true)
@@ -214,6 +215,7 @@ const SearchPage = () => {
           appendDoorType={appendDoorType}
           appendTransmissionType={appendTransmissionType}
           appendAdditionalInformation={appendAdditionalInformation}
+          appendManufacturerFilters={appendManufacturerFilters}
         />
       </form>
     </>
