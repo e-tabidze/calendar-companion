@@ -18,9 +18,9 @@ import { Dialog, Transition } from '@headlessui/react'
 // Styles
 import { ListWrapper, SectionWrapper } from './styles'
 import SwitchField from '../switchField'
-import { useForm } from 'react-hook-form'
 import useFilters from 'src/hooks/useFilters'
 import SelectField from '../selectField'
+import CheckboxField from '../checkboxField'
 
 interface Props {
   open: boolean
@@ -33,62 +33,8 @@ interface Props {
   appendDriveTire: any
   appendDoorType: any
   appendTransmissionType: any
+  appendAdditionalInformation: any
 }
-
-const additionalParameters = [
-  {
-    id: 1,
-    label: 'შშმპ პირებზე ოპტიმიზირებული'
-  },
-  {
-    id: 2,
-    label: 'Android Auto'
-  },
-  {
-    id: 3,
-    label: 'პარკინგის სენსორი'
-  },
-  {
-    id: 4,
-    label: 'GPS'
-  },
-  {
-    id: 5,
-    label: 'ცხოველების დაშვება'
-  },
-  {
-    id: 6,
-    label: 'USB დამტენი'
-  },
-  {
-    id: 7,
-    label: '4 წამყვანი თვალი'
-  },
-  {
-    id: 8,
-    label: 'Apple CarPlay'
-  },
-  {
-    id: 9,
-    label: 'უკანა კამერა'
-  },
-  {
-    id: 10,
-    label: 'Bluetooth'
-  },
-  {
-    id: 11,
-    label: 'სავარძლის გათბობა'
-  },
-  {
-    id: 12,
-    label: 'ზამთრის საბურავები'
-  },
-  {
-    id: 13,
-    label: 'USB პორტი'
-  }
-]
 
 const AdditionalFilters: React.FC<Props> = ({
   open,
@@ -100,7 +46,8 @@ const AdditionalFilters: React.FC<Props> = ({
   appendCategory,
   appendDriveTire,
   appendDoorType,
-  appendTransmissionType
+  appendTransmissionType,
+  appendAdditionalInformation
 }) => {
   const cancelButtonRef = useRef(null)
   const { width } = useWindowDimensions()
@@ -111,8 +58,11 @@ const AdditionalFilters: React.FC<Props> = ({
     doorTypesFilter,
     driveTiresFilter,
     transmisisonTypesFilter,
-    luggageNumbers
+    luggageNumbers,
+    additionalInformationFilters
   } = useFilters()
+
+  console.log(additionalInformationFilters, 'additionalInformationFilters')
 
   return (
     <Transition.Root show={open} as={Fragment}>
@@ -265,7 +215,7 @@ const AdditionalFilters: React.FC<Props> = ({
                     />
                   </div>
                   <Divider />
-                  <SwitchField label='უფასო მიწოდება' name='free' control={control} className='my-8' />
+                  <SwitchField label='უფასო მიწოდება' name='free_delivery' control={control} className='my-8' />
                   <Divider />
 
                   <SectionWrapper>
@@ -329,6 +279,14 @@ const AdditionalFilters: React.FC<Props> = ({
                       </div>
                     ))}
                   </div> */}
+                  <div className='my-2'>
+                    <CheckboxField
+                      name={'additional_information'}
+                      control={control}
+                      options={additionalInformationFilters}
+                      append={() => appendAdditionalInformation()}
+                    />
+                  </div>
                 </div>
                 <div className='w-full flex items-center justify-between py-[16px] px-10 border-t-1 border-grey-90'>
                   <button className='flex items-center text-raisin-50 text-[12px]'>

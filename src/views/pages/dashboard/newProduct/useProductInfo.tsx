@@ -38,7 +38,7 @@ const useProductInfo = (step?: number | undefined) => {
     queryKey: ['companyBranches'],
     queryFn: () => getCompanyBranches(''),
     staleTime: Infinity,
-    enabled: step == 6
+    enabled: true
   })
 
   const productDetails = useProductDetails?.data?.result?.data

@@ -38,10 +38,10 @@ const SearchPage = () => {
     appendCategory,
     appendSeatType,
     appendLuggageNumber,
-    removeCategory,
     appendDriveTire,
     appendDoorType,
-    appendTransmissionType
+    appendTransmissionType,
+    appendAdditionalInformation
   } = useSearch()
   const { width } = useWindowDimensions()
   const [mapVisible, setMapVisible] = useState(true)
@@ -70,10 +70,10 @@ const SearchPage = () => {
             <MainFilters>
               <PricePopover control={control} />
               <FuelTypePopover control={control} appendFuelType={appendFuelType} />
-              <CategoryPopover control={control} appendCategory={appendCategory} removeCategory={removeCategory} />
+              <CategoryPopover control={control} appendCategory={appendCategory} />
               <Tag
                 label='უფასო მიწოდება'
-                component={<Switcher height='h-5' name='free' control={control} defaultValue />}
+                component={<Switcher height='h-5' name='free_delivery' control={control} defaultValue />}
                 height='h-10'
                 control={control}
               />
@@ -213,6 +213,7 @@ const SearchPage = () => {
           appendDriveTire={appendDriveTire}
           appendDoorType={appendDoorType}
           appendTransmissionType={appendTransmissionType}
+          appendAdditionalInformation={appendAdditionalInformation}
         />
       </form>
     </>

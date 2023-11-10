@@ -80,6 +80,8 @@ const NewProduct: React.FC = () => {
 
   console.log(productValues, 'productValues')
 
+  console.log(errors, 'errors new product')
+
   const renderStepComponent = () => {
     switch (step.step) {
       case 1:

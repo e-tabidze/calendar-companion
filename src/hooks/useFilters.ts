@@ -9,6 +9,20 @@ const useFilters = () => {
     enabled: true
   })
 
+  const useAdditionalInformationFilters: any = useQuery({
+    queryKey: ['additionalInformationFilters'],
+    queryFn: () => getAdditionalInformationFilters(),
+    staleTime: Infinity,
+    enabled: true
+  })
+
+  const useManufacturerFilters: any = useQuery({
+    queryKey: ['manufacturerFilters'],
+    queryFn: () => getManufacturerFilters(),
+    staleTime: Infinity,
+    enabled: true
+  })
+
   const categoriesFilter = useProductFilters?.data?.result?.data?.categories
 
   const fuelTypesFilter = useProductFilters?.data?.result?.data?.fuel_types
@@ -20,6 +34,10 @@ const useFilters = () => {
   const driveTiresFilter = useProductFilters?.data?.result?.data?.drive_tires
 
   const transmisisonTypesFilter = useProductFilters?.data?.result?.data?.transmission_types
+
+  const additionalInformationFilters = useAdditionalInformationFilters?.data?.result?.data
+
+  const manufacturerFilters = useManufacturerFilters?.data?.result?.data
 
   const luggageNumbers = [
     {
@@ -70,6 +88,8 @@ const useFilters = () => {
     driveTiresFilter,
     transmisisonTypesFilter,
     luggageNumbers,
+    additionalInformationFilters,
+    manufacturerFilters,
     isLoading
   }
 }
@@ -79,6 +99,28 @@ export default useFilters
 export const getProductFilters = async () => {
   try {
     const response: any = await SearchService.getProductFilters()
+
+    return response.data
+  } catch (error) {
+    console.error(error)
+    throw error
+  }
+}
+
+export const getAdditionalInformationFilters = async () => {
+  try {
+    const response: any = await SearchService.getAdditionalInformationFilters()
+
+    return response.data
+  } catch (error) {
+    console.error(error)
+    throw error
+  }
+}
+
+export const getManufacturerFilters = async () => {
+  try {
+    const response: any = await SearchService.getManufacturerFilters()
 
     return response.data
   } catch (error) {

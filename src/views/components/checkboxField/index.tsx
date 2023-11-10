@@ -69,9 +69,21 @@ interface Props {
   handleClick?: any
   multiselect?: boolean
   append?: any
+  width?: string
+  height?: string
 }
 
-const CheckboxField: React.FC<Props> = ({ className, name, control, options, label, handleClick, append }) => {
+const CheckboxField: React.FC<Props> = ({
+  className,
+  name,
+  control,
+  options,
+  label,
+  handleClick,
+  append,
+  width,
+  height
+}) => {
   return (
     <>
       {control && name ? (
@@ -84,7 +96,7 @@ const CheckboxField: React.FC<Props> = ({ className, name, control, options, lab
             return (
               <>
                 {options?.map(option => (
-                  <div className='flex items-center' key={option.id}>
+                  <div className='flex items-center gap-4' key={option.id}>
                     {/* <div
                       key={option.id}
                       className={` ${
@@ -121,7 +133,7 @@ const CheckboxField: React.FC<Props> = ({ className, name, control, options, lab
                         }
                       }}
                     />
-                    {option.icon && <Icon svgPath={option.icon} width='18' height='18' />}
+                    {option.icon && <Icon svgPath={option.icon} width={width || 18} height={height || '18'} />}
                     <Typography type='body' className='w-max'>
                       {option.title}
                     </Typography>
