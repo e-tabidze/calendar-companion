@@ -84,8 +84,7 @@ const CheckboxField: React.FC<Props> = ({ className, name, control, options, lab
             return (
               <>
                 {options?.map(option => (
-                  <div className='flex items-center'>
-                    <> {console.log(option, 'option')} </>
+                  <div className='flex items-center' key={option.id}>
                     {/* <div
                       key={option.id}
                       className={` ${
@@ -103,11 +102,14 @@ const CheckboxField: React.FC<Props> = ({ className, name, control, options, lab
                         }
                       }}
                     ></div> */}
-                    <input type="checkbox"
+                    <input
+                      type='checkbox'
+                      value={value}
+                      checked={selectedOptions.includes(option.id)}
                       className={` ${
                         selectedOptions.includes(option.id) ? 'bg-raisin-80' : ''
                       } flex items-center w-4 h-4 border border-raisin-110 cursor-pointer ${className}`}
-                      onClick={() => {
+                      onChange={() => {
                         if (append) {
                           if (selectedOptions.includes(option.id)) {
                             onChange(selectedOptions.filter(val => val !== option.id))

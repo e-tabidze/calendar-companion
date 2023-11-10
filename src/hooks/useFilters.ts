@@ -21,6 +21,45 @@ const useFilters = () => {
 
   const transmisisonTypesFilter = useProductFilters?.data?.result?.data?.transmission_types
 
+  const luggageNumbers = [
+    {
+      id: 1,
+      title: 'ნებისმიერი'
+    },
+    {
+      id: 2,
+      title: '1'
+    },
+    {
+      id: 3,
+      title: '2'
+    },
+    {
+      id: 4,
+      title: '3'
+    },
+    {
+      id: 5,
+      title: '4'
+    },
+    {
+      id: 6,
+      title: '5'
+    },
+    {
+      id: 7,
+      title: '6'
+    },
+    {
+      id: 8,
+      title: '7'
+    },
+    {
+      id: 9,
+      title: '8+'
+    }
+  ]
+
   const isLoading = useProductFilters.isLoading
 
   return {
@@ -30,6 +69,7 @@ const useFilters = () => {
     doorTypesFilter,
     driveTiresFilter,
     transmisisonTypesFilter,
+    luggageNumbers,
     isLoading
   }
 }

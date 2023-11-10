@@ -30,9 +30,24 @@ const useSearch = () => {
     name: 'seat_types'
   })
 
-  const { fields: luggageNumbers, append: appendLuggageNumbers } = useFieldArray({
+  const { fields: luggageNumbers, append: appendLuggageNumber } = useFieldArray({
     control,
     name: 'luggage_numbers'
+  })
+
+  const { fields: driveTires, append: appendDriveTire } = useFieldArray({
+    control,
+    name: 'luggage_numbers'
+  })
+
+  const { fields: doorTypes, append: appendDoorType } = useFieldArray({
+    control,
+    name: 'door_types'
+  })
+
+  const { fields: transmissionType, append: appendTransmissionType } = useFieldArray({
+    control,
+    name: 'transmission_types'
   })
 
   return {
@@ -53,7 +68,12 @@ const useSearch = () => {
     seatTypes,
     appendSeatType,
     luggageNumbers,
-    appendLuggageNumbers
+    appendLuggageNumber,
+    driveTires,
+    appendDriveTire,
+    doorTypes,
+    appendDoorType,
+    appendTransmissionType
   }
 }
 
