@@ -25,7 +25,7 @@ import { IconTextButton } from '../button'
 
 interface Props {
   open: boolean
-  setOpen: () => void
+  toggleModal: () => void
   control: any
   appendFuelType: any
   appendSeatType: any
@@ -35,12 +35,11 @@ interface Props {
   appendDoorType: any
   appendTransmissionType: any
   appendAdditionalInformation: any
-  appendManufacturerFilters: any
 }
 
 const AdditionalFilters: React.FC<Props> = ({
   open,
-  setOpen,
+  toggleModal,
   control,
   appendFuelType,
   appendSeatType,
@@ -50,7 +49,6 @@ const AdditionalFilters: React.FC<Props> = ({
   appendDoorType,
   appendTransmissionType,
   appendAdditionalInformation,
-  appendManufacturerFilters
 }) => {
   const cancelButtonRef = useRef(null)
   const { width } = useWindowDimensions()
@@ -68,7 +66,7 @@ const AdditionalFilters: React.FC<Props> = ({
 
   return (
     <Transition.Root show={open} as={Fragment}>
-      <Dialog as='div' className='relative z-[111]' initialFocus={cancelButtonRef} onClose={setOpen}>
+      <Dialog as='div' className='relative z-[111]' initialFocus={cancelButtonRef} onClose={toggleModal}>
         <Transition.Child
           as={Fragment}
           enter='ease-out duration-300'
@@ -97,7 +95,7 @@ const AdditionalFilters: React.FC<Props> = ({
                   <Dialog.Title as='h3' className='text-2md text-base-100 leading-6'>
                     დამატებითი ფილტრები
                   </Dialog.Title>
-                  <Image src='/icons/close.svg' onClick={setOpen} alt='' height={40} width={40} />
+                  <Image src='/icons/close.svg' onClick={toggleModal} alt='' height={40} width={40} />
                 </div>
                 <div className='overflow-auto h-[70vh] px-4 py-5 sm:py-6 sm:px-10 w-max-full'>
                   <Typography type='body' color='dark' className='max-w-[30%]'>
@@ -295,9 +293,7 @@ const AdditionalFilters: React.FC<Props> = ({
                       className='text-white'
                       icon='/icons/search.svg'
                       type='submit'
-                      form='searchForm'
-                      value="submit"
-                      onClick={setOpen}
+                      onClick={toggleModal}
                     />
                   </div>
                 </div>

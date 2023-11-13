@@ -42,7 +42,6 @@ const SearchPage = () => {
     appendDoorType,
     appendTransmissionType,
     appendAdditionalInformation,
-    appendManufacturerFilters
   } = useSearch()
   const { width } = useWindowDimensions()
   const [mapVisible, setMapVisible] = useState(true)
@@ -64,7 +63,7 @@ const SearchPage = () => {
 
   return (
     <>
-      <form onSubmit={handleSubmit(onSubmit)} id='searchForm'>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <SearchLayout>
           <Divider />
           <FiltersWrapper>
@@ -205,7 +204,7 @@ const SearchPage = () => {
         </SearchLayout>
         <AdditionalFilters
           open={filters}
-          setOpen={() => toggleFilters(!filters)}
+          toggleModal={() => toggleFilters(!filters)}
           control={control}
           appendFuelType={appendFuelType}
           appendSeatType={appendSeatType}
@@ -215,7 +214,6 @@ const SearchPage = () => {
           appendDoorType={appendDoorType}
           appendTransmissionType={appendTransmissionType}
           appendAdditionalInformation={appendAdditionalInformation}
-          appendManufacturerFilters={appendManufacturerFilters}
         />
       </form>
     </>

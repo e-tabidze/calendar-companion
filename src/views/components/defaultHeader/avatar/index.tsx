@@ -13,8 +13,6 @@ const Avatar: React.FC<Props> = ({ user }) => {
   const { userInfo, userCompanies, postSwitchProfile, activeCompany, router, isAuthenticated } = useProfile()
   const queryClient = useQueryClient()
 
-  console.log(activeCompany, 'activeCOmpany')
-
   useEffect(() => {
     if (!!activeCompany && router?.pathname.includes('profile')) {
       router.push(`/dashboard/dashboard`)

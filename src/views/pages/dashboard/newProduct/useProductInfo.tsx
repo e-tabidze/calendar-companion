@@ -12,8 +12,6 @@ const useProductInfo = (step?: number | undefined) => {
     enabled: step === 2
   })
 
-  console.log(activeCompanyId, 'activeCompanyდ')
-
   const useManufacturers: any = useQuery({
     queryKey: ['manufacturers'],
     queryFn: () => getManufacturers(),

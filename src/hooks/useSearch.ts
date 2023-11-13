@@ -20,7 +20,11 @@ const useSearch = () => {
     name: 'fuel_types'
   })
 
-  const { fields: category, append: appendCategory, remove: removeCategory } = useFieldArray({
+  const {
+    fields: category,
+    append: appendCategory,
+    remove: removeCategory
+  } = useFieldArray({
     control,
     name: 'category'
   })
@@ -55,11 +59,6 @@ const useSearch = () => {
     name: 'additional_information'
   })
 
-  const { fields: manufacturerFilters, append: appendManufacturerFilters } = useFieldArray({
-    control,
-    name: 'manufacturer'
-  })
-
   return {
     control,
     handleSubmit,
@@ -86,9 +85,7 @@ const useSearch = () => {
     transmissionType,
     appendTransmissionType,
     additionalInformation,
-    appendAdditionalInformation,
-    manufacturerFilters,
-    appendManufacturerFilters
+    appendAdditionalInformation
   }
 }
 

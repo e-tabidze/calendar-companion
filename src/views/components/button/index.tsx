@@ -50,13 +50,12 @@ export const IconButton = ({
   )
 }
 
-export const IconTextButton = ({ label, icon, bg, className, onClick, labelClassname, type, value }: any) => {
+export const IconTextButton = ({ label, icon, bg, className, onClick, labelClassname, type }: any) => {
   return (
     <button
       className={`flex items-center focus:outline-none rounded-2xl ${bg} ${bg ? 'p-4' : ''} ${className}`}
       onClick={onClick}
       type={type}
-      value={value}
     >
       <img src={icon} className='max-w-none' alt='img' />{' '}
       <span className={`${labelClassname} text-2sm ml-3`}>{label}</span>
