@@ -26,6 +26,7 @@ const Avatar: React.FC<Props> = ({ user }) => {
   const switchProfileMutation = useMutation((active_profile_id: string) => postSwitchProfile('', active_profile_id), {
     onSettled: () => {
       queryClient.invalidateQueries(['profileInfo'])
+      router.reload()
     }
   })
 
