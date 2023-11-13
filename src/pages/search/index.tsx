@@ -28,6 +28,7 @@ import ToggleMapButton from '../../views/pages/search/toggleMapButton'
 import Icon from 'src/views/app/Icon'
 import SearchLayout from '../../layouts/SearchLayout'
 import useSearch from 'src/hooks/useSearch'
+import { FormProvider, useForm } from 'react-hook-form'
 
 const SearchPage = () => {
   const {
@@ -41,7 +42,7 @@ const SearchPage = () => {
     appendDriveTire,
     appendDoorType,
     appendTransmissionType,
-    appendAdditionalInformation,
+    appendAdditionalInformation
   } = useSearch()
   const { width } = useWindowDimensions()
   const [mapVisible, setMapVisible] = useState(true)
@@ -59,7 +60,9 @@ const SearchPage = () => {
     console.log(searchValues, 'searchValues submit')
   }
 
-  console.log(searchValues, 'searchValues')
+  const handleAdditionalFiltersSubmit = () => {
+    onSubmit()
+  }
 
   return (
     <>
@@ -214,6 +217,7 @@ const SearchPage = () => {
           appendDoorType={appendDoorType}
           appendTransmissionType={appendTransmissionType}
           appendAdditionalInformation={appendAdditionalInformation}
+          handleAdditionalFiltersSubmit={handleAdditionalFiltersSubmit}
         />
       </form>
     </>

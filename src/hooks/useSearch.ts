@@ -86,7 +86,7 @@ const useSearch = () => {
     appendTransmissionType,
     additionalInformation,
     appendAdditionalInformation
-  }
+    }
 }
 
 export default useSearch

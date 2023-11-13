@@ -9,7 +9,29 @@ import useSearch from 'src/hooks/useSearch'
 
 const Filters = () => {
   const [filters, toggleFilters] = useState(false)
-  const { control } = useSearch()
+
+  const {
+    searchValues,
+    control,
+    appendFuelType,
+    appendCategory,
+    appendSeatType,
+    appendLuggageNumber,
+    appendDriveTire,
+    appendDoorType,
+    appendTransmissionType,
+    appendAdditionalInformation
+  } = useSearch()
+
+  const onSubmit = () => {
+    console.log(searchValues, 'searchValues submit filters component')
+  }
+
+  console.log(searchValues, 'searchValues')
+
+  const handleAdditionalFiltersSubmit = () => {
+    onSubmit()
+  }
 
   const router = useRouter()
 
@@ -18,9 +40,9 @@ const Filters = () => {
   }
 
   return (
-    <>
+    <form>
       <FiltersContainer>
-        <LocationDropdown />
+        <LocationDropdown control={control} />
         <Divider />
         <PeriodDropdown />
         <Divider />
@@ -32,6 +54,7 @@ const Filters = () => {
             labelClassname='text-xs text-base-100 text-left md:hidden'
             className='mr-[16px]'
             onClick={() => toggleFilters(!filters)}
+            type="button"
           />
           <IconTextButton
             label={'ძებნა'}
@@ -43,8 +66,21 @@ const Filters = () => {
           />
         </ExtraFiltersContainer>
       </FiltersContainer>
-      <AdditionalFilters open={filters} setOpen={() => toggleFilters(!filters)} control={control} />
-    </>
+      <AdditionalFilters
+        open={filters}
+        toggleModal={() => toggleFilters(!filters)}
+        control={control}
+        appendFuelType={appendFuelType}
+        appendSeatType={appendSeatType}
+        appendLuggageNumber={appendLuggageNumber}
+        appendCategory={appendCategory}
+        appendDriveTire={appendDriveTire}
+        appendDoorType={appendDoorType}
+        appendTransmissionType={appendTransmissionType}
+        appendAdditionalInformation={appendAdditionalInformation}
+        handleAdditionalFiltersSubmit={handleAdditionalFiltersSubmit}
+      />
+    </form>
   )
 }
 

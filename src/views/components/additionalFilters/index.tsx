@@ -35,6 +35,7 @@ interface Props {
   appendDoorType: any
   appendTransmissionType: any
   appendAdditionalInformation: any
+  handleAdditionalFiltersSubmit: () => void
 }
 
 const AdditionalFilters: React.FC<Props> = ({
@@ -49,6 +50,7 @@ const AdditionalFilters: React.FC<Props> = ({
   appendDoorType,
   appendTransmissionType,
   appendAdditionalInformation,
+  handleAdditionalFiltersSubmit
 }) => {
   const cancelButtonRef = useRef(null)
   const { width } = useWindowDimensions()
@@ -293,7 +295,10 @@ const AdditionalFilters: React.FC<Props> = ({
                       className='text-white'
                       icon='/icons/search.svg'
                       type='submit'
-                      onClick={toggleModal}
+                      onClick={() => {
+                        toggleModal()
+                        handleAdditionalFiltersSubmit()
+                      }}
                     />
                   </div>
                 </div>
