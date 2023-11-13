@@ -7,7 +7,6 @@ const useProfile = () => {
   const router = useRouter()
 
   const AccessToken = Cookie.get('AccessToken')
-  console.log(AccessToken, 'token')
 
   const usePersonalInfo: any = useQuery({
     queryKey: ['profileInfo'],
@@ -32,13 +31,14 @@ const useProfile = () => {
     }
   }
 
-  const userInfo = usePersonalInfo.data?.result?.data
-  const userCompanies = usePersonalInfo.data?.result?.data?.companies
   const isLoading = usePersonalInfo.isLoading
   const refetch = usePersonalInfo.refetch
-  const actveProfileInfo = usePersonalInfo?.data?.result?.data?.active_profile
-  const actveProfileId = usePersonalInfo?.data?.result?.data?.active_profile_id
+  const userInfo = usePersonalInfo.data?.result?.data
+  const userCompanies = usePersonalInfo.data?.result?.data?.companies
   const activeCompany = usePersonalInfo?.data?.result?.data?.active_profile
+  const activeCompanyId = usePersonalInfo?.data?.result?.data?.active_profile_id
+
+  console.log(usePersonalInfo?.data?.result?.data, 'result?')
 
   return {
     router,
@@ -47,9 +47,8 @@ const useProfile = () => {
     refetch,
     userCompanies,
     postSwitchProfile,
-    actveProfileInfo,
-    actveProfileId,
     activeCompany,
+    activeCompanyId,
     isAuthenticated: usePersonalInfo.data || false
   }
 }

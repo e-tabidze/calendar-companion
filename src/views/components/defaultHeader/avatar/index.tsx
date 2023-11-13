@@ -10,22 +10,18 @@ interface Props {
   user: any
 }
 const Avatar: React.FC<Props> = ({ user }) => {
-  const { userInfo, userCompanies, postSwitchProfile, actveProfileInfo, activeCompany, router, isAuthenticated } = useProfile()
+  const { userInfo, userCompanies, postSwitchProfile, activeCompany, router, isAuthenticated } = useProfile()
   const queryClient = useQueryClient()
 
-  console.log(isAuthenticated, 'isAuthenticated')
-
-  console.log(activeCompany, 'activecompany')
-
-  console.log(actveProfileInfo, 'actveProfileInfo')
+  console.log(activeCompany, 'activeCOmpany')
 
   useEffect(() => {
-    if (!!actveProfileInfo && router?.pathname.includes('profile')) {
+    if (!!activeCompany && router?.pathname.includes('profile')) {
       router.push(`/dashboard/dashboard`)
-    } else if (actveProfileInfo === null && router?.pathname.includes('dashboard')) {
+    } else if (activeCompany === null && router?.pathname.includes('dashboard')) {
       router.push('/profile/orders')
     }
-  }, [!!actveProfileInfo])
+  }, [!!activeCompany])
 
   const switchProfileMutation = useMutation((active_profile_id: string) => postSwitchProfile('', active_profile_id), {
     onSettled: () => {
@@ -55,7 +51,7 @@ const Avatar: React.FC<Props> = ({ user }) => {
               weight='normal'
               className='text-[#272A37] text-[14px] font-medium text-nowrap'
             >
-              { isAuthenticated ? !!activeCompany ? actveProfileInfo.information.name : userInfo?.information?.first_name : "LOGIN"}
+              {isAuthenticated ? !!activeCompany ? activeCompany.information.name : userInfo?.information?.first_name : "LOGIN"}
             </Typography>
             <Image src='/icons/chevron.svg' alt='img' className='flex ml-[8px] transition-all' />
           </AvatarResponsiveContainer>

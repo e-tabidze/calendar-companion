@@ -4,13 +4,15 @@ import CompanyService from 'src/services/CompanyService'
 import ProductService from 'src/services/ProductService'
 
 const useProductInfo = (step?: number | undefined) => {
-  const { actveProfileId } = useProfile()
+  const { activeCompanyId } = useProfile()
   const useProductDetails: any = useQuery({
     queryKey: ['productDetails'],
     queryFn: () => getProductDetails(),
     staleTime: Infinity,
     enabled: step === 2
   })
+
+  console.log(activeCompanyId, 'activeCompanyდ')
 
   const useManufacturers: any = useQuery({
     queryKey: ['manufacturers'],
@@ -27,16 +29,16 @@ const useProductInfo = (step?: number | undefined) => {
 
   const useCompanyServices: any = useQuery({
     queryKey: ['companyServices'],
-    queryFn: () => getCompanyServices('', actveProfileId),
+    queryFn: () => getCompanyServices(''),
     staleTime: Infinity,
-    enabled: step === 4 && !!actveProfileId
+    enabled: step === 4
   })
 
   const useCompanyBranches: any = useQuery({
     queryKey: ['companyBranches'],
-    queryFn: () => getCompanyBranches('', actveProfileId),
+    queryFn: () => getCompanyBranches(''),
     staleTime: Infinity,
-    enabled: !!actveProfileId
+    enabled: true
   })
 
   const productDetails = useProductDetails?.data?.result?.data
@@ -108,9 +110,9 @@ export const getAdditionalParams = async (accessToken = '') => {
   }
 }
 
-export const getCompanyServices = async (accessToken = '', company_id: number) => {
+export const getCompanyServices = async (accessToken = '') => {
   try {
-    const response: any = await CompanyService.getCompanyServices(accessToken, company_id)
+    const response: any = await CompanyService.getCompanyServices(accessToken)
 
     return response.data
   } catch (error) {
@@ -119,9 +121,9 @@ export const getCompanyServices = async (accessToken = '', company_id: number) =
   }
 }
 
-export const getCompanyBranches = async (accessToken = '', company_id: number) => {
+export const getCompanyBranches = async (accessToken = '') => {
   try {
-    const response: any = await CompanyService.getCompanyBranches(accessToken, company_id)
+    const response: any = await CompanyService.getCompanyBranches(accessToken)
 
     return response.data
   } catch (error) {

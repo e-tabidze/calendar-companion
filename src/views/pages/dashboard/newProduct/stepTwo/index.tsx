@@ -59,12 +59,7 @@ const StepTwo: React.FC<Props> = ({ control, appendAdditionalParam, step }) => {
         {isProductDetailsLoading ? (
           <>Loading</>
         ) : (
-          <Tag
-            name='fuel_type_id'
-            control={control}
-            options={productDetails?.fuel_types}
-            height='h-12'
-          />
+          <Tag name='fuel_type_id' control={control} options={productDetails?.fuel_types} height='h-12' />
         )}
       </div>
       <Typography type='h5' weight='normal' className=' mt-14'>
@@ -74,12 +69,7 @@ const StepTwo: React.FC<Props> = ({ control, appendAdditionalParam, step }) => {
         {isProductDetailsLoading ? (
           <>Loading</>
         ) : (
-          <Tag
-            name='seat_type_id'
-            control={control}
-            options={productDetails?.seat_types}
-            height='h-12'
-          />
+          <Tag name='seat_type_id' control={control} options={productDetails?.seat_types} height='h-12' />
         )}
       </div>
       <Typography type='h5' weight='normal' className=' mt-14'>
@@ -97,12 +87,7 @@ const StepTwo: React.FC<Props> = ({ control, appendAdditionalParam, step }) => {
           {isProductDetailsLoading ? (
             <>Loading</>
           ) : (
-            <Tag
-              name='door_type_id'
-              control={control}
-              options={productDetails?.door_types}
-              height='h-12'
-            />
+            <Tag name='door_type_id' control={control} options={productDetails?.door_types} height='h-12' />
           )}
         </div>
       </div>
@@ -117,12 +102,7 @@ const StepTwo: React.FC<Props> = ({ control, appendAdditionalParam, step }) => {
           {isProductDetailsLoading ? (
             <>Loading</>
           ) : (
-            <Tag
-              name='drive_tires_id'
-              control={control}
-              options={productDetails?.drive_tires}
-              height='h-12'
-            />
+            <Tag name='drive_tires_id' control={control} options={productDetails?.drive_tires} height='h-12' />
           )}
         </div>
       </div>
@@ -158,7 +138,7 @@ const StepTwo: React.FC<Props> = ({ control, appendAdditionalParam, step }) => {
           <>Loading</>
         ) : (
           <>
-            {additionalParams?.map((param: { id: Key | null | undefined; title: string }, index: any) => (
+            {/* {additionalParams?.map((param: { id: Key | null | undefined; title: string }, index: any) => (
               <div className='my-2' key={param.id}>
                 <CheckboxField
                   name={`additional_options.${index}`}
@@ -167,7 +147,15 @@ const StepTwo: React.FC<Props> = ({ control, appendAdditionalParam, step }) => {
                   append={() => appendAdditionalParam({ id: param.id, title: param.title })}
                 />
               </div>
-            ))}
+            ))} */}
+            <div className='my-2'>
+              <CheckboxField
+                name={`additional_options`}
+                control={control}
+                options={additionalParams}
+                append={() => appendAdditionalParam(appendAdditionalParam)}
+              />
+            </div>
           </>
         )}
       </div>

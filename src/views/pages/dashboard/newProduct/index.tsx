@@ -14,8 +14,6 @@ const StepFive = dynamic(() => import('./stepFive'), { ssr: false })
 const StepSix = dynamic(() => import('./stepSix'), { ssr: false })
 const StepSeven = dynamic(() => import('./stepSeven'), { ssr: false })
 
-
-
 const options = [
   { value: '1/7 ნაბიჯი', label: 'ავტომობილის შესახებ', step: 1 },
   { value: '2/7 ნაბიჯი', label: 'ავტომობილის პარამეტრები', step: 2 },
@@ -79,6 +77,8 @@ const NewProduct: React.FC = () => {
   }
 
   console.log(productValues, 'productValues')
+
+  console.log(errors, 'errors new product')
 
   const renderStepComponent = () => {
     switch (step.step) {

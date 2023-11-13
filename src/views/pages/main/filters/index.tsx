@@ -5,9 +5,11 @@ import PeriodDropdown from './periodDropdown'
 import { useState } from 'react'
 import AdditionalFilters from 'src/views/components/additionalFilters'
 import { useRouter } from 'next/router'
+import useSearch from 'src/hooks/useSearch'
 
 const Filters = () => {
   const [filters, toggleFilters] = useState(false)
+  const { control } = useSearch()
 
   const router = useRouter()
 
@@ -18,30 +20,30 @@ const Filters = () => {
   return (
     <>
       <FiltersContainer>
-          <LocationDropdown />
-          <Divider />
-          <PeriodDropdown />
-          <Divider />
+        <LocationDropdown />
+        <Divider />
+        <PeriodDropdown />
+        <Divider />
         <ExtraFiltersContainer>
-            <IconTextButton
-                label={'დამატებითი ფილტრი'}
-                icon={'/icons/filters.svg'}
-                bg='white'
-                labelClassname='text-xs text-base-100 text-left md:hidden'
-                className='mr-[16px]'
-                onClick={() => toggleFilters(!filters)}
-            />
-            <IconTextButton
-                label={'ძებნა'}
-                icon={'/icons/search.svg'}
-                bg='bg-red-100'
-                labelClassname='text-2sm text-white md:hidden'
-                onClick={onClickSearch}
-                className=""
-            />
-          </ExtraFiltersContainer>
+          <IconTextButton
+            label={'დამატებითი ფილტრი'}
+            icon={'/icons/filters.svg'}
+            bg='white'
+            labelClassname='text-xs text-base-100 text-left md:hidden'
+            className='mr-[16px]'
+            onClick={() => toggleFilters(!filters)}
+          />
+          <IconTextButton
+            label={'ძებნა'}
+            icon={'/icons/search.svg'}
+            bg='bg-red-100'
+            labelClassname='text-2sm text-white md:hidden'
+            onClick={onClickSearch}
+            className=''
+          />
+        </ExtraFiltersContainer>
       </FiltersContainer>
-      <AdditionalFilters open={filters} setOpen={() => toggleFilters(!filters)} />
+      <AdditionalFilters open={filters} setOpen={() => toggleFilters(!filters)} control={control} />
     </>
   )
 }
