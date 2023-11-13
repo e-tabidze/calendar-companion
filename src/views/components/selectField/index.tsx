@@ -108,7 +108,6 @@ const SelectField: React.FC<Props> = ({
         control={control}
         render={({ field: { onChange, value } }) => (
           <>
-            {console.log(value, 'value??')}
             <Select
               styles={customStyles}
               options={options}

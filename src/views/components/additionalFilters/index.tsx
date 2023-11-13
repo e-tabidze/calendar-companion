@@ -21,6 +21,7 @@ import SwitchField from '../switchField'
 import useFilters from 'src/hooks/useFilters'
 import SelectField from '../selectField'
 import CheckboxField from '../checkboxField'
+import { IconTextButton } from '../button'
 
 interface Props {
   open: boolean
@@ -64,14 +65,6 @@ const AdditionalFilters: React.FC<Props> = ({
     additionalInformationFilters,
     manufacturerFilters
   } = useFilters()
-
-  console.log(manufacturerFilters, 'manufacturerFilters')
-
-  const options = [
-    { id: 'chocolate', title: 'Chocolate' },
-    { id: 'strawberry', title: 'Strawberry' },
-    { id: 'vanilla', title: 'Vanilla' }
-  ]
 
   return (
     <Transition.Root show={open} as={Fragment}>
@@ -293,16 +286,19 @@ const AdditionalFilters: React.FC<Props> = ({
                   </div>
                 </div>
                 <div className='w-full flex items-center justify-between py-[16px] px-10 border-t-1 border-grey-90'>
-                  <button className='flex items-center text-raisin-50 text-[12px]'>
-                    <Image src='/icons/return.svg' alt='' className='flex mr-2' />
-                    გასუფთავება
-                  </button>
-                  <div className='flex items-center [text-16px]'>
+                  <IconTextButton label='გასუფთავება' icon='/icons/return.svg' />
+                  <div className='flex items-center [text-16px] gap-4'>
                     სულ 136 შედეგი
-                    <button className='ml-[24px] px-[24px] h-[56px] bg-orange text-white text-[16px] flex items-center bg-orange-100 rounded-[12px]'>
-                      <Image src='/icons/search.svg' alt='' className='flex mr-2' />
-                      ძებნა
-                    </button>
+                    <IconTextButton
+                      label='ძებნა'
+                      bg='bg-orange-100'
+                      className='text-white'
+                      icon='/icons/search.svg'
+                      type='submit'
+                      form='searchForm'
+                      value="submit"
+                      onClick={setOpen}
+                    />
                   </div>
                 </div>
               </Dialog.Panel>

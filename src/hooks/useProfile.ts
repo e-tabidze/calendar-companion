@@ -38,8 +38,6 @@ const useProfile = () => {
   const activeCompany = usePersonalInfo?.data?.result?.data?.active_profile
   const activeCompanyId = usePersonalInfo?.data?.result?.data?.active_profile_id
 
-  console.log(usePersonalInfo?.data?.result?.data, 'result?')
-
   return {
     router,
     userInfo,

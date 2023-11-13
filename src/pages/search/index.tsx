@@ -64,7 +64,7 @@ const SearchPage = () => {
 
   return (
     <>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)} id='searchForm'>
         <SearchLayout>
           <Divider />
           <FiltersWrapper>

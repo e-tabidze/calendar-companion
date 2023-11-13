@@ -12,10 +12,6 @@ interface Props {
 const CategoryPopover: React.FC<Props> = ({ control, appendCategory }) => {
   const { categoriesFilter } = useFilters()
 
-  const formState = useWatch({ control })
-
-  console.log(formState.category, 'formState')
-
   return (
     <PopoverDropdown label='კატეგორია' maxWidth='max-w-md'>
       {/* {categoriesFilter?.map((category: any, index: number) => (
@@ -39,7 +35,14 @@ const CategoryPopover: React.FC<Props> = ({ control, appendCategory }) => {
             control={control}
             append={() => appendCategory(category.id)}
           /> */}
-      <CheckboxField options={categoriesFilter} name='category' control={control} append={appendCategory} width="50" height='45' />
+      <CheckboxField
+        options={categoriesFilter}
+        name='category'
+        control={control}
+        append={appendCategory}
+        width='50'
+        height='45'
+      />
     </PopoverDropdown>
   )
 }
