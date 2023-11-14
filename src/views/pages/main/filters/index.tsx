@@ -23,20 +23,35 @@ const Filters = () => {
     appendAdditionalInformation
   } = useSearch()
 
+  const objectToQueryString = (obj: any) => {
+    const params = new URLSearchParams()
+    for (const key in obj) {
+      if (Array.isArray(obj[key])) {
+        obj[key].forEach((value: string) => {
+          params.append(`${key}`, value)
+        })
+      } else if (obj[key] !== null && obj[key] !== undefined) {
+        params.append(key, obj[key])
+      }
+    }
+    return params.toString()
+  }
+
   const onSubmit = () => {
     console.log(searchValues, 'searchValues submit filters component')
   }
-
-  console.log(searchValues, 'searchValues')
 
   const handleAdditionalFiltersSubmit = () => {
     onSubmit()
   }
 
   const router = useRouter()
+  console.log(searchValues, 'searchValues')
 
   const onClickSearch = () => {
-    router.push('/search')
+    const queryString = objectToQueryString(searchValues)
+    console.log(queryString, 'queryStinrg')
+    router.push(`/search?${queryString}`) 
   }
 
   return (
@@ -52,9 +67,9 @@ const Filters = () => {
             icon={'/icons/filters.svg'}
             bg='white'
             labelClassname='text-xs text-base-100 text-left md:hidden'
-            className='mr-[16px]'
+            className='mr-4'
             onClick={() => toggleFilters(!filters)}
-            type="button"
+            type='button'
           />
           <IconTextButton
             label={'ძებნა'}
@@ -62,7 +77,7 @@ const Filters = () => {
             bg='bg-red-100'
             labelClassname='text-2sm text-white md:hidden'
             onClick={onClickSearch}
-            className=''
+            type="button"
           />
         </ExtraFiltersContainer>
       </FiltersContainer>

@@ -28,7 +28,6 @@ import ToggleMapButton from '../../views/pages/search/toggleMapButton'
 import Icon from 'src/views/app/Icon'
 import SearchLayout from '../../layouts/SearchLayout'
 import useSearch from 'src/hooks/useSearch'
-import { FormProvider, useForm } from 'react-hook-form'
 
 const SearchPage = () => {
   const {
@@ -63,6 +62,8 @@ const SearchPage = () => {
   const handleAdditionalFiltersSubmit = () => {
     onSubmit()
   }
+
+  console.log(searchValues, 'IN SEARCH')
 
   return (
     <>

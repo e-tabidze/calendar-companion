@@ -3,7 +3,7 @@ import { Fragment } from 'react'
 import { Controller } from 'react-hook-form'
 import Image from 'src/views/components/image'
 import Typography from 'src/views/components/typography'
-import { FilterContainer, InnerFilterContainer, ListItemBtn } from './styles'
+import { FilterContainer, InnerFilterContainer } from './styles'
 
 interface Props {
   control: any
@@ -22,7 +22,7 @@ const LocationDropdown: React.FC<Props> = ({ control }) => {
   return (
     <>
       <Controller
-        name='locatoin'
+        name='location'
         control={control}
         render={({ field: { onChange, value } }) => (
           <Listbox value={options?.find(opt => opt.name === value?.name)} onChange={onChange}>

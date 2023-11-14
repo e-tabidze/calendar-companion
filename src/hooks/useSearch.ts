@@ -1,6 +1,43 @@
 import { useFieldArray, useForm, useWatch } from 'react-hook-form'
 
 const useSearch = () => {
+  const isClient = typeof window !== 'undefined'
+
+  const urlSearchParams = typeof window !== 'undefined' ? new URLSearchParams(window?.location.search) : null
+  const params = typeof window !== 'undefined' ? Object.fromEntries(urlSearchParams?.entries()) : {}
+
+  const obj = {
+    location: 'Arlene Mccoy',
+    fuel_types: '3',
+    category: '6',
+    seat_types: '5',
+    luggage_numbers: '3',
+    drive_tires: '2',
+    door_types: '2',
+    transmission_types: '1',
+    additional_information: '1',
+    price_min: '10',
+    price_max: '50',
+    manufacturer: '2',
+    free_delivery: 'true'
+  }
+  console.log(params, 'searchParams')
+
+  const searchDefaultValues = {
+    location: params?.location || '',
+    fuel_types: [Number(params?.fuel_types)] || [],
+    category: params?.category || [],
+    seat_types: params?.seat_types || [],
+    luggage_numbers: params?.luggage_numbers || [],
+    drive_tires: params?.drive_tires || [],
+    door_types: params?.door_types || [],
+    transmission_types: params?.transmission_types || [],
+    additional_information: params?.additional_information || [],
+    price_min: params?.price_min || '',
+    price_max: params?.price_max || '',
+    manufacturer: params?.manufacturer || [],
+    free_delivery: true
+  }
   const {
     control,
     handleSubmit,
@@ -10,7 +47,8 @@ const useSearch = () => {
     clearErrors,
     setValue
   } = useForm({
-    mode: 'onChange'
+    mode: 'onChange',
+    defaultValues: searchDefaultValues
   })
 
   const searchValues: any = useWatch({ control })
@@ -86,7 +124,7 @@ const useSearch = () => {
     appendTransmissionType,
     additionalInformation,
     appendAdditionalInformation
-    }
+  }
 }
 
 export default useSearch

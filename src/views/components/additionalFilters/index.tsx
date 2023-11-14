@@ -278,7 +278,7 @@ const AdditionalFilters: React.FC<Props> = ({
                   </Typography>
                   <div className='my-2'>
                     <CheckboxField
-                      name={'additional_information'}
+                      name='additional_information'
                       control={control}
                       options={additionalInformationFilters}
                       append={() => appendAdditionalInformation()}

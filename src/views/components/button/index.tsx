@@ -57,7 +57,7 @@ export const IconTextButton = ({ label, icon, bg, className, onClick, labelClass
       onClick={onClick}
       type={type}
     >
-      <img src={icon} className='max-w-none' alt='img' />{' '}
+      <img src={icon} className='max-w-none' alt='img' />
       <span className={`${labelClassname} text-2sm ml-3`}>{label}</span>
     </button>
   )
