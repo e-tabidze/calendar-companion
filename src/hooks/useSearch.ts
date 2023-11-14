@@ -16,9 +16,8 @@ const useSearch = () => {
     }
   }
 
-  const convertToNumberArray = param => {
+  const convertToNumberArray = (param: number[]) => {
     if (Array.isArray(param)) {
-      console.log(param, 'param')
       return param.map(Number).filter(num => !isNaN(num) && num !== null)
     }
     return []
