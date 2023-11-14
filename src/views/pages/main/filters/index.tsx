@@ -6,9 +6,14 @@ import { useState } from 'react'
 import AdditionalFilters from 'src/views/components/additionalFilters'
 import { useRouter } from 'next/router'
 import useSearch from 'src/hooks/useSearch'
+import { QueryClient, useMutation } from '@tanstack/react-query'
 
 const Filters = () => {
   const [filters, toggleFilters] = useState(false)
+
+  const queryClient = new QueryClient()
+
+  const router = useRouter()
 
   const {
     searchValues,
@@ -20,7 +25,8 @@ const Filters = () => {
     appendDriveTire,
     appendDoorType,
     appendTransmissionType,
-    appendAdditionalInformation
+    appendAdditionalInformation,
+    searchProducts
   } = useSearch()
 
   const objectToURI = (obj: any) => {
@@ -38,21 +44,16 @@ const Filters = () => {
       .join('&')
   }
 
-  const onSubmit = () => {
-    console.log(searchValues, 'searchValues submit filters component')
-  }
-
-  const handleAdditionalFiltersSubmit = () => {
-    onSubmit()
-  }
-
-  const router = useRouter()
-  console.log(searchValues, 'searchValues')
+  const searchProductsMutayion = useMutation((querystring: string) => searchProducts(querystring), {
+    onSettled: () => {
+      queryClient.invalidateQueries(['searchProducts'])
+    }
+  })
 
   const onClickSearch = () => {
     const queryString = objectToURI(searchValues)
-    console.log(queryString, 'queryStinrg')
     router.push(`/search?${queryString}`)
+    searchProductsMutayion.mutate(queryString)
   }
 
   return (
@@ -94,7 +95,7 @@ const Filters = () => {
         appendDoorType={appendDoorType}
         appendTransmissionType={appendTransmissionType}
         appendAdditionalInformation={appendAdditionalInformation}
-        handleAdditionalFiltersSubmit={handleAdditionalFiltersSubmit}
+        handleAdditionalFiltersSubmit={onClickSearch}
       />
     </form>
   )

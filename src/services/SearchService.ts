@@ -5,10 +5,6 @@ class SearchService extends HttpService {
     return this.get('/product-filters')
   }
 
-  getSearchProducts() {
-    return this.get('/search-products')
-  }
-
   getSingleProduct(productId: string) {
     return this.get(`/single-product/${productId}`)
   }
@@ -19,6 +15,10 @@ class SearchService extends HttpService {
 
   getManufacturerFilters() {
     return this.get('/manufacturer-filters')
+  }
+
+  getSearchProducts(querystring: string) {
+    return this.get(`/search-products?${querystring}`)
   }
 }
 

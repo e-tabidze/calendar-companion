@@ -1,4 +1,5 @@
 import { useFieldArray, useForm, useWatch } from 'react-hook-form'
+import SearchService from 'src/services/SearchService'
 
 const useSearch = () => {
   const urlSearchParams = typeof window !== 'undefined' ? new URLSearchParams(window?.location.search) : null
@@ -98,6 +99,17 @@ const useSearch = () => {
     name: 'additional_information'
   })
 
+  const searchProducts = async (querystring: string) => {
+    try {
+      const response: any = await SearchService.getSearchProducts(querystring)
+
+      return response.data
+    } catch (error) {
+      console.error('Error creating product:', error)
+      throw error
+    }
+  }
+
   return {
     control,
     handleSubmit,
@@ -124,7 +136,8 @@ const useSearch = () => {
     transmissionType,
     appendTransmissionType,
     additionalInformation,
-    appendAdditionalInformation
+    appendAdditionalInformation,
+    searchProducts
   }
 }
 
