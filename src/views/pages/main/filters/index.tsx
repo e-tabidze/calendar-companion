@@ -23,18 +23,19 @@ const Filters = () => {
     appendAdditionalInformation
   } = useSearch()
 
-  const objectToQueryString = (obj: any) => {
-    const params = new URLSearchParams()
-    for (const key in obj) {
-      if (Array.isArray(obj[key])) {
-        obj[key].forEach((value: string) => {
-          params.append(`${key}`, value)
-        })
-      } else if (obj[key] !== null && obj[key] !== undefined) {
-        params.append(key, obj[key])
-      }
-    }
-    return params.toString()
+  const objectToURI = (obj: any) => {
+    return Object.entries(obj)
+      .filter(([key, value]) => {
+        return value !== null && value !== undefined && !(Array.isArray(value) && value.length === 0)
+      })
+      .map(([key, value]) => {
+        if (Array.isArray(value)) {
+          return value.map(v => `${encodeURIComponent(key)}[]=${encodeURIComponent(v)}`).join('&')
+        } else {
+          return `${encodeURIComponent(key)}=${encodeURIComponent(value)}`
+        }
+      })
+      .join('&')
   }
 
   const onSubmit = () => {
@@ -49,9 +50,9 @@ const Filters = () => {
   console.log(searchValues, 'searchValues')
 
   const onClickSearch = () => {
-    const queryString = objectToQueryString(searchValues)
+    const queryString = objectToURI(searchValues)
     console.log(queryString, 'queryStinrg')
-    router.push(`/search?${queryString}`) 
+    router.push(`/search?${queryString}`)
   }
 
   return (
@@ -77,7 +78,7 @@ const Filters = () => {
             bg='bg-red-100'
             labelClassname='text-2sm text-white md:hidden'
             onClick={onClickSearch}
-            type="button"
+            type='button'
           />
         </ExtraFiltersContainer>
       </FiltersContainer>

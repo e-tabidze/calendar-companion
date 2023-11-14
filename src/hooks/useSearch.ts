@@ -1,43 +1,45 @@
 import { useFieldArray, useForm, useWatch } from 'react-hook-form'
 
 const useSearch = () => {
-  const isClient = typeof window !== 'undefined'
-
   const urlSearchParams = typeof window !== 'undefined' ? new URLSearchParams(window?.location.search) : null
-  const params = typeof window !== 'undefined' ? Object.fromEntries(urlSearchParams?.entries()) : {}
+  const params: any = {}
 
-  const obj = {
-    location: 'Arlene Mccoy',
-    fuel_types: '3',
-    category: '6',
-    seat_types: '5',
-    luggage_numbers: '3',
-    drive_tires: '2',
-    door_types: '2',
-    transmission_types: '1',
-    additional_information: '1',
-    price_min: '10',
-    price_max: '50',
-    manufacturer: '2',
-    free_delivery: 'true'
+  if (urlSearchParams) {
+    for (const [key, value] of urlSearchParams.entries()) {
+      if (key.endsWith('[]')) {
+        const paramName = key.slice(0, -2)
+        params[paramName] = params[paramName] || []
+        params[paramName].push(Number(value))
+      } else {
+        params[key] = value
+      }
+    }
   }
-  console.log(params, 'searchParams')
+
+  const convertToNumberArray = param => {
+    if (Array.isArray(param)) {
+      console.log(param, 'param')
+      return param.map(Number).filter(num => !isNaN(num) && num !== null)
+    }
+    return []
+  }
 
   const searchDefaultValues = {
     location: params?.location || '',
-    fuel_types: [Number(params?.fuel_types)] || [],
-    category: params?.category || [],
-    seat_types: params?.seat_types || [],
-    luggage_numbers: params?.luggage_numbers || [],
-    drive_tires: params?.drive_tires || [],
-    door_types: params?.door_types || [],
-    transmission_types: params?.transmission_types || [],
-    additional_information: params?.additional_information || [],
+    fuel_types: convertToNumberArray(params?.fuel_types),
+    category: convertToNumberArray(params?.category),
+    seat_types: convertToNumberArray(params?.seat_types),
+    luggage_numbers: convertToNumberArray(params?.luggage_numbers),
+    drive_tires: convertToNumberArray(params?.drive_tires),
+    door_types: convertToNumberArray(params?.door_types),
+    transmission_types: convertToNumberArray(params?.transmission_types),
+    additional_information: convertToNumberArray(params?.additional_information),
     price_min: params?.price_min || '',
     price_max: params?.price_max || '',
-    manufacturer: params?.manufacturer || [],
-    free_delivery: true
+    manufacturer: convertToNumberArray(params?.manufacturer),
+    free_delivery: params?.free_delivery === 'true'
   }
+
   const {
     control,
     handleSubmit,
