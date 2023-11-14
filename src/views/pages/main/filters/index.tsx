@@ -31,10 +31,10 @@ const Filters = () => {
 
   const objectToURI = (obj: any) => {
     return Object.entries(obj)
-      .filter(([key, value]) => {
+      .filter(([value]) => {
         return value !== null && value !== undefined && !(Array.isArray(value) && value.length === 0)
       })
-      .map(([key, value]) => {
+      .map(([key, value]: [string, any]) => {
         if (Array.isArray(value)) {
           return value.map(v => `${encodeURIComponent(key)}[]=${encodeURIComponent(v)}`).join('&')
         } else {

@@ -1,10 +1,8 @@
 import { useQuery } from '@tanstack/react-query'
-import useProfile from 'src/hooks/useProfile'
 import CompanyService from 'src/services/CompanyService'
 import ProductService from 'src/services/ProductService'
 
 const useProductInfo = (step?: number | undefined) => {
-  const { activeCompanyId } = useProfile()
   const useProductDetails: any = useQuery({
     queryKey: ['productDetails'],
     queryFn: () => getProductDetails(),

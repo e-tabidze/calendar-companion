@@ -97,6 +97,7 @@ const CheckboxField: React.FC<Props> = ({
               <>
                 {options?.map(option => (
                   <div className='flex items-center gap-4' key={option.id}>
+
                     {/* <div
                       key={option.id}
                       className={` ${
@@ -114,6 +115,7 @@ const CheckboxField: React.FC<Props> = ({
                         }
                       }}
                     ></div> */}
+                    
                     <input
                       type='checkbox'
                       value={value}

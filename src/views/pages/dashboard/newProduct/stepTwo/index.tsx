@@ -1,4 +1,3 @@
-import { Key } from 'react'
 import useWindowDimensions from 'src/hooks/useWindowDimensions'
 import CategoryCard from 'src/views/components/categoryCard'
 import CheckboxField from 'src/views/components/checkboxField'

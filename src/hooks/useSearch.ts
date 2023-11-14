@@ -21,6 +21,7 @@ const useSearch = () => {
     if (Array.isArray(param)) {
       return param.map(Number).filter(num => !isNaN(num) && num !== null)
     }
+    
     return []
   }
 
