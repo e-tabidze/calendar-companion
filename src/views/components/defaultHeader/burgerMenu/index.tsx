@@ -1,9 +1,10 @@
-import { Fragment, useRef } from 'react'
+import {Fragment, useRef, useState} from 'react'
 import Image from '../../image'
 
 // Libraries
 import { Dialog, Transition } from '@headlessui/react'
 import useProfile from "../../../../hooks/useProfile";
+import {useMutation, useQueryClient} from "@tanstack/react-query";
 
 interface Props {
     open: boolean
@@ -11,7 +12,25 @@ interface Props {
 }
 const BurgerMenu: React.FC<Props> = ({ open, setOpen }) => {
     const cancelButtonRef = useRef(null)
-    const {activeCompany} = useProfile()
+    const { userInfo, userCompanies, postSwitchProfile, activeCompany, router, isAuthenticated } = useProfile()
+    const queryClient = useQueryClient()
+
+    const [active, setActive] = useState(false);
+    const handleSetActive = () => {
+        setActive(!active);
+    };
+    const switchProfileMutation = useMutation((active_profile_id: string) => postSwitchProfile('', active_profile_id), {
+        onSettled: () => {
+            queryClient.invalidateQueries(['profileInfo'])
+        }
+    })
+    const handleProfileSwitch = async (id: string) => {
+        try {
+            switchProfileMutation.mutate(id)
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     return (
         <Transition.Root show={open} as={Fragment}>
@@ -46,140 +65,176 @@ const BurgerMenu: React.FC<Props> = ({ open, setOpen }) => {
                                     </Dialog.Title>
                                     <Image src='/icons/close.svg' onClick={setOpen} alt='' height={40} width={40} />
                                 </div>
-                                <nav>
-                                    {activeCompany &&
-                                    <ul>
-                                        <li>
-                                            <a target="_blank" href=""
-                                               className="flex text-[16px] text-[#272A37] py-[8px]" rel="noreferrer">
-                                                დეშბორდი
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a target="_blank" href=""
-                                               className="flex text-[16px] text-[#272A37] py-[8px]" rel="noreferrer">
-                                                განცხადების დამატება
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a target="_blank" href=""
-                                               className="flex text-[16px] text-[#272A37] py-[8px]" rel="noreferrer">
-                                                შემოსული ჯაშნები
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a target="_blank" href=""
-                                               className="flex text-[16px] text-[#272A37] py-[8px]" rel="noreferrer">
-                                                გადახდები
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a target="_blank" href=""
-                                               className="flex text-[16px] text-[#272A37] py-[8px]" rel="noreferrer">
-                                                ავტომობილები
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a target="_blank" href=""
-                                               className="flex text-[16px] text-[#272A37] py-[8px]" rel="noreferrer">
-                                                კომპანიის რედაქტირება
-                                            </a>
-                                        </li>
-                                    </ul>
-                                    }
-                                    {!activeCompany &&
-                                    <ul>
-                                        <li>
-                                            <a target="_blank" href=""
-                                               className="flex text-[16px] text-[#272A37] py-[8px]" rel="noreferrer">
-                                                ჩემი შეკვეთები
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a target="_blank" href=""
-                                               className="flex text-[16px] text-[#272A37] py-[8px]" rel="noreferrer">
-                                                ბარათები დატრანზაქციები
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a target="_blank" href=""
-                                               className="flex text-[16px] text-[#272A37] py-[8px]" rel="noreferrer">
-                                                პარამეტრები
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a target="_blank" href=""
-                                               className="flex text-[16px] text-[#272A37] py-[8px]" rel="noreferrer">
-                                                კომპანიის შექმნა
-                                            </a>
-                                        </li>
-                                    </ul>
-                                    }
-                                    <ul className="py-[24px] border-t-[1px] border-[#E9EAEB] mt-[24px]">
-                                        <li>
-                                            <a href="">
-                                                <div className="py-3 hover:bg-[#F2F3F6] flex items-center justify-between">
-                                                    <div className="flex items-center text-[14px]">
-                                           <span
-                                               className="w-10 h-10 mr-4 relative flex items-center justify-center rounded-full overflow-hidden">
-                                                <Image src='/images/avatar.png' className='rounded-full' alt='avatar' />
-                                          </span>
-                                                        <div className="flex flex-col">
-                                                            <span className="flex text-[14px]">ბენე ექსლუზივი </span>
-                                                            <span className="flex text-[12px] text-raisin-80">ID: 79428749</span>
-                                                        </div>
-
-                                                    </div>
-                                                    <span className="after:content-[''] after:w-3 after:h-3 after:rounded-full after:bg-black ml-6 w-6 h-6 rounded-full flex items-center justify-center border border-2 border-black"></span>
+                                <div className='overflow-hidden rounded-[16px]'>
+                                    {active ? (
+                                            <>
+                                                <div className="flex items-center border-b-1 border-raisin-10 py-[16px] text-[12px]">
+                                                    <button className="cursor-pointer flex mr-[16px]" onClick={handleSetActive}>
+                                                        <Image src='/icons/chevron-left.svg' alt='chevron' />
+                                                    </button>
+                                                    დაბრუნება
                                                 </div>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="">
-                                                <div className="py-3 hover:bg-[#F2F3F6] flex items-center justify-between">
-                                                    <div className="flex items-center text-[14px]">
-                                       <span
-                                           className="w-10 h-10 mr-4 relative flex items-center justify-center rounded-full overflow-hidden">
-                                            <Image src='/images/avatar.png' className='rounded-full' alt='avatar' />
-                                      </span>
-                                                        <div className="flex flex-col">
-                                                            <span className="flex text-[14px]">ბენე მოტო </span>
-                                                            <span className="flex text-[12px] text-raisin-80">ID: 79428749</span>
+                                                <ul className="py-3 max-h-[335px] overflow-y-auto">
+                                                    {userCompanies?.map((company: { information: { name: string | undefined }; id: string }) => (
+                                                        <li onClick={() => handleProfileSwitch(company?.id)} key={company.id}>
+                                                            <div className='cursor-pointer py-3  flex items-center justify-between'>
+                                                                <div className='flex items-center text-[14px]'>
+                          <span
+                              className='w-10 h-10 mr-4 relative flex items-center justify-center rounded-full overflow-hidden'>
+                            <Image src='/images/avatar.png' className='rounded-full' alt='avatar'/>
+                          </span>
+                                                                    <div className='flex flex-col'>
+                                                                        <span className='text-[14px] overflow-hidden text-ellipsis whitespace-nowrap max-w-[140px] inline-block'> {company?.information?.name} </span>
+                                                                        <span className='flex text-[12px] text-raisin-80'>ID: {company?.id} </span>
+                                                                    </div>
+                                                                </div>
+                                                                {/*TODO default: border-2 border-raisin-60, active: border-[7px] border-green-100*/}
+                                                                <span
+                                                                    className="flex shrink-0 ml-6 w-6 h-6 rounded-full border border-[7px] border-green-100"></span>
+                                                            </div>
+                                                        </li>
+                                                    ))}
+                                                    <div  onClick={() => handleProfileSwitch(userInfo?.UserID)}>
+                                                        <div className='cursor-pointer py-3 flex items-center justify-between'>
+                                                            <div className='flex items-center text-[14px]'>
+                          <span
+                              className='w-10 h-10 mr-4 relative flex items-center justify-center rounded-full overflow-hidden'>
+                            <Image src='/images/avatar.png' className='rounded-full' alt='avatar'/>
+                          </span>
+                                                                <div className='flex flex-col'>
+                                                                    <span className='text-[14px] overflow-hidden text-ellipsis whitespace-nowrap max-w-[140px] inline-block'> სახელი გვარი </span>
+                                                                    <span className='flex text-[12px] text-raisin-80'>ID: 136173 </span>
+                                                                </div>
+                                                            </div>
+                                                            {/*TODO default: border-2 border-raisin-60, active: border-[7px] border-green-100*/}
+                                                            <span
+                                                                className="flex shrink-0 ml-6 w-6 h-6 rounded-full border border-[7px] border-green-100"></span>
                                                         </div>
                                                     </div>
-                                                    <span className="ml-6 w-6 h-6 rounded-full flex items-center justify-center border border-2 border-black"></span>
+                                                </ul>
+                                            </>
+                                        ):
+                                        (
+                                            <>
+                                                <div className='flex items-center justify-between border-b-[1px] border-[#E9EAEB] py-[16px]'>
+                                                    <div className="flex items-center">
+                  <span className='w-[40px] h-[40px] mr-[12px] relative flex items-center justify-center rounded-full overflow-hidden'>
+                  <Image src='/images/avatar.png' className='rounded-full' alt='avatar' />
+                </span>
+                                                        <div className='flex flex-col'>
+                  <span className='text-[14px] text-[#272A37] overflow-hidden text-ellipsis whitespace-nowrap max-w-[150px] inline-block'>
+                    namename@gmail.com
+                  </span>
+                                                            <span className='flex text-[14px] text-[#272A37]'>ID: 146797</span>
+                                                        </div>
+                                                    </div>
+                                                    <button className="cursor-pointer shrink-0 flex" onClick={handleSetActive}>
+                                                        <Image src='/icons/chevron-right.svg' alt='chevron' />
+                                                    </button>
                                                 </div>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="">
-                                                <div className="py-3 hover:bg-[#F2F3F6] flex items-center justify-between">
-                                                    <div className="flex items-center text-[14px]">
-                                       <span
-                                           className="w-10 h-10 mr-4 relative flex items-center justify-center rounded-full overflow-hidden">
-                                            <Image src='/images/avatar.png' className='rounded-full' alt='avatar'/>
-                                      </span>
-                                      <div className="flex flex-col">
-                                        <span className="flex text-[14px]">name name </span>
-                                        <span className="flex text-[12px] text-raisin-80">ID: 79428749</span>
-                                    </div>
-                                      </div>
-                                                    <span
-                                                        className="ml-6 w-6 h-6 rounded-full flex items-center justify-center border border-2 border-black"></span>
-                                                </div>
-                                            </a>
-                                        </li>
 
-                                    </ul>
-                                    <ul className="py-[24px] border-t-[1px] border-[#E9EAEB]">
-                                        <li>
-                                            <a target="_blank" href=""
-                                               className="flex text-[16px] text-[#272A37] py-[8px]" rel="noreferrer">
-                                                გასვლა
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </nav>
+                                                {activeCompany ? (
+                                                        <ul className='py-[8px]'>
+                                                            <li>
+                                                                <a
+                                                                    href='#'
+                                                                    className='flex whitespace-nowrap text-[16px] text-[#272A37] py-[8px]'
+                                                                >
+                                                                    დეშბორდი
+                                                                </a>
+                                                            </li>
+                                                            <li>
+                                                                <a
+                                                                    href='#'
+                                                                    className='flex whitespace-nowrap text-[16px] text-[#272A37] py-[8px]'
+                                                                >
+                                                                    განცხადების დამატება
+                                                                </a>
+                                                            </li>
+                                                            <li>
+                                                                <a
+                                                                    href='#'
+                                                                    className='flex items justify-between whitespace-nowrap text-[16px] text-[#272A37] py-[8px]'
+                                                                >
+                                                                    <span> შემოსული ჯავშნები</span>
+                                                                </a>
+                                                            </li>
+                                                            <li>
+                                                                <a
+                                                                    href='#'
+                                                                    className='flex whitespace-nowrap text-[16px] text-[#272A37] py-[8px]'
+                                                                >
+                                                                    გადახდები
+                                                                </a>
+                                                            </li>
+                                                            <li>
+                                                                <a
+                                                                    href='#'
+                                                                    className='flex whitespace-nowrap text-[16px] text-[#272A37] py-[8px]'
+                                                                >
+                                                                    ავტომობილები
+                                                                </a>
+                                                            </li>
+                                                            <li>
+                                                                <a
+                                                                    href='#'
+                                                                    className='flex whitespace-nowrap text-[16px] text-[#272A37] py-[8px]'
+                                                                >
+                                                                    კომპანიის რედაქტირება
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+                                                    ):
+                                                    (
+                                                        <ul className='py-[8px]'>
+                                                            <li>
+                                                                <a
+                                                                    href='#'
+                                                                    className='flex whitespace-nowrap text-[16px] text-[#272A37] py-[8px]'
+                                                                >
+                                                                    ჩემი შეკვეთები
+                                                                </a>
+                                                            </li>
+                                                            <li>
+                                                                <a
+                                                                    href='#'
+                                                                    className='flex whitespace-nowrap text-[16px] text-[#272A37] py-[8px]'
+                                                                >
+                                                                    ბარათები და ტრანზაქციები
+                                                                </a>
+                                                            </li>
+                                                            <li>
+                                                                <a
+                                                                    href='#'
+                                                                    className='flex items justify-between whitespace-nowrap text-[16px] text-[#272A37] py-[8px]'
+                                                                >
+                                                                    <span> პარამეტრები</span>
+                                                                </a>
+                                                            </li>
+                                                            <li>
+                                                                <a
+                                                                    href='#'
+                                                                    className='flex whitespace-nowrap text-[16px] text-[#272A37] py-[8px]'
+                                                                >
+                                                                    კომპანიის შექმნა
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+                                                    )
+                                                }
+
+                                                <div className='border-t-[1px] border-[#E9EAEB] py-[8px]'>
+                                                    <a
+                                                        className='flex text-[16px] text-[#272A37] cursor-pointer py-[8px]'
+                                                        href='#'
+                                                    >
+                                                        გასვლა
+                                                    </a>
+                                                </div>
+                                            </>
+                                        )
+                                    }
+                                </div>
                             </Dialog.Panel>
                         </Transition.Child>
                     </div>
