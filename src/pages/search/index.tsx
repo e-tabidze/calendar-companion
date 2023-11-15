@@ -46,7 +46,8 @@ const SearchPage = () => {
     productsData,
     isLoading,
     searchProductsMutation,
-    totalProductsCount
+    totalProductsCount,
+    objectToURI
   } = useSearch()
   const { width } = useWindowDimensions()
   const [mapVisible, setMapVisible] = useState(true)
@@ -65,7 +66,7 @@ const SearchPage = () => {
 
   useEffect(() => {
     searchProductsMutation.mutateAsync(searchString)
-  }, [searchString])
+  }, [searchString, searchValues])
 
   const handleToggleMapWidth = () => {
     setMapVisible(!mapVisible)
@@ -73,13 +74,8 @@ const SearchPage = () => {
 
   const onSubmit = () => {
     console.log(searchValues, 'searchValues submit')
+    router.push(`/search?${objectToURI(searchValues)}`)
   }
-
-  const handleAdditionalFiltersSubmit = () => {
-    onSubmit()
-  }
-
-  console.log(productsData, 'productsData')
 
   return (
     <>
@@ -88,7 +84,7 @@ const SearchPage = () => {
           <Divider />
           <FiltersWrapper>
             <MainFilters>
-              <PricePopover control={control} />
+              <PricePopover control={control} handleSubmit={onSubmit} />
               <FuelTypePopover control={control} appendFuelType={appendFuelType} />
               <CategoryPopover control={control} appendCategory={appendCategory} />
               <Tag
@@ -194,7 +190,7 @@ const SearchPage = () => {
                   }`}
                 >
                   {productsData?.map((product: any) => (
-                    <ProductCard />
+                    <ProductCard key={product.id} />
                   ))}
                 </div>
               )}
@@ -229,7 +225,7 @@ const SearchPage = () => {
           appendDoorType={appendDoorType}
           appendTransmissionType={appendTransmissionType}
           appendAdditionalInformation={appendAdditionalInformation}
-          handleAdditionalFiltersSubmit={handleAdditionalFiltersSubmit}
+          handleAdditionalFiltersSubmit={onSubmit}
         />
       </form>
     </>

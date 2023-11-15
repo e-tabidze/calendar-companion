@@ -295,8 +295,8 @@ const AdditionalFilters: React.FC<Props> = ({
                       icon='/icons/search.svg'
                       type='submit'
                       onClick={() => {
-                        toggleModal()
                         handleAdditionalFiltersSubmit()
+                        toggleModal()
                       }}
                     />
                   </div>
