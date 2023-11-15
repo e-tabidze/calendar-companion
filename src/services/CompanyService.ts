@@ -7,19 +7,16 @@ class CompanyService extends HttpService {
     return this.post('/companies', company, AccessToken ? { Authorization: `${AccessToken}` } : {})
   }
 
-  getCompanyServices(AccessToken = '', company_id: number) {
-    return this.get(
-      `/company-services?company_id=${company_id}`,
-      AccessToken ? { Authorization: `${AccessToken}` } : {}
-    )
+  getCompanyServices(AccessToken = '') {
+    return this.get(`/company-services`, AccessToken ? { Authorization: `${AccessToken}` } : {})
   }
 
   postCompanyServices(service: NewService, AccessToken = '') {
     return this.post('/company-services', service, AccessToken ? { Authorization: `${AccessToken}` } : {})
   }
 
-  getCompanyBranches(AccessToken = '', company_id: number) {
-    return this.get(`/company-branches/${company_id}`, AccessToken ? { Authorization: `${AccessToken}` } : {})
+  getCompanyBranches(AccessToken = '') {
+    return this.get(`/company-branches`, AccessToken ? { Authorization: `${AccessToken}` } : {})
   }
 
   getCompanyInfo(AccessToken = '', company_id: number) {

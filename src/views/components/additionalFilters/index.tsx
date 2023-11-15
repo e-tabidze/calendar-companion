@@ -18,123 +18,60 @@ import { Dialog, Transition } from '@headlessui/react'
 // Styles
 import { ListWrapper, SectionWrapper } from './styles'
 import SwitchField from '../switchField'
-import { useForm } from 'react-hook-form'
+import useFilters from 'src/hooks/useFilters'
+import SelectField from '../selectField'
+import CheckboxField from '../checkboxField'
 
 interface Props {
   open: boolean
   setOpen: () => void
+  control: any
+  appendFuelType: any
+  appendSeatType: any
+  appendLuggageNumber: any
+  appendCategory: any
+  appendDriveTire: any
+  appendDoorType: any
+  appendTransmissionType: any
+  appendAdditionalInformation: any
+  appendManufacturerFilters: any
 }
 
-const categories = [
-  {
-    id: 1,
-    type: 'ეკონომიური',
-    available: 231
-  },
-  {
-    id: 2,
-    type: 'ეკონომიური',
-    available: 231
-  },
-  {
-    id: 3,
-    type: 'ეკონომიური',
-    available: 231
-  },
-  {
-    id: 4,
-    type: 'ეკონომიური',
-    available: 231
-  },
-  {
-    id: 5,
-    type: 'ეკონომიური',
-    available: 231
-  },
-  {
-    id: 6,
-    type: 'ეკონომიური',
-    available: 231
-  },
-  {
-    id: 7,
-    type: 'ეკონომიური',
-    available: 231
-  },
-  {
-    id: 8,
-    type: 'ეკონომიური',
-    available: 231
-  }
-]
-
-const fuelType = ['ელექტრო', 'ჰიბრიდი', 'დატენვადი ჰიბრიდი', 'ბენზინი', 'დიზელი', 'გაზი']
-
-const doors = ['2/3', '4/5', '5+']
-
-const tires = ['წინა', 'უკანა', '4x4']
-
-const seats = ['ნებისმიერი', '1', '2', '3', '4', '5', '6', '7', '8+']
-
-const additionalParameters = [
-  {
-    id: 1,
-    label: 'შშმპ პირებზე ოპტიმიზირებული'
-  },
-  {
-    id: 2,
-    label: 'Android Auto'
-  },
-  {
-    id: 3,
-    label: 'პარკინგის სენსორი'
-  },
-  {
-    id: 4,
-    label: 'GPS'
-  },
-  {
-    id: 5,
-    label: 'ცხოველების დაშვება'
-  },
-  {
-    id: 6,
-    label: 'USB დამტენი'
-  },
-  {
-    id: 7,
-    label: '4 წამყვანი თვალი'
-  },
-  {
-    id: 8,
-    label: 'Apple CarPlay'
-  },
-  {
-    id: 9,
-    label: 'უკანა კამერა'
-  },
-  {
-    id: 10,
-    label: 'Bluetooth'
-  },
-  {
-    id: 11,
-    label: 'სავარძლის გათბობა'
-  },
-  {
-    id: 12,
-    label: 'ზამთრის საბურავები'
-  },
-  {
-    id: 13,
-    label: 'USB პორტი'
-  }
-]
-
-const AdditionalFilters: React.FC<Props> = ({ open, setOpen }) => {
+const AdditionalFilters: React.FC<Props> = ({
+  open,
+  setOpen,
+  control,
+  appendFuelType,
+  appendSeatType,
+  appendLuggageNumber,
+  appendCategory,
+  appendDriveTire,
+  appendDoorType,
+  appendTransmissionType,
+  appendAdditionalInformation,
+  appendManufacturerFilters
+}) => {
   const cancelButtonRef = useRef(null)
   const { width } = useWindowDimensions()
-  const { control } = useForm()
+  const {
+    categoriesFilter,
+    fuelTypesFilter,
+    seatTypesFilter,
+    doorTypesFilter,
+    driveTiresFilter,
+    transmisisonTypesFilter,
+    luggageNumbers,
+    additionalInformationFilters,
+    manufacturerFilters
+  } = useFilters()
+
+  console.log(manufacturerFilters, 'manufacturerFilters')
+
+  const options = [
+    { id: 'chocolate', title: 'Chocolate' },
+    { id: 'strawberry', title: 'Strawberry' },
+    { id: 'vanilla', title: 'Vanilla' }
+  ]
 
   return (
     <Transition.Root show={open} as={Fragment}>
@@ -175,14 +112,14 @@ const AdditionalFilters: React.FC<Props> = ({ open, setOpen }) => {
                   </Typography>
                   <div className='w-full flex items-center mb-20 mt-8'>
                     <DefaultInput
-                      name=''
+                      name='price_min'
                       control={control}
                       label={width > 641 ? 'მინიმუმ ფასი დღიურად' : 'მინ. ფასი დღიურად'}
                       errors={''}
                     />
                     <div className='w-3 h-px bg-base-100 mx-2' />
                     <DefaultInput
-                      name=''
+                      name='price_max'
                       control={control}
                       label={width > 641 ? 'მინიმუმ ფასი დღიურად' : 'მინ. ფასი დღიურად'}
                       errors={''}
@@ -195,23 +132,44 @@ const AdditionalFilters: React.FC<Props> = ({ open, setOpen }) => {
                     <Typography type='body' color='light'>
                       შეგიძლია მონიშნო ერთი ან რამდენიმე კატეგორია
                     </Typography>
-                    <div className='flex flex-wrap gap-4 my-6'>
-                      <CategoryCard border options={categories} name='' control={control} />
-                    </div>
+                    <>
+                      {width > 779 ? (
+                        <div className='flex flex-wrap gap-4 my-6'>
+                          <CategoryCard
+                            name='category'
+                            control={control}
+                            options={categoriesFilter}
+                            border
+                            append={appendCategory}
+                          />
+                        </div>
+                      ) : (
+                        <SelectField
+                          control={control}
+                          valueKey='id'
+                          labelKey='title'
+                          name='category'
+                          options={categoriesFilter}
+                          placeholder='კატეგორია'
+                        />
+                      )}
+                    </>
                   </div>
                   <div className='my-12'>
                     <Typography type='h5' weight='normal'>
                       ავტომობილის პარამეტრები
                     </Typography>
-                    {/* <SelectField
-                      name=''
-                      control={control}
-                      options={selectOptions}
-                      placeholder='მწარმოებელი'
-                      disabled={false}
-                      className='my-2'
-                    />
                     <SelectField
+                      name='manufacturer'
+                      isMulti
+                      control={control}
+                      options={manufacturerFilters}
+                      placeholder='მწარმოებელი'
+                      className='my-2'
+                      valueKey='id'
+                      labelKey='title'
+                    />
+                    {/* <SelectField
                       name=''
                       control={control}
                       options={selectOptions}
@@ -233,30 +191,42 @@ const AdditionalFilters: React.FC<Props> = ({ open, setOpen }) => {
                     საწვავის ტიპი
                   </Typography>
                   <div className='flex flex-wrap gap-3 my-6'>
-                    {fuelType.map((type, idx) => (
-                      <Tag label={type} key={idx} component={<Image src='icons/electric.svg' alt='' />} height='h-12' />
-                    ))}
+                    <Tag
+                      options={fuelTypesFilter}
+                      name='fuel_types'
+                      control={control}
+                      height='h-10'
+                      append={appendFuelType}
+                    />
                   </div>
 
                   <Typography type='h5' weight='normal'>
                     ადგილების რაოდენობა
                   </Typography>
                   <div className='flex flex-wrap gap-4 my-6'>
-                    {seats.map((place, idx) => (
-                      <Tag label={place} key={idx} height='h-10' />
-                    ))}
+                    <Tag
+                      options={seatTypesFilter}
+                      name='seat_types'
+                      control={control}
+                      height='h-10'
+                      append={appendSeatType}
+                    />
                   </div>
 
                   <Typography type='h5' weight='normal'>
                     ჩემოდნების რაოდენობა
                   </Typography>
                   <div className='flex flex-wrap gap-4 my-6'>
-                    {seats.map((place, idx) => (
-                      <Tag label={place} key={idx} height='h-10' />
-                    ))}
+                    <Tag
+                      options={luggageNumbers}
+                      height='h-10'
+                      name='luggage_numbers'
+                      control={control}
+                      append={appendLuggageNumber}
+                    />
                   </div>
                   <Divider />
-                  <SwitchField label='უფასო მიწოდება' name='' control={control} className='my-8' />
+                  <SwitchField label='უფასო მიწოდება' name='free_delivery' control={control} className='my-8' />
                   <Divider />
 
                   <SectionWrapper>
@@ -264,9 +234,13 @@ const AdditionalFilters: React.FC<Props> = ({ open, setOpen }) => {
                       კარის რაოდენობა
                     </Typography>
                     <ListWrapper>
-                      {doors.map((type, idx) => (
-                        <Tag label={type} key={idx} component={<Image src='icons/doors.svg' alt='' />} height='h-12' />
-                      ))}
+                      <Tag
+                        options={doorTypesFilter}
+                        name='door_types'
+                        control={control}
+                        height='h-10'
+                        append={appendDoorType}
+                      />
                     </ListWrapper>
                   </SectionWrapper>
                   <Divider />
@@ -276,9 +250,13 @@ const AdditionalFilters: React.FC<Props> = ({ open, setOpen }) => {
                       წამყვანი საბურავები
                     </Typography>
                     <ListWrapper>
-                      {tires.map((type, idx) => (
-                        <Tag label={type} key={idx} height='h-10' />
-                      ))}
+                      <Tag
+                        options={driveTiresFilter}
+                        name='drive_tires'
+                        control={control}
+                        height='h-10'
+                        append={appendDriveTire}
+                      />
                     </ListWrapper>
                   </SectionWrapper>
                   <Divider />
@@ -288,9 +266,13 @@ const AdditionalFilters: React.FC<Props> = ({ open, setOpen }) => {
                       ტრანსმისია
                     </Typography>
                     <ListWrapper>
-                      {tires.map((type, idx) => (
-                        <Tag label={type} key={idx} height={'h-10'} />
-                      ))}
+                      <Tag
+                        options={transmisisonTypesFilter}
+                        name='transmission_types'
+                        control={control}
+                        height='h-10'
+                        append={appendTransmissionType}
+                      />
                     </ListWrapper>
                   </SectionWrapper>
                   <Divider />
@@ -301,12 +283,13 @@ const AdditionalFilters: React.FC<Props> = ({ open, setOpen }) => {
                   <Typography type='body' color='light'>
                     შეგიძლია მონიშნო ერთი ან რამდენიმე პარამეტრი
                   </Typography>
-                  <div className='py-9 grid grid-cols-2'>
-                    {additionalParameters.map(parameter => (
-                      <div className='my-2' key={parameter.id}>
-                        <Checkbox title={parameter.label} name='' control={control} />
-                      </div>
-                    ))}
+                  <div className='my-2'>
+                    <CheckboxField
+                      name={'additional_information'}
+                      control={control}
+                      options={additionalInformationFilters}
+                      append={() => appendAdditionalInformation()}
+                    />
                   </div>
                 </div>
                 <div className='w-full flex items-center justify-between py-[16px] px-10 border-t-1 border-grey-90'>

@@ -30,7 +30,20 @@ import SearchLayout from '../../layouts/SearchLayout'
 import useSearch from 'src/hooks/useSearch'
 
 const SearchPage = () => {
-  const { control, searchValues, handleSubmit, appendFuelType, appendCategory, appendSeatType, appendLuggageNumbers, removeCategory } = useSearch()
+  const {
+    control,
+    searchValues,
+    handleSubmit,
+    appendFuelType,
+    appendCategory,
+    appendSeatType,
+    appendLuggageNumber,
+    appendDriveTire,
+    appendDoorType,
+    appendTransmissionType,
+    appendAdditionalInformation,
+    appendManufacturerFilters
+  } = useSearch()
   const { width } = useWindowDimensions()
   const [mapVisible, setMapVisible] = useState(true)
   const [filters, toggleFilters] = useState(false)
@@ -58,10 +71,10 @@ const SearchPage = () => {
             <MainFilters>
               <PricePopover control={control} />
               <FuelTypePopover control={control} appendFuelType={appendFuelType} />
-              <CategoryPopover control={control} appendCategory={appendCategory} removeCategory={removeCategory} />
+              <CategoryPopover control={control} appendCategory={appendCategory} />
               <Tag
                 label='უფასო მიწოდება'
-                component={<Switcher height='h-5' name='free' control={control} defaultValue />}
+                component={<Switcher height='h-5' name='free_delivery' control={control} defaultValue />}
                 height='h-10'
                 control={control}
               />
@@ -69,7 +82,7 @@ const SearchPage = () => {
                 <SeatsPopover control={control} appendSeatType={appendSeatType} />
               </div>
               <div className='hidden xl:flex'>
-                <SuitcasesPopover control={control} appendLuggageNumbers={appendLuggageNumbers} />
+                <SuitcasesPopover control={control} appendLuggageNumber={appendLuggageNumber} />
               </div>
               <Tag
                 label='ყველა ფილტრი'
@@ -173,7 +186,7 @@ const SearchPage = () => {
               </div>
             </SearchContentsContainer>
             <MapContainer
-              className={`absolute z-[11] lg:z-[1] top-[197px] md:top-[153px] lg:top-[0] w-full left-0 lg:fixed lg:right-0 lg:left-auto lg:top-0 overflow-hidden transition-all duration-300 ${
+              className={`absolute z-[11] lg:z-[1] top-[197px] md:top-[153px] w-full left-0 lg:fixed lg:right-0 lg:left-auto lg:top-0 overflow-hidden transition-all duration-300 ${
                 mapVisible ? 'h-[100vh] lg:w-1/2' : 'h-0 lg:h-[100vh] lg:w-[40px]'
               }`}
             >
@@ -190,7 +203,20 @@ const SearchPage = () => {
             </MapContainer>
           </FullContainer>
         </SearchLayout>
-        <AdditionalFilters open={filters} setOpen={() => toggleFilters(!filters)} />
+        <AdditionalFilters
+          open={filters}
+          setOpen={() => toggleFilters(!filters)}
+          control={control}
+          appendFuelType={appendFuelType}
+          appendSeatType={appendSeatType}
+          appendLuggageNumber={appendLuggageNumber}
+          appendCategory={appendCategory}
+          appendDriveTire={appendDriveTire}
+          appendDoorType={appendDoorType}
+          appendTransmissionType={appendTransmissionType}
+          appendAdditionalInformation={appendAdditionalInformation}
+          appendManufacturerFilters={appendManufacturerFilters}
+        />
       </form>
     </>
   )

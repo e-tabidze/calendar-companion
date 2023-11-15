@@ -5,6 +5,8 @@ import TwoOptionSelector from 'src/views/components/twoOptionSelector'
 import ImagesInput from './imagesInput'
 import Cookie from 'src/helpers/Cookie'
 import useProductInfo, { getManufacturerModels } from '../useProductInfo'
+import { useEffect } from 'react'
+import { useWatch } from 'react-hook-form'
 
 interface Props {
   control: any
@@ -15,14 +17,23 @@ interface Props {
 const StepOne: React.FC<Props> = ({ control, productValues, errors }) => {
   const { manufacturers } = useProductInfo()
 
+  const formState = useWatch({ control })
+  console.log(formState.man_id, 'formState?')
+
   const selectedManufacturerId = productValues.man_id
 
-  const { data: manufacturerModels } = useQuery({
+  const { data: manufacturerModels, refetch } = useQuery({
     queryKey: ['manufacturerModels'],
-    queryFn: () => getManufacturerModels(Cookie.get('AccessToken'), selectedManufacturerId),
+    queryFn: () => getManufacturerModels('', selectedManufacturerId),
     staleTime: Infinity,
     enabled: !!selectedManufacturerId
   })
+
+  useEffect(() => {
+    if (selectedManufacturerId) {
+      refetch()
+    }
+  }, [selectedManufacturerId, refetch])
 
   const generateYearsArray = () => {
     const currentYear = new Date().getFullYear()

@@ -51,6 +51,7 @@ interface Props {
   valueKey?: string
   labelKey?: string
   errors?: any
+  isMulti?: boolean
 }
 
 const Control = ({ children, ...props }: any) => {
@@ -75,7 +76,8 @@ const SelectField: React.FC<Props> = ({
   valueKey,
   labelKey,
   placeholder,
-  errors
+  errors,
+  isMulti
 }) => {
   const { DropdownIndicator, ClearIndicator } = components
 
@@ -106,14 +108,32 @@ const SelectField: React.FC<Props> = ({
         control={control}
         render={({ field: { onChange, value } }) => (
           <>
+            {console.log(value, 'value??')}
             <Select
               styles={customStyles}
               options={options}
-              value={options?.find(opt => (valueKey ? opt[valueKey] === value || '' : opt.value === value || ''))}
+              // value={options?.find(opt => (valueKey ? opt[valueKey] === value || '' : opt.value === value || ''))}
+              // onChange={(e: any) => {
+              //   console.log(e, 'ee?')
+              //   onChange(valueKey ? e?.[valueKey] : e?.value || '')
+              // }}
+              value={
+                isMulti
+                  ? options?.filter(opt => (valueKey ? value?.includes(opt[valueKey]) : value.includes(opt.value)))
+                  : options?.find(opt => (valueKey ? opt[valueKey] === value : opt.value === value))
+              }
               onChange={(e: any) => {
-                onChange(valueKey ? e[valueKey] : e?.value || '')
+                const selectedValues = isMulti
+                  ? e.map((opt: any) => (valueKey ? opt[valueKey] : opt.value))
+                  : valueKey
+                  ? e?.[valueKey] || []
+                  : e?.value || []
+
+                onChange(selectedValues)
               }}
-              getOptionLabel={labelKey ? option => option.title : undefined}
+              isMulti={isMulti}
+              getOptionLabel={option => labelKey && option[labelKey]}
+              getOptionValue={option => valueKey && option[valueKey]}
               components={{
                 DropdownIndicator: customDropdownIndicator,
                 ClearIndicator: customClearIndicator,
@@ -122,7 +142,6 @@ const SelectField: React.FC<Props> = ({
               isClearable
               placeholder={placeholder}
               isDisabled={disabled}
-              
               // @ts-ignore
               emoji={
                 icon && (

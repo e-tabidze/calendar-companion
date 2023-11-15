@@ -10,7 +10,6 @@ const Odometer = Yup.object().shape({
 })
 
 const NewProductSchema = Yup.object().shape({
-  company_id: Yup.number().required(),
   man_id: Yup.mixed().required('აუცილებელი ველი'),
   model_id: Yup.mixed().required('აუცილებელი ველი'),
   category_id: Yup.mixed().required('აუცილებელი ველი'),

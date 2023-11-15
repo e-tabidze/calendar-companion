@@ -26,8 +26,8 @@ const ProfileNavigation: React.FC<Props> = ({
   selectedRoute,
   dividerIndexes
 }) => {
-  const { userInfo, actveProfileInfo } = useProfile()
-  
+  const { userInfo, activeCompany } = useProfile()
+
   return (
     <div
       className={`hidden lg:flex h-fit mx-3 border border-raisin-10 rounded-3xl py-8 shrink-0  flex-col transition-all duration-300
@@ -48,9 +48,15 @@ const ProfileNavigation: React.FC<Props> = ({
             className={`overflow-hidden transition-all duration-300 text-[14px] 2xl-[16px] ${
               sidebarCollapsed ? 'w-0 opacity-0' : 'xl:ml-4 xl:w-full opacity-0 xl:opacity-100'
             }`}
-          > 
-          {!!actveProfileInfo  ? actveProfileInfo?.information.name : <>  {userInfo?.information.first_name} {userInfo?.information.last_name} </>}
-           
+          >
+            {!!activeCompany ? (
+              activeCompany?.information.name
+            ) : (
+              <>
+                {' '}
+                {userInfo?.information.first_name} {userInfo?.information.last_name}{' '}
+              </>
+            )}
           </Typography>
         </div>
         <div
