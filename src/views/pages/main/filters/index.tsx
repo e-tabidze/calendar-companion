@@ -3,10 +3,9 @@ import LocationDropdown from './locationDropdown'
 import { Divider, ExtraFiltersContainer, FiltersContainer } from './styles'
 import PeriodDropdown from './periodDropdown'
 import { useState } from 'react'
-import AdditionalFilters from 'src/views/components/additionalFilters'
 import { useRouter } from 'next/router'
 import useSearch from 'src/hooks/useSearch'
-import { QueryClient, useMutation, useQuery } from '@tanstack/react-query'
+import AdditionalFilters from 'src/views/components/additionalFilters'
 
 const Filters = () => {
   const [filters, toggleFilters] = useState(false)

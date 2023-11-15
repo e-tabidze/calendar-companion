@@ -41,9 +41,9 @@ export const IconButton = ({
       type={type}
       onClick={onClick}
       ref={innerRef}
-      className={`flex group items-center cursor-pointer ${
+      className={`flex shrink-0 group items-center cursor-pointer ${
         hasBg ? 'p-4 xl:p-5' : ''
-      } rounded-2xl  w-fit h-12 max-w-[30%] ${hasBg ? `bg-${bg}` : ''} ${className}`}
+      } rounded-2xl w-[32px] h-[32px] ${hasBg ? `bg-${bg}` : ''} ${className}`}
     >
       <Image src={icon} height={height} width={width} alt='' className={`group-disabled:opacity-30 !max-w-none `} />
     </button>

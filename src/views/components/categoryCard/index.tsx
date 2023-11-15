@@ -11,13 +11,14 @@ interface Props {
 }
 
 const CategoryCard: React.FC<Props> = ({ border, name, control, options, append }) => {
+
   return (
     <Controller
       name={name}
       control={control}
       render={({ field: { onChange, value } }) => {
         const selectedOptions = Array.isArray(value) ? value : [value]
-
+        
         return (
           <>
             {options?.map(option => (

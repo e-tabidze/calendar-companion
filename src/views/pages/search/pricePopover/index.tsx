@@ -2,9 +2,6 @@ import { DefaultInput } from 'src/views/components/input'
 import PopoverDropdown from 'src/views/components/popoverDropdown'
 import { DefaultButton, IconButton } from 'src/views/components/button'
 import { ActionsWrapper, Divider, TagsWrapper } from './styles'
-import { Popover } from '@headlessui/react'
-import Typography from 'src/views/components/typography'
-import Icon from 'src/views/app/Icon'
 
 interface Props {
   control: any

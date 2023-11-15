@@ -12,10 +12,8 @@ interface Props {
 }
 
 const LocationDropdown: React.FC<Props> = ({ control }) => {
-  const [dateRange, setDateRange] = useState([null, null])
+  const [dateRange, setDateRange] = useState<[Date, Date] | [null, null]>([null, null])
   const [startDate, endDate] = dateRange
-
-  console.log(startDate, 'and', endDate)
 
   return (
     <Menu as='div' className='flex text-left mx-2 w-full'>
@@ -47,7 +45,7 @@ const LocationDropdown: React.FC<Props> = ({ control }) => {
           <Controller
             name='booking'
             control={control}
-            render={({ field: { onChange, value } }) => (
+            render={({ field: { onChange } }) => (
               <DatePicker
                 className='text-center border-l-4 border-red-500  w-full p-3 rounded text-sm  outline-none  focus:ring-0 bg-transparent'
                 inline
@@ -55,7 +53,7 @@ const LocationDropdown: React.FC<Props> = ({ control }) => {
                 startDate={startDate}
                 endDate={endDate}
                 monthsShown={2}
-                onChange={(update: [Date, Date] | null) => {
+                onChange={(update: any) => {
                   if (update) {
                     const [start, end] = update
                     const formattedStartDate = start?.toISOString().split('T')[0]

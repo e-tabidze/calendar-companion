@@ -8,6 +8,7 @@ import useCompanyInfo from 'src/views/pages/profile/company/useCompanyInfo'
 
 const Orders = dynamic(() => import('src/views/pages/profile/orders'), { ssr: true })
 const Favourites = dynamic(() => import('src/views/pages/profile/favorites'), { ssr: true })
+const Notifications = dynamic(() => import('src/views/pages/profile/notifications'), { ssr: true })
 const PersonalInfo = dynamic(() => import('src/views/pages/profile/personal-information'), { ssr: true })
 const CreateCompany = dynamic(() => import('src/views/pages/profile/createCompany'), { ssr: true })
 const CardsAndTransactions = dynamic(() => import('src/views/pages/profile/cardsAndTransactions'), { ssr: true })
@@ -44,7 +45,13 @@ const routes = [
     icon: '',
     item: 'კომპანიის შექმნა',
     path: '/profile/create-company'
-  }
+  },
+  {
+    id: 6,
+    icon: '',
+    item: 'შეტყობინებები',
+    path: '/profile/notifications'
+  },
 ]
 
 const ProfileRouter = ({ userInfo }: { userInfo: UserInfo }) => {
@@ -84,6 +91,8 @@ const ProfileRouter = ({ userInfo }: { userInfo: UserInfo }) => {
       return <Orders />
     case 'favourites':
       return <Favourites />
+    case 'notifications':
+      return <Notifications />
     case 'transactions':
       return <CardsAndTransactions />
     case 'personal-information':
