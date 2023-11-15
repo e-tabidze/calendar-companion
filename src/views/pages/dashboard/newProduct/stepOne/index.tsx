@@ -5,7 +5,6 @@ import TwoOptionSelector from 'src/views/components/twoOptionSelector'
 import ImagesInput from './imagesInput'
 import useProductInfo, { getManufacturerModels } from '../useProductInfo'
 import { useEffect } from 'react'
-import { useWatch } from 'react-hook-form'
 
 interface Props {
   control: any
@@ -15,9 +14,6 @@ interface Props {
 
 const StepOne: React.FC<Props> = ({ control, productValues, errors }) => {
   const { manufacturers } = useProductInfo()
-
-  const formState = useWatch({ control })
-  console.log(formState.man_id, 'formState?')
 
   const selectedManufacturerId = productValues.man_id
 

@@ -1,6 +1,48 @@
+import { QueryClient, useMutation } from '@tanstack/react-query'
 import { useFieldArray, useForm, useWatch } from 'react-hook-form'
+import SearchService from 'src/services/SearchService'
 
 const useSearch = () => {
+  const urlSearchParams = typeof window !== 'undefined' ? new URLSearchParams(window?.location.search) : null
+  const params: any = {}
+  const queryClient = new QueryClient()
+
+  if (urlSearchParams) {
+    for (const [key, value] of urlSearchParams.entries()) {
+      if (key.endsWith('[]')) {
+        const paramName = key.slice(0, -2)
+        params[paramName] = params[paramName] || []
+        params[paramName].push(Number(value))
+      } else {
+        params[key] = value
+      }
+    }
+  }
+
+  const convertToNumberArray = (param: number[]) => {
+    if (Array.isArray(param)) {
+      return param.map(Number).filter(num => !isNaN(num) && num !== null)
+    }
+
+    return []
+  }
+
+  const searchDefaultValues = {
+    location: params?.location || '',
+    fuel_types: convertToNumberArray(params?.fuel_types),
+    category: convertToNumberArray(params?.category),
+    seat_types: convertToNumberArray(params?.seat_types),
+    luggage_numbers: convertToNumberArray(params?.luggage_numbers),
+    drive_tires: convertToNumberArray(params?.drive_tires),
+    door_types: convertToNumberArray(params?.door_types),
+    transmission_types: convertToNumberArray(params?.transmission_types),
+    additional_information: convertToNumberArray(params?.additional_information),
+    price_min: params?.price_min || '',
+    price_max: params?.price_max || '',
+    manufacturer: convertToNumberArray(params?.manufacturer),
+    free_delivery: params?.free_delivery === 'true'
+  }
+
   const {
     control,
     handleSubmit,
@@ -10,7 +52,8 @@ const useSearch = () => {
     clearErrors,
     setValue
   } = useForm({
-    mode: 'onChange'
+    mode: 'onChange',
+    defaultValues: searchDefaultValues
   })
 
   const searchValues: any = useWatch({ control })
@@ -20,10 +63,27 @@ const useSearch = () => {
     name: 'fuel_types'
   })
 
-  const { fields: category, append: appendCategory, remove: removeCategory } = useFieldArray({
+  const {
+    fields: category,
+    append: appendCategory,
+    remove: removeCategory
+  } = useFieldArray({
     control,
     name: 'category'
   })
+
+  const searchProductsMutation = useMutation((querystring: string) => searchProducts(querystring), {
+    onSettled: () => {
+      queryClient.invalidateQueries(['searchProducts'])
+    },
+    onError: error => {
+      console.error('Mutation Error:', error)
+    }
+  })
+
+  const productsData = searchProductsMutation?.data?.result?.data
+  const isLoading = searchProductsMutation?.isLoading
+  const totalProductsCount = searchProductsMutation?.data?.result?.total
 
   const { fields: seatTypes, append: appendSeatType } = useFieldArray({
     control,
@@ -55,10 +115,36 @@ const useSearch = () => {
     name: 'additional_information'
   })
 
-  const { fields: manufacturerFilters, append: appendManufacturerFilters } = useFieldArray({
-    control,
-    name: 'manufacturer'
-  })
+  const searchProducts = async (querystring: string) => {
+    try {
+      const response: any = await SearchService.getSearchProducts(querystring)
+
+      return response.data
+    } catch (error) {
+      console.error('Error creating product:', error)
+      throw error
+    }
+  }
+
+  const objectToURI = (obj: any) => {
+    return Object.entries(obj)
+      .filter(([value]) => {
+        return value !== null && value !== undefined && !(Array.isArray(value) && value.length === 0)
+      })
+      .map(([key, value]: [string, any]) => {
+        if (key === 'booking' && value !== null && value !== undefined) {
+          const { book_from, book_to } = value
+          
+          return [`book_from=${encodeURIComponent(book_from)}`, `book_to=${encodeURIComponent(book_to)}`]
+        } else if (Array.isArray(value)) {
+          return value.map(v => `${encodeURIComponent(key)}[]=${encodeURIComponent(v)}`)
+        } else {
+          return `${encodeURIComponent(key)}=${encodeURIComponent(value)}`
+        }
+      })
+      .flat()
+      .join('&')
+  }
 
   return {
     control,
@@ -87,8 +173,12 @@ const useSearch = () => {
     appendTransmissionType,
     additionalInformation,
     appendAdditionalInformation,
-    manufacturerFilters,
-    appendManufacturerFilters
+    searchProducts,
+    searchProductsMutation,
+    productsData,
+    isLoading,
+    totalProductsCount,
+    objectToURI
   }
 }
 

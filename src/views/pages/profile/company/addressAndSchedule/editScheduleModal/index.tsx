@@ -48,8 +48,6 @@ interface Props {
 const EditScheduleModal: React.FC<Props> = ({ open, onClose, control, index, data }) => {
   const formState = useWatch({ control })
 
-  console.log(formState.addresses[index].is_same_time, 'formState')
-
   // const [selectedWorkDays, setSelectedWorkDays] = useState<any[]>([
   //   'monday',
   //   'tuesday',

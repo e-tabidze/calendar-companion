@@ -4,22 +4,39 @@ import { Divider, ExtraFiltersContainer, FiltersContainer } from './styles'
 import PeriodDropdown from './periodDropdown'
 import { useState } from 'react'
 import { useRouter } from 'next/router'
+import useSearch from 'src/hooks/useSearch'
+import AdditionalFilters from 'src/views/components/additionalFilters'
 
 const Filters = () => {
   const [filters, toggleFilters] = useState(false)
 
   const router = useRouter()
 
-  const onClickSearch = () => {
-    router.push('/search')
+  const {
+    searchValues,
+    control,
+    appendFuelType,
+    appendCategory,
+    appendSeatType,
+    appendLuggageNumber,
+    appendDriveTire,
+    appendDoorType,
+    appendTransmissionType,
+    appendAdditionalInformation,
+    objectToURI
+  } = useSearch()
+
+  const onClickSearch = async () => {
+    const queryString = objectToURI(searchValues)
+    router.push(`/search?${queryString}`)
   }
 
   return (
-    <>
+    <form>
       <FiltersContainer>
-        <LocationDropdown />
+        <LocationDropdown control={control} />
         <Divider />
-        <PeriodDropdown />
+        <PeriodDropdown control={control} />
         <Divider />
         <ExtraFiltersContainer>
           <IconTextButton
@@ -27,8 +44,9 @@ const Filters = () => {
             icon={'/icons/filters.svg'}
             bg='white'
             labelClassname='text-xs text-base-100 text-left md:hidden'
-            className='mr-[16px]'
+            className='mr-4'
             onClick={() => toggleFilters(!filters)}
+            type='button'
           />
           <IconTextButton
             label={'ძებნა'}
@@ -36,13 +54,25 @@ const Filters = () => {
             bg='bg-red-100'
             labelClassname='text-2sm text-white md:hidden'
             onClick={onClickSearch}
-            className=''
+            type='button'
           />
         </ExtraFiltersContainer>
       </FiltersContainer>
-
-      {/* <AdditionalFilters open={filters} setOpen={() => toggleFilters(!filters)} control={control} /> */}
-    </>
+      <AdditionalFilters
+        open={filters}
+        toggleModal={() => toggleFilters(!filters)}
+        control={control}
+        appendFuelType={appendFuelType}
+        appendSeatType={appendSeatType}
+        appendLuggageNumber={appendLuggageNumber}
+        appendCategory={appendCategory}
+        appendDriveTire={appendDriveTire}
+        appendDoorType={appendDoorType}
+        appendTransmissionType={appendTransmissionType}
+        appendAdditionalInformation={appendAdditionalInformation}
+        handleAdditionalFiltersSubmit={onClickSearch}
+      />
+    </form>
   )
 }
 

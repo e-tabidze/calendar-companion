@@ -20,10 +20,11 @@ import SwitchField from '../switchField'
 import useFilters from 'src/hooks/useFilters'
 import SelectField from '../selectField'
 import CheckboxField from '../checkboxField'
+import { IconTextButton } from '../button'
 
 interface Props {
   open: boolean
-  setOpen: () => void
+  toggleModal: () => void
   control: any
   appendFuelType: any
   appendSeatType: any
@@ -33,12 +34,12 @@ interface Props {
   appendDoorType: any
   appendTransmissionType: any
   appendAdditionalInformation: any
-  appendManufacturerFilters: any
+  handleAdditionalFiltersSubmit: () => void
 }
 
 const AdditionalFilters: React.FC<Props> = ({
   open,
-  setOpen,
+  toggleModal,
   control,
   appendFuelType,
   appendSeatType,
@@ -47,7 +48,8 @@ const AdditionalFilters: React.FC<Props> = ({
   appendDriveTire,
   appendDoorType,
   appendTransmissionType,
-  appendAdditionalInformation
+  appendAdditionalInformation,
+  handleAdditionalFiltersSubmit
 }) => {
   const cancelButtonRef = useRef(null)
   const { width } = useWindowDimensions()
@@ -65,7 +67,7 @@ const AdditionalFilters: React.FC<Props> = ({
 
   return (
     <Transition.Root show={open} as={Fragment}>
-      <Dialog as='div' className='relative z-[111]' initialFocus={cancelButtonRef} onClose={setOpen}>
+      <Dialog as='div' className='relative z-[111]' initialFocus={cancelButtonRef} onClose={toggleModal}>
         <Transition.Child
           as={Fragment}
           enter='ease-out duration-300'
@@ -94,7 +96,7 @@ const AdditionalFilters: React.FC<Props> = ({
                   <Dialog.Title as='h3' className='text-2md text-base-100 leading-6'>
                     დამატებითი ფილტრები
                   </Dialog.Title>
-                  <Image src='/icons/close.svg' onClick={setOpen} alt='' height={40} width={40} />
+                  <Image src='/icons/close.svg' onClick={toggleModal} alt='' height={40} width={40} />
                 </div>
                 <div className='overflow-auto h-[70vh] px-4 py-5 sm:py-6 sm:px-10 w-max-full'>
                   <Typography type='body' color='dark' className='max-w-[30%]'>
@@ -275,7 +277,7 @@ const AdditionalFilters: React.FC<Props> = ({
                   </Typography>
                   <div className='my-2'>
                     <CheckboxField
-                      name={'additional_information'}
+                      name='additional_information'
                       control={control}
                       options={additionalInformationFilters}
                       append={() => appendAdditionalInformation()}
@@ -283,16 +285,20 @@ const AdditionalFilters: React.FC<Props> = ({
                   </div>
                 </div>
                 <div className='w-full flex items-center justify-between py-[16px] px-10 border-t-1 border-grey-90'>
-                  <button className='flex items-center text-raisin-50 text-[12px]'>
-                    <Image src='/icons/return.svg' alt='' className='flex mr-2' />
-                    გასუფთავება
-                  </button>
-                  <div className='flex items-center [text-16px]'>
+                  <IconTextButton label='გასუფთავება' icon='/icons/return.svg' />
+                  <div className='flex items-center [text-16px] gap-4'>
                     სულ 136 შედეგი
-                    <button className='ml-[24px] px-[24px] h-[56px] bg-orange text-white text-[16px] flex items-center bg-orange-100 rounded-[12px]'>
-                      <Image src='/icons/search.svg' alt='' className='flex mr-2' />
-                      ძებნა
-                    </button>
+                    <IconTextButton
+                      label='ძებნა'
+                      bg='bg-orange-100'
+                      className='text-white'
+                      icon='/icons/search.svg'
+                      type='submit'
+                      onClick={() => {
+                        handleAdditionalFiltersSubmit()
+                        toggleModal()
+                      }}
+                    />
                   </div>
                 </div>
               </Dialog.Panel>

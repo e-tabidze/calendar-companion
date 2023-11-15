@@ -10,8 +10,6 @@ const Avatar = () => {
   const { userInfo, userCompanies, postSwitchProfile, activeCompany, router, isAuthenticated } = useProfile()
   const queryClient = useQueryClient()
 
-  console.log(activeCompany, 'activeCOmpany')
-
   useEffect(() => {
     if (!!activeCompany && router?.pathname.includes('profile')) {
       router.push(`/dashboard/dashboard`)
@@ -23,6 +21,7 @@ const Avatar = () => {
   const switchProfileMutation = useMutation((active_profile_id: string) => postSwitchProfile('', active_profile_id), {
     onSettled: () => {
       queryClient.invalidateQueries(['profileInfo'])
+      router.reload()
     }
   })
 
