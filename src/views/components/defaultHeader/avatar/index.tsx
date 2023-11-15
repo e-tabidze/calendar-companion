@@ -6,10 +6,7 @@ import { Fragment, useEffect, useState } from 'react'
 import useProfile from 'src/hooks/useProfile'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 
-interface Props {
-  user: any
-}
-const Avatar: React.FC<Props> = ({ user }) => {
+const Avatar = () => {
   const { userInfo, userCompanies, postSwitchProfile, activeCompany, router, isAuthenticated } = useProfile()
   const queryClient = useQueryClient()
 
