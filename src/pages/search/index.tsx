@@ -28,6 +28,7 @@ import ToggleMapButton from '../../views/pages/search/toggleMapButton'
 import Icon from 'src/views/app/Icon'
 import SearchLayout from '../../layouts/SearchLayout'
 import useSearch from 'src/hooks/useSearch'
+import { useRouter } from 'next/router'
 
 const SearchPage = () => {
   const {
@@ -41,15 +42,30 @@ const SearchPage = () => {
     appendDriveTire,
     appendDoorType,
     appendTransmissionType,
-    appendAdditionalInformation
+    appendAdditionalInformation,
+    productsData,
+    isLoading,
+    searchProductsMutation,
+    totalProductsCount
   } = useSearch()
   const { width } = useWindowDimensions()
   const [mapVisible, setMapVisible] = useState(true)
   const [filters, toggleFilters] = useState(false)
 
+  const router = useRouter()
+
+  const { asPath } = router
+
+  const startIndex = asPath.indexOf('/search/?') + '/search/?'.length
+  const searchString = asPath.slice(startIndex)
+
   useEffect(() => {
     setMapVisible(width >= 1025)
   }, [width])
+
+  useEffect(() => {
+    searchProductsMutation.mutateAsync(searchString)
+  }, [searchString])
 
   const handleToggleMapWidth = () => {
     setMapVisible(!mapVisible)
@@ -63,7 +79,7 @@ const SearchPage = () => {
     onSubmit()
   }
 
-  console.log(searchValues, 'IN SEARCH')
+  console.log(productsData, 'productsData')
 
   return (
     <>
@@ -111,7 +127,7 @@ const SearchPage = () => {
             >
               <SearchResultsContainer>
                 <Typography type='h5' weight='normal' className='mr-2 mb-5 md:mb-0'>
-                  სულ ნაპოვნია 71 განცხადება
+                  სულ ნაპოვნია {totalProductsCount} განცხადება
                 </Typography>
                 <div className='w-full md:w-auto flex items-center my-4'>
                   <span
@@ -169,24 +185,19 @@ const SearchPage = () => {
                   </div>
                 </div>
               </SearchResultsContainer>
-              <div
-                className={`grid sm:grid-cols-2 gap-6 ${
-                  mapVisible ? 'grid-cols-2 2xl:grid-cols-3' : 'lg:grid-cols-4 2xl:grid-cols-5'
-                }`}
-              >
-                <ProductCard />
-                <ProductCard />
-                <ProductCard />
-                <ProductCard />
-                <ProductCard />
-                <ProductCard />
-                <ProductCard />
-                <ProductCard />
-                <ProductCard />
-                <ProductCard />
-                <ProductCard />
-                <ProductCard />
-              </div>
+              {isLoading ? (
+                <div>Loading...</div>
+              ) : (
+                <div
+                  className={`grid sm:grid-cols-2 gap-6 ${
+                    mapVisible ? 'grid-cols-2 2xl:grid-cols-3' : 'lg:grid-cols-4 2xl:grid-cols-5'
+                  }`}
+                >
+                  {productsData?.map((product: any) => (
+                    <ProductCard />
+                  ))}
+                </div>
+              )}
             </SearchContentsContainer>
             <MapContainer
               className={`absolute z-[11] lg:z-[1] top-[197px] md:top-[153px] w-full left-0 lg:fixed lg:right-0 lg:left-auto lg:top-0 overflow-hidden transition-all duration-300 ${

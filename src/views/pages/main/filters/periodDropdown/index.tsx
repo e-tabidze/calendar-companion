@@ -15,6 +15,8 @@ const LocationDropdown: React.FC<Props> = ({ control }) => {
   const [dateRange, setDateRange] = useState([null, null])
   const [startDate, endDate] = dateRange
 
+  console.log(startDate, 'and', endDate)
+
   return (
     <Menu as='div' className='flex text-left mx-2 w-full'>
       <Menu.Button className='py-5 px-4 inline-flex w-full justify-center rounded-md bg-raisin bg-opacity-20 text-sm font-medium text-white focus-visible:ring-white focus-visible:ring-opacity-75'>
@@ -24,7 +26,9 @@ const LocationDropdown: React.FC<Props> = ({ control }) => {
           </Typography>
           <InnerFilterContainer>
             <Typography type='subtitle' className='text-raisin-50'>
-              აირჩიეთ თარიღი და დრო
+              {startDate && endDate
+                ? `${startDate?.toISOString().split('T')[0]} - ${endDate?.toISOString().split('T')[0]}`
+                : 'აირჩიეთ თარიღი და დრო'}
             </Typography>
             <Image src='/icons/chevron.svg' className='inline fill-white m-2' alt='img' />
           </InnerFilterContainer>

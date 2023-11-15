@@ -1,9 +1,11 @@
+import { QueryClient, useMutation, useQuery } from '@tanstack/react-query'
 import { useFieldArray, useForm, useWatch } from 'react-hook-form'
 import SearchService from 'src/services/SearchService'
 
 const useSearch = () => {
   const urlSearchParams = typeof window !== 'undefined' ? new URLSearchParams(window?.location.search) : null
   const params: any = {}
+  const queryClient = new QueryClient()
 
   if (urlSearchParams) {
     for (const [key, value] of urlSearchParams.entries()) {
@@ -21,7 +23,7 @@ const useSearch = () => {
     if (Array.isArray(param)) {
       return param.map(Number).filter(num => !isNaN(num) && num !== null)
     }
-    
+
     return []
   }
 
@@ -69,6 +71,19 @@ const useSearch = () => {
     control,
     name: 'category'
   })
+
+  const searchProductsMutation = useMutation((querystring: string) => searchProducts(querystring), {
+    onSettled: () => {
+      queryClient.invalidateQueries(['searchProducts'])
+    },
+    onError: error => {
+      console.error('Mutation Error:', error)
+    }
+  })
+
+  const productsData = searchProductsMutation?.data?.result?.data
+  const isLoading = searchProductsMutation?.isLoading
+  const totalProductsCount = searchProductsMutation?.data?.result?.total
 
   const { fields: seatTypes, append: appendSeatType } = useFieldArray({
     control,
@@ -138,7 +153,11 @@ const useSearch = () => {
     appendTransmissionType,
     additionalInformation,
     appendAdditionalInformation,
-    searchProducts
+    searchProducts,
+    searchProductsMutation,
+    productsData,
+    isLoading,
+    totalProductsCount
   }
 }
 

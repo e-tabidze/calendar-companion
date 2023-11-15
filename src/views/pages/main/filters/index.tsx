@@ -6,7 +6,7 @@ import { useState } from 'react'
 import AdditionalFilters from 'src/views/components/additionalFilters'
 import { useRouter } from 'next/router'
 import useSearch from 'src/hooks/useSearch'
-import { QueryClient, useMutation } from '@tanstack/react-query'
+import { QueryClient, useMutation, useQuery } from '@tanstack/react-query'
 
 const Filters = () => {
   const [filters, toggleFilters] = useState(false)
@@ -26,7 +26,8 @@ const Filters = () => {
     appendDoorType,
     appendTransmissionType,
     appendAdditionalInformation,
-    searchProducts
+    searchProducts,
+    searchProductsMutation
   } = useSearch()
 
   const objectToURI = (obj: any) => {
@@ -48,18 +49,38 @@ const Filters = () => {
       .join('&')
   }
 
-  const searchProductsMutayion = useMutation((querystring: string) => searchProducts(querystring), {
-    onSettled: () => {
-      queryClient.invalidateQueries(['searchProducts'])
-    }
-  })
+  // const searchProductsMutation = useMutation((querystring: string) => searchProducts(querystring), {
+  //   onSettled: () => {
+  //     queryClient.invalidateQueries(['searchProducts'])
+  //   }
+  // })
 
-  const onClickSearch = () => {
+  // const searchProductsQuery = useQuery(['searchProducts', queryString], () => searchProducts(queryString), {
+  //   // Set other query options as needed
+  //   // enabled: false, // You might want to set this to true or remove it based on your requirements
+  //   onSuccess: () => {
+  //     queryClient.invalidateQueries(['searchProducts'])
+  //   }
+  // })
+
+  // const { data, isLoading, isError } = useQuery(['searchProducts', queryString], () => searchProducts(queryString), {
+  //   enabled: false
+  // })
+  const onClickSearch = async () => {
     const queryString = objectToURI(searchValues)
-    console.log(queryString, ' querystin')
     router.push(`/search?${queryString}`)
-    searchProductsMutayion.mutate(queryString)
+
+    // try {
+    //   await searchProductsMutation.mutateAsync(queryString)
+
+    //   // Redirect after the mutation has successfully completed
+    //   router.push(`/search?${queryString}`)
+    // } catch (error) {
+    //   console.error('Error during search mutation:', error)
+    // }
   }
+
+  console.log(searchProductsMutation, 'searchProductsMutation')
 
   return (
     <form>
