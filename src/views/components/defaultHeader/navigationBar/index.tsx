@@ -1,31 +1,29 @@
 import Image from "../../image";
 import {useState} from "react";
 import BurgerMenu from "src/views/components/defaultHeader/burgerMenu";
+import useProfile from "../../../../hooks/useProfile";
 
-interface Props {
-    user: any
-}
-
-const NavigationBar:React.FC<Props> = ({user}) => {
+const NavigationBar = () => {
     const [burger, toggleBurger] = useState(false)
+    const {activeCompany } = useProfile()
 
     return (
         <div className="lg:hidden bg-[#ffffff] py-[16px] fixed bottom-0 left-0 w-full z-[3] box-shadow-sm">
             <ul className="flex justify-around">
                 <li>
-                    <a href={`${user == 1 ? 'dashboard':'main'}`}>
+                    <a href={`${activeCompany ? 'dashboard':'main'}`}>
                         <div className="flex flex-col items-center text-[10px]">
                             <span className="flex">
                               <Image src='/icons/home.svg' alt='' width={24} height={24} />
                             </span>
-                            {user == 1 ?
+                            {activeCompany ?
                             <span className="mt-[4px]">დეშბორდი</span> :
                             <span className="mt-[4px]">მთავარი</span>
                             }
                         </div>
                     </a>
                 </li>
-                {user == 1 &&
+                {activeCompany && (
                 <li>
                     <a href="">
                         <div className="flex flex-col items-center text-[10px]">
@@ -36,9 +34,9 @@ const NavigationBar:React.FC<Props> = ({user}) => {
                         </div>
                     </a>
                 </li>
-                }
+                )}
 
-                {user == 0 &&
+                {!activeCompany && (
                 <li>
                     <a href="https://www.myauto.ge/ka/mypage/favorites">
                         <div className="flex flex-col items-center text-[#686A73]">
@@ -49,7 +47,7 @@ const NavigationBar:React.FC<Props> = ({user}) => {
                         </div>
                     </a>
                 </li>
-                }
+                )}
                 <li>
                     <a href="">
                         <div className="flex flex-col items-center text-[#686A73]">
@@ -70,7 +68,7 @@ const NavigationBar:React.FC<Props> = ({user}) => {
                             <span className="text-[10px] mt-[4px]">პროფილი</span>
                         </div>
                     </button>
-                    <BurgerMenu user={user} open={burger} setOpen={() => toggleBurger(!burger)} />
+                    <BurgerMenu open={burger} setOpen={() => toggleBurger(!burger)} />
                 </li>
                 {/*TODO autharization btn*/}
                 {/*<li>*/}

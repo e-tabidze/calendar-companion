@@ -87,8 +87,8 @@ const useSearch = () => {
     appendTransmissionType,
     additionalInformation,
     appendAdditionalInformation,
-    // manufacturerFilters,
-    // appendManufacturerFilters
+    manufacturerFilters,
+    appendManufacturerFilters
   }
 }
 

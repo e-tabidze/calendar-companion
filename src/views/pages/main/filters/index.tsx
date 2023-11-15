@@ -3,13 +3,10 @@ import LocationDropdown from './locationDropdown'
 import { Divider, ExtraFiltersContainer, FiltersContainer } from './styles'
 import PeriodDropdown from './periodDropdown'
 import { useState } from 'react'
-import AdditionalFilters from 'src/views/components/additionalFilters'
 import { useRouter } from 'next/router'
-import useSearch from 'src/hooks/useSearch'
 
 const Filters = () => {
   const [filters, toggleFilters] = useState(false)
-  const { control } = useSearch()
 
   const router = useRouter()
 
@@ -43,7 +40,8 @@ const Filters = () => {
           />
         </ExtraFiltersContainer>
       </FiltersContainer>
-      <AdditionalFilters open={filters} setOpen={() => toggleFilters(!filters)} control={control} />
+
+      {/* <AdditionalFilters open={filters} setOpen={() => toggleFilters(!filters)} control={control} /> */}
     </>
   )
 }

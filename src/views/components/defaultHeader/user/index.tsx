@@ -6,15 +6,14 @@ import Avatar from '../avatar'
 import Notification from "../notification";
 import useProfile from 'src/hooks/useProfile'
 
-interface Props {
-    user: any
-}
-const User:React.FC<Props> = ({user}) => {
-  const {isLoading} = useProfile()
+const User = () => {
+    const {activeCompany,isAuthenticated } = useProfile()
+
+    const {isLoading} = useProfile()
   
   return (
     <UserContainer>
-        {user == 1 &&
+        {(activeCompany && isAuthenticated) &&
             <RentBtn className="hidden md:flex">
                 <Image src={'/icons/plus.svg'} alt='img'/>
                 <Typography type='button' weight='normal' color='dark'
@@ -24,13 +23,13 @@ const User:React.FC<Props> = ({user}) => {
             </RentBtn>
         }
       <LanguagePicker />
-        {user == 0 &&
+        {!activeCompany && (
             <FavoriteBtn className="hidden md:flex">
                 <Image src='/icons/favorite.svg' alt='img'/>
             </FavoriteBtn>
-        }
+        )}
         <Notification />
-      {isLoading ? <>Loading</> : <Avatar user={user} />}
+      {isLoading ? <>Loading</> : <Avatar />}
     </UserContainer>
   )
 }

@@ -112,6 +112,7 @@ const SelectField: React.FC<Props> = ({
             <Select
               styles={customStyles}
               options={options}
+
               // value={options?.find(opt => (valueKey ? opt[valueKey] === value || '' : opt.value === value || ''))}
               // onChange={(e: any) => {
               //   console.log(e, 'ee?')
@@ -142,6 +143,7 @@ const SelectField: React.FC<Props> = ({
               isClearable
               placeholder={placeholder}
               isDisabled={disabled}
+              
               // @ts-ignore
               emoji={
                 icon && (
