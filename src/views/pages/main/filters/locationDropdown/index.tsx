@@ -46,7 +46,7 @@ const LocationDropdown: React.FC<Props> = ({ control }) => {
                 leaveFrom='opacity-100'
                 leaveTo='opacity-0'
               >
-                <Listbox.Options className='absolute top-full z-10 p-4 mt-2 w-full origin-top-right divide-y divide-gray-100 rounded-2xl bg-white shadow-lg focus:outline-none'>
+                <Listbox.Options className='absolute top-full z-10 p-4 mt-4 w-full origin-top-right divide-y divide-gray-100 rounded-2xl bg-white shadow-lg focus:outline-none'>
                   {options.map((person, personIdx) => (
                     <Listbox.Option
                       key={personIdx}

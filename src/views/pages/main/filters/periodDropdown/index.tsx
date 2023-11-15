@@ -5,8 +5,13 @@ import Typography from 'src/views/components/typography'
 import { FilterContainer, InnerFilterContainer } from './styles'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
+import { Controller } from 'react-hook-form'
 
-const LocationDropdown = () => {
+interface Props {
+  control: any
+}
+
+const LocationDropdown: React.FC<Props> = ({ control }) => {
   const [dateRange, setDateRange] = useState([null, null])
   const [startDate, endDate] = dateRange
 
@@ -35,17 +40,34 @@ const LocationDropdown = () => {
         leaveTo='transform opacity-0 scale-95'
       >
         <Menu.Items className='absolute top-full z-10 p-4 right-0 mt-4 w-full flex justify-center origin-top-right divide-y divide-gray-100 rounded-2xl bg-white shadow-lg focus:outline-none'>
-          <DatePicker
-            className='text-center border-l-4 border-red-500  w-full p-3 rounded text-sm  outline-none  focus:ring-0 bg-transparent'
-            inline
-            selectsRange={true}
-            startDate={startDate}
-            endDate={endDate}
-            monthsShown={2}
-            onChange={(update: any) => {
-              setDateRange(update)
-            }}
-            minDate={new Date()}
+          <Controller
+            name='booking'
+            control={control}
+            render={({ field: { onChange, value } }) => (
+              <DatePicker
+                className='text-center border-l-4 border-red-500  w-full p-3 rounded text-sm  outline-none  focus:ring-0 bg-transparent'
+                inline
+                selectsRange={true}
+                startDate={startDate}
+                endDate={endDate}
+                monthsShown={2}
+                onChange={(update: [Date, Date] | null) => {
+                  if (update) {
+                    const [start, end] = update
+                    const formattedStartDate = start?.toISOString().split('T')[0]
+                    const formattedEndDate = end?.toISOString().split('T')[0]
+                    onChange({ book_from: formattedStartDate, book_to: formattedEndDate })
+                    setDateRange(update)
+                  } else {
+                    onChange(null)
+                    setDateRange([null, null])
+                  }
+                }}
+                dateFormat='yyyy-MM-dd'
+                onChangeRaw={e => e.preventDefault()}
+                minDate={new Date()}
+              />
+            )}
           />
         </Menu.Items>
       </Transition>

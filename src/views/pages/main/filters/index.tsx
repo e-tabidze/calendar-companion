@@ -31,16 +31,20 @@ const Filters = () => {
 
   const objectToURI = (obj: any) => {
     return Object.entries(obj)
-      .filter(([value]) => {
+      .filter(([_, value]) => {
         return value !== null && value !== undefined && !(Array.isArray(value) && value.length === 0)
       })
       .map(([key, value]: [string, any]) => {
-        if (Array.isArray(value)) {
-          return value.map(v => `${encodeURIComponent(key)}[]=${encodeURIComponent(v)}`).join('&')
+        if (key === 'booking' && value !== null && value !== undefined) {
+          const { book_from, book_to } = value
+          return [`book_from=${encodeURIComponent(book_from)}`, `book_to=${encodeURIComponent(book_to)}`]
+        } else if (Array.isArray(value)) {
+          return value.map(v => `${encodeURIComponent(key)}[]=${encodeURIComponent(v)}`)
         } else {
           return `${encodeURIComponent(key)}=${encodeURIComponent(value)}`
         }
       })
+      .flat()
       .join('&')
   }
 
@@ -52,6 +56,7 @@ const Filters = () => {
 
   const onClickSearch = () => {
     const queryString = objectToURI(searchValues)
+    console.log(queryString, ' querystin')
     router.push(`/search?${queryString}`)
     searchProductsMutayion.mutate(queryString)
   }
@@ -61,7 +66,7 @@ const Filters = () => {
       <FiltersContainer>
         <LocationDropdown control={control} />
         <Divider />
-        <PeriodDropdown />
+        <PeriodDropdown control={control} />
         <Divider />
         <ExtraFiltersContainer>
           <IconTextButton
