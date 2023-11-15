@@ -1,5 +1,4 @@
 import PopoverDropdown from 'src/views/components/popoverDropdown'
-import Checkbox from 'src/views/components/checkboxField'
 import useFilters from 'src/hooks/useFilters'
 import { useWatch } from 'react-hook-form'
 import CheckboxField from 'src/views/components/checkboxField'
@@ -18,6 +17,7 @@ const CategoryPopover: React.FC<Props> = ({ control, appendCategory }) => {
 
   return (
     <PopoverDropdown label='კატეგორია' maxWidth='max-w-md'>
+      
       {/* {categoriesFilter?.map((category: any, index: number) => (
         <div key={category.id} className='my-2'>
           <Checkbox

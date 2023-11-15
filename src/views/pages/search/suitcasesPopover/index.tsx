@@ -10,6 +10,7 @@ interface Props {
 
 const SuitcasesPopover: React.FC<Props> = ({ control, appendLuggageNumber }) => {
   const { luggageNumbers } = useFilters()
+  
   return (
     <PopoverDropdown label='ჩემოდნების რაოდენობა' maxWidth='max-w-xs'>
       <div className='flex flex-wrap gap-4 my-6'>

@@ -5,7 +5,6 @@ import useWindowDimensions from 'src/hooks/useWindowDimensions'
 
 // Components
 import CategoryCard from '../categoryCard'
-import Checkbox from '../checkboxField'
 import Divider from '../divider'
 import Image from '../image'
 import { DefaultInput } from '../input'
@@ -48,8 +47,7 @@ const AdditionalFilters: React.FC<Props> = ({
   appendDriveTire,
   appendDoorType,
   appendTransmissionType,
-  appendAdditionalInformation,
-  appendManufacturerFilters
+  appendAdditionalInformation
 }) => {
   const cancelButtonRef = useRef(null)
   const { width } = useWindowDimensions()
@@ -64,14 +62,6 @@ const AdditionalFilters: React.FC<Props> = ({
     additionalInformationFilters,
     manufacturerFilters
   } = useFilters()
-
-  console.log(manufacturerFilters, 'manufacturerFilters')
-
-  const options = [
-    { id: 'chocolate', title: 'Chocolate' },
-    { id: 'strawberry', title: 'Strawberry' },
-    { id: 'vanilla', title: 'Vanilla' }
-  ]
 
   return (
     <Transition.Root show={open} as={Fragment}>

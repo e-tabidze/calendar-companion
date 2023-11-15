@@ -12,7 +12,7 @@ interface Props {
 }
 const BurgerMenu: React.FC<Props> = ({ open, setOpen }) => {
     const cancelButtonRef = useRef(null)
-    const { userInfo, userCompanies, postSwitchProfile, activeCompany, router, isAuthenticated } = useProfile()
+    const { userInfo, userCompanies, postSwitchProfile, activeCompany } = useProfile()
     const queryClient = useQueryClient()
 
     const [active, setActive] = useState(false);
