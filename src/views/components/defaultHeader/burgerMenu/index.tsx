@@ -3,14 +3,15 @@ import Image from '../../image'
 
 // Libraries
 import { Dialog, Transition } from '@headlessui/react'
+import useProfile from "../../../../hooks/useProfile";
 
 interface Props {
-    user: any
     open: boolean
     setOpen: () => void
 }
-const BurgerMenu: React.FC<Props> = ({ open, setOpen, user }) => {
+const BurgerMenu: React.FC<Props> = ({ open, setOpen }) => {
     const cancelButtonRef = useRef(null)
+    const {activeCompany} = useProfile()
 
     return (
         <Transition.Root show={open} as={Fragment}>
@@ -46,7 +47,7 @@ const BurgerMenu: React.FC<Props> = ({ open, setOpen, user }) => {
                                     <Image src='/icons/close.svg' onClick={setOpen} alt='' height={40} width={40} />
                                 </div>
                                 <nav>
-                                    {user == 1 &&
+                                    {activeCompany &&
                                     <ul>
                                         <li>
                                             <a target="_blank" href=""
@@ -86,7 +87,7 @@ const BurgerMenu: React.FC<Props> = ({ open, setOpen, user }) => {
                                         </li>
                                     </ul>
                                     }
-                                    {user == 0 &&
+                                    {!activeCompany &&
                                     <ul>
                                         <li>
                                             <a target="_blank" href=""
