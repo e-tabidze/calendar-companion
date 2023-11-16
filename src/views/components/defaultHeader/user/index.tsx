@@ -1,7 +1,6 @@
 import { RentBtn,FavoriteBtn, UserContainer } from './styles'
 import Image from '../../image'
 import Typography from '../../typography'
-import LanguagePicker from '../languagePicker'
 import Avatar from '../avatar'
 import Notification from "../notification";
 import useProfile from 'src/hooks/useProfile'
@@ -22,7 +21,7 @@ const User = () => {
                 </Typography>
             </RentBtn>
         }
-      <LanguagePicker />
+      {/* <LanguagePicker /> */}
         {!activeCompany && (
             <FavoriteBtn className="hidden md:flex">
                 <Image src='/icons/favorite.svg' alt='img'/>

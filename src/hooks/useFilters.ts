@@ -128,3 +128,14 @@ export const getManufacturerFilters = async () => {
     throw error
   }
 }
+
+export const getManufacturerModelFilters = async (querystring: string) => {
+  try {
+    const response: any = await SearchService.getManufacturerModelsFilters(querystring)
+
+    return response.data
+  } catch (error) {
+    console.error(error)
+    throw error
+  }
+}
