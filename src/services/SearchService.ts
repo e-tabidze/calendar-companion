@@ -17,6 +17,10 @@ class SearchService extends HttpService {
     return this.get('/manufacturer-filters')
   }
 
+  getManufacturerModelsFilters(queryString: string) {
+    return this.get(`/manufacturer-model-filters?${queryString}`)
+  }
+
   getSearchProducts(querystring: string) {
     return this.get(`/search-products?${querystring}`)
   }

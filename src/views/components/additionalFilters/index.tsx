@@ -1,4 +1,4 @@
-import { Fragment, useRef } from 'react'
+import { Fragment, useEffect } from 'react'
 
 // CustomHooks
 import useWindowDimensions from 'src/hooks/useWindowDimensions'
@@ -17,10 +17,13 @@ import { Dialog, Transition } from '@headlessui/react'
 // Styles
 import { ListWrapper, SectionWrapper } from './styles'
 import SwitchField from '../switchField'
-import useFilters from 'src/hooks/useFilters'
+import useFilters, { getManufacturerModelFilters } from 'src/hooks/useFilters'
 import SelectField from '../selectField'
 import CheckboxField from '../checkboxField'
 import { IconTextButton } from '../button'
+import { useQuery } from '@tanstack/react-query'
+import useSearch from 'src/hooks/useSearch'
+import { useWatch } from 'react-hook-form'
 
 interface Props {
   open: boolean
@@ -51,7 +54,6 @@ const AdditionalFilters: React.FC<Props> = ({
   appendAdditionalInformation,
   handleAdditionalFiltersSubmit
 }) => {
-  const cancelButtonRef = useRef(null)
   const { width } = useWindowDimensions()
   const {
     categoriesFilter,
@@ -65,9 +67,37 @@ const AdditionalFilters: React.FC<Props> = ({
     manufacturerFilters
   } = useFilters()
 
+  const { objectToURI } = useSearch()
+
+  const formState = useWatch({ control })
+
+  const generateYearsArray = () => {
+    const currentYear = new Date().getFullYear()
+    const startYear = 1980
+    const years = []
+    for (let i = currentYear; i >= startYear; i--) {
+      years.push({ value: i, label: i })
+    }
+
+    return years
+  }
+
+  const { data: manufacturerModelFilters, refetch }: any = useQuery({
+    queryKey: ['manufacturerModelFilters'],
+    queryFn: () => getManufacturerModelFilters(objectToURI({ manufacturer_id: formState.manufacturer_id })),
+    staleTime: Infinity,
+    enabled: formState.manufacturer_id.length > 0
+  })
+
+  useEffect(() => {
+    if (formState.manufacturer_id.length > 0) {
+      refetch()
+    }
+  }, [formState.manufacturer_id, refetch])
+
   return (
     <Transition.Root show={open} as={Fragment}>
-      <Dialog as='div' className='relative z-[111]' initialFocus={cancelButtonRef} onClose={toggleModal}>
+      <Dialog as='div' className='relative z-[111]' onClose={toggleModal}>
         <Transition.Child
           as={Fragment}
           enter='ease-out duration-300'
@@ -152,7 +182,7 @@ const AdditionalFilters: React.FC<Props> = ({
                       ავტომობილის პარამეტრები
                     </Typography>
                     <SelectField
-                      name='manufacturer'
+                      name='manufacturer_id'
                       isMulti
                       control={control}
                       options={manufacturerFilters}
@@ -161,22 +191,28 @@ const AdditionalFilters: React.FC<Props> = ({
                       valueKey='id'
                       labelKey='title'
                     />
-                    {/* <SelectField
-                      name=''
+                    <SelectField
+                      name='manufacturer_models'
+                      isMulti
                       control={control}
-                      options={selectOptions}
+                      options={manufacturerModelFilters?.result?.data}
                       placeholder='მოდელი'
-                      disabled={false}
+                      disabled={formState.manufacturer_id.length === 0}
                       className='my-2'
+                      valueKey='id'
+                      labelKey='title'
                     />
                     <SelectField
-                      name=''
+                      name='prod_year'
                       control={control}
-                      options={selectOptions}
+                      isMulti
+                      options={generateYearsArray()}
                       placeholder='წელი'
                       disabled={false}
                       className='my-2'
-                    /> */}
+                      valueKey='value'
+                      labelKey='label'
+                    />
                   </div>
 
                   <Typography type='h5' weight='normal'>

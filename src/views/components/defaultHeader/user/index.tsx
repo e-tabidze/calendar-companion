@@ -22,7 +22,7 @@ const User = () => {
                 </Typography>
             </RentBtn>
         }
-      <LanguagePicker />
+      {/* <LanguagePicker /> */}
         {!activeCompany && (
             <FavoriteBtn className="hidden md:flex">
                 <Image src='/icons/favorite.svg' alt='img'/>

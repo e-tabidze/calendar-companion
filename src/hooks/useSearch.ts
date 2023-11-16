@@ -39,7 +39,7 @@ const useSearch = () => {
     additional_information: convertToNumberArray(params?.additional_information),
     price_min: params?.price_min || '',
     price_max: params?.price_max || '',
-    manufacturer: convertToNumberArray(params?.manufacturer),
+    manufacturer_id: convertToNumberArray(params?.manufacturer_id),
     free_delivery: params?.free_delivery === 'true'
   }
 
