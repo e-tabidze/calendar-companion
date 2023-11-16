@@ -16,6 +16,14 @@ class Cookie {
   remove(key: any) {
     Cookies.remove(key)
   }
+
+  removeAll() {
+    const keys = Object.keys(Cookies.get())
+
+    keys.forEach(key => {
+      this.remove(key)
+    })
+  }
 }
 
 export default new Cookie()
