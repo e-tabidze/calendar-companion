@@ -36,7 +36,7 @@ const useProfile = () => {
   const userInfo = usePersonalInfo.data?.result?.data
   const userCompanies = usePersonalInfo.data?.result?.data?.companies
   const activeCompany = usePersonalInfo?.data?.result?.data?.active_profile
-  const activeCompanyId = usePersonalInfo?.data?.result?.data?.active_profile_id
+  const activeCompanyId = usePersonalInfo?.data?.result?.data?.active_profile?.id
 
   return {
     router,
