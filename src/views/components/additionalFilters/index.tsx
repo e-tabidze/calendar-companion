@@ -37,7 +37,7 @@ interface Props {
   appendDoorType: any
   appendTransmissionType: any
   appendAdditionalInformation: any
-  handleAdditionalFiltersSubmit: () => void
+  onSubmit: () => void
 }
 
 const AdditionalFilters: React.FC<Props> = ({
@@ -52,7 +52,7 @@ const AdditionalFilters: React.FC<Props> = ({
   appendDoorType,
   appendTransmissionType,
   appendAdditionalInformation,
-  handleAdditionalFiltersSubmit
+  onSubmit
 }) => {
   const { width } = useWindowDimensions()
   const {
@@ -86,11 +86,11 @@ const AdditionalFilters: React.FC<Props> = ({
     queryKey: ['manufacturerModelFilters'],
     queryFn: () => getManufacturerModelFilters(objectToURI({ manufacturer_id: formState.manufacturer_id })),
     staleTime: Infinity,
-    enabled: formState.manufacturer_id.length > 0
+    enabled: formState.manufacturer_id?.length > 0
   })
 
   useEffect(() => {
-    if (formState.manufacturer_id.length > 0) {
+    if (formState.manufacturer_id?.length > 0) {
       refetch()
     }
   }, [formState.manufacturer_id, refetch])
@@ -192,27 +192,38 @@ const AdditionalFilters: React.FC<Props> = ({
                       labelKey='title'
                     />
                     <SelectField
-                      name='manufacturer_models'
+                      name='model_id'
                       isMulti
                       control={control}
                       options={manufacturerModelFilters?.result?.data}
                       placeholder='მოდელი'
-                      disabled={formState.manufacturer_id.length === 0}
+                      disabled={formState.manufacturer_id?.length === 0}
                       className='my-2'
                       valueKey='id'
                       labelKey='title'
                     />
-                    <SelectField
-                      name='prod_year'
-                      control={control}
-                      isMulti
-                      options={generateYearsArray()}
-                      placeholder='წელი'
-                      disabled={false}
-                      className='my-2'
-                      valueKey='value'
-                      labelKey='label'
-                    />
+                    <div className='flex gap-4'>
+                      <SelectField
+                        name='year_from'
+                        control={control}
+                        options={generateYearsArray()}
+                        placeholder='წელი'
+                        disabled={false}
+                        className='my-2'
+                        valueKey='value'
+                        labelKey='label'
+                      />
+                      <SelectField
+                        name='year_to'
+                        control={control}
+                        options={generateYearsArray()}
+                        placeholder='წელი'
+                        disabled={false}
+                        className='my-2'
+                        valueKey='value'
+                        labelKey='label'
+                      />
+                    </div>
                   </div>
 
                   <Typography type='h5' weight='normal'>
@@ -254,7 +265,13 @@ const AdditionalFilters: React.FC<Props> = ({
                     />
                   </div>
                   <Divider />
-                  <SwitchField label='უფასო მიწოდება' name='free_delivery' control={control} className='my-8' />
+                  <SwitchField
+                    label='უფასო მიწოდება'
+                    name='free_delivery'
+                    control={control}
+                    className='my-8'
+                    onChangeCallback={onSubmit}
+                  />
                   <Divider />
 
                   <SectionWrapper>
@@ -331,7 +348,7 @@ const AdditionalFilters: React.FC<Props> = ({
                       icon='/icons/search.svg'
                       type='submit'
                       onClick={() => {
-                        handleAdditionalFiltersSubmit()
+                        onSubmit()
                         toggleModal()
                       }}
                     />

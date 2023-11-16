@@ -29,11 +29,14 @@ import Icon from 'src/views/app/Icon'
 import SearchLayout from '../../layouts/SearchLayout'
 import useSearch from 'src/hooks/useSearch'
 import { useRouter } from 'next/router'
+import { IconTextButton } from 'src/views/components/button'
 
 const SearchPage = () => {
   const {
     control,
     searchValues,
+    reset,
+    getValues,
     handleSubmit,
     appendFuelType,
     appendCategory,
@@ -47,6 +50,7 @@ const SearchPage = () => {
     isLoading,
     searchProductsMutation,
     totalProductsCount,
+    searchDefaultValues,
     objectToURI
   } = useSearch()
   const { width } = useWindowDimensions()
@@ -73,8 +77,9 @@ const SearchPage = () => {
   }
 
   const onSubmit = () => {
-    console.log(searchValues, 'searchValues submit')
-    router.push(`/search?${objectToURI(searchValues)}`)
+    const updatedSearchValues = getValues()
+
+    router.push(`/search?${objectToURI(updatedSearchValues)}`)
   }
 
   return (
@@ -89,7 +94,15 @@ const SearchPage = () => {
               <CategoryPopover control={control} appendCategory={appendCategory} />
               <Tag
                 label='უფასო მიწოდება'
-                component={<Switcher height='h-5' name='free_delivery' control={control} defaultValue />}
+                component={
+                  <Switcher
+                    height='h-5'
+                    name='free_delivery'
+                    control={control}
+                    defaultValue
+                    onChangeCallback={onSubmit}
+                  />
+                }
                 height='h-10'
                 control={control}
               />
@@ -108,10 +121,16 @@ const SearchPage = () => {
               />
             </MainFilters>
             <ClearFiltersWrapper>
-              <Image src='/icons/return.svg' className='w-4' alt='' />
-              <Typography type='body' className='text-orange-120'>
-                ფილტრის გასუფთავება
-              </Typography>
+              <IconTextButton
+                icon='/icons/return.svg'
+                label='ფილტრის გასუფთავება'
+                labelClassname='text-orange-120'
+                type='reset'
+                onClick={() => {
+                  reset()
+                  onSubmit()
+                }}
+              />
             </ClearFiltersWrapper>
           </FiltersWrapper>
           <ResponsiveDivider />
@@ -225,7 +244,7 @@ const SearchPage = () => {
           appendDoorType={appendDoorType}
           appendTransmissionType={appendTransmissionType}
           appendAdditionalInformation={appendAdditionalInformation}
-          handleAdditionalFiltersSubmit={onSubmit}
+          onSubmit={onSubmit}
         />
       </form>
     </>

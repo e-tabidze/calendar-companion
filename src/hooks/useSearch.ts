@@ -40,7 +40,10 @@ const useSearch = () => {
     price_min: params?.price_min || '',
     price_max: params?.price_max || '',
     manufacturer_id: convertToNumberArray(params?.manufacturer_id),
-    free_delivery: params?.free_delivery === 'true'
+    model_id: convertToNumberArray(params?.model),
+    free_delivery: params?.free_delivery || true,
+    year_from: params?.year_from || '',
+    year_to: params?.year_to || ''
   }
 
   const {
@@ -48,9 +51,11 @@ const useSearch = () => {
     handleSubmit,
     formState: { errors, dirtyFields },
     resetField,
+    reset,
     setError,
     clearErrors,
-    setValue
+    setValue,
+    getValues
   } = useForm({
     mode: 'onChange',
     defaultValues: searchDefaultValues
@@ -134,7 +139,7 @@ const useSearch = () => {
       .map(([key, value]: [string, any]) => {
         if (key === 'booking' && value !== null && value !== undefined) {
           const { book_from, book_to } = value
-          
+
           return [`book_from=${encodeURIComponent(book_from)}`, `book_to=${encodeURIComponent(book_to)}`]
         } else if (Array.isArray(value)) {
           return value.map(v => `${encodeURIComponent(key)}[]=${encodeURIComponent(v)}`)
@@ -155,6 +160,8 @@ const useSearch = () => {
     setError,
     clearErrors,
     setValue,
+    getValues,
+    reset,
     searchValues,
     fuel_types,
     appendFuelType,
@@ -178,7 +185,8 @@ const useSearch = () => {
     productsData,
     isLoading,
     totalProductsCount,
-    objectToURI
+    objectToURI,
+    searchDefaultValues
   }
 }
 

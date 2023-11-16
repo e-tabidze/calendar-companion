@@ -22,8 +22,6 @@ const DefaultHeader = () => {
     window.location.href = externalPageUrl
   }
 
-  console.log(isAuthenticated, 'isAuth')
-
   return (
     <InnerContainer>
       <Image src='/images/logo-rent.svg' onClick={onClickLogo} alt='logo' className='w-24 md:w-32 cursor-pointer' />
