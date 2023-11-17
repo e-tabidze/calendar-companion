@@ -7,9 +7,10 @@ interface Props {
   control: any
   appendLuggageNumber: (data: any) => void
   handleSubmit: () => void
+  reset: any
 }
 
-const SuitcasesPopover: React.FC<Props> = ({ control, appendLuggageNumber, handleSubmit }) => {
+const SuitcasesPopover: React.FC<Props> = ({ control, appendLuggageNumber, handleSubmit, reset }) => {
   const { luggageNumbers } = useFilters()
 
   return (
@@ -24,7 +25,14 @@ const SuitcasesPopover: React.FC<Props> = ({ control, appendLuggageNumber, handl
         />
       </div>
       <div className='flex items-center justify-between'>
-        <IconButton icon='/icons/rotate.svg' text='გასუფთავება' hasBg={false} width={16} height={16} />
+        <IconButton
+          icon='/icons/rotate.svg'
+          text='გასუფთავება'
+          hasBg={false}
+          width={16}
+          height={16}
+          onClick={() => reset('luggage_numbers')}
+        />
         <DefaultButton
           text='შენახვა'
           bg='bg-orange-100'

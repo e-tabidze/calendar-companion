@@ -34,9 +34,9 @@ import { IconTextButton } from 'src/views/components/button'
 const SearchPage = () => {
   const {
     control,
-    searchValues,
     reset,
     getValues,
+    resetField,
     handleSubmit,
     appendFuelType,
     appendCategory,
@@ -69,7 +69,7 @@ const SearchPage = () => {
 
   useEffect(() => {
     searchProductsMutation.mutateAsync(searchString)
-  }, [searchString, searchValues])
+  }, [searchString])
 
   const handleToggleMapWidth = () => {
     setMapVisible(!mapVisible)
@@ -77,7 +77,6 @@ const SearchPage = () => {
 
   const onSubmit = () => {
     const updatedSearchValues = getValues()
-
     router.push(`/search?${objectToURI(updatedSearchValues)}`)
   }
 
@@ -88,9 +87,14 @@ const SearchPage = () => {
           <Divider />
           <FiltersWrapper>
             <MainFilters>
-              <PricePopover control={control} handleSubmit={onSubmit} />
-              <FuelTypePopover control={control} appendFuelType={appendFuelType} />
-              <CategoryPopover control={control} appendCategory={appendCategory} handleSubmit={onSubmit} />
+              <PricePopover control={control} handleSubmit={onSubmit} reset={resetField} />
+              <FuelTypePopover control={control} appendFuelType={appendFuelType} reset={resetField} />
+              <CategoryPopover
+                control={control}
+                appendCategory={appendCategory}
+                handleSubmit={onSubmit}
+                reset={resetField}
+              />
               <Tag
                 label='უფასო მიწოდება'
                 component={
@@ -106,16 +110,26 @@ const SearchPage = () => {
                 control={control}
               />
               <div className='hidden xl:flex'>
-                <SeatsPopover control={control} appendSeatType={appendSeatType} handleSubmit={onSubmit} />
+                <SeatsPopover
+                  control={control}
+                  appendSeatType={appendSeatType}
+                  handleSubmit={onSubmit}
+                  reset={resetField}
+                />
               </div>
               <div className='hidden xl:flex'>
-                <SuitcasesPopover control={control} appendLuggageNumber={appendLuggageNumber} handleSubmit={onSubmit} />
+                <SuitcasesPopover
+                  control={control}
+                  appendLuggageNumber={appendLuggageNumber}
+                  handleSubmit={onSubmit}
+                  reset={resetField}
+                />
               </div>
               <Tag
                 label='ყველა ფილტრი'
+                className='bg-grey-60'
                 component={<Image src='/icons/filters.svg' alt='' />}
                 height='h-10'
-                bg={'bg-grey-60'}
                 handleClick={() => toggleFilters(!filters)}
               />
             </MainFilters>
@@ -175,9 +189,9 @@ const SearchPage = () => {
                       {width < 1025 && (
                         <Tag
                           component={<Image src='/icons/filters.svg' alt='' />}
+                          className="bg-grey-60"
                           label={'ფილტრი'}
                           height='h-10'
-                          bg={'bg-grey-60'}
                         />
                       )}
                       <Tag
@@ -244,6 +258,7 @@ const SearchPage = () => {
           appendTransmissionType={appendTransmissionType}
           appendAdditionalInformation={appendAdditionalInformation}
           onSubmit={onSubmit}
+          reset={reset}
         />
       </form>
     </>

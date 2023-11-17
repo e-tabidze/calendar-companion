@@ -20,7 +20,6 @@ const Switcher: React.FC<Props> = ({ height, name, control, defaultValue, onChan
             type='checkbox'
             value={value}
             className='sr-only peer'
-            // onChange={() => onChange(!value)}
             onChange={() => {
               onChange(!value)
               if (onChangeCallback) {

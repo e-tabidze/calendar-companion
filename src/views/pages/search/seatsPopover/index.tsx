@@ -8,9 +8,10 @@ interface Props {
   control: any
   appendSeatType: any
   handleSubmit: () => void
+  reset: any
 }
 
-const SeatsPopover: React.FC<Props> = ({ control, appendSeatType, handleSubmit }) => {
+const SeatsPopover: React.FC<Props> = ({ control, appendSeatType, handleSubmit, reset }) => {
   const { seatTypesFilter } = useFilters()
 
   return (
@@ -19,7 +20,14 @@ const SeatsPopover: React.FC<Props> = ({ control, appendSeatType, handleSubmit }
         <Tag options={seatTypesFilter} name='seat_types' control={control} height='h-10' append={appendSeatType} />
       </TagsWrapper>
       <div className='flex items-center justify-between'>
-        <IconButton icon='/icons/rotate.svg' text='გასუფთავება' hasBg={false} width={16} height={16} />
+        <IconButton
+          icon='/icons/rotate.svg'
+          text='გასუფთავება'
+          hasBg={false}
+          width={16}
+          height={16}
+          onClick={() => reset('seat_types')}
+        />
         <DefaultButton
           text='შენახვა'
           bg='bg-orange-100'

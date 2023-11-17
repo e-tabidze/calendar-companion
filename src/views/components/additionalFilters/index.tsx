@@ -38,6 +38,7 @@ interface Props {
   appendTransmissionType: any
   appendAdditionalInformation: any
   onSubmit: () => void
+  reset: any
 }
 
 const AdditionalFilters: React.FC<Props> = ({
@@ -52,7 +53,8 @@ const AdditionalFilters: React.FC<Props> = ({
   appendDoorType,
   appendTransmissionType,
   appendAdditionalInformation,
-  onSubmit
+  onSubmit,
+  reset
 }) => {
   const { width } = useWindowDimensions()
   const {
@@ -138,6 +140,7 @@ const AdditionalFilters: React.FC<Props> = ({
                       control={control}
                       label={width > 641 ? 'მინიმუმ ფასი დღიურად' : 'მინ. ფასი დღიურად'}
                       errors={''}
+                      className="w-52"
                     />
                     <div className='w-3 h-px bg-base-100 mx-2' />
                     <DefaultInput
@@ -145,6 +148,7 @@ const AdditionalFilters: React.FC<Props> = ({
                       control={control}
                       label={width > 641 ? 'მინიმუმ ფასი დღიურად' : 'მინ. ფასი დღიურად'}
                       errors={''}
+                      className="w-52"
                     />
                   </div>
                   <div className='my-8'>
@@ -236,6 +240,7 @@ const AdditionalFilters: React.FC<Props> = ({
                       control={control}
                       height='h-10'
                       append={appendFuelType}
+                      outlined
                     />
                   </div>
 
@@ -338,7 +343,7 @@ const AdditionalFilters: React.FC<Props> = ({
                   </div>
                 </div>
                 <div className='w-full flex items-center justify-between py-[16px] px-10 border-t-1 border-grey-90'>
-                  <IconTextButton label='გასუფთავება' icon='/icons/return.svg' />
+                  <IconTextButton label='გასუფთავება' icon='/icons/return.svg' onClick={reset} />
                   <div className='flex items-center [text-16px] gap-4'>
                     სულ 136 შედეგი
                     <IconTextButton

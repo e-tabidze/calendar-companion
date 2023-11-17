@@ -6,18 +6,29 @@ import { ActionsWrapper, Divider, TagsWrapper } from './styles'
 interface Props {
   control: any
   handleSubmit: () => void
+  reset: any
 }
 
-const PricePopover: React.FC<Props> = ({ control, handleSubmit }) => {
+const PricePopover: React.FC<Props> = ({ control, handleSubmit, reset }) => {
   return (
     <PopoverDropdown label='ფასი' maxWidth='max-w-md'>
       <TagsWrapper>
-        <DefaultInput label={'მინიმუმ ფასი დღიურად'} name='price_min' control={control} />
+        <DefaultInput label={'მინიმუმ ფასი დღიურად'} name='price_min' control={control} className='w-52' />
         <Divider />
-        <DefaultInput label={'მაქსიმუმ ფასი დღიურად'} name='price_max' control={control} />
+        <DefaultInput label={'მაქსიმუმ ფასი დღიურად'} name='price_max' control={control} className='w-52' />
       </TagsWrapper>
       <ActionsWrapper>
-        <IconButton icon='/icons/rotate.svg' text='გასუფთავება' hasBg={false} width={16} height={16} />
+        <IconButton
+          icon='/icons/rotate.svg'
+          text='გასუფთავება'
+          hasBg={false}
+          width={16}
+          height={16}
+          onClick={() => {
+            reset('price_min')
+            reset('price_max')
+          }}
+        />
         <DefaultButton
           text='შენახვა'
           bg='bg-orange-100'

@@ -4,9 +4,11 @@ import ProgressBar from 'src/views/components/progressBar'
 import { useRouter } from 'next/router'
 import useWindowDimensions from 'src/hooks/useWindowDimensions'
 import NewListingSelect from 'src/views/components/newListingSelect'
-import HeaderWrapper from "src/views/components/headerWrapper";
-import {InnerContainer} from "../views/components/defaultHeader/styles";
-import Image from "../views/components/image";
+import HeaderWrapper from 'src/views/components/headerWrapper'
+import { InnerContainer } from '../views/components/defaultHeader/styles'
+import Image from '../views/components/image'
+import useProfile from 'src/hooks/useProfile'
+import { useEffect } from 'react'
 
 interface Props {
   children: any
@@ -39,6 +41,22 @@ const NewListingLayout: React.FC<Props> = ({
     <NewListingSelect options={options} onChange={onChange} selectedOption={selectedOption} />
   )
 
+  const { isAuthenticated, activeCompany } = useProfile()
+
+  useEffect(() => {
+    if (isAuthenticated !== false) {
+      if (!!activeCompany && router?.pathname.includes('profile')) {
+        router.push(`/dashboard/dashboard`)
+      } else if (activeCompany === null && router?.pathname.includes('dashboard')) {
+        router.push('/profile/orders')
+      }
+    } else if (isAuthenticated === false) {
+      if (router?.pathname.includes('profile') || router?.pathname.includes('dashboard')) {
+        router.push('/')
+      }
+    }
+  }, [!!activeCompany, isAuthenticated])
+
   return (
     <MaxWidthContainer>
       <HeaderWrapper fullWidth>
@@ -55,10 +73,7 @@ const NewListingLayout: React.FC<Props> = ({
         </div>
       )}
 
-      <div
-        className='max-w-[850px] pb-32 m-auto px-4 lg:w-10/12 lg:p-5 lg:px-0 2xl:p-0'
-        style={{ maxWidth: '850px' }}
-      >
+      <div className='max-w-[850px] pb-32 m-auto px-4 lg:w-10/12 lg:p-5 lg:px-0 2xl:p-0' style={{ maxWidth: '850px' }}>
         <div className='mt-20 pb-20 h-full'>{children}</div>
       </div>
       <div className='fixed w-full bottom-0 bg-white py-5 border border-t-raisin-10 z-10'>
