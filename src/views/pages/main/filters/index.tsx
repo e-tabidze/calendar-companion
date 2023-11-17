@@ -23,7 +23,8 @@ const Filters = () => {
     appendDoorType,
     appendTransmissionType,
     appendAdditionalInformation,
-    objectToURI
+    objectToURI, 
+    reset
   } = useSearch()
 
   const onClickSearch = async () => {
@@ -70,7 +71,8 @@ const Filters = () => {
         appendDoorType={appendDoorType}
         appendTransmissionType={appendTransmissionType}
         appendAdditionalInformation={appendAdditionalInformation}
-        handleAdditionalFiltersSubmit={onClickSearch}
+        onSubmit={onClickSearch}
+        reset={reset}
       />
     </form>
   )

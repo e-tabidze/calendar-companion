@@ -37,7 +37,8 @@ interface Props {
   appendDoorType: any
   appendTransmissionType: any
   appendAdditionalInformation: any
-  handleAdditionalFiltersSubmit: () => void
+  onSubmit: () => void
+  reset: any
 }
 
 const AdditionalFilters: React.FC<Props> = ({
@@ -52,7 +53,8 @@ const AdditionalFilters: React.FC<Props> = ({
   appendDoorType,
   appendTransmissionType,
   appendAdditionalInformation,
-  handleAdditionalFiltersSubmit
+  onSubmit,
+  reset
 }) => {
   const { width } = useWindowDimensions()
   const {
@@ -86,11 +88,11 @@ const AdditionalFilters: React.FC<Props> = ({
     queryKey: ['manufacturerModelFilters'],
     queryFn: () => getManufacturerModelFilters(objectToURI({ manufacturer_id: formState.manufacturer_id })),
     staleTime: Infinity,
-    enabled: formState.manufacturer_id.length > 0
+    enabled: formState.manufacturer_id?.length > 0
   })
 
   useEffect(() => {
-    if (formState.manufacturer_id.length > 0) {
+    if (formState.manufacturer_id?.length > 0) {
       refetch()
     }
   }, [formState.manufacturer_id, refetch])
@@ -138,6 +140,7 @@ const AdditionalFilters: React.FC<Props> = ({
                       control={control}
                       label={width > 641 ? 'მინიმუმ ფასი დღიურად' : 'მინ. ფასი დღიურად'}
                       errors={''}
+                      className='w-52'
                     />
                     <div className='w-3 h-px bg-base-100 mx-2' />
                     <DefaultInput
@@ -145,6 +148,7 @@ const AdditionalFilters: React.FC<Props> = ({
                       control={control}
                       label={width > 641 ? 'მინიმუმ ფასი დღიურად' : 'მინ. ფასი დღიურად'}
                       errors={''}
+                      className='w-52'
                     />
                   </div>
                   <div className='my-8'>
@@ -167,6 +171,7 @@ const AdditionalFilters: React.FC<Props> = ({
                         </div>
                       ) : (
                         <SelectField
+                          isMulti
                           control={control}
                           valueKey='id'
                           labelKey='title'
@@ -192,27 +197,38 @@ const AdditionalFilters: React.FC<Props> = ({
                       labelKey='title'
                     />
                     <SelectField
-                      name='manufacturer_models'
+                      name='model_id'
                       isMulti
                       control={control}
                       options={manufacturerModelFilters?.result?.data}
                       placeholder='მოდელი'
-                      disabled={formState.manufacturer_id.length === 0}
+                      disabled={formState.manufacturer_id?.length === 0}
                       className='my-2'
                       valueKey='id'
                       labelKey='title'
                     />
-                    <SelectField
-                      name='prod_year'
-                      control={control}
-                      isMulti
-                      options={generateYearsArray()}
-                      placeholder='წელი'
-                      disabled={false}
-                      className='my-2'
-                      valueKey='value'
-                      labelKey='label'
-                    />
+                    <div className='flex gap-4'>
+                      <SelectField
+                        name='year_from'
+                        control={control}
+                        options={generateYearsArray()}
+                        placeholder='წელი'
+                        disabled={false}
+                        className='my-2'
+                        valueKey='value'
+                        labelKey='label'
+                      />
+                      <SelectField
+                        name='year_to'
+                        control={control}
+                        options={generateYearsArray()}
+                        placeholder='წელი'
+                        disabled={false}
+                        className='my-2'
+                        valueKey='value'
+                        labelKey='label'
+                      />
+                    </div>
                   </div>
 
                   <Typography type='h5' weight='normal'>
@@ -225,6 +241,7 @@ const AdditionalFilters: React.FC<Props> = ({
                       control={control}
                       height='h-10'
                       append={appendFuelType}
+                      outlined
                     />
                   </div>
 
@@ -254,7 +271,13 @@ const AdditionalFilters: React.FC<Props> = ({
                     />
                   </div>
                   <Divider />
-                  <SwitchField label='უფასო მიწოდება' name='free_delivery' control={control} className='my-8' />
+                  <SwitchField
+                    label='უფასო მიწოდება'
+                    name='free_delivery'
+                    control={control}
+                    className='my-8'
+                    onChangeCallback={onSubmit}
+                  />
                   <Divider />
 
                   <SectionWrapper>
@@ -321,7 +344,7 @@ const AdditionalFilters: React.FC<Props> = ({
                   </div>
                 </div>
                 <div className='w-full flex items-center justify-between py-[16px] px-10 border-t-1 border-grey-90'>
-                  <IconTextButton label='გასუფთავება' icon='/icons/return.svg' />
+                  <IconTextButton label='გასუფთავება' icon='/icons/return.svg' onClick={() => reset()} />
                   <div className='flex items-center [text-16px] gap-4'>
                     სულ 136 შედეგი
                     <IconTextButton
@@ -331,7 +354,7 @@ const AdditionalFilters: React.FC<Props> = ({
                       icon='/icons/search.svg'
                       type='submit'
                       onClick={() => {
-                        handleAdditionalFiltersSubmit()
+                        onSubmit()
                         toggleModal()
                       }}
                     />

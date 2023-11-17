@@ -29,11 +29,14 @@ import Icon from 'src/views/app/Icon'
 import SearchLayout from '../../layouts/SearchLayout'
 import useSearch from 'src/hooks/useSearch'
 import { useRouter } from 'next/router'
+import { IconTextButton } from 'src/views/components/button'
 
 const SearchPage = () => {
   const {
     control,
-    searchValues,
+    reset,
+    getValues,
+    resetField,
     handleSubmit,
     appendFuelType,
     appendCategory,
@@ -66,15 +69,15 @@ const SearchPage = () => {
 
   useEffect(() => {
     searchProductsMutation.mutateAsync(searchString)
-  }, [searchString, searchValues])
+  }, [searchString])
 
   const handleToggleMapWidth = () => {
     setMapVisible(!mapVisible)
   }
 
   const onSubmit = () => {
-    console.log(searchValues, 'searchValues submit')
-    router.push(`/search?${objectToURI(searchValues)}`)
+    const updatedSearchValues = getValues()
+    router.push(`/search?${objectToURI(updatedSearchValues)}`)
   }
 
   return (
@@ -84,34 +87,63 @@ const SearchPage = () => {
           <Divider />
           <FiltersWrapper>
             <MainFilters>
-              <PricePopover control={control} handleSubmit={onSubmit} />
-              <FuelTypePopover control={control} appendFuelType={appendFuelType} />
-              <CategoryPopover control={control} appendCategory={appendCategory} />
+              <PricePopover control={control} handleSubmit={onSubmit} reset={resetField} />
+              <FuelTypePopover control={control} appendFuelType={appendFuelType} reset={resetField} />
+              <CategoryPopover
+                control={control}
+                appendCategory={appendCategory}
+                handleSubmit={onSubmit}
+                reset={resetField}
+              />
               <Tag
                 label='უფასო მიწოდება'
-                component={<Switcher height='h-5' name='free_delivery' control={control} defaultValue />}
+                component={
+                  <Switcher
+                    height='h-5'
+                    name='free_delivery'
+                    control={control}
+                    defaultValue
+                    onChangeCallback={onSubmit}
+                  />
+                }
                 height='h-10'
                 control={control}
               />
               <div className='hidden xl:flex'>
-                <SeatsPopover control={control} appendSeatType={appendSeatType} />
+                <SeatsPopover
+                  control={control}
+                  appendSeatType={appendSeatType}
+                  handleSubmit={onSubmit}
+                  reset={resetField}
+                />
               </div>
               <div className='hidden xl:flex'>
-                <SuitcasesPopover control={control} appendLuggageNumber={appendLuggageNumber} />
+                <SuitcasesPopover
+                  control={control}
+                  appendLuggageNumber={appendLuggageNumber}
+                  handleSubmit={onSubmit}
+                  reset={resetField}
+                />
               </div>
               <Tag
                 label='ყველა ფილტრი'
+                className='bg-grey-60'
                 component={<Image src='/icons/filters.svg' alt='' />}
                 height='h-10'
-                bg={'bg-grey-60'}
                 handleClick={() => toggleFilters(!filters)}
               />
             </MainFilters>
             <ClearFiltersWrapper>
-              <Image src='/icons/return.svg' className='w-4' alt='' />
-              <Typography type='body' className='text-orange-120'>
-                ფილტრის გასუფთავება
-              </Typography>
+              <IconTextButton
+                icon='/icons/return.svg'
+                label='ფილტრის გასუფთავება'
+                labelClassname='text-orange-120'
+                type='reset'
+                onClick={() => {
+                  reset()
+                  onSubmit()
+                }}
+              />
             </ClearFiltersWrapper>
           </FiltersWrapper>
           <ResponsiveDivider />
@@ -157,9 +189,10 @@ const SearchPage = () => {
                       {width < 1025 && (
                         <Tag
                           component={<Image src='/icons/filters.svg' alt='' />}
+                          className="bg-grey-60"
                           label={'ფილტრი'}
                           height='h-10'
-                          bg={'bg-grey-60'}
+                          handleClick={() => toggleFilters(!filters)}
                         />
                       )}
                       <Tag
@@ -225,7 +258,8 @@ const SearchPage = () => {
           appendDoorType={appendDoorType}
           appendTransmissionType={appendTransmissionType}
           appendAdditionalInformation={appendAdditionalInformation}
-          handleAdditionalFiltersSubmit={onSubmit}
+          onSubmit={onSubmit}
+          reset={reset}
         />
       </form>
     </>

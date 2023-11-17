@@ -5,8 +5,9 @@ interface Props {
   name: string
   control: any
   defaultValue?: boolean
+  onChangeCallback?: () => void
 }
-const Switcher: React.FC<Props> = ({ height, name, control, defaultValue }) => {
+const Switcher: React.FC<Props> = ({ height, name, control, defaultValue, onChangeCallback }) => {
   return (
     <Controller
       name={name}
@@ -19,7 +20,12 @@ const Switcher: React.FC<Props> = ({ height, name, control, defaultValue }) => {
             type='checkbox'
             value={value}
             className='sr-only peer'
-            onChange={() => onChange(!value)}
+            onChange={() => {
+              onChange(!value)
+              if (onChangeCallback) {
+                onChangeCallback()
+              }
+            }}
           />
 
           <div

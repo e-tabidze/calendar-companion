@@ -68,14 +68,14 @@ const StepTwo: React.FC<Props> = ({ control, appendAdditionalParam, step }) => {
         {isProductDetailsLoading ? (
           <>Loading</>
         ) : (
-          <Tag name='seat_type_id' control={control} options={productDetails?.seat_types} height='h-12' />
+          <Tag name='seat_type_id' control={control} options={productDetails?.seat_types} height='h-12' outlined />
         )}
       </div>
       <Typography type='h5' weight='normal' className=' mt-14'>
         ჩემოდნების რაოდენობა
       </Typography>
       <div className='flex flex-wrap gap-4 my-6'>
-        <Tag name='suitcases' control={control} options={suitcases} height='h-10' />
+        <Tag name='suitcases' control={control} options={suitcases} height='h-10' outlined />
       </div>
       <Divider />
       <div className='flex justify-between my-10 flex-col items-baseline md:items-center md:flex-row'>

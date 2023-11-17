@@ -2,7 +2,7 @@ import Image from '../../image'
 import Typography from '../../typography'
 import { AvatarContainer, AvatarInnerContainer, AvatarResponsiveContainer } from './styles'
 import { Menu, Transition } from '@headlessui/react'
-import { Fragment, useEffect, useState } from 'react'
+import { Fragment, useState } from 'react'
 import useProfile from 'src/hooks/useProfile'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import Link from 'next/link'
@@ -71,20 +71,6 @@ const Avatar = () => {
 
   const { userInfo, userCompanies, postSwitchProfile, activeCompany, router, isAuthenticated, activeCompanyId } =
     useProfile()
-
-  useEffect(() => {
-    if (isAuthenticated !== false) {
-      if (!!activeCompany && router?.pathname.includes('profile')) {
-        router.push(`/dashboard/dashboard`)
-      } else if (activeCompany === null && router?.pathname.includes('dashboard')) {
-        router.push('/profile/orders')
-      }
-    } else {
-      if (router?.pathname.includes('profile') || router?.pathname.includes('dashboard')) {
-        router.push('/')
-      }
-    }
-  }, [!!activeCompany, isAuthenticated])
 
   const switchProfileMutation = useMutation((active_profile_id: string) => postSwitchProfile('', active_profile_id), {
     onSettled: () => {

@@ -8,9 +8,10 @@ import useFilters from 'src/hooks/useFilters'
 interface Props {
   control: any
   appendFuelType: any
+  reset: any
 }
 
-const FuelTypePopover: React.FC<Props> = ({ control, appendFuelType }) => {
+const FuelTypePopover: React.FC<Props> = ({ control, appendFuelType, reset }) => {
   const { fuelTypesFilter, isLoading } = useFilters()
 
   return (
@@ -22,11 +23,11 @@ const FuelTypePopover: React.FC<Props> = ({ control, appendFuelType }) => {
         {isLoading ? (
           <>Loading</>
         ) : (
-          <Tag options={fuelTypesFilter} name='fuel_types' control={control} height='h-10' append={appendFuelType} />
+          <Tag options={fuelTypesFilter} name='fuel_types' control={control} height='h-10' append={appendFuelType} outlined />
         )}
       </TagsWrapper>
       <ActionsWrapper>
-        <IconTextButton icon='/icons/rotate.svg' label='გასუფთავება' width={16} height={16} />
+        <IconTextButton icon='/icons/rotate.svg' label='გასუფთავება' width={16} height={16} onClick={() => reset("fuel_types")} />
         <DefaultButton text='შენახვა' bg='bg-orange-100' textColor='text-white' />
       </ActionsWrapper>
     </PopoverDropdown>
