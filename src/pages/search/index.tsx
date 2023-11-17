@@ -192,6 +192,7 @@ const SearchPage = () => {
                           className="bg-grey-60"
                           label={'ფილტრი'}
                           height='h-10'
+                          handleClick={() => toggleFilters(!filters)}
                         />
                       )}
                       <Tag

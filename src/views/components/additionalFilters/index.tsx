@@ -171,6 +171,7 @@ const AdditionalFilters: React.FC<Props> = ({
                         </div>
                       ) : (
                         <SelectField
+                          isMulti
                           control={control}
                           valueKey='id'
                           labelKey='title'
