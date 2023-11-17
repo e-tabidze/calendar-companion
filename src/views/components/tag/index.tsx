@@ -70,10 +70,10 @@ const Tag: React.FC<Props> = ({
                     }}
                   >
                     {component}
-                    {option.icon && <Icon svgPath={option.icon} width='18' height='18' />}
+                    {option.icon && <Icon svgPath={option.icon} width='32' height='32' />}
                     <Typography
                       type='body'
-                      className={`w-max ${
+                      className={`w-max ${option.icon && 'ml-2'} ${
                         selectedOptions.includes(option.id) && (height === 'h-12' ? '' : 'text-white')
                       }`}
                     >

@@ -50,7 +50,6 @@ const SearchPage = () => {
     isLoading,
     searchProductsMutation,
     totalProductsCount,
-    searchDefaultValues,
     objectToURI
   } = useSearch()
   const { width } = useWindowDimensions()
@@ -91,7 +90,7 @@ const SearchPage = () => {
             <MainFilters>
               <PricePopover control={control} handleSubmit={onSubmit} />
               <FuelTypePopover control={control} appendFuelType={appendFuelType} />
-              <CategoryPopover control={control} appendCategory={appendCategory} />
+              <CategoryPopover control={control} appendCategory={appendCategory} handleSubmit={onSubmit} />
               <Tag
                 label='უფასო მიწოდება'
                 component={
@@ -107,10 +106,10 @@ const SearchPage = () => {
                 control={control}
               />
               <div className='hidden xl:flex'>
-                <SeatsPopover control={control} appendSeatType={appendSeatType} />
+                <SeatsPopover control={control} appendSeatType={appendSeatType} handleSubmit={onSubmit} />
               </div>
               <div className='hidden xl:flex'>
-                <SuitcasesPopover control={control} appendLuggageNumber={appendLuggageNumber} />
+                <SuitcasesPopover control={control} appendLuggageNumber={appendLuggageNumber} handleSubmit={onSubmit} />
               </div>
               <Tag
                 label='ყველა ფილტრი'

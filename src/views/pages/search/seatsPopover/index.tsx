@@ -1,5 +1,5 @@
 import useFilters from 'src/hooks/useFilters'
-import { IconButton } from 'src/views/components/button'
+import { DefaultButton, IconButton } from 'src/views/components/button'
 import PopoverDropdown from 'src/views/components/popoverDropdown'
 import Tag from 'src/views/components/tag'
 import { TagsWrapper } from './styles'
@@ -7,9 +7,10 @@ import { TagsWrapper } from './styles'
 interface Props {
   control: any
   appendSeatType: any
+  handleSubmit: () => void
 }
 
-const SeatsPopover: React.FC<Props> = ({ control, appendSeatType }) => {
+const SeatsPopover: React.FC<Props> = ({ control, appendSeatType, handleSubmit }) => {
   const { seatTypesFilter } = useFilters()
 
   return (
@@ -17,7 +18,19 @@ const SeatsPopover: React.FC<Props> = ({ control, appendSeatType }) => {
       <TagsWrapper>
         <Tag options={seatTypesFilter} name='seat_types' control={control} height='h-10' append={appendSeatType} />
       </TagsWrapper>
-      <IconButton icon='/icons/rotate.svg' text='გასუფთავება' width={16} height={16} />
+      <div className='flex items-center justify-between'>
+        <IconButton icon='/icons/rotate.svg' text='გასუფთავება' hasBg={false} width={16} height={16} />
+        <DefaultButton
+          text='შენახვა'
+          bg='bg-orange-100'
+          textColor='text-white'
+          type='submit'
+          onClick={() => {
+            handleSubmit()
+            close()
+          }}
+        />
+      </div>
     </PopoverDropdown>
   )
 }
