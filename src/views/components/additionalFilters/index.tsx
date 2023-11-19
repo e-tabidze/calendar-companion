@@ -113,7 +113,7 @@ const AdditionalFilters: React.FC<Props> = ({
         </Transition.Child>
 
         <div className='fixed inset-0 z-10 h-screen overflow-y-auto'>
-          <div className='absolute left-1/2 -translate-x-1/2 w-11/12 max-w-[790px] flex min-h-full items-end justify-center p-4 text-center md:items-center md:p-0'>
+          <div className='absolute left-1/2 -translate-x-1/2 w-full max-w-[790px] flex min-h-full items-end justify-center p-4 text-center md:items-center md:p-0'>
             <Transition.Child
               as={Fragment}
               enter='ease-out duration-300'
@@ -131,24 +131,24 @@ const AdditionalFilters: React.FC<Props> = ({
                   <Image src='/icons/close.svg' onClick={toggleModal} alt='' height={40} width={40} />
                 </div>
                 <div className='overflow-auto h-[70vh] px-4 py-5 sm:py-6 sm:px-10 w-max-full'>
-                  <Typography type='body' color='dark' className='max-w-[30%]'>
+                  <Typography type='body' color='dark' className='md:max-w-[30%]'>
                     ავტომობილები დღიური ფასის მიხედვით
                   </Typography>
-                  <div className='w-full flex items-center mb-20 mt-8'>
+                  <div className='w-full flex flex-col md:flex-row md:items-center mb-10 md:mb-20 mt-8'>
                     <DefaultInput
                       name='price_min'
                       control={control}
                       label={width > 641 ? 'მინიმუმ ფასი დღიურად' : 'მინ. ფასი დღიურად'}
                       errors={''}
-                      className='w-52'
+                      className='md:w-52 mb-[8px] md:mb-0'
                     />
-                    <div className='w-3 h-px bg-base-100 mx-2' />
+                    <div className='hidden md:flex w-3 h-px bg-base-100 mx-2' />
                     <DefaultInput
                       name='price_max'
                       control={control}
                       label={width > 641 ? 'მინიმუმ ფასი დღიურად' : 'მინ. ფასი დღიურად'}
                       errors={''}
-                      className='w-52'
+                      className='md:w-52'
                     />
                   </div>
                   <div className='my-8'>
@@ -160,7 +160,7 @@ const AdditionalFilters: React.FC<Props> = ({
                     </Typography>
                     <>
                       {width > 779 ? (
-                        <div className='flex flex-wrap gap-4 my-6'>
+                        <div className='flex flex-wrap gap-2 my-3 md:gap-4 md:my-6'>
                           <CategoryCard
                             name='category'
                             control={control}
@@ -178,11 +178,12 @@ const AdditionalFilters: React.FC<Props> = ({
                           name='category'
                           options={categoriesFilter}
                           placeholder='კატეგორია'
+                          className="my-2"
                         />
                       )}
                     </>
                   </div>
-                  <div className='my-12'>
+                  <div className='my-6 md:my-12'>
                     <Typography type='h5' weight='normal'>
                       ავტომობილის პარამეტრები
                     </Typography>
@@ -248,7 +249,7 @@ const AdditionalFilters: React.FC<Props> = ({
                   <Typography type='h5' weight='normal'>
                     ადგილების რაოდენობა
                   </Typography>
-                  <div className='flex flex-wrap gap-4 my-6'>
+                  <div className='flex flex-wrap gap-2 my-3 md:gap-4 md:my-6'>
                     <Tag
                       options={seatTypesFilter}
                       name='seat_types'
@@ -261,7 +262,7 @@ const AdditionalFilters: React.FC<Props> = ({
                   <Typography type='h5' weight='normal'>
                     ჩემოდნების რაოდენობა
                   </Typography>
-                  <div className='flex flex-wrap gap-4 my-6'>
+                  <div className='flex flex-wrap gap-2 my-3 md:gap-4 md:my-6'>
                     <Tag
                       options={luggageNumbers}
                       height='h-10'
@@ -275,13 +276,13 @@ const AdditionalFilters: React.FC<Props> = ({
                     label='უფასო მიწოდება'
                     name='free_delivery'
                     control={control}
-                    className='my-8'
+                    className='my-4 md:my-8'
                     onChangeCallback={onSubmit}
                   />
                   <Divider />
 
                   <SectionWrapper>
-                    <Typography type='h5' weight='normal'>
+                    <Typography type='h5' weight='normal' className="mb-[8px] md:mb-0">
                       კარის რაოდენობა
                     </Typography>
                     <ListWrapper>
@@ -297,7 +298,7 @@ const AdditionalFilters: React.FC<Props> = ({
                   <Divider />
 
                   <SectionWrapper>
-                    <Typography type='h5' weight='normal'>
+                    <Typography type='h5' weight='normal' className="mb-[8px] md:mb-0">
                       წამყვანი საბურავები
                     </Typography>
                     <ListWrapper>
@@ -313,7 +314,7 @@ const AdditionalFilters: React.FC<Props> = ({
                   <Divider />
 
                   <SectionWrapper>
-                    <Typography type='h5' weight='normal'>
+                    <Typography type='h5' weight='normal' className="mb-[8px] md:mb-0">
                       ტრანსმისია
                     </Typography>
                     <ListWrapper>
@@ -328,7 +329,7 @@ const AdditionalFilters: React.FC<Props> = ({
                   </SectionWrapper>
                   <Divider />
 
-                  <Typography type='h5' weight='normal' className='mt-8'>
+                  <Typography type='h5' weight='normal' className='mt-4 md:mt-8'>
                     დამატებითი პარამეტრები
                   </Typography>
                   <Typography type='body' color='light'>
@@ -343,9 +344,9 @@ const AdditionalFilters: React.FC<Props> = ({
                     />
                   </div>
                 </div>
-                <div className='w-full flex items-center justify-between py-[16px] px-10 border-t-1 border-grey-90'>
+                <div className='w-full flex flex-col md:flex-row md:items-center justify-between py-[16px] px-[16px] md:px-10 border-t-1 border-grey-90'>
                   <IconTextButton label='გასუფთავება' icon='/icons/return.svg' onClick={() => reset()} />
-                  <div className='flex items-center [text-16px] gap-4'>
+                  <div className='flex items-center justify-between md:justify-start [text-16px] gap-4'>
                     სულ 136 შედეგი
                     <IconTextButton
                       label='ძებნა'

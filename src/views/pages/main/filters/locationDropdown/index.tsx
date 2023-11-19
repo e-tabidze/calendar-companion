@@ -27,7 +27,7 @@ const LocationDropdown: React.FC<Props> = ({ control }) => {
         render={({ field: { onChange, value } }) => (
           <Listbox value={options?.find(opt => opt.name === value?.name)} onChange={onChange}>
             <div className='relative mt-1 flex text-left w-full'>
-              <Listbox.Button className='relative w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm'>
+              <Listbox.Button className='relative w-full cursor-default rounded-lg bg-white py-5 px-4 text-left focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm'>
                 <FilterContainer>
                   <Typography type='body' color='dark'>
                     ადგილმდებარეობა
