@@ -138,7 +138,6 @@ const BranchInfoComponent: React.FC<Props> = ({ index, control, errors, setValue
           {days.map(day => (
             <div className='flex items-center gap-6' key={day.value}>
               {renderDaysSelector(day)}
-              <> {console.log(day, 'day')} </>
               <TimeRangeComponent
                 control={control}
                 startTimeName={`addresses.${index}.working_hours.${day.value}.start_time`}

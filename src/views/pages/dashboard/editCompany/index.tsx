@@ -5,6 +5,8 @@ import Divider from 'src/views/components/divider'
 import { DefaultInput } from 'src/views/components/input'
 import Typography from 'src/views/components/typography'
 
+// import AddressAndSchedule from '../../profile/company/addressAndSchedule'
+
 const EditCompany = () => {
   const { control } = useForm()
   
@@ -44,6 +46,7 @@ const EditCompany = () => {
       <Typography type='h3' className='font-bold'>
         მისამართები და განრიგი
       </Typography>
+
       {/* <AddressAndSchedule /> */}
     </div>
   )

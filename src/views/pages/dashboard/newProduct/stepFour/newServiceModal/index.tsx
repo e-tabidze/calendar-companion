@@ -87,7 +87,7 @@ const NewServiceModal: React.FC<Props> = ({ open, onClose }) => {
                       <DefaultInput label='სერვისის დასახელება' control={control} name='title' errors={errors} />
                       <DefaultInput label='აღწერა' control={control} name='description' rows={4} errors={errors} />
                     </div>
-                    <SelectField options={options} control={control} name='type_id' errors={errors} />
+                    <SelectField options={options} control={control} name='type_id' errors={errors} valueKey='value' labelKey='label' />
                   </div>
                   <div className='flex justify-end absolute bottom-0 w-full shadow-md'>
                     <DefaultButton

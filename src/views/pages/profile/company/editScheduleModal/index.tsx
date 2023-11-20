@@ -131,6 +131,8 @@ const EditScheduleModal: React.FC<Props> = ({ open, onClose, control, address, i
                             icon
                             name={`addresses.${index}.start_time`}
                             control={control}
+                            valueKey='value'
+                            labelKey='label'
                           />
                           <div className='h-px w-[6px] bg-raisin-130' />
                           <SelectField
@@ -139,6 +141,8 @@ const EditScheduleModal: React.FC<Props> = ({ open, onClose, control, address, i
                             icon
                             control={control}
                             name={`addresses.${index}.end_time`}
+                            valueKey='value'
+                            labelKey='label'
                           />
                         </div>
                       </div>
@@ -177,6 +181,8 @@ const EditScheduleModal: React.FC<Props> = ({ open, onClose, control, address, i
                                   icon
                                   name={`addresses.${index}.working_hours.${dayData.day}.start_time`}
                                   control={control}
+                                  valueKey='value'
+                                  labelKey='label'
                                 />
                                 <div className='h-px w-[6px] bg-raisin-130' />
                                 <SelectField
@@ -185,6 +191,8 @@ const EditScheduleModal: React.FC<Props> = ({ open, onClose, control, address, i
                                   icon
                                   control={control}
                                   name={`addresses.${index}.working_hours.${dayData.day}.end_time`}
+                                  valueKey='value'
+                                  labelKey='label'
                                 />
                               </div>
                             </div>
@@ -200,7 +208,7 @@ const EditScheduleModal: React.FC<Props> = ({ open, onClose, control, address, i
                     bg='bg-green-100'
                     className='my-4 mr-10'
                     textColor='text-white'
-                    type="submit"
+                    type='submit'
                     onClick={onClose}
                   ></DefaultButton>
                 </div>

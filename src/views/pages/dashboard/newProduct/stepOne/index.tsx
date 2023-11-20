@@ -65,7 +65,7 @@ const StepOne: React.FC<Props> = ({ control, productValues, errors }) => {
           disabled={!selectedManufacturerId}
           errors={errors}
         />
-        <SelectField name='prod_year' control={control} placeholder='წელი' options={generateYearsArray()} />
+        <SelectField name='prod_year' control={control} placeholder='წელი' options={generateYearsArray()} valueKey='value' labelKey='label' />
         <div className='flex gap-4 justify-center'>
           <DefaultInput name='odometer.run' control={control} errors={errors} label='გარბენი' className='flex-grow' />
           <TwoOptionSelector

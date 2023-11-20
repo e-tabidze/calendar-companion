@@ -28,6 +28,8 @@ const TimeRangeComponent: React.FC<Props> = ({ control, startTimeName, endTimeNa
         icon
         name={startTimeName}
         control={control}
+        valueKey='value'
+        labelKey='label'
       />
       <div className='h-px w-[6px] bg-raisin-130' />
       <SelectField
@@ -36,6 +38,8 @@ const TimeRangeComponent: React.FC<Props> = ({ control, startTimeName, endTimeNa
         icon
         control={control}
         name={endTimeName}
+        valueKey='value'
+        labelKey='label'
       />
     </div>
   )
