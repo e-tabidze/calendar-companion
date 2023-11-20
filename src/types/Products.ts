@@ -40,4 +40,16 @@ export type Products = {
   updated_at: string
   deleted_at: any
   count_user_favourites: number
+  manufacturer_model: {
+    id: number
+    manufacturer_id: number
+    title: string
+    type_id: number
+  }
+  manufacturer: {
+    id: number
+    manufacturer_id: number
+    title: string
+    type_id: number
+  }
 }

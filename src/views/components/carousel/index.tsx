@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 
 // ** Swiper
 import { Swiper, SwiperSlide } from 'swiper/react'
@@ -24,14 +24,7 @@ interface Props {
 
 SwiperCore.use([Navigation, Pagination, Virtual, Mousewheel, Keyboard, Thumbs, FreeMode, Controller])
 
-const Carousel = ({
-  itemsArray,
-  type,
-  loop = false,
-  onClick,
-  singleSlide = false,
-  thumbs = false,
-}: Props) => {
+const Carousel = ({ itemsArray, type, onClick, singleSlide = false, thumbs = false }: Props) => {
   const { width } = useWindowDimensions()
   const [thumbsSwiper, setThumbsSwiper] = useState<any>()
   const prevRef = useRef<HTMLImageElement>(null)
@@ -48,38 +41,38 @@ const Carousel = ({
 
   const slideRefs = useRef<Array<HTMLDivElement | null>>([])
 
-  useEffect(() => {
-    const options = {
-      root: null,
-      rootMargin: '0px',
-      threshold: type === 'productDetails' || 'products' ? 0.1 : 1
-    }
+  // useEffect(() => {
+  //   const options = {
+  //     root: null,
+  //     rootMargin: '0px',
+  //     threshold: type === 'productDetails' || 'products' ? 0.1 : 1
+  //   }
 
-    const handleIntersection = (entries: IntersectionObserverEntry[]) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          // @ts-ignore
-          entry.target.style.opacity = '1'
-        } else {
-          // @ts-ignore
-          entry.target.style.opacity = '0.3'
-        }
-      })
-    }
+  //   const handleIntersection = (entries: IntersectionObserverEntry[]) => {
+  //     entries.forEach(entry => {
+  //       if (entry.isIntersecting) {
+  //         // @ts-ignore
+  //         entry.target.style.opacity = '1'
+  //       } else {
+  //         // @ts-ignore
+  //         entry.target.style.opacity = '0.3'
+  //       }
+  //     })
+  //   }
 
-    const observer = new IntersectionObserver(handleIntersection, options)
+  //   const observer = new IntersectionObserver(handleIntersection, options)
 
-    slideRefs.current.forEach(ref => {
-      if (ref) {
-        observer.observe(ref)
-      }
-    })
+  //   slideRefs.current.forEach(ref => {
+  //     if (ref) {
+  //       observer.observe(ref)
+  //     }
+  //   })
 
-    return () => {
-      observer.disconnect()
-    }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [itemsArray])
+  //   return () => {
+  //     observer.disconnect()
+  //   }
+  // // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [itemsArray])
 
   return (
     <>
@@ -90,7 +83,7 @@ const Carousel = ({
 
         // @ts-ignore
         breakpoints={handleBreakpoints()}
-        
+
         // breakpoints={{
         //   320: {
         //     slidesPerView: 'auto'
@@ -112,7 +105,8 @@ const Carousel = ({
         controller={{ control: [] }}
         keyboard={true}
         centeredSlides={type === 'productDetails'}
-        loop={loop}
+        
+        // loop={loop}
         thumbs={{ swiper: thumbsSwiper }}
       >
         <div className='absolute inset-y-0 left-16 sm:left-2 flex items-center rotate-180 z-50' ref={prevRef}>
@@ -124,7 +118,7 @@ const Carousel = ({
           />
         </div>
         {itemsArray.map((item, index) => (
-          <SwiperSlide key={index} className='!w-fit'>
+          <SwiperSlide key={index} className={`!w-fit ${type === 'productDetails' && 'h-full'}`}>
             <div ref={element => (slideRefs.current[index] = element)}>{item}</div>
           </SwiperSlide>
         ))}

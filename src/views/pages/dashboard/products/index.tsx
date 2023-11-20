@@ -37,7 +37,7 @@ const filters = [
 ]
 const Products = () => {
   const { width } = useWindowDimensions()
-  const { companyProducts } = useProducts()
+  const { companyProducts, isLoading } = useProducts()
 
   console.log(companyProducts, 'companyProducts')
 
@@ -60,17 +60,23 @@ const Products = () => {
           ))}
         </div>
         <div>
-          {companyProducts?.map((product: Products) => (
-            <VehicleListComponent
-              key={product.id}
-              price={product.price}
-              startCity={product.start_city}
-              prodYear={product.prod_year}
-              modelId={product.model_id}
-              manufacturerId={product.man_id}
-              active={product.is_active}
-            />
-          ))}
+          {isLoading ? (
+            <>Loading...</>
+          ) : (
+            <>
+              {companyProducts?.map((product: Products) => (
+                <VehicleListComponent
+                  key={product.id}
+                  price={product.price}
+                  startCity={product.start_city}
+                  prodYear={product.prod_year}
+                  model={product?.manufacturer_model?.title}
+                  manufacturer={product.manufacturer?.title}
+                  active={product.is_active}
+                />
+              ))}
+            </>
+          )}
         </div>
       </div>
       <Pagination totalPages={6} onPageChange={() => console.log('change Page')} />

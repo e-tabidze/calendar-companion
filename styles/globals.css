@@ -103,7 +103,7 @@
   }
 } */
 
-.swiper-slide-prev {
+.swiper-slide-prev, .swiper-slide-next {
   opacity: 0.3 !important;
 }
 

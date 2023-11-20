@@ -2,7 +2,11 @@ import Image from '../../../components/image'
 import Review from '../../../components/review'
 import Typography from '../../../components/typography'
 
-const EntityInformationCard = () => {
+interface Props {
+  name: string
+}
+
+const EntityInformationCard: React.FC<Props> = ({ name }) => {
   return (
     <div className='my-12 gap-8 flex items-center'>
       <div className='relative w-fit '>
@@ -11,7 +15,7 @@ const EntityInformationCard = () => {
       </div>
       <div>
         <Typography type='h5' weight='normal'>
-          მარჩელო ლიპი
+          {name}
         </Typography>
         <Typography type='body' color='light'>
           3 განცხადება

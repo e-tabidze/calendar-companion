@@ -96,6 +96,7 @@ const StepThree: React.FC<Props> = ({ control, discountItems, appendDiscountItem
             label='ახალი ფასდაკლების დამატება'
             icon='/icons/add.svg'
             onClick={() => appendDiscountItem(discount_item)}
+            type="button"
           />
         </DiscountComponentWrapper>
       ) : (

@@ -7,13 +7,13 @@ import Action from './action'
 interface Props {
   price: number
   startCity: string
-  modelId: number
-  manufacturerId: number
+  model: string
+  manufacturer: string
   prodYear: number
   active: number
 }
 
-const VehicleListComponent: React.FC<Props> = ({ price, startCity, prodYear, modelId, manufacturerId, active }) => {
+const VehicleListComponent: React.FC<Props> = ({ price, startCity, prodYear, model, manufacturer, active }) => {
   const { width } = useWindowDimensions()
 
   return (
@@ -32,7 +32,7 @@ const VehicleListComponent: React.FC<Props> = ({ price, startCity, prodYear, mod
               {startCity}
             </Typography>
             <Typography type='subtitle'>
-              {manufacturerId} {modelId} {prodYear}
+              {manufacturer} {model} {prodYear}
             </Typography>
             <div className='flex items-center gap-10 md:mt-10'>
               <Typography type='h4' weight={width > 779 ? 'medium' : 'normal'} color='dark'>

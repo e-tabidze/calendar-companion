@@ -15,26 +15,37 @@ import {
 
 interface Props {
   swiperCard?: boolean
+  productId: number
+  manufacturer: string
+  model: string
+  prodYear: number
+  priceGel: number
 }
 
-const ProductCard = ({swiperCard}:Props) => {
+const ProductCard: React.FC<Props> = ({ swiperCard, productId, manufacturer, model, prodYear, priceGel }) => {
   const router = useRouter()
 
+  const handleCardClick = () => {
+    router.push(`/details/${productId}`)
+  }
+
   return (
-    <ProductCardContainer onClick={() => router.push('/details')}>
-      <div className={`overflow-hidden aspect-w-16 aspect-h-9 cursor-pointer ${swiperCard ? 'md:w-[320px] xl:w-[400px]' : 'sticky'} `}>
-        <Image
-            src='/images/car.png'
-            alt=''
-            className='rounded-tl-3xl rounded-tr-3xl object-cover'
-        />
+    <ProductCardContainer onClick={handleCardClick}>
+      <div
+        className={`overflow-hidden aspect-w-16 aspect-h-9 cursor-pointer ${
+          swiperCard ? 'md:w-[320px] xl:w-[400px]' : 'sticky'
+        } `}
+      >
+        <Image src='/images/car.png' alt='' className='rounded-tl-3xl rounded-tr-3xl object-cover' />
       </div>
 
       <FavIconWrapper>
         <Image src='/icons/favIconOutline.svg' alt='' />
       </FavIconWrapper>
       <DetailsContainer>
-        <Typography type='h5'>hyunday elantra 2011</Typography>
+        <Typography type='h5'>
+          {manufacturer} {model} {prodYear}
+        </Typography>
         <ReviewContainer>
           <Image src='/icons/star.svg' alt='' />
           <Typography type='body' color='light'>
@@ -46,7 +57,7 @@ const ProductCard = ({swiperCard}:Props) => {
         </ReviewContainer>
         <InnerDetailsContainer>
           <PriceContainer>
-            27₾ <PreviousPrice>47₾</PreviousPrice>
+            {priceGel} ₾ <PreviousPrice>47₾</PreviousPrice>
           </PriceContainer>
           <DetailsWrapper>
             <Details>

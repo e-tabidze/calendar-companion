@@ -26,6 +26,7 @@ const Company: React.FC<Props> = ({ id }) => {
     deleteCompany
   } = useCompany(id)
 
+
   const queryClient = useQueryClient()
 
   const updateCompanyMutation = useMutation(() => updateCompanyInfo(companyValues), {
