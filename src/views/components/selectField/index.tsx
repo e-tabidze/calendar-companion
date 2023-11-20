@@ -48,8 +48,8 @@ interface Props {
   icon?: boolean
   control: any
   name: string
-  valueKey?: string
-  labelKey?: string
+  valueKey: string
+  labelKey: string
   errors?: any
   isMulti?: boolean
 }

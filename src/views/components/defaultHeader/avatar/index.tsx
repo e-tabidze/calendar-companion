@@ -107,13 +107,7 @@ const Avatar = () => {
             <Image src='/images/avatar.png' className='rounded-full' alt='avatar' />
           </AvatarInnerContainer>
           <AvatarResponsiveContainer>
-            <Typography
-              type='button'
-              color='dark'
-              weight='normal'
-              className='text-[#272A37] text-[14px] font-medium text-nowrap'
-              onClick={isAuthenticated}
-            >
+            <Typography type='subtitle'>
               {!!activeCompany ? activeCompany.information.name : userInfo?.information?.first_name}
             </Typography>
             <Image src='/icons/chevron.svg' alt='img' className='flex ml-[8px] transition-all' />
