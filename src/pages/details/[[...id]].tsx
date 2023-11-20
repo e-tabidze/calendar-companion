@@ -1,36 +1,39 @@
 import { useEffect, useRef, useState } from 'react'
 import DefaultLayout from 'src/layouts/DefaultLayout'
+import dynamic from 'next/dynamic'
 
-import Carousel from 'src/views/components/carousel';
-import Image from 'src/views/components/image';
-import Typography from 'src/views/components/typography';
-import ProductFeature from 'src/views/pages/details/productFeature';
-import DatePicker from 'react-datepicker';
+const Carousel = dynamic(() => import('src/views/components/carousel'), { ssr: true })
+const Image = dynamic(() => import('src/views/components/image'), { ssr: true })
+const Typography = dynamic(() => import('src/views/components/typography'), { ssr: true })
+
+const ProductFeature = dynamic(() => import('src/views/pages/details/productFeature'), { ssr: true })
+const DatePicker = dynamic(() => import('react-datepicker'), { ssr: false })
 
 import 'react-datepicker/dist/react-datepicker.css'
 
-import PriceCalcCard from 'src/views/pages/details/priceCalcCard';
-import InsuranceCard from 'src/views/pages/details/insuranceCard';
-import MapPicker from 'src/views/components/mapPicker';
-import Review from 'src/views/components/review';
-import ReviewCard from 'src/views/pages/details/reviewCard.tsx';
-import LessorInformationCard from 'src/views/pages/details/lessorInformationCard';
-import DetailsPageHeader from 'src/views/pages/details/detailsPageHeader';
-import Divider from 'src/views/components/divider';
-import EntityInformationCard from 'src/views/pages/details/entitiInformationCard';
-import Drawer from 'src/views/pages/details/drawer';
-import ResponsivePriceCalcCard from 'src/views/pages/details/responsivePriceCalcCard';
-import ProductCard from 'src/views/components/productCard';
-import ProductImagesDialog from 'src/views/pages/details/productImagesDialog';
+const PriceCalcCard = dynamic(() => import('src/views/pages/details/priceCalcCard'), { ssr: true })
+const InsuranceCard = dynamic(() => import('src/views/pages/details/insuranceCard'), { ssr: true })
+const MapPicker = dynamic(() => import('src/views/components/mapPicker'), { ssr: true })
+const Review = dynamic(() => import('src/views/components/review'), { ssr: true })
+const ReviewCard = dynamic(() => import('src/views/pages/details/reviewCard.tsx'), { ssr: true })
+const LessorInformationCard = dynamic(() => import('src/views/pages/details/lessorInformationCard'), { ssr: true })
+const DetailsPageHeader = dynamic(() => import('src/views/pages/details/detailsPageHeader'), { ssr: true })
+const Divider = dynamic(() => import('src/views/components/divider'), { ssr: true })
 
-import { ContentContainer, MaxWidthContainer } from 'src/styled/styles';
+const EntityInformationCard = dynamic(() => import('src/views/pages/details/entitiInformationCard'), { ssr: true })
+const Drawer = dynamic(() => import('src/views/pages/details/drawer'), { ssr: true })
+const ResponsivePriceCalcCard = dynamic(() => import('src/views/pages/details/responsivePriceCalcCard'), { ssr: true })
+const ProductCard = dynamic(() => import('src/views/components/productCard'), { ssr: true })
+const ProductImagesDialog = dynamic(() => import('src/views/pages/details/productImagesDialog'), { ssr: true })
 
-import SubNavItem from 'src/views/pages/details/subNavItem';
+import { ContentContainer, MaxWidthContainer } from 'src/styled/styles'
 
-import { useRouter } from 'next/router';
-import useDetails, { getSingleProductDetails } from './useDetails';
-import useWindowDimensions from 'src/hooks/useWindowDimensions';
-import { dehydrate, QueryClient } from '@tanstack/react-query';
+const SubNavItem = dynamic(() => import('src/views/pages/details/subNavItem'), { ssr: true })
+
+import { useRouter } from 'next/router'
+import useWindowDimensions from 'src/hooks/useWindowDimensions'
+import SearchService from 'src/services/SearchService'
+import { useQuery } from '@tanstack/react-query'
 
 const productImages = [
   <Image
@@ -93,8 +96,9 @@ const ProductDetails = () => {
   const router = useRouter()
 
   const { width } = useWindowDimensions()
-  const { id } = router?.query
-  const { singleProductDetails } = useDetails(id[0])
+  const { id } = router.query
+
+  const productId = id && id?.length > 0 ? id[0] : ''
 
   const [dateRange, setDateRange] = useState([null, null])
   const [startDate, endDate] = dateRange
@@ -123,8 +127,6 @@ const ProductDetails = () => {
     }
   }, [])
 
-  console.log(singleProductDetails, 'singleProductDetails')
-
   const handleClick = (id: string) => {
     const sectionToScroll = document.getElementById(id)
     sectionToScroll &&
@@ -140,6 +142,20 @@ const ProductDetails = () => {
   const toggleProductImageDialog = () => {
     setProductImageDialogOpen(!productImageDialogOpen)
   }
+
+  const fetchSingleProduct = async () => {
+    const response: any = await SearchService.getSingleProduct(productId)
+
+    return response.data?.result?.data
+  }
+
+  const {
+    data: singleProductDetails,
+  } = useQuery(['singleProduct', productId], fetchSingleProduct, {
+    enabled: !!productId 
+  })
+
+  console.log(singleProductDetails, 'singleProductDetails')
 
   return (
     <DefaultLayout>
@@ -198,8 +214,10 @@ const ProductDetails = () => {
               <Typography type='subtitle'>{singleProductDetails?.additional_information}</Typography>
               <EntityInformationCard name={singleProductDetails?.company_user?.company?.information?.name} />
             </div>
+
             <div className='my-8' id='features'>
               <Typography type='h3'>მახასიათებლები</Typography>
+
               <div className='mt-8 mb-11 grid grid-cols-1 lg:grid-cols-2 gap-4'>
                 <ProductFeature feature={`${singleProductDetails?.door_type?.title} კარი`} icon='/icons/printer.svg' />
                 <ProductFeature
@@ -225,8 +243,9 @@ const ProductDetails = () => {
             <Divider />
             <div className='my-8'>
               <Typography type='h3'>ფასი მოიცავს</Typography>
+
               <div className='mt-8 mb-11 grid grid-cols-1 lg:grid-cols-2 gap-4'>
-                {singleProductDetails?.product_additional_information.map(
+                {singleProductDetails?.product_additional_information?.map(
                   (feature: { additional_information: { title: string }; icon: string; id: string | number }) => (
                     <ProductFeature
                       feature={feature?.additional_information?.title}
@@ -286,7 +305,7 @@ const ProductDetails = () => {
               <div className='flex gap-4 items-center mt-10 mb-6'>
                 <Image src='/icons/locationOutline.svg' alt='' />
                 <Typography type='h5' weight='normal'>
-                  {singleProductDetails?.start_address}
+                  {/* {singleProductDetails?.start_address} */}
                 </Typography>
               </div>
               <div className='mb-20'>
@@ -321,7 +340,7 @@ const ProductDetails = () => {
         <Typography type='h3' className='block my-6 lg:hidden'>
           ფასი მოიცავს
         </Typography>
-        <LessorInformationCard id='informationcard' />
+        <LessorInformationCard id='informationcard' lessor={singleProductDetails?.company_user?.company?.information?.name} description={singleProductDetails?.company_user?.company?.information?.description} count={singleProductDetails?.company_user?.company?.count_company_poduct} />
         <Divider className='my-20' />
         <Typography type='h3'>მსგავსი მანქანები</Typography>
         <div className='flex gap-2 mt-10 overflow-auto'>
@@ -338,26 +357,6 @@ const ProductDetails = () => {
       <ProductImagesDialog open={productImageDialogOpen} setOpen={toggleProductImageDialog} images={productImages} />
     </DefaultLayout>
   )
-}
-
-const queryClient = new QueryClient()
-
-export async function getServerSideProps() {
-  try {
-    await queryClient.prefetchQuery({
-      queryKey: ['singleProductDetails'],
-      queryFn: () => getSingleProductDetails(9),
-      staleTime: Infinity
-    })
-
-    return {
-      props: {
-        dehydratedState: dehydrate(queryClient)
-      }
-    }
-  } catch (e) {
-    return { notFound: true }
-  }
 }
 
 export default ProductDetails
