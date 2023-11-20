@@ -41,21 +41,27 @@ const NewListingLayout: React.FC<Props> = ({
     <NewListingSelect options={options} onChange={onChange} selectedOption={selectedOption} />
   )
 
-  const { isAuthenticated, activeCompany } = useProfile()
+  const { isAuthenticated, activeCompany, isLoading } = useProfile()
 
   useEffect(() => {
-    if (isAuthenticated !== false) {
-      if (!!activeCompany && router?.pathname.includes('profile')) {
-        router.push(`/dashboard/dashboard`)
-      } else if (activeCompany === null && router?.pathname.includes('dashboard')) {
-        router.push('/profile/orders')
-      }
-    } else if (isAuthenticated === false) {
-      if (router?.pathname.includes('profile') || router?.pathname.includes('dashboard')) {
-        router.push('/')
+    if (!isLoading) {
+      if (isAuthenticated !== false) {
+        if (!!activeCompany && router?.pathname.includes('profile')) {
+          router.push(`/dashboard/dashboard`)
+        } else if (activeCompany === null && router?.pathname.includes('dashboard')) {
+          router.push('/profile/orders')
+        }
+      } else if (isAuthenticated === false) {
+        if (router?.pathname.includes('profile') || router?.pathname.includes('dashboard')) {
+          router.push('/')
+        }
       }
     }
   }, [!!activeCompany, isAuthenticated])
+
+  if (isLoading) {
+    return <p>Loading...</p>
+  }
 
   return (
     <MaxWidthContainer>

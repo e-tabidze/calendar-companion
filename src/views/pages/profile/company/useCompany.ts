@@ -8,6 +8,8 @@ import CompanyService from 'src/services/CompanyService'
 const useCompany = (id: number) => {
   const { companyInfo } = useCompanyInfo(id)
 
+  console.log(id, 'ID?')
+
   const defaultAddress: CompanyAddress[] = companyInfo?.addresses?.map((address: any) => ({
     id: address.id,
     address: address.address,
@@ -121,7 +123,7 @@ const useCompany = (id: number) => {
     mode: 'onChange',
     reValidateMode: 'onChange',
     defaultValues,
-    resolver: yupResolver(CompanySchema) 
+    resolver: yupResolver(CompanySchema)
   })
 
   const {

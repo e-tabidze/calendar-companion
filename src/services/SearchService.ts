@@ -5,7 +5,7 @@ class SearchService extends HttpService {
     return this.get('/product-filters')
   }
 
-  getSingleProduct(productId: string) {
+  getSingleProduct(productId: number | string) {
     return this.get(`/single-product/${productId}`)
   }
 

@@ -12,18 +12,20 @@ import { useEffect } from 'react'
 const DefaultHeader = () => {
   const router = useRouter()
 
-  const { isAuthenticated, activeCompany } = useProfile()
+  const { isAuthenticated, activeCompany, isLoading } = useProfile()
 
   useEffect(() => {
-    if (isAuthenticated !== false) {
-      if (!!activeCompany && router?.pathname.includes('profile')) {
-        router.push(`/dashboard/dashboard`)
-      } else if (activeCompany === null && router?.pathname.includes('dashboard')) {
-        router.push('/profile/orders')
-      }
-    } else if (isAuthenticated === false) {
-      if (router?.pathname.includes('profile') || router?.pathname.includes('dashboard')) {
-        router.push('/')
+    if (!isLoading) {
+      if (isAuthenticated !== false) {
+        if (!!activeCompany && router?.pathname.includes('profile')) {
+          router.push(`/dashboard/dashboard`)
+        } else if (activeCompany === null && router?.pathname.includes('dashboard')) {
+          router.push('/profile/orders')
+        }
+      } else if (isAuthenticated === false) {
+        if (router?.pathname.includes('profile') || router?.pathname.includes('dashboard')) {
+          router.push('/')
+        }
       }
     }
   }, [!!activeCompany, isAuthenticated])
@@ -35,6 +37,10 @@ const DefaultHeader = () => {
   const handleLogin = () => {
     const externalPageUrl = 'https://test.auth.tnet.ge/ka/user/login/?Continue=https://test-front-rent.myauto.ge/'
     window.location.href = externalPageUrl
+  }
+
+  if (isLoading) {
+    return <p>Loading...</p>
   }
 
   return (

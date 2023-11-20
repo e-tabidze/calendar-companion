@@ -1,19 +1,7 @@
 import { useEffect, useState } from 'react'
 import useWindowDimensions from 'src/hooks/useWindowDimensions'
 import { FullContainer } from 'src/styled/styles'
-import Divider from 'src/views/components/divider'
-import Image from 'src/views/components/image'
-import MapPicker from 'src/views/components/mapPicker'
-import ProductCard from 'src/views/components/productCard'
-import Switcher from 'src/views/components/switcher'
-import Tag from 'src/views/components/tag'
-import Typography from 'src/views/components/typography'
-import CategoryPopover from 'src/views/pages/search/categoryPopover'
-import FuelTypePopover from 'src/views/pages/search/fuelTypePopover'
-import PricePopover from 'src/views/pages/search/pricePopover'
-import SeatsPopover from 'src/views/pages/search/seatsPopover'
-import SuitcasesPopover from 'src/views/pages/search/suitcasesPopover'
-import AdditionalFilters from 'src/views/components/additionalFilters'
+
 import {
   ClearFiltersWrapper,
   FiltersWrapper,
@@ -23,13 +11,28 @@ import {
   SearchContentsContainer,
   SearchResultsContainer
 } from '../../views/pages/search/styles'
-import ToggleMapButton from '../../views/pages/search/toggleMapButton'
 
 import Icon from 'src/views/app/Icon'
 import SearchLayout from '../../layouts/SearchLayout'
 import useSearch from 'src/hooks/useSearch'
 import { useRouter } from 'next/router'
 import { IconTextButton } from 'src/views/components/button'
+import dynamic from 'next/dynamic'
+
+const Divider = dynamic(() => import('src/views/components/divider'), { ssr: true })
+const Image = dynamic(() => import('src/views/components/image'), { ssr: true })
+const MapPicker = dynamic(() => import('src/views/components/mapPicker'), { ssr: true })
+const ProductCard = dynamic(() => import('src/views/components/productCard'), { ssr: true })
+const Switcher = dynamic(() => import('src/views/components/switcher'), { ssr: true })
+const Tag = dynamic(() => import('src/views/components/tag'), { ssr: true })
+const Typography = dynamic(() => import('src/views/components/typography'), { ssr: true })
+const CategoryPopover = dynamic(() => import('src/views/pages/search/categoryPopover'), { ssr: true })
+const FuelTypePopover = dynamic(() => import('src/views/pages/search/fuelTypePopover'), { ssr: true })
+const PricePopover = dynamic(() => import('src/views/pages/search/pricePopover'), { ssr: true })
+const SeatsPopover = dynamic(() => import('src/views/pages/search/seatsPopover'), { ssr: true })
+const SuitcasesPopover = dynamic(() => import('src/views/pages/search/suitcasesPopover'), { ssr: true })
+const AdditionalFilters = dynamic(() => import('src/views/components/additionalFilters'), { ssr: true })
+const ToggleMapButton = dynamic(() => import('../../views/pages/search/toggleMapButton'), { ssr: true })
 
 const SearchPage = () => {
   const {
@@ -79,6 +82,8 @@ const SearchPage = () => {
     const updatedSearchValues = getValues()
     router.push(`/search?${objectToURI(updatedSearchValues)}`)
   }
+
+  console.log(productsData, 'productsData')
 
   return (
     <>
@@ -189,7 +194,7 @@ const SearchPage = () => {
                       {width < 1025 && (
                         <Tag
                           component={<Image src='/icons/filters.svg' alt='' />}
-                          className="bg-grey-60"
+                          className='bg-grey-60'
                           label={'ფილტრი'}
                           height='h-10'
                           handleClick={() => toggleFilters(!filters)}
@@ -223,7 +228,14 @@ const SearchPage = () => {
                   }`}
                 >
                   {productsData?.map((product: any) => (
-                    <ProductCard key={product.id} />
+                    <ProductCard
+                      key={product.id}
+                      productId={product.id}
+                      manufacturer={product?.manufacturer?.title}
+                      model={product?.manufacturer_model?.title}
+                      prodYear={product?.prod_year}
+                      priceGel={product?.price_gel}
+                    />
                   ))}
                 </div>
               )}

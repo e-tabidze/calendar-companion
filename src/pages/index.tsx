@@ -15,16 +15,16 @@ import tw from 'tailwind-styled-components'
 const MainPageBox = tw.div<TailwindDiv>`flex w-full items-center flex-col`
 
 const productArray = [
-  <ProductCard key={1} swiperCard={true} />,
-  <ProductCard key={2} swiperCard={true} />,
-  <ProductCard key={3} swiperCard={true} />,
-  <ProductCard key={4} swiperCard={true} />,
-  <ProductCard key={5} swiperCard={true} />,
-  <ProductCard key={6} swiperCard={true} />,
-  <ProductCard key={7} swiperCard={true} />,
-  <ProductCard key={8} swiperCard={true} />,
-  <ProductCard key={9} swiperCard={true} />,
-  <ProductCard key={10} swiperCard={true} />
+  <ProductCard key={1} swiperCard={true} productId={0} manufacturer={''} model={''} prodYear={0} priceGel={0} />,
+  <ProductCard key={2} swiperCard={true} productId={0} manufacturer={''} model={''} prodYear={0} priceGel={0} />,
+  <ProductCard key={3} swiperCard={true} productId={0} manufacturer={''} model={''} prodYear={0} priceGel={0} />,
+  <ProductCard key={4} swiperCard={true} productId={0} manufacturer={''} model={''} prodYear={0} priceGel={0} />,
+  <ProductCard key={5} swiperCard={true} productId={0} manufacturer={''} model={''} prodYear={0} priceGel={0} />,
+  <ProductCard key={6} swiperCard={true} productId={0} manufacturer={''} model={''} prodYear={0} priceGel={0} />,
+  <ProductCard key={7} swiperCard={true} productId={0} manufacturer={''} model={''} prodYear={0} priceGel={0} />,
+  <ProductCard key={8} swiperCard={true} productId={0} manufacturer={''} model={''} prodYear={0} priceGel={0} />,
+  <ProductCard key={9} swiperCard={true} productId={0} manufacturer={''} model={''} prodYear={0} priceGel={0} />,
+  <ProductCard key={10} swiperCard={true} productId={0} manufacturer={''} model={''} prodYear={0} priceGel={0} />
 ]
 
 // const categories = categoryArray.map((item, key) => <CategoryCard category={item.type} key={key} />)
