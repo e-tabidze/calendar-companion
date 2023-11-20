@@ -69,7 +69,7 @@ const Avatar = () => {
 
   const queryClient = useQueryClient()
 
-  const { userInfo, userCompanies, postSwitchProfile, activeCompany, router, isAuthenticated, activeCompanyId } =
+  const { userInfo, userCompanies, postSwitchProfile, activeCompany, router, activeCompanyId } =
     useProfile()
 
   const switchProfileMutation = useMutation((active_profile_id: string) => postSwitchProfile('', active_profile_id), {
