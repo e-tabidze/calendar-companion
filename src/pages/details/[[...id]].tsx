@@ -164,10 +164,10 @@ const ProductDetails = () => {
 
   console.log(bookingValues, 'bookingValues')
 
-  const onSubmit = (data: any) => {
+  const onSubmit = () => {
     router.push({
       pathname: '/booking',
-      query: data
+      query: { book_from: bookingValues.booking.book_from, book_to: bookingValues.booking.book_to }
     })
   }
 
@@ -356,6 +356,7 @@ const ProductDetails = () => {
                   endDate &&
                   Math.round((endDate.getTime() - startDate.getTime()) / (24 * 60 * 60 * 1000)) + 1
                 }
+                onClick={onSubmit}
               />
             </div>
           </div>

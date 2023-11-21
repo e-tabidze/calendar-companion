@@ -13,6 +13,7 @@ import { useRouter } from 'next/router'
 import useWindowDimensions from 'src/hooks/useWindowDimensions'
 import Drawer from 'src/views/pages/details/drawer'
 import ResponsivePriceCalcCard from 'src/views/pages/details/responsivePriceCalcCard'
+import useBooking from 'src/views/pages/booking/useBooking'
 
 const Booking = () => {
   const [additionalServices, toggleAdditionalServices] = useState(false)
@@ -21,7 +22,9 @@ const Booking = () => {
 
   const { width } = useWindowDimensions()
 
-  const { control } = useForm()
+  const { control, bookingValues } = useBooking()
+
+  console.log(bookingValues, 'bookingValues')
 
   const toggleDrawer = () => setIsOpenDrawer(!isOpenDrawer)
 
@@ -68,12 +71,12 @@ const Booking = () => {
               პირადი ინფორმაცია *
             </Typography>
             <div className='grid gap-3 my-6 grid-cols-1 lg:grid-cols-2 lg:gap-4'>
-              <DefaultInput label='სახელი, გვარი' value='' control={control} name='' errors={""} />
-              <DefaultInput label='სახელი, გვარი' value='' control={control} name='' errors={""} />
-              <DefaultInput label='სახელი, გვარი' value='' control={control} name='' errors={""} />
-              <DefaultInput label='სახელი, გვარი' value='' control={control} name='' errors={""} />
-              <DefaultInput label='სახელი, გვარი' value='' control={control} name='' errors={""} />
-              <DefaultInput label='სახელი, გვარი' value='' control={control} name='' errors={""} />
+              <DefaultInput label='სახელი, გვარი' value='' control={control} name='name' errors={''} />
+              <DefaultInput label='სახელი, გვარი' value='' control={control} name='surname' errors={''} />
+              <DefaultInput label='სახელი, გვარი' value='' control={control} name='and' errors={''} />
+              <DefaultInput label='სახელი, გვარი' value='' control={control} name='other' errors={''} />
+              <DefaultInput label='სახელი, გვარი' value='' control={control} name='booking' errors={''} />
+              <DefaultInput label='სახელი, გვარი' value='' control={control} name='fields' errors={''} />
             </div>
             <Typography type='body' color='light' className='mb-14'>
               გთხოვთ გადაამოწმოთ მითითებული პარამეტრები და შემდეგ დაასრულოთ დაჯავშნის პროცესი, ეს პარამეტრები
@@ -113,7 +116,15 @@ const Booking = () => {
           </div>
 
           <div className='hidden md:inline-block w-5/12 lg:w-4/12'>
-            <PriceCalcCard price={0} dates={''} days={null} className={''} />
+            <PriceCalcCard
+              price={0}
+              dates={''}
+              days={null}
+              className={''}
+              onClick={function (): void {
+                throw new Error('Function not implemented.')
+              }}
+            />
           </div>
         </ContentContainer>
       </LargeContainer>

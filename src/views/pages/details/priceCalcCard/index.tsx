@@ -6,9 +6,10 @@ interface Props {
   dates: string
   days: number | null
   className: string
+  onClick: () => void
 }
 
-const PriceCalcCard: React.FC<Props> = ({ price, dates, days, className }) => {
+const PriceCalcCard: React.FC<Props> = ({ price, dates, days, className, onClick }) => {
   return (
     <div className={`shadow-2xl w-full rounded-3xl pt-5 px-4 lg:px-6 pb-10 ${className}`}>
       <div className='flex items-center gap-2'>
@@ -81,7 +82,7 @@ const PriceCalcCard: React.FC<Props> = ({ price, dates, days, className }) => {
         </Typography>
       </div>
 
-      <DefaultButton bg='bg-orange-100' text='ჯავშნის დაწყება' className='w-full' textColor='text-white' />
+      <DefaultButton bg='bg-orange-100' text='ჯავშნის დაწყება' className='w-full' textColor='text-white' type="submit" onClick={onClick} />
     </div>
   )
 }
