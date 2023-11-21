@@ -113,7 +113,7 @@ const Booking = () => {
           </div>
 
           <div className='hidden md:inline-block w-5/12 lg:w-4/12'>
-            <PriceCalcCard />
+            <PriceCalcCard price={0} dates={''} days={null} className={''} />
           </div>
         </ContentContainer>
       </LargeContainer>
