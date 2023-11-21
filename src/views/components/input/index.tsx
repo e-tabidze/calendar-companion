@@ -198,7 +198,7 @@ export const InputWithComponent: React.FC<Props> = ({ label, className, onCompon
         />
         <div className='flex items-center gap-3 w-fit absolute h-full right-0 top-0 border-l border-raisin-10 px-5 cursor-pointer'>
           <Image src='/icons/map.svg' alt='' height={24} width={24} onClick={onComponentClick} />
-          <Typography type='subtitle'>რუკაზე</Typography>
+          <Typography type='subtitle' className="hidden sm:flex">რუკაზე</Typography>
         </div>
       </InputContainer>
     </>
