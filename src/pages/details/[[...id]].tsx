@@ -11,19 +11,16 @@ const DatePicker = dynamic(() => import('react-datepicker'), { ssr: false })
 
 import 'react-datepicker/dist/react-datepicker.css'
 
-const PriceCalcCard = dynamic(() => import('src/views/pages/details/priceCalcCard'), { ssr: true })
-const InsuranceCard = dynamic(() => import('src/views/pages/details/insuranceCard'), { ssr: true })
+const PriceCalcCard = dynamic(() => import('src/views/pages/details/priceCalcCard'), { ssr: false })
+const InsuranceCard = dynamic(() => import('src/views/pages/details/insuranceCard'), { ssr: false })
 const MapPicker = dynamic(() => import('src/views/components/mapPicker'), { ssr: true })
-const Review = dynamic(() => import('src/views/components/review'), { ssr: true })
-const ReviewCard = dynamic(() => import('src/views/pages/details/reviewCard.tsx'), { ssr: true })
 const LessorInformationCard = dynamic(() => import('src/views/pages/details/lessorInformationCard'), { ssr: true })
 const DetailsPageHeader = dynamic(() => import('src/views/pages/details/detailsPageHeader'), { ssr: true })
-const Divider = dynamic(() => import('src/views/components/divider'), { ssr: true })
+const Divider = dynamic(() => import('src/views/components/divider'), { ssr: false })
 
 const EntityInformationCard = dynamic(() => import('src/views/pages/details/entitiInformationCard'), { ssr: true })
-const Drawer = dynamic(() => import('src/views/pages/details/drawer'), { ssr: true })
-const ResponsivePriceCalcCard = dynamic(() => import('src/views/pages/details/responsivePriceCalcCard'), { ssr: true })
-const ProductCard = dynamic(() => import('src/views/components/productCard'), { ssr: true })
+const Drawer = dynamic(() => import('src/views/pages/details/drawer'), { ssr: false })
+const ResponsivePriceCalcCard = dynamic(() => import('src/views/pages/details/responsivePriceCalcCard'), { ssr: false })
 const ProductImagesDialog = dynamic(() => import('src/views/pages/details/productImagesDialog'), { ssr: true })
 
 import { ContentContainer, MaxWidthContainer } from 'src/styled/styles'
@@ -34,6 +31,11 @@ import { useRouter } from 'next/router'
 import useWindowDimensions from 'src/hooks/useWindowDimensions'
 import SearchService from 'src/services/SearchService'
 import { useQuery } from '@tanstack/react-query'
+
+const SimilarProducts = dynamic(() => import('src/views/pages/details/similarProducts'), { ssr: true })
+
+const Reviews = dynamic(() => import('src/views/pages/details/reviews'), { ssr: true })
+const Features = dynamic(() => import('src/views/pages/details/features'), { ssr: true })
 
 const productImages = [
   <Image
@@ -149,10 +151,8 @@ const ProductDetails = () => {
     return response.data?.result?.data
   }
 
-  const {
-    data: singleProductDetails,
-  } = useQuery(['singleProduct', productId], fetchSingleProduct, {
-    enabled: !!productId 
+  const { data: singleProductDetails } = useQuery(['singleProduct', productId], fetchSingleProduct, {
+    enabled: !!productId
   })
 
   console.log(singleProductDetails, 'singleProductDetails')
@@ -215,31 +215,8 @@ const ProductDetails = () => {
               <EntityInformationCard name={singleProductDetails?.company_user?.company?.information?.name} />
             </div>
 
-            <div className='my-8' id='features'>
-              <Typography type='h3'>მახასიათებლები</Typography>
+            <Features id='features' singleProductDetails={singleProductDetails} />
 
-              <div className='mt-8 mb-11 grid grid-cols-1 lg:grid-cols-2 gap-4'>
-                <ProductFeature feature={`${singleProductDetails?.door_type?.title} კარი`} icon='/icons/printer.svg' />
-                <ProductFeature
-                  feature={`წამყვანი თვლები - ${singleProductDetails?.drive_tires?.title}`}
-                  icon='/icons/printer.svg'
-                />
-                <ProductFeature feature={singleProductDetails?.fuel_type?.title} icon='/icons/printer.svg' />
-                <ProductFeature
-                  feature={`${singleProductDetails?.luggage_numbers || 0} ჩემოდანი`}
-                  icon='/icons/printer.svg'
-                />
-                <ProductFeature
-                  feature={`გარბენი - ${singleProductDetails?.car_run} ${singleProductDetails?.measure}`}
-                  icon='/icons/printer.svg'
-                />
-                <ProductFeature
-                  feature={`${singleProductDetails?.seat_type?.title} მგზავრი`}
-                  icon='/icons/printer.svg'
-                />
-                <ProductFeature feature={singleProductDetails?.transmission_type?.title} icon='/icons/printer.svg' />
-              </div>
-            </div>
             <Divider />
             <div className='my-8'>
               <Typography type='h3'>ფასი მოიცავს</Typography>
@@ -298,6 +275,7 @@ const ProductDetails = () => {
                 </div>
               </div>
             </div>
+
             <Divider />
 
             <div className='mt-20 md:mt-40'>
@@ -305,33 +283,13 @@ const ProductDetails = () => {
               <div className='flex gap-4 items-center mt-10 mb-6'>
                 <Image src='/icons/locationOutline.svg' alt='' />
                 <Typography type='h5' weight='normal'>
-                  {/* {singleProductDetails?.start_address} */}
+                  {singleProductDetails?.start_address}
                 </Typography>
               </div>
-              <div className='mb-20'>
-                <MapPicker height='300px' borderRadius='30px' />
-              </div>
+              <MapPicker height='300px' borderRadius='30px' />
             </div>
             <Divider />
-
-            <div id='reviews'>
-              <Typography type='h3'>შეფასებები</Typography>
-              <div className='flex items-center gap-5 mt-10 mb-5'>
-                <Review review={4.5} size='large' />
-                <Typography type='h5' weight='normal'>
-                  206 შეფასება
-                </Typography>
-              </div>
-
-              <div className='flex overflow-scroll lg:grid grid-cols-1 lg:grid-cols-2 gap-4 mb-20'>
-                <ReviewCard />
-                <ReviewCard />
-                <ReviewCard />
-                <ReviewCard />
-                <ReviewCard />
-                <ReviewCard />
-              </div>
-            </div>
+            <Reviews id='reviews' />
           </div>
           <div className='hidden md:inline-block w-5/12 lg:w-4/12'>
             <PriceCalcCard />
@@ -340,14 +298,14 @@ const ProductDetails = () => {
         <Typography type='h3' className='block my-6 lg:hidden'>
           ფასი მოიცავს
         </Typography>
-        <LessorInformationCard id='informationcard' lessor={singleProductDetails?.company_user?.company?.information?.name} description={singleProductDetails?.company_user?.company?.information?.description} count={singleProductDetails?.company_user?.company?.count_company_poduct} />
+        <LessorInformationCard
+          id='informationcard'
+          lessor={singleProductDetails?.company_user?.company?.information?.name}
+          description={singleProductDetails?.company_user?.company?.information?.description}
+          count={singleProductDetails?.company_user?.company?.count_company_poduct}
+        />
         <Divider className='my-20' />
-        <Typography type='h3'>მსგავსი მანქანები</Typography>
-        <div className='flex gap-2 mt-10 overflow-auto'>
-          <ProductCard productId={0} manufacturer={''} model={''} prodYear={0} priceGel={0} />
-          <ProductCard productId={0} manufacturer={''} model={''} prodYear={0} priceGel={0} />
-          <ProductCard productId={0} manufacturer={''} model={''} prodYear={0} priceGel={0} />
-        </div>
+        <SimilarProducts />
       </ContentContainer>
       {isOpenDrawer && width < 779 ? (
         <Drawer isOpenDrawer={isOpenDrawer} setIsOpenDrawer={setIsOpenDrawer} />
