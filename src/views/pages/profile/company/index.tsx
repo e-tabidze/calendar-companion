@@ -76,28 +76,37 @@ const Company: React.FC<Props> = ({ id, name, productsCount }) => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <div className='md:border border-raisin-10 rounded-3xl'>
+      <div className='md:border border-raisin-10 rounded-3xl mx-[16px] lg:mx-0'>
         <div className='p-2 md:p-6'>
-          <div className='flex items-center gap-6 mb-10'>
-            <Image src='/images/avatar.png' alt='' height={96} width={97} className='rounded-3xl' />
+          <div className='flex items-center gap-6 md:mb-10'>
+            <div className='flex items-center justify-center border border-raisin-10 rounded-[16px] md:rounded-[24px] w-[76px] h-[76px] md:w-[96px] md:h-[96px]'>
+              <Image src='/images/avatar.png' alt='' height={96} width={97} className='rounded-3xl' />
+            </div>
             <div>
-              <Typography type='h3' className='font-bold'>
+              <Typography type='h3' className='font-bold text-[20px] md:text-[24px]'>
                 {name}
               </Typography>
-              <Link href='/' className='text-blue-100 underline'>
+              <Link href='/' className='text-blue-80 text-[14px] underline'>
                 სულ {productsCount}  განცხადება
               </Link>
             </div>
           </div>
-          <Divider />
+          <Divider className='hidden md:flex' />
           <div className='grid grid-cols-2 gap-4 my-10'>
-            <DefaultInput name='identification_number' control={control} errors={errors} label='საიდენტიფიკაციო კოდი' />
+            <DefaultInput
+              name='identification_number'
+              control={control}
+              errors={errors}
+              label='საიდენტიფიკაციო კოდი'
+              className='col-span-2 sm:col-span-1'
+            />
             <DefaultInput
               name='company_information.name'
               control={control}
               errors={errors}
               disabled
               label='იურიდიული დასახელება'
+              className='col-span-2 sm:col-span-1'
             />
             <DefaultInput
               name='company_information.name'
@@ -115,7 +124,7 @@ const Company: React.FC<Props> = ({ id, name, productsCount }) => {
               label='აღწერა'
             />
           </div>
-          <Typography type='h3' className='font-bold'>
+          <Typography type='h3' className='font-bold text-[20px] md:text-[24px]'>
             მისამართები და განრიგი
           </Typography>
 
@@ -148,16 +157,23 @@ const Company: React.FC<Props> = ({ id, name, productsCount }) => {
             type='button'
           />
 
-          <Typography type='h3' className='font-bold mt-24'>
+          <Typography type='h3' className='font-bold mt-24 text-[20px] md:text-[24px]'>
             საკონტაქტო
           </Typography>
           <div className='grid grid-cols-2 gap-4 my-5'>
-            <DefaultInput name='company_information.email' control={control} errors={errors} label='ელ. ფოსტა' />
+            <DefaultInput
+              name='company_information.email'
+              control={control}
+              errors={errors}
+              label='ელ. ფოსტა'
+              className='col-span-2 md:col-span-1'
+            />
             <DefaultInput
               name='company_information.phone_numbers'
               control={control}
               errors={errors}
               label='ტელეფონის ნომერი'
+              className='col-span-2 md:col-span-1'
             />
           </div>
         </div>

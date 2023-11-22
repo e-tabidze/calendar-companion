@@ -53,11 +53,11 @@ const AddressAndSchedule: React.FC<Props> = ({ index, control, address, errors }
         <div
           className={`w-full flex flex-col justify-between p-4 lg:flex-row ${
             formState.addresses[index].is_same_time === 1 ? 'lg:items-center' : 'lg:items-start'
-          } gap-12`}
+          } gap-4 sm:gap-12`}
         >
           <div className='flex items-center gap-4 w-full'>
             {formState.addresses[index].is_same_time === 1 ? (
-              <div className='w-full flex justify-between items-center'>
+              <div className='w-full flex flex-col sm:flex-row justify-between sm:items-center'>
                 <div className='flex gap-4'>
                   {days.map(day => (
                     <Controller
@@ -68,8 +68,7 @@ const AddressAndSchedule: React.FC<Props> = ({ index, control, address, errors }
                     />
                   ))}
                 </div>
-                <Typography type='subtitle'>
-                  <> {console.log(formState.addresses[index], 'formState.addresses[index]')} </>
+                <Typography type='subtitle' className='mt-[16px] sm:mt-0'>
                   {formState.addresses[index].start_time} - {formState.addresses[index].end_time}
                 </Typography>
               </div>
