@@ -76,9 +76,11 @@ export const DefaultInput: React.FC<Props> = ({
               onBlur={handleBlur}
               disabled={disabled}
               value={value || ''}
-              className={`placeholder:text-[13px] ${rows ? 'pt-4' : 'h-14'} ${styles.input} ${value || isFocused ? 'pb-1 pt-3' : 'pt-2 pb-2'} ${
-                !disabled ? 'hover:border-raisin-30' : ''
-              } ${_.get(errors, name)?.ref.name === name ? 'border border-red-100' : ''}`}
+              className={`placeholder:text-[13px] ${rows ? 'pt-4' : 'h-14'} ${styles.input} ${
+                value || isFocused ? 'pb-1 pt-3' : 'pt-2 pb-2'
+              } ${!disabled ? 'hover:border-raisin-30' : ''} ${
+                _.get(errors, name)?.ref.name === name ? 'border border-red-100' : ''
+              }`}
               type='text'
               onChange={e => {
                 onChange(e)
@@ -163,7 +165,7 @@ export const PasswordInput = ({ label, value, className, onChange, ...rest }: an
   )
 }
 
-export const InputWithComponent: React.FC<Props> = ({ label, className, onComponentClick, name, control }) => {
+export const InputWithComponent: React.FC<Props> = ({ label, className, onComponentClick, name, control, errors, id }) => {
   const [isFocused, setIsFocused] = useState(false)
 
   const handleFocus = () => setIsFocused(true)
@@ -193,6 +195,11 @@ export const InputWithComponent: React.FC<Props> = ({ label, className, onCompon
                 type='text'
                 onChange={e => onChange(e)}
               />
+              {errors && (
+                <div id={id} className='text-sm text-red-100 absolute bottom-0'>
+                  {_.get(errors, name)?.message}
+                </div>
+              )}
             </>
           )}
         />

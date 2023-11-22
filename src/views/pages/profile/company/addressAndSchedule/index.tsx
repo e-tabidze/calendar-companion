@@ -68,7 +68,7 @@ const AddressAndSchedule: React.FC<Props> = ({ index, control, address, errors }
                     />
                   ))}
                 </div>
-                <Typography type='subtitle' className="mt-[16px] sm:mt-0">
+                <Typography type='subtitle' className='mt-[16px] sm:mt-0'>
                   {formState.addresses[index].start_time} - {formState.addresses[index].end_time}
                 </Typography>
               </div>

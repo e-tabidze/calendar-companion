@@ -1,18 +1,27 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useState } from 'react'
 import { DefaultButton, IconTextButton } from 'src/views/components/button'
 import Divider from 'src/views/components/divider'
 import { DefaultInput } from 'src/views/components/input'
 import Typography from 'src/views/components/typography'
 import AddressAndSchedule from './addressAndSchedule'
+import DeleteAddressConfirmationModal from './deleteAddressConfirmationModal'
+import DeleteCompanyConfirmationModal from './deleteCompanyConfirmationModal'
 import useCompany from './useCompany'
 
 interface Props {
   id: number
+  name: string
+  productsCount: number
 }
 
-const Company: React.FC<Props> = ({ id }) => {
+const Company: React.FC<Props> = ({ id, name, productsCount }) => {
+  const [deleteAddresseModal, setDeleteAddressModal] = useState(false)
+  const [deleteCompanyeModal, setDeleteCompanyModal] = useState(false)
+  const [deleteAddressId, setDeleteAddressId] = useState<number | null>(null)
+  const [index, setIndex] = useState<number>()
   const {
     control,
     errors,
@@ -23,9 +32,13 @@ const Company: React.FC<Props> = ({ id }) => {
     remove,
     handleSubmit,
     updateCompanyInfo,
-    deleteCompany
+    deleteCompany,
+    deleteCompanyAddress
   } = useCompany(id)
 
+  const toggleDeleteAddressModal = () => setDeleteAddressModal(!deleteAddresseModal)
+
+  const toggleDeleteCompanyModal = () => setDeleteCompanyModal(!deleteCompanyeModal)
 
   const queryClient = useQueryClient()
 
@@ -41,6 +54,13 @@ const Company: React.FC<Props> = ({ id }) => {
     }
   })
 
+  const deleteCompanyAddressMutation = useMutation((id: number) => deleteCompanyAddress(id), {
+    onSuccess: () => {
+      queryClient.invalidateQueries(['companyInfo'])
+      remove(index)
+    }
+  })
+
   const onSubmit = () => {
     console.log(companyValues, 'companyValues')
     updateCompanyMutation.mutate(companyValues)
@@ -50,31 +70,35 @@ const Company: React.FC<Props> = ({ id }) => {
     deleteCompanyMutation.mutate()
   }
 
+  const deletCompanyAddress = () => {
+    deleteAddressId && deleteCompanyAddressMutation.mutate(deleteAddressId)
+  }
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className='md:border border-raisin-10 rounded-3xl mx-[16px] lg:mx-0'>
         <div className='p-2 md:p-6'>
           <div className='flex items-center gap-6 md:mb-10'>
-            <div className="flex items-center justify-center border border-raisin-10 rounded-[16px] md:rounded-[24px] w-[76px] h-[76px] md:w-[96px] md:h-[96px]">
+            <div className='flex items-center justify-center border border-raisin-10 rounded-[16px] md:rounded-[24px] w-[76px] h-[76px] md:w-[96px] md:h-[96px]'>
               <Image src='/images/avatar.png' alt='' height={96} width={97} className='rounded-3xl' />
             </div>
             <div>
               <Typography type='h3' className='font-bold text-[20px] md:text-[24px]'>
-                ბენე პლიუსი {id}
+                {name}
               </Typography>
               <Link href='/' className='text-blue-80 text-[14px] underline'>
-                სულ 16  განცხადება
+                სულ {productsCount}  განცხადება
               </Link>
             </div>
           </div>
-          <Divider className="hidden md:flex" />
+          <Divider className='hidden md:flex' />
           <div className='grid grid-cols-2 gap-4 my-10'>
             <DefaultInput
-                name='identification_number'
-                control={control}
-                errors={errors}
-                label='საიდენტიფიკაციო კოდი'
-                className="col-span-2 sm:col-span-1"
+              name='identification_number'
+              control={control}
+              errors={errors}
+              label='საიდენტიფიკაციო კოდი'
+              className='col-span-2 sm:col-span-1'
             />
             <DefaultInput
               name='company_information.name'
@@ -82,7 +106,7 @@ const Company: React.FC<Props> = ({ id }) => {
               errors={errors}
               disabled
               label='იურიდიული დასახელება'
-              className="col-span-2 sm:col-span-1"
+              className='col-span-2 sm:col-span-1'
             />
             <DefaultInput
               name='company_information.name'
@@ -104,7 +128,7 @@ const Company: React.FC<Props> = ({ id }) => {
             მისამართები და განრიგი
           </Typography>
 
-          {addressFields.map((address, index) => (
+          {addressFields.map((address: any, index: number) => (
             <div key={address.id}>
               <AddressAndSchedule index={index} control={control} address={address} errors={errors} />
               <div className='w-full flex justify-end pr-8'>
@@ -113,7 +137,11 @@ const Company: React.FC<Props> = ({ id }) => {
                   label='წაშლა'
                   width={16}
                   height={16}
-                  onClick={() => remove(index)}
+                  onClick={() => {
+                    setIndex(index)
+                    toggleDeleteAddressModal()
+                    setDeleteAddressId(address.dummyAddressId)
+                  }}
                 />
               </div>
             </div>
@@ -134,18 +162,18 @@ const Company: React.FC<Props> = ({ id }) => {
           </Typography>
           <div className='grid grid-cols-2 gap-4 my-5'>
             <DefaultInput
-                name='company_information.email'
-                control={control}
-                errors={errors}
-                label='ელ. ფოსტა'
-                className="col-span-2 md:col-span-1"
+              name='company_information.email'
+              control={control}
+              errors={errors}
+              label='ელ. ფოსტა'
+              className='col-span-2 md:col-span-1'
             />
             <DefaultInput
               name='company_information.phone_numbers'
               control={control}
               errors={errors}
               label='ტელეფონის ნომერი'
-              className="col-span-2 md:col-span-1"
+              className='col-span-2 md:col-span-1'
             />
           </div>
         </div>
@@ -156,10 +184,22 @@ const Company: React.FC<Props> = ({ id }) => {
             label='კომპანიის წაშლა'
             icon='/icons/trash.svg'
             className='text-orange-130'
-            onClick={deletCompany}
+            onClick={toggleDeleteCompanyModal}
           />
         </div>
       </div>
+      <DeleteAddressConfirmationModal
+        open={deleteAddresseModal}
+        toggleModal={toggleDeleteAddressModal}
+        addressId={deleteAddressId}
+        deleteAddress={deletCompanyAddress}
+      />
+      <DeleteCompanyConfirmationModal
+        open={deleteCompanyeModal}
+        toggleModal={toggleDeleteCompanyModal}
+        companyId={id}
+        deleteCompany={deletCompany}
+      />
     </form>
   )
 }

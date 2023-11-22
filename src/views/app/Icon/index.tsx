@@ -6,9 +6,10 @@ type SvgProps = {
     height?: number | string;
     color?: string;
     className?: string;
+    onClick?: () => void
 };
 
-function Icon({ svgPath, width='auto', height='auto', className = '', color }: SvgProps) {
+function Icon({ svgPath, width='auto', height='auto', className = '', color, onClick }: SvgProps) {
     const [svgContent, setSvgContent] = useState(null);
 
     useEffect(() => {
@@ -34,6 +35,7 @@ function Icon({ svgPath, width='auto', height='auto', className = '', color }: S
         width: width,
         height: height,
         className: className,
+        onClick: onClick
     });
 
     return <>{modifiedSvg}</>;

@@ -27,6 +27,10 @@ class CompanyService extends HttpService {
     return this.put(`/companies/${company_id}`, company, AccessToken ? { Authorization: `${AccessToken}` } : {})
   }
 
+  deleteCompanyAddress(AccessToken = '', id: string | number) {
+    return this.delete(`/addresses/${id}`, AccessToken ? { Authorization: `${AccessToken}` } : {})
+  }
+
   deleteCompany(AccessToken = '', company_id: number) {
     return this.delete(`/companies/${company_id}`, AccessToken ? { Authorization: `${AccessToken}` } : {})
   }

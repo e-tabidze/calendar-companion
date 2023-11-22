@@ -51,7 +51,7 @@ const routes = [
     icon: '',
     item: 'შეტყობინებები',
     path: '/profile/notifications'
-  },
+  }
 ]
 
 const ProfileRouter = ({ userInfo }: { userInfo: UserInfo }) => {
@@ -74,6 +74,8 @@ const ProfileRouter = ({ userInfo }: { userInfo: UserInfo }) => {
   }
   const { companyInfo, isLoading } = useCompanyInfo(Number(companyid))
 
+  console.log(companyInfo, 'companyInfo')
+
   if (key.startsWith('/company/')) {
     if (isLoading) {
       return <div>Loading...</div>
@@ -83,7 +85,7 @@ const ProfileRouter = ({ userInfo }: { userInfo: UserInfo }) => {
       queryClient.invalidateQueries(queryKey)
     }
 
-    return companyid && companyInfo ? <Company id={Number(companyid)} /> : <></>
+    return companyid && companyInfo ? <Company id={Number(companyid)} name={companyInfo?.information?.name} productsCount={companyInfo?.count_company_poduct} /> : <></>
   }
 
   switch (key) {
@@ -97,8 +99,6 @@ const ProfileRouter = ({ userInfo }: { userInfo: UserInfo }) => {
       return <CardsAndTransactions />
     case 'personal-information':
       return userInfo && <PersonalInfo userData={userInfo} />
-    case 'create-company':
-      return <CreateCompany />
     case 'create-company':
       return <CreateCompany />
     default:

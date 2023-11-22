@@ -344,7 +344,7 @@ const AdditionalFilters: React.FC<Props> = ({
                     />
                   </div>
                 </div>
-                <div className='w-full flex flex-col md:flex-row md:items-center justify-between py-[16px] px-[16px] md:px-10 border-t-1 border-grey-90'>
+                <div className='w-full flex flex-col md:flex-row md:items-center justify-between py-4 px-4 md:px-10 border-t-1 border-grey-90'>
                   <IconTextButton label='გასუფთავება' icon='/icons/return.svg' onClick={() => reset()} />
                   <div className='flex items-center justify-between md:justify-start [text-16px] gap-4'>
                     სულ 136 შედეგი

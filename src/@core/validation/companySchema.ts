@@ -18,7 +18,7 @@ const WorkingHoursSchema = Yup.object<WorkingHours>().shape({
 })
 
 const CompanyAddressSchema = Yup.object<CompanyAddress>().shape({
-  address: Yup.string(),
+  address: Yup.string().required('სავალდებულო ველი'),
   phone: Yup.string().nullable(),
   email: Yup.string().email('მეილის ფორმატი არასწორია').nullable(),
   lat: Yup.string().nullable(),

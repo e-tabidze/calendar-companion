@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 import CompanyService from 'src/services/CompanyService'
 
 const useCompanyInfo = (id: number) => {
-  const { data, isLoading } = useQuery(['companyInfo', id], () => getCompanyInfo('', id), {
+  const { data, isLoading, refetch } = useQuery(['companyInfo', id], () => getCompanyInfo('', id), {
     staleTime: Infinity,
     enabled: !!id
   })
@@ -11,7 +11,8 @@ const useCompanyInfo = (id: number) => {
 
   return {
     companyInfo,
-    isLoading
+    isLoading,
+    refetch
   }
 }
 

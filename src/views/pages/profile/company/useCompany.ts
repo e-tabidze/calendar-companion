@@ -8,18 +8,17 @@ import CompanyService from 'src/services/CompanyService'
 const useCompany = (id: number) => {
   const { companyInfo } = useCompanyInfo(id)
 
-  console.log(id, 'ID?')
-
   const defaultAddress: CompanyAddress[] = companyInfo?.addresses?.map((address: any) => ({
     id: address.id,
+    dummyAddressId: address.id,
     address: address.address,
     phone: address.phone,
     email: address.email,
     city: address.city,
     state: address.state,
     postal_code: address.postal_code,
-    lat: address.lat,
-    long: address.long,
+    lat: address.lat || '',
+    long: address.long || '',
     is_same_time: address.is_same_time,
     start_time: address.start_time || '09:00:00',
     end_time: address.end_time || '18:00:00',
@@ -82,10 +81,11 @@ const useCompany = (id: number) => {
     state: '',
     postal_code: '',
     lat: '',
+    long: '',
     id: '',
     is_same_time: 1,
-    start_time: '',
-    end_time: '',
+    start_time: '09:00:00',
+    end_time: '18:00:00',
     working_hours: {
       monday: defaultWorkDayWorkingTime,
       tuesday: defaultWorkDayWorkingTime,
@@ -159,6 +159,17 @@ const useCompany = (id: number) => {
     }
   }
 
+  const deleteCompanyAddress = async (adressId: number) => {
+    try {
+      const response: any = await CompanyService.deleteCompanyAddress('', adressId)
+
+      return response
+    } catch (error) {
+      console.error('Error deleting company address:', error)
+      throw error
+    }
+  }
+
   return {
     control,
     handleSubmit,
@@ -174,7 +185,8 @@ const useCompany = (id: number) => {
     defaultEmptyAddress,
     remove,
     updateCompanyInfo,
-    deleteCompany
+    deleteCompany,
+    deleteCompanyAddress
   }
 }
 
