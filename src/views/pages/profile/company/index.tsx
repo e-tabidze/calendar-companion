@@ -168,7 +168,6 @@ const Company: React.FC<Props> = ({ id, name, productsCount }) => {
             label='კომპანიის წაშლა'
             icon='/icons/trash.svg'
             className='text-orange-130'
-            // onClick={deletCompany}
             onClick={toggleDeleteCompanyModal}
           />
         </div>
