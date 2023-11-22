@@ -14,19 +14,20 @@ export type WorkingHours = {
 }
 
 export type CompanyAddress = {
-  address?: string
+  address: string
   phone?: string
   email?: string
   city?: string
   state?: string
   postal_code?: string
-  lat?: string
-  long?: string
+  lat: string
+  long: string
   working_hours: WorkingHours
   is_same_time?: any
   start_time?: string
   end_time?: string
   id?: string
+  dummyAddressId?: number
 }
 
 export type CompanyInfo = {

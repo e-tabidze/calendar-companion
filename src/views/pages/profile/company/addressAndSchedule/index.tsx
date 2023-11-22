@@ -69,6 +69,7 @@ const AddressAndSchedule: React.FC<Props> = ({ index, control, address, errors }
                   ))}
                 </div>
                 <Typography type='subtitle'>
+                  <> {console.log(formState.addresses[index], 'formState.addresses[index]')} </>
                   {formState.addresses[index].start_time} - {formState.addresses[index].end_time}
                 </Typography>
               </div>

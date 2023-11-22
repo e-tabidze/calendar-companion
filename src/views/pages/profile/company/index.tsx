@@ -1,18 +1,27 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useState } from 'react'
 import { DefaultButton, IconTextButton } from 'src/views/components/button'
 import Divider from 'src/views/components/divider'
 import { DefaultInput } from 'src/views/components/input'
 import Typography from 'src/views/components/typography'
 import AddressAndSchedule from './addressAndSchedule'
+import DeleteAddressConfirmationModal from './deleteAddressConfirmationModal'
+import DeleteCompanyConfirmationModal from './deleteCompanyConfirmationModal'
 import useCompany from './useCompany'
 
 interface Props {
   id: number
+  name: string
+  productsCount: number
 }
 
-const Company: React.FC<Props> = ({ id }) => {
+const Company: React.FC<Props> = ({ id, name, productsCount }) => {
+  const [deleteAddresseModal, setDeleteAddressModal] = useState(false)
+  const [deleteCompanyeModal, setDeleteCompanyModal] = useState(false)
+  const [deleteAddressId, setDeleteAddressId] = useState<number | null>(null)
+  const [index, setIndex] = useState<number>()
   const {
     control,
     errors,
@@ -23,9 +32,13 @@ const Company: React.FC<Props> = ({ id }) => {
     remove,
     handleSubmit,
     updateCompanyInfo,
-    deleteCompany
+    deleteCompany,
+    deleteCompanyAddress
   } = useCompany(id)
 
+  const toggleDeleteAddressModal = () => setDeleteAddressModal(!deleteAddresseModal)
+
+  const toggleDeleteCompanyModal = () => setDeleteCompanyModal(!deleteCompanyeModal)
 
   const queryClient = useQueryClient()
 
@@ -41,6 +54,13 @@ const Company: React.FC<Props> = ({ id }) => {
     }
   })
 
+  const deleteCompanyAddressMutation = useMutation((id: number) => deleteCompanyAddress(id), {
+    onSuccess: () => {
+      queryClient.invalidateQueries(['companyInfo'])
+      remove(index)
+    }
+  })
+
   const onSubmit = () => {
     console.log(companyValues, 'companyValues')
     updateCompanyMutation.mutate(companyValues)
@@ -48,6 +68,10 @@ const Company: React.FC<Props> = ({ id }) => {
 
   const deletCompany = () => {
     deleteCompanyMutation.mutate()
+  }
+
+  const deletCompanyAddress = () => {
+    deleteAddressId && deleteCompanyAddressMutation.mutate(deleteAddressId)
   }
 
   return (
@@ -58,10 +82,10 @@ const Company: React.FC<Props> = ({ id }) => {
             <Image src='/images/avatar.png' alt='' height={96} width={97} className='rounded-3xl' />
             <div>
               <Typography type='h3' className='font-bold'>
-                ბენე პლიუსი {id}
+                {name}
               </Typography>
               <Link href='/' className='text-blue-100 underline'>
-                სულ 16  განცხადება
+                სულ {productsCount}  განცხადება
               </Link>
             </div>
           </div>
@@ -95,7 +119,7 @@ const Company: React.FC<Props> = ({ id }) => {
             მისამართები და განრიგი
           </Typography>
 
-          {addressFields.map((address, index) => (
+          {addressFields.map((address: any, index: number) => (
             <div key={address.id}>
               <AddressAndSchedule index={index} control={control} address={address} errors={errors} />
               <div className='w-full flex justify-end pr-8'>
@@ -104,7 +128,11 @@ const Company: React.FC<Props> = ({ id }) => {
                   label='წაშლა'
                   width={16}
                   height={16}
-                  onClick={() => remove(index)}
+                  onClick={() => {
+                    setIndex(index)
+                    toggleDeleteAddressModal()
+                    setDeleteAddressId(address.dummyAddressId)
+                  }}
                 />
               </div>
             </div>
@@ -140,10 +168,23 @@ const Company: React.FC<Props> = ({ id }) => {
             label='კომპანიის წაშლა'
             icon='/icons/trash.svg'
             className='text-orange-130'
-            onClick={deletCompany}
+            // onClick={deletCompany}
+            onClick={toggleDeleteCompanyModal}
           />
         </div>
       </div>
+      <DeleteAddressConfirmationModal
+        open={deleteAddresseModal}
+        toggleModal={toggleDeleteAddressModal}
+        addressId={deleteAddressId}
+        deleteAddress={deletCompanyAddress}
+      />
+      <DeleteCompanyConfirmationModal
+        open={deleteCompanyeModal}
+        toggleModal={toggleDeleteCompanyModal}
+        companyId={id}
+        deleteCompany={deletCompany}
+      />
     </form>
   )
 }

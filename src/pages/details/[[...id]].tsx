@@ -167,7 +167,7 @@ const ProductDetails = () => {
   const onSubmit = () => {
     router.push({
       pathname: '/booking',
-      query: { book_from: bookingValues.booking.book_from, book_to: bookingValues.booking.book_to }
+      query: { book_from: bookingValues?.booking?.book_from, book_to: bookingValues?.booking?.book_to }
     })
   }
 
