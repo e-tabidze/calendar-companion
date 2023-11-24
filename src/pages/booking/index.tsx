@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { OutlinedButton } from 'src/views/components/button'
 import Divider from 'src/views/components/divider'
 import Image from 'src/views/components/image'
@@ -28,6 +28,19 @@ const Booking = () => {
   const toggleDrawer = () => setIsOpenDrawer(!isOpenDrawer)
 
   const router = useRouter()
+
+  const { id, book_from, book_to, price_day } = router.query
+
+  console.log(id, book_from, book_to, price_day, ' id, book_from, book_to, price_day ')
+
+  // useEffect(() => {
+  //   const firstBookFromDate = Array.isArray(book_from) ? book_from[0] : book_from
+  //   const bookFromDate = new Date(firstBookFromDate)
+
+  //   const firstBookToDate = Array.isArray(book_to) ? book_to[0] : book_to
+  //   const bookToDate = new Date(firstBookToDate)
+
+  // }, [id, book_from, book_to, price_day])
 
   const onClickLogo = () => {
     router.push('/')
@@ -116,9 +129,14 @@ const Booking = () => {
 
           <div className='hidden md:inline-block w-5/12 lg:w-4/12'>
             <PriceCalcCard
-              price={0}
-              dates={''}
-              days={null}
+              price={Number(Array.isArray(price_day) ? price_day[0] : price_day)}
+              dates={`${book_from} - ${book_to}`}
+              days={
+                Math.round(
+                  (new Date(Array.isArray(book_to) ? book_to[0] : book_to).getTime() - new Date(Array.isArray(book_from) ? book_from[0] : book_from).getTime() ) /
+                    (24 * 60 * 60 * 1000)
+                ) + 1
+              }
               className={''}
               onClick={function (): void {
                 throw new Error('Function not implemented.')
@@ -137,3 +155,6 @@ const Booking = () => {
 }
 
 export default Booking
+function useParams(): { book_from: any; book_to: any; price_day: any } {
+  throw new Error('Function not implemented.')
+}
