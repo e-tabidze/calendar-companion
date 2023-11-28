@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { OutlinedButton } from 'src/views/components/button'
 import Divider from 'src/views/components/divider'
 import Image from 'src/views/components/image'
@@ -14,6 +14,8 @@ import Drawer from 'src/views/pages/details/drawer'
 import ResponsivePriceCalcCard from 'src/views/pages/details/responsivePriceCalcCard'
 import useBooking from 'src/views/pages/booking/useBooking'
 
+// import DateDropdown from 'src/views/components/dateDropdown'
+
 const Booking = () => {
   const [additionalServices, toggleAdditionalServices] = useState(false)
   const [insurance, toggleInsurance] = useState(false)
@@ -21,7 +23,7 @@ const Booking = () => {
 
   const { width } = useWindowDimensions()
 
-  const { control, bookingValues } = useBooking()
+  const { control, bookingValues, errors, handleSubmit } = useBooking()
 
   console.log(bookingValues, 'bookingValues')
 
@@ -29,18 +31,7 @@ const Booking = () => {
 
   const router = useRouter()
 
-  const { id, book_from, book_to, price_day } = router.query
-
-  console.log(id, book_from, book_to, price_day, ' id, book_from, book_to, price_day ')
-
-  // useEffect(() => {
-  //   const firstBookFromDate = Array.isArray(book_from) ? book_from[0] : book_from
-  //   const bookFromDate = new Date(firstBookFromDate)
-
-  //   const firstBookToDate = Array.isArray(book_to) ? book_to[0] : book_to
-  //   const bookToDate = new Date(firstBookToDate)
-
-  // }, [id, book_from, book_to, price_day])
+  const { book_from, book_to, price_day, days } = router.query
 
   const onClickLogo = () => {
     router.push('/')
@@ -63,8 +54,12 @@ const Booking = () => {
     { label: 'მიწოდება', value: 'მიწოდება', info: '$0.00', children: <Delivery /> }
   ]
 
+  const onSubmit = () => {
+    console.log(bookingValues, 'V')
+  }
+
   return (
-    <>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <LargeContainer className='flex items-baseline pt-5 flex-col md:flex-row'>
         <Image src='/images/logo-rent.svg' alt='logo' onClick={onClickLogo} />
         <ContentContainer className='flex gap-12'>
@@ -72,9 +67,9 @@ const Booking = () => {
             <div className='flex justify-between my-8'>
               <div className='flex items-baseline gap-3'>
                 <Typography type='h3' className='font-bold'>
-                  ივნ 17 - ივნ 22
+                  {book_from} - {book_to}
                 </Typography>
-                <Typography type='body'>| 6 დღე</Typography>
+                <Typography type='body'>| 6 {days}</Typography>
               </div>
               <OutlinedButton label='შეცვლა' />
             </div>
@@ -83,12 +78,18 @@ const Booking = () => {
               პირადი ინფორმაცია *
             </Typography>
             <div className='grid gap-3 my-6 grid-cols-1 lg:grid-cols-2 lg:gap-4'>
-              <DefaultInput label='სახელი, გვარი' value='' control={control} name='name' errors={''} />
-              <DefaultInput label='სახელი, გვარი' value='' control={control} name='surname' errors={''} />
-              <DefaultInput label='სახელი, გვარი' value='' control={control} name='and' errors={''} />
-              <DefaultInput label='სახელი, გვარი' value='' control={control} name='other' errors={''} />
-              <DefaultInput label='სახელი, გვარი' value='' control={control} name='booking' errors={''} />
-              <DefaultInput label='სახელი, გვარი' value='' control={control} name='fields' errors={''} />
+              <DefaultInput control={control} name='first_name' errors={errors} label='სახელი' />
+              <DefaultInput control={control} name='last_name' errors={errors} label='გვარი' />
+              <DefaultInput control={control} name='identification_number' errors={errors} label='პირადი ნომერი' />
+              <DefaultInput control={control} name='phone' errors={errors} label='მობილურის ნომერი' />
+              <DefaultInput control={control} name='email' errors={errors} label='ელ.ფოსტა' />
+
+              {/* <DateDropdown label={'აირჩიე დაბადების თარიღი'} name='birth_date' control={control} />
+              <DateDropdown
+                label={'მართვის მოწმობის მოქმედების ვადა'}
+                name='driver_license_expiration'
+                control={control}
+              /> */}
             </div>
             <Typography type='body' color='light' className='mb-14'>
               გთხოვთ გადაამოწმოთ მითითებული პარამეტრები და შემდეგ დაასრულოთ დაჯავშნის პროცესი, ეს პარამეტრები
@@ -133,7 +134,8 @@ const Booking = () => {
               dates={`${book_from} - ${book_to}`}
               days={
                 Math.round(
-                  (new Date(Array.isArray(book_to) ? book_to[0] : book_to).getTime() - new Date(Array.isArray(book_from) ? book_from[0] : book_from).getTime() ) /
+                  (new Date(Array.isArray(book_to) ? book_to[0] : book_to).getTime() -
+                    new Date(Array.isArray(book_from) ? book_from[0] : book_from).getTime()) /
                     (24 * 60 * 60 * 1000)
                 ) + 1
               }
@@ -150,11 +152,8 @@ const Booking = () => {
       ) : (
         <ResponsivePriceCalcCard toggleDrawer={toggleDrawer} />
       )}
-    </>
+    </form>
   )
 }
 
 export default Booking
-function useParams(): { book_from: any; book_to: any; price_day: any } {
-  throw new Error('Function not implemented.')
-}

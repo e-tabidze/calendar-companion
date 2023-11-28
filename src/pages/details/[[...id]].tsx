@@ -171,7 +171,8 @@ const ProductDetails = () => {
         id: id,
         book_from: bookingValues?.booking?.book_from,
         book_to: bookingValues?.booking?.book_to,
-        price_day: singleProductDetails.price_gel
+        price_day: singleProductDetails.price_gel,
+        days: startDate && endDate && Math.round((endDate.getTime() - startDate.getTime()) / (24 * 60 * 60 * 1000)) + 1
       }
     })
   }
