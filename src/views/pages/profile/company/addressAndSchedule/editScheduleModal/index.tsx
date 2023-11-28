@@ -7,36 +7,6 @@ import RoundedTag from 'src/views/components/roundedTag'
 import SwitchField from 'src/views/components/switchField'
 import { Controller, useWatch } from 'react-hook-form'
 
-// const days = [
-//   {
-//     label: 'ორშ',
-//     value: 'monday'
-//   },
-//   {
-//     label: 'სამ',
-//     value: 'tuesday'
-//   },
-//   {
-//     label: 'ოთხ',
-//     value: 'wednesday'
-//   },
-//   {
-//     label: 'ხუთ',
-//     value: 'thursday'
-//   },
-//   {
-//     label: 'პარ',
-//     value: 'friday'
-//   },
-//   {
-//     label: 'შაბ',
-//     value: 'saturday'
-//   },
-//   {
-//     label: 'კვი',
-//     value: 'sunday'
-//   }
-// ]
 interface Props {
   open: boolean
   onClose: () => void
@@ -47,48 +17,6 @@ interface Props {
 
 const EditScheduleModal: React.FC<Props> = ({ open, onClose, control, index, data }) => {
   const formState = useWatch({ control })
-
-  // const [selectedWorkDays, setSelectedWorkDays] = useState<any[]>([
-  //   'monday',
-  //   'tuesday',
-  //   'wednesday',
-  //   'thursday',
-  //   'friday',
-  //   'saturday'
-  // ])
-
-  // const handleselectedWorkDays = (value: string) => {
-  //   if (selectedWorkDays.includes(value)) {
-  //     setSelectedWorkDays(selectedWorkDays.filter(day => day !== value))
-  //   } else {
-  //     setSelectedWorkDays(prevState => [...prevState, value])
-  //   }
-  // }
-
-  // const renderDaysSelector = (day: any) => (
-  //   <Controller
-  //     key={day.value}
-  //     name={`addresses.${index}.working_hours.${day.value}`}
-  //     control={control}
-  //     render={({ field: { value, onChange } }) => (
-  //       <RoundedTag
-  //         label={day.label}
-  //         handleSelect={() => {
-  //           const updatedValue = {
-  //             ...value,
-  //             is_selected: !value.is_selected
-  //           }
-  //           if (!updatedValue.is_selected) {
-  //             updatedValue.start_time = ''
-  //             updatedValue.end_time = ''
-  //           }
-  //           onChange(updatedValue)
-  //         }}
-  //         selected={value?.is_selected}
-  //       />
-  //     )}
-  //   />
-  // )
 
   return (
     <Transition appear show={open} as={Fragment}>
@@ -160,8 +88,6 @@ const EditScheduleModal: React.FC<Props> = ({ open, onClose, control, index, dat
                             />
                           ))}
                         </div>
-
-                        {/* <TimeRangeComponent index={index} control={control} /> */}
                       </div>
                     ) : (
                       <div className=''>
@@ -196,8 +122,6 @@ const EditScheduleModal: React.FC<Props> = ({ open, onClose, control, index, dat
                                   </>
                                 )}
                               />
-
-                              {/* <TimeRangeComponent index={index} control={control} /> */}
                             </div>
                           ))}
                         </div>

@@ -18,7 +18,7 @@ const useCompanyInfo = (id: number) => {
 
 export default useCompanyInfo
 
-export const getCompanyInfo = async (accessToken = '', id = 60) => {
+export const getCompanyInfo = async (accessToken = '', id: number) => {
   try {
     const response: any = await CompanyService.getCompanyInfo(accessToken, id)
 

@@ -1,20 +1,11 @@
 import { useState } from 'react'
 import { Controller, useWatch } from 'react-hook-form'
+import { days } from 'src/utils/sample-data'
 import Divider from 'src/views/components/divider'
 import { InputWithComponent } from 'src/views/components/input'
 import RoundedTag from 'src/views/components/roundedTag'
 import Typography from 'src/views/components/typography'
 import EditScheduleModal from '../editScheduleModal'
-
-const days = [
-  { label: 'ორშ', value: 'monday' },
-  { label: 'სამ', value: 'tuesday' },
-  { label: 'ოთხ', value: 'wednesday' },
-  { label: 'ხუთ', value: 'thursday' },
-  { label: 'პარ', value: 'friday' },
-  { label: 'შაბ', value: 'saturday' },
-  { label: 'კვი', value: 'sunday' }
-]
 
 interface Props {
   index: number
