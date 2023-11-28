@@ -53,7 +53,7 @@ const PriceCalcCard: React.FC<Props> = ({ price, dates, days, className, onClick
           </Typography>
         </div>
         <Typography type='h5' weight='normal'>
-          233$
+          {days && days * price + ' ₾'}
         </Typography>
       </div>
 
@@ -78,11 +78,18 @@ const PriceCalcCard: React.FC<Props> = ({ price, dates, days, className, onClick
           ჯამი
         </Typography>
         <Typography type='h5' weight='normal' className='text-orange-100'>
-          233$
+          {days && days * price + ' ₾'}
         </Typography>
       </div>
 
-      <DefaultButton bg='bg-orange-100' text='ჯავშნის დაწყება' className='w-full' textColor='text-white' type="submit" onClick={onClick} />
+      <DefaultButton
+        bg='bg-orange-100'
+        text='ჯავშნის დაწყება'
+        className='w-full'
+        textColor='text-white'
+        type='submit'
+        onClick={onClick}
+      />
     </div>
   )
 }

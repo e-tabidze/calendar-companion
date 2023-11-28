@@ -5,6 +5,7 @@ import UserService from 'src/services/UserService'
 import { UserInfoSchema } from 'src/@core/validation/userInfoSchema'
 
 const usePersonalInfo = (userData: UserInfo) => {
+  console.log(userData, 'data')
   const defaultValues = {
     profile_pic: userData?.information.profile_pic,
     gender: userData?.information.gender,

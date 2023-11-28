@@ -56,6 +56,7 @@ const StepFour: React.FC<Props> = ({ control, step }) => {
           icon='/icons/add.svg'
           onClick={handleNewServiceModal}
           className='p-0 mb-12'
+          type="button"
         />
         <Typography type='h4' weight='normal' color='dark'>
           სერვისების ჩამონათვალი
