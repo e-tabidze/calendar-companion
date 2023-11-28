@@ -1,6 +1,6 @@
 import { useFieldArray, useForm, useWatch } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
-import useCompanyInfo from './useCompanyInfo'
+import useCompanyInfo from '../../../../hooks/useCompanyInfo'
 import { Company, CompanyAddress, WorkingTime } from 'src/types/Company'
 import { CompanySchema } from 'src/@core/validation/companySchema'
 import CompanyService from 'src/services/CompanyService'

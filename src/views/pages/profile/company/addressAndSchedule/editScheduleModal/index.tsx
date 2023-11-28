@@ -136,33 +136,28 @@ const EditScheduleModal: React.FC<Props> = ({ open, onClose, control, index, dat
                       <div className='flex items-center justify-between gap-4'>
                         <div className='flex items-center gap-4'>
                           {data.map((day: any) => (
-                            <>
-                              {console.log(day, 'day')}
-                              <Controller
-                                key={day.value}
-                                name={`addresses.${index}.working_hours.${day.day}.${day.is_selected}`}
-                                control={control}
-                                render={({ field: { value, onChange } }) => (
-                                  <>
-                                    <RoundedTag
-                                      label={day.label}
-                                      handleSelect={() => {
-                                        const updatedValue = {
-                                          ...value,
-                                          is_selected: !value.is_selected
-                                        }
-                                        if (!updatedValue.is_selected) {
-                                          updatedValue.start_time = ''
-                                          updatedValue.end_time = ''
-                                        }
-                                        onChange(updatedValue)
-                                      }}
-                                      selected={day?.is_selected}
-                                    />
-                                  </>
-                                )}
-                              />
-                            </>
+                            <Controller
+                              key={day.value}
+                              name={`addresses.${index}.working_hours.${day.day}.${day.is_selected}`}
+                              control={control}
+                              render={({ field: { value, onChange } }) => (
+                                <RoundedTag
+                                  label={day.label}
+                                  handleSelect={() => {
+                                    const updatedValue = {
+                                      ...value,
+                                      is_selected: !value.is_selected
+                                    }
+                                    if (!updatedValue.is_selected) {
+                                      updatedValue.start_time = ''
+                                      updatedValue.end_time = ''
+                                    }
+                                    onChange(updatedValue)
+                                  }}
+                                  selected={day?.is_selected}
+                                />
+                              )}
+                            />
                           ))}
                         </div>
 
@@ -173,7 +168,6 @@ const EditScheduleModal: React.FC<Props> = ({ open, onClose, control, index, dat
                         <div className=''>
                           {data.map((day: any) => (
                             <div className='flex items-center gap-6' key={day.value}>
-                              <>{console.log(day, 'day')}</>
                               <Controller
                                 name={`addresses.${index}.working_hours.${day.day}.${day.is_selected}`}
                                 control={control}
