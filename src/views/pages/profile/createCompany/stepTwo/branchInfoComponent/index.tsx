@@ -1,22 +1,13 @@
 import { useQuery } from '@tanstack/react-query'
 import React, { useEffect } from 'react'
 import { Controller, useWatch } from 'react-hook-form'
+import { days } from 'src/utils/sample-data'
 import { DefaultInput, InputWithComponent } from 'src/views/components/input'
 import RoundedTag from 'src/views/components/roundedTag'
 import SwitchField from 'src/views/components/switchField'
 import useCreateCompany from '../../useCreateCompany'
 import LocationSuggestions from './locationSuggestions'
 import TimeRangeComponent from './timeRangeComponent'
-
-const days = [
-  { label: 'ორშ', value: 'monday' },
-  { label: 'სამ', value: 'tuesday' },
-  { label: 'ოთხ', value: 'wednesday' },
-  { label: 'ხუთ', value: 'thursday' },
-  { label: 'პარ', value: 'friday' },
-  { label: 'შაბ', value: 'saturday' },
-  { label: 'კვი', value: 'sunday' }
-]
 
 interface Props {
   index: number

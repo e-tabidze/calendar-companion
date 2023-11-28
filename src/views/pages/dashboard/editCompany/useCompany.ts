@@ -4,6 +4,7 @@ import useCompanyInfo from '../../../../hooks/useCompanyInfo'
 import { Company, CompanyAddress, WorkingTime } from 'src/types/Company'
 import { CompanySchema } from 'src/@core/validation/companySchema'
 import CompanyService from 'src/services/CompanyService'
+import { useEffect } from 'react'
 
 const useCompany = (id: number) => {
   const { companyInfo } = useCompanyInfo(id)
@@ -100,7 +101,7 @@ const useCompany = (id: number) => {
   const defaultValues: Company = {
     company_id: id,
     identification_number: companyInfo?.identification_number,
-    company_type_id: companyInfo.company_type_id,
+    company_type_id: companyInfo?.company_type_id,
     company_information: {
       name: companyInfo?.information?.name,
       logo: '',
@@ -118,7 +119,8 @@ const useCompany = (id: number) => {
     resetField,
     setError,
     clearErrors,
-    setValue
+    setValue,
+    reset
   } = useForm({
     mode: 'onChange',
     reValidateMode: 'onChange',
@@ -134,6 +136,26 @@ const useCompany = (id: number) => {
     control,
     name: 'addresses'
   })
+
+  useEffect(() => {
+    if (companyInfo) {
+      const updatedDefaultValues: Company = {
+        company_id: id,
+        identification_number: companyInfo.identification_number,
+        company_type_id: companyInfo.company_type_id,
+        company_information: {
+          name: companyInfo.information.name,
+          logo: '',
+          description: companyInfo.information.description,
+          email: companyInfo.information.email,
+          phone_numbers: companyInfo.information.phone_numbers
+        },
+        addresses: defaultAddress
+      }
+
+      reset(updatedDefaultValues)
+    }
+  }, [companyInfo, id, reset])
 
   const companyValues: any = useWatch({ control })
 

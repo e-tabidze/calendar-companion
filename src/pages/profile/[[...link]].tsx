@@ -4,7 +4,7 @@ import dynamic from 'next/dynamic'
 import useProfile, { getUserInfo } from 'src/hooks/useProfile'
 import { UserInfo } from 'src/types/User'
 import { dehydrate, QueryClient } from '@tanstack/query-core'
-import useCompanyInfo from 'src/views/pages/profile/company/useCompanyInfo'
+import useCompanyInfo from 'src/hooks/useCompanyInfo'
 
 const Orders = dynamic(() => import('src/views/pages/profile/orders'), { ssr: true })
 const Favourites = dynamic(() => import('src/views/pages/profile/favorites'), { ssr: true })
