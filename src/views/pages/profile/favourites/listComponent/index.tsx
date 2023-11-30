@@ -38,7 +38,7 @@ const ListComponent: React.FC<Props> = ({ productId }) => {
         <div className='relative w-full sm:h-[140px] sm:m-auto flex flex-col justify-between'>
           <div className=''>
             <Typography type='h4' weight='normal' color='dark'>
-             {` hyunday elantra 2011 => ${productId}`}
+              {` hyunday elantra 2011 => ${productId}`}
             </Typography>
             <div className='flex gap-2 items-center mt-1'>
               <Image src='/icons/star.svg' alt='' height={16} width={16} />
