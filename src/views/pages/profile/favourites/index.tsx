@@ -6,8 +6,6 @@ import ListComponent from './listComponent'
 const Favourites = () => {
   const { userFavourites } = useFavourites()
 
-  console.log(userFavourites, 'favs')
-
   return (
     <div className='p-2 md:p-10 md:border border-raisin-10 rounded-3xl'>
       <div className='flex justify-between items-center'>
