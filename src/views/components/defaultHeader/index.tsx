@@ -39,16 +39,14 @@ const DefaultHeader = () => {
     window.location.href = externalPageUrl
   }
 
-  if (isLoading) {
-    return <p>Loading...</p>
-  }
+
 
   return (
     <InnerContainer>
       <Image src='/images/logo-rent.svg' onClick={onClickLogo} alt='logo' className='w-24 md:w-32 cursor-pointer' />
       <div className='flex items-center'>
         <LanguagePicker />
-        {isAuthenticated ? <User /> : <DefaultButton text='შესვლა' onClick={handleLogin} />}
+        {isLoading ? <>Loading... </> : isAuthenticated ? <User /> : <DefaultButton text='შესვლა' onClick={handleLogin} />}
         <Tnet />
       </div>
       <NavigationBar />
