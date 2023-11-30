@@ -33,6 +33,7 @@ import SearchService from 'src/services/SearchService'
 import { useQuery } from '@tanstack/react-query'
 import useBooking from 'src/views/pages/booking/useBooking'
 import { Controller } from 'react-hook-form'
+import Icon from 'src/views/app/Icon'
 
 const SimilarProducts = dynamic(() => import('src/views/pages/details/similarProducts'), { ssr: true })
 
@@ -229,7 +230,7 @@ const ProductDetails = () => {
                     ან მსგავსი
                   </Typography>
                   <Typography type='subtitle'>| </Typography>
-                  <Image src='/icons/favIconOutlineDark.svg' alt='location' />
+                  <Icon svgPath='locationOutline' width={24} height={24} />
                   <Typography type='subtitle'>{singleProductDetails?.start_address}</Typography>
                 </div>
                 <Typography type='subtitle'>{singleProductDetails?.additional_information}</Typography>
