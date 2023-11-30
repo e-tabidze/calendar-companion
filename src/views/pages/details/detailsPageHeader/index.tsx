@@ -1,4 +1,4 @@
-import Image from 'src/views/components/image'
+import Icon from 'src/views/app/Icon'
 import { ActionsWrapper, DetailsHeader } from './styles'
 
 const DetailsPageHeader = () => {
@@ -6,9 +6,9 @@ const DetailsPageHeader = () => {
     <DetailsHeader>
       <div>breadcrumbs</div>
       <ActionsWrapper>
-        <Image src='/icons/printer.svg' className='h-4 w-4' alt='' />
-        <Image src='/icons/share.svg' className='h-4 w-4' alt='' />
-        <Image src='/icons/favIconOutlineDark.svg' className='h-4 w-4' alt='' />
+        <Icon svgPath='printer.svg' width={20} height={20} />
+        <Icon svgPath='share.svg' width={20} height={20} />
+        <Icon svgPath='favIconOutlinedDark.svg' width={20} height={20} />
       </ActionsWrapper>
     </DetailsHeader>
   )
