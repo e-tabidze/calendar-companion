@@ -48,7 +48,7 @@ const routes = [
   },
   {
     id: 6,
-    icon: 'logout',
+    icon: 'bellOutline',
     item: 'შეტყობინებები',
     path: '/profile/notifications/'
   }
@@ -85,7 +85,15 @@ const ProfileRouter = ({ userInfo }: { userInfo: UserInfo }) => {
       queryClient.invalidateQueries(queryKey)
     }
 
-    return companyid && companyInfo ? <Company id={Number(companyid)} name={companyInfo?.information?.name} productsCount={companyInfo?.count_company_poduct} /> : <></>
+    return companyid && companyInfo ? (
+      <Company
+        id={Number(companyid)}
+        name={companyInfo?.information?.name}
+        productsCount={companyInfo?.count_company_poduct}
+      />
+    ) : (
+      <></>
+    )
   }
 
   switch (key) {
@@ -101,6 +109,8 @@ const ProfileRouter = ({ userInfo }: { userInfo: UserInfo }) => {
       return userInfo && <PersonalInfo userData={userInfo} />
     case 'create-company':
       return <CreateCompany />
+    case 'notifications':
+      return <Notifications />
     default:
       return <></>
   }
@@ -122,7 +132,7 @@ const Profile = () => {
     ...companyRoutes,
     {
       id: 9,
-      icon: '',
+      icon: 'logout',
       item: 'გასვლა',
       path: '/profile/sign-out'
     }
