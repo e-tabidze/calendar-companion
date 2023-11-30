@@ -86,6 +86,7 @@ const Avatar = () => {
       console.log(error)
     }
   }
+  
   const handleSetActive = () => {
     setActive(!active)
   }

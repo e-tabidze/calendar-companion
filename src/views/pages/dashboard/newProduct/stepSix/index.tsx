@@ -12,6 +12,8 @@ const StepSix: React.FC<Props> = ({ control }) => {
 
   const formState = useWatch({ control })
 
+  console.log(companyBranches, 'companyBranches')
+
   const cities = () => companyBranches?.map((branch: any) => ({ label: branch.city, value: branch.city }))
 
   const renderAddresses = (name: string) => {
@@ -35,8 +37,8 @@ const StepSix: React.FC<Props> = ({ control }) => {
           placeholder='აირჩიე ქალაქი'
           options={cities()}
           disabled={false}
-          valueKey={'value'}
-          labelKey={'label'}
+          valueKey='value'
+          labelKey='label'
         />
         <SelectField
           control={control}
@@ -44,8 +46,8 @@ const StepSix: React.FC<Props> = ({ control }) => {
           placeholder='აირჩიე ფილიალი'
           options={renderAddresses('start_city')}
           disabled={!formState.start_city}
-          valueKey={'value'}
-          labelKey={'label'}
+          valueKey='value'
+          labelKey='label'
         />
       </div>
       <Typography type='h4' weight='normal' color='dark' className='mb-4'>
@@ -58,8 +60,8 @@ const StepSix: React.FC<Props> = ({ control }) => {
           placeholder='აირჩიე ქალაქი'
           options={cities()}
           disabled={false}
-          valueKey={'value'}
-          labelKey={'label'}
+          valueKey='value'
+          labelKey='label'
         />
         <SelectField
           control={control}
@@ -67,8 +69,8 @@ const StepSix: React.FC<Props> = ({ control }) => {
           placeholder='აირჩიე ფილიალი'
           options={renderAddresses('end_city')}
           disabled={!formState.end_city}
-          valueKey={'value'}
-          labelKey={'label'}
+          valueKey='value'
+          labelKey='label'
         />
       </div>
       <MapPicker height='275px' borderRadius='16px' />
