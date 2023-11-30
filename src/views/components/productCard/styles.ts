@@ -7,7 +7,6 @@ export const InnerDetailsContainer = tw.div<TailwindComponent>`flex flex-col sm:
 export const DetailsWrapper = tw.div<TailwindComponent>`flex sm:pl-0 gap-5 items-center h-fit`
 export const ReviewContainer = tw.div<TailwindComponent>`flex items-center gap-2`
 export const Details = tw.div<TailwindComponent>`flex gap-2 items-center`
-export const FavIconWrapper = tw.div<TailwindComponent>`absolute cursor-pointer z-1 top-3 right-3 w-8 h-8 flex items-center justify-center rounded-full hover:bg-raisin-20`
 export const PriceContainer = tw.div<TailwindComponent>`text-3md flex gap-2 mr-5`
 export const PreviousPrice = tw.span<TailwindComponent>`line-through text-raisin opacity-20`
 

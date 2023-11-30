@@ -178,7 +178,7 @@ const AdditionalFilters: React.FC<Props> = ({
                           name='category'
                           options={categoriesFilter}
                           placeholder='კატეგორია'
-                          className="my-2"
+                          className='my-2'
                         />
                       )}
                     </>
@@ -282,7 +282,7 @@ const AdditionalFilters: React.FC<Props> = ({
                   <Divider />
 
                   <SectionWrapper>
-                    <Typography type='h5' weight='normal' className="mb-[8px] md:mb-0">
+                    <Typography type='h5' weight='normal' className='mb-[8px] md:mb-0'>
                       კარის რაოდენობა
                     </Typography>
                     <ListWrapper>
@@ -298,7 +298,7 @@ const AdditionalFilters: React.FC<Props> = ({
                   <Divider />
 
                   <SectionWrapper>
-                    <Typography type='h5' weight='normal' className="mb-[8px] md:mb-0">
+                    <Typography type='h5' weight='normal' className='mb-[8px] md:mb-0'>
                       წამყვანი საბურავები
                     </Typography>
                     <ListWrapper>
@@ -314,7 +314,7 @@ const AdditionalFilters: React.FC<Props> = ({
                   <Divider />
 
                   <SectionWrapper>
-                    <Typography type='h5' weight='normal' className="mb-[8px] md:mb-0">
+                    <Typography type='h5' weight='normal' className='mb-[8px] md:mb-0'>
                       ტრანსმისია
                     </Typography>
                     <ListWrapper>

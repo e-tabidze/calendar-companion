@@ -1,7 +1,7 @@
 import { Fragment } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { DefaultButton, IconButton } from 'src/views/components/button'
-import { Divider } from '../../favorites/listComponent/styles'
+import { Divider } from '../../favourites/listComponent/styles'
 import RoundedTag from 'src/views/components/roundedTag'
 import SwitchField from 'src/views/components/switchField'
 import { Controller, useWatch } from 'react-hook-form'

@@ -1,11 +1,12 @@
 import { useRouter } from 'next/router'
+import useFavourites from 'src/hooks/useFavourites'
+import Icon from 'src/views/app/Icon'
 import Image from '../image'
 import Typography from '../typography'
 import {
   Details,
   DetailsContainer,
   DetailsWrapper,
-  FavIconWrapper,
   InnerDetailsContainer,
   PreviousPrice,
   PriceContainer,
@@ -25,8 +26,22 @@ interface Props {
 const ProductCard: React.FC<Props> = ({ swiperCard, productId, manufacturer, model, prodYear, priceGel }) => {
   const router = useRouter()
 
-  const handleCardClick = () => {
-    router.push(`/details/${productId}`)
+  const { toggleUserFavourites, userFavourites } = useFavourites(productId)
+
+  console.log(userFavourites, '???? fav? ')
+
+  const handleCardClick = () => router.push(`/details/${productId}`)
+
+  const isProductInFavorites = userFavourites?.some((fav: any) => fav.product_id === productId)
+
+  console.log(isProductInFavorites, 'isProductInFavorites')
+
+  const handleFavorites = async () => {
+    try {
+      toggleUserFavourites.mutate()
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   return (
@@ -39,15 +54,27 @@ const ProductCard: React.FC<Props> = ({ swiperCard, productId, manufacturer, mod
         <Image src='/images/car.png' alt='' className='rounded-tl-3xl rounded-tr-3xl object-cover' />
       </div>
 
-      <FavIconWrapper>
-        <Image src='/icons/favIconOutline.svg' alt='' />
-      </FavIconWrapper>
+      <div
+        className={`absolute cursor-pointer z-[10] top-3 right-3 w-8 h-8 flex items-center justify-center rounded-full ${isProductInFavorites ? 'bg-orange-20 hover:bg-orange-30' : ' bg-raisin-20 hover:bg-raisin-60'}`}
+      >
+        <Icon
+          svgPath={isProductInFavorites ? 'favIconActive' : 'favIconOutline'}
+          className='cursor-pointer'
+          width={isProductInFavorites ? 14 : 16}
+          height={isProductInFavorites ? 14 : 17}
+          onClick={e => {
+            e.stopPropagation()
+            e.nativeEvent.preventDefault()
+            handleFavorites()
+          }}
+        />
+      </div>
       <DetailsContainer>
         <Typography type='h5'>
           {manufacturer} {model} {prodYear}
         </Typography>
         <ReviewContainer>
-          <Image src='/icons/star.svg' alt='' />
+          <Icon svgPath='star' width={20} height={20} />
           <Typography type='body' color='light'>
             4.89
           </Typography>
@@ -61,10 +88,10 @@ const ProductCard: React.FC<Props> = ({ swiperCard, productId, manufacturer, mod
           </PriceContainer>
           <DetailsWrapper>
             <Details>
-              <Image src='/icons/views.svg' className='h-5 w-5' alt='' /> <span>5</span>
+              <Icon svgPath='views' width={20} height={20} /> <span>5</span>
             </Details>
             <Details>
-              <Image src='/icons/briefcase.svg' className='h-5 w-5' alt='' /> <span>2</span>
+              <Icon svgPath='briefcase' width={20} height={20} /> <span>2</span>
             </Details>
           </DetailsWrapper>
         </InnerDetailsContainer>

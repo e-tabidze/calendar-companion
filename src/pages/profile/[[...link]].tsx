@@ -7,7 +7,7 @@ import { dehydrate, QueryClient } from '@tanstack/query-core'
 import useCompanyInfo from 'src/hooks/useCompanyInfo'
 
 const Orders = dynamic(() => import('src/views/pages/profile/orders'), { ssr: true })
-const Favourites = dynamic(() => import('src/views/pages/profile/favorites'), { ssr: true })
+const Favourites = dynamic(() => import('src/views/pages/profile/favourites'), { ssr: true })
 const Notifications = dynamic(() => import('src/views/pages/profile/notifications'), { ssr: true })
 const PersonalInfo = dynamic(() => import('src/views/pages/profile/personal-information'), { ssr: true })
 const CreateCompany = dynamic(() => import('src/views/pages/profile/createCompany'), { ssr: true })

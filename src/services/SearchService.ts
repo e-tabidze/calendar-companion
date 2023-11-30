@@ -24,6 +24,10 @@ class SearchService extends HttpService {
   getSearchProducts(querystring: string) {
     return this.get(`/search-products?${querystring}`)
   }
+
+  getCities() {
+    return this.get("/cities")
+  }
 }
 
 export default new SearchService()

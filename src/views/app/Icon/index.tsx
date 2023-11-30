@@ -6,7 +6,7 @@ type SvgProps = {
     height?: number | string;
     color?: string;
     className?: string;
-    onClick?: () => void
+    onClick?: (event: React.MouseEvent<SVGSVGElement, MouseEvent>) => void;
 };
 
 function Icon({ svgPath, width='auto', height='auto', className = '', color, onClick }: SvgProps) {

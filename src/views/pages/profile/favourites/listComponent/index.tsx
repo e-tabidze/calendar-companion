@@ -1,13 +1,28 @@
 import Image from 'next/image'
+import useFavourites from 'src/hooks/useFavourites'
 import useWindowDimensions from 'src/hooks/useWindowDimensions'
 import { IconButton } from 'src/views/components/button'
 import Divider from 'src/views/components/divider'
 import Typography from 'src/views/components/typography'
 import { Details, DetailsWrapper, InnerDetailsContainer, PreviousPrice, PriceContainer } from './styles'
 
-const ListComponent = () => {
+interface Props {
+  productId: string | number
+}
+
+const ListComponent: React.FC<Props> = ({ productId }) => {
   const { width } = useWindowDimensions()
-  
+
+  const { toggleUserFavourites } = useFavourites(productId)
+
+  const handleFavorites = async () => {
+    try {
+      toggleUserFavourites.mutate()
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return (
     <>
       <div className='flex flex-col sm:flex-row gap-6 w-full sm:my-5 border border-raisin-10 my-2 sm:my-none rounded-2xl sm:rounded-none p-4 sm:p-none sm:border-none'>
@@ -23,7 +38,7 @@ const ListComponent = () => {
         <div className='relative w-full sm:h-[140px] sm:m-auto flex flex-col justify-between'>
           <div className=''>
             <Typography type='h4' weight='normal' color='dark'>
-              hyunday elantra 2011
+             {` hyunday elantra 2011 => ${productId}`}
             </Typography>
             <div className='flex gap-2 items-center mt-1'>
               <Image src='/icons/star.svg' alt='' height={16} width={16} />
@@ -54,7 +69,14 @@ const ListComponent = () => {
               </DetailsWrapper>
             </InnerDetailsContainer>
           </div>
-          <IconButton icon='/icons/favIcon.svg' height={13} width={14} className='absolute right-0 top-0 bg-red-10 w-8 !h-8 justify-center ' />
+          <IconButton
+            icon='/icons/favIconActive.svg'
+            height={13}
+            width={14}
+            className='absolute right-0 top-0 bg-red-10 w-8 !h-8 justify-center'
+            onClick={handleFavorites}
+            type='button'
+          />
         </div>
       </div>
       {width > 640 && <Divider />}
