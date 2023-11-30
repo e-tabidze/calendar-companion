@@ -22,9 +22,10 @@ interface Props {
   model: string
   prodYear: number
   priceGel: number
+  countProductFavs: number
 }
 
-const ProductCard: React.FC<Props> = ({ swiperCard, productId, manufacturer, model, prodYear, priceGel }) => {
+const ProductCard: React.FC<Props> = ({ swiperCard, productId, manufacturer, model, prodYear, priceGel, countProductFavs }) => {
   const router = useRouter()
 
   const { isAuthenticated } = useProfile()
@@ -97,7 +98,7 @@ const ProductCard: React.FC<Props> = ({ swiperCard, productId, manufacturer, mod
           </PriceContainer>
           <DetailsWrapper>
             <Details>
-              <Icon svgPath='views' width={20} height={20} /> <span>5</span>
+              <Icon svgPath='views' width={20} height={20} /> <span>{countProductFavs}</span>
             </Details>
             <Details>
               <Icon svgPath='briefcase' width={20} height={20} /> <span>2</span>
