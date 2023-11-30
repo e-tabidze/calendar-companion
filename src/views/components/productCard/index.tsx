@@ -29,7 +29,7 @@ const ProductCard: React.FC<Props> = ({ swiperCard, productId, manufacturer, mod
 
   const { isAuthenticated } = useProfile()
 
-  const { toggleUserFavourites, userFavourites } = useFavourites(productId)
+  const { toggleUserFavourites, userFavourites, toggleFavouritesLoading } = useFavourites(productId)
 
   const handleCardClick = () => router.push(`/details/${productId}`)
 
@@ -61,17 +61,21 @@ const ProductCard: React.FC<Props> = ({ swiperCard, productId, manufacturer, mod
             isProductInFavorites ? 'bg-orange-20 hover:bg-orange-30' : ' bg-raisin-20 hover:bg-raisin-60'
           }`}
         >
-          <Icon
-            svgPath={isProductInFavorites ? 'favIconActive' : 'favIconOutline'}
-            className='cursor-pointer'
-            width={isProductInFavorites ? 14 : 16}
-            height={isProductInFavorites ? 14 : 17}
-            onClick={e => {
-              e.stopPropagation()
-              e.nativeEvent.preventDefault()
-              handleFavorites()
-            }}
-          />
+          {toggleFavouritesLoading ? (
+            <>...</>
+          ) : (
+            <Icon
+              svgPath={isProductInFavorites ? 'favIconActive' : 'favIconOutline'}
+              className='cursor-pointer'
+              width={isProductInFavorites ? 14 : 16}
+              height={isProductInFavorites ? 14 : 17}
+              onClick={e => {
+                e.stopPropagation()
+                e.nativeEvent.preventDefault()
+                handleFavorites()
+              }}
+            />
+          )}
         </div>
       )}
       <DetailsContainer>
