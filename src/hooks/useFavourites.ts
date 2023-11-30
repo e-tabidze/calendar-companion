@@ -27,7 +27,7 @@ const useFavourites = (productId?: string | number) => {
     queryKey: ['userFavourites'],
     queryFn: () => getUserFavourites(),
     staleTime: Infinity,
-    enabled: isAuthenticated
+    enabled: !!isAuthenticated
   })
 
   const userFavourites = useFavourites?.data?.result?.data
