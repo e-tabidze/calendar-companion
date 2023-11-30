@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router'
 import useFavourites from 'src/hooks/useFavourites'
+import useProfile from 'src/hooks/useProfile'
 import Icon from 'src/views/app/Icon'
 import Image from '../image'
 import Typography from '../typography'
@@ -26,9 +27,9 @@ interface Props {
 const ProductCard: React.FC<Props> = ({ swiperCard, productId, manufacturer, model, prodYear, priceGel }) => {
   const router = useRouter()
 
-  const { toggleUserFavourites, userFavourites } = useFavourites(productId)
+  const { isAuthenticated } = useProfile()
 
-  console.log(userFavourites, '???? fav? ')
+  const { toggleUserFavourites, userFavourites } = useFavourites(productId)
 
   const handleCardClick = () => router.push(`/details/${productId}`)
 
@@ -54,21 +55,25 @@ const ProductCard: React.FC<Props> = ({ swiperCard, productId, manufacturer, mod
         <Image src='/images/car.png' alt='' className='rounded-tl-3xl rounded-tr-3xl object-cover' />
       </div>
 
-      <div
-        className={`absolute cursor-pointer z-[10] top-3 right-3 w-8 h-8 flex items-center justify-center rounded-full ${isProductInFavorites ? 'bg-orange-20 hover:bg-orange-30' : ' bg-raisin-20 hover:bg-raisin-60'}`}
-      >
-        <Icon
-          svgPath={isProductInFavorites ? 'favIconActive' : 'favIconOutline'}
-          className='cursor-pointer'
-          width={isProductInFavorites ? 14 : 16}
-          height={isProductInFavorites ? 14 : 17}
-          onClick={e => {
-            e.stopPropagation()
-            e.nativeEvent.preventDefault()
-            handleFavorites()
-          }}
-        />
-      </div>
+      {isAuthenticated && (
+        <div
+          className={`absolute cursor-pointer z-[10] top-3 right-3 w-8 h-8 flex items-center justify-center rounded-full ${
+            isProductInFavorites ? 'bg-orange-20 hover:bg-orange-30' : ' bg-raisin-20 hover:bg-raisin-60'
+          }`}
+        >
+          <Icon
+            svgPath={isProductInFavorites ? 'favIconActive' : 'favIconOutline'}
+            className='cursor-pointer'
+            width={isProductInFavorites ? 14 : 16}
+            height={isProductInFavorites ? 14 : 17}
+            onClick={e => {
+              e.stopPropagation()
+              e.nativeEvent.preventDefault()
+              handleFavorites()
+            }}
+          />
+        </div>
+      )}
       <DetailsContainer>
         <Typography type='h5'>
           {manufacturer} {model} {prodYear}

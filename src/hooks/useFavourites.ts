@@ -1,8 +1,10 @@
 import UserService from 'src/services/UserService'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import useProfile from './useProfile'
 
 const useFavourites = (productId?: string | number) => {
   const queryClient = useQueryClient()
+  const { isAuthenticated } = useProfile()
 
   const toggleFavourites = async (accessToken = '') => {
     try {
@@ -24,7 +26,8 @@ const useFavourites = (productId?: string | number) => {
   const useFavourites: any = useQuery({
     queryKey: ['userFavourites'],
     queryFn: () => getUserFavourites(),
-    staleTime: Infinity
+    staleTime: Infinity,
+    enabled: !!isAuthenticated
   })
 
   const userFavourites = useFavourites?.data?.result?.data
