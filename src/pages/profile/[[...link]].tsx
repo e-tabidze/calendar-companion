@@ -18,39 +18,39 @@ const ProfileLayout = dynamic(() => import('src/layouts/ProfileLayout'), { ssr: 
 const routes = [
   {
     id: 1,
-    icon: '/icons/orders.svg',
+    icon: 'orders',
     item: 'ჩემი შეკვეთები',
-    path: '/profile/orders'
+    path: '/profile/orders/'
   },
   {
     id: 2,
-    icon: '',
+    icon: 'favIconOutlinedDark',
     item: 'ფავორიტები',
-    path: '/profile/favourites'
+    path: '/profile/favourites/'
   },
   {
     id: 3,
-    icon: '',
+    icon: 'card',
     item: 'ბარათები და ტრანზაქციები',
-    path: '/profile/transactions'
+    path: '/profile/transactions/'
   },
   {
     id: 4,
-    icon: '',
+    icon: 'settings',
     item: 'პარამეტრები',
-    path: '/profile/personal-information'
+    path: '/profile/personal-information/'
   },
   {
     id: 5,
-    icon: '',
+    icon: 'createCompany',
     item: 'კომპანიის შექმნა',
-    path: '/profile/create-company'
+    path: '/profile/create-company/'
   },
   {
     id: 6,
-    icon: '',
+    icon: 'logout',
     item: 'შეტყობინებები',
-    path: '/profile/notifications'
+    path: '/profile/notifications/'
   }
 ]
 
