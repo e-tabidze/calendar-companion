@@ -4,7 +4,8 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { CompanySchema } from 'src/@core/validation/companySchema'
 import { Company, CompanyAddress, WorkingTime } from 'src/types/Company'
 import CompanyService from 'src/services/CompanyService'
-import LocationService from 'src/services/LocationService'
+
+// import LocationService from 'src/services/LocationService'
 
 const useCreateCompany = () => {
   const defaultWorkDayWorkingTime: WorkingTime = {
@@ -89,16 +90,16 @@ const useCreateCompany = () => {
     }
   }
 
-  const getLocationSuggestions = async (address: string) => {
-    try {
-      const response: any = await LocationService.getLocationSuggestions(address)
+  // const getLocationSuggestions = async (address: string) => {
+  //   try {
+  //     const response: any = await LocationService.getLocationSuggestions(address)
 
-      return response.data
-    } catch (error) {
-      console.error('Error fetching location suggestions:', error)
-      throw error
-    }
-  }
+  //     return response.data
+  //   } catch (error) {
+  //     console.error('Error fetching location suggestions:', error)
+  //     throw error
+  //   }
+  // }
 
   return {
     control,
@@ -114,7 +115,8 @@ const useCreateCompany = () => {
     appendAddress,
     defaultAddress,
     createCompany,
-    getLocationSuggestions
+
+    // getLocationSuggestions
   }
 }
 
