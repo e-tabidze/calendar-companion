@@ -13,6 +13,7 @@ import useWindowDimensions from 'src/hooks/useWindowDimensions'
 import Drawer from 'src/views/pages/details/drawer'
 import ResponsivePriceCalcCard from 'src/views/pages/details/responsivePriceCalcCard'
 import useBooking from 'src/views/pages/booking/useBooking'
+import BookingRadio from "../../views/components/bookingRadio";
 
 // import DateDropdown from 'src/views/components/dateDropdown'
 
@@ -99,7 +100,8 @@ const Booking = () => {
             <Typography type='h3' className='my-11'>
               ადგილმდებარეობა *
             </Typography>
-            <Radio name='name' options={options} control={control} color='bg-green-100' />
+            {/*<Radio name='name' options={options} control={control} color='bg-green-100' />*/}
+            <BookingRadio name='name' options={options} control={control} color='bg-green-100'/>
             <div>
               <div
                 className='mt-11 flex items-center justify-between mb-8'
