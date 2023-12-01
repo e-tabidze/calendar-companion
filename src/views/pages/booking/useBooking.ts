@@ -3,7 +3,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 
 import { BookingSchema } from 'src/@core/validation/bookingSchema'
 import useProfile from 'src/hooks/useProfile'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { Booking } from 'src/types/Booking'
 
 const useBooking = () => {

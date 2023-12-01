@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 import CompanyService from 'src/services/CompanyService'
 
-const useCompanyInfo = (id: number) => {
+const useCompanyInfo = (id: number | string) => {
   const { data, isLoading, refetch } = useQuery(['companyInfo', id], () => getCompanyInfo('', id), {
     staleTime: Infinity,
     enabled: !!id
@@ -27,7 +27,7 @@ const useCompanyInfo = (id: number) => {
 
 export default useCompanyInfo
 
-export const getCompanyInfo = async (accessToken = '', id: number) => {
+export const getCompanyInfo = async (accessToken = '', id: number | string) => {
   try {
     const response: any = await CompanyService.getCompanyInfo(accessToken, id)
 

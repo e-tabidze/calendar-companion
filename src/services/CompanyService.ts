@@ -19,7 +19,7 @@ class CompanyService extends HttpService {
     return this.get(`/company-branches`, AccessToken ? { Authorization: `${AccessToken}` } : {})
   }
 
-  getCompanyInfo(AccessToken = '', company_id: number) {
+  getCompanyInfo(AccessToken = '', company_id: number | string) {
     return this.get(`/companies/${company_id}`, AccessToken ? { Authorization: `${AccessToken}` } : {})
   }
 

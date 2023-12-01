@@ -6,14 +6,19 @@ import { Divider } from '../insuranceCard/styles'
 interface Props {
   isOpenDrawer: boolean
   setIsOpenDrawer: any
+  price: number
+  dates: string
+  days: number | null
+  onClick: () => void
+  className?: string
 }
 
-const Drawer = ({ isOpenDrawer, setIsOpenDrawer }: Props) => {
+const Drawer: React.FC<Props> = ({ isOpenDrawer, setIsOpenDrawer, price, dates, days, onClick, className }) => {
   return (
-    <DrawerBottom isOpen={isOpenDrawer} setIsOpen={setIsOpenDrawer}>
+    <DrawerBottom isOpen={isOpenDrawer} setIsOpen={setIsOpenDrawer} className={className}>
       <div className='flex items-center gap-2'>
         <Typography type='h3' className='font-bold'>
-          27₾
+          {price}₾
         </Typography>
         <Typography type='h5' weight='normal'>
           / დღე
@@ -25,10 +30,10 @@ const Drawer = ({ isOpenDrawer, setIsOpenDrawer }: Props) => {
       <div className='flex gap-3 items-center mb-4'>
         <div className='flex gap-2'>
           <Typography type='body' className='text-2sm'>
-            June 17 - June 22
+            {dates}
           </Typography>
           <Typography type='body' color='light' className='text-2sm'>
-            | 6 days
+            | {days} days
           </Typography>
         </div>
         <button className='border border-raisin-100 rounded-xl p-1 text-sm'>შეცვლა</button>
@@ -44,11 +49,11 @@ const Drawer = ({ isOpenDrawer, setIsOpenDrawer }: Props) => {
             მანქანის ქირაობის საკომისიო
           </Typography>
           <Typography type='body' color='light'>
-            | 6 დღე
+            | {days} დღე
           </Typography>
         </div>
         <Typography type='h5' weight='normal'>
-          233$
+          {days && days * price + ' ₾'}
         </Typography>
       </div>
 
@@ -59,10 +64,16 @@ const Drawer = ({ isOpenDrawer, setIsOpenDrawer }: Props) => {
           ჯამი
         </Typography>
         <Typography type='h5' weight='normal' className='text-orange-100'>
-          233$
+          {days && days * price + ' ₾'}
         </Typography>
       </div>
-      <DefaultButton bg='bg-orange-100' text='ჯავშნის დაწყება' className='w-full' textColor='text-white' />
+      <DefaultButton
+        bg='bg-orange-100'
+        text='ჯავშნის დაწყება'
+        className='w-full'
+        textColor='text-white'
+        onClick={onClick}
+      />
     </DrawerBottom>
   )
 }

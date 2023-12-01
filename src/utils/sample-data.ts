@@ -10,3 +10,4 @@ export const days: WeekDay[] = [
   { label: 'შაბ', value: 'saturday' },
   { label: 'კვი', value: 'sunday' }
 ]
+

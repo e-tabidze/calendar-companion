@@ -6,6 +6,7 @@ import { FilterContainer, InnerFilterContainer } from './styles'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import { Controller } from 'react-hook-form'
+import { formatDate } from 'src/utils/formatDate'
 
 interface Props {
   control: any
@@ -24,9 +25,7 @@ const LocationDropdown: React.FC<Props> = ({ control }) => {
           </Typography>
           <InnerFilterContainer>
             <Typography type='subtitle' className='text-raisin-50'>
-              {startDate && endDate
-                ? `${startDate?.toISOString().split('T')[0]} - ${endDate?.toISOString().split('T')[0]}`
-                : 'აირჩიეთ თარიღი და დრო'}
+              {startDate && endDate ? `${formatDate(startDate)} - ${formatDate(endDate)}` : 'აირჩიეთ თარიღი და დრო'}
             </Typography>
             <Image src='/icons/chevron.svg' className='inline fill-white m-2' alt='img' />
           </InnerFilterContainer>
@@ -56,9 +55,7 @@ const LocationDropdown: React.FC<Props> = ({ control }) => {
                 onChange={(update: any) => {
                   if (update) {
                     const [start, end] = update
-                    const formattedStartDate = start?.toISOString().split('T')[0]
-                    const formattedEndDate = end?.toISOString().split('T')[0]
-                    onChange({ book_from: formattedStartDate, book_to: formattedEndDate })
+                    onChange({ book_from: formatDate(start), book_to: formatDate(end) })
                     setDateRange(update)
                   } else {
                     onChange(null)

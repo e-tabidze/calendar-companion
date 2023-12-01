@@ -5,7 +5,7 @@ interface Props {
   price: number
   dates: string
   days: number | null
-  className: string
+  className?: string
   onClick: () => void
 }
 

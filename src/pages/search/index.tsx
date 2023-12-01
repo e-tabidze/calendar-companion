@@ -63,6 +63,10 @@ const SearchPage = () => {
 
   const { asPath } = router
 
+  const { book_from, book_to } = router.query
+
+  console.log(book_from, "from", book_to, 'to')
+
   const startIndex = asPath.indexOf('/search/?') + '/search/?'.length
   const searchString = asPath.slice(startIndex)
 
@@ -236,6 +240,8 @@ const SearchPage = () => {
                       prodYear={product?.prod_year}
                       priceGel={product?.price_gel}
                       countProductFavs={product?.count_user_favourites}
+                      bookFrom={book_from}
+                      bookTo={book_to}
                     />
                   ))}
                 </div>

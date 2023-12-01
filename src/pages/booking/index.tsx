@@ -18,6 +18,7 @@ import BookingRadio from '../../views/components/bookingRadio'
 import DateDropdown from 'src/views/components/dateDropdown'
 import { useWatch } from 'react-hook-form'
 import useCompanyInfo from 'src/hooks/useCompanyInfo'
+import SelectField from 'src/views/components/selectField'
 
 const Booking = () => {
   const [additionalServices, toggleAdditionalServices] = useState(false)
@@ -34,9 +35,11 @@ const Booking = () => {
 
   const router = useRouter()
 
-  const { book_from, book_to, price_day, days, id } = router.query
+  const { book_from, book_to, price_day, days, company_id } = router.query
 
-  const { singleCompanyBranches } = useCompanyInfo(110)
+  console.log(company_id, 'company_id')
+
+  const { singleCompanyBranches } = useCompanyInfo(company_id[0])
 
   console.log(singleCompanyBranches, 'companyBranches')
 
@@ -45,8 +48,65 @@ const Booking = () => {
   }
 
   const TakeAway = () => (
-    <div>
-      <h1>TAKEAWAY</h1>
+    <div className='pl-[52px] mt-[16px]'>
+      <div className='flex items-center'>
+        <div className='w-2/12 flex items-start'>
+          <Image src='/icons/start.svg' alt='' height={24} width={24} />
+
+          <div className='flex flex-col ml-[12px]'>
+            <span className='text-[12px]'>წაყვანა</span>
+            <span className='text-[12px] text-black/60'>15 ივნ</span>
+          </div>
+        </div>
+        <div className='w-6/12'>
+          <Typography type='body' className='text-[14px] ml-[40px]'>
+            თბილისი, იაკობ წურტაველის 72
+          </Typography>
+        </div>
+        <div className='w-4/12 flex justify-between'>
+          <SelectField
+            control={control}
+            valueKey='id'
+            labelKey='time'
+            name='time'
+            options={times}
+            placeholder='დრო'
+            className='bg-transparent border-green-100'
+          />
+          <button
+            // onClick={toggleEditModal}
+            className='ml-[16px] border border-black flex items-center justify-center h-[48px] rounded-[12px] text-[12px] px-[24px]'
+          >
+            შეცვლა
+          </button>
+        </div>
+      </div>
+      <div className='flex items-center mt-[12px]'>
+        <div className='w-2/12 flex items-start'>
+          <Image src='/icons/stop.svg' alt='' height={24} width={24} />
+
+          <div className='flex flex-col ml-[12px]'>
+            <span className='text-[12px]'>დაბრუნება</span>
+            <span className='text-[12px] text-black/60'>20 ივნ</span>
+          </div>
+        </div>
+        <div className='w-6/12'>
+          <Typography type='body' className='text-[14px] ml-[40px]'>
+            თბილისი, იაკობ წურტაველის 72
+          </Typography>
+        </div>
+        <div className='w-4/12 flex justify-between'>
+          {/* <SelectField
+            control={control}
+            valueKey='id'
+            labelKey='time'
+            name='time'
+            options={times}
+            placeholder='დრო'
+            className='bg-transparent border-green-100'
+          /> */}
+        </div>
+      </div>
     </div>
   )
 
@@ -148,7 +208,6 @@ const Booking = () => {
                     (24 * 60 * 60 * 1000)
                 ) + 1
               }
-              className={''}
               onClick={function (): void {
                 throw new Error('Function not implemented.')
               }}
@@ -157,7 +216,22 @@ const Booking = () => {
         </ContentContainer>
       </LargeContainer>
       {isOpenDrawer && width < 779 ? (
-        <Drawer isOpenDrawer={isOpenDrawer} setIsOpenDrawer={setIsOpenDrawer} />
+        <Drawer
+          isOpenDrawer={isOpenDrawer}
+          setIsOpenDrawer={setIsOpenDrawer}
+          price={Number(Array.isArray(price_day) ? price_day[0] : price_day)}
+          dates={`${book_from} - ${book_to}`}
+          days={
+            Math.round(
+              (new Date(Array.isArray(book_to) ? book_to[0] : book_to).getTime() -
+                new Date(Array.isArray(book_from) ? book_from[0] : book_from).getTime()) /
+                (24 * 60 * 60 * 1000)
+            ) + 1
+          }
+          onClick={function (): void {
+            throw new Error('Function not implemented.')
+          }}
+        />
       ) : (
         <ResponsivePriceCalcCard toggleDrawer={toggleDrawer} />
       )}
