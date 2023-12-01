@@ -22,7 +22,7 @@ class SearchService extends HttpService {
   }
 
   getSearchProducts(querystring: string) {
-    return this.get(`/search-products?${querystring}`)
+    return this.get(`/search-products?${querystring}&order_by=asc`)
   }
 
   getCities() {

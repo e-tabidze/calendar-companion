@@ -40,8 +40,6 @@ const useBooking = () => {
 
   const bookingValues: any = useWatch({ control })
 
-  console.log(userInfo?.information?.identification_number, 'id')
-
   useEffect(() => {
     if (!!userInfo) {
       setValue('first_name', userInfo?.UserID === userInfo?.active_profile_id ? userInfo?.information?.first_name : '')

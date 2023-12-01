@@ -17,6 +17,7 @@ import BookingRadio from '../../views/components/bookingRadio'
 
 import DateDropdown from 'src/views/components/dateDropdown'
 import { useWatch } from 'react-hook-form'
+import useCompanyInfo from 'src/hooks/useCompanyInfo'
 
 const Booking = () => {
   const [additionalServices, toggleAdditionalServices] = useState(false)
@@ -33,7 +34,11 @@ const Booking = () => {
 
   const router = useRouter()
 
-  const { book_from, book_to, price_day, days } = router.query
+  const { book_from, book_to, price_day, days, id } = router.query
+
+  const { singleCompanyBranches } = useCompanyInfo(110)
+
+  console.log(singleCompanyBranches, 'companyBranches')
 
   const onClickLogo = () => {
     router.push('/')

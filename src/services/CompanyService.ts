@@ -38,6 +38,10 @@ class CompanyService extends HttpService {
   getCompanyProducts(AccessToken = '') {
     return this.get(`/products`, AccessToken ? { Authorization: `${AccessToken}` } : {})
   }
+
+  getSingleCompanyBranches(company_id: number | string) {
+    return this.get(`/single-company-branches/${company_id}`, {})
+  }
 }
 
 export default new CompanyService()

@@ -161,7 +161,7 @@ const ProductDetails = () => {
     enabled: !!productId
   })
 
-  console.log(singleProductDetails, 'singleProductDetails')
+  console.log(singleProductDetails?.product_services, 'singleProductDetails')
 
   console.log(bookingValues, 'bookingValues')
 
@@ -203,6 +203,9 @@ const ProductDetails = () => {
               <SubNavItem section='features' activeSection={section} handleClick={handleClick}>
                 მახასიათებლები
               </SubNavItem>
+              <SubNavItem section='pricing' activeSection={section} handleClick={handleClick}>
+                ღირებულება
+              </SubNavItem>
               <SubNavItem section='insurance' activeSection={section} handleClick={handleClick}>
                 დაზღვევა
               </SubNavItem>
@@ -234,25 +237,37 @@ const ProductDetails = () => {
                   <Typography type='subtitle'>{singleProductDetails?.start_address}</Typography>
                 </div>
                 <Typography type='subtitle'>{singleProductDetails?.additional_information}</Typography>
+                <Typography type='subtitle' className='mt-8'>
+                  {singleProductDetails?.use_instruction}
+                </Typography>
                 <EntityInformationCard name={singleProductDetails?.company_user?.company?.information?.name} />
               </div>
 
               <Features id='features' singleProductDetails={singleProductDetails} />
 
               <Divider />
-              <div className='my-8'>
-                <Typography type='h3'>ფასი მოიცავს</Typography>
+              <div className='my-8' id="pricing">
+                <Typography type='h3'>ღირებულება</Typography>
 
-                <div className='mt-8 mb-11 grid grid-cols-1 lg:grid-cols-2 gap-4'>
-                  {singleProductDetails?.product_additional_information?.map(
-                    (feature: { additional_information: { title: string }; icon: string; id: string | number }) => (
+                <div className='mt-8 mb-11 grid grid-cols-1 gap-4'>
+                  {singleProductDetails?.product_services?.map((feature: any) => (
+                    <>
+                      {console.log(feature, 'feature')}
                       <ProductFeature
-                        feature={feature?.additional_information?.title}
-                        icon='/icons/printer.svg'
+                        feature={feature?.title}
+                        icon='printer'
                         key={feature.id}
+                        description={feature.description}
+                        price={
+                          feature.company_service_type_id === 3
+                            ? 'უფასო'
+                            : feature.company_service_type_id === 1
+                            ? `${feature.price}/დღე`
+                            : `${feature.price}/ერთჯერადად`
+                        }
                       />
-                    )
-                  )}
+                    </>
+                  ))}
                 </div>
               </div>
               <Divider />
