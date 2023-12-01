@@ -99,9 +99,12 @@ const BranchInfoComponent: React.FC<Props> = ({ index, control, errors, setValue
                   onClick={(option: any) => {
                     const locations = option?.locations || []
                     if (locations.length >= 2) {
+                      console.log(option, 'opt')
                       const firstValue = locations[0]
                       onChange(locations.join(', '))
                       setValue(`addresses.${index}.city`, firstValue)
+                      setValue(`addresses.${index}.lat`, option.lat)
+                      setValue(`addresses.${index}.long`, option.lng)
                     }
                   }}
                 />

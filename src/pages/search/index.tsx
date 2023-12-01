@@ -235,6 +235,7 @@ const SearchPage = () => {
                       model={product?.manufacturer_model?.title}
                       prodYear={product?.prod_year}
                       priceGel={product?.price_gel}
+                      countProductFavs={product?.count_user_favourites}
                     />
                   ))}
                 </div>

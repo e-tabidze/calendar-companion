@@ -4,7 +4,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { CompanySchema } from 'src/@core/validation/companySchema'
 import { Company, CompanyAddress, WorkingTime } from 'src/types/Company'
 import CompanyService from 'src/services/CompanyService'
-import LocationService from 'src/services/LocationService'
+import locationService from 'src/services/LocationService'
 
 const useCreateCompany = () => {
   const defaultWorkDayWorkingTime: WorkingTime = {
@@ -91,7 +91,7 @@ const useCreateCompany = () => {
 
   const getLocationSuggestions = async (address: string) => {
     try {
-      const response: any = await LocationService.getLocationSuggestions(address)
+      const response: any = await locationService.getLocationSuggestions(address)
 
       return response.data
     } catch (error) {

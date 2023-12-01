@@ -12,43 +12,49 @@ import ProfileLayout from 'src/layouts/ProfileLayout'
 const routes = [
   {
     id: 1,
-    icon: '/icons/orders.svg',
+    icon: 'dashboard',
     item: 'დეშბორდი',
-    path: '/dashboard/dashboard'
+    path: '/dashboard/dashboard/'
   },
   {
     id: 2,
-    icon: '',
+    icon: 'newProduct',
     item: 'განცხადების დამატება',
-    path: '/dashboard/new-product'
+    path: '/dashboard/new-product/'
   },
   {
     id: 3,
-    icon: '',
+    icon: 'incomingOrders',
     item: 'შემოსული ჯავშნები',
-    path: '/dashboard/orders'
+    path: '/dashboard/orders/'
   },
   {
     id: 4,
-    icon: '',
-    item: 'გადახდები',
-    path: '/dashboard/payments'
+    icon: 'bellOutline',
+    item: 'შეტყობინება',
+    path: '/dashboard/notifications/'
   },
   {
     id: 5,
-    icon: '',
-    item: 'ავტომობილები',
-    path: '/dashboard/vehicles'
+    icon: 'payments',
+    item: 'გადახდები',
+    path: '/dashboard/payments/'
   },
   {
     id: 6,
-    icon: '',
-    item: 'კომპანიის რედაქტირება',
-    path: '/dashboard/edit-company'
+    icon: 'car',
+    item: 'ავტომობილები',
+    path: '/dashboard/vehicles/'
   },
   {
     id: 7,
-    icon: '',
+    icon: 'editOutline',
+    item: 'კომპანიის რედაქტირება',
+    path: '/dashboard/edit-company/'
+  },
+  {
+    id: 8,
+    icon: 'logout',
     item: 'გასვლა',
     path: '/dashboard/sign-out'
   }

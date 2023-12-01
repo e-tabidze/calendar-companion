@@ -22,14 +22,15 @@ interface Props {
   model: string
   prodYear: number
   priceGel: number
+  countProductFavs: number
 }
 
-const ProductCard: React.FC<Props> = ({ swiperCard, productId, manufacturer, model, prodYear, priceGel }) => {
+const ProductCard: React.FC<Props> = ({ swiperCard, productId, manufacturer, model, prodYear, priceGel, countProductFavs }) => {
   const router = useRouter()
 
   const { isAuthenticated } = useProfile()
 
-  const { toggleUserFavourites, userFavourites } = useFavourites(productId)
+  const { toggleUserFavourites, userFavourites, toggleFavouritesLoading } = useFavourites(productId)
 
   const handleCardClick = () => router.push(`/details/${productId}`)
 
@@ -61,17 +62,21 @@ const ProductCard: React.FC<Props> = ({ swiperCard, productId, manufacturer, mod
             isProductInFavorites ? 'bg-orange-20 hover:bg-orange-30' : ' bg-raisin-20 hover:bg-raisin-60'
           }`}
         >
-          <Icon
-            svgPath={isProductInFavorites ? 'favIconActive' : 'favIconOutline'}
-            className='cursor-pointer'
-            width={isProductInFavorites ? 14 : 16}
-            height={isProductInFavorites ? 14 : 17}
-            onClick={e => {
-              e.stopPropagation()
-              e.nativeEvent.preventDefault()
-              handleFavorites()
-            }}
-          />
+          {toggleFavouritesLoading ? (
+            <>...</>
+          ) : (
+            <Icon
+              svgPath={isProductInFavorites ? 'favIconActive' : 'favIconOutline'}
+              className='cursor-pointer'
+              width={isProductInFavorites ? 14 : 16}
+              height={isProductInFavorites ? 14 : 17}
+              onClick={e => {
+                e.stopPropagation()
+                e.nativeEvent.preventDefault()
+                handleFavorites()
+              }}
+            />
+          )}
         </div>
       )}
       <DetailsContainer>
@@ -93,7 +98,7 @@ const ProductCard: React.FC<Props> = ({ swiperCard, productId, manufacturer, mod
           </PriceContainer>
           <DetailsWrapper>
             <Details>
-              <Icon svgPath='views' width={20} height={20} /> <span>5</span>
+              <Icon svgPath='views' width={20} height={20} /> <span>{countProductFavs}</span>
             </Details>
             <Details>
               <Icon svgPath='briefcase' width={20} height={20} /> <span>2</span>

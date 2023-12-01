@@ -1,5 +1,7 @@
 import Image from 'next/image'
+import { useRouter } from 'next/router'
 import useProfile from 'src/hooks/useProfile'
+import Icon from 'src/views/app/Icon'
 import Divider from '../divider'
 import Typography from '../typography'
 
@@ -28,6 +30,8 @@ const ProfileNavigation: React.FC<Props> = ({
 }) => {
   const { userInfo, activeCompany } = useProfile()
 
+  const router = useRouter()
+
   return (
     <div
       className={`hidden lg:flex h-fit mx-3 border border-raisin-10 rounded-3xl py-8 shrink-0  flex-col transition-all duration-300
@@ -53,7 +57,6 @@ const ProfileNavigation: React.FC<Props> = ({
               activeCompany?.information.name
             ) : (
               <>
-                {' '}
                 {userInfo?.information.first_name} {userInfo?.information.last_name}{' '}
               </>
             )}
@@ -96,15 +99,23 @@ const ProfileNavigation: React.FC<Props> = ({
               sidebarCollapsed ? 'px-5' : 'lg:px-5 xl:px-0 2xl:px-4'
             }`}
           >
-            <span className="transition-all duration-300 opacity-0 group-hover:opacity-100 xl:group-hover:opacity-0 z-[111] after:content[''] after:absolute after:left-[-6px] after:w-0 after:h-0 after:border-t-[6px] after:border-b-[6px] after:border-r-[6px] after:border-t-transparent  after:border-b-transparent after:border-r-raisin-100 absolute flex items-center bg-raisin-100 left-full ml-[-10px] top-1/2 -translate-y-1/2 text-white text-[12px] h-[32px] px-[12px] rounded-[8px]">{route.item}</span>
-            <div className={`h-8 w-8 rounded-lg bg-raisin-10 flex items-center justify-center shrink-0`}>
-              <Image src={route.icon} alt='' width={20} height={20} />
+            <span className="transition-all duration-300 opacity-0 group-hover:opacity-100 xl:group-hover:opacity-0 z-[111] after:content[''] after:absolute after:left-[-6px] after:w-0 after:h-0 after:border-t-[6px] after:border-b-[6px] after:border-r-[6px] after:border-t-transparent  after:border-b-transparent after:border-r-raisin-100 absolute flex items-center bg-raisin-100 left-full ml-[-10px] top-1/2 -translate-y-1/2 text-white text-[12px] h-[32px] px-[12px] rounded-[8px]">
+              {route.item}
+            </span>
+            <div
+              className={`h-8 w-8 rounded-lg ${
+                route.path === router?.asPath ? 'bg-orange-30' : 'bg-raisin-10'
+              } flex items-center justify-center shrink-0`}
+            >
+              <Icon svgPath={route.icon} width={20} height={20} color='#fff' />
             </div>
             <Typography
               type='h5'
               className={`transition-all duration-300 overflow-hidden text-[14px] 2xl:text-[16px] ${
                 sidebarCollapsed ? 'opacity-0' : 'opacity-100 ml-4 2xl:ml-6'
-              } ${selectedRoute.path.split('/')[2] === route.path.split('/')[2] ? 'text-orange-100' : ''}'`}
+              } ${selectedRoute.path.split('/')[2] === route.path.split('/')[2] ? 'text-orange-100' : ''}' ${
+                route.path === router?.asPath && 'text-orange-100'
+              }`}
             >
               {route.item}
             </Typography>

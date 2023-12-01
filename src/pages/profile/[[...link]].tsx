@@ -18,39 +18,39 @@ const ProfileLayout = dynamic(() => import('src/layouts/ProfileLayout'), { ssr: 
 const routes = [
   {
     id: 1,
-    icon: '/icons/orders.svg',
+    icon: 'orders',
     item: 'ჩემი შეკვეთები',
-    path: '/profile/orders'
+    path: '/profile/orders/'
   },
   {
     id: 2,
-    icon: '',
+    icon: 'favIconOutlinedDark',
     item: 'ფავორიტები',
-    path: '/profile/favourites'
+    path: '/profile/favourites/'
   },
   {
     id: 3,
-    icon: '',
+    icon: 'card',
     item: 'ბარათები და ტრანზაქციები',
-    path: '/profile/transactions'
+    path: '/profile/transactions/'
   },
   {
     id: 4,
-    icon: '',
+    icon: 'settings',
     item: 'პარამეტრები',
-    path: '/profile/personal-information'
+    path: '/profile/personal-information/'
   },
   {
     id: 5,
-    icon: '',
+    icon: 'createCompany',
     item: 'კომპანიის შექმნა',
-    path: '/profile/create-company'
+    path: '/profile/create-company/'
   },
   {
     id: 6,
-    icon: '',
+    icon: 'bellOutline',
     item: 'შეტყობინებები',
-    path: '/profile/notifications'
+    path: '/profile/notifications/'
   }
 ]
 
@@ -85,7 +85,15 @@ const ProfileRouter = ({ userInfo }: { userInfo: UserInfo }) => {
       queryClient.invalidateQueries(queryKey)
     }
 
-    return companyid && companyInfo ? <Company id={Number(companyid)} name={companyInfo?.information?.name} productsCount={companyInfo?.count_company_poduct} /> : <></>
+    return companyid && companyInfo ? (
+      <Company
+        id={Number(companyid)}
+        name={companyInfo?.information?.name}
+        productsCount={companyInfo?.count_company_poduct}
+      />
+    ) : (
+      <></>
+    )
   }
 
   switch (key) {
@@ -101,6 +109,8 @@ const ProfileRouter = ({ userInfo }: { userInfo: UserInfo }) => {
       return userInfo && <PersonalInfo userData={userInfo} />
     case 'create-company':
       return <CreateCompany />
+    case 'notifications':
+      return <Notifications />
     default:
       return <></>
   }
@@ -122,7 +132,7 @@ const Profile = () => {
     ...companyRoutes,
     {
       id: 9,
-      icon: '',
+      icon: 'logout',
       item: 'გასვლა',
       path: '/profile/sign-out'
     }
