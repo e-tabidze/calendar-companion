@@ -13,9 +13,10 @@ import useWindowDimensions from 'src/hooks/useWindowDimensions'
 import Drawer from 'src/views/pages/details/drawer'
 import ResponsivePriceCalcCard from 'src/views/pages/details/responsivePriceCalcCard'
 import useBooking from 'src/views/pages/booking/useBooking'
-import BookingRadio from "../../views/components/bookingRadio";
+import BookingRadio from '../../views/components/bookingRadio'
 
-// import DateDropdown from 'src/views/components/dateDropdown'
+import DateDropdown from 'src/views/components/dateDropdown'
+import { useWatch } from 'react-hook-form'
 
 const Booking = () => {
   const [additionalServices, toggleAdditionalServices] = useState(false)
@@ -59,6 +60,10 @@ const Booking = () => {
     console.log(bookingValues, 'V')
   }
 
+  const formsState = useWatch({ control })
+
+  console.log(formsState, 'formState')
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <LargeContainer className='flex items-baseline pt-5 flex-col md:flex-row'>
@@ -85,12 +90,12 @@ const Booking = () => {
               <DefaultInput control={control} name='phone' errors={errors} label='მობილურის ნომერი' />
               <DefaultInput control={control} name='email' errors={errors} label='ელ.ფოსტა' />
 
-              {/* <DateDropdown label={'აირჩიე დაბადების თარიღი'} name='birth_date' control={control} />
+              <DateDropdown label={'აირჩიე დაბადების თარიღი'} name='birth_date' control={control} />
               <DateDropdown
                 label={'მართვის მოწმობის მოქმედების ვადა'}
                 name='driver_license_expiration'
                 control={control}
-              /> */}
+              />
             </div>
             <Typography type='body' color='light' className='mb-14'>
               გთხოვთ გადაამოწმოთ მითითებული პარამეტრები და შემდეგ დაასრულოთ დაჯავშნის პროცესი, ეს პარამეტრები
@@ -101,7 +106,7 @@ const Booking = () => {
               ადგილმდებარეობა *
             </Typography>
             {/*<Radio name='name' options={options} control={control} color='bg-green-100' />*/}
-            <BookingRadio name='name' options={options} control={control} color='bg-green-100'/>
+            <BookingRadio name='name' options={options} control={control} color='bg-green-100' />
             <div>
               <div
                 className='mt-11 flex items-center justify-between mb-8'

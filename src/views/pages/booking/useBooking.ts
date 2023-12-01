@@ -19,8 +19,8 @@ const useBooking = () => {
       book_from: '',
       book_to: ''
     },
-    birth_date: '',
-    driver_license_expiration: ''
+    birth_date: null,
+    driver_license_expiration: null
   }
 
   const {
