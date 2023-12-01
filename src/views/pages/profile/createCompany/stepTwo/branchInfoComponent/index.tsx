@@ -1,13 +1,13 @@
-// import { useQuery } from '@tanstack/react-query'
+import { useQuery } from '@tanstack/react-query'
 import React, { useEffect } from 'react'
 import { Controller, useWatch } from 'react-hook-form'
 import { days } from 'src/utils/sample-data'
-import { DefaultInput } from 'src/views/components/input'
+import { DefaultInput, InputWithComponent } from 'src/views/components/input'
 import RoundedTag from 'src/views/components/roundedTag'
 import SwitchField from 'src/views/components/switchField'
 
-// import useCreateCompany from '../../useCreateCompany'
-// import LocationSuggestions from './locationSuggestions'
+import useCreateCompany from '../../useCreateCompany'
+import LocationSuggestions from './locationSuggestions'
 import TimeRangeComponent from './timeRangeComponent'
 
 interface Props {
@@ -20,18 +20,17 @@ interface Props {
 }
 
 const BranchInfoComponent: React.FC<Props> = ({ index, control, errors, setValue }) => {
-
-  // const { getLocationSuggestions } = useCreateCompany()
+  const { getLocationSuggestions } = useCreateCompany()
 
   const formState = useWatch({ control })
 
-  // const { data: locationSuggestions, isLoading } = useQuery(
-  //   ['locationSuggestions', formState?.addresses[index]?.address],
-  //   () => getLocationSuggestions(formState?.addresses[index]?.address),
-  //   {
-  //     enabled: formState?.addresses[index]?.address?.length >= 3
-  //   }
-  // )
+  const { data: locationSuggestions, isLoading } = useQuery(
+    ['locationSuggestions', formState?.addresses[index]?.address],
+    () => getLocationSuggestions(formState?.addresses[index]?.address),
+    {
+      enabled: formState?.addresses[index]?.address?.length >= 3
+    }
+  )
 
   useEffect(() => {
     if (formState.addresses[index].is_same_time) {
@@ -83,8 +82,7 @@ const BranchInfoComponent: React.FC<Props> = ({ index, control, errors, setValue
   return (
     <div className='mb-6 md:border md:border-raisin-10 rounded-3xl md:py-10 md:px-9 grid grid-cols-1 gap-7'>
       <div className='w-full grid grid-cols-1 lg:grid-cols-3 gap-4 relative'>
-
-        {/* <Controller
+        <Controller
           name={`addresses.${index}.address`}
           control={control}
           render={({ field: { onChange, value } }) => (
@@ -113,10 +111,9 @@ const BranchInfoComponent: React.FC<Props> = ({ index, control, errors, setValue
                   }}
                 />
               )}
-
             </>
           )}
-        /> */}
+        />
 
         <DefaultInput label='ტელეფონი' name={`addresses.${index}.phone`} control={control} errors={errors} />
       </div>
