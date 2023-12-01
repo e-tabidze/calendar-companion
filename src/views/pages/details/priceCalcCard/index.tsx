@@ -57,20 +57,6 @@ const PriceCalcCard: React.FC<Props> = ({ price, dates, days, className, onClick
         </Typography>
       </div>
 
-      <div className='flex gap-2 flex-col justify-between py-2 lg:items-center lg:flex-row'>
-        <Typography type='body' className='text-raisin-100'>
-          დაზღვევა - საბაზისო პაკეტი
-        </Typography>
-        <Typography type='body'>უფასო</Typography>
-      </div>
-
-      <div className='flex gap-2 flex-col justify-between py-2 lg:items-center lg:flex-row'>
-        <Typography type='body' className='text-raisin-100'>
-          Taxes and fees
-        </Typography>
-        <Typography type='body'>უფასო</Typography>
-      </div>
-
       <div className='w-full h-px bg-raisin-10 mt-7' />
 
       <div className='flex justify-between py-1 pt-4 pb-7'>

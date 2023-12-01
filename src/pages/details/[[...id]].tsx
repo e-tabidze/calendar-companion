@@ -161,7 +161,7 @@ const ProductDetails = () => {
     enabled: !!productId
   })
 
-  console.log(singleProductDetails?.product_services, 'singleProductDetails')
+  console.log(singleProductDetails, 'singleProductDetails')
 
   console.log(bookingValues, 'bookingValues')
 
@@ -206,9 +206,10 @@ const ProductDetails = () => {
               <SubNavItem section='pricing' activeSection={section} handleClick={handleClick}>
                 ღირებულება
               </SubNavItem>
-              <SubNavItem section='insurance' activeSection={section} handleClick={handleClick}>
+
+              {/* <SubNavItem section='insurance' activeSection={section} handleClick={handleClick}>
                 დაზღვევა
-              </SubNavItem>
+              </SubNavItem> */}
               <SubNavItem section='reviews' activeSection={section} handleClick={handleClick}>
                 შეფასება
               </SubNavItem>
@@ -282,7 +283,7 @@ const ProductDetails = () => {
                     </Typography>
                     {startDate && endDate && (
                       <Typography type='subtitle'>
-                        |
+                        | {'    '}
                         {startDate &&
                           endDate &&
                           Math.round((endDate.getTime() - startDate.getTime()) / (24 * 60 * 60 * 1000)) + 1}
@@ -337,7 +338,7 @@ const ProductDetails = () => {
               </div>
               <Divider />
 
-              <div className='mt-11 mb-16 md:mb-28 overflow-auto' id='insurance'>
+              {/* <div className='mt-11 mb-16 md:mb-28 overflow-auto' id='insurance'>
                 <Typography type='h3'>დაზღვევა</Typography>
                 <div className='flex gap-6 mt-10 w-[160%] md:w-full'>
                   <div className='w-8/12 md:w-full'>
@@ -349,7 +350,7 @@ const ProductDetails = () => {
                 </div>
               </div>
 
-              <Divider />
+              <Divider /> */}
 
               <div className='mt-20 md:mt-40'>
                 <Typography type='h3'>ადგილმდებარეობა</Typography>

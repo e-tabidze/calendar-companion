@@ -51,18 +51,6 @@ const Drawer = ({ isOpenDrawer, setIsOpenDrawer }: Props) => {
           233$
         </Typography>
       </div>
-      <div className='flex gap-2 justify-between py-2'>
-        <Typography type='body' className='text-raisin-100'>
-          დაზღვევა - საბაზისო პაკეტი
-        </Typography>
-        <Typography type='body'>უფასო</Typography>
-      </div>
-      <div className='flex gap-2 justify-between py-2'>
-        <Typography type='body' className='text-raisin-100'>
-          Taxes and fees
-        </Typography>
-        <Typography type='body'>უფასო</Typography>
-      </div>
 
       <div className='w-full h-px bg-raisin-10 mt-7' />
 
@@ -74,7 +62,7 @@ const Drawer = ({ isOpenDrawer, setIsOpenDrawer }: Props) => {
           233$
         </Typography>
       </div>
-      <DefaultButton bg='bg-orange-100' text='ჯავშნის დაწყება' className='w-full' textColor="text-white" />
+      <DefaultButton bg='bg-orange-100' text='ჯავშნის დაწყება' className='w-full' textColor='text-white' />
     </DrawerBottom>
   )
 }

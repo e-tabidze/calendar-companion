@@ -75,14 +75,11 @@ const Booking = () => {
         <Image src='/images/logo-rent.svg' alt='logo' onClick={onClickLogo} />
         <ContentContainer className='flex gap-12'>
           <div className='w-full md:w-8/12'>
-            <div className='flex justify-between my-8'>
-              <div className='flex items-baseline gap-3'>
-                <Typography type='h3' className='font-bold'>
-                  {book_from} - {book_to}
-                </Typography>
-                <Typography type='body'>| 6 {days}</Typography>
-              </div>
-              <OutlinedButton label='შეცვლა' />
+            <div className='flex items-baseline my-8 gap-3'>
+              <Typography type='h3' className='font-bold'>
+                {book_from} - {book_to}
+              </Typography>
+              <Typography type='body'>| {days} days</Typography>
             </div>
             <Divider />
             <Typography type='h3' className='mt-11'>
