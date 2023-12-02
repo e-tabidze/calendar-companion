@@ -240,8 +240,8 @@ const SearchPage = () => {
                       prodYear={product?.prod_year}
                       priceGel={product?.price_gel}
                       countProductFavs={product?.count_user_favourites}
-                      bookFrom={book_from}
-                      bookTo={book_to}
+                      bookFrom={Array.isArray(book_from) ? book_from[0] : book_from}
+                      bookTo={Array.isArray(book_to) ? book_to[0] : book_to}
                     />
                   ))}
                 </div>

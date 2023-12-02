@@ -136,26 +136,14 @@ const StepTwo: React.FC<Props> = ({ control, appendAdditionalParam, step }) => {
         {isAdditionalParamsLoading ? (
           <>Loading</>
         ) : (
-          <>
-            {/* {additionalParams?.map((param: { id: Key | null | undefined; title: string }, index: any) => (
-              <div className='my-2' key={param.id}>
-                <CheckboxField
-                  name={`additional_options.${index}`}
-                  control={control}
-                  title={param.title}
-                  append={() => appendAdditionalParam({ id: param.id, title: param.title })}
-                />
-              </div>
-            ))} */}
-            <div className='my-2'>
-              <CheckboxField
-                name={`additional_options`}
-                control={control}
-                options={additionalParams}
-                append={() => appendAdditionalParam(appendAdditionalParam)}
-              />
-            </div>
-          </>
+          <div className='my-2'>
+            <CheckboxField
+              name={`additional_options`}
+              control={control}
+              options={additionalParams}
+              append={() => appendAdditionalParam(appendAdditionalParam)}
+            />
+          </div>
         )}
       </div>
     </div>

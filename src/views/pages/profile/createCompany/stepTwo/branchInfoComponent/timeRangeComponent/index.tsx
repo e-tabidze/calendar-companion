@@ -1,4 +1,5 @@
 import React from 'react'
+import { generateTimeOptions } from 'src/utils/timeValues'
 import SelectField from 'src/views/components/selectField'
 
 interface Props {
@@ -9,17 +10,6 @@ interface Props {
 }
 
 const TimeRangeComponent: React.FC<Props> = ({ control, startTimeName, endTimeName }) => {
-  const generateTimeOptions = () => {
-    const options = []
-
-    for (let hour = 0; hour < 24; hour++) {
-      const time = hour.toString().padStart(2, '0') + ':00'
-      options.push({ value: time, label: time })
-    }
-
-    return options
-  }
-
   return (
     <div className='flex items-center gap-1'>
       <SelectField

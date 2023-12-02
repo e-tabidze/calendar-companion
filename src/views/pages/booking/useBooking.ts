@@ -1,9 +1,9 @@
-import { useForm, useWatch } from 'react-hook-form'
+import { useFieldArray, useForm, useWatch } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 
 import { BookingSchema } from 'src/@core/validation/bookingSchema'
 import useProfile from 'src/hooks/useProfile'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { Booking } from 'src/types/Booking'
 
 const useBooking = () => {
@@ -20,7 +20,8 @@ const useBooking = () => {
       book_to: ''
     },
     birth_date: null,
-    driver_license_expiration: null
+    driver_license_expiration: null,
+    additional_services: [] as any[],
   }
 
   const {
@@ -35,6 +36,8 @@ const useBooking = () => {
     mode: 'onChange',
     reValidateMode: 'onChange',
     defaultValues,
+
+    // @ts-ignore
     resolver: yupResolver(BookingSchema)
   })
 
@@ -61,6 +64,11 @@ const useBooking = () => {
     }
   }, [userInfo, setValue])
 
+  const { fields: additionalServices, append: appendAdditionalService } = useFieldArray({
+    control,
+    name: 'additional_services'
+  })
+
   return {
     control,
     handleSubmit,
@@ -70,7 +78,9 @@ const useBooking = () => {
     resetField,
     setError,
     clearErrors,
-    setValue
+    setValue,
+    additionalServices,
+    appendAdditionalService
   }
 }
 

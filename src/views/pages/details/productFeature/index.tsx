@@ -1,5 +1,4 @@
 import Icon from 'src/views/app/Icon'
-import Image from 'src/views/components/image'
 import Typography from 'src/views/components/typography'
 
 interface Props {

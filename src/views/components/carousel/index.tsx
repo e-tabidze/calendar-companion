@@ -9,7 +9,6 @@ import 'swiper/css/pagination'
 import 'swiper/css/navigation'
 
 import { IconButton } from '../button'
-import useWindowDimensions from 'src/hooks/useWindowDimensions'
 import { CategoryCardSlider, ProductCardSlider, ProductDetailsSlider } from 'src/@core/configs/swiper'
 
 interface Props {
@@ -25,7 +24,6 @@ interface Props {
 SwiperCore.use([Navigation, Pagination, Virtual, Mousewheel, Keyboard, Thumbs, FreeMode, Controller])
 
 const Carousel = ({ itemsArray, type, onClick, singleSlide = false, thumbs = false }: Props) => {
-  const { width } = useWindowDimensions()
   const [thumbsSwiper, setThumbsSwiper] = useState<any>()
   const prevRef = useRef<HTMLImageElement>(null)
   const nextRef = useRef<HTMLImageElement>(null)

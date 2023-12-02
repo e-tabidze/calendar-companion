@@ -1,33 +1,33 @@
 import { useState } from 'react'
-import { OutlinedButton } from 'src/views/components/button'
 import Divider from 'src/views/components/divider'
 import Image from 'src/views/components/image'
 import { DefaultInput } from 'src/views/components/input'
-import Radio from 'src/views/components/radio'
 import Typography from 'src/views/components/typography'
 import PriceCalcCard from 'src/views/pages/details/priceCalcCard'
-import AdditionalServices from 'src/views/pages/booking/additionalServices'
 import { LargeContainer, ContentContainer } from 'src/styled/styles'
 import { useRouter } from 'next/router'
 import useWindowDimensions from 'src/hooks/useWindowDimensions'
 import Drawer from 'src/views/pages/details/drawer'
 import ResponsivePriceCalcCard from 'src/views/pages/details/responsivePriceCalcCard'
 import useBooking from 'src/views/pages/booking/useBooking'
-import BookingRadio from '../../views/components/bookingRadio'
+import BookingRadio from '../../views/pages/booking/bookingRadio'
 
 import DateDropdown from 'src/views/components/dateDropdown'
 import { useWatch } from 'react-hook-form'
 import useCompanyInfo from 'src/hooks/useCompanyInfo'
 import SelectField from 'src/views/components/selectField'
+import useSingleProductDetails from '../../views/pages/details/useSingleProductDetails'
+import Icon from 'src/views/app/Icon'
+import CheckboxField from 'src/views/components/checkboxField'
+import { generateTimeOptions } from 'src/utils/timeValues'
 
 const Booking = () => {
   const [additionalServices, toggleAdditionalServices] = useState(false)
-  const [insurance, toggleInsurance] = useState(false)
   const [isOpenDrawer, setIsOpenDrawer] = useState(false)
 
   const { width } = useWindowDimensions()
 
-  const { control, bookingValues, errors, handleSubmit } = useBooking()
+  const { control, bookingValues, errors, handleSubmit, appendAdditionalService } = useBooking()
 
   console.log(bookingValues, 'bookingValues')
 
@@ -35,11 +35,15 @@ const Booking = () => {
 
   const router = useRouter()
 
-  const { book_from, book_to, price_day, days, company_id } = router.query
+  const { book_from, book_to, price_day, days, company_id, id } = router.query
+
+  const { singleProductDetails } = useSingleProductDetails(id)
+
+  console.log(singleProductDetails, 'singleProductDetails booking')
 
   console.log(company_id, 'company_id')
 
-  const { singleCompanyBranches } = useCompanyInfo(company_id[0])
+  const { singleCompanyBranches } = useCompanyInfo(company_id && company_id)
 
   console.log(singleCompanyBranches, 'companyBranches')
 
@@ -60,21 +64,23 @@ const Booking = () => {
         </div>
         <div className='w-6/12'>
           <Typography type='body' className='text-[14px] ml-[40px]'>
-            თბილისი, იაკობ წურტაველის 72
+            {singleProductDetails?.start_city} {singleCompanyBranches?.start_address}
           </Typography>
         </div>
         <div className='w-4/12 flex justify-between'>
           <SelectField
             control={control}
-            valueKey='id'
-            labelKey='time'
+            valueKey='value'
+            labelKey='label'
             name='time'
-            options={times}
+            options={generateTimeOptions()}
             placeholder='დრო'
             className='bg-transparent border-green-100'
           />
           <button
+          
             // onClick={toggleEditModal}
+
             className='ml-[16px] border border-black flex items-center justify-center h-[48px] rounded-[12px] text-[12px] px-[24px]'
           >
             შეცვლა
@@ -92,19 +98,19 @@ const Booking = () => {
         </div>
         <div className='w-6/12'>
           <Typography type='body' className='text-[14px] ml-[40px]'>
-            თბილისი, იაკობ წურტაველის 72
+            {singleProductDetails?.end_city} {singleProductDetails?.end_address}
           </Typography>
         </div>
         <div className='w-4/12 flex justify-between'>
-          {/* <SelectField
+          <SelectField
             control={control}
-            valueKey='id'
-            labelKey='time'
+            valueKey='value'
+            labelKey='label'
             name='time'
-            options={times}
+            options={generateTimeOptions()}
             placeholder='დრო'
             className='bg-transparent border-green-100'
-          /> */}
+          />
         </div>
       </div>
     </div>
@@ -167,7 +173,9 @@ const Booking = () => {
             <Typography type='h3' className='my-11'>
               ადგილმდებარეობა *
             </Typography>
-            {/*<Radio name='name' options={options} control={control} color='bg-green-100' />*/}
+
+            {/* <Radio name='name' options={options} control={control} color='bg-green-100' /> */}
+            <BookingRadio name='name' options={options} control={control} color='bg-green-100' />
             <BookingRadio name='name' options={options} control={control} color='bg-green-100' />
             <div>
               <div
@@ -175,16 +183,25 @@ const Booking = () => {
                 onClick={() => toggleAdditionalServices(!additionalServices)}
               >
                 <Typography type='h3'>დამატებითი სერვისები</Typography>
-                <Image
-                  src='/icons/chevron.svg'
+                <Icon
+                  svgPath='chevron'
                   className={`${additionalServices ? '' : 'rotate-180'} w-auto h-4 transition duration-300`}
-                  alt=''
                 />
               </div>
-              {additionalServices && <AdditionalServices control={control} />}
+              {/* {additionalServices && <AdditionalServices control={control} />} */}
+              {additionalServices && (
+                <div>
+                  <CheckboxField
+                    name={`additional_services`}
+                    control={control}
+                    options={singleProductDetails?.product_services}
+                    append={() => appendAdditionalService(appendAdditionalService)}
+                  />
+                </div>
+              )}
             </div>
             {!additionalServices && <Divider />}
-            <div>
+            {/* <div>
               <div className='mt-11 flex items-center justify-between mb-8' onClick={() => toggleInsurance(!insurance)}>
                 <Typography type='h3'>დაზღვევა</Typography>
                 <Image
@@ -194,7 +211,7 @@ const Booking = () => {
                 />
               </div>
               {insurance && <AdditionalServices control={control} />}
-            </div>
+            </div> */}
           </div>
 
           <div className='hidden md:inline-block w-5/12 lg:w-4/12'>

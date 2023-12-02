@@ -12,4 +12,5 @@ export type Booking = {
   email: string
   phone: string
   identification_number: string
+  additional_services: any[]
 }

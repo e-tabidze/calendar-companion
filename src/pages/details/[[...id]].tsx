@@ -30,12 +30,11 @@ const SubNavItem = dynamic(() => import('src/views/pages/details/subNavItem'), {
 
 import { useRouter } from 'next/router'
 import useWindowDimensions from 'src/hooks/useWindowDimensions'
-import SearchService from 'src/services/SearchService'
-import { useQuery } from '@tanstack/react-query'
 import useBooking from 'src/views/pages/booking/useBooking'
 import { Controller } from 'react-hook-form'
 import Icon from 'src/views/app/Icon'
 import { formatDate } from 'src/utils/formatDate'
+import useSingleProductDetails from '../../views/pages/details/useSingleProductDetails'
 
 const SimilarProducts = dynamic(() => import('src/views/pages/details/similarProducts'), { ssr: true })
 
@@ -111,18 +110,31 @@ const ProductDetails = () => {
   const [section, setSection] = useState('details')
   const [isSticky, setIsSticky] = useState(false)
   const [dateRange, setDateRange] = useState<[Date, Date] | [null, null]>(
-    book_from && book_to ? [new Date(book_from), new Date(book_to)] : [null, null]
+    Array.isArray(book_from) && Array.isArray(book_to)
+      ? [new Date(book_from[0]), new Date(book_to[0])]
+      : [new Date(book_from as string | number), new Date(book_to as string | number)]
   )
 
   const [startDate, endDate] = dateRange
   const [productImageDialogOpen, setProductImageDialogOpen] = useState<boolean>(false)
 
+  const { singleProductDetails } = useSingleProductDetails(id)
+
   const ref = useRef<any>()
 
   useEffect(() => {
-    book_from && book_to && setDateRange([new Date(book_from), new Date(book_to)])
-    setValue('booking.book_from', book_from)
-    setValue('booking.book_to', book_to)
+    if (book_from && book_to) {
+      const fromDate = Array.isArray(book_from)
+        ? new Date(book_from[0] as string | number)
+        : new Date(book_from as string | number)
+      const toDate = Array.isArray(book_to)
+        ? new Date(book_to[0] as string | number)
+        : new Date(book_to as string | number)
+
+      setDateRange([fromDate, toDate])
+      setValue('booking.book_from', book_from)
+      setValue('booking.book_to', book_to)
+    }
   }, [book_from, book_to])
 
   useEffect(() => {
@@ -159,16 +171,6 @@ const ProductDetails = () => {
   const toggleProductImageDialog = () => {
     setProductImageDialogOpen(!productImageDialogOpen)
   }
-
-  const fetchSingleProduct = async () => {
-    const response: any = await SearchService.getSingleProduct(id[0])
-
-    return response.data?.result?.data
-  }
-
-  const { data: singleProductDetails } = useQuery(['singleProduct', id], fetchSingleProduct, {
-    enabled: !!id
-  })
 
   console.log(singleProductDetails, 'singleProductDetails')
 
