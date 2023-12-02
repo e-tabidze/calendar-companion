@@ -15,15 +15,19 @@ import BookingRadio from '../../views/pages/booking/bookingRadio'
 import DateDropdown from 'src/views/components/dateDropdown'
 import { useWatch } from 'react-hook-form'
 import useCompanyInfo from 'src/hooks/useCompanyInfo'
-import SelectField from 'src/views/components/selectField'
 import useSingleProductDetails from '../../views/pages/details/useSingleProductDetails'
 import Icon from 'src/views/app/Icon'
 import CheckboxField from 'src/views/components/checkboxField'
-import { generateTimeOptions } from 'src/utils/timeValues'
+import TakeAway from 'src/views/pages/booking/takeAway'
+import Delivery from 'src/views/pages/booking/delivery'
+import BookingModal from 'src/views/pages/booking/bookingModal'
 
 const Booking = () => {
   const [additionalServices, toggleAdditionalServices] = useState(false)
   const [isOpenDrawer, setIsOpenDrawer] = useState(false)
+  const [openEditModal, setOpenEditModal] = useState(false)
+
+  const toggleEditModal = () => setOpenEditModal(!openEditModal)
 
   const { width } = useWindowDimensions()
 
@@ -51,80 +55,28 @@ const Booking = () => {
     router.push('/')
   }
 
-  const TakeAway = () => (
-    <div className='pl-[52px] mt-[16px]'>
-      <div className='flex items-center'>
-        <div className='w-2/12 flex items-start'>
-          <Image src='/icons/start.svg' alt='' height={24} width={24} />
-
-          <div className='flex flex-col ml-[12px]'>
-            <span className='text-[12px]'>წაყვანა</span>
-            <span className='text-[12px] text-black/60'>15 ივნ</span>
-          </div>
-        </div>
-        <div className='w-6/12'>
-          <Typography type='body' className='text-[14px] ml-[40px]'>
-            {singleProductDetails?.start_city} {singleCompanyBranches?.start_address}
-          </Typography>
-        </div>
-        <div className='w-4/12 flex justify-between'>
-          <SelectField
-            control={control}
-            valueKey='value'
-            labelKey='label'
-            name='time'
-            options={generateTimeOptions()}
-            placeholder='დრო'
-            className='bg-transparent border-green-100'
-          />
-          <button
-          
-            // onClick={toggleEditModal}
-
-            className='ml-[16px] border border-black flex items-center justify-center h-[48px] rounded-[12px] text-[12px] px-[24px]'
-          >
-            შეცვლა
-          </button>
-        </div>
-      </div>
-      <div className='flex items-center mt-[12px]'>
-        <div className='w-2/12 flex items-start'>
-          <Image src='/icons/stop.svg' alt='' height={24} width={24} />
-
-          <div className='flex flex-col ml-[12px]'>
-            <span className='text-[12px]'>დაბრუნება</span>
-            <span className='text-[12px] text-black/60'>20 ივნ</span>
-          </div>
-        </div>
-        <div className='w-6/12'>
-          <Typography type='body' className='text-[14px] ml-[40px]'>
-            {singleProductDetails?.end_city} {singleProductDetails?.end_address}
-          </Typography>
-        </div>
-        <div className='w-4/12 flex justify-between'>
-          <SelectField
-            control={control}
-            valueKey='value'
-            labelKey='label'
-            name='time'
-            options={generateTimeOptions()}
-            placeholder='დრო'
-            className='bg-transparent border-green-100'
-          />
-        </div>
-      </div>
-    </div>
-  )
-
-  const Delivery = () => (
-    <div>
-      <h1>DELIVERY</h1>
-    </div>
-  )
-
   const options = [
-    { label: 'წავიყვან ოფისიდან', value: 'წავიყვან ოფისიდან', info: '$0.00', children: <TakeAway /> },
-    { label: 'მიწოდება', value: 'მიწოდება', info: '$0.00', children: <Delivery /> }
+    {
+      label: 'წავიყვან ოფისიდან',
+      value: 'წავიყვან ოფისიდან',
+      info: '$0.00',
+      children: (
+        <TakeAway
+          control={control}
+          toggleEditModal={toggleEditModal}
+          startCity={singleProductDetails?.start_city}
+          startAddress={singleProductDetails?.start_address}
+          endCity={singleProductDetails?.end_city}
+          endAddress={singleProductDetails?.end_address}
+        />
+      )
+    },
+    {
+      label: 'მიწოდება',
+      value: 'მიწოდება',
+      info: '$0.00',
+      children: <Delivery control={control} toggleEditModal={toggleEditModal} />
+    }
   ]
 
   const onSubmit = () => {
@@ -174,8 +126,6 @@ const Booking = () => {
               ადგილმდებარეობა *
             </Typography>
 
-            {/* <Radio name='name' options={options} control={control} color='bg-green-100' /> */}
-            <BookingRadio name='name' options={options} control={control} color='bg-green-100' />
             <BookingRadio name='name' options={options} control={control} color='bg-green-100' />
             <div>
               <div
@@ -252,6 +202,7 @@ const Booking = () => {
       ) : (
         <ResponsivePriceCalcCard toggleDrawer={toggleDrawer} />
       )}
+      <BookingModal open={openEditModal} onClose={toggleEditModal} addresses={singleCompanyBranches} control={control} />
     </form>
   )
 }

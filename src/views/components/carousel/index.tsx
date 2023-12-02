@@ -115,7 +115,7 @@ const Carousel = ({ itemsArray, type, onClick, singleSlide = false, thumbs = fal
             bg='white'
           />
         </div>
-        {itemsArray.map((item, index) => (
+        {itemsArray?.map((item, index) => (
           <SwiperSlide key={index} className={`!w-fit ${type === 'productDetails' && 'h-full'}`}>
             <div ref={element => (slideRefs.current[index] = element)}>{item}</div>
           </SwiperSlide>

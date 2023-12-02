@@ -109,10 +109,14 @@ const ProductDetails = () => {
   const [isOpenDrawer, setIsOpenDrawer] = useState(false)
   const [section, setSection] = useState('details')
   const [isSticky, setIsSticky] = useState(false)
-  const [dateRange, setDateRange] = useState<[Date, Date] | [null, null]>(
+
+  const [dateRange, setDateRange] = useState<[Date, Date] | [null, null] | [Date, null] | [null, Date]>(
     Array.isArray(book_from) && Array.isArray(book_to)
       ? [new Date(book_from[0]), new Date(book_to[0])]
-      : [new Date(book_from as string | number), new Date(book_to as string | number)]
+      : [
+          book_from ? new Date(book_from as string | number) : null,
+          book_to ? new Date(book_to as string | number) : null
+        ]
   )
 
   const [startDate, endDate] = dateRange
