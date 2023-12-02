@@ -38,7 +38,7 @@ const BookingRadio: React.FC<Props> = ({ name, options, control, color, horizont
       <div className={`${horizontal ? 'flex gap-2 w-full' : ''}`}>
         {options.map((option: Option) => (
           <RadioGroup.Option key={option.value} value={option.value} className='w-full'>
-            {({ checked }) => (
+            {({ checked }) => ( 
               <div className='my-2'>
                 <div
                   className={`rounded-xl border py-[32px] pl-[40px] pr-[24px] ${

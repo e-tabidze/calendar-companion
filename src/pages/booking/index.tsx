@@ -126,7 +126,8 @@ const Booking = () => {
               ადგილმდებარეობა *
             </Typography>
 
-            <BookingRadio name='name' options={options} control={control} color='bg-green-100' />
+            <BookingRadio name='supply' options={options} control={control} color='bg-green-100' />
+            
             <div>
               <div
                 className='mt-11 flex items-center justify-between mb-8'
