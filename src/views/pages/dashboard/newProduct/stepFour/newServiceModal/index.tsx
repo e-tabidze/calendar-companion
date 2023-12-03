@@ -82,7 +82,7 @@ const NewServiceModal: React.FC<Props> = ({ open, onClose }) => {
                     <IconButton icon='/icons/close.svg' onClick={onClose} width={40} height={40} />
                   </Dialog.Title>
                   <Divider />
-                  <div className='p-6 mb-20'>
+                  <div className='p-6 mb-40'>
                     <div className='flex flex-col gap-4'>
                       <DefaultInput label='სერვისის დასახელება' control={control} name='title' errors={errors} />
                       <DefaultInput label='აღწერა' control={control} name='description' rows={4} errors={errors} />

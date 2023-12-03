@@ -14,6 +14,6 @@ const NewProductSchema = Yup.object().shape({
   model_id: Yup.mixed().required('აუცილებელი ველი'),
   category_id: Yup.mixed().required('აუცილებელი ველი'),
   daily_price: NewProductPrice,
-  odometer: Odometer
+  odometer: Odometer,
 })
 export { NewProductSchema }

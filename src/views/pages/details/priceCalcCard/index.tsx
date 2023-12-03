@@ -1,15 +1,20 @@
+import useProfile from 'src/hooks/useProfile'
 import { DefaultButton } from 'src/views/components/button'
 import Typography from 'src/views/components/typography'
 
 interface Props {
   price: number
   dates: string
-  days: number | null
-  className: string
+  days: number | null | undefined
+  className?: string
   onClick: () => void
 }
 
 const PriceCalcCard: React.FC<Props> = ({ price, dates, days, className, onClick }) => {
+  const { userInfo } = useProfile()
+
+  console.log(userInfo?.active_profile_id, 'userInfo?.active_profile_id')
+
   return (
     <div className={`shadow-2xl w-full rounded-3xl pt-5 px-4 lg:px-6 pb-10 ${className}`}>
       <div className='flex items-center gap-2'>
@@ -57,20 +62,6 @@ const PriceCalcCard: React.FC<Props> = ({ price, dates, days, className, onClick
         </Typography>
       </div>
 
-      <div className='flex gap-2 flex-col justify-between py-2 lg:items-center lg:flex-row'>
-        <Typography type='body' className='text-raisin-100'>
-          დაზღვევა - საბაზისო პაკეტი
-        </Typography>
-        <Typography type='body'>უფასო</Typography>
-      </div>
-
-      <div className='flex gap-2 flex-col justify-between py-2 lg:items-center lg:flex-row'>
-        <Typography type='body' className='text-raisin-100'>
-          Taxes and fees
-        </Typography>
-        <Typography type='body'>უფასო</Typography>
-      </div>
-
       <div className='w-full h-px bg-raisin-10 mt-7' />
 
       <div className='flex justify-between py-1 pt-4 pb-7'>
@@ -81,15 +72,24 @@ const PriceCalcCard: React.FC<Props> = ({ price, dates, days, className, onClick
           {days && days * price + ' ₾'}
         </Typography>
       </div>
-
-      <DefaultButton
-        bg='bg-orange-100'
-        text='ჯავშნის დაწყება'
-        className='w-full'
-        textColor='text-white'
-        type='submit'
-        onClick={onClick}
-      />
+      {userInfo?.active_profile_id ? (
+        <>
+          {userInfo?.active_profile_id === userInfo?.UserID && (
+            <DefaultButton
+              bg='bg-orange-100'
+              text='ჯავშნის დაწყება'
+              className='w-full'
+              textColor='text-white'
+              type='submit'
+              onClick={onClick}
+            />
+          )}
+        </>
+      ) : (
+        <Typography type='subtitle' className='text-orange-100'>
+          ჯავშნის გასაგრძელებლად გთხოვთ შეხვიდეთ სისტემაში
+        </Typography>
+      )}
     </div>
   )
 }

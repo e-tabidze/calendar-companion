@@ -1,13 +1,15 @@
-import { useForm, useWatch } from 'react-hook-form'
+import { useFieldArray, useForm, useWatch } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 
 import { BookingSchema } from 'src/@core/validation/bookingSchema'
 import useProfile from 'src/hooks/useProfile'
 import { useEffect } from 'react'
 import { Booking } from 'src/types/Booking'
+import useSingleProductDetails from '../details/useSingleProductDetails'
 
-const useBooking = () => {
+const useBooking = (id: number | string) => {
   const { userInfo } = useProfile()
+  const { singleProductDetails } = useSingleProductDetails(id)
 
   const defaultValues: Booking = {
     first_name: '',
@@ -19,10 +21,17 @@ const useBooking = () => {
       book_from: '',
       book_to: ''
     },
-    birth_date: '',
-    driver_license_expiration: ''
+    birth_date: null,
+    driver_license_expiration: null,
+    additional_services: [] as any[],
+    supply: '1',
+    start_time: '',
+    end_time: '',
+    start_address: singleProductDetails?.start_address,
+    end_address: singleProductDetails?.end_address
   }
 
+  console.log(singleProductDetails, 'singleCompanyBranches in booking')
   const {
     control,
     handleSubmit,
@@ -35,12 +44,12 @@ const useBooking = () => {
     mode: 'onChange',
     reValidateMode: 'onChange',
     defaultValues,
+
+    // @ts-ignore
     resolver: yupResolver(BookingSchema)
   })
 
   const bookingValues: any = useWatch({ control })
-
-  console.log(userInfo?.information?.identification_number, 'id')
 
   useEffect(() => {
     if (!!userInfo) {
@@ -60,8 +69,18 @@ const useBooking = () => {
         'driver_license_expiration',
         userInfo?.UserID === userInfo?.active_profile_id ? userInfo?.information?.driver_license_expiration : null
       )
+      setValue('start_address', singleProductDetails ? singleProductDetails?.start_address : '')
+      setValue('end_address', singleProductDetails ? singleProductDetails?.end_address : '')
+
     }
-  }, [userInfo, setValue])
+  }, [userInfo, setValue, singleProductDetails])
+
+  console.log(singleProductDetails?.start_address, 'singleProductDetails?.start_address')
+
+  const { fields: additionalServices, append: appendAdditionalService } = useFieldArray({
+    control,
+    name: 'additional_services'
+  })
 
   return {
     control,
@@ -72,7 +91,9 @@ const useBooking = () => {
     resetField,
     setError,
     clearErrors,
-    setValue
+    setValue,
+    additionalServices,
+    appendAdditionalService
   }
 }
 

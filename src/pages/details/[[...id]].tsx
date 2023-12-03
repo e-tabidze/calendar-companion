@@ -2,17 +2,18 @@ import { useEffect, useRef, useState } from 'react'
 import DefaultLayout from 'src/layouts/DefaultLayout'
 import dynamic from 'next/dynamic'
 
-const Carousel = dynamic(() => import('src/views/components/carousel'), { ssr: true })
+const Carousel = dynamic(() => import('src/views/components/carousel'), { ssr: false })
 const Image = dynamic(() => import('src/views/components/image'), { ssr: true })
-const Typography = dynamic(() => import('src/views/components/typography'), { ssr: true })
+const Typography = dynamic(() => import('src/views/components/typography'), { ssr: false })
 
-const ProductFeature = dynamic(() => import('src/views/pages/details/productFeature'), { ssr: true })
+const ProductFeature = dynamic(() => import('src/views/pages/details/productFeature'), { ssr: false })
 const DatePicker = dynamic(() => import('react-datepicker'), { ssr: false })
 
 import 'react-datepicker/dist/react-datepicker.css'
 
 const PriceCalcCard = dynamic(() => import('src/views/pages/details/priceCalcCard'), { ssr: false })
-const InsuranceCard = dynamic(() => import('src/views/pages/details/insuranceCard'), { ssr: false })
+
+// const InsuranceCard = dynamic(() => import('src/views/pages/details/insuranceCard'), { ssr: false })
 const MapPicker = dynamic(() => import('src/views/components/mapPicker'), { ssr: true })
 const LessorInformationCard = dynamic(() => import('src/views/pages/details/lessorInformationCard'), { ssr: true })
 const DetailsPageHeader = dynamic(() => import('src/views/pages/details/detailsPageHeader'), { ssr: true })
@@ -21,7 +22,7 @@ const Divider = dynamic(() => import('src/views/components/divider'), { ssr: fal
 const EntityInformationCard = dynamic(() => import('src/views/pages/details/entitiInformationCard'), { ssr: true })
 const Drawer = dynamic(() => import('src/views/pages/details/drawer'), { ssr: false })
 const ResponsivePriceCalcCard = dynamic(() => import('src/views/pages/details/responsivePriceCalcCard'), { ssr: false })
-const ProductImagesDialog = dynamic(() => import('src/views/pages/details/productImagesDialog'), { ssr: true })
+const ProductImagesDialog = dynamic(() => import('src/views/pages/details/productImagesDialog'), { ssr: false })
 
 import { ContentContainer, MaxWidthContainer } from 'src/styled/styles'
 
@@ -29,11 +30,11 @@ const SubNavItem = dynamic(() => import('src/views/pages/details/subNavItem'), {
 
 import { useRouter } from 'next/router'
 import useWindowDimensions from 'src/hooks/useWindowDimensions'
-import SearchService from 'src/services/SearchService'
-import { useQuery } from '@tanstack/react-query'
 import useBooking from 'src/views/pages/booking/useBooking'
 import { Controller } from 'react-hook-form'
 import Icon from 'src/views/app/Icon'
+import { formatDate } from 'src/utils/formatDate'
+import useSingleProductDetails from '../../views/pages/details/useSingleProductDetails'
 
 const SimilarProducts = dynamic(() => import('src/views/pages/details/similarProducts'), { ssr: true })
 
@@ -99,22 +100,46 @@ const productImages = [
 
 const ProductDetails = () => {
   const router = useRouter()
+  const { id, book_from, book_to } = router.query
 
-  const { control, handleSubmit, bookingValues, resetField } = useBooking()
+  const { control, handleSubmit, bookingValues, resetField, setValue } = useBooking(id && id[0])
 
   const { width } = useWindowDimensions()
-  const { id } = router.query
-
-  const productId = id && id?.length > 0 ? id[0] : ''
 
   const [isOpenDrawer, setIsOpenDrawer] = useState(false)
   const [section, setSection] = useState('details')
   const [isSticky, setIsSticky] = useState(false)
-  const [dateRange, setDateRange] = useState<[Date, Date] | [null, null]>([null, null])
+
+  const [dateRange, setDateRange] = useState<[Date, Date] | [null, null] | [Date, null] | [null, Date] | [undefined, undefined]>(
+    Array.isArray(book_from) && Array.isArray(book_to)
+      ? [new Date(book_from[0]), new Date(book_to[0])]
+      : [
+          book_from ? new Date(book_from as string | number) : null,
+          book_to ? new Date(book_to as string | number) : null
+        ]
+  )
+
   const [startDate, endDate] = dateRange
   const [productImageDialogOpen, setProductImageDialogOpen] = useState<boolean>(false)
 
+  const { singleProductDetails } = useSingleProductDetails(id)
+
   const ref = useRef<any>()
+
+  useEffect(() => {
+    if (book_from && book_to) {
+      const fromDate = Array.isArray(book_from)
+        ? new Date(book_from[0] as string | number)
+        : new Date(book_from as string | number)
+      const toDate = Array.isArray(book_to)
+        ? new Date(book_to[0] as string | number)
+        : new Date(book_to as string | number)
+
+      setDateRange([fromDate, toDate])
+      setValue('booking.book_from', book_from)
+      setValue('booking.book_to', book_to)
+    }
+  }, [book_from, book_to])
 
   useEffect(() => {
     const componentPosition = ref.current?.getBoundingClientRect().top - 80
@@ -151,16 +176,6 @@ const ProductDetails = () => {
     setProductImageDialogOpen(!productImageDialogOpen)
   }
 
-  const fetchSingleProduct = async () => {
-    const response: any = await SearchService.getSingleProduct(productId)
-
-    return response.data?.result?.data
-  }
-
-  const { data: singleProductDetails } = useQuery(['singleProduct', productId], fetchSingleProduct, {
-    enabled: !!productId
-  })
-
   console.log(singleProductDetails, 'singleProductDetails')
 
   console.log(bookingValues, 'bookingValues')
@@ -173,7 +188,8 @@ const ProductDetails = () => {
         book_from: bookingValues?.booking?.book_from,
         book_to: bookingValues?.booking?.book_to,
         price_day: singleProductDetails.price_gel,
-        days: startDate && endDate && Math.round((endDate.getTime() - startDate.getTime()) / (24 * 60 * 60 * 1000)) + 1
+        days: startDate && endDate && Math.round((endDate.getTime() - startDate.getTime()) / (24 * 60 * 60 * 1000)) + 1,
+        company_id: singleProductDetails.company_id
       }
     })
   }
@@ -203,9 +219,13 @@ const ProductDetails = () => {
               <SubNavItem section='features' activeSection={section} handleClick={handleClick}>
                 მახასიათებლები
               </SubNavItem>
-              <SubNavItem section='insurance' activeSection={section} handleClick={handleClick}>
-                დაზღვევა
+              <SubNavItem section='pricing' activeSection={section} handleClick={handleClick}>
+                ღირებულება
               </SubNavItem>
+
+              {/* <SubNavItem section='insurance' activeSection={section} handleClick={handleClick}>
+                დაზღვევა
+              </SubNavItem> */}
               <SubNavItem section='reviews' activeSection={section} handleClick={handleClick}>
                 შეფასება
               </SubNavItem>
@@ -234,25 +254,34 @@ const ProductDetails = () => {
                   <Typography type='subtitle'>{singleProductDetails?.start_address}</Typography>
                 </div>
                 <Typography type='subtitle'>{singleProductDetails?.additional_information}</Typography>
+                <Typography type='subtitle' className='mt-8'>
+                  {singleProductDetails?.use_instruction}
+                </Typography>
                 <EntityInformationCard name={singleProductDetails?.company_user?.company?.information?.name} />
               </div>
 
               <Features id='features' singleProductDetails={singleProductDetails} />
 
               <Divider />
-              <div className='my-8'>
-                <Typography type='h3'>ფასი მოიცავს</Typography>
+              <div className='my-8' id='pricing'>
+                <Typography type='h3'>ღირებულება</Typography>
 
-                <div className='mt-8 mb-11 grid grid-cols-1 lg:grid-cols-2 gap-4'>
-                  {singleProductDetails?.product_additional_information?.map(
-                    (feature: { additional_information: { title: string }; icon: string; id: string | number }) => (
-                      <ProductFeature
-                        feature={feature?.additional_information?.title}
-                        icon='/icons/printer.svg'
-                        key={feature.id}
-                      />
-                    )
-                  )}
+                <div className='mt-8 mb-11 grid grid-cols-1 gap-4'>
+                  {singleProductDetails?.product_services?.map((feature: any) => (
+                    <ProductFeature
+                      feature={feature?.title}
+                      icon='printer'
+                      key={feature.id}
+                      description={feature.description}
+                      price={
+                        feature.company_service_type_id === 3
+                          ? 'უფასო'
+                          : feature.company_service_type_id === 1
+                          ? `${feature.price}₾/დღე`
+                          : `${feature.price}₾/ერთჯერადად`
+                      }
+                    />
+                  ))}
                 </div>
               </div>
               <Divider />
@@ -261,13 +290,17 @@ const ProductDetails = () => {
                 <div className='flex justify-between mb-16 mt-2'>
                   <div className='flex gap-4'>
                     <Typography type='subtitle' className='text-green-100'>
-                      {startDate && endDate
+                      {/* {startDate && endDate
                         ? `${startDate?.toISOString().split('T')[0]} - ${endDate?.toISOString().split('T')[0]}`
+                        : 'აირჩიეთ თარიღი და დრო'} */}
+
+                      {startDate && endDate
+                        ? `${formatDate(startDate)} - ${formatDate(endDate)}`
                         : 'აირჩიეთ თარიღი და დრო'}
                     </Typography>
                     {startDate && endDate && (
                       <Typography type='subtitle'>
-                        |
+                        | {'    '}
                         {startDate &&
                           endDate &&
                           Math.round((endDate.getTime() - startDate.getTime()) / (24 * 60 * 60 * 1000)) + 1}
@@ -304,9 +337,7 @@ const ProductDetails = () => {
                       onChange={(update: any) => {
                         if (update) {
                           const [start, end] = update
-                          const formattedStartDate = start?.toISOString().split('T')[0]
-                          const formattedEndDate = end?.toISOString().split('T')[0]
-                          onChange({ book_from: formattedStartDate, book_to: formattedEndDate })
+                          onChange({ book_from: formatDate(start), book_to: formatDate(end) })
                           setDateRange(update)
                         } else {
                           onChange(null)
@@ -322,7 +353,7 @@ const ProductDetails = () => {
               </div>
               <Divider />
 
-              <div className='mt-11 mb-16 md:mb-28 overflow-auto' id='insurance'>
+              {/* <div className='mt-11 mb-16 md:mb-28 overflow-auto' id='insurance'>
                 <Typography type='h3'>დაზღვევა</Typography>
                 <div className='flex gap-6 mt-10 w-[160%] md:w-full'>
                   <div className='w-8/12 md:w-full'>
@@ -334,7 +365,7 @@ const ProductDetails = () => {
                 </div>
               </div>
 
-              <Divider />
+              <Divider /> */}
 
               <div className='mt-20 md:mt-40'>
                 <Typography type='h3'>ადგილმდებარეობა</Typography>
@@ -353,11 +384,7 @@ const ProductDetails = () => {
               <PriceCalcCard
                 className={`${isSticky ? 'sticky top-44' : ''} z-[11]`}
                 price={singleProductDetails?.price_gel}
-                dates={
-                  startDate && endDate
-                    ? `${startDate?.toISOString().split('T')[0]} - ${endDate?.toISOString().split('T')[0]}`
-                    : ''
-                }
+                dates={startDate && endDate ? `${formatDate(startDate)} - ${formatDate(endDate)}` : ''}
                 days={
                   startDate &&
                   endDate &&
@@ -381,7 +408,17 @@ const ProductDetails = () => {
           <SimilarProducts />
         </ContentContainer>
         {isOpenDrawer && width < 779 ? (
-          <Drawer isOpenDrawer={isOpenDrawer} setIsOpenDrawer={setIsOpenDrawer} />
+          <Drawer
+            isOpenDrawer={isOpenDrawer}
+            setIsOpenDrawer={setIsOpenDrawer}
+            className={`${isSticky ? 'sticky top-44' : ''} z-[11]`}
+            price={singleProductDetails?.price_gel}
+            dates={startDate && endDate ? `${formatDate(startDate)} - ${formatDate(endDate)}` : ''}
+            days={
+              startDate && endDate && Math.round((endDate.getTime() - startDate.getTime()) / (24 * 60 * 60 * 1000)) + 1
+            }
+            onClick={onSubmit}
+          />
         ) : (
           <ResponsivePriceCalcCard toggleDrawer={toggleDrawer} />
         )}

@@ -10,8 +10,8 @@ const BookingSchema = Yup.object<Booking>().shape({
   booking: BookingDatesSchema,
   first_name: Yup.string().required('აუცილებელი ველი'),
   last_name: Yup.string().required('აუცილებელი ველი'),
-  birth_date: Yup.string().required('აუცილებელი ველი'),
-  driver_license_expiration: Yup.string().required('აუცილებელი ველი'),
+  birth_date: Yup.mixed().nullable().required('აუცილებელი ველი') as Yup.StringSchema<string | null>,
+  driver_license_expiration: Yup.mixed().nullable().required('აუცილებელი ველი') as Yup.StringSchema<string | null>,
   email: Yup.string().required('აუცილებელი ველი'),
   phone: Yup.string().required('აუცილებელი ველი'),
   identification_number: Yup.string().required('აუცილებელი ველი')

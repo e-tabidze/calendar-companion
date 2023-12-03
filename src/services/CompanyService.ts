@@ -19,7 +19,7 @@ class CompanyService extends HttpService {
     return this.get(`/company-branches`, AccessToken ? { Authorization: `${AccessToken}` } : {})
   }
 
-  getCompanyInfo(AccessToken = '', company_id: number) {
+  getCompanyInfo(AccessToken = '', company_id: number | string) {
     return this.get(`/companies/${company_id}`, AccessToken ? { Authorization: `${AccessToken}` } : {})
   }
 
@@ -37,6 +37,10 @@ class CompanyService extends HttpService {
 
   getCompanyProducts(AccessToken = '') {
     return this.get(`/products`, AccessToken ? { Authorization: `${AccessToken}` } : {})
+  }
+
+  getSingleCompanyBranches(company_id: number | string) {
+    return this.get(`/single-company-branches/${company_id}`, {})
   }
 }
 
