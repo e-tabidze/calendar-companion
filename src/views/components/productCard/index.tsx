@@ -23,18 +23,39 @@ interface Props {
   prodYear: number
   priceGel: number
   countProductFavs: number
-  bookFrom?: string | undefined,
+  bookFrom?: string | undefined
   bookTo?: string | undefined
 }
 
-const ProductCard: React.FC<Props> = ({ swiperCard, productId, manufacturer, model, prodYear, priceGel, countProductFavs, bookFrom, bookTo }) => {
+const ProductCard: React.FC<Props> = ({
+  swiperCard,
+  productId,
+  manufacturer,
+  model,
+  prodYear,
+  priceGel,
+  countProductFavs,
+  bookFrom,
+  bookTo
+}) => {
   const router = useRouter()
 
   const { isAuthenticated } = useProfile()
 
   const { toggleUserFavourites, userFavourites, toggleFavouritesLoading } = useFavourites(productId)
 
-  const handleCardClick = () => router.push(`/details/${productId}?book_from=${bookFrom}&book_to=${bookTo}`)
+  const handleCardClick = () => {
+    const today = new Date()
+    const tomorrow = new Date()
+    tomorrow.setDate(tomorrow.getDate() + 1)
+
+    const formattedToday = today.toISOString().split('T')[0]
+    const formattedTomorrow = tomorrow.toISOString().split('T')[0]
+
+    const queryString = `?book_from=${bookFrom || formattedToday}&book_to=${bookTo || formattedTomorrow}`
+
+    router.push(`/details/${productId}${queryString}`)
+  }
 
   const isProductInFavorites = userFavourites?.some((fav: any) => fav.product_id === productId)
 

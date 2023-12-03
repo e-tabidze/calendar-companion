@@ -1,3 +1,4 @@
+import useProfile from 'src/hooks/useProfile'
 import { DefaultButton } from 'src/views/components/button'
 import DrawerBottom from 'src/views/components/drawer'
 import Typography from 'src/views/components/typography'
@@ -8,12 +9,14 @@ interface Props {
   setIsOpenDrawer: any
   price: number
   dates: string
-  days: number | null
+  days: number | null | undefined
   onClick: () => void
   className?: string
 }
 
 const Drawer: React.FC<Props> = ({ isOpenDrawer, setIsOpenDrawer, price, dates, days, onClick, className }) => {
+  const { userInfo } = useProfile()
+
   return (
     <DrawerBottom isOpen={isOpenDrawer} setIsOpen={setIsOpenDrawer} className={className}>
       <div className='flex items-center gap-2'>
@@ -67,13 +70,24 @@ const Drawer: React.FC<Props> = ({ isOpenDrawer, setIsOpenDrawer, price, dates, 
           {days && days * price + ' ₾'}
         </Typography>
       </div>
-      <DefaultButton
-        bg='bg-orange-100'
-        text='ჯავშნის დაწყება'
-        className='w-full'
-        textColor='text-white'
-        onClick={onClick}
-      />
+      {userInfo?.active_profile_id ? (
+        <>
+          {' '}
+          {userInfo?.active_profile_id === userInfo?.UserID && (
+            <DefaultButton
+              bg='bg-orange-100'
+              text='ჯავშნის დაწყება'
+              className='w-full'
+              textColor='text-white'
+              onClick={onClick}
+            />
+          )}
+        </>
+      ) : (
+        <Typography type='subtitle' className='text-orange-100'>
+          ჯავშნის გასაგრძელებლად გთხოვთ შეხვიდეთ სისტემაში
+        </Typography>
+      )}
     </DrawerBottom>
   )
 }

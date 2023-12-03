@@ -110,7 +110,7 @@ const ProductDetails = () => {
   const [section, setSection] = useState('details')
   const [isSticky, setIsSticky] = useState(false)
 
-  const [dateRange, setDateRange] = useState<[Date, Date] | [null, null] | [Date, null] | [null, Date]>(
+  const [dateRange, setDateRange] = useState<[Date, Date] | [null, null] | [Date, null] | [null, Date] | [undefined, undefined]>(
     Array.isArray(book_from) && Array.isArray(book_to)
       ? [new Date(book_from[0]), new Date(book_to[0])]
       : [
