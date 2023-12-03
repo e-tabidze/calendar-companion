@@ -1,3 +1,5 @@
+import { useWatch } from 'react-hook-form'
+import { generateTimeOptions } from 'src/utils/timeValues'
 import Icon from 'src/views/app/Icon'
 import SelectField from 'src/views/components/selectField'
 import Typography from 'src/views/components/typography'
@@ -5,18 +7,13 @@ import Typography from 'src/views/components/typography'
 interface Props {
   control: any
   toggleEditModal: () => void
-  startCity: string
-  startAddress: string
-  endCity: string
-  endAddress: string
 }
 
-const times = [
-  { id: 0, time: '13:00' },
-  { id: 1, time: '14:00' }
-]
+const TakeAway: React.FC<Props> = ({ control, toggleEditModal }) => {
+  const formsState = useWatch({ control })
 
-const TakeAway: React.FC<Props> = ({ control, toggleEditModal, startAddress, startCity, endAddress, endCity }) => {
+  console.log(formsState, 'formsTate')
+
   return (
     <div className='pl-[52px] mt-4'>
       <div className='flex items-center'>
@@ -30,16 +27,16 @@ const TakeAway: React.FC<Props> = ({ control, toggleEditModal, startAddress, sta
         </div>
         <div className='w-6/12'>
           <Typography type='body' className='text-[14px] ml-[40px]'>
-            {startCity} {startAddress}
+            {formsState?.start_address}
           </Typography>
         </div>
         <div className='w-4/12 flex justify-between'>
           <SelectField
             control={control}
-            valueKey='id'
-            labelKey='time'
-            name='time'
-            options={times}
+            valueKey='vaue'
+            labelKey='label'
+            name='start_time'
+            options={generateTimeOptions()}
             placeholder='დრო'
             className='bg-transparent border-green-100'
           />
@@ -62,16 +59,16 @@ const TakeAway: React.FC<Props> = ({ control, toggleEditModal, startAddress, sta
         </div>
         <div className='w-6/12'>
           <Typography type='body' className='text-[14px] ml-[40px]'>
-            {endCity} {endAddress}
+            {formsState?.end_address}
           </Typography>
         </div>
         <div className='w-4/12 flex justify-between'>
           <SelectField
             control={control}
-            valueKey='id'
-            labelKey='time'
-            name='time'
-            options={times}
+            valueKey='value'
+            labelKey='label'
+            name='end_time'
+            options={generateTimeOptions()}
             placeholder='დრო'
             className='bg-transparent border-green-100'
           />

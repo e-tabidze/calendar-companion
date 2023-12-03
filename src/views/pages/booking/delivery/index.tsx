@@ -1,16 +1,13 @@
 import Image from 'next/image'
 import Typography from '../../../components/typography'
 import SelectField from '../../../components/selectField'
+import { DefaultInput } from 'src/views/components/input'
+import { generateTimeOptions } from 'src/utils/timeValues'
 
 interface Props {
   control?: any
   toggleEditModal: any
 }
-
-const times = [
-  { id: 0, time: '13:00' },
-  { id: 1, time: '14:00' }
-]
 
 const Delivery: React.FC<Props> = ({ control, toggleEditModal }) => {
   return (
@@ -20,19 +17,20 @@ const Delivery: React.FC<Props> = ({ control, toggleEditModal }) => {
           <Image src='/icons/start.svg' alt='' height={24} width={24} />
           <div className='flex flex-col ml-[12px]'>
             <span className='text-[12px]'>მიწოდება</span>
-            <span className='text-[12px] text-black/60'>15 ივნ</span>
+
+            {/* <span className='text-[12px] text-black/60'>15 ივნ</span> */}
           </div>
         </div>
         <div className='w-8/12 pr-[16px]'>
-          <input className='bg-white h-[48px] rounded-[12px] w-full px-[16px]' placeholder='შეოყვანე მისამართი' />
+          <DefaultInput name='start_address' control={control} />
         </div>
         <div className='w-2/12'>
           <SelectField
             control={control}
-            valueKey='id'
-            labelKey='time'
-            name='time'
-            options={times}
+            valueKey='value'
+            labelKey='label'
+            name='start_time'
+            options={generateTimeOptions()}
             placeholder='დრო'
             className='bg-transparent border-green-100'
           />
@@ -55,10 +53,10 @@ const Delivery: React.FC<Props> = ({ control, toggleEditModal }) => {
         <div className='w-4/12 flex justify-between'>
           <SelectField
             control={control}
-            valueKey='id'
-            labelKey='time'
-            name='time'
-            options={times}
+            valueKey='value'
+            labelKey='label'
+            name='end_time'
+            options={generateTimeOptions()}
             placeholder='დრო'
             className='bg-transparent border-green-100'
           />

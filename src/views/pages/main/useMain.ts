@@ -21,8 +21,10 @@ const useMain = () => {
 
   return {
     latestProducts,
+
     // popularProducts,
     isLatestProductsoading: useLatestProducts.isLoading,
+    
     // isPopularProductsoading: usePopularProducts.isLoading
   }
 }

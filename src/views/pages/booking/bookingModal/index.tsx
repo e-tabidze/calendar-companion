@@ -31,7 +31,7 @@ const tabs = (...classes: any) => {
 const BookingModal: React.FC<Props> = ({ open, onClose, addresses, control }) => {
   const renderTabContent = (id: any) => {
     if (id === 0) {
-      return <BookingList addresses={addresses} control={control} name="" />
+      return <BookingList addresses={addresses} control={control} />
     } else {
       return <BookingMap />
     }

@@ -31,10 +31,6 @@ const Booking = () => {
 
   const { width } = useWindowDimensions()
 
-  const { control, bookingValues, errors, handleSubmit, appendAdditionalService } = useBooking()
-
-  console.log(bookingValues, 'bookingValues')
-
   const toggleDrawer = () => setIsOpenDrawer(!isOpenDrawer)
 
   const router = useRouter()
@@ -51,6 +47,10 @@ const Booking = () => {
 
   console.log(singleCompanyBranches, 'companyBranches')
 
+  const { control, bookingValues, errors, handleSubmit, appendAdditionalService } = useBooking(id && id[0])
+
+  console.log(bookingValues, 'bookingValues')
+
   const onClickLogo = () => {
     router.push('/')
   }
@@ -58,23 +58,12 @@ const Booking = () => {
   const options = [
     {
       label: 'წავიყვან ოფისიდან',
-      value: 'წავიყვან ოფისიდან',
-      info: '$0.00',
-      children: (
-        <TakeAway
-          control={control}
-          toggleEditModal={toggleEditModal}
-          startCity={singleProductDetails?.start_city}
-          startAddress={singleProductDetails?.start_address}
-          endCity={singleProductDetails?.end_city}
-          endAddress={singleProductDetails?.end_address}
-        />
-      )
+      value: '0',
+      children: <TakeAway control={control} toggleEditModal={toggleEditModal} />
     },
     {
       label: 'მიწოდება',
-      value: 'მიწოდება',
-      info: '$0.00',
+      value: '1',
       children: <Delivery control={control} toggleEditModal={toggleEditModal} />
     }
   ]
@@ -92,7 +81,7 @@ const Booking = () => {
       <LargeContainer className='flex items-baseline pt-5 flex-col md:flex-row'>
         <Image src='/images/logo-rent.svg' alt='logo' onClick={onClickLogo} />
         <ContentContainer className='flex gap-12'>
-          <div className='w-full md:w-8/12'>
+          <div className='w-full md:w-9/12'>
             <div className='flex items-baseline my-8 gap-3'>
               <Typography type='h3' className='font-bold'>
                 {book_from} - {book_to}
@@ -127,7 +116,7 @@ const Booking = () => {
             </Typography>
 
             <BookingRadio name='supply' options={options} control={control} color='bg-green-100' />
-            
+
             <div>
               <div
                 className='mt-11 flex items-center justify-between mb-8'
@@ -203,7 +192,12 @@ const Booking = () => {
       ) : (
         <ResponsivePriceCalcCard toggleDrawer={toggleDrawer} />
       )}
-      <BookingModal open={openEditModal} onClose={toggleEditModal} addresses={singleCompanyBranches} control={control} />
+      <BookingModal
+        open={openEditModal}
+        onClose={toggleEditModal}
+        addresses={singleCompanyBranches}
+        control={control}
+      />
     </form>
   )
 }

@@ -13,4 +13,9 @@ export type Booking = {
   phone: string
   identification_number: string
   additional_services: any[]
+  supply: any,
+  start_address: string,
+  end_address: string
+  start_time: '',
+  end_time: ''
 }

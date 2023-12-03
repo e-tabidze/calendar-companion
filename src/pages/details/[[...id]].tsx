@@ -102,7 +102,7 @@ const ProductDetails = () => {
   const router = useRouter()
   const { id, book_from, book_to } = router.query
 
-  const { control, handleSubmit, bookingValues, resetField, setValue } = useBooking()
+  const { control, handleSubmit, bookingValues, resetField, setValue } = useBooking(id && id[0])
 
   const { width } = useWindowDimensions()
 

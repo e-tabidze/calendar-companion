@@ -1,17 +1,13 @@
 import { useController } from 'react-hook-form'
 import { RadioGroup } from '@headlessui/react'
 import tw from 'tailwind-styled-components'
-import { ReactComponentElement, useState } from 'react'
+import { ReactComponentElement } from 'react'
 import Image from 'next/image'
-import Typography from '../../../components/typography'
-import SelectField from '../../../components/selectField'
-import BookingModal from '../bookingModal'
 
 interface Option {
   label: string
   value: string | number
   children?: ReactComponentElement<any>
-  info: string
 }
 
 interface Props {
@@ -22,7 +18,7 @@ interface Props {
   horizontal?: boolean
 }
 
-const BookingRadio: React.FC<Props> = ({ name, options, control, color, horizontal }) => {
+const BookingRadio: React.FC<Props> = ({ options, control, color, horizontal, name }) => {
   const { field } = useController({
     name,
     control
@@ -34,11 +30,11 @@ const BookingRadio: React.FC<Props> = ({ name, options, control, color, horizont
     props.checked ? `${color} border-0` : ''}`
 
   return (
-    <RadioGroup value={field.value} onChange={field.onChange}>
+    <RadioGroup value={field.value} onChange={field.onChange} name={name}>
       <div className={`${horizontal ? 'flex gap-2 w-full' : ''}`}>
         {options.map((option: Option) => (
           <RadioGroup.Option key={option.value} value={option.value} className='w-full'>
-            {({ checked }) => ( 
+            {({ checked }) => (
               <div className='my-2'>
                 <div
                   className={`rounded-xl border py-[32px] pl-[40px] pr-[24px] ${
@@ -52,11 +48,12 @@ const BookingRadio: React.FC<Props> = ({ name, options, control, color, horizont
                       </Circle>
                       <span className='text-2sm md:md ml-[20px]'>{option.label}</span>
                     </RadioGroup.Label>
-                    {option.info && (
+
+                    {/* {option.info && (
                       <RadioGroup.Description className='text-raisin-130' as='span'>
                         {option.info}
                       </RadioGroup.Description>
-                    )}
+                    )} */}
                   </div>
                   {checked && option.children && <div className='mt-6'> {option.children} </div>}
                 </div>
