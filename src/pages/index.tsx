@@ -28,7 +28,7 @@ const MainPage = () => {
         <LargeContainer>
           <Hero />
         </LargeContainer>
-        
+
         {/* <ContentContainer>
           <Typography type='h3' className='mt-12'>
             მოძებნე კატეგორიების მიხედვით
@@ -60,7 +60,8 @@ const MainPage = () => {
                 model={product?.manufacturer_model?.title}
                 prodYear={product?.prod_year}
                 priceGel={product?.price_gel}
-                countProductFavs={product?.count_user_favourites}
+                luggageNumbers={product?.luggage_numbers}
+                seats={product?.seat_type?.title}
               />
             ))}
             type='products'
@@ -85,7 +86,8 @@ const MainPage = () => {
                 model={product?.manufacturer_model?.title}
                 prodYear={product?.prod_year}
                 priceGel={product?.price_gel}
-                countProductFavs={product?.count_user_favourites}
+                luggageNumbers={product?.luggage_numbers}
+                seats={product?.seat_type?.title}
               />
             ))}
             type='products'

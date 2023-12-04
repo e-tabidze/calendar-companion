@@ -44,7 +44,21 @@ const CheckboxField: React.FC<Props> = ({
             return (
               <>
                 {options?.map(option => (
-                  <div className='flex items-center gap-4' key={option.id}>
+                  <div
+                    className='flex items-center gap-4 cursor-pointer'
+                    key={option.id}
+                    onClick={() => {
+                      if (append) {
+                        if (selectedOptions.includes(option.id)) {
+                          onChange(selectedOptions.filter(val => val !== option.id))
+                        } else {
+                          onChange([...selectedOptions, option.id])
+                        }
+                      } else {
+                        onChange(option.id)
+                      }
+                    }}
+                  >
                     <input
                       type='checkbox'
                       value={value}
