@@ -44,7 +44,7 @@ const ProfileNavigation: React.FC<Props> = ({
       >
         <div className='flex items-center'>
           <div className='flex shrink-0'>
-            <Image src='/images/avatar.png' alt='' className='rounded-full' width={48} height={48} />
+            <Image src='/images/avatar.png' alt='avatar' className='rounded-full' width={48} height={48} />
           </div>
           <Typography
             type='h5'

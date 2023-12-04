@@ -15,7 +15,7 @@ const OrderListComponent: React.FC<Props> = ({ toggleDetails }) => {
     <div className='' onClick={toggleDetails}>
       <div className='flex flex-col px-2 py-4 md:w-full gap-10 md:px-0 md:flex-row md:items-center'>
         <div className='flex gap-4 2xl:gap-6 min-w-max'>
-          <Image src='/images/car.png' alt='' height={48} width={64} className='rounded-lg object-cover' />
+          <Image src='/images/car.png' alt='orders' height={48} width={64} className='rounded-lg object-cover' />
           <div className='min-w-max'>
             <Typography type='subtitle'>Mercedes E Class 2022</Typography>
             <Typography type='body'>ნ. ყიფშიძის ქუჩა 10</Typography>
