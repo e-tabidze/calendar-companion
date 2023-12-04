@@ -21,7 +21,7 @@ const LocationDropdown: React.FC<Props> = ({ control }) => {
         render={({ field: { onChange, value } }) => (
           <Listbox value={cities?.find((opt: { city: any }) => opt?.city === value?.city)} onChange={onChange}>
             <div className='relative mt-1 flex text-left w-full'>
-              <Listbox.Button className='relative w-full cursor-default rounded-2xl bg-white py-5 px-4 text-left focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm'>
+              <Listbox.Button className='relative w-full cursor-default rounded-2xl bg-white py-5 px-4 text-left focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-raisin-5 sm:text-sm'>
                 <FilterContainer>
                   <Typography type='body' color='dark'>
                     ადგილმდებარეობა
@@ -40,13 +40,13 @@ const LocationDropdown: React.FC<Props> = ({ control }) => {
                 leaveFrom='opacity-100'
                 leaveTo='opacity-0'
               >
-                <Listbox.Options className='absolute top-full z-10 p-4 mt-4 w-full origin-top-right divide-y divide-gray-100 rounded-2xl bg-white shadow-lg focus:outline-none'>
+                <Listbox.Options className='absolute top-full z-10 mt-4 w-full origin-top-right divide-y divide-gray-100 rounded-2xl bg-white shadow-lg focus:outline-none'>
                   {cities?.map((city: any, index: number) => (
                     <Listbox.Option
                       key={index}
                       className={({ active }) =>
-                        `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                          active ? 'bg-amber-100 text-amber-900' : 'text-gray-900'
+                        `relative cursor-default my-2 select-none py-2 pl-10 pr-4 ${
+                          active ? 'bg-raisin-10' : 'text-gray-900'
                         }`
                       }
                       value={city.city}
@@ -56,9 +56,6 @@ const LocationDropdown: React.FC<Props> = ({ control }) => {
                           <span className={`block truncate ${selected ? 'font-medium' : 'font-normal'}`}>
                             {city.city}
                           </span>
-                          {selected ? (
-                            <span className='absolute inset-y-0 left-0 flex items-center pl-3 text-amber-600'>✅</span>
-                          ) : null}
                         </>
                       )}
                     </Listbox.Option>

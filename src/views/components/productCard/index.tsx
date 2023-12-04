@@ -40,7 +40,7 @@ const ProductCard: React.FC<Props> = ({
 }) => {
   const router = useRouter()
 
-  const { isAuthenticated } = useProfile()
+  const { isAuthenticated, activeCompanyId } = useProfile()
 
   const { toggleUserFavourites, userFavourites, toggleFavouritesLoading } = useFavourites(productId)
 
@@ -61,6 +61,8 @@ const ProductCard: React.FC<Props> = ({
 
   console.log(isProductInFavorites, 'isProductInFavorites')
 
+  console.log(activeCompanyId, 'activeCompanyId')
+
   const handleFavorites = async () => {
     try {
       toggleUserFavourites.mutate()
@@ -79,7 +81,7 @@ const ProductCard: React.FC<Props> = ({
         <Image src='/images/car.png' alt='' className='rounded-tl-3xl rounded-tr-3xl object-cover' />
       </div>
 
-      {isAuthenticated && (
+      {activeCompanyId === undefined && isAuthenticated && (
         <div
           className={`absolute cursor-pointer z-[10] top-3 right-3 w-8 h-8 flex items-center justify-center rounded-full ${
             isProductInFavorites ? 'bg-orange-20 hover:bg-orange-30' : ' bg-raisin-20 hover:bg-raisin-60'
@@ -120,11 +122,12 @@ const ProductCard: React.FC<Props> = ({
             {priceGel} ₾ <PreviousPrice>47₾</PreviousPrice>
           </PriceContainer>
           <DetailsWrapper>
+
+            {/* <Details>
+              <Icon svgPath='views' width={20} height={20} /> <span>{2}</span>
+            </Details> */}
             <Details>
-              <Icon svgPath='views' width={20} height={20} /> <span>{countProductFavs}</span>
-            </Details>
-            <Details>
-              <Icon svgPath='briefcase' width={20} height={20} /> <span>2</span>
+              <Icon svgPath='briefcase' width={20} height={20} /> <span>{countProductFavs}</span>
             </Details>
           </DetailsWrapper>
         </InnerDetailsContainer>

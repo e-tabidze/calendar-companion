@@ -61,10 +61,10 @@ const ListComponent: React.FC<Props> = ({ productId }) => {
             <InnerDetailsContainer>
               <DetailsWrapper>
                 <Details>
-                  <Image src='/icons/views.svg' alt='' width={20} height={20} /> <span>5</span>
+                  <Image src='/icons/views.svg' alt='' width={20} height={20} /> <span></span>
                 </Details>
                 <Details>
-                  <Image src='/icons/briefcase.svg' alt='' width={20} height={20} /> <span>2</span>
+                  <Image src='/icons/briefcase.svg' alt='' width={20} height={20} /> <span></span>
                 </Details>
               </DetailsWrapper>
             </InnerDetailsContainer>

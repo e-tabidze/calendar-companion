@@ -25,6 +25,10 @@ class ProductService extends HttpService {
   createNewProduct(AccessToken = '', product: Product) {
     return this.post('/products', product, AccessToken ? { Authorization: `${AccessToken}` } : {})
   }
+
+  getSimilarProducts(manId: number | string, modelId: number | string) {
+    return this.get(`/search-products?manufacturer_id[]=${manId}&model_id[]=${modelId}&order_by=desc`)
+  }
 }
 
 export default new ProductService()
