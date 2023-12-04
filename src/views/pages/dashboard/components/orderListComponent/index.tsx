@@ -1,7 +1,7 @@
-import Image from 'next/image'
 import useWindowDimensions from 'src/hooks/useWindowDimensions'
 import { IconButton } from 'src/views/components/button'
 import Divider from 'src/views/components/divider'
+import Image from 'src/views/components/image'
 import Typography from 'src/views/components/typography'
 
 interface Props {

@@ -1,8 +1,8 @@
-import Image from 'next/image'
 import { useRouter } from 'next/router'
 import useProfile from 'src/hooks/useProfile'
 import Icon from 'src/views/app/Icon'
 import Divider from '../divider'
+import Image from '../image'
 import Typography from '../typography'
 
 interface Route {
