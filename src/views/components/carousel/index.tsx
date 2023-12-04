@@ -117,7 +117,7 @@ const Carousel = ({ itemsArray, type, onClick, singleSlide = false, thumbs = fal
         </div>
         {itemsArray?.map((item, index) => (
           <SwiperSlide key={index} className={`!w-fit ${type === 'productDetails' && 'h-full'}`}>
-            <div ref={element => (slideRefs.current[index] = element)}>{item}</div>
+            <div ref={element => (slideRefs.current[index] = element)} className="flex justify-center">{item}</div>
           </SwiperSlide>
         ))}
         <div className='absolute inset-y-0 right-16 sm:right-2 flex items-center z-10' ref={nextRef}>

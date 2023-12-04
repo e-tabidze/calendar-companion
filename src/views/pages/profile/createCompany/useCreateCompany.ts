@@ -45,7 +45,7 @@ const useCreateCompany = () => {
   }
 
   const createCompanyDefaultValues: Company = {
-    identification_number: null,
+    identification_number: 0,
     company_type_id: '1',
     company_information: {
       name: '',

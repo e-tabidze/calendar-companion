@@ -38,6 +38,8 @@ interface Props {
   handleChange?: (e: any) => void
   placeholder?: string
   inputValue?: string
+  min?: number,
+  max?: number
 }
 
 export const DefaultInput: React.FC<Props> = ({
@@ -50,7 +52,10 @@ export const DefaultInput: React.FC<Props> = ({
   disabled = false,
   rows,
   className,
-  index
+  index,
+  type = 'text',
+  min,
+  max
 }) => {
   const [isFocused, setIsFocused] = useState(false)
   const InputComponent = rows ? 'textarea' : 'input'
@@ -81,12 +86,14 @@ export const DefaultInput: React.FC<Props> = ({
               } ${!disabled ? 'hover:border-raisin-30' : ''} ${
                 _.get(errors, name)?.ref.name === name ? 'border border-red-100' : ''
               }`}
-              type='text'
+              type={type}
               onChange={e => {
                 onChange(e)
               }}
               pattern={pattern}
               rows={rows}
+              min={min}
+              max={max}
             />
             {errors && (
               <div id={id} className='text-sm text-red-100 ml-2'>

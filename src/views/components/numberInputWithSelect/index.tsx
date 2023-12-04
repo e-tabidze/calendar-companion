@@ -13,9 +13,10 @@ type Props = {
   control: any
   inputName: string
   selectName: string
+  type?: string
 }
 
-const NumberInputWithSelect: React.FC<Props> = ({ options, control, inputName, selectName }) => {
+const NumberInputWithSelect: React.FC<Props> = ({ options, control, inputName, selectName, type = 'text' }) => {
   const [isOpen, setIsOpen] = useState(false)
 
   const toggleOpen = () => setIsOpen(!isOpen)
@@ -31,6 +32,9 @@ const NumberInputWithSelect: React.FC<Props> = ({ options, control, inputName, s
             value={value}
             onChange={onChange}
             className='w-1/3 px-3 py-2 border-none text-2md outline-none rounded-xl text-center'
+            type="number"
+            min={0}
+            max={100}
           />
         )}
       />

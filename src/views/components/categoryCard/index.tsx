@@ -5,7 +5,7 @@ import Typography from '../typography'
 interface Props {
   border?: boolean
   name: string
-  control: any
+  control?: any
   options: any[]
   append?: any
 }

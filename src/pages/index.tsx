@@ -1,7 +1,9 @@
+import useFilters from 'src/hooks/useFilters'
 import { TailwindDiv } from 'src/interfaces/tailwind'
 import DefaultLayout from 'src/layouts/DefaultLayout'
 import { LargeContainer, ContentContainer, ResponsiveContainer, FullContainer } from 'src/styled/styles'
 import Carousel from 'src/views/components/carousel'
+import CategoryItem from 'src/views/components/categoryItem'
 import Divider from 'src/views/components/divider'
 import ProductCard from 'src/views/components/productCard'
 import Typography from 'src/views/components/typography'
@@ -15,12 +17,10 @@ import tw from 'tailwind-styled-components'
 // ** Styled Components
 const MainPageBox = tw.div<TailwindDiv>`flex w-full items-center flex-col`
 
-// const categories = categoryArray.map((item, key) => <CategoryCard category={item.type} key={key} />)
-
 const MainPage = () => {
   const { latestProducts, popularProducts } = useMain()
 
-  console.log(latestProducts, 'latestProducts')
+  const { categoriesFilter } = useFilters()
 
   return (
     <DefaultLayout>
@@ -29,15 +29,22 @@ const MainPage = () => {
           <Hero />
         </LargeContainer>
 
-        {/* <ContentContainer>
+        <ContentContainer>
           <Typography type='h3' className='mt-12'>
             მოძებნე კატეგორიების მიხედვით
           </Typography>
           <Typography type='subtitle' color='light' className='mb-12'>
             იპოვეთ თქვენთვის სასურველი ავტომობილი კონკრეტული საჭიროებისთვის ერთ სივრცეში
           </Typography>
-        </ContentContainer> */}
-        {/* <LargeContainer><Carousel itemsArray={categories} type='categories' /></LargeContainer> */}
+        </ContentContainer>
+        <LargeContainer className='mb-12'>
+          <Carousel
+            itemsArray={categoriesFilter?.map((product: any) => (
+              <CategoryItem svgPath={product?.icon} title={product?.title} count={product?.count_products} id={product?.id} key={product?.id} />
+            ))}
+            type='products'
+          />
+        </LargeContainer>
         <LargeContainer>
           <Divider />
         </LargeContainer>

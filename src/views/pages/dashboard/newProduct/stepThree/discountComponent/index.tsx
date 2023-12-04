@@ -17,6 +17,7 @@ const DiscountComponent: React.FC<Props> = ({ index, options, control, errors })
         inputName={`discount.${index}.number`}
         selectName={`discount.${index}.period`}
         control={control}
+        type="number"
       />
       <DefaultInput
         label='% ფასდაკლება'
@@ -24,6 +25,7 @@ const DiscountComponent: React.FC<Props> = ({ index, options, control, errors })
         control={control}
         name={`discount.${index}.discount_percent`}
         errors={errors}
+        type="number"
       />
     </div>
   )
