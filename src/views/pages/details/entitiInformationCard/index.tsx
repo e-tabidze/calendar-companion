@@ -4,9 +4,10 @@ import Typography from '../../../components/typography'
 
 interface Props {
   name: string
+  entityProductsCount: number
 }
 
-const EntityInformationCard: React.FC<Props> = ({ name }) => {
+const EntityInformationCard: React.FC<Props> = ({ name, entityProductsCount }) => {
   return (
     <div className='my-12 gap-8 flex items-center'>
       <div className='relative w-fit '>
@@ -18,7 +19,7 @@ const EntityInformationCard: React.FC<Props> = ({ name }) => {
           {name}
         </Typography>
         <Typography type='body' color='light'>
-          3 განცხადება
+          {entityProductsCount} განცხადება
         </Typography>
       </div>
     </div>

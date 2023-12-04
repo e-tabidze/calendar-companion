@@ -75,7 +75,7 @@ const StepTwo: React.FC<Props> = ({ control, appendAdditionalParam, step }) => {
         ჩემოდნების რაოდენობა
       </Typography>
       <div className='flex flex-wrap gap-4 my-6'>
-        <Tag name='suitcases' control={control} options={suitcases} height='h-10' />
+        <Tag name='luggage_numbers' control={control} options={suitcases} height='h-10' />
       </div>
       <Divider />
       <div className='flex justify-between my-10 flex-col items-baseline md:items-center md:flex-row'>
@@ -136,14 +136,13 @@ const StepTwo: React.FC<Props> = ({ control, appendAdditionalParam, step }) => {
         {isAdditionalParamsLoading ? (
           <>Loading</>
         ) : (
-          <div className='my-2'>
-            <CheckboxField
-              name={`additional_options`}
-              control={control}
-              options={additionalParams}
-              append={() => appendAdditionalParam(appendAdditionalParam)}
-            />
-          </div>
+          <CheckboxField
+            name={`additional_options`}
+            control={control}
+            options={additionalParams}
+            append={() => appendAdditionalParam(appendAdditionalParam)}
+            className='my-2'
+          />
         )}
       </div>
     </div>

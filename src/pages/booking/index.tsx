@@ -16,7 +16,6 @@ import DateDropdown from 'src/views/components/dateDropdown'
 import { useWatch } from 'react-hook-form'
 import useCompanyInfo from 'src/hooks/useCompanyInfo'
 import useSingleProductDetails from '../../views/pages/details/useSingleProductDetails'
-import Icon from 'src/views/app/Icon'
 import CheckboxField from 'src/views/components/checkboxField'
 import TakeAway from 'src/views/pages/booking/takeAway'
 import Delivery from 'src/views/pages/booking/delivery'
@@ -47,7 +46,7 @@ const Booking = () => {
 
   console.log(singleCompanyBranches, 'companyBranches')
 
-  const { control, bookingValues, errors, handleSubmit, appendAdditionalService } = useBooking(id && id[0])
+  const { control, bookingValues, errors, handleSubmit, appendAdditionalService } = useBooking(id)
 
   console.log(bookingValues, 'bookingValues')
 
@@ -117,30 +116,31 @@ const Booking = () => {
 
             <BookingRadio name='supply' options={options} control={control} color='bg-green-100' />
 
-            <div>
+            <div className='mb-24'>
               <div
                 className='mt-11 flex items-center justify-between mb-8'
                 onClick={() => toggleAdditionalServices(!additionalServices)}
               >
                 <Typography type='h3'>დამატებითი სერვისები</Typography>
-                <Icon
-                  svgPath='chevron'
+                <Image
+                  src='/icons/chevron.svg'
                   className={`${additionalServices ? '' : 'rotate-180'} w-auto h-4 transition duration-300`}
                 />
               </div>
+
               {/* {additionalServices && <AdditionalServices control={control} />} */}
               {additionalServices && (
-                <div>
-                  <CheckboxField
-                    name={`additional_services`}
-                    control={control}
-                    options={singleProductDetails?.product_services}
-                    append={() => appendAdditionalService(appendAdditionalService)}
-                  />
-                </div>
+                <CheckboxField
+                  name={`additional_services`}
+                  control={control}
+                  options={singleProductDetails?.product_services}
+                  append={() => appendAdditionalService(appendAdditionalService)}
+                  className='my-2'
+                />
               )}
             </div>
             {!additionalServices && <Divider />}
+
             {/* <div>
               <div className='mt-11 flex items-center justify-between mb-8' onClick={() => toggleInsurance(!insurance)}>
                 <Typography type='h3'>დაზღვევა</Typography>

@@ -12,16 +12,18 @@ const StepThree = dynamic(() => import('./stepThree'), { ssr: false })
 const StepFour = dynamic(() => import('./stepFour'), { ssr: false })
 const StepFive = dynamic(() => import('./stepFive'), { ssr: false })
 const StepSix = dynamic(() => import('./stepSix'), { ssr: false })
-const StepSeven = dynamic(() => import('./stepSeven'), { ssr: false })
+
+// const StepSeven = dynamic(() => import('./stepSeven'), { ssr: false })
 
 const options = [
-  { value: '1/7 ნაბიჯი', label: 'ავტომობილის შესახებ', step: 1 },
-  { value: '2/7 ნაბიჯი', label: 'ავტომობილის პარამეტრები', step: 2 },
-  { value: '3/7 ნაბიჯი', label: 'ფასები და ფასდაკლება', step: 3 },
-  { value: '4/7 ნაბიჯი', label: 'სერვისები', step: 4 },
-  { value: '5/7 ნაბიჯი', label: 'ჯავშნის მიღების პირობები', step: 5 },
-  { value: '6/7 ნაბიჯი', label: 'ადგილმდებარეობა', step: 6 },
-  { value: '7/7 ნაბიჯი', label: 'ადგილმდებარეობა', step: 7 }
+  { value: '1/6 ნაბიჯი', label: 'ავტომობილის შესახებ', step: 1 },
+  { value: '2/6 ნაბიჯი', label: 'ავტომობილის პარამეტრები', step: 2 },
+  { value: '3/6 ნაბიჯი', label: 'ფასები და ფასდაკლება', step: 3 },
+  { value: '4/6 ნაბიჯი', label: 'სერვისები', step: 4 },
+  { value: '5/6 ნაბიჯი', label: 'ჯავშნის მიღების პირობები', step: 5 },
+  { value: '6/6 ნაბიჯი', label: 'ადგილმდებარეობა', step: 6 },
+
+  // { value: '7/7 ნაბიჯი', label: 'ადგილმდებარეობა', step: 7 }
 ]
 
 const NewProduct: React.FC = () => {
@@ -102,8 +104,9 @@ const NewProduct: React.FC = () => {
         return <StepFive control={control} setValue={setValue} />
       case 6:
         return <StepSix control={control} />
-      case 7:
-        return <StepSeven control={control} />
+        
+      // case 7:
+      //   return <StepSeven control={control} />
       default:
         return null
     }

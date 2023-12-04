@@ -32,9 +32,9 @@ import { useRouter } from 'next/router'
 import useWindowDimensions from 'src/hooks/useWindowDimensions'
 import useBooking from 'src/views/pages/booking/useBooking'
 import { Controller } from 'react-hook-form'
-import Icon from 'src/views/app/Icon'
 import { formatDate } from 'src/utils/formatDate'
 import useSingleProductDetails from '../../views/pages/details/useSingleProductDetails'
+import useMain from 'src/views/pages/main/useMain'
 
 const SimilarProducts = dynamic(() => import('src/views/pages/details/similarProducts'), { ssr: true })
 
@@ -102,7 +102,7 @@ const ProductDetails = () => {
   const router = useRouter()
   const { id, book_from, book_to } = router.query
 
-  const { control, handleSubmit, bookingValues, resetField, setValue } = useBooking(id && id[0])
+  const { control, handleSubmit, bookingValues, resetField, setValue } = useBooking(id)
 
   const { width } = useWindowDimensions()
 
@@ -110,7 +110,9 @@ const ProductDetails = () => {
   const [section, setSection] = useState('details')
   const [isSticky, setIsSticky] = useState(false)
 
-  const [dateRange, setDateRange] = useState<[Date, Date] | [null, null] | [Date, null] | [null, Date] | [undefined, undefined]>(
+  const [dateRange, setDateRange] = useState<
+    [Date, Date] | [null, null] | [Date, null] | [null, Date] | [undefined, undefined]
+  >(
     Array.isArray(book_from) && Array.isArray(book_to)
       ? [new Date(book_from[0]), new Date(book_to[0])]
       : [
@@ -123,6 +125,12 @@ const ProductDetails = () => {
   const [productImageDialogOpen, setProductImageDialogOpen] = useState<boolean>(false)
 
   const { singleProductDetails } = useSingleProductDetails(id)
+
+  const { similarProducts } = useMain(singleProductDetails?.man_id, singleProductDetails?.model_id)
+
+  console.log(similarProducts, 'similarProducts')
+
+  console.log(singleProductDetails, 'singleProductDetails')
 
   const ref = useRef<any>()
 
@@ -250,14 +258,14 @@ const ProductDetails = () => {
                     ან მსგავსი
                   </Typography>
                   <Typography type='subtitle'>| </Typography>
-                  <Icon svgPath='locationOutline' width={24} height={24} />
+                  <Image src='/icons/locationOutline.svg' width={24} height={24} alt="" />
                   <Typography type='subtitle'>{singleProductDetails?.start_address}</Typography>
                 </div>
                 <Typography type='subtitle'>{singleProductDetails?.additional_information}</Typography>
                 <Typography type='subtitle' className='mt-8'>
                   {singleProductDetails?.use_instruction}
                 </Typography>
-                <EntityInformationCard name={singleProductDetails?.company_user?.company?.information?.name} />
+                <EntityInformationCard name={singleProductDetails?.company_user?.company?.information?.name} entityProductsCount={singleProductDetails?.company_user?.company?.count_company_poduct} />
               </div>
 
               <Features id='features' singleProductDetails={singleProductDetails} />
@@ -405,7 +413,7 @@ const ProductDetails = () => {
             count={singleProductDetails?.company_user?.company?.count_company_poduct}
           />
           <Divider className='my-20' />
-          <SimilarProducts />
+          <SimilarProducts data={similarProducts}/>
         </ContentContainer>
         {isOpenDrawer && width < 779 ? (
           <Drawer

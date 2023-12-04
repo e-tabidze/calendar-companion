@@ -7,7 +7,7 @@ import { useEffect } from 'react'
 import { Booking } from 'src/types/Booking'
 import useSingleProductDetails from '../details/useSingleProductDetails'
 
-const useBooking = (id: number | string) => {
+const useBooking = (id: number | string | string[]) => {
   const { userInfo } = useProfile()
   const { singleProductDetails } = useSingleProductDetails(id)
 
@@ -24,7 +24,7 @@ const useBooking = (id: number | string) => {
     birth_date: null,
     driver_license_expiration: null,
     additional_services: [] as any[],
-    supply: '1',
+    supply: '0',
     start_time: '',
     end_time: '',
     start_address: singleProductDetails?.start_address,

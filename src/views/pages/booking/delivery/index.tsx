@@ -3,6 +3,7 @@ import Typography from '../../../components/typography'
 import SelectField from '../../../components/selectField'
 import { DefaultInput } from 'src/views/components/input'
 import { generateTimeOptions } from 'src/utils/timeValues'
+import { useWatch } from 'react-hook-form'
 
 interface Props {
   control?: any
@@ -10,6 +11,8 @@ interface Props {
 }
 
 const Delivery: React.FC<Props> = ({ control, toggleEditModal }) => {
+  const formsState = useWatch({ control })
+
   return (
     <div className='pl-[52px] mt-[16px]'>
       <div className='flex items-center'>
@@ -47,7 +50,7 @@ const Delivery: React.FC<Props> = ({ control, toggleEditModal }) => {
         </div>
         <div className='w-6/12'>
           <Typography type='body' className='text-[14px] ml-[40px]'>
-            თბილისი, იაკობ წურტაველის 72
+            {formsState?.end_address}
           </Typography>
         </div>
         <div className='w-4/12 flex justify-between'>

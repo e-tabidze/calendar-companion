@@ -49,9 +49,9 @@ const CheckboxField: React.FC<Props> = ({
                       type='checkbox'
                       value={value}
                       checked={selectedOptions.includes(option.id)}
-                      className={` ${
+                      className={`${
                         selectedOptions.includes(option.id) ? 'bg-raisin-80' : ''
-                      } flex items-center w-4 h-4 border border-raisin-110 cursor-pointer ${className}`}
+                      } flex items-center w-5 h-5 border border-raisin-110 cursor-pointer ${className} text-green-100 checked:bg-green-100`}
                       onChange={() => {
                         if (append) {
                           if (selectedOptions.includes(option.id)) {
