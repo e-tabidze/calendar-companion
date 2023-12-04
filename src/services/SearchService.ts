@@ -6,7 +6,7 @@ class SearchService extends HttpService {
   }
 
   getSingleProduct(productId: number | string) {
-    return this.get(`/single-product/${productId}`)
+    return this.get(`/single-product/${productId}`, {}, { Authorization: '' })
   }
 
   getAdditionalInformationFilters() {
@@ -26,7 +26,7 @@ class SearchService extends HttpService {
   }
 
   getCities() {
-    return this.get("/cities")
+    return this.get('/cities')
   }
 }
 

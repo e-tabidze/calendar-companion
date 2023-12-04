@@ -28,15 +28,16 @@ const MainPage = () => {
         <LargeContainer>
           <Hero />
         </LargeContainer>
-        <ContentContainer>
+        
+        {/* <ContentContainer>
           <Typography type='h3' className='mt-12'>
             მოძებნე კატეგორიების მიხედვით
           </Typography>
           <Typography type='subtitle' color='light' className='mb-12'>
             იპოვეთ თქვენთვის სასურველი ავტომობილი კონკრეტული საჭიროებისთვის ერთ სივრცეში
           </Typography>
-        </ContentContainer>
-        <LargeContainer>{/* <Carousel itemsArray={categories} type='categories' /> */}</LargeContainer>
+        </ContentContainer> */}
+        {/* <LargeContainer><Carousel itemsArray={categories} type='categories' /></LargeContainer> */}
         <LargeContainer>
           <Divider />
         </LargeContainer>

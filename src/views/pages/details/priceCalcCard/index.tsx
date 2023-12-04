@@ -72,23 +72,15 @@ const PriceCalcCard: React.FC<Props> = ({ price, dates, days, className, onClick
           {days && days * price + ' ₾'}
         </Typography>
       </div>
-      {userInfo?.active_profile_id ? (
-        <>
-          {userInfo?.active_profile_id === userInfo?.UserID && (
-            <DefaultButton
-              bg='bg-orange-100'
-              text='ჯავშნის დაწყება'
-              className='w-full'
-              textColor='text-white'
-              type='submit'
-              onClick={onClick}
-            />
-          )}
-        </>
-      ) : (
-        <Typography type='subtitle' className='text-orange-100'>
-          ჯავშნის გასაგრძელებლად გთხოვთ შეხვიდეთ სისტემაში
-        </Typography>
+      {userInfo?.active_profile_id === userInfo?.UserID && (
+        <DefaultButton
+          bg='bg-orange-100'
+          text='ჯავშნის დაწყება'
+          className='w-full'
+          textColor='text-white'
+          type='submit'
+          onClick={onClick}
+        />
       )}
     </div>
   )
