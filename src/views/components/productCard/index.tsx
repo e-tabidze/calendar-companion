@@ -12,7 +12,6 @@ import {
   PreviousPrice,
   PriceContainer,
   ProductCardContainer,
-  ReviewContainer
 } from './styles'
 
 interface Props {

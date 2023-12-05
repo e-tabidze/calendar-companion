@@ -18,7 +18,8 @@ const SimilarProducts: React.FC<Props> = ({ data }) => {
             model={product?.manufacturer_model?.title}
             prodYear={product?.prod_year}
             priceGel={product?.price_gel}
-            countProductFavs={product?.count_user_favourites}
+            luggageNumbers={product.luggage_numbers}
+            seats={product?.seat_types?.title}
           />
         ))}
       </div>

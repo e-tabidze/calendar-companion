@@ -48,7 +48,7 @@ const FileUpload: React.FC<Props> = ({ title, description }) => {
             ) : (
               <img src={fileContent} alt='File Preview' className='max-w-full max-h-full' />
             )}
-            <IconButton icon='/icons/close.svg' className='absolute top-2 right-2' onClick={handleDelete} />
+            <IconButton icon='/icons/close.svg' className='absolute top-2 right-2' onClick={handleDelete} height={30} width={30} />
           </div>
         ) : (
           <>

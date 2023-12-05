@@ -11,6 +11,7 @@ interface Props {
 
 const CategoryItem: React.FC<Props> = ({ svgPath, title, count, id }) => {
   const router = useRouter()
+  
   return (
     <div className='w-40 flex flex-col items-center cursor-pointer' onClick={() => router?.push(`/search/?category[]=${id}`)}>
       <Icon svgPath={svgPath} width={48} height={48} />
