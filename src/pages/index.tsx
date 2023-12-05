@@ -1,7 +1,7 @@
 import useFilters from 'src/hooks/useFilters'
 import { TailwindDiv } from 'src/interfaces/tailwind'
 import DefaultLayout from 'src/layouts/DefaultLayout'
-import { LargeContainer, ContentContainer, ResponsiveContainer, FullContainer } from 'src/styled/styles'
+import { LargeContainer, ContentContainer, ResponsiveContainer } from 'src/styled/styles'
 import Carousel from 'src/views/components/carousel'
 import CategoryItem from 'src/views/components/categoryItem'
 import Divider from 'src/views/components/divider'
@@ -37,14 +37,20 @@ const MainPage = () => {
             იპოვეთ თქვენთვის სასურველი ავტომობილი კონკრეტული საჭიროებისთვის ერთ სივრცეში
           </Typography>
         </ContentContainer>
-        <LargeContainer className='mb-12'>
+        <ContentContainer className='mb-12'>
           <Carousel
             itemsArray={categoriesFilter?.map((product: any) => (
-              <CategoryItem svgPath={product?.icon} title={product?.title} count={product?.count_products} id={product?.id} key={product?.id} />
+              <CategoryItem
+                  svgPath={product?.icon}
+                  title={product?.title}
+                  count={product?.count_products}
+                  id={product?.id}
+                  key={product?.id}
+              />
             ))}
-            type='products'
+            type='categories'
           />
-        </LargeContainer>
+        </ContentContainer>
         <LargeContainer>
           <Divider />
         </LargeContainer>
@@ -56,7 +62,7 @@ const MainPage = () => {
             ცნობილი ფაქტია, რომ გვერდის წაკითხვად შიგთავსს შეუძლია მკითხველის ყურადღება მიიზიდოს
           </Typography>
         </ContentContainer>
-        <FullContainer>
+        <ContentContainer className="md:rounded-3xl overflow-hidden px-0 md:px-5 lg:px-8">
           <Carousel
             itemsArray={latestProducts?.map((product: any) => (
               <ProductCard
@@ -73,7 +79,7 @@ const MainPage = () => {
             ))}
             type='products'
           />
-        </FullContainer>
+        </ContentContainer>
         <ContentContainer>
           <Typography type='h3' className='mt-12'>
             პოპულარული მანქანები
@@ -82,7 +88,7 @@ const MainPage = () => {
             ცნობილი ფაქტია, რომ გვერდის წაკითხვად შიგთავსს შეუძლია მკითხველის ყურადღება მიიზიდოს
           </Typography>
         </ContentContainer>
-        <FullContainer>
+        <ContentContainer className="md:rounded-3xl overflow-hidden px-0 md:px-5 lg:px-8">
           <Carousel
             itemsArray={popularProducts?.map((product: any) => (
               <ProductCard
@@ -99,7 +105,7 @@ const MainPage = () => {
             ))}
             type='products'
           />
-        </FullContainer>
+        </ContentContainer>
         <ResponsiveContainer className='mt-20'>
           <Cities />
         </ResponsiveContainer>

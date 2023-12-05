@@ -9,7 +9,6 @@ import {
   DetailsContainer,
   DetailsWrapper,
   InnerDetailsContainer,
-  PreviousPrice,
   PriceContainer,
   ProductCardContainer,
 } from './styles'
@@ -78,7 +77,7 @@ const ProductCard: React.FC<Props> = ({
     <ProductCardContainer onClick={handleCardClick}>
       <div
         className={`overflow-hidden aspect-w-16 aspect-h-9 cursor-pointer ${
-          swiperCard ? 'md:w-[320px] xl:w-[400px]' : 'sticky'
+          swiperCard ? 'w-full' : 'sticky'
         } `}
       >
         <Image src='/images/car.png' alt='' className='rounded-tl-3xl rounded-tr-3xl object-cover' />
@@ -104,19 +103,21 @@ const ProductCard: React.FC<Props> = ({
         </div>
       )}
       <DetailsContainer>
-        <Typography type='h5'>
-          {manufacturer} {model} {prodYear}
+        <Typography type='h5' className="flex items-center">
+          <span className="overflow-hidden text-ellipsis whitespace-nowrap inline-block">{manufacturer} {model} </span>
+          <span className="ml-1">{prodYear}</span>
         </Typography>
         <InnerDetailsContainer>
           <PriceContainer>
-            {priceGel} ₾ <PreviousPrice>47₾</PreviousPrice>
+            {priceGel} ₾
+            {/*<PreviousPrice>47₾</PreviousPrice>*/}
           </PriceContainer>
           <DetailsWrapper>
             <Details>
-              <Icon svgPath='views' width={20} height={20} /> <span>{seats}</span>
+              <Icon svgPath='views' width={20} height={20} className='fill-transparent' /> <span>{seats}</span>
             </Details>
             <Details>
-              <Icon svgPath='briefcase' width={20} height={20} /> <span>{luggageNumbers}</span>
+              <Icon svgPath='briefcase' width={20} height={20} className='fill-transparent' /> <span>{luggageNumbers}</span>
             </Details>
           </DetailsWrapper>
         </InnerDetailsContainer>

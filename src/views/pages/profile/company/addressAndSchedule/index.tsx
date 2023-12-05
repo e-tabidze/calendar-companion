@@ -49,7 +49,7 @@ const AddressAndSchedule: React.FC<Props> = ({ index, control, address, errors }
           <div className='flex items-center gap-4 w-full'>
             {formState.addresses[index].is_same_time === 1 ? (
               <div className='w-full flex flex-col sm:flex-row justify-between sm:items-center'>
-                <div className='flex gap-4'>
+                <div className='flex md:gap-4 gap-[6px]'>
                   {days.map(day => (
                     <Controller
                       key={day.value}

@@ -38,32 +38,40 @@ const Tnet = () => {
                             <Image src='/icons/tnet/myhome.svg' alt='img' width={80} height={24}/>
                         </a>
                         <a className="h-[80px] py-[24px] px-[16px] flex items-center justify-center hover:bg-[#F5F5F8] rounded-[8px] transition-all"
-                           href="https://www.myhome.ge/ka/" target="_blank" rel="noreferrer">
+                           href="https://www.mymarket.ge/ka/" target="_blank" rel="noreferrer">
                             <Image src='/icons/tnet/mymarket.svg' alt='img' width={83} height={24}/>
                         </a>
                         <a className="h-[80px] py-[24px] px-[16px] flex items-center justify-center hover:bg-[#F5F5F8] rounded-[8px] transition-all"
-                           href="https://www.myhome.ge/ka/" target="_blank" rel="noreferrer">
+                           href="https://www.myparts.ge/ka/" target="_blank" rel="noreferrer">
                             <Image src='/icons/tnet/myparts.svg' alt='img' width={82} height={24}/>
                         </a>
                         <a className="h-[80px] py-[24px] px-[16px] flex items-center justify-center hover:bg-[#F5F5F8] rounded-[8px] transition-all"
-                           href="https://www.myhome.ge/ka/" target="_blank" rel="noreferrer">
+                           href="https://www.vendoo.ge" target="_blank" rel="noreferrer">
                             <Image src='/icons/tnet/vendoo.svg' alt='img' width={64} height={14}/>
                         </a>
                         <a className="h-[80px] py-[24px] px-[16px] flex items-center justify-center hover:bg-[#F5F5F8] rounded-[8px] transition-all"
-                           href="https://www.myhome.ge/ka/" target="_blank" rel="noreferrer">
+                           href="https://www.swoop.ge" target="_blank" rel="noreferrer">
                             <Image src='/icons/tnet/swoop.svg' alt='img' width={83} height={24}/>
                         </a>
                         <a className="h-[80px] py-[24px] px-[16px] flex items-center justify-center hover:bg-[#F5F5F8] rounded-[8px] transition-all"
-                           href="https://www.myhome.ge/ka/" target="_blank" rel="noreferrer">
+                           href="https://www.tkt.ge" target="_blank" rel="noreferrer">
                             <Image src='/icons/tnet/tkt.svg' alt='img' width={67} height={18}/>
                         </a>
                         <a className="h-[80px] py-[24px] px-[16px] flex items-center justify-center hover:bg-[#F5F5F8] rounded-[8px] transition-all"
-                           href="https://www.myhome.ge/ka/" target="_blank" rel="noreferrer">
+                           href="https://www.livo.ge" target="_blank" rel="noreferrer">
                             <Image src='/icons/tnet/livo.svg' alt='img' width={59} height={20}/>
                         </a>
                         <a className="h-[80px] py-[24px] px-[16px] flex items-center justify-center hover:bg-[#F5F5F8] rounded-[8px] transition-all"
-                           href="https://www.myhome.ge/ka/" target="_blank" rel="noreferrer">
+                           href="https://www.saba.com.ge" target="_blank" rel="noreferrer">
                             <Image src='/icons/tnet/saba.png' alt='img' width={52} height={24}/>
+                        </a>
+                        <a className="h-[80px] py-[24px] px-[16px] flex items-center justify-center hover:bg-[#F5F5F8] rounded-[8px] transition-all"
+                           href="https://www.myshop.ge" target="_blank" rel="noreferrer">
+                            <Image src='/icons/tnet/myshop.svg' alt='img' width={69} height={12}/>
+                        </a>
+                        <a className="h-[80px] py-[24px] px-[16px] flex items-center justify-center hover:bg-[#F5F5F8] rounded-[8px] transition-all"
+                           href="https://superapp.tnet.ge" target="_blank" rel="noreferrer">
+                            <Image src='/icons/tnet/super-app.svg' alt='img' width={65} height={20}/>
                         </a>
                         </div>
                     </Menu.Items>

@@ -15,7 +15,7 @@ const PriceCalcCard = dynamic(() => import('src/views/pages/details/priceCalcCar
 
 // const InsuranceCard = dynamic(() => import('src/views/pages/details/insuranceCard'), { ssr: false })
 const MapPicker = dynamic(() => import('src/views/components/mapPicker'), { ssr: true })
-const LessorInformationCard = dynamic(() => import('src/views/pages/details/lessorInformationCard'), { ssr: true })
+// const LessorInformationCard = dynamic(() => import('src/views/pages/details/lessorInformationCard'), { ssr: true })
 const DetailsPageHeader = dynamic(() => import('src/views/pages/details/detailsPageHeader'), { ssr: true })
 const Divider = dynamic(() => import('src/views/components/divider'), { ssr: false })
 
@@ -38,7 +38,7 @@ import useMain from 'src/views/pages/main/useMain'
 
 const SimilarProducts = dynamic(() => import('src/views/pages/details/similarProducts'), { ssr: true })
 
-const Reviews = dynamic(() => import('src/views/pages/details/reviews'), { ssr: true })
+// const Reviews = dynamic(() => import('src/views/pages/details/reviews'), { ssr: true })
 const Features = dynamic(() => import('src/views/pages/details/features'), { ssr: true })
 
 const productImages = [
@@ -234,9 +234,9 @@ const ProductDetails = () => {
               {/* <SubNavItem section='insurance' activeSection={section} handleClick={handleClick}>
                 დაზღვევა
               </SubNavItem> */}
-              <SubNavItem section='reviews' activeSection={section} handleClick={handleClick}>
-                შეფასება
-              </SubNavItem>
+              {/*<SubNavItem section='reviews' activeSection={section} handleClick={handleClick}>*/}
+              {/*  შეფასება*/}
+              {/*</SubNavItem>*/}
               <SubNavItem section='informationcard' activeSection={section} handleClick={handleClick}>
                 განმცხადებელი
               </SubNavItem>
@@ -386,7 +386,7 @@ const ProductDetails = () => {
                 <MapPicker height='300px' borderRadius='30px' />
               </div>
               <Divider />
-              <Reviews id='reviews' />
+              {/*<Reviews id='reviews' />*/}
             </div>
             <div className='hidden md:inline-block w-5/12 lg:w-4/12' ref={ref}>
               <PriceCalcCard
@@ -406,12 +406,12 @@ const ProductDetails = () => {
           <Typography type='h3' className='block my-6 lg:hidden'>
             ფასი მოიცავს
           </Typography>
-          <LessorInformationCard
-            id='informationcard'
-            lessor={singleProductDetails?.company_user?.company?.information?.name}
-            description={singleProductDetails?.company_user?.company?.information?.description}
-            count={singleProductDetails?.company_user?.company?.count_company_poduct}
-          />
+          {/*<LessorInformationCard*/}
+          {/*  id='informationcard'*/}
+          {/*  lessor={singleProductDetails?.company_user?.company?.information?.name}*/}
+          {/*  description={singleProductDetails?.company_user?.company?.information?.description}*/}
+          {/*  count={singleProductDetails?.company_user?.company?.count_company_poduct}*/}
+          {/*/>*/}
           <Divider className='my-20' />
           <SimilarProducts data={similarProducts}/>
         </ContentContainer>

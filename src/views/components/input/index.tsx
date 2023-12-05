@@ -195,7 +195,7 @@ export const InputWithComponent: React.FC<Props> = ({ label, className, onCompon
                 {label}
               </label>
               <input
-                className='focus:border-none focus-visible:border-none focus-visible:outline-none focus-visible:ring-0 h-full w-full'
+                className='overflow-hidden text-ellipsis whitespace-nowrap inline-block pr-3 focus:border-none focus-visible:border-none focus-visible:outline-none focus-visible:ring-0 h-full w-full'
                 value={value}
                 onFocus={handleFocus}
                 onBlur={handleBlur}
@@ -210,7 +210,7 @@ export const InputWithComponent: React.FC<Props> = ({ label, className, onCompon
             </>
           )}
         />
-        <div className='flex items-center gap-3 w-fit absolute h-full right-0 top-0 border-l border-raisin-10 px-5 cursor-pointer'>
+        <div className='flex items-center gap-3 h-full border-l border-raisin-10 px-5 cursor-pointer'>
           <Image src='/icons/map.svg' alt='' height={24} width={24} onClick={onComponentClick} />
           <Typography type='subtitle' className="hidden sm:flex">რუკაზე</Typography>
         </div>

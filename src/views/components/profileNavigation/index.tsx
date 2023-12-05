@@ -104,10 +104,11 @@ const ProfileNavigation: React.FC<Props> = ({
             </span>
             <div
               className={`h-8 w-8 rounded-lg ${
-                route.path === router?.asPath ? 'bg-orange-30' : 'bg-raisin-10'
+                route.path === router?.asPath ? 'bg-orange-10' : 'bg-raisin-10'
               } flex items-center justify-center shrink-0`}
             >
-              <Icon svgPath={route.icon} width={20} height={20} color='#fff' />
+              <Icon svgPath={route.icon} width={20} height={20} color='#fff' className={`${
+                  route.path === router?.asPath ? 'fill-orange-100' : 'fill-raisin-70'}`} />
             </div>
             <Typography
               type='h5'

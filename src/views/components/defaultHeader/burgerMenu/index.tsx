@@ -63,16 +63,18 @@ const BurgerMenu: React.FC<Props> = ({ open, setOpen }) => {
                                     <Dialog.Title as='h3' className='text-[12px] text-[#A9AAAF]'>
                                         მენიუ
                                     </Dialog.Title>
-                                    <Image src='/icons/close.svg' onClick={setOpen} alt='' height={40} width={40} />
+                                    <button onClick={setOpen}>
+                                        <Image src='/icons/close.svg'  alt='' height={40} width={40} />
+                                    </button>
                                 </div>
                                 <div className='overflow-hidden rounded-[16px]'>
                                     {active ? (
                                             <>
-                                                <div className="flex items-center border-b-1 border-raisin-10 py-[16px] text-[12px]">
-                                                    <button className="cursor-pointer flex mr-[16px]" onClick={handleSetActive}>
-                                                        <Image src='/icons/chevron-left.svg' alt='chevron' />
+                                                <div className="border-b-1 border-raisin-10">
+                                                    <button className="cursor-pointer flex items-center py-[16px] text-[12px]" onClick={handleSetActive}>
+                                                        <Image src='/icons/chevron-left.svg' alt='chevron' className="flex mr-[16px]" />
+                                                        დაბრუნება
                                                     </button>
-                                                    დაბრუნება
                                                 </div>
                                                 <ul className="py-3 max-h-[335px] overflow-y-auto">
                                                     {userCompanies?.map((company: { information: { name: string | undefined }; id: string }) => (
@@ -128,100 +130,104 @@ const BurgerMenu: React.FC<Props> = ({ open, setOpen }) => {
                                                             <span className='flex text-[14px] text-[#272A37]'>ID: 146797</span>
                                                         </div>
                                                     </div>
-                                                    <button className="cursor-pointer shrink-0 flex" onClick={handleSetActive}>
-                                                        <Image src='/icons/chevron-right.svg' alt='chevron' />
-                                                    </button>
+                                                    {/*<button className="cursor-pointer shrink-0 flex" onClick={handleSetActive}>*/}
+                                                    {/*    <Image src='/icons/chevron-right.svg' alt='chevron' />*/}
+                                                    {/*</button>*/}
                                                 </div>
+                                                <div className="py-8px">
+                                                    <button className="mt-[8px] w-full flex whitespace-nowrap text-[16px] text-[#272A37] py-[8px]"
+                                                            onClick={handleSetActive}>Switch account</button>
 
-                                                {activeCompany ? (
-                                                        <ul className='py-[8px]'>
-                                                            <li>
-                                                                <a
-                                                                    href='#'
-                                                                    className='flex whitespace-nowrap text-[16px] text-[#272A37] py-[8px]'
-                                                                >
-                                                                    დეშბორდი
-                                                                </a>
-                                                            </li>
-                                                            <li>
-                                                                <a
-                                                                    href='#'
-                                                                    className='flex whitespace-nowrap text-[16px] text-[#272A37] py-[8px]'
-                                                                >
-                                                                    განცხადების დამატება
-                                                                </a>
-                                                            </li>
-                                                            <li>
-                                                                <a
-                                                                    href='#'
-                                                                    className='flex items justify-between whitespace-nowrap text-[16px] text-[#272A37] py-[8px]'
-                                                                >
-                                                                    <span> შემოსული ჯავშნები</span>
-                                                                </a>
-                                                            </li>
-                                                            <li>
-                                                                <a
-                                                                    href='#'
-                                                                    className='flex whitespace-nowrap text-[16px] text-[#272A37] py-[8px]'
-                                                                >
-                                                                    გადახდები
-                                                                </a>
-                                                            </li>
-                                                            <li>
-                                                                <a
-                                                                    href='#'
-                                                                    className='flex whitespace-nowrap text-[16px] text-[#272A37] py-[8px]'
-                                                                >
-                                                                    ავტომობილები
-                                                                </a>
-                                                            </li>
-                                                            <li>
-                                                                <a
-                                                                    href='#'
-                                                                    className='flex whitespace-nowrap text-[16px] text-[#272A37] py-[8px]'
-                                                                >
-                                                                    კომპანიის რედაქტირება
-                                                                </a>
-                                                            </li>
-                                                        </ul>
-                                                    ):
-                                                    (
-                                                        <ul className='py-[8px]'>
-                                                            <li>
-                                                                <a
-                                                                    href='#'
-                                                                    className='flex whitespace-nowrap text-[16px] text-[#272A37] py-[8px]'
-                                                                >
-                                                                    ჩემი შეკვეთები
-                                                                </a>
-                                                            </li>
-                                                            <li>
-                                                                <a
-                                                                    href='#'
-                                                                    className='flex whitespace-nowrap text-[16px] text-[#272A37] py-[8px]'
-                                                                >
-                                                                    ბარათები და ტრანზაქციები
-                                                                </a>
-                                                            </li>
-                                                            <li>
-                                                                <a
-                                                                    href='#'
-                                                                    className='flex items justify-between whitespace-nowrap text-[16px] text-[#272A37] py-[8px]'
-                                                                >
-                                                                    <span> პარამეტრები</span>
-                                                                </a>
-                                                            </li>
-                                                            <li>
-                                                                <a
-                                                                    href='#'
-                                                                    className='flex whitespace-nowrap text-[16px] text-[#272A37] py-[8px]'
-                                                                >
-                                                                    კომპანიის შექმნა
-                                                                </a>
-                                                            </li>
-                                                        </ul>
-                                                    )
-                                                }
+                                                    {activeCompany ? (
+                                                            <ul className="mb-[8px]">
+                                                                <li>
+                                                                    <a
+                                                                        href='#'
+                                                                        className='flex whitespace-nowrap text-[16px] text-[#272A37] py-[8px]'
+                                                                    >
+                                                                        დეშბორდი
+                                                                    </a>
+                                                                </li>
+                                                                <li>
+                                                                    <a
+                                                                        href='#'
+                                                                        className='flex whitespace-nowrap text-[16px] text-[#272A37] py-[8px]'
+                                                                    >
+                                                                        განცხადების დამატება
+                                                                    </a>
+                                                                </li>
+                                                                <li>
+                                                                    <a
+                                                                        href='#'
+                                                                        className='flex items justify-between whitespace-nowrap text-[16px] text-[#272A37] py-[8px]'
+                                                                    >
+                                                                        <span> შემოსული ჯავშნები</span>
+                                                                    </a>
+                                                                </li>
+                                                                <li>
+                                                                    <a
+                                                                        href='#'
+                                                                        className='flex whitespace-nowrap text-[16px] text-[#272A37] py-[8px]'
+                                                                    >
+                                                                        გადახდები
+                                                                    </a>
+                                                                </li>
+                                                                <li>
+                                                                    <a
+                                                                        href='#'
+                                                                        className='flex whitespace-nowrap text-[16px] text-[#272A37] py-[8px]'
+                                                                    >
+                                                                        ავტომობილები
+                                                                    </a>
+                                                                </li>
+                                                                <li>
+                                                                    <a
+                                                                        href='#'
+                                                                        className='flex whitespace-nowrap text-[16px] text-[#272A37] py-[8px]'
+                                                                    >
+                                                                        კომპანიის რედაქტირება
+                                                                    </a>
+                                                                </li>
+                                                            </ul>
+                                                        ):
+                                                        (
+                                                            <ul>
+                                                                <li>
+                                                                    <a
+                                                                        href='#'
+                                                                        className='flex whitespace-nowrap text-[16px] text-[#272A37] py-[8px]'
+                                                                    >
+                                                                        ჩემი შეკვეთები
+                                                                    </a>
+                                                                </li>
+                                                                <li>
+                                                                    <a
+                                                                        href='#'
+                                                                        className='flex whitespace-nowrap text-[16px] text-[#272A37] py-[8px]'
+                                                                    >
+                                                                        ბარათები და ტრანზაქციები
+                                                                    </a>
+                                                                </li>
+                                                                <li>
+                                                                    <a
+                                                                        href='#'
+                                                                        className='flex items justify-between whitespace-nowrap text-[16px] text-[#272A37] py-[8px]'
+                                                                    >
+                                                                        <span> პარამეტრები</span>
+                                                                    </a>
+                                                                </li>
+                                                                <li>
+                                                                    <a
+                                                                        href='#'
+                                                                        className='flex whitespace-nowrap text-[16px] text-[#272A37] py-[8px]'
+                                                                    >
+                                                                        კომპანიის შექმნა
+                                                                    </a>
+                                                                </li>
+                                                            </ul>
+                                                        )
+                                                    }
+                                                </div>
 
                                                 <div className='border-t-[1px] border-[#E9EAEB] py-[8px]'>
                                                     <a
