@@ -26,6 +26,9 @@ class ProductService extends HttpService {
     return this.post('/products', product, AccessToken ? { Authorization: `${AccessToken}` } : {})
   }
 
+  editProductDetails(AccessToken = '', id: number) {
+    return this.get(`/products/${id}`, AccessToken ? { Authorization: `${AccessToken}` } : {})
+  }
 
   editProduct(AccessToken = '', id: number, product: Product) {
     return this.put(`/products/${id}`, product, AccessToken ? { Authorization: `${AccessToken}` } : {})

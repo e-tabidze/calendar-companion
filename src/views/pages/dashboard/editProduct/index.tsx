@@ -46,7 +46,7 @@ const EditProduct: React.FC = ({}) => {
     discountItems,
     appendDiscountItem,
     removeDiscountItem,
-    createNewProduct,
+    editProduct,
     setValue,
     errors
   } = useEditProduct(Number(id))
@@ -68,7 +68,7 @@ const EditProduct: React.FC = ({}) => {
 
   const createNewProducteMutation = useMutation(
     (product: Product) => {
-      return createNewProduct('', product)
+      return editProduct('', product)
     },
     {
       onSuccess: () => {
@@ -126,7 +126,6 @@ const EditProduct: React.FC = ({}) => {
       onSubmit={handleSubmit(onSubmit)}
     >
       <form>{renderStepComponent()}</form>
-      <div>EDIT</div>
     </NewListingLayout>
   )
 }
