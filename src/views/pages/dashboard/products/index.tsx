@@ -67,6 +67,7 @@ const Products = () => {
               {companyProducts?.map((product: Products) => (
                 <VehicleListComponent
                   key={product.id}
+                  id={product.id}
                   price={product.price}
                   startCity={product.start_city}
                   prodYear={product.prod_year}

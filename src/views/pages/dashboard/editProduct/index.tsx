@@ -2,9 +2,9 @@ import { useState } from 'react'
 import NewListingLayout from 'src/layouts/NewListingLayout'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
-import useNewProduct from './useNewProduct'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { Product } from 'src/types/Product'
+import useNewProduct from '../newProduct/useNewProduct'
 
 const StepOne = dynamic(() => import('../stepOne'), { ssr: false })
 const StepTwo = dynamic(() => import('../stepTwo'), { ssr: false })
@@ -21,13 +21,18 @@ const options = [
   { value: '3/6 ნაბიჯი', label: 'ფასები და ფასდაკლება', step: 3 },
   { value: '4/6 ნაბიჯი', label: 'სერვისები', step: 4 },
   { value: '5/6 ნაბიჯი', label: 'ჯავშნის მიღების პირობები', step: 5 },
-  { value: '6/6 ნაბიჯი', label: 'ადგილმდებარეობა', step: 6 },
+  { value: '6/6 ნაბიჯი', label: 'ადგილმდებარეობა', step: 6 }
 
   // { value: '7/7 ნაბიჯი', label: 'ადგილმდებარეობა', step: 7 }
 ]
 
-const NewProduct: React.FC = () => {
+interface Props {
+  productId: any
+}
+const EditProduct: React.FC<Props> = ({ productId }) => {
   const [step, setStep] = useState(options[0])
+
+  console.log(productId, 'productId')
 
   const router = useRouter()
 
@@ -104,7 +109,7 @@ const NewProduct: React.FC = () => {
         return <StepFive control={control} setValue={setValue} />
       case 6:
         return <StepSix control={control} />
-        
+
       // case 7:
       //   return <StepSeven control={control} />
       default:
@@ -122,9 +127,10 @@ const NewProduct: React.FC = () => {
       onClose={handleClose}
       onSubmit={handleSubmit(onSubmit)}
     >
-      <form>{renderStepComponent()}</form>
+      {/* <form>{renderStepComponent()}</form> */}
+      <div>EDIT</div>
     </NewListingLayout>
   )
 }
 
-export default NewProduct
+export default EditProduct

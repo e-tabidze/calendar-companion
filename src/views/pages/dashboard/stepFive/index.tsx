@@ -8,7 +8,7 @@ import Typography from 'src/views/components/typography'
 
 const options = [
   { value: 'დღე', label: 'დღე', id: '1' },
-  { value: 'კვირა', label: 'კვირა', id: '2' },
+  { value: 'კვირა', label: 'კვირა', id: '2' }
 ]
 
 const preparationPeriod = [
@@ -68,6 +68,7 @@ const StepFive: React.FC<Props> = ({ control, setValue }) => {
             control={control}
             inputName='min_period.time_span'
             selectName='min_period.time_interval'
+            type='number'
           />
           <Typography type='body' color='light' className='w-1/2'>
             ამ პარამეტრის გააქტიურებით თქვენ ადგენთ ავტომობილის გაქირავების პერიოდის მაქსიმალურ ლიმიტს

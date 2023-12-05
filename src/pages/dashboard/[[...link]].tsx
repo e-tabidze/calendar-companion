@@ -7,7 +7,10 @@ const EditCompany = dynamic(() => import('src/views/pages/dashboard/editCompany'
 const NewProduct = dynamic(() => import('src/views/pages/dashboard/newProduct'), { ssr: true })
 
 import dynamic from 'next/dynamic'
-import ProfileLayout from 'src/layouts/ProfileLayout'
+
+const ProfileLayout = dynamic(() => import('src/layouts/ProfileLayout'), { ssr: true })
+
+const EditProduct = dynamic(() => import('src/views/pages/dashboard/editProduct'), { ssr: true })
 
 const routes = [
   {
@@ -64,6 +67,8 @@ const ProfileRouter = () => {
   const router = useRouter()
   let key = ''
 
+  console.log(router, 'router')
+
   if (router.query.link?.length) {
     key = router.query?.link[0]
   }
@@ -81,6 +86,9 @@ const ProfileRouter = () => {
       return <Products />
     case 'edit-company':
       return <EditCompany />
+    case 'edit-product':
+      const { id } = router.query
+      return <EditProduct productId={id} />
     case 'sign-out':
       return <div>Sign Out</div>
     default:
@@ -91,10 +99,14 @@ const ProfileRouter = () => {
 const Profile = () => {
   const router = useRouter()
 
+  console.log(router.asPath, 'ASPATH')
+
   return (
     <>
       {router.asPath === '/dashboard/new-product/' ? (
         <NewProduct />
+      ) : router.asPath.includes('/dashboard/edit-product/') ? (
+        <EditProduct productId />
       ) : (
         <ProfileLayout routes={routes} dividerIndexes={[5]}>
           <ProfileRouter />

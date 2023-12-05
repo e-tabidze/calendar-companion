@@ -6,7 +6,7 @@ import { NewProductSchema } from 'src/@core/validation/newProductSchema'
 import useProductInfo from '../useProductInfo'
 import { useEffect } from 'react'
 
-const useNewProduct = () => {
+const useEditProduct = () => {
   const { companyServices } = useProductInfo()
 
   const services = companyServices?.map((service: any) => ({
@@ -109,4 +109,4 @@ const useNewProduct = () => {
   }
 }
 
-export default useNewProduct
+export default useEditProduct
