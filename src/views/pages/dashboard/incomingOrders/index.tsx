@@ -53,7 +53,7 @@ const IncomingOrders = () => {
               <Typography type='h3' className='text-md md:text-2lg'>
                 შემოსული ჯავშნები
               </Typography>
-              <div className='flex gap-[32px]'>
+              <div className='flex gap-[16px] md:gap-[32px]'>
                 <IconTextButton label={width > 779 ? 'ფილტრი' : ''} icon={'/icons/filters.svg'} />
                 <IconTextButton label={width > 779 ? 'სორტირება' : ''} icon={'/icons/sort.svg'} />
               </div>

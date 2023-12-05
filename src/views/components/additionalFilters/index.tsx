@@ -331,9 +331,11 @@ const AdditionalFilters: React.FC<Props> = ({
                   <Typography type='h5' weight='normal' className='mt-4 md:mt-8'>
                     დამატებითი პარამეტრები
                   </Typography>
-                  <Typography type='body' color='light'>
+
+                  <Typography type='body' weight='normal' color='light' className="mt-2 mb-8">
                     შეგიძლია მონიშნო ერთი ან რამდენიმე პარამეტრი
                   </Typography>
+
                   <CheckboxField
                     name='additional_information'
                     control={control}

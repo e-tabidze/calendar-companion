@@ -1,6 +1,7 @@
 import { Controller } from 'react-hook-form'
 import Icon from 'src/views/app/Icon'
 import Typography from '../typography'
+import { useState } from "react";
 
 interface Option {
   id: string | number
@@ -32,6 +33,7 @@ const CheckboxField: React.FC<Props> = ({
   width,
   height
 }) => {
+
   return (
     <>
       {control && name ? (
@@ -45,7 +47,7 @@ const CheckboxField: React.FC<Props> = ({
               <>
                 {options?.map(option => (
                   <div
-                    className='flex items-center gap-4 cursor-pointer'
+                    className='flex items-center gap-4 cursor-pointer mb-4'
                     key={option.id}
                     onClick={() => {
                       if (append) {
@@ -59,13 +61,14 @@ const CheckboxField: React.FC<Props> = ({
                       }
                     }}
                   >
+                    <span className={`flex items-center justify-center w-5 h-5 rounded-[4px] border ${selectedOptions.includes(option.id) ? 'border-green-100 bg-green-100':'border-raisin-10'}`}>
+                      <Icon svgPath='check' height={10} width={14} className="fill-transparent" />
+                    </span>
                     <input
                       type='checkbox'
                       value={value}
                       checked={selectedOptions.includes(option.id)}
-                      className={`${
-                        selectedOptions.includes(option.id) ? 'bg-raisin-80' : ''
-                      } flex items-center w-5 h-5 border border-gray-90 cursor-pointer ${className} accent-green-100`}
+                      className='absolute opacity-0 w-0 h-0'
                       onChange={() => {
                         if (append) {
                           if (selectedOptions.includes(option.id)) {
