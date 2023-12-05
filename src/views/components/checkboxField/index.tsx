@@ -1,7 +1,6 @@
 import { Controller } from 'react-hook-form'
 import Icon from 'src/views/app/Icon'
 import Typography from '../typography'
-import { useState } from "react";
 
 interface Option {
   id: string | number
