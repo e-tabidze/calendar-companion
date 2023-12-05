@@ -86,9 +86,6 @@ const ProfileRouter = () => {
       return <Products />
     case 'edit-company':
       return <EditCompany />
-    case 'edit-product':
-      const { id } = router.query
-      return <EditProduct productId={id} />
     case 'sign-out':
       return <div>Sign Out</div>
     default:
@@ -99,14 +96,12 @@ const ProfileRouter = () => {
 const Profile = () => {
   const router = useRouter()
 
-  console.log(router.asPath, 'ASPATH')
-
   return (
     <>
       {router.asPath === '/dashboard/new-product/' ? (
         <NewProduct />
       ) : router.asPath.includes('/dashboard/edit-product/') ? (
-        <EditProduct productId />
+        <EditProduct />
       ) : (
         <ProfileLayout routes={routes} dividerIndexes={[5]}>
           <ProfileRouter />

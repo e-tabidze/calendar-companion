@@ -61,7 +61,7 @@ const VehicleListComponent: React.FC<Props> = ({ price, startCity, prodYear, mod
             }}
           />
           <Action bg='bg-raisin-10' label='რედაქტირება' icon='edit' onClick={redirectToEditProduct} />
-          <Link href='/dashboard/edit-product/[id]' as={`/dashboard/edit-product/${id}`}>
+          <Link href={`/dashboard/edit-product?id=${id}`} as={`/dashboard/edit-product?id=${id}`}>
             Edit Product
           </Link>
           <Action

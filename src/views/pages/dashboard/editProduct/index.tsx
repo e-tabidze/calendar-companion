@@ -4,7 +4,7 @@ import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { Product } from 'src/types/Product'
-import useNewProduct from '../newProduct/useNewProduct'
+import useEditProduct from './useEditProduct'
 
 const StepOne = dynamic(() => import('../stepOne'), { ssr: false })
 const StepTwo = dynamic(() => import('../stepTwo'), { ssr: false })
@@ -26,15 +26,13 @@ const options = [
   // { value: '7/7 ნაბიჯი', label: 'ადგილმდებარეობა', step: 7 }
 ]
 
-interface Props {
-  productId: any
-}
-const EditProduct: React.FC<Props> = ({ productId }) => {
+const EditProduct: React.FC = ({}) => {
   const [step, setStep] = useState(options[0])
 
-  console.log(productId, 'productId')
-
   const router = useRouter()
+
+  const { id } = router.query
+  console.log(id, 'router id')
 
   const selectOption = (option: any) => setStep(option)
 
@@ -51,7 +49,7 @@ const EditProduct: React.FC<Props> = ({ productId }) => {
     createNewProduct,
     setValue,
     errors
-  } = useNewProduct()
+  } = useEditProduct(Number(id))
 
   const queryClient = useQueryClient()
 
@@ -127,7 +125,7 @@ const EditProduct: React.FC<Props> = ({ productId }) => {
       onClose={handleClose}
       onSubmit={handleSubmit(onSubmit)}
     >
-      {/* <form>{renderStepComponent()}</form> */}
+      <form>{renderStepComponent()}</form>
       <div>EDIT</div>
     </NewListingLayout>
   )
