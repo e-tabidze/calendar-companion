@@ -15,6 +15,7 @@ const PriceCalcCard = dynamic(() => import('src/views/pages/details/priceCalcCar
 
 // const InsuranceCard = dynamic(() => import('src/views/pages/details/insuranceCard'), { ssr: false })
 const MapPicker = dynamic(() => import('src/views/components/mapPicker'), { ssr: true })
+
 // const LessorInformationCard = dynamic(() => import('src/views/pages/details/lessorInformationCard'), { ssr: true })
 const DetailsPageHeader = dynamic(() => import('src/views/pages/details/detailsPageHeader'), { ssr: true })
 const Divider = dynamic(() => import('src/views/components/divider'), { ssr: false })

@@ -1,4 +1,6 @@
 import Image from '../../../components/image'
+
+// import Review from '../../../components/review'
 import Typography from '../../../components/typography'
 
 interface Props {

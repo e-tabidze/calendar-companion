@@ -130,7 +130,7 @@ const Carousel = ({ itemsArray, type, onClick, singleSlide = false, thumbs = fal
           className='mySwiper'
         >
           {itemsArray.map((item, index) => (
-              <SwiperSlide key={index} className={`${type === 'productDetails' && 'h-full'}`}>
+              <SwiperSlide key={index} className={`${type === 'productDetails' && 'h-full'}`} onClick={onClick}>
                 <div ref={element => (slideRefs.current[index] = element)}>{item}</div>
               </SwiperSlide>
           ))}
