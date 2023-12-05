@@ -6,7 +6,6 @@ import useWindowDimensions from 'src/hooks/useWindowDimensions'
 // Components
 import CategoryCard from '../categoryCard'
 import Divider from '../divider'
-import Image from '../image'
 import { DefaultInput } from '../input'
 import Tag from '../tag'
 import Typography from '../typography'
@@ -24,6 +23,7 @@ import { IconTextButton } from '../button'
 import { useQuery } from '@tanstack/react-query'
 import useSearch from 'src/hooks/useSearch'
 import { useWatch } from 'react-hook-form'
+import Icon from 'src/views/app/Icon'
 
 interface Props {
   open: boolean
@@ -128,7 +128,7 @@ const AdditionalFilters: React.FC<Props> = ({
                   <Dialog.Title as='h3' className='text-2md text-base-100 leading-6'>
                     დამატებითი ფილტრები
                   </Dialog.Title>
-                  <Image src='/icons/close.svg' onClick={toggleModal} alt='' height={40} width={40} />
+                  <Icon svgPath='close' onClick={toggleModal} height={40} width={40} className='cursor-pointer' />
                 </div>
                 <div className='overflow-auto h-[70vh] px-4 py-5 sm:py-6 sm:px-10 w-max-full'>
                   <Typography type='body' color='dark' className='md:max-w-[30%]'>
@@ -141,14 +141,17 @@ const AdditionalFilters: React.FC<Props> = ({
                       label={width > 641 ? 'მინიმუმ ფასი დღიურად' : 'მინ. ფასი დღიურად'}
                       errors={''}
                       className='md:w-52 mb-[8px] md:mb-0'
+                      type='number'
+                      min={0}
                     />
                     <div className='hidden md:flex w-3 h-px bg-base-100 mx-2' />
                     <DefaultInput
                       name='price_max'
                       control={control}
-                      label={width > 641 ? 'მინიმუმ ფასი დღიურად' : 'მინ. ფასი დღიურად'}
+                      label={width > 641 ? 'მაქსიმუმ ფასი დღიურად' : 'მაქს. ფასი დღიურად'}
                       errors={''}
                       className='md:w-52'
+                      type='number'
                     />
                   </div>
                   <div className='my-8'>
@@ -208,22 +211,23 @@ const AdditionalFilters: React.FC<Props> = ({
                       valueKey='id'
                       labelKey='title'
                     />
-                    <div className='flex gap-4'>
+                    <div className='flex gap-4 items-center'>
                       <SelectField
                         name='year_from'
                         control={control}
                         options={generateYearsArray()}
-                        placeholder='წელი'
+                        placeholder='წლიდან'
                         disabled={false}
                         className='my-2'
                         valueKey='value'
                         labelKey='label'
                       />
+                      -
                       <SelectField
                         name='year_to'
                         control={control}
                         options={generateYearsArray()}
-                        placeholder='წელი'
+                        placeholder='წლამდე'
                         disabled={false}
                         className='my-2'
                         valueKey='value'
@@ -272,13 +276,7 @@ const AdditionalFilters: React.FC<Props> = ({
                     />
                   </div>
                   <Divider />
-                  <SwitchField
-                    label='უფასო მიწოდება'
-                    name='free_delivery'
-                    control={control}
-                    className='my-4 md:my-8'
-                    onChangeCallback={onSubmit}
-                  />
+                  <SwitchField label='უფასო მიწოდება' name='free_delivery' control={control} className='my-4 md:my-8' />
                   <Divider />
 
                   <SectionWrapper>
@@ -292,6 +290,7 @@ const AdditionalFilters: React.FC<Props> = ({
                         control={control}
                         height='h-10'
                         append={appendDoorType}
+                        outlined
                       />
                     </ListWrapper>
                   </SectionWrapper>
@@ -335,18 +334,17 @@ const AdditionalFilters: React.FC<Props> = ({
                   <Typography type='body' color='light'>
                     შეგიძლია მონიშნო ერთი ან რამდენიმე პარამეტრი
                   </Typography>
-                    <CheckboxField
-                      name='additional_information'
-                      control={control}
-                      options={additionalInformationFilters}
-                      append={() => appendAdditionalInformation()}
-                      className="my-2"
-                    />
+                  <CheckboxField
+                    name='additional_information'
+                    control={control}
+                    options={additionalInformationFilters}
+                    append={() => appendAdditionalInformation()}
+                    className='my-2'
+                  />
                 </div>
                 <div className='w-full flex flex-col md:flex-row md:items-center justify-between py-4 px-4 md:px-10 border-t-1 border-grey-90'>
                   <IconTextButton label='გასუფთავება' icon='/icons/return.svg' onClick={() => reset()} />
                   <div className='flex items-center justify-between md:justify-start [text-16px] gap-4'>
-
                     {/* სულ 136 შედეგი */}
                     <IconTextButton
                       label='ძებნა'

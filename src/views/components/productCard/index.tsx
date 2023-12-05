@@ -12,7 +12,6 @@ import {
   PreviousPrice,
   PriceContainer,
   ProductCardContainer,
-  ReviewContainer
 } from './styles'
 
 interface Props {
@@ -22,9 +21,10 @@ interface Props {
   model: string
   prodYear: number
   priceGel: number
-  countProductFavs: number
+  luggageNumbers: number
   bookFrom?: string | undefined
   bookTo?: string | undefined
+  seats: string | number
 }
 
 const ProductCard: React.FC<Props> = ({
@@ -34,9 +34,10 @@ const ProductCard: React.FC<Props> = ({
   model,
   prodYear,
   priceGel,
-  countProductFavs,
+  luggageNumbers,
   bookFrom,
-  bookTo
+  bookTo,
+  seats
 }) => {
   const router = useRouter()
 
@@ -63,7 +64,9 @@ const ProductCard: React.FC<Props> = ({
 
   console.log(activeCompanyId, 'activeCompanyId')
 
-  const handleFavorites = async () => {
+  const handleFavorites = async (e: any) => {
+    e.stopPropagation()
+    e.nativeEvent.preventDefault()
     try {
       toggleUserFavourites.mutate()
     } catch (error) {
@@ -95,11 +98,7 @@ const ProductCard: React.FC<Props> = ({
               className='cursor-pointer'
               width={isProductInFavorites ? 14 : 16}
               height={isProductInFavorites ? 14 : 17}
-              onClick={e => {
-                e.stopPropagation()
-                e.nativeEvent.preventDefault()
-                handleFavorites()
-              }}
+              onClick={e => handleFavorites(e)}
             />
           )}
         </div>
@@ -108,26 +107,16 @@ const ProductCard: React.FC<Props> = ({
         <Typography type='h5'>
           {manufacturer} {model} {prodYear}
         </Typography>
-        <ReviewContainer>
-          <Icon svgPath='star' width={20} height={20} />
-          <Typography type='body' color='light'>
-            4.89
-          </Typography>
-          <Typography type='body' color='light' className='text-sm text-[#1B1C1E] opacity-50'>
-            (63 შეფასება)
-          </Typography>
-        </ReviewContainer>
         <InnerDetailsContainer>
           <PriceContainer>
             {priceGel} ₾ <PreviousPrice>47₾</PreviousPrice>
           </PriceContainer>
           <DetailsWrapper>
-
-            {/* <Details>
-              <Icon svgPath='views' width={20} height={20} /> <span>{2}</span>
-            </Details> */}
             <Details>
-              <Icon svgPath='briefcase' width={20} height={20} /> <span>{countProductFavs}</span>
+              <Icon svgPath='views' width={20} height={20} /> <span>{seats}</span>
+            </Details>
+            <Details>
+              <Icon svgPath='briefcase' width={20} height={20} /> <span>{luggageNumbers}</span>
             </Details>
           </DetailsWrapper>
         </InnerDetailsContainer>

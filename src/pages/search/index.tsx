@@ -65,7 +65,7 @@ const SearchPage = () => {
 
   const { book_from, book_to } = router.query
 
-  console.log(book_from, "from", book_to, 'to')
+  console.log(book_from, 'from', book_to, 'to')
 
   const startIndex = asPath.indexOf('/search/?') + '/search/?'.length
   const searchString = asPath.slice(startIndex)
@@ -111,7 +111,6 @@ const SearchPage = () => {
                     height='h-5'
                     name='free_delivery'
                     control={control}
-                    defaultValue
                     onChangeCallback={onSubmit}
                   />
                 }
@@ -239,9 +238,10 @@ const SearchPage = () => {
                       model={product?.manufacturer_model?.title}
                       prodYear={product?.prod_year}
                       priceGel={product?.price_gel}
-                      countProductFavs={product?.count_user_favourites}
                       bookFrom={Array.isArray(book_from) ? book_from[0] : book_from}
                       bookTo={Array.isArray(book_to) ? book_to[0] : book_to}
+                      luggageNumbers={product?.luggage_numbers}
+                      seats={product?.seat_type?.title}
                     />
                   ))}
                 </div>

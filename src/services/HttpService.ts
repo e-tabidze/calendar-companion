@@ -5,20 +5,35 @@ import { API_URL, ACCESS_TOKEN_NAME, TOKEN_TIME_MINUTES, TOKEN_EXPIRE_TIME_NAME 
 
 import axios from 'axios'
 
+let apiUrl = API_URL
 class HttpService {
-  post(endpoint: any, data = {}, headers: any = null, serverReq = null, responseType = 'json') {
+  post(endpoint: any, data: any = {}, headers: any = null, serverReq = null, responseType = 'json') {
     let dataMerged = {
       ...data
     }
+    if (endpoint.includes('http')) {
+      apiUrl = endpoint;
+    }
+    
     if (typeof FormData !== 'undefined' && data instanceof FormData) {
       dataMerged = data
     }
+   if(data?.File || data?.Func){
+    const formData = new FormData();
+    Object.entries(dataMerged).forEach(([key, value]) => {
 
+      // @ts-ignore
+      formData.append(key, value);
+    });
+    dataMerged = formData;
+  }
+  
     return new Promise(async (resolve, reject) => {
       try {
         const response = await this.request(headers, serverReq, responseType).post(endpoint, dataMerged)
         resolve(response)
       } catch (e: any) {
+
         // let error = 'INTERNAL_SERVER_ERROR'
         // if (e.response && e.response.data) {
         //   error = e.response.data.message
@@ -39,6 +54,7 @@ class HttpService {
         const response = await this.request(headers, serverReq).put(endpoint, dataMerged)
         resolve(response)
       } catch (e: any) {
+
         // let error = 'INTERNAL_SERVER_ERROR'
         // if (e.response) {
         //   error = e.response.data.message
@@ -61,6 +77,7 @@ class HttpService {
         )
         resolve(response)
       } catch (e: any) {
+
         // let error = 'INTERNAL_SERVER_ERROR'
         // if (e.response) {
         //   error = e.response.data.message
@@ -121,10 +138,12 @@ class HttpService {
   }
 
   static getTokenTime() {
+
     return Cookie.get(TOKEN_EXPIRE_TIME_NAME)
   }
 
   getToken(req = null) {
+    
     return Cookie.get(ACCESS_TOKEN_NAME, req)
   }
 
@@ -137,7 +156,7 @@ class HttpService {
     }
 
     return axios.create({
-      baseURL: API_URL,
+      baseURL:  apiUrl,
       responseType: responseType,
       headers
     })

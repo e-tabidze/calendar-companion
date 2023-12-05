@@ -5,24 +5,27 @@ import Avatar from '../avatar'
 import Notification from '../notification'
 import useProfile from 'src/hooks/useProfile'
 import { useRouter } from 'next/router'
+import Icon from 'src/views/app/Icon'
 
 const User = () => {
   const { activeCompany, isAuthenticated } = useProfile()
 
   const router = useRouter()
 
+  const handleRouteFavourites = () => router.push('/profile/favourites')
+
   const { isLoading } = useProfile()
 
   return (
     <UserContainer>
       {activeCompany && isAuthenticated && (
-        <RentBtn className='hidden md:flex' onClick={() => router.push("/dashboard/new-product/")}>
+        <RentBtn className='hidden md:flex' onClick={() => router.push('/dashboard/new-product/')}>
           <Image src={'/icons/plus.svg'} alt='img' />
           <Typography
             type='button'
             weight='normal'
             color='dark'
-            className='font-medium text-orange xl:ml-[8px] hidden xl:flex'
+            className='font-medium text-orange xl:ml-2 hidden xl:flex'
           >
             გაქირავება
           </Typography>
@@ -30,7 +33,7 @@ const User = () => {
       )}
       {!activeCompany && (
         <FavoriteBtn className='hidden md:flex'>
-          <Image src='/icons/favorite.svg' alt='img' />
+          <Icon svgPath='favorite' width={22} height={25} onClick={handleRouteFavourites} />
         </FavoriteBtn>
       )}
       <Notification />

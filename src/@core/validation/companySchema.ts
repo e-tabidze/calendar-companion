@@ -36,8 +36,7 @@ const CompanyInfoSchema = Yup.object<CompanyInfo>().shape({
 
 const CompanySchema = Yup.object<Company>().shape({
   identification_number: Yup.number()
-    .required('საინდეთიფიკაციო ნომერი უნდა იყოს რიცხვი')
-    .nullable()
+    .required('სავალდებულო ველი')
     .typeError('საინდეთიფიკაციო ნომერი უნდა იყოს რიცხვი')
     .test('is-11-digit', 'საინდეთიფიკაციო ნომერი უნდა იყოს 11 ნიშნიანი', value => {
       if (value === null || value === undefined) {

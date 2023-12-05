@@ -39,7 +39,7 @@ export type CompanyInfo = {
 }
 
 export type Company = {
-  identification_number: number | null
+  identification_number: number
   company_type_id: number | string
   company_information: CompanyInfo
   addresses: CompanyAddress[]

@@ -13,9 +13,9 @@ const PricePopover: React.FC<Props> = ({ control, handleSubmit, reset }) => {
   return (
     <PopoverDropdown label='ფასი' maxWidth='max-w-md'>
       <TagsWrapper>
-        <DefaultInput label={'მინიმუმ ფასი დღიურად'} name='price_min' control={control} className='w-52' />
+        <DefaultInput label={'მინიმუმ ფასი დღიურად'} name='price_min' control={control} className='w-52' type="number" />
         <Divider />
-        <DefaultInput label={'მაქსიმუმ ფასი დღიურად'} name='price_max' control={control} className='w-52' />
+        <DefaultInput label={'მაქსიმუმ ფასი დღიურად'} name='price_max' control={control} className='w-52' type="number" />
       </TagsWrapper>
       <ActionsWrapper>
         <IconButton

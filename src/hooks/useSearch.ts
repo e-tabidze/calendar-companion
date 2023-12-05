@@ -41,7 +41,7 @@ const useSearch = () => {
     price_max: params?.price_max || '',
     manufacturer_id: convertToNumberArray(params?.manufacturer_id),
     model_id: convertToNumberArray(params?.model),
-    free_delivery: params?.free_delivery || true,
+    free_delivery: params?.free_delivery == 'false' ? false : true,
     year_from: params?.year_from || '',
     year_to: params?.year_to || ''
   }

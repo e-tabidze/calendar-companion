@@ -16,7 +16,8 @@ const customStyles = {
     borderRadius: '8px',
     border: state.isFocused ? '1px solid #272A37' : '1px solid #E9EAEB',
     boxShadow: state.isFocused ? '1px solid #272A37' : '1px solid #E9EAEB',
-    transition: 'border 0.2s'
+    transition: 'border 0.2s',
+    cursor: 'pointer',
   }),
   valueContainer: (provided: any, state: { hasValue: any }) => ({
     ...provided,
@@ -25,7 +26,7 @@ const customStyles = {
   menu: (provided: any) => ({
     ...provided,
     maxHeight: '150px',
-    overflow: 'auto'
+    overflow: 'auto',
   }),
   placeholder: (defaultStyles: any) => {
     return {

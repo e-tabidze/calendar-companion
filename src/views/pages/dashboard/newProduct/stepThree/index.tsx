@@ -46,7 +46,7 @@ const StepThree: React.FC<Props> = ({ control, discountItems, appendDiscountItem
   return (
     <StepThreeContainer>
       <StepThreePriceContainer>
-        <DefaultInput label='დღიური ღირებულება' control={control} name='daily_price.amount' errors={errors} />
+        <DefaultInput label='დღიური ღირებულება' control={control} name='daily_price.amount' errors={errors} type="number" />
         <TwoOptionSelector
           control={control}
           name='daily_price.currency'
@@ -87,6 +87,7 @@ const StepThree: React.FC<Props> = ({ control, discountItems, appendDiscountItem
                     formState.discount.length === 0 && setValue('apply_discount', false)
                   }}
                   className='p-0 md:p-4'
+                  type="button"
                 />
               )}
             </DiscountInputsWrapper>

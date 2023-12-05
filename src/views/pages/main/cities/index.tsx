@@ -1,6 +1,8 @@
+import { useRouter } from 'next/router'
 import { DefaultButton } from 'src/views/components/button'
 import Image from 'src/views/components/image'
 import Typography from 'src/views/components/typography'
+import useSearchLocations from '../filters/locationDropdown/useSearchLocations'
 import BenefitsCard from './benefitsCard'
 import CityCard from './cityCard'
 import {
@@ -15,26 +17,42 @@ import {
 } from './styles'
 
 const Cities = () => {
+  const { cities } = useSearchLocations()
+
+  const router = useRouter()
+
   return (
     <CitiesContainer>
       <CitiesInnerContainer>
         <CitiesListContainer>
           <ViewAllCitiesContainer>
-            <Image src='/icons/location.svg' className='hidden sm:inline-flex' alt='img'/>
+            <Image src='/icons/location.svg' className='hidden sm:inline-flex' alt='img' />
             <Container>
               <Typography type='h3' className='text-[20px] lg:text-[30px] mb-8'>
                 ავტომობილები ტოპ ქალაქების მიხედვით
               </Typography>
-              <DefaultButton text={'ყველა ნახვა'} className="hidden lg:inline-flex" />
+              <DefaultButton
+                text='ყველას ნახვა'
+                className='hidden lg:inline-flex'
+                onClick={() => router?.push('/search')}
+              />
             </Container>
           </ViewAllCitiesContainer>
           <CitiesWrapper>
-            <CityCard src='/images/city.png' city='თბილისი' numberOfCars={345} />
-            <CityCard src='/images/city.png' city='თბილისი' numberOfCars={345} />
-            <CityCard src='/images/city.png' city='თბილისი' numberOfCars={345} />
-            <CityCard src='/images/city.png' city='თბილისი' numberOfCars={345} />
+            {cities
+              ?.sort((a: { products: number }, b: { products: number }) => b?.products - a?.products)
+              ?.slice(0, 4)
+              ?.map((city: any) => (
+                <CityCard
+                  key={city?.city}
+                  src='/images/city.png'
+                  city={city.city}
+                  numberOfCars={city?.products}
+                  onClick={() => router?.push(`/search/?location=${city.city}`)}
+                />
+              ))}
           </CitiesWrapper>
-          <DefaultButton text={'ყველა ნახვა'} className="inline-flex lg:hidden" />
+          <DefaultButton text={'ყველა ნახვა'} className='inline-flex lg:hidden' />
         </CitiesListContainer>
         <Divider />
         <BenefitsContainer>

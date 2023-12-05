@@ -5,8 +5,7 @@ import { CompanySchema } from 'src/@core/validation/companySchema'
 import { Company, CompanyAddress, WorkingTime } from 'src/types/Company'
 import CompanyService from 'src/services/CompanyService'
 import MapService from 'src/services/MapService'
-
-// import LocationService from 'src/services/LocationService'
+import StaticService from 'src/services/StaticService'
 
 const useCreateCompany = () => {
   const defaultWorkDayWorkingTime: WorkingTime = {
@@ -45,7 +44,7 @@ const useCreateCompany = () => {
   }
 
   const createCompanyDefaultValues: Company = {
-    identification_number: null,
+    identification_number: 0,
     company_type_id: '1',
     company_information: {
       name: '',
@@ -102,16 +101,27 @@ const useCreateCompany = () => {
     }
   }
 
-  // const getLocationSuggestions = async (address: string) => {
-  //   try {
-  //     const response: any = await LocationService.getLocationSuggestions(address)
+  const uploadCompanyLogo = async (File: any) => {
+    try {
+      const response: any = await StaticService.postUploadCompanyLogo('', File)
 
-  //     return response.data
-  //   } catch (error) {
-  //     console.error('Error fetching location suggestions:', error)
-  //     throw error
-  //   }
-  // }
+      return response.data
+    } catch (error) {
+      console.error('Error fetching location suggestions:', error)
+      throw error
+    }
+  }
+
+  const saveCompanyLogo = async (Logo: any) => {
+    try {
+      const response: any = await StaticService.postSaveCompanyLogo('', Logo)
+
+      return response.data
+    } catch (error) {
+      console.error('Error fetching location suggestions:', error)
+      throw error
+    }
+  }
 
   return {
     control,
@@ -127,7 +137,9 @@ const useCreateCompany = () => {
     appendAddress,
     defaultAddress,
     createCompany,
-    getLocationSuggestions
+    getLocationSuggestions,
+    uploadCompanyLogo,
+    saveCompanyLogo
   }
 }
 

@@ -54,6 +54,8 @@ const CreateCompany = () => {
     }
   })
 
+  console.log(companyValues, 'companyValues')
+
   const onSubmit = () => {
     createCompanyMutation.mutate(companyValues)
   }

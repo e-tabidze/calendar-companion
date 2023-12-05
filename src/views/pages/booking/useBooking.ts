@@ -71,7 +71,6 @@ const useBooking = (id: number | string | string[]) => {
       )
       setValue('start_address', singleProductDetails ? singleProductDetails?.start_address : '')
       setValue('end_address', singleProductDetails ? singleProductDetails?.end_address : '')
-
     }
   }, [userInfo, setValue, singleProductDetails])
 
