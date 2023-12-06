@@ -16,7 +16,7 @@ const SumUp: React.FC<Props> = ({ border, bg, icon, sum, description }) => {
     >
       <div className='flex items-center'>
         <Image src={icon} alt='' height={20} width={30} className='max-w-sm' />
-        <Typography type='h3' className='font-bold text-3lg md:text-2xl ml-[24px]'>
+        <Typography type='h3' className='font-bold text-smlg md:text-2xl ml-6'>
           {sum}
         </Typography>
       </div>

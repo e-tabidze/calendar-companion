@@ -83,7 +83,7 @@ const ImagesInput: React.FC<Props> = ({ label, infoText, subtitle, icon, bg }) =
             onMouseEnter={() => setHoveredIndex(index)}
             onMouseLeave={() => setHoveredIndex(null)}
           >
-            <Image src={image.url} className='w-[80px] h-[70px] object-cover rounded-xl' alt={`Image ${image.id}`} />
+            <Image src={image.url} className='w-20 h-[70px] object-cover rounded-xl' alt={`Image ${image.id}`} />
             {hoveredIndex === index && (
               <div className='absolute top-0 right-0 flex justify-between w-full p-2'>
                 <Image

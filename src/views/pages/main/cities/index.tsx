@@ -28,7 +28,7 @@ const Cities = () => {
           <ViewAllCitiesContainer>
             <Image src='/icons/location.svg' className='hidden sm:inline-flex' alt='img' />
             <Container>
-              <Typography type='h3' className='text-[20px] lg:text-[30px] mb-8'>
+              <Typography type='h3' className='text-3md lg:text-[30px] mb-8'>
                 ავტომობილები ტოპ ქალაქების მიხედვით
               </Typography>
               <DefaultButton

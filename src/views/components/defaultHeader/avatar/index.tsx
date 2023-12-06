@@ -98,7 +98,7 @@ const Avatar = () => {
     await queryClient.invalidateQueries(['profileInfo'])
   }
 
-  const routeClass = `px-[24px] flex whitespace-nowrap text-[16px] text-[#272A37] py-[8px] hover:bg-grey-100 transition-all`
+  const routeClass = `px-6 flex whitespace-nowrap text-md text-[#272A37] py-2 hover:bg-grey-100 transition-all`
 
   return (
     <Menu as='div' className='relative text-left hidden md:flex'>
@@ -111,7 +111,7 @@ const Avatar = () => {
             <Typography type='subtitle'>
               {!!activeCompany ? activeCompany.information.name : userInfo?.information?.first_name}
             </Typography>
-            <Image src='/icons/chevron.svg' alt='img' className='flex ml-[8px] transition-all' />
+            <Image src='/icons/chevron.svg' alt='img' className='flex ml-2 transition-all' />
           </AvatarResponsiveContainer>
         </AvatarContainer>
       </Menu.Button>
@@ -124,29 +124,29 @@ const Avatar = () => {
         leaveFrom='transform opacity-100 scale-100'
         leaveTo='transform opacity-0 scale-95'
       >
-        <Menu.Items className='w-[280px] absolute z-2 top-full mt-[20px] right-0 bg-[#ffffff] rounded-[16px] border border-raisin-10 shadow-[0px_6px_18px_#000000/10]'>
-          <div className='overflow-hidden rounded-[16px]'>
+        <Menu.Items className='w-[280px] absolute z-2 top-full mt-5 right-0 bg-[#ffffff] rounded-2xl border border-raisin-10 shadow-[0px_6px_18px_#000000/10]'>
+          <div className='overflow-hidden rounded-2xl'>
             {active ? (
               <>
                 <div className='border-b-1 border-raisin-10'>
-                  <button className='cursor-pointer flex items-center w-full text-[12px] p-[16px]' onClick={handleSetActive}>
-                    <Image src='/icons/chevron-left.svg' alt='chevron' className="flex mr-[16px]" />
+                  <button className='cursor-pointer flex items-center w-full text-sm p-4' onClick={handleSetActive}>
+                    <Image src='/icons/chevron-left.svg' alt='chevron' className="flex mr-4" />
                     დაბრუნება
                   </button>
                 </div>
                 <ul className='py-3 max-h-[335px] overflow-y-auto'>
                   {userCompanies?.map((company: { information: { name: string | undefined }; id: string }) => (
                     <li onClick={() => handleProfileSwitch(company?.id)} key={company.id}>
-                      <div className='cursor-pointer px-[16px] py-3 hover:bg-grey-100 flex items-center justify-between'>
-                        <div className='flex items-center text-[14px]'>
+                      <div className='cursor-pointer px-4 py-3 hover:bg-grey-100 flex items-center justify-between'>
+                        <div className='flex items-center text-2sm'>
                           <span className='w-10 h-10 mr-4 relative flex items-center justify-center rounded-full overflow-hidden'>
                             <Image src='/images/avatar.png' className='rounded-full' alt='avatar' />
                           </span>
                           <div className='flex flex-col'>
-                            <span className='text-[14px] overflow-hidden text-ellipsis whitespace-nowrap max-w-[140px] inline-block'>
+                            <span className='text-2sm overflow-hidden text-ellipsis whitespace-nowrap max-w-[140px] inline-block'>
                               {company?.information?.name}
                             </span>
-                            <span className='flex text-[12px] text-raisin-80'>ID: {company?.id} </span>
+                            <span className='flex text-sm text-raisin-80'>ID: {company?.id} </span>
                           </div>
                         </div>
                         {/*TODO default: border-2 border-raisin-60, active: border-[7px] border-green-100*/}
@@ -163,16 +163,16 @@ const Avatar = () => {
                   <div onClick={() => handleProfileSwitch(userInfo?.UserID)}>
                     <> {console.log(userInfo, 'userInfo')} </>
 
-                    <div className='cursor-pointer px-[16px] py-3 hover:bg-grey-100 flex items-center justify-between'>
-                      <div className='flex items-center text-[14px]'>
+                    <div className='cursor-pointer px-4 py-3 hover:bg-grey-100 flex items-center justify-between'>
+                      <div className='flex items-center text-2sm'>
                         <span className='w-10 h-10 mr-4 relative flex items-center justify-center rounded-full overflow-hidden'>
                           <Image src='/images/avatar.png' className='rounded-full' alt='avatar' />
                         </span>
                         <div className='flex flex-col'>
-                          <span className='text-[14px] overflow-hidden text-ellipsis whitespace-nowrap max-w-[140px] inline-block'>
+                          <span className='text-2sm overflow-hidden text-ellipsis whitespace-nowrap max-w-[140px] inline-block'>
                             {userInfo?.information?.first_name} {userInfo?.information?.last_name}
                           </span>
-                          <span className='flex text-[12px] text-raisin-80'>ID: {userInfo?.UserID} </span>
+                          <span className='flex text-sm text-raisin-80'>ID: {userInfo?.UserID} </span>
                         </div>
                       </div>
                       <span
@@ -188,16 +188,16 @@ const Avatar = () => {
               </>
             ) : (
               <>
-                <div className='flex items-center justify-between border-b-[1px] border-raisin-10 px-[24px] py-[16px]'>
+                <div className='flex items-center justify-between border-b-[1px] border-raisin-10 px-6 py-4'>
                   <div className='flex items-center'>
-                    <span className='w-[40px] h-[40px] mr-[12px] relative flex items-center justify-center rounded-full overflow-hidden'>
+                    <span className='w-10 h-10 mr-3 relative flex items-center justify-center rounded-full overflow-hidden'>
                       <Image src='/images/avatar.png' className='rounded-full' alt='avatar' />
                     </span>
                     <div className='flex flex-col'>
-                      <span className='text-[14px] text-[#272A37] overflow-hidden text-ellipsis whitespace-nowrap max-w-[150px] inline-block'>
+                      <span className='text-2sm text-[#272A37] overflow-hidden text-ellipsis whitespace-nowrap max-w-[150px] inline-block'>
                         {userInfo?.Email}
                       </span>
-                      <span className='flex text-[14px] text-[#272A37]'>ID: {userInfo?.active_profile_id}</span>
+                      <span className='flex text-2sm text-[#272A37]'>ID: {userInfo?.active_profile_id}</span>
                     </div>
                   </div>
                   {/*<button className='cursor-pointer shrink-0 flex' onClick={handleSetActive}>*/}
@@ -205,9 +205,9 @@ const Avatar = () => {
                   {/*</button>*/}
                 </div>
                 <div className="py-8px">
-                  <button className="mt-[8px] px-[24px] flex w-full whitespace-nowrap text-[16px] text-[#272A37] py-[8px] hover:bg-grey-100 transition-all" onClick={handleSetActive}>Switch Account</button>
+                  <button className="mt-2 px-6 flex w-full whitespace-nowrap text-md text-[#272A37] py-2 hover:bg-grey-100 transition-all" onClick={handleSetActive}>Switch Account</button>
                   {activeCompany ? (
-                      <ul className="mb-[8px]">
+                      <ul className="mb-2">
                         {companyRoutes?.map(route => (
                             <li key={route.id}>
                               <Link href={route.path} className={routeClass}>

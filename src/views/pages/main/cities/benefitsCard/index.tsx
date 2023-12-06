@@ -12,7 +12,7 @@ const BenefitsCard = ({ src, title, bodyText }: Props) => {
   return (
     <BenefitsCardContainer>
       <Image src={src} alt='img'/>
-      <Typography type='h5' weight='medium' className='text-[16px] lg:text-[22px] text-green-100'>
+      <Typography type='h5' weight='medium' className='text-md lg:text-[22px] text-green-100'>
         {title}
       </Typography>
       <Typography type='body' color='light' className='text-sm text-center'>

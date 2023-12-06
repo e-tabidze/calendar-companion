@@ -37,7 +37,7 @@ const BookingRadio: React.FC<Props> = ({ options, control, color, horizontal, na
             {({ checked }) => (
               <div className='my-2'>
                 <div
-                  className={`rounded-xl border py-[32px] pl-[40px] pr-[24px] ${
+                  className={`rounded-xl border py-8 pl-10 pr-6 ${
                     checked ? ' border-green-100 bg-green-10' : 'border-raisin-10'
                   }`}
                 >
@@ -46,7 +46,7 @@ const BookingRadio: React.FC<Props> = ({ options, control, color, horizontal, na
                       <Circle checked={checked}>
                         {checked && <Image src='/icons/check.svg' alt='' height={12} width={16} />}
                       </Circle>
-                      <span className='text-2sm md:md ml-[20px]'>{option.label}</span>
+                      <span className='text-2sm md:md ml-5'>{option.label}</span>
                     </RadioGroup.Label>
 
                     {/* {option.info && (

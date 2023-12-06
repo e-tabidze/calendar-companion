@@ -113,10 +113,10 @@ const Carousel = ({ detailSwiper, itemsArray, type, onClick, singleSlide = false
           </SwiperSlide>
         ))}
       </Swiper>
-      <div className={`${detailSwiper?'left-[20px]':'lg:left-[-28px]'} cursor-pointer shadow-sm absolute top-1/2 -translate-y-1/2 w-[46px] h-[46px] lg:w-[56px] md:h-[56px] bg-white rounded-[16px] flex items-center justify-center rotate-180 z-50`} ref={prevRef}>
+      <div className={`${detailSwiper?'left-5':'left-4 md:left-0 lg:left-[-28px]'} cursor-pointer shadow-sm absolute top-1/2 -translate-y-1/2 w-[46px] h-[46px] lg:w-[56px] md:h-[56px] bg-white rounded-2xl flex items-center justify-center rotate-180 z-50`} ref={prevRef}>
         <Icon svgPath='caret-right' width={20} height={20} className="fill-transparent" />
       </div>
-      <div className={`${detailSwiper?'right-[20px]':'lg:right-[-28px]'} cursor-pointer shadow-sm absolute top-1/2 -translate-y-1/2 w-[46px] h-[46px] lg:w-[56px] md:h-[56px] bg-white rounded-[16px] flex items-center justify-center z-10`} ref={nextRef}>
+      <div className={`${detailSwiper?'right-5':'right-4 md:right-0 lg:right-[-28px]'} cursor-pointer shadow-sm absolute top-1/2 -translate-y-1/2 w-[46px] h-[46px] lg:w-[56px] md:h-[56px] bg-white rounded-2xl flex items-center justify-center z-10`} ref={nextRef}>
         <Icon svgPath='caret-right' width={20} height={20} className="fill-transparent" />
       </div>
 

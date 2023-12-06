@@ -12,7 +12,7 @@ const ToggleMapButton: React.FC<Props> = ({ onClick, mapVisible }) => {
     <ToggleMapBtn
       onClick={onClick}
       className={`shadow-sm absolute  mt-[93px] top-1/2 -translate-y-1/2 z-[11] bg-white ${
-        mapVisible ? 'left-0 rounded-r-[8px] ' : 'right-0 rounded-l-[8px]'
+        mapVisible ? 'left-0 rounded-r-lg ' : 'right-0 rounded-l-lg'
       }`}
     >
       <span className={`${mapVisible ? '' : 'rotate-180'}`}>

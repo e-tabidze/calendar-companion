@@ -55,7 +55,7 @@ const VehicleListComponent: React.FC<Props> = ({ price, startCity, prodYear, mod
     <>
       {deleteProductMutation.isLoading && <div>Deleting...</div>}
       {deleteProductMutation.isSuccess && <div>Product deleted successfully!</div>}
-      <div className='relative'>
+      <div className='relative border-b-1 border-raisin-10 last:border-none'>
         <div className='flex flex-col px-2 py-4 md:w-full justify-between gap-6 md:px-0 md:flex-row md:items-center'>
           <div className='flex gap-6 2xl:gap-6 min-w-max'>
             <Image
@@ -79,8 +79,8 @@ const VehicleListComponent: React.FC<Props> = ({ price, startCity, prodYear, mod
                   </Typography>
                   <Typography
                     type='subtitle'
-                    className={`cursor-default py-1 px-2 rounded-lg ${
-                      active ? 'text-white bg-green-100' : 'text-raisin-100 bg-raisin-30'
+                    className={`cursor-default py-1 px-2 rounded-lg text-2sm ${
+                      active ? 'text-white bg-green-100' : 'text-raisin-100 bg-grey-100'
                     }`}
                   >
                     {active ? 'აქტიური' : 'გამორთული'}
@@ -103,7 +103,6 @@ const VehicleListComponent: React.FC<Props> = ({ price, startCity, prodYear, mod
           </div>
         </div>
         <Image src='/icons/more.svg' alt='' height={13} width={3} className='absolute right-5 top-5 md:hidden' />
-        <Divider />
       </div>
       <DeleteProductConfirmationModal
         open={deleteProductModal}

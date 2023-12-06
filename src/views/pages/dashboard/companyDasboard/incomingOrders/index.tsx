@@ -17,13 +17,13 @@ const IncomingOrders = () => {
         <Typography type='h3' className='text-md md:text-2lg'>
           შემოსული ჯავშნები
         </Typography>
-        <div className='flex gap-[16px] md:gap-[32px]'>
+        <div className='flex gap-4 md:gap-8'>
           <IconTextButton label={width > 779 ? 'ფილტრი' : ''} icon={'/icons/filters.svg'} />
           <IconTextButton label={width > 779 ? 'სორტირება' : ''} icon={'/icons/sort.svg'} />
         </div>
       </div>
       <Divider />
-      <div className='hidden lg:flex gap-3 p-2 md:p-8'>
+      <div className='hidden lg:flex gap-3 p-2'>
         {/* {filters.map(filter => (
           <Tag label={filter.label} height='h-10' key={filter.id} className='rounded-xl' />
         ))} */}

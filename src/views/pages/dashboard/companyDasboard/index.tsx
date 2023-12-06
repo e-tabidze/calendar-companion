@@ -4,7 +4,7 @@ import Vehicles from './vehicles'
 
 const CompanyDashboard = () => {
   return (
-    <div className='py-4 px-5 md:px-10 lg:px-0'>
+    <div className='md:py-4 md:px-10 lg:px-0'>
       <div className='grid grid-cols-1 lg:grid-cols-3 gap-4'>
         <SumUp
           bg='bg-blue-10'

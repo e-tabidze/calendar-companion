@@ -25,8 +25,8 @@ const BookingList: React.FC<Props> = ({ addresses, control }) => {
       {formState?.supply === '0' && (
         <>
           <div className='flex items-center my-4'>
-            <Image src='/icons/start.svg' alt='' height={24} width={24} className='flex mr-[16px]' />
-            <Typography type='body' className='text-[24px] font-normal'>
+            <Image src='/icons/start.svg' alt='' height={24} width={24} className='flex mr-4' />
+            <Typography type='body' className='text-2lg font-normal'>
               წაყვანა
             </Typography>
           </div>
@@ -68,13 +68,13 @@ const BookingList: React.FC<Props> = ({ addresses, control }) => {
               </RadioGroup>
             )}
           />
-          <Divider className='my-[40px]' />
+          <Divider className='my-10' />
         </>
       )}
 
-      <div className='flex items-center mb-[16px]'>
-        <Image src='/icons/stop.svg' alt='' height={24} width={24} className='flex mr-[16px]' />
-        <Typography type='body' className='text-[24px] font-normal'>
+      <div className='flex items-center mb-4'>
+        <Image src='/icons/stop.svg' alt='' height={24} width={24} className='flex mr-4' />
+        <Typography type='body' className='text-2lg font-normal'>
           დაბრუნება
         </Typography>
       </div>
