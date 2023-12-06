@@ -59,7 +59,7 @@ const useCreateCompany = () => {
   const {
     control,
     handleSubmit,
-    formState: { errors, dirtyFields },
+    formState: { errors, dirtyFields, isValid },
     resetField,
     setError,
     clearErrors,
@@ -114,7 +114,8 @@ const useCreateCompany = () => {
 
   const saveCompanyLogo = async (Logo: any) => {
     try {
-      const response: any = await StaticService.postSaveCompanyLogo('', Logo)
+      const response: any = await StaticService.postSaveCompanyLogo('', '160',
+       Logo)
 
       return response.data
     } catch (error) {
@@ -139,7 +140,8 @@ const useCreateCompany = () => {
     createCompany,
     getLocationSuggestions,
     uploadCompanyLogo,
-    saveCompanyLogo
+    saveCompanyLogo,
+    isValid
   }
 }
 

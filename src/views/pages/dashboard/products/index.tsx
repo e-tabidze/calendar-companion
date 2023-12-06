@@ -1,4 +1,5 @@
 import dynamic from 'next/dynamic'
+import { useState } from 'react'
 import useWindowDimensions from 'src/hooks/useWindowDimensions'
 import { Products } from 'src/types/Products'
 import { IconTextButton } from 'src/views/components/button'
@@ -16,30 +17,29 @@ import useProducts from './useProducts'
 const filters = [
   {
     label: 'ყველა',
-    id: '1'
+    id: '1',
+    filterOption: null as null
   },
   {
     label: 'აქტიური',
-    id: '2'
+    id: '2',
+    filterOption: 1
   },
   {
     label: 'გამორთული',
-    id: '3'
-  },
-  {
-    label: 'შენახული',
-    id: '4'
+    id: '3',
+    filterOption: 0
   },
   {
     label: 'დაბლოკილი',
-    id: '5'
+    id: '4',
+    filterOption: 2
   }
 ]
 const Products = () => {
   const { width } = useWindowDimensions()
-  const { companyProducts, isLoading } = useProducts()
-
-  console.log(companyProducts, 'companyProducts')
+  const [filterQuery, setFilterQuery] = useState<null | 0 | 1 | 2>(null)
+  const { companyProducts, isLoading } = useProducts(filterQuery)
 
   return (
     <div>
@@ -56,7 +56,18 @@ const Products = () => {
         <Divider />
         <div className='hidden lg:flex gap-3 mt-8'>
           {filters.map(filter => (
-            <Tag label={filter.label} height='h-10' key={filter.id} className='rounded-xl' />
+            <>
+              {console.log(filterQuery, 'filterQuery')}
+              {console.log(filter.filterOption, 'FILTER filterOption')}
+
+              <Tag
+                label={filter.label}
+                height='h-10'
+                key={filter.id}
+                className={`${filter.filterOption === filterQuery ? 'border !border-orange-100' : ''} rounded-xl`}
+                handleClick={() => setFilterQuery(filter.filterOption as null | 0 | 1 | 2)}
+              />
+            </>
           ))}
         </div>
         <div>
@@ -67,12 +78,14 @@ const Products = () => {
               {companyProducts?.map((product: Products) => (
                 <VehicleListComponent
                   key={product.id}
+                  id={product.id}
                   price={product.price}
                   startCity={product.start_city}
                   prodYear={product.prod_year}
                   model={product?.manufacturer_model?.title}
                   manufacturer={product.manufacturer?.title}
                   active={product.is_active}
+                  filter={filterQuery}
                 />
               ))}
             </>

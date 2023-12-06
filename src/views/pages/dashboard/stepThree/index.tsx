@@ -15,7 +15,7 @@ import {
   StepThreePriceContainer
 } from './styles'
 import { useWatch } from 'react-hook-form'
-import useNewProduct from '../useNewProduct'
+import useNewProduct from '../newProduct/useNewProduct'
 
 interface Props {
   control: any

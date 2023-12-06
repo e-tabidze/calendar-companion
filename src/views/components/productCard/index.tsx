@@ -110,6 +110,7 @@ const ProductCard: React.FC<Props> = ({
         <InnerDetailsContainer>
           <PriceContainer>
             {priceGel} ₾
+            
             {/*<PreviousPrice>47₾</PreviousPrice>*/}
           </PriceContainer>
           <DetailsWrapper>

@@ -3,8 +3,8 @@ import { DefaultInput } from 'src/views/components/input'
 import SelectField from 'src/views/components/selectField'
 import TwoOptionSelector from 'src/views/components/twoOptionSelector'
 import ImagesInput from './imagesInput'
-import useProductInfo, { getManufacturerModels } from '../useProductInfo'
 import { useEffect } from 'react'
+import useProductInfo, { getManufacturerModels } from '../useProductInfo'
 
 interface Props {
   control: any
@@ -65,7 +65,14 @@ const StepOne: React.FC<Props> = ({ control, productValues, errors }) => {
           disabled={!selectedManufacturerId}
           errors={errors}
         />
-        <SelectField name='prod_year' control={control} placeholder='წელი' options={generateYearsArray()} valueKey='value' labelKey='label' />
+        <SelectField
+          name='prod_year'
+          control={control}
+          placeholder='წელი'
+          options={generateYearsArray()}
+          valueKey='value'
+          labelKey='label'
+        />
         <div className='flex gap-4 justify-center'>
           <DefaultInput name='odometer.run' control={control} errors={errors} label='გარბენი' className='flex-grow' />
           <TwoOptionSelector

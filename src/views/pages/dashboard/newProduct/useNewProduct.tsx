@@ -3,7 +3,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import ProductService from 'src/services/ProductService'
 import { Product } from 'src/types/Product'
 import { NewProductSchema } from 'src/@core/validation/newProductSchema'
-import useProductInfo from './useProductInfo'
+import useProductInfo from '../useProductInfo'
 import { useEffect } from 'react'
 
 const useNewProduct = () => {
@@ -24,11 +24,34 @@ const useNewProduct = () => {
   }
 
   const newProductDefaultValues = {
-    is_active: '1',
-    apply_discount: false,
-    discount: [discount_item],
+    company_id: 161,
+    vin: '',
+    plate: '',
+    man_id: '',
+    model_id: '',
+    prod_year: '',
+    odometer: {
+      run: 0,
+      measure: 'km'
+    },
+    additional_information: '',
+    use_instruction: '',
+    category_id: '',
+    fuel_type_id: '',
+    seat_type_id: '',
+    luggage_numbers: '',
+    door_type_id: '',
+    drive_tires_id: '',
+    transmission_type_id: '',
     additional_options: [] as any[],
-    identification_number: '123456789',
+    daily_price: {
+      amount: '',
+      currency: 'GEL'
+    },
+    apply_discount: false,
+    identification_number: '123456789098',
+    is_active: true,
+    discount: [discount_item],
     company_services: [services],
     any_period: true,
     min_period: {
@@ -36,9 +59,14 @@ const useNewProduct = () => {
       time_interval: 'კვირა',
       time_span: 1
     },
+    preparation_period: '',
+
     start_city: '',
-    end_city: ''
+    start_address: '',
+    end_city: '',
+    end_address: ''
   }
+
   useEffect(() => {
     if (companyServices) {
       setValue('company_services', services)
@@ -48,7 +76,7 @@ const useNewProduct = () => {
   const {
     control,
     handleSubmit,
-    formState: { errors, dirtyFields },
+    formState: { errors, dirtyFields, isValid },
     resetField,
     setError,
     clearErrors,
@@ -105,7 +133,8 @@ const useNewProduct = () => {
     appendDiscountItem,
     discount_item,
     removeDiscountItem,
-    createNewProduct
+    createNewProduct,
+    isValid
   }
 }
 

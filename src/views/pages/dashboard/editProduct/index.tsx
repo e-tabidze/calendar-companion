@@ -2,9 +2,9 @@ import { useState } from 'react'
 import NewListingLayout from 'src/layouts/NewListingLayout'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
-import useNewProduct from './useNewProduct'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { Product } from 'src/types/Product'
+import useEditProduct from './useEditProduct'
 
 const StepOne = dynamic(() => import('../stepOne'), { ssr: false })
 const StepTwo = dynamic(() => import('../stepTwo'), { ssr: false })
@@ -26,10 +26,13 @@ const options = [
   // { value: '7/7 ნაბიჯი', label: 'ადგილმდებარეობა', step: 7 }
 ]
 
-const NewProduct: React.FC = () => {
+const EditProduct: React.FC = ({}) => {
   const [step, setStep] = useState(options[0])
 
   const router = useRouter()
+
+  const { id } = router.query
+  console.log(id, 'router id')
 
   const selectOption = (option: any) => setStep(option)
 
@@ -43,11 +46,11 @@ const NewProduct: React.FC = () => {
     discountItems,
     appendDiscountItem,
     removeDiscountItem,
-    createNewProduct,
+    editProduct,
     setValue,
-    errors,
+    errors, 
     isValid
-  } = useNewProduct()
+  } = useEditProduct(Number(id))
 
   const queryClient = useQueryClient()
 
@@ -66,7 +69,7 @@ const NewProduct: React.FC = () => {
 
   const createNewProducteMutation = useMutation(
     (product: Product) => {
-      return createNewProduct('', product)
+      return editProduct('', product)
     },
     {
       onSuccess: () => {
@@ -113,8 +116,6 @@ const NewProduct: React.FC = () => {
     }
   }
 
-  console.log(isValid, 'isValid')
-
   return (
     <NewListingLayout
       options={options}
@@ -125,11 +126,11 @@ const NewProduct: React.FC = () => {
       onClose={handleClose}
       onSubmit={handleSubmit(onSubmit)}
       submitLabel='დამატება'
-      disabled={!isValid}
+      disabled={isValid}
     >
       <form>{renderStepComponent()}</form>
     </NewListingLayout>
   )
 }
 
-export default NewProduct
+export default EditProduct

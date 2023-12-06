@@ -1,14 +1,15 @@
 import Image from 'next/image'
 import React from 'react'
 
-export const DefaultButton = ({ text, onClick, bg, className, textColor, type }: any) => {
+export const DefaultButton = ({ text, onClick, bg, className, textColor, type, disabled }: any) => {
   return (
     <button
-      className={`${bg} rounded-xl  ${bg ? `${textColor}` : 'text-raisin-130'} text-2sm w-max ${
+      className={`${bg} rounded-xl ${disabled ? 'opacity-60' : ''}  ${bg ? `${textColor}` : 'text-raisin-130'} text-2sm w-max ${
         bg ? 'border-none' : 'border border-px-raisin-130'
       } py-3 px-6 font-normal' ${className}`}
       onClick={onClick}
       type={type}
+      disabled={disabled}
     >
       {text}
     </button>

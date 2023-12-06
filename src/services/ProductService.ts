@@ -26,8 +26,24 @@ class ProductService extends HttpService {
     return this.post('/products', product, AccessToken ? { Authorization: `${AccessToken}` } : {})
   }
 
+  editProductDetails(AccessToken = '', id: number) {
+    return this.get(`/products/${id}`, AccessToken ? { Authorization: `${AccessToken}` } : {})
+  }
+
+  editProduct(AccessToken = '', id: number, product: Product) {
+    return this.put(`/products/${id}`, product, AccessToken ? { Authorization: `${AccessToken}` } : {})
+  }
+
   getSimilarProducts(manId: number | string, modelId: number | string) {
     return this.get(`/search-products?manufacturer_id[]=${manId}&model_id[]=${modelId}&order_by=desc`)
+  }
+
+  deleteProduct(AccessToken = '', id: number) {
+    return this.delete(`/products/${id}`, AccessToken ? { Authorization: `${AccessToken}` } : {})
+  }
+
+  activeProducts(AccessToken = '', productId: number, statusId: 0 | 1 | 2) {
+    return this.post('/active/products', {id: productId, is_active: statusId}, AccessToken ? { Authorization: `${AccessToken}` } : {})
   }
 }
 

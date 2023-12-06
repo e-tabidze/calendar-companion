@@ -35,8 +35,8 @@ class CompanyService extends HttpService {
     return this.delete(`/companies/${company_id}`, AccessToken ? { Authorization: `${AccessToken}` } : {})
   }
 
-  getCompanyProducts(AccessToken = '') {
-    return this.get(`/products`, AccessToken ? { Authorization: `${AccessToken}` } : {})
+  getCompanyProducts(AccessToken = '', activeStatus: 0 | 1 | 2 | null) {
+    return this.get(`/products?is_active=${activeStatus}`, AccessToken ? { Authorization: `${AccessToken}` } : {})
   }
 
   getSingleCompanyBranches(company_id: number | string) {

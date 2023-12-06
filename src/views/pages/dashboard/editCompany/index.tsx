@@ -11,7 +11,7 @@ import AddressAndSchedule from '../../profile/company/addressAndSchedule'
 import { useQueryClient, useMutation } from '@tanstack/react-query'
 import DeleteAddressConfirmationModal from '../../../components/deleteAddressConfirmationModal'
 import DeleteCompanyConfirmationModal from 'src/views/components/deleteCompanyConfirmationModal'
-import useCompany from './useCompany'
+import useCompany from './useEditCompany'
 
 const EditCompany = () => {
   const [deleteAddresseModal, setDeleteAddressModal] = useState(false)
