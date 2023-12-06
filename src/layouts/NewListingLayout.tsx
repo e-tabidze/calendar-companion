@@ -41,9 +41,6 @@ const NewListingLayout: React.FC<Props> = ({
 
   const onClickLogo = () => router.push('/')
 
-  console.log(selectedOption.step, 'selectedOption')
-  console.log(options.length, 'options')
-
   const renderNewListingSelect = () => (
     <NewListingSelect options={options} onChange={onChange} selectedOption={selectedOption} />
   )

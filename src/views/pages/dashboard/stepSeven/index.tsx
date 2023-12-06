@@ -1,7 +1,7 @@
 import Radio from 'src/views/components/radio'
 import Typography from 'src/views/components/typography'
-import FileUpload from '../../../../components/fileUpload'
 import Divider from 'src/views/components/divider'
+import FileUpload from 'src/views/components/fileUpload'
 
 interface Props {
   control: any

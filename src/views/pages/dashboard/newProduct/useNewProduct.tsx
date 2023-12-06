@@ -46,11 +46,11 @@ const useNewProduct = () => {
     additional_options: [] as any[],
     daily_price: {
       amount: '',
-      currency: ''
+      currency: 'GEL'
     },
-    apply_discount: '',
-    identification_number: '',
-    is_active: '',
+    apply_discount: false,
+    identification_number: '123456789098',
+    is_active: true,
     discount: [discount_item],
     company_services: [services],
     any_period: true,

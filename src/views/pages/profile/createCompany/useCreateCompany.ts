@@ -114,7 +114,7 @@ const useCreateCompany = () => {
 
   const saveCompanyLogo = async (Logo: any) => {
     try {
-      const response: any = await StaticService.postSaveCompanyLogo('', 160,
+      const response: any = await StaticService.postSaveCompanyLogo('', '160',
        Logo)
 
       return response.data

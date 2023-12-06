@@ -1,7 +1,10 @@
 import * as Yup from 'yup'
 
 const NewProductPrice = Yup.object().shape({
-  amount: Yup.number().required('აუცილებელი ველი'),
+  amount: Yup.number()
+    .typeError('თანხის ველი უნდა იყოს რიცხვი')
+    .required('აუცილებელი ველი')
+    .test('is-number', 'თანხა უნდა იყოს რიცხვი', value => !isNaN(value)),
   currency: Yup.string()
 })
 
@@ -11,10 +14,9 @@ const Odometer = Yup.object().shape({
 
 const NewProductSchema = Yup.object().shape({
   man_id: Yup.mixed().required('აუცილებელი ველი'),
-  identification_number: Yup.number().required(),
   model_id: Yup.mixed().required('აუცილებელი ველი'),
   category_id: Yup.mixed().required('აუცილებელი ველი'),
   daily_price: NewProductPrice,
-  odometer: Odometer,
+  odometer: Odometer
 })
 export { NewProductSchema }

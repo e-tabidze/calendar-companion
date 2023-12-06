@@ -2,10 +2,10 @@ import { useQuery } from '@tanstack/react-query'
 import CompanyService from 'src/services/CompanyService'
 import ProductService from 'src/services/ProductService'
 
-const useProducts = () => {
+const useProducts = (filter: 0 | 1 | 2 | null) => {
   const useCompanyProducts: any = useQuery({
-    queryKey: ['companyProducts'],
-    queryFn: () => getCompanyProducts(),
+    queryKey: ['companyProducts', filter],
+    queryFn: () => getCompanyProducts('', filter),
     staleTime: Infinity,
     enabled: true
   })
@@ -17,15 +17,17 @@ const useProducts = () => {
   return {
     companyProducts,
     isLoading,
-    deleteProduct
+    deleteProduct,
+    activeProducts,
+    getCompanyProducts
   }
 }
 
 export default useProducts
 
-export const getCompanyProducts = async (accessToken = '') => {
+const getCompanyProducts = async (accessToken = '', activeStatus: 0 | 1 | 2 | null) => {
   try {
-    const response: any = await CompanyService.getCompanyProducts(accessToken)
+    const response: any = await CompanyService.getCompanyProducts(accessToken, activeStatus)
 
     return response.data
   } catch (error) {
@@ -40,7 +42,18 @@ const deleteProduct = async (id: number) => {
 
     return response
   } catch (error) {
-    console.error('Error deleting company:', error)
+    console.error('Error deleting product:', error)
+    throw error
+  }
+}
+
+const activeProducts = async (id: number, statusId: 0 | 1 | 2) => {
+  try {
+    const response: any = await ProductService.activeProducts('', id, statusId)
+
+    return response
+  } catch (error) {
+    console.error('Error changing product status:', error)
     throw error
   }
 }

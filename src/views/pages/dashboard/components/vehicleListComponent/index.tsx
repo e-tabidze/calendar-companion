@@ -17,14 +17,15 @@ interface Props {
   prodYear: number
   active: number
   id: number
+  filter: null | 0 | 1 | 2
 }
 
-const VehicleListComponent: React.FC<Props> = ({ price, startCity, prodYear, model, manufacturer, active, id }) => {
+const VehicleListComponent: React.FC<Props> = ({ price, startCity, prodYear, model, manufacturer, active, id, filter }) => {
   const [deleteProductModal, setDeleteProductModal] = useState(false)
 
   const { width } = useWindowDimensions()
 
-  const { deleteProduct } = useProducts()
+  const { deleteProduct, activeProducts } = useProducts(filter)
 
   const queryClient = useQueryClient()
 
@@ -34,8 +35,18 @@ const VehicleListComponent: React.FC<Props> = ({ price, startCity, prodYear, mod
     }
   })
 
+  const activeProductMutation = useMutation(() => activeProducts(id, active === 1 ? 0 : 1), {
+    onSuccess: () => {
+      queryClient.invalidateQueries(['companyProducts'])
+    }
+  })
+
   const deletProduct = () => {
     deleteProductMutation.mutate()
+  }
+
+  const toggleActivateProduct = () => {
+    activeProductMutation.mutate()
   }
 
   const toggleDeleteProductModal = () => setDeleteProductModal(!deleteProductModal)
@@ -80,12 +91,10 @@ const VehicleListComponent: React.FC<Props> = ({ price, startCity, prodYear, mod
           </div>
           <div className='hidden md:flex gap-4'>
             <Action
-              bg='bg-green-10'
-              label='ჩართვა'
-              icon='play'
-              onClick={function (): void {
-                throw new Error('Function not implemented.')
-              }}
+              bg={active ? 'bg-raisin-10' : 'bg-green-10'}
+              label={active ? 'გამორთვა' : 'ჩართვა'}
+              icon={active ? 'stop' : 'play'}
+              onClick={toggleActivateProduct}
             />
             <Link href={`/dashboard/edit-product?id=${id}`} as={`/dashboard/edit-product?id=${id}`}>
               <Action bg='bg-raisin-10' label='რედაქტირება' icon='edit' />

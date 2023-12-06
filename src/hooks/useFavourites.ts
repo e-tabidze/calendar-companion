@@ -4,7 +4,7 @@ import useProfile from './useProfile'
 
 const useFavourites = (productId?: string | number) => {
   const queryClient = useQueryClient()
-  const { isAuthenticated } = useProfile()
+  const { isAuthenticated, activeCompanyId } = useProfile()
 
   const toggleFavourites = async (accessToken = '') => {
     try {
@@ -27,7 +27,7 @@ const useFavourites = (productId?: string | number) => {
     queryKey: ['userFavourites'],
     queryFn: () => getUserFavourites(),
     staleTime: Infinity,
-    enabled: !!isAuthenticated
+    enabled: !!isAuthenticated && activeCompanyId === undefined
   })
 
   const toggleFavouritesLoading = toggleUserFavourites.isLoading

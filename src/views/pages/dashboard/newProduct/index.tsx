@@ -113,6 +113,8 @@ const NewProduct: React.FC = () => {
     }
   }
 
+  console.log(isValid, 'isValid')
+
   return (
     <NewListingLayout
       options={options}

@@ -39,7 +39,11 @@ class ProductService extends HttpService {
   }
 
   deleteProduct(AccessToken = '', id: number) {
-    return this.delete(`/products/${id}`)
+    return this.delete(`/products/${id}`, AccessToken ? { Authorization: `${AccessToken}` } : {})
+  }
+
+  activeProducts(AccessToken = '', productId: number, statusId: 0 | 1 | 2) {
+    return this.post('/active/products', {id: productId, is_active: statusId}, AccessToken ? { Authorization: `${AccessToken}` } : {})
   }
 }
 
