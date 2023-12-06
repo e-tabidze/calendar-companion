@@ -4,6 +4,7 @@ import useWindowDimensions from 'src/hooks/useWindowDimensions'
 import DefaultHeader from 'src/views/components/defaultHeader'
 import ProfileNavigation from 'src/views/components/profileNavigation'
 import HeaderWrapper from "../views/components/headerWrapper";
+import Footer from "src/views/components/footer";
 
 interface Route {
   id: number
@@ -35,7 +36,7 @@ const ProfileLayout: React.FC<Props> = ({ routes, dividerIndexes, children }) =>
   const toggleSidebarCollapse = () => setSidebarCollapsed(!sidebarCollapsed)
 
   return (
-    <main className="pb-20 lg:pb-0">
+    <main>
       <HeaderWrapper fullWidth>
         <DefaultHeader />
       </HeaderWrapper>
@@ -51,6 +52,7 @@ const ProfileLayout: React.FC<Props> = ({ routes, dividerIndexes, children }) =>
         />
         <div className="transition-all duration-300 w-full z-[11] p-4 md:p-0">{children}</div>
       </div>
+      <Footer/>
     </main>
   )
 }
