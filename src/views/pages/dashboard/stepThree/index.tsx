@@ -27,7 +27,7 @@ interface Props {
 
 const options = [
   { value: 'დღე', label: 'დღე', id: '1' },
-  { value: 'კვირა', label: 'კვირა', id: '2' },
+  { value: 'კვირა', label: 'კვირა', id: '2' }
 ]
 
 const StepThree: React.FC<Props> = ({ control, discountItems, appendDiscountItem, remove, errors }) => {
@@ -39,14 +39,18 @@ const StepThree: React.FC<Props> = ({ control, discountItems, appendDiscountItem
     if (discountItems.length === 0) {
       setValue('apply_discount', false)
     }
-
-    console.log(discountItems, 'discountItems')
   }, [setValue, discountItems])
 
   return (
     <StepThreeContainer>
       <StepThreePriceContainer>
-        <DefaultInput label='დღიური ღირებულება' control={control} name='daily_price.amount' errors={errors} type="number" />
+        <DefaultInput
+          label='დღიური ღირებულება'
+          control={control}
+          name='daily_price.amount'
+          errors={errors}
+          type='number'
+        />
         <TwoOptionSelector
           control={control}
           name='daily_price.currency'
@@ -76,7 +80,13 @@ const StepThree: React.FC<Props> = ({ control, discountItems, appendDiscountItem
         <DiscountComponentWrapper>
           {discountItems.map((component: ReactElement<any, string | JSXElementConstructor<any>>, index: number) => (
             <DiscountInputsWrapper key={index}>
-              <DiscountComponent index={index} options={options} control={control} name={`discount.${index}`} errors={errors} />
+              <DiscountComponent
+                index={index}
+                options={options}
+                control={control}
+                name={`discount.${index}`}
+                errors={errors}
+              />
               {index > 0 && (
                 <IconTextButton
                   label={width > 779 ? 'წაშლა' : ''}
@@ -87,7 +97,7 @@ const StepThree: React.FC<Props> = ({ control, discountItems, appendDiscountItem
                     formState.discount.length === 0 && setValue('apply_discount', false)
                   }}
                   className='p-0 md:p-4'
-                  type="button"
+                  type='button'
                 />
               )}
             </DiscountInputsWrapper>
@@ -97,7 +107,7 @@ const StepThree: React.FC<Props> = ({ control, discountItems, appendDiscountItem
             label='ახალი ფასდაკლების დამატება'
             icon='/icons/add.svg'
             onClick={() => appendDiscountItem(discount_item)}
-            type="button"
+            type='button'
           />
         </DiscountComponentWrapper>
       ) : (

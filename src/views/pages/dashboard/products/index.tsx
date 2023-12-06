@@ -56,18 +56,13 @@ const Products = () => {
         <Divider />
         <div className='hidden lg:flex gap-3 mt-8'>
           {filters.map(filter => (
-            <>
-              {console.log(filterQuery, 'filterQuery')}
-              {console.log(filter.filterOption, 'FILTER filterOption')}
-
-              <Tag
-                label={filter.label}
-                height='h-10'
-                key={filter.id}
-                className={`${filter.filterOption === filterQuery ? 'border !border-orange-100' : ''} rounded-xl`}
-                handleClick={() => setFilterQuery(filter.filterOption as null | 0 | 1 | 2)}
-              />
-            </>
+            <Tag
+              label={filter.label}
+              height='h-10'
+              key={filter.id}
+              className={`${filter.filterOption === filterQuery ? 'border !border-orange-100' : ''} rounded-xl`}
+              handleClick={() => setFilterQuery(filter.filterOption as null | 0 | 1 | 2)}
+            />
           ))}
         </div>
         <div>
