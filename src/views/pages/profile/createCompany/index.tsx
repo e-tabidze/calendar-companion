@@ -70,6 +70,7 @@ const CreateCompany = () => {
         onPrevStep={handleGoPrevStep}
         onClose={handleClose}
         onSubmit={handleSubmit(onSubmit)}
+        submitLabel='დამატება'
       >
         {step.step === 1 && <StepOne control={control} errors={errors} clearErrors={clearErrors} />}
         {step.step === 2 && (

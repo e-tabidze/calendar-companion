@@ -11,6 +11,7 @@ const Odometer = Yup.object().shape({
 
 const NewProductSchema = Yup.object().shape({
   man_id: Yup.mixed().required('აუცილებელი ველი'),
+  identification_number: Yup.number().required(),
   model_id: Yup.mixed().required('აუცილებელი ველი'),
   category_id: Yup.mixed().required('აუცილებელი ველი'),
   daily_price: NewProductPrice,

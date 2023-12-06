@@ -21,7 +21,7 @@ const options = [
   { value: '3/6 ნაბიჯი', label: 'ფასები და ფასდაკლება', step: 3 },
   { value: '4/6 ნაბიჯი', label: 'სერვისები', step: 4 },
   { value: '5/6 ნაბიჯი', label: 'ჯავშნის მიღების პირობები', step: 5 },
-  { value: '6/6 ნაბიჯი', label: 'ადგილმდებარეობა', step: 6 },
+  { value: '6/6 ნაბიჯი', label: 'ადგილმდებარეობა', step: 6 }
 
   // { value: '7/7 ნაბიჯი', label: 'ადგილმდებარეობა', step: 7 }
 ]
@@ -45,7 +45,8 @@ const NewProduct: React.FC = () => {
     removeDiscountItem,
     createNewProduct,
     setValue,
-    errors
+    errors,
+    isValid
   } = useNewProduct()
 
   const queryClient = useQueryClient()
@@ -104,7 +105,7 @@ const NewProduct: React.FC = () => {
         return <StepFive control={control} setValue={setValue} />
       case 6:
         return <StepSix control={control} />
-        
+
       // case 7:
       //   return <StepSeven control={control} />
       default:
@@ -121,6 +122,8 @@ const NewProduct: React.FC = () => {
       onPrevStep={handleGoPrevStep}
       onClose={handleClose}
       onSubmit={handleSubmit(onSubmit)}
+      submitLabel='დამატება'
+      disabled={!isValid}
     >
       <form>{renderStepComponent()}</form>
     </NewListingLayout>

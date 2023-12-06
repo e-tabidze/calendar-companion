@@ -19,6 +19,8 @@ interface Props {
   onNextStep: () => void
   onPrevStep: () => void
   onSubmit: any
+  submitLabel: string
+  disabled: boolean
 }
 
 const NewListingLayout: React.FC<Props> = ({
@@ -29,13 +31,18 @@ const NewListingLayout: React.FC<Props> = ({
   onNextStep,
   onPrevStep,
   onClose,
-  onSubmit
+  onSubmit,
+  submitLabel,
+  disabled
 }) => {
   const router = useRouter()
 
   const { width } = useWindowDimensions()
 
   const onClickLogo = () => router.push('/')
+
+  console.log(selectedOption.step, 'selectedOption')
+  console.log(options.length, 'options')
 
   const renderNewListingSelect = () => (
     <NewListingSelect options={options} onChange={onChange} selectedOption={selectedOption} />
@@ -91,9 +98,10 @@ const NewListingLayout: React.FC<Props> = ({
           <DefaultButton
             bg='bg-green-100'
             type={selectedOption.step === options.length ? 'submit' : 'button'}
-            text='შემდეგი'
+            text={selectedOption.step === options.length ? submitLabel : 'შემდეგი'}
             textColor='text-white'
             onClick={selectedOption.step === options.length ? onSubmit : onNextStep}
+            disabled={selectedOption.step === options.length && disabled}
           ></DefaultButton>
         </div>
       </div>

@@ -124,6 +124,7 @@ const EditProduct: React.FC = ({}) => {
       onPrevStep={handleGoPrevStep}
       onClose={handleClose}
       onSubmit={handleSubmit(onSubmit)}
+      submitLabel='დამატება'
     >
       <form>{renderStepComponent()}</form>
     </NewListingLayout>

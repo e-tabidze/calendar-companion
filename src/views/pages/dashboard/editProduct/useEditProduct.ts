@@ -33,7 +33,7 @@ const useEditProduct = (id: number) => {
   }
 
   const productDefaultValues = {
-    id: id,
+    company_id: 161,
     vin: '',
     plate: '',
     man_id: '',
@@ -60,7 +60,6 @@ const useEditProduct = (id: number) => {
     apply_discount: '',
     identification_number: '',
     is_active: '',
-
     discount: [discount_item],
     company_services: [services],
     any_period: true,
@@ -69,13 +68,15 @@ const useEditProduct = (id: number) => {
       time_interval: 'კვირა',
       time_span: 1
     },
+    preparation_period: '',
+
     start_city: '',
-    end_city: ''
+    start_address: '',
+    end_city: '',
+    end_address: ''
   }
+
   useEffect(() => {
-    if (companyServices) {
-      setValue('company_services', productDetailsData?.product_services)
-    }
     if (productDetailsData) {
       setValue('is_active', productDetailsData?.is_active)
       setValue('identification_number', productDetailsData?.company.identification_number)
@@ -102,8 +103,28 @@ const useEditProduct = (id: number) => {
       setValue('daily_price.amount', productDetailsData?.price)
       setValue('daily_price.currency', productDetailsData?.currency)
       setValue('apply_discount', productDetailsData?.apply_discount)
+      setValue(
+        'company_services',
+        productDetailsData?.product_services?.map((service: any) => ({
+          id: service?.company_service_id,
+          price: service?.price,
+          currency: service?.currency || 'GEL',
+          quantity: service?.quantity,
+          isSelected: true
+        }))
+      )
+      setValue('any_period', productDetailsData?.any_period)
 
-      setValue('apply_discount', productDetailsData?.apply_discount)
+      setValue('min_period.time_span', productDetailsData?.min_time_span)
+      setValue('min_period.time_interval', productDetailsData?.min_time_interval)
+      setValue('any_period', productDetailsData?.any_period)
+      setValue('preparation_period', productDetailsData?.preparation_period)
+
+      setValue('start_city', productDetailsData?.start_city)
+      setValue('start_address', productDetailsData?.start_address)
+
+      setValue('end_city', productDetailsData?.end_city)
+      setValue('end_address', productDetailsData?.end_address)
     }
   }, [companyServices, productDetailsData])
 
@@ -167,7 +188,8 @@ const useEditProduct = (id: number) => {
     appendDiscountItem,
     discount_item,
     removeDiscountItem,
-    editProduct
+    editProduct,
+    productDefaultValues
   }
 }
 
