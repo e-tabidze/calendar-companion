@@ -1,6 +1,7 @@
 import React from 'react'
 import DefaultHeader from 'src/views/components/defaultHeader'
 import HeaderWrapper from "src/views/components/headerWrapper";
+import Footer from "src/views/components/footer";
 
 interface Props {
     children?: any
@@ -8,11 +9,12 @@ interface Props {
 
 const SearchLayout = ({ children}: Props) => {
     return (
-        <main className="pb-20 lg:pb-0">
+        <main>
             <HeaderWrapper fixedHeader fullWidth>
                 <DefaultHeader />
             </HeaderWrapper>
             <div>{children}</div>
+            <Footer/>
         </main>
     )
 }

@@ -9,6 +9,7 @@ import { InnerContainer } from '../views/components/defaultHeader/styles'
 import Image from '../views/components/image'
 import useProfile from 'src/hooks/useProfile'
 import { useEffect } from 'react'
+import Footer from "src/views/components/footer";
 
 interface Props {
   children: any
@@ -102,6 +103,7 @@ const NewListingLayout: React.FC<Props> = ({
           ></DefaultButton>
         </div>
       </div>
+      <Footer/>
     </MaxWidthContainer>
   )
 }
