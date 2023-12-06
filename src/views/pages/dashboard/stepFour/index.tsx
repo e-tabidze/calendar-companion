@@ -12,9 +12,10 @@ import ServiceDetails from './serviceDetails'
 interface Props {
   control: any
   step: number
+  errors: any
 }
 
-const StepFour: React.FC<Props> = ({ control, step }) => {
+const StepFour: React.FC<Props> = ({ control, step, errors }) => {
   const { companyServices, isCompanyServicesLoading } = useProductInfo(step)
   const [newServiceModal, setNewServiceModal] = useState(false)
 
@@ -29,6 +30,7 @@ const StepFour: React.FC<Props> = ({ control, step }) => {
           control={control}
           index={index}
           label='დღიური ფასი'
+          errors={errors}
           description='მითითებული ფასი განსაზღვრავს დამატებითი სერვისისის 1 დღის ქირაობის ფასს, რომლის ცვალებადობაც დამოკიდებული
       იქნება დღეების რაოდენობასზე'
         />
@@ -39,6 +41,7 @@ const StepFour: React.FC<Props> = ({ control, step }) => {
         <ServiceDetails
           control={control}
           index={index}
+          errors={errors}
           label='ერთჯერადი ფასი'
           description='მითითებული ფასი განსაზღვრავს დამატებითი სერვისისის ერთჯერად ფასს ფასს'
         />

@@ -32,7 +32,7 @@ const TakeAway: React.FC<Props> = ({ control, toggleEditModal }) => {
         <div className='w-4/12 flex justify-between'>
           <SelectField
             control={control}
-            valueKey='vaue'
+            valueKey='value'
             labelKey='label'
             name='start_time'
             options={generateTimeOptions()}

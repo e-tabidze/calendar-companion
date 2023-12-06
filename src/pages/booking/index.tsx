@@ -16,10 +16,10 @@ import DateDropdown from 'src/views/components/dateDropdown'
 import { useWatch } from 'react-hook-form'
 import useCompanyInfo from 'src/hooks/useCompanyInfo'
 import useSingleProductDetails from '../../views/pages/details/useSingleProductDetails'
-import CheckboxField from 'src/views/components/checkboxField'
 import TakeAway from 'src/views/pages/booking/takeAway'
 import Delivery from 'src/views/pages/booking/delivery'
 import BookingModal from 'src/views/pages/booking/bookingModal'
+import CheckServices from 'src/views/pages/booking/checkServices'
 
 const Booking = () => {
   const [additionalServices, toggleAdditionalServices] = useState(false)
@@ -74,6 +74,8 @@ const Booking = () => {
   const formsState = useWatch({ control })
 
   console.log(formsState, 'formState')
+
+  console.log(singleProductDetails?.product_services, 'additionalServices')
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -130,8 +132,8 @@ const Booking = () => {
 
               {/* {additionalServices && <AdditionalServices control={control} />} */}
               {additionalServices && (
-                <CheckboxField
-                  name={`additional_services`}
+                <CheckServices
+                  name={`additional_services.service`}
                   control={control}
                   options={singleProductDetails?.product_services}
                   append={() => appendAdditionalService(appendAdditionalService)}
