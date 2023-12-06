@@ -18,12 +18,13 @@ interface Props {
   onClick?: () => void
   singleSlide?: boolean
   thumbs?: boolean
-  pagination?: boolean
+  pagination?: boolean,
+  detailSwiper?: boolean
 }
 
 SwiperCore.use([Navigation, Pagination, Virtual, Mousewheel, Keyboard, Thumbs, FreeMode, Controller])
 
-const Carousel = ({ itemsArray, type, onClick, singleSlide = false, thumbs = false }: Props) => {
+const Carousel = ({ detailSwiper, itemsArray, type, onClick, singleSlide = false, thumbs = false }: Props) => {
   const [thumbsSwiper, setThumbsSwiper] = useState<any>()
   const prevRef = useRef<HTMLImageElement>(null)
   const nextRef = useRef<HTMLImageElement>(null)
@@ -73,7 +74,7 @@ const Carousel = ({ itemsArray, type, onClick, singleSlide = false, thumbs = fal
   // }, [itemsArray])
 
   return (
-    <>
+    <div className="relative">
       <Swiper
         watchSlidesProgress
         ref={swiperRef}
@@ -106,18 +107,19 @@ const Carousel = ({ itemsArray, type, onClick, singleSlide = false, thumbs = fal
         // loop={loop}
         thumbs={{ swiper: thumbsSwiper }}
       >
-        <div className='cursor-pointer shadow-sm absolute top-1/2 -translate-y-1/2 left-[20px] md:left-[8px] w-[46px] h-[46px] md:w-[56px] md:h-[56px] bg-white rounded-[16px] flex items-center justify-center rotate-180 z-50' ref={prevRef}>
-          <Icon svgPath='caret-right' width={20} height={20} className="fill-transparent" />
-        </div>
         {itemsArray?.map((item, index) => (
           <SwiperSlide key={index}>
             <div ref={element => (slideRefs.current[index] = element)}>{item}</div>
           </SwiperSlide>
         ))}
-        <div className='cursor-pointer shadow-sm absolute top-1/2 -translate-y-1/2 right-[20px] md:right-[8px] w-[46px] h-[46px] md:w-[56px] md:h-[56px] bg-white rounded-[16px] flex items-center justify-center z-10' ref={nextRef}>
-          <Icon svgPath='caret-right' width={20} height={20} className="fill-transparent" />
-        </div>
       </Swiper>
+      <div className={`${detailSwiper?'left-[20px]':'lg:left-[-28px]'} cursor-pointer shadow-sm absolute top-1/2 -translate-y-1/2 w-[46px] h-[46px] lg:w-[56px] md:h-[56px] bg-white rounded-[16px] flex items-center justify-center rotate-180 z-50`} ref={prevRef}>
+        <Icon svgPath='caret-right' width={20} height={20} className="fill-transparent" />
+      </div>
+      <div className={`${detailSwiper?'right-[20px]':'lg:right-[-28px]'} cursor-pointer shadow-sm absolute top-1/2 -translate-y-1/2 w-[46px] h-[46px] lg:w-[56px] md:h-[56px] bg-white rounded-[16px] flex items-center justify-center z-10`} ref={nextRef}>
+        <Icon svgPath='caret-right' width={20} height={20} className="fill-transparent" />
+      </div>
+
       {thumbs && (
         <Swiper
           onSwiper={setThumbsSwiper}
@@ -136,7 +138,7 @@ const Carousel = ({ itemsArray, type, onClick, singleSlide = false, thumbs = fal
           ))}
         </Swiper>
       )}
-    </>
+    </div>
   )
 }
 

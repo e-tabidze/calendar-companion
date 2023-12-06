@@ -7,7 +7,7 @@ export const ProductCardSlider = {
     slidesOffsetBefore: 16,
     slidesOffsetAfter: 16
   },
-  480: {
+  560: {
     slidesPerView: 2.3,
     slidesPerGroup: 1,
     spaceBetween: 16,
