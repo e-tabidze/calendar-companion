@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import CompanyService from 'src/services/CompanyService'
+import ProductService from 'src/services/ProductService'
 
 const useProducts = () => {
   const useCompanyProducts: any = useQuery({
@@ -15,7 +16,8 @@ const useProducts = () => {
 
   return {
     companyProducts,
-    isLoading
+    isLoading,
+    deleteProduct
   }
 }
 
@@ -28,6 +30,17 @@ export const getCompanyProducts = async (accessToken = '') => {
     return response.data
   } catch (error) {
     console.error(error)
+    throw error
+  }
+}
+
+const deleteProduct = async (id: number) => {
+  try {
+    const response: any = await ProductService.deleteProduct('', id)
+
+    return response
+  } catch (error) {
+    console.error('Error deleting company:', error)
     throw error
   }
 }

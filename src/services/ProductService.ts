@@ -37,6 +37,10 @@ class ProductService extends HttpService {
   getSimilarProducts(manId: number | string, modelId: number | string) {
     return this.get(`/search-products?manufacturer_id[]=${manId}&model_id[]=${modelId}&order_by=desc`)
   }
+
+  deleteProduct(AccessToken = '', id: number) {
+    return this.delete(`/products/${id}`)
+  }
 }
 
 export default new ProductService()

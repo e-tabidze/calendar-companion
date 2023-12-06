@@ -30,7 +30,8 @@ const CreateCompany = () => {
     addressFields,
     appendAddress,
     createCompany,
-    setValue
+    setValue, 
+    isValid
   } = useCreateCompany()
 
   const queryClient = useQueryClient()
@@ -71,6 +72,7 @@ const CreateCompany = () => {
         onClose={handleClose}
         onSubmit={handleSubmit(onSubmit)}
         submitLabel='დამატება'
+        disabled={isValid}
       >
         {step.step === 1 && <StepOne control={control} errors={errors} clearErrors={clearErrors} />}
         {step.step === 2 && (

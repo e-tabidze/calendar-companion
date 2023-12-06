@@ -128,11 +128,11 @@ const Avatar = () => {
           <div className='overflow-hidden rounded-[16px]'>
             {active ? (
               <>
-                <div className='flex items-center border-b-1 border-raisin-10 p-[16px] text-[12px]'>
-                  <button className='cursor-pointer flex mr-[16px]' onClick={handleSetActive}>
-                    <Image src='/icons/chevron-left.svg' alt='chevron' />
+                <div className='border-b-1 border-raisin-10'>
+                  <button className='cursor-pointer flex items-center w-full text-[12px] p-[16px]' onClick={handleSetActive}>
+                    <Image src='/icons/chevron-left.svg' alt='chevron' className="flex mr-[16px]" />
+                    დაბრუნება
                   </button>
-                  დაბრუნება
                 </div>
                 <ul className='py-3 max-h-[335px] overflow-y-auto'>
                   {userCompanies?.map((company: { information: { name: string | undefined }; id: string }) => (
@@ -200,33 +200,34 @@ const Avatar = () => {
                       <span className='flex text-[14px] text-[#272A37]'>ID: {userInfo?.active_profile_id}</span>
                     </div>
                   </div>
-                  <button className='cursor-pointer shrink-0 flex' onClick={handleSetActive}>
-                    <Image src='/icons/chevron-right.svg' alt='chevron' />
-                  </button>
+                  {/*<button className='cursor-pointer shrink-0 flex' onClick={handleSetActive}>*/}
+                  {/*  <Image src='/icons/chevron-right.svg' alt='chevron' />*/}
+                  {/*</button>*/}
                 </div>
-
-                {activeCompany ? (
-                  <ul className='py-[8px]'>
-                    {companyRoutes?.map(route => (
-                      <li key={route.id}>
-                        <Link href={route.path} className={routeClass}>
-                          {route.item}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                ) : (
-                  <ul className='py-[8px]'>
-                    {profileRoutes?.map(route => (
-                      <li key={route.id}>
-                        <Link href={route.path} className={routeClass}>
-                          {route.item}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                )}
-
+                <div className="py-8px">
+                  <button className="mt-[8px] px-[24px] flex w-full whitespace-nowrap text-[16px] text-[#272A37] py-[8px] hover:bg-grey-100 transition-all" onClick={handleSetActive}>Switch Account</button>
+                  {activeCompany ? (
+                      <ul className="mb-[8px]">
+                        {companyRoutes?.map(route => (
+                            <li key={route.id}>
+                              <Link href={route.path} className={routeClass}>
+                                {route.item}
+                              </Link>
+                            </li>
+                        ))}
+                      </ul>
+                  ) : (
+                      <ul>
+                        {profileRoutes?.map(route => (
+                            <li key={route.id}>
+                              <Link href={route.path} className={routeClass}>
+                                {route.item}
+                              </Link>
+                            </li>
+                        ))}
+                      </ul>
+                  )}
+                </div>
                 <div
                   className='border-t-[1px] border-raisin-10 cursor-pointer py-4 px-8 hover:bg-grey-100 transition-all'
                   onClick={handleLogout}

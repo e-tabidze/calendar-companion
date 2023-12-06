@@ -5,7 +5,7 @@ interface Props {
   icon: string
   label: string
   bg: 'bg-green-10' | 'bg-raisin-10'
-  onClick: () => void
+  onClick?: () => void
 }
 
 const Action: React.FC<Props> = ({ icon, label, bg, onClick }) => {

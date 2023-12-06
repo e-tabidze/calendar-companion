@@ -59,7 +59,7 @@ const useCreateCompany = () => {
   const {
     control,
     handleSubmit,
-    formState: { errors, dirtyFields },
+    formState: { errors, dirtyFields, isValid },
     resetField,
     setError,
     clearErrors,
@@ -140,7 +140,8 @@ const useCreateCompany = () => {
     createCompany,
     getLocationSuggestions,
     uploadCompanyLogo,
-    saveCompanyLogo
+    saveCompanyLogo,
+    isValid
   }
 }
 

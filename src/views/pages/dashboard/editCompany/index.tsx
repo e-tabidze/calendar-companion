@@ -80,7 +80,7 @@ const EditCompany = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <div className='border border-raisin-10 rounded-3xl md:p-8'>
+      <div className='md:border md:border-raisin-10 md:rounded-3xl md:p-8'>
         <div className='flex gap-6 items-center mb-10'>
           <Image
             src='/images/avatar.png'
@@ -105,17 +105,17 @@ const EditCompany = () => {
           </div>
         </div>
         <Divider />
-        <div className='grid grid-cols-3 gap-4 mt-10'>
-          <DefaultInput name='company_information.name' control={control} errors={''} label='დასახელება' />
-          <DefaultInput name='identification_number' control={control} errors={''} label='საიდენტიფიკაციო კოდი' />
-          <DefaultInput name='company_information.name' control={control} errors={''} label='იურიდიული დასახელება' />
+        <div className='md:grid md:grid-cols-3 md:gap-4 mt-10'>
+          <DefaultInput name='company_information.name' control={control} errors={''} label='დასახელება' className="mb-4 md:mb-0" />
+          <DefaultInput name='identification_number' control={control} errors={''} label='საიდენტიფიკაციო კოდი' className="mb-4 md:mb-0" />
+          <DefaultInput name='company_information.name' control={control} errors={''} label='იურიდიული დასახელება' className="mb-4 md:mb-0" />
           <DefaultInput
             name='company_information.description'
             control={control}
             errors={''}
             label='აღწერა'
             rows={4}
-            className='col-span-3'
+            className='col-span-3 mb-4 md:mb-0'
           />
         </div>
         <Typography type='h3' className='font-bold'>

@@ -48,7 +48,8 @@ const EditProduct: React.FC = ({}) => {
     removeDiscountItem,
     editProduct,
     setValue,
-    errors
+    errors, 
+    isValid
   } = useEditProduct(Number(id))
 
   const queryClient = useQueryClient()
@@ -125,6 +126,7 @@ const EditProduct: React.FC = ({}) => {
       onClose={handleClose}
       onSubmit={handleSubmit(onSubmit)}
       submitLabel='დამატება'
+      disabled={isValid}
     >
       <form>{renderStepComponent()}</form>
     </NewListingLayout>

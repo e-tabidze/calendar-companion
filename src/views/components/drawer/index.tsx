@@ -10,7 +10,7 @@ const DrawerBottom = ({ children, isOpen, title, setIsOpen, onBack, showBack }: 
     >
       <section
         className={
-          'rounded-t-3xl w-screen h-max max-h-4/5 overflow-auto bottom-0 absolute rounded-t-large bg-white  shadow-xl delay-200 duration-300 ease-in-out transition-all transform  ' +
+          'rounded-t-3xl w-screen h-max max-h-4/5 overflow-auto bottom-[75px] absolute rounded-t-large bg-white  shadow-xl delay-200 duration-300 ease-in-out transition-all transform  ' +
           (isOpen ? ' translate-y-0 ' : ' translate-y-full ')
         }
       >

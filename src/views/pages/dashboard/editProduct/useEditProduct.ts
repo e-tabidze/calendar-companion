@@ -131,7 +131,7 @@ const useEditProduct = (id: number) => {
   const {
     control,
     handleSubmit,
-    formState: { errors, dirtyFields },
+    formState: { errors, dirtyFields, isValid },
     resetField,
     setError,
     clearErrors,
@@ -189,7 +189,8 @@ const useEditProduct = (id: number) => {
     discount_item,
     removeDiscountItem,
     editProduct,
-    productDefaultValues
+    productDefaultValues,
+    isValid
   }
 }
 

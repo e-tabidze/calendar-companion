@@ -117,9 +117,22 @@
   width: 0px;
   background: transparent; /* make scrollbar transparent */
 }
+/*.swiper {*/
+/*  overflow: visible !important;*/
+/*}*/
+/*.swiper-slide {*/
+/*  opacity: 0.2;*/
+/*}*/
+/*.swiper-slide-visible {*/
+/*  opacity: 1;*/
+/*}*/
 
 .swiper-slide-active {
   position: relative !important;
+}
+.swiper-button-disabled {
+  opacity: 0;
+  transition: 0.3s all;
 }
 
 /* .swiper-pagination-custom { */

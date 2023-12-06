@@ -112,8 +112,8 @@ const AdditionalFilters: React.FC<Props> = ({
           <div className='fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity' />
         </Transition.Child>
 
-        <div className='fixed inset-0 z-10 h-screen overflow-y-auto'>
-          <div className='absolute left-1/2 -translate-x-1/2 w-full max-w-[790px] flex min-h-full items-end justify-center p-4 text-center md:items-center md:p-0'>
+        <div className='fixed inset-0 z-10 md:h-screen overflow-y-auto'>
+          <div className='absolute left-1/2 -translate-x-1/2 w-full max-w-[790px] flex min-h-full items-end justify-center text-center md:items-center md:p-0'>
             <Transition.Child
               as={Fragment}
               enter='ease-out duration-300'
@@ -123,7 +123,7 @@ const AdditionalFilters: React.FC<Props> = ({
               leaveFrom='opacity-100 translate-y-0 md:scale-100'
               leaveTo='opacity-0 translate-y-4 md:translate-y-0 md:scale-95'
             >
-              <Dialog.Panel className='relative transform overflow-hidden rounded-3xl bg-white text-left shadow-xl transition-all w-full md:my-4 md:max-w-3xl'>
+              <Dialog.Panel className='relative transform overflow-hidden rounded-tl-3xl rounded-tr-3xl md:rounded-bl-3xl md:rounded-br-3xl bg-white text-left shadow-xl transition-all w-full md:my-4 md:max-w-3xl'>
                 <div className='w-full flex justify-between items-center px-4 py-5 sm:py-6 sm:px-10 border-b-1 border-grey-90'>
                   <Dialog.Title as='h3' className='text-2md text-base-100 leading-6'>
                     დამატებითი ფილტრები
@@ -331,7 +331,7 @@ const AdditionalFilters: React.FC<Props> = ({
                   <Typography type='h5' weight='normal' className='mt-4 md:mt-8'>
                     დამატებითი პარამეტრები
                   </Typography>
-                  <Typography type='body' color='light'>
+                  <Typography type='body' color='light' className="mt-2 mb-8">
                     შეგიძლია მონიშნო ერთი ან რამდენიმე პარამეტრი
                   </Typography>
                   <CheckboxField
@@ -342,7 +342,7 @@ const AdditionalFilters: React.FC<Props> = ({
                     className='my-2'
                   />
                 </div>
-                <div className='w-full flex flex-col md:flex-row md:items-center justify-between py-4 px-4 md:px-10 border-t-1 border-grey-90'>
+                <div className='w-full flex flex-row items-center justify-between py-4 px-4 md:px-10 border-t-1 border-grey-90'>
                   <IconTextButton label='გასუფთავება' icon='/icons/return.svg' onClick={() => reset()} />
                   <div className='flex items-center justify-between md:justify-start [text-16px] gap-4'>
                     {/* სულ 136 შედეგი */}

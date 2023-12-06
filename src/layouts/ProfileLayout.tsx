@@ -49,7 +49,7 @@ const ProfileLayout: React.FC<Props> = ({ routes, dividerIndexes, children }) =>
           selectedRoute={selectedRoute}
           dividerIndexes={dividerIndexes}
         />
-        <div className="transition-all duration-300 w-full z-[11]">{children}</div>
+        <div className="transition-all duration-300 w-full z-[11] p-4 md:p-0">{children}</div>
       </div>
     </main>
   )

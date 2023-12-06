@@ -39,8 +39,6 @@ const Products = () => {
   const { width } = useWindowDimensions()
   const { companyProducts, isLoading } = useProducts()
 
-  console.log(companyProducts, 'companyProducts')
-
   return (
     <div>
       <div className='border border-raisin-10 rounded-2xl md:px-8'>
@@ -48,7 +46,7 @@ const Products = () => {
           <Typography type='h3' className='text-md md:text-2lg'>
             ავტომობილები
           </Typography>
-          <div className='flex md:hidden'>
+          <div className='flex md:hidden gap-[32px]'>
             <IconTextButton label={width > 779 ? 'ფილტრი' : ''} icon={'/icons/filters.svg'} />
             <IconTextButton label={width > 779 ? 'სორტირება' : ''} icon={'/icons/sort.svg'} />
           </div>

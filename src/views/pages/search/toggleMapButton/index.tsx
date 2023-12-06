@@ -1,5 +1,5 @@
-import Icon from 'src/views/app/Icon'
 import { ToggleMapBtn } from './styles'
+import Icon from "src/views/app/Icon";
 
 interface Props {
   onClick: () => void
@@ -16,7 +16,7 @@ const ToggleMapButton: React.FC<Props> = ({ onClick, mapVisible }) => {
       }`}
     >
       <span className={`${mapVisible ? '' : 'rotate-180'}`}>
-        <Icon svgPath='chevronRight' width={8} height={14} />
+         <Icon svgPath='chevron-right' width={20} height={20} className="fill-transparent" />
       </span>
     </ToggleMapBtn>
   )
