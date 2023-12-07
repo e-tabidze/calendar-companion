@@ -45,12 +45,12 @@ const OrderListComponent: React.FC<Props> = ({
         <div className='flex gap-4 2xl:gap-6 min-w-max'>
           <Image src='/images/car.png' alt='orders' height={48} width={64} className='rounded-lg object-cover' />
           <div className='min-w-max'>
-            <Typography type='subtitle' className='w-10'>
+            <Typography type='subtitle'>
               {productDetails?.manufacturer.title} {productDetails?.manufacturer_model?.title}
               {productDetails?.prod_year}
             </Typography>
-            <Typography type='body' className='w-10'>{startAddress}</Typography>
-            <Typography type='body' color='light' className='w-10'>
+            <Typography type='body'>{startAddress}</Typography>
+            <Typography type='body' color='light'>
               {startDate} {startTime} - {endDate} {endTime}
             </Typography>
           </div>
