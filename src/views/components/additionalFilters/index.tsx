@@ -134,7 +134,7 @@ const AdditionalFilters: React.FC<Props> = ({
                   <Typography type='body' color='dark' className='md:max-w-[30%]'>
                     ავტომობილები დღიური ფასის მიხედვით
                   </Typography>
-                  <div className='w-full flex flex-col md:flex-row md:items-center mb-10 md:mb-20 mt-8'>
+                  <div className='w-full flex flex-col md:flex-row md:items-center mb-10 md:mb-16 mt-8'>
                     <DefaultInput
                       name='price_min'
                       control={control}
@@ -155,7 +155,7 @@ const AdditionalFilters: React.FC<Props> = ({
                     />
                   </div>
                   <div className='my-8'>
-                    <Typography type='h5' weight='normal'>
+                    <Typography type='h5' weight='normal' className='text-md md:text-3md'>
                       ავტომობილის კატეგორია
                     </Typography>
                     <Typography type='body' color='light'>
@@ -186,57 +186,59 @@ const AdditionalFilters: React.FC<Props> = ({
                       )}
                     </>
                   </div>
-                  <div className='my-6 md:my-12'>
-                    <Typography type='h5' weight='normal'>
+                  <div className='my-10 md:my-16'>
+                    <Typography type='h5' weight='normal' className='text-md md:text-3md'>
                       ავტომობილის პარამეტრები
                     </Typography>
-                    <SelectField
-                      name='manufacturer_id'
-                      isMulti
-                      control={control}
-                      options={manufacturerFilters}
-                      placeholder='მწარმოებელი'
-                      className='my-2'
-                      valueKey='id'
-                      labelKey='title'
-                    />
-                    <SelectField
-                      name='model_id'
-                      isMulti
-                      control={control}
-                      options={manufacturerModelFilters?.result?.data}
-                      placeholder='მოდელი'
-                      disabled={formState.manufacturer_id?.length === 0}
-                      className='my-2'
-                      valueKey='id'
-                      labelKey='title'
-                    />
-                    <div className='flex gap-4 items-center'>
+                    <div className="flex flex-col md:flex-row md:gap-6">
                       <SelectField
-                        name='year_from'
-                        control={control}
-                        options={generateYearsArray()}
-                        placeholder='წლიდან'
-                        disabled={false}
-                        className='my-2'
-                        valueKey='value'
-                        labelKey='label'
+                          name='manufacturer_id'
+                          isMulti
+                          control={control}
+                          options={manufacturerFilters}
+                          placeholder='მწარმოებელი'
+                          className='md:w-4/12 my-2'
+                          valueKey='id'
+                          labelKey='title'
                       />
-                      -
                       <SelectField
-                        name='year_to'
-                        control={control}
-                        options={generateYearsArray()}
-                        placeholder='წლამდე'
-                        disabled={false}
-                        className='my-2'
-                        valueKey='value'
-                        labelKey='label'
+                          name='model_id'
+                          isMulti
+                          control={control}
+                          options={manufacturerModelFilters?.result?.data}
+                          placeholder='მოდელი'
+                          disabled={formState.manufacturer_id?.length === 0}
+                          className='md:w-4/12 my-2'
+                          valueKey='id'
+                          labelKey='title'
                       />
+                      <div className='md:w-4/12 flex gap-1 items-center'>
+                        <SelectField
+                            name='year_from'
+                            control={control}
+                            options={generateYearsArray()}
+                            placeholder='წლიდან'
+                            disabled={false}
+                            className='w-full my-2'
+                            valueKey='value'
+                            labelKey='label'
+                        />
+                        -
+                        <SelectField
+                            name='year_to'
+                            control={control}
+                            options={generateYearsArray()}
+                            placeholder='წლამდე'
+                            disabled={false}
+                            className='w-full my-2'
+                            valueKey='value'
+                            labelKey='label'
+                        />
+                      </div>
                     </div>
                   </div>
 
-                  <Typography type='h5' weight='normal'>
+                  <Typography type='h5' weight='normal' className='text-md md:text-3md'>
                     საწვავის ტიპი
                   </Typography>
                   <div className='flex flex-wrap gap-3 my-6'>
@@ -249,31 +251,33 @@ const AdditionalFilters: React.FC<Props> = ({
                       outlined
                     />
                   </div>
-
-                  <Typography type='h5' weight='normal'>
-                    ადგილების რაოდენობა
-                  </Typography>
-                  <div className='flex flex-wrap gap-2 my-3 md:gap-4 md:my-6'>
-                    <Tag
-                      options={seatTypesFilter}
-                      name='seat_types'
-                      control={control}
-                      height='h-10'
-                      append={appendSeatType}
-                    />
+                  <div className="my-10 md:my-16">
+                    <Typography type='h5' weight='normal' className='text-md md:text-3md'>
+                      ადგილების რაოდენობა
+                    </Typography>
+                    <div className='flex flex-wrap gap-2 my-3 md:gap-4 md:my-6'>
+                      <Tag
+                          options={seatTypesFilter}
+                          name='seat_types'
+                          control={control}
+                          height='h-10'
+                          append={appendSeatType}
+                      />
+                    </div>
                   </div>
-
-                  <Typography type='h5' weight='normal'>
-                    ჩემოდნების რაოდენობა
-                  </Typography>
-                  <div className='flex flex-wrap gap-2 my-3 md:gap-4 md:my-6'>
-                    <Tag
-                      options={luggageNumbers}
-                      height='h-10'
-                      name='luggage_numbers'
-                      control={control}
-                      append={appendLuggageNumber}
-                    />
+                  <div className="my-10 md:my-16">
+                    <Typography type='h5' weight='normal' className='text-md md:text-3md'>
+                      ჩემოდნების რაოდენობა
+                    </Typography>
+                    <div className='flex flex-wrap gap-2 my-3 md:gap-4 md:my-6'>
+                      <Tag
+                        options={luggageNumbers}
+                        height='h-10'
+                        name='luggage_numbers'
+                        control={control}
+                        append={appendLuggageNumber}
+                      />
+                    </div>
                   </div>
                   <Divider />
                   <SwitchField label='უფასო მიწოდება' name='free_delivery' control={control} className='my-4 md:my-8' />

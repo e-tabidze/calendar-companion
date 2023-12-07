@@ -43,60 +43,62 @@ const SimilarProducts = dynamic(() => import('src/views/pages/details/similarPro
 const Features = dynamic(() => import('src/views/pages/details/features'), { ssr: true })
 
 const productImages = [
-  <Image
-    src='/images/car.png'
-    className='w-full px-1 object-cover rounded-2xl h-52 lg:h-[500px]'
-    alt='productdetails'
-    key={1}
-  />,
-  <Image
-    src='/images/car.png'
-    className='w-full px-1 object-cover rounded-2xl h-52 lg:h-[500px]'
-    alt='productdetails'
-    key={2}
-  />,
-  <Image
-    src='/images/car.png'
-    className='w-full px-1 object-cover rounded-2xl h-52 lg:h-[500px]'
-    alt='productdetails'
-    key={3}
-  />,
-  <Image
-    src='/images/car.png'
-    className='w-full px-1 object-cover rounded-2xl h-52 lg:h-[500px]'
-    alt='productdetails'
-    key={4}
-  />,
-  <Image
-    src='/images/car.png'
-    className='w-full px-1 object-cover rounded-2xl h-52 lg:h-[500px]'
-    alt='productdetails'
-    key={5}
-  />,
-  <Image
-    src='/images/car.png'
-    className='w-full px-1 object-cover rounded-2xl h-52 lg:h-[500px]'
-    alt='productdetails'
-    key={6}
-  />,
-  <Image
-    src='/images/car.png'
-    className='w-full px-1 object-cover rounded-2xl h-52 lg:h-[500px]'
-    alt='productdetails'
-    key={7}
-  />,
-  <Image
-    src='/images/car.png'
-    className='w-full px-1 object-cover rounded-2xl h-52 lg:h-[500px]'
-    alt='productdetails'
-    key={8}
-  />,
-  <Image
-    src='/images/car.png'
-    className='w-full px-1 object-cover rounded-2xl h-52 lg:h-[500px]'
-    alt='productdetails'
-    key={9}
-  />
+  <div className="relative aspect-w-16 aspect-h-9 rounded-2xl overflow-hidden"  key={1}>
+    <Image
+        src='/images/car.png'
+        className='object-cover '
+        alt='productdetails'
+    />
+  </div>,
+  <div className="relative aspect-w-16 aspect-h-9 rounded-2xl overflow-hidden"  key={2}>
+    <Image
+        src='/images/car.png'
+        className='object-cover '
+        alt='productdetails'
+    />
+  </div>,
+  <div className="relative aspect-w-16 aspect-h-9 rounded-2xl overflow-hidden"  key={3}>
+    <Image
+        src='/images/car.png'
+        className='object-cover '
+        alt='productdetails'
+    />
+  </div>,
+  <div className="relative aspect-w-16 aspect-h-9 rounded-2xl overflow-hidden"  key={4}>
+    <Image
+        src='/images/car.png'
+        className='object-cover '
+        alt='productdetails'
+    />
+  </div>,
+  <div className="relative aspect-w-16 aspect-h-9 rounded-2xl overflow-hidden"  key={5}>
+    <Image
+        src='/images/car.png'
+        className='object-cover '
+        alt='productdetails'
+    />
+  </div>,
+  <div className="relative aspect-w-16 aspect-h-9 rounded-2xl overflow-hidden"  key={6}>
+    <Image
+        src='/images/car.png'
+        className='object-cover '
+        alt='productdetails'
+    />
+  </div>,
+  <div className="relative aspect-w-16 aspect-h-9 rounded-2xl overflow-hidden"  key={7}>
+    <Image
+        src='/images/car.png'
+        className='object-cover '
+        alt='productdetails'
+    />
+  </div>,
+  <div className="relative aspect-w-16 aspect-h-9 rounded-2xl overflow-hidden"  key={8}>
+    <Image
+        src='/images/car.png'
+        className='object-cover '
+        alt='productdetails'
+    />
+  </div>
 ]
 
 const ProductDetails = () => {
@@ -221,7 +223,7 @@ const ProductDetails = () => {
           />
         </MaxWidthContainer>
         <MaxWidthContainer className={`${isSticky ? 'sticky top-20' : ''} bg-white z-[30]`} ref={ref} id='head'>
-          <ContentContainer className='overflow-x-auto bg-white z-30'>
+          <ContentContainer className='overflow-x-auto no-scrollbar bg-white z-30'>
             <div className='flex gap-8 my-6 w-max'>
               <SubNavItem section='details' activeSection={section} handleClick={handleClick}>
                 დეტალური ინფორმაცია
@@ -246,12 +248,12 @@ const ProductDetails = () => {
           </ContentContainer>
           <Divider />
         </MaxWidthContainer>
-        <MaxWidthContainer className={`${isSticky ? 'mt-20' : ''} z-40`}></MaxWidthContainer>
+        <MaxWidthContainer className={`${isSticky ? 'md:mt-20' : ''} z-40`}></MaxWidthContainer>
         <ContentContainer>
           <div className='flex gap-11 mt-8'>
             <div className='w-full md:w-7/12 lg:w-8/12'>
               <div id='details'>
-                <Typography type='h3' className='font-bold'>
+                <Typography type='h3' className='text-3md md:text-2lg font-bold'>
                   {singleProductDetails?.manufacturer?.title} {singleProductDetails?.manufacturer_model?.title}
                   {singleProductDetails?.prod_year}
                 </Typography>
@@ -274,13 +276,13 @@ const ProductDetails = () => {
 
               <Divider />
               <div className='my-8' id='pricing'>
-                <Typography type='h3'>ღირებულება</Typography>
+                <Typography type='h3' className="text-3md md:text-2lg">ღირებულება</Typography>
 
                 <div className='mt-8 mb-11 grid grid-cols-1 gap-4'>
                   {singleProductDetails?.product_services?.map((feature: any) => (
                     <ProductFeature
                       feature={feature?.title}
-                      icon='printer'
+                      icon='briefcase'
                       key={feature.id}
                       description={feature.description}
                       price={
@@ -296,7 +298,7 @@ const ProductDetails = () => {
               </div>
               <Divider />
               <div className='my-8'>
-                <Typography type='h3'>პერიოდი</Typography>
+                <Typography type='h3' className="text-3md md:text-2lg">პერიოდი</Typography>
                 <div className='flex justify-between mb-16 mt-2'>
                   <div className='flex gap-4'>
                     <Typography type='subtitle' className='text-green-100'>
@@ -364,7 +366,7 @@ const ProductDetails = () => {
               <Divider />
 
               {/* <div className='mt-11 mb-16 md:mb-28 overflow-auto' id='insurance'>
-                <Typography type='h3'>დაზღვევა</Typography>
+                <Typography type='h3' className="text-3md md:text-2lg">დაზღვევა</Typography>
                 <div className='flex gap-6 mt-10 w-[160%] md:w-full'>
                   <div className='w-8/12 md:w-full'>
                     <InsuranceCard selected />
@@ -377,8 +379,8 @@ const ProductDetails = () => {
 
               <Divider /> */}
 
-              <div className='mt-20 md:mt-40'>
-                <Typography type='h3'>ადგილმდებარეობა</Typography>
+              <div className='mt-8'>
+                <Typography type='h3' className="text-3md md:text-2lg">ადგილმდებარეობა</Typography>
                 <div className='flex gap-4 items-center mt-10 mb-6'>
                   <Image src='/icons/locationOutline.svg' alt='' />
                   <Typography type='h5' weight='normal'>
@@ -387,7 +389,7 @@ const ProductDetails = () => {
                 </div>
                 <MapPicker height='300px' borderRadius='30px' />
               </div>
-              <Divider />
+              {/*<Divider />*/}
               {/*<Reviews id='reviews' />*/}
             </div>
             <div className='hidden md:inline-block w-5/12 lg:w-4/12' ref={ref}>
@@ -405,7 +407,7 @@ const ProductDetails = () => {
             </div>
           </div>
           <div id='priceCard'></div>
-          <Typography type='h3' className='block my-6 lg:hidden'>
+          <Typography type='h3' className='text-3md md:text-2lg block my-6 lg:hidden'>
             ფასი მოიცავს
           </Typography>
           {/*<LessorInformationCard*/}
@@ -414,7 +416,7 @@ const ProductDetails = () => {
           {/*  description={singleProductDetails?.company_user?.company?.information?.description}*/}
           {/*  count={singleProductDetails?.company_user?.company?.count_company_poduct}*/}
           {/*/>*/}
-          <Divider className='my-20' />
+          <Divider className='my-10 md:my-20' />
           <SimilarProducts data={similarProducts}/>
         </ContentContainer>
         {isOpenDrawer && width < 779 ? (

@@ -13,7 +13,7 @@ const Tnet = () => {
     return (
         <div className="mx-auto">
             <div
-                className="flex flex-col xl:flex-row items-center px-8 py-6 xl:p-0 border border-[#E9EAEB] rounded-3xl xl:rounded-16 bg-[#F4F4F5] xl:bg-[#ffffff]">
+                className="flex flex-col xl:flex-row items-center px-8 py-6 xl:p-0 border border-[#E9EAEB] rounded-[64px] xl:rounded-16 bg-[#F4F4F5] xl:bg-[#ffffff]">
                 <div className="hidden xl:flex bg-[#3c74ff] rounded-[64px] py-5 px-6 mr-8">
                     <Image src='/icons/tnet/tineti-white.svg' alt='img' width={80} height={22}/>
                 </div>

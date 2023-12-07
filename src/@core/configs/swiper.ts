@@ -32,29 +32,46 @@ export const ProductCardSlider = {
 
 export const CategoryCardSlider = {
   320: {
-    slidesPerView: 2,
+    slidesPerView: 2.5,
     slidesPerGroup: 1,
-    spaceBetween: 8
+    spaceBetween: 8,
+    slidesOffsetBefore: 16,
+    slidesOffsetAfter: 16
   },
   480: {
     slidesPerView: 3,
     slidesPerGroup: 1,
-    spaceBetween: 8
+    spaceBetween: 8,
+    slidesOffsetBefore: 16,
+    slidesOffsetAfter: 16
   },
   640: {
     slidesPerView: 4,
     slidesPerGroup: 1,
-    spaceBetween: 8
+    spaceBetween: 8,
+    slidesOffsetBefore: 16,
+    slidesOffsetAfter: 16
+  },
+  768: {
+    slidesPerView: 4,
+    slidesPerGroup: 1,
+    spaceBetween: 8,
+    slidesOffsetBefore: 0,
+    slidesOffsetAfter: 0
   },
   1024: {
     slidesPerView: 5,
     slidesPerGroup: 1,
-    spaceBetween: 8
+    spaceBetween: 8,
+    slidesOffsetBefore: 0,
+    slidesOffsetAfter: 0
   },
   1280: {
     slidesPerView: 6,
     slidesPerGroup: 1,
-    spaceBetween: 8
+    spaceBetween: 8,
+    slidesOffsetBefore: 0,
+    slidesOffsetAfter: 0
   }
 }
 

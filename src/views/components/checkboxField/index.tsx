@@ -9,6 +9,7 @@ interface Option {
 }
 
 interface Props {
+  classList?: string
   className?: string
   name?: string
   control?: any
@@ -22,6 +23,7 @@ interface Props {
 }
 
 const CheckboxField: React.FC<Props> = ({
+  classList,
   className,
   name,
   control,
@@ -46,7 +48,7 @@ const CheckboxField: React.FC<Props> = ({
               <>
                 {options?.map(option => (
                   <div
-                    className='flex items-center gap-4 cursor-pointer mb-4'
+                    className={`flex items-center gap-4 cursor-pointer mb-4 ${classList}`}
                     key={option.id}
                     onClick={() => {
                       if (append) {
