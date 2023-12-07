@@ -90,6 +90,7 @@ const ProfileRouter = ({ userInfo }: { userInfo: UserInfo }) => {
         id={Number(companyid)}
         name={companyInfo?.information?.name}
         productsCount={companyInfo?.count_company_poduct}
+        logo={companyInfo?.information?.logo}
       />
     ) : (
       <></>

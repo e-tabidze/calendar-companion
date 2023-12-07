@@ -7,6 +7,8 @@ const useCompanyInfo = (id: any) => {
     enabled: !!id
   })
 
+
+
   const useCompanyBranches: any = useQuery({
     queryKey: ['singleCompanyBranches'],
     queryFn: () => getSingleCompanyBranches(id),
@@ -16,6 +18,8 @@ const useCompanyInfo = (id: any) => {
 
   const companyInfo = data?.result?.data
   const singleCompanyBranches = useCompanyBranches?.data?.result?.data
+
+  console.log(companyInfo, 'companyInfo')
 
   return {
     companyInfo,

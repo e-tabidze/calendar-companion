@@ -11,29 +11,24 @@ class HttpService {
     let dataMerged = {
       ...data
     }
-    if (endpoint.includes('http')) {
-      apiUrl = endpoint;
-    }
-    
+
     if (typeof FormData !== 'undefined' && data instanceof FormData) {
       dataMerged = data
     }
-   if(data?.File || data?.Func){
-    const formData = new FormData();
-    Object.entries(dataMerged).forEach(([key, value]) => {
+    if (data?.File || data?.Func) {
+      const formData = new FormData()
+      Object.entries(dataMerged).forEach(([key, value]) => {
+        // @ts-ignore
+        formData.append(key, value)
+      })
+      dataMerged = formData
+    }
 
-      // @ts-ignore
-      formData.append(key, value);
-    });
-    dataMerged = formData;
-  }
-  
     return new Promise(async (resolve, reject) => {
       try {
         const response = await this.request(headers, serverReq, responseType).post(endpoint, dataMerged)
         resolve(response)
       } catch (e: any) {
-
         // let error = 'INTERNAL_SERVER_ERROR'
         // if (e.response && e.response.data) {
         //   error = e.response.data.message
@@ -54,7 +49,6 @@ class HttpService {
         const response = await this.request(headers, serverReq).put(endpoint, dataMerged)
         resolve(response)
       } catch (e: any) {
-
         // let error = 'INTERNAL_SERVER_ERROR'
         // if (e.response) {
         //   error = e.response.data.message
@@ -77,7 +71,6 @@ class HttpService {
         )
         resolve(response)
       } catch (e: any) {
-
         // let error = 'INTERNAL_SERVER_ERROR'
         // if (e.response) {
         //   error = e.response.data.message
@@ -138,25 +131,23 @@ class HttpService {
   }
 
   static getTokenTime() {
-
     return Cookie.get(TOKEN_EXPIRE_TIME_NAME)
   }
 
   getToken(req = null) {
-    
     return Cookie.get(ACCESS_TOKEN_NAME, req)
   }
 
-  request(headers = {}, serverReq = null, responseType:any = 'json') {
+  request(headers = {}, serverReq = null, responseType: any = 'json') {
     if (!headers || (headers && !headers.hasOwnProperty('Authorization'))) {
       headers = {
         ...headers,
-        Authorization: `${this.getToken(serverReq)}`,
+        Authorization: `${this.getToken(serverReq)}`
       }
     }
 
     return axios.create({
-      baseURL:  apiUrl,
+      baseURL: apiUrl,
       responseType: responseType,
       headers
     })

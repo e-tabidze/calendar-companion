@@ -5,7 +5,7 @@ module.exports = {
   reactStrictMode: false,
 
   images: {
-    domains: ['static.my.ge'],
+    domains: ['static.my.ge', 'test.static.my.ge'],
   },
 
   webpack: config => {

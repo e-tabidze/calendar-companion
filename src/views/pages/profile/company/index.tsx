@@ -15,9 +15,10 @@ interface Props {
   id: number
   name: string
   productsCount: number
+  logo: string
 }
 
-const Company: React.FC<Props> = ({ id, name, productsCount }) => {
+const Company: React.FC<Props> = ({ id, name, productsCount, logo }) => {
   const [deleteAddresseModal, setDeleteAddressModal] = useState(false)
   const [deleteCompanyeModal, setDeleteCompanyModal] = useState(false)
   const [deleteAddressId, setDeleteAddressId] = useState<number | null>(null)
@@ -80,7 +81,7 @@ const Company: React.FC<Props> = ({ id, name, productsCount }) => {
         <div className='p-2 md:p-6'>
           <div className='flex items-center gap-6 md:mb-10'>
             <div className='flex items-center justify-center border border-raisin-10 rounded-[16px] md:rounded-[24px] w-[76px] h-[76px] md:w-[96px] md:h-[96px]'>
-              <Image src='/images/avatar.png' alt='' height={96} width={97} className='rounded-3xl' />
+              <Image src={logo} alt='' height={96} width={97} className='rounded-3xl' />
             </div>
             <div>
               <Typography type='h3' className='font-bold text-[20px] md:text-[24px]'>

@@ -30,8 +30,9 @@ const CreateCompany = () => {
     addressFields,
     appendAddress,
     createCompany,
-    setValue, 
-    isValid
+    setValue,
+    isValid,
+    saveCompanyLogo
   } = useCreateCompany()
 
   const queryClient = useQueryClient()
@@ -50,12 +51,22 @@ const CreateCompany = () => {
   }
 
   const createCompanyMutation = useMutation(() => createCompany('', companyValues), {
-    onSuccess: () => {
+    onSuccess: data => {
       queryClient.invalidateQueries(['profileInfo'])
+      console.log(data, 'create company mutation response data')
+
+      if (data) {
+        saveCompanyLogoMutation.mutate({
+          logo: data?.result?.data?.information?.logo,
+          companyId: data?.result?.data?.id
+        })
+      }
     }
   })
 
-  console.log(companyValues, 'companyValues')
+  const saveCompanyLogoMutation = useMutation((variables: any) =>
+    saveCompanyLogo('', variables.logo, variables.companyId)
+  )
 
   const onSubmit = () => {
     createCompanyMutation.mutate(companyValues)
@@ -72,9 +83,9 @@ const CreateCompany = () => {
         onClose={handleClose}
         onSubmit={handleSubmit(onSubmit)}
         submitLabel='დამატება'
-        disabled={isValid}
+        disabled={false}
       >
-        {step.step === 1 && <StepOne control={control} errors={errors} clearErrors={clearErrors} />}
+        {step.step === 1 && <StepOne control={control} errors={errors} clearErrors={clearErrors} setValue={setValue} />}
         {step.step === 2 && (
           <StepTwo
             control={control}
