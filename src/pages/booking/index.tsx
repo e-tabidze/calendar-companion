@@ -107,12 +107,12 @@ const Booking = () => {
               <DefaultInput control={control} name='phone' errors={errors} label='მობილურის ნომერი' />
               <DefaultInput control={control} name='email' errors={errors} label='ელ.ფოსტა' />
 
-              {/* <DateDropdown label={'აირჩიე დაბადების თარიღი'} name='dob' control={control} />
+              <DateDropdown label={'აირჩიე დაბადების თარიღი'} name='dob' control={control} />
               <DateDropdown
                 label={'მართვის მოწმობის მოქმედების ვადა'}
                 name='driver_license_expiration'
                 control={control}
-              /> */}
+              />
             </div>
             <Typography type='body' color='light' className='mb-14'>
               გთხოვთ გადაამოწმოთ მითითებული პარამეტრები და შემდეგ დაასრულოთ დაჯავშნის პროცესი, ეს პარამეტრები

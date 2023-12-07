@@ -24,8 +24,8 @@ export type Order = {
     book_from: any
     book_to: any
   }
-  dob: string
-  driver_license_expiration: string
+  dob: string | Date
+  driver_license_expiration: string | Date
   additional_services: OrderService[]
   supply: string
   start_time: string

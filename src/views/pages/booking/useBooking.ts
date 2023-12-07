@@ -36,11 +36,11 @@ const useBooking = (id: number | string | string[]) => {
     phone: '',
     identification_number: '',
     booking: {
-      book_from: book_from,
-      book_to: book_to
+      book_from: '',
+      book_to: ''
     },
-    dob: '',
-    driver_license_expiration: '',
+    dob: new Date(),
+    driver_license_expiration: new Date(),
     additional_services: additionalService,
     supply: '0',
     start_time: '',
@@ -48,8 +48,6 @@ const useBooking = (id: number | string | string[]) => {
     start_address: singleProductDetails?.start_address || '',
     end_address: singleProductDetails?.end_address || ''
   }
-
-  console.log(singleProductDetails, 'singleCompanyBranches in booking')
 
   const {
     control,
@@ -76,19 +74,19 @@ const useBooking = (id: number | string | string[]) => {
       )
       setValue('email', userInfo?.UserID === userInfo?.active_profile_id ? userInfo?.Email : '')
       setValue('phone', userInfo?.UserID === userInfo?.active_profile_id ? userInfo?.phone : '')
-      setValue('dob', userInfo?.UserID === userInfo?.active_profile_id ? userInfo?.information?.birth_date : null)
+      setValue('dob', userInfo?.UserID === userInfo?.active_profile_id ? userInfo?.information?.birth_date : new Date())
       setValue(
         'driver_license_expiration',
-        userInfo?.UserID === userInfo?.active_profile_id ? userInfo?.information?.driver_license_expiration : null
+        userInfo?.UserID === userInfo?.active_profile_id ? userInfo?.information?.driver_license_expiration : new Date()
       )
+
       setValue('start_address', singleProductDetails ? singleProductDetails?.start_address : '')
       setValue('end_address', singleProductDetails ? singleProductDetails?.end_address : '')
       setValue('additional_services', singleProductDetails ? additionalService : [])
 
-      setValue('booking.book_from', book_from ? book_from : null)
-      setValue('booking.book_to', book_to ? book_to : null)
+      setValue('booking.book_from', book_from ? book_from : '')
+      setValue('booking.book_to', book_to ? book_to : '')
       setValue('product_id', id ? String(id) : null)
-
     }
   }, [userInfo, setValue, singleProductDetails, book_from, book_to, id])
 

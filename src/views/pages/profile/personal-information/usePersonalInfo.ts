@@ -44,7 +44,7 @@ const usePersonalInfo = (userData: UserInfo) => {
     clearErrors
   } = useForm({
     defaultValues,
-    mode: 'onSubmit',
+    mode: 'onChange',
     resolver: yupResolver(UserInfoSchema)
   })
 
