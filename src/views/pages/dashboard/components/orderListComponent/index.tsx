@@ -17,6 +17,7 @@ interface Props {
   productDetails: any
   price: number
   discount: number
+  status: number
 }
 
 const OrderListComponent: React.FC<Props> = ({
@@ -31,7 +32,8 @@ const OrderListComponent: React.FC<Props> = ({
   days,
   productDetails,
   discount,
-  price
+  price,
+  status
 }) => {
   const { width } = useWindowDimensions()
 
@@ -43,13 +45,12 @@ const OrderListComponent: React.FC<Props> = ({
         <div className='flex gap-4 2xl:gap-6 min-w-max'>
           <Image src='/images/car.png' alt='orders' height={48} width={64} className='rounded-lg object-cover' />
           <div className='min-w-max'>
-            <Typography type='subtitle'>
-              {' '}
-              {productDetails?.manufacturer.title} {productDetails?.manufacturer_model?.title}{' '}
-              {productDetails?.prod_year}{' '}
+            <Typography type='subtitle' className='w-10'>
+              {productDetails?.manufacturer.title} {productDetails?.manufacturer_model?.title}
+              {productDetails?.prod_year}
             </Typography>
-            <Typography type='body'>{startAddress}</Typography>
-            <Typography type='body' color='light'>
+            <Typography type='body' className='w-10'>{startAddress}</Typography>
+            <Typography type='body' color='light' className='w-10'>
               {startDate} {startTime} - {endDate} {endTime}
             </Typography>
           </div>
@@ -66,10 +67,10 @@ const OrderListComponent: React.FC<Props> = ({
               {days} დღე
             </Typography>
             <Typography type='subtitle' className='flex items-center gap-2'>
-              {price} <Icon svgPath='gel' width={14} height={14} />{' '}
+              {price} <Icon svgPath='gel' width={14} height={14} />
             </Typography>
-            <Typography type='subtitle' className='text-green-100'>
-              აქტიური
+            <Typography type='subtitle' className={`${status === 0 ? 'text-yellow-100' : status === 1 ? 'text-green-100' : status === 2 ? 'text-orange-100' : ''}`}>
+              {status === 0 ? 'მოლოდინში' : status === 1 ? 'დადასტურებული' : status === 2 ? 'გაუქმებული' : ''}
             </Typography>
           </div>
           {width > 779 && <IconButton icon='/icons/chevronWithBg.svg' height={38} width={38} onClick={toggleDetails} />}

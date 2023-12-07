@@ -40,19 +40,17 @@ const filters = [
 const CompanyOrders = () => {
   const { companyOrders } = useCompanyOrders()
   const [details, setDetails] = useState(false)
-  const [orderId, setOrderId] = useState(null)
+  const [orderId, setOrderId] = useState(0)
   const { width } = useWindowDimensions()
 
   console.log(companyOrders, 'companyOrders')
 
   const toggleDetails = () => setDetails(!details)
 
-  console.log(orderId, 'orderId')
-
   return (
     <>
       {details ? (
-        <OrderDetails toggleDetails={toggleDetails} setOrderId={setOrderId} />
+        <OrderDetails toggleDetails={toggleDetails} setOrderId={setOrderId} orderId={orderId} />
       ) : (
         <div>
           <div className='border border-raisin-10 rounded-2xl'>
@@ -90,6 +88,7 @@ const CompanyOrders = () => {
                   productDetails={JSON.parse(order?.product_data)}
                   price={order?.price}
                   discount={order?.discount_percent}
+                  status={order?.status_id}
                 />
               ))}
             </div>
