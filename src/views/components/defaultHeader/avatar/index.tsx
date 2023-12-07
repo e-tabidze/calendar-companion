@@ -69,8 +69,7 @@ const Avatar = () => {
 
   const queryClient = useQueryClient()
 
-  const { userInfo, userCompanies, postSwitchProfile, activeCompany, router, activeCompanyId } =
-    useProfile()
+  const { userInfo, userCompanies, postSwitchProfile, activeCompany, router, activeCompanyId } = useProfile()
 
   const switchProfileMutation = useMutation((active_profile_id: string) => postSwitchProfile('', active_profile_id), {
     onSettled: () => {
@@ -86,7 +85,7 @@ const Avatar = () => {
       console.log(error)
     }
   }
-  
+
   const handleSetActive = () => {
     setActive(!active)
   }
@@ -129,8 +128,11 @@ const Avatar = () => {
             {active ? (
               <>
                 <div className='border-b-1 border-raisin-10'>
-                  <button className='cursor-pointer flex items-center w-full text-[12px] p-[16px]' onClick={handleSetActive}>
-                    <Image src='/icons/chevron-left.svg' alt='chevron' className="flex mr-[16px]" />
+                  <button
+                    className='cursor-pointer flex items-center w-full text-[12px] p-[16px]'
+                    onClick={handleSetActive}
+                  >
+                    <Image src='/icons/chevron-left.svg' alt='chevron' className='flex mr-[16px]' />
                     დაბრუნება
                   </button>
                 </div>
@@ -140,7 +142,7 @@ const Avatar = () => {
                       <div className='cursor-pointer px-[16px] py-3 hover:bg-grey-100 flex items-center justify-between'>
                         <div className='flex items-center text-[14px]'>
                           <span className='w-10 h-10 mr-4 relative flex items-center justify-center rounded-full overflow-hidden'>
-                            <Image src='/images/avatar.png' className='rounded-full' alt='avatar' />
+                            <Image src={company?.information?.logo || ''} className='rounded-full' alt='avatar' />
                           </span>
                           <div className='flex flex-col'>
                             <span className='text-[14px] overflow-hidden text-ellipsis whitespace-nowrap max-w-[140px] inline-block'>
@@ -161,8 +163,6 @@ const Avatar = () => {
                     </li>
                   ))}
                   <div onClick={() => handleProfileSwitch(userInfo?.UserID)}>
-                    <> {console.log(userInfo, 'userInfo')} </>
-
                     <div className='cursor-pointer px-[16px] py-3 hover:bg-grey-100 flex items-center justify-between'>
                       <div className='flex items-center text-[14px]'>
                         <span className='w-10 h-10 mr-4 relative flex items-center justify-center rounded-full overflow-hidden'>
@@ -204,28 +204,33 @@ const Avatar = () => {
                   {/*  <Image src='/icons/chevron-right.svg' alt='chevron' />*/}
                   {/*</button>*/}
                 </div>
-                <div className="py-8px">
-                  <button className="mt-[8px] px-[24px] flex w-full whitespace-nowrap text-[16px] text-[#272A37] py-[8px] hover:bg-grey-100 transition-all" onClick={handleSetActive}>Switch Account</button>
+                <div className='py-8px'>
+                  <button
+                    className='mt-[8px] px-[24px] flex w-full whitespace-nowrap text-[16px] text-[#272A37] py-[8px] hover:bg-grey-100 transition-all'
+                    onClick={handleSetActive}
+                  >
+                    Switch Account
+                  </button>
                   {activeCompany ? (
-                      <ul className="mb-[8px]">
-                        {companyRoutes?.map(route => (
-                            <li key={route.id}>
-                              <Link href={route.path} className={routeClass}>
-                                {route.item}
-                              </Link>
-                            </li>
-                        ))}
-                      </ul>
+                    <ul className='mb-[8px]'>
+                      {companyRoutes?.map(route => (
+                        <li key={route.id}>
+                          <Link href={route.path} className={routeClass}>
+                            {route.item}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
                   ) : (
-                      <ul>
-                        {profileRoutes?.map(route => (
-                            <li key={route.id}>
-                              <Link href={route.path} className={routeClass}>
-                                {route.item}
-                              </Link>
-                            </li>
-                        ))}
-                      </ul>
+                    <ul>
+                      {profileRoutes?.map(route => (
+                        <li key={route.id}>
+                          <Link href={route.path} className={routeClass}>
+                            {route.item}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
                   )}
                 </div>
                 <div

@@ -145,7 +145,7 @@ const useCompany = (id: number) => {
         company_type_id: companyInfo.company_type_id,
         company_information: {
           name: companyInfo.information.name,
-          logo: '',
+          logo: companyInfo.information?.logo || '',
           description: companyInfo.information.description,
           email: companyInfo.information.email,
           phone_numbers: companyInfo.information.phone_numbers

@@ -72,6 +72,7 @@ const CreateCompany = () => {
     createCompanyMutation.mutate(companyValues)
   }
 
+  console.log(companyValues, 'companyValues')
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <NewListingLayout

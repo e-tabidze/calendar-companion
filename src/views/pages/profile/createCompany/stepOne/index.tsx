@@ -1,6 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useEffect } from 'react'
 import { Controller } from 'react-hook-form'
+import FileUpload from 'src/views/components/fileUpload'
 
 // import FileUpload from 'src/views/components/fileUpload'
 import { DefaultInput } from 'src/views/components/input'
@@ -36,6 +37,8 @@ const StepOne: React.FC<Props> = ({ control, errors, clearErrors, setValue }) =>
     setValue('company_information.logo', mutation.data?.Data?.FilesList[0])
   }, [mutation.data?.Data?.FilesList[0]])
 
+  const handleRemoveFile = () => setValue('company_information.logo', '')
+
   return (
     <div>
       <div className='grid grid-cols-1 pb-6 md:grid-cols-2 gap-2'>
@@ -69,32 +72,30 @@ const StepOne: React.FC<Props> = ({ control, errors, clearErrors, setValue }) =>
           errors={errors}
         />
       </div>
-      {/* <FileUpload title='კომპანიის ლოგო' description='(მაქს. ზომა 10 მბ, JPG, PNG, SVG)' /> */}
 
       <Controller
         name='company_information.logo'
         control={control}
-        render={({ field: { value } }) => (
+        render={({ field: { value, onChange } }) => (
           <>
             {console.log(value, 'value')}
-            <input
-              type='file'
-              // onChange={(e: any) => handleFileUpload(e.target.files[0])}
+            <FileUpload
+              title='კომპანიის ლოგო'
+              description='(მაქს. ზომა 10 მბ, JPG, PNG, SVG)'
+              handleDelete={handleRemoveFile}
+              value={value}
               onChange={(e: any) => {
-                // onChange()
+                // console.log(e.target.files[0], 'E')
+                onChange()
                 handleFileUpload(e.target.files[0])
               }}
-
-              // name='company_information.logo'
             />
           </>
         )}
       />
 
-      {/* Loading indicator */}
       {mutation.isLoading && <p>Uploading...</p>}
 
-      {/* Display error if there is any */}
       {mutation.isError && <p>Error uploading file: {mutation.error.message}</p>}
     </div>
   )
