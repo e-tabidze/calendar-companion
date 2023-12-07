@@ -11,6 +11,16 @@ const useBooking = (id: number | string | string[]) => {
   const { userInfo } = useProfile()
   const { singleProductDetails } = useSingleProductDetails(id)
 
+  const additionalService = singleProductDetails?.product_services.map(service => ({
+    id: service.id,
+    count: 0,
+    is_selected: false,
+    description: service.description,
+    title: service?.title,
+    type: service?.company_service_type_id,
+    price: service?.price
+  }))
+
   const defaultValues: Booking = {
     first_name: '',
     last_name: '',
@@ -23,7 +33,7 @@ const useBooking = (id: number | string | string[]) => {
     },
     birth_date: null,
     driver_license_expiration: null,
-    additional_services: [] as any[],
+    additional_services: additionalService,
     supply: '0',
     start_time: '',
     end_time: '',
@@ -71,6 +81,7 @@ const useBooking = (id: number | string | string[]) => {
       )
       setValue('start_address', singleProductDetails ? singleProductDetails?.start_address : '')
       setValue('end_address', singleProductDetails ? singleProductDetails?.end_address : '')
+      setValue('additional_services', singleProductDetails ? additionalService : [])
     }
   }, [userInfo, setValue, singleProductDetails])
 

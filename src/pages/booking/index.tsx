@@ -131,17 +131,8 @@ const Booking = () => {
               </div>
 
               {/* {additionalServices && <AdditionalServices control={control} />} */}
-              {additionalServices && (
-                <CheckServices
-                  name={`additional_services.service`}
-                  control={control}
-                  options={singleProductDetails?.product_services}
-                  append={() => appendAdditionalService(appendAdditionalService)}
-                  className='my-2'
-                />
-              )}
+              {additionalServices && <CheckServices control={control} options={formsState?.additional_services} />}
             </div>
-            {!additionalServices && <Divider />}
 
             {/* <div>
               <div className='mt-11 flex items-center justify-between mb-8' onClick={() => toggleInsurance(!insurance)}>
