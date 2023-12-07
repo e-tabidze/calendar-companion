@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router'
 
 const CompanyDashboard = dynamic(() => import('src/views/pages/dashboard/companyDasboard'), { ssr: true })
-const IncomingOrders = dynamic(() => import('src/views/pages/dashboard/incomingOrders'), { ssr: true })
+const CompanyOrders = dynamic(() => import('src/views/pages/dashboard/companyOrders'), { ssr: true })
 const Products = dynamic(() => import('src/views/pages/dashboard/products'), { ssr: true })
 const EditCompany = dynamic(() => import('src/views/pages/dashboard/editCompany'), { ssr: true })
 const NewProduct = dynamic(() => import('src/views/pages/dashboard/newProduct'), { ssr: true })
@@ -79,7 +79,7 @@ const ProfileRouter = () => {
     case 'new-product':
       return <NewProduct />
     case 'orders':
-      return <IncomingOrders />
+      return <CompanyOrders />
     case 'payments':
       return <div>Payments</div>
     case 'vehicles':

@@ -16,9 +16,10 @@ import {
 
 interface Props {
   toggleDetails: () => void
+  setOrderId: any
 }
 
-const OrderDetails: React.FC<Props> = ({ toggleDetails }) => {
+const OrderDetails: React.FC<Props> = ({ toggleDetails, setOrderId }) => {
   const [cancelOrderDialog, setCancelOrderDialog] = useState(false)
 
   const toggleCancelOrderDialog = () => setCancelOrderDialog(!cancelOrderDialog)
@@ -26,7 +27,14 @@ const OrderDetails: React.FC<Props> = ({ toggleDetails }) => {
   return (
     <OrderDetailsContainer>
       <div className='hidden md:flex items-center md:w-full gap-6 p-4'>
-        <IconTextButton icon='/icons/backWithBg.svg' label='შემოსული ჯავშნები' onClick={toggleDetails} />
+        <IconTextButton
+          icon='/icons/backWithBg.svg'
+          label='შემოსული ჯავშნები'
+          onClick={() => {
+            toggleDetails()
+            setOrderId(null)
+          }}
+        />
       </div>
       <Divider />
       <div className='bg-raisin-5 w-full'>

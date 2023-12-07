@@ -6,7 +6,7 @@ class OrderService extends HttpService {
     return this.post('/orders', order, AccessToken ? { Authorization: `${AccessToken}` } : {})
   }
 
-  getOrders(AccessToken = '') {
+  getCompanyOrders(AccessToken = '') {
     return this.get('/orders', AccessToken ? { Authorization: `${AccessToken}` } : {})
   }
 }
