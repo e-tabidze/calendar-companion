@@ -20,6 +20,7 @@ import TakeAway from 'src/views/pages/booking/takeAway'
 import Delivery from 'src/views/pages/booking/delivery'
 import BookingModal from 'src/views/pages/booking/bookingModal'
 import CheckServices from 'src/views/pages/booking/checkServices'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 
 const Booking = () => {
   const [additionalServices, toggleAdditionalServices] = useState(false)
@@ -46,9 +47,11 @@ const Booking = () => {
 
   console.log(singleCompanyBranches, 'companyBranches')
 
-  const { control, bookingValues, errors, handleSubmit } = useBooking(id)
+  const { control, bookingValues, errors, handleSubmit, postOrder } = useBooking(id)
 
   console.log(bookingValues, 'bookingValues')
+
+  const queryClient = useQueryClient()
 
   const onClickLogo = () => {
     router.push('/')
@@ -67,13 +70,17 @@ const Booking = () => {
     }
   ]
 
+  const createCompanyMutation = useMutation(() => postOrder('', bookingValues), {
+    onSuccess: () => {
+      queryClient.invalidateQueries(['profileInfo'])
+    }
+  })
+
   const onSubmit = () => {
-    console.log(bookingValues, 'V')
+    createCompanyMutation.mutate()
   }
 
   const formsState = useWatch({ control })
-
-  console.log(formsState, 'formState')
 
   console.log(singleProductDetails?.product_services, 'additionalServices')
 
@@ -100,12 +107,12 @@ const Booking = () => {
               <DefaultInput control={control} name='phone' errors={errors} label='მობილურის ნომერი' />
               <DefaultInput control={control} name='email' errors={errors} label='ელ.ფოსტა' />
 
-              <DateDropdown label={'აირჩიე დაბადების თარიღი'} name='dob' control={control} />
+              {/* <DateDropdown label={'აირჩიე დაბადების თარიღი'} name='dob' control={control} />
               <DateDropdown
                 label={'მართვის მოწმობის მოქმედების ვადა'}
                 name='driver_license_expiration'
                 control={control}
-              />
+              /> */}
             </div>
             <Typography type='body' color='light' className='mb-14'>
               გთხოვთ გადაამოწმოთ მითითებული პარამეტრები და შემდეგ დაასრულოთ დაჯავშნის პროცესი, ეს პარამეტრები
@@ -131,7 +138,9 @@ const Booking = () => {
               </div>
 
               {/* {additionalServices && <AdditionalServices control={control} />} */}
-              {additionalServices && <CheckServices control={control} options={formsState?.additional_services} />}
+              {additionalServices && (
+                <CheckServices control={control} options={formsState?.additional_services as any} />
+              )}
             </div>
 
             {/* <div>
@@ -158,9 +167,7 @@ const Booking = () => {
                     (24 * 60 * 60 * 1000)
                 ) + 1
               }
-              onClick={function (): void {
-                throw new Error('Function not implemented.')
-              }}
+              onClick={onSubmit}
             />
           </div>
         </ContentContainer>

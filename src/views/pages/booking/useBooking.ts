@@ -4,10 +4,11 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { BookingSchema } from 'src/@core/validation/bookingSchema'
 import useProfile from 'src/hooks/useProfile'
 import { useEffect } from 'react'
-import { Booking } from 'src/types/Booking'
+import { Order } from 'src/types/Order'
 import useSingleProductDetails from '../details/useSingleProductDetails'
 import { useRouter } from 'next/router'
 import { Service } from 'src/types/Product'
+import OrderService from 'src/services/OrderService'
 
 const useBooking = (id: number | string | string[]) => {
   const { userInfo } = useProfile()
@@ -18,7 +19,7 @@ const useBooking = (id: number | string | string[]) => {
   console.log(singleProductDetails?.product_services, 'singleProductDetails?.product_services')
 
   const additionalService = singleProductDetails?.product_services.map((service: Service) => ({
-    id: service.id,
+    id: service.id | 0,
     count: 0,
     is_selected: false,
     description: service.description,
@@ -27,8 +28,8 @@ const useBooking = (id: number | string | string[]) => {
     price: service?.price
   }))
 
-  const defaultValues: Booking = {
-    product_id: Number(id),
+  const defaultValues: Order = {
+    product_id: String(id),
     first_name: '',
     last_name: '',
     email: '',
@@ -38,17 +39,18 @@ const useBooking = (id: number | string | string[]) => {
       book_from: book_from,
       book_to: book_to
     },
-    dob: null,
-    driver_license_expiration: null,
+    dob: '',
+    driver_license_expiration: '',
     additional_services: additionalService,
     supply: '0',
     start_time: '',
     end_time: '',
-    start_address: singleProductDetails?.start_address,
-    end_address: singleProductDetails?.end_address
+    start_address: singleProductDetails?.start_address || '',
+    end_address: singleProductDetails?.end_address || ''
   }
 
   console.log(singleProductDetails, 'singleCompanyBranches in booking')
+
   const {
     control,
     handleSubmit,
@@ -61,12 +63,8 @@ const useBooking = (id: number | string | string[]) => {
     mode: 'onChange',
     reValidateMode: 'onChange',
     defaultValues,
-
-    // @ts-ignore
-    resolver: yupResolver(BookingSchema)
+    resolver: yupResolver(BookingSchema) as any
   })
-
-  const bookingValues: any = useWatch({ control })
 
   useEffect(() => {
     if (!!userInfo) {
@@ -87,12 +85,27 @@ const useBooking = (id: number | string | string[]) => {
       setValue('end_address', singleProductDetails ? singleProductDetails?.end_address : '')
       setValue('additional_services', singleProductDetails ? additionalService : [])
 
-      setValue('booking.book_from', book_from ? book_from : new Date())
-      setValue('booking.book_to', book_to ? book_to : new Date())
+      setValue('booking.book_from', book_from ? book_from : null)
+      setValue('booking.book_to', book_to ? book_to : null)
+      setValue('product_id', id ? String(id) : null)
+
     }
-  }, [userInfo, setValue, singleProductDetails, book_from, book_to])
+  }, [userInfo, setValue, singleProductDetails, book_from, book_to, id])
+
+  const bookingValues: any = useWatch({ control })
 
   console.log(singleProductDetails?.start_address, 'singleProductDetails?.start_address')
+
+  const postOrder = async (AccessToken = '', company: Order) => {
+    try {
+      const response: any = await OrderService.postOrder(AccessToken, company)
+
+      return response.data
+    } catch (error) {
+      console.error('Error creating order:', error)
+      throw error
+    }
+  }
 
   return {
     control,
@@ -103,7 +116,8 @@ const useBooking = (id: number | string | string[]) => {
     resetField,
     setError,
     clearErrors,
-    setValue
+    setValue,
+    postOrder
   }
 }
 

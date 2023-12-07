@@ -84,9 +84,7 @@ const useNewProduct = () => {
     mode: 'onChange',
     reValidateMode: 'onChange',
     defaultValues: newProductDefaultValues,
-
-    // @ts-ignore
-    resolver: yupResolver(NewProductSchema)
+    resolver: yupResolver(NewProductSchema) as any
   })
 
   const { fields: additionalParams, append: appendAdditionalParam } = useFieldArray({
