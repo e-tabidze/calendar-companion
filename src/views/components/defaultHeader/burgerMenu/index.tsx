@@ -48,7 +48,7 @@ const BurgerMenu: React.FC<Props> = ({ open, setOpen }) => {
                 </Transition.Child>
 
                 <div className='fixed inset-0 z-10 h-screen overflow-y-auto'>
-                    <div className='w-full bg-[#ffffff] fixed top-0 left-0 px-[32px] overflow-hidden h-full'>
+                    <div className='w-full bg-[#ffffff] fixed top-0 left-0 px-8 overflow-hidden h-full'>
                         <Transition.Child
                             as={Fragment}
                             enter='ease-out duration-300'
@@ -59,20 +59,20 @@ const BurgerMenu: React.FC<Props> = ({ open, setOpen }) => {
                             leaveTo='opacity-0 translate-y-4 md:translate-y-0 md:scale-95'
                         >
                             <Dialog.Panel className='relative transform overflow-hidden bg-white text-left transition-all w-full'>
-                                <div className='flex items-center justify-between mt-[20px] mb-[16px]'>
-                                    <Dialog.Title as='h3' className='text-[12px] text-[#A9AAAF]'>
+                                <div className='flex items-center justify-between mt-5 mb-4'>
+                                    <Dialog.Title as='h3' className='text-sm text-[#A9AAAF]'>
                                         მენიუ
                                     </Dialog.Title>
                                     <button onClick={setOpen}>
                                         <Image src='/icons/close.svg'  alt='' height={40} width={40} />
                                     </button>
                                 </div>
-                                <div className='overflow-hidden rounded-[16px]'>
+                                <div className='overflow-hidden rounded-2xl'>
                                     {active ? (
                                             <>
                                                 <div className="border-b-1 border-raisin-10">
-                                                    <button className="cursor-pointer flex items-center py-[16px] text-[12px]" onClick={handleSetActive}>
-                                                        <Image src='/icons/chevron-left.svg' alt='chevron' className="flex mr-[16px]" />
+                                                    <button className="cursor-pointer flex items-center py-4 text-sm" onClick={handleSetActive}>
+                                                        <Image src='/icons/chevron-left.svg' alt='chevron' className="flex mr-4" />
                                                         დაბრუნება
                                                     </button>
                                                 </div>
@@ -80,14 +80,14 @@ const BurgerMenu: React.FC<Props> = ({ open, setOpen }) => {
                                                     {userCompanies?.map((company: { information: { name: string | undefined }; id: string }) => (
                                                         <li onClick={() => handleProfileSwitch(company?.id)} key={company.id}>
                                                             <div className='cursor-pointer py-3  flex items-center justify-between'>
-                                                                <div className='flex items-center text-[14px]'>
+                                                                <div className='flex items-center text-2sm'>
                           <span
                               className='w-10 h-10 mr-4 relative flex items-center justify-center rounded-full overflow-hidden'>
                             <Image src='/images/avatar.png' className='rounded-full' alt='avatar'/>
                           </span>
                                                                     <div className='flex flex-col'>
-                                                                        <span className='text-[14px] overflow-hidden text-ellipsis whitespace-nowrap max-w-[140px] inline-block'> {company?.information?.name} </span>
-                                                                        <span className='flex text-[12px] text-raisin-80'>ID: {company?.id} </span>
+                                                                        <span className='text-2sm overflow-hidden text-ellipsis whitespace-nowrap max-w-[140px] inline-block'> {company?.information?.name} </span>
+                                                                        <span className='flex text-sm text-raisin-80'>ID: {company?.id} </span>
                                                                     </div>
                                                                 </div>
                                                                 {/*TODO default: border-2 border-raisin-60, active: border-[7px] border-green-100*/}
@@ -98,14 +98,14 @@ const BurgerMenu: React.FC<Props> = ({ open, setOpen }) => {
                                                     ))}
                                                     <div  onClick={() => handleProfileSwitch(userInfo?.UserID)}>
                                                         <div className='cursor-pointer py-3 flex items-center justify-between'>
-                                                            <div className='flex items-center text-[14px]'>
+                                                            <div className='flex items-center text-2sm'>
                           <span
                               className='w-10 h-10 mr-4 relative flex items-center justify-center rounded-full overflow-hidden'>
                             <Image src='/images/avatar.png' className='rounded-full' alt='avatar'/>
                           </span>
                                                                 <div className='flex flex-col'>
-                                                                    <span className='text-[14px] overflow-hidden text-ellipsis whitespace-nowrap max-w-[140px] inline-block'> სახელი გვარი </span>
-                                                                    <span className='flex text-[12px] text-raisin-80'>ID: 136173 </span>
+                                                                    <span className='text-2sm overflow-hidden text-ellipsis whitespace-nowrap max-w-[140px] inline-block'> სახელი გვარი </span>
+                                                                    <span className='flex text-sm text-raisin-80'>ID: 136173 </span>
                                                                 </div>
                                                             </div>
                                                             {/*TODO default: border-2 border-raisin-60, active: border-[7px] border-green-100*/}
@@ -118,16 +118,16 @@ const BurgerMenu: React.FC<Props> = ({ open, setOpen }) => {
                                         ):
                                         (
                                             <>
-                                                <div className='flex items-center justify-between border-b-[1px] border-[#E9EAEB] py-[16px]'>
+                                                <div className='flex items-center justify-between border-b-[1px] border-[#E9EAEB] py-4'>
                                                     <div className="flex items-center">
-                  <span className='w-[40px] h-[40px] mr-[12px] relative flex items-center justify-center rounded-full overflow-hidden'>
+                  <span className='w-10 h-10 mr-3 relative flex items-center justify-center rounded-full overflow-hidden'>
                   <Image src='/images/avatar.png' className='rounded-full' alt='avatar' />
                 </span>
                                                         <div className='flex flex-col'>
-                  <span className='text-[14px] text-[#272A37] overflow-hidden text-ellipsis whitespace-nowrap max-w-[150px] inline-block'>
+                  <span className='text-2sm text-[#272A37] overflow-hidden text-ellipsis whitespace-nowrap max-w-[150px] inline-block'>
                     namename@gmail.com
                   </span>
-                                                            <span className='flex text-[14px] text-[#272A37]'>ID: 146797</span>
+                                                            <span className='flex text-2sm text-[#272A37]'>ID: 146797</span>
                                                         </div>
                                                     </div>
                                                     {/*<button className="cursor-pointer shrink-0 flex" onClick={handleSetActive}>*/}
@@ -135,15 +135,15 @@ const BurgerMenu: React.FC<Props> = ({ open, setOpen }) => {
                                                     {/*</button>*/}
                                                 </div>
                                                 <div className="py-8px">
-                                                    <button className="mt-[8px] w-full flex whitespace-nowrap text-[16px] text-[#272A37] py-[8px]"
+                                                    <button className="mt-2 w-full flex whitespace-nowrap text-md text-[#272A37] py-2"
                                                             onClick={handleSetActive}>Switch account</button>
 
                                                     {activeCompany ? (
-                                                            <ul className="mb-[8px]">
+                                                            <ul className="mb-2">
                                                                 <li>
                                                                     <a
                                                                         href='#'
-                                                                        className='flex whitespace-nowrap text-[16px] text-[#272A37] py-[8px]'
+                                                                        className='flex whitespace-nowrap text-md text-[#272A37] py-2'
                                                                     >
                                                                         დეშბორდი
                                                                     </a>
@@ -151,7 +151,7 @@ const BurgerMenu: React.FC<Props> = ({ open, setOpen }) => {
                                                                 <li>
                                                                     <a
                                                                         href='#'
-                                                                        className='flex whitespace-nowrap text-[16px] text-[#272A37] py-[8px]'
+                                                                        className='flex whitespace-nowrap text-md text-[#272A37] py-2'
                                                                     >
                                                                         განცხადების დამატება
                                                                     </a>
@@ -159,7 +159,7 @@ const BurgerMenu: React.FC<Props> = ({ open, setOpen }) => {
                                                                 <li>
                                                                     <a
                                                                         href='#'
-                                                                        className='flex items justify-between whitespace-nowrap text-[16px] text-[#272A37] py-[8px]'
+                                                                        className='flex items justify-between whitespace-nowrap text-md text-[#272A37] py-2'
                                                                     >
                                                                         <span> შემოსული ჯავშნები</span>
                                                                     </a>
@@ -167,7 +167,7 @@ const BurgerMenu: React.FC<Props> = ({ open, setOpen }) => {
                                                                 <li>
                                                                     <a
                                                                         href='#'
-                                                                        className='flex whitespace-nowrap text-[16px] text-[#272A37] py-[8px]'
+                                                                        className='flex whitespace-nowrap text-md text-[#272A37] py-2'
                                                                     >
                                                                         გადახდები
                                                                     </a>
@@ -175,7 +175,7 @@ const BurgerMenu: React.FC<Props> = ({ open, setOpen }) => {
                                                                 <li>
                                                                     <a
                                                                         href='#'
-                                                                        className='flex whitespace-nowrap text-[16px] text-[#272A37] py-[8px]'
+                                                                        className='flex whitespace-nowrap text-md text-[#272A37] py-2'
                                                                     >
                                                                         ავტომობილები
                                                                     </a>
@@ -183,7 +183,7 @@ const BurgerMenu: React.FC<Props> = ({ open, setOpen }) => {
                                                                 <li>
                                                                     <a
                                                                         href='#'
-                                                                        className='flex whitespace-nowrap text-[16px] text-[#272A37] py-[8px]'
+                                                                        className='flex whitespace-nowrap text-md text-[#272A37] py-2'
                                                                     >
                                                                         კომპანიის რედაქტირება
                                                                     </a>
@@ -195,7 +195,7 @@ const BurgerMenu: React.FC<Props> = ({ open, setOpen }) => {
                                                                 <li>
                                                                     <a
                                                                         href='#'
-                                                                        className='flex whitespace-nowrap text-[16px] text-[#272A37] py-[8px]'
+                                                                        className='flex whitespace-nowrap text-md text-[#272A37] py-2'
                                                                     >
                                                                         ჩემი შეკვეთები
                                                                     </a>
@@ -203,7 +203,7 @@ const BurgerMenu: React.FC<Props> = ({ open, setOpen }) => {
                                                                 <li>
                                                                     <a
                                                                         href='#'
-                                                                        className='flex whitespace-nowrap text-[16px] text-[#272A37] py-[8px]'
+                                                                        className='flex whitespace-nowrap text-md text-[#272A37] py-2'
                                                                     >
                                                                         ბარათები და ტრანზაქციები
                                                                     </a>
@@ -211,7 +211,7 @@ const BurgerMenu: React.FC<Props> = ({ open, setOpen }) => {
                                                                 <li>
                                                                     <a
                                                                         href='#'
-                                                                        className='flex items justify-between whitespace-nowrap text-[16px] text-[#272A37] py-[8px]'
+                                                                        className='flex items justify-between whitespace-nowrap text-md text-[#272A37] py-2'
                                                                     >
                                                                         <span> პარამეტრები</span>
                                                                     </a>
@@ -219,7 +219,7 @@ const BurgerMenu: React.FC<Props> = ({ open, setOpen }) => {
                                                                 <li>
                                                                     <a
                                                                         href='#'
-                                                                        className='flex whitespace-nowrap text-[16px] text-[#272A37] py-[8px]'
+                                                                        className='flex whitespace-nowrap text-md text-[#272A37] py-2'
                                                                     >
                                                                         კომპანიის შექმნა
                                                                     </a>
@@ -229,9 +229,9 @@ const BurgerMenu: React.FC<Props> = ({ open, setOpen }) => {
                                                     }
                                                 </div>
 
-                                                <div className='border-t-[1px] border-[#E9EAEB] py-[8px]'>
+                                                <div className='border-t-[1px] border-[#E9EAEB] py-2'>
                                                     <a
-                                                        className='flex text-[16px] text-[#272A37] cursor-pointer py-[8px]'
+                                                        className='flex text-md text-[#272A37] cursor-pointer py-2'
                                                         href='#'
                                                     >
                                                         გასვლა

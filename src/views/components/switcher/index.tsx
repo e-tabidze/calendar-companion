@@ -34,7 +34,7 @@ const Switcher: React.FC<Props> = ({ height, name, control, defaultValue, onChan
             } relative bg-raisin-30 peer-focus:outline-none peer-focus:none peer-focus:none dark:peer-focus:ring-green-110 rounded-full peer dark:bg-gray-700 ${
               height === 'h-8' ? 'peer-checked:after:translate-x-full' : 'peer-checked:after:translate-x-[75%]'
             } peer-checked:after:border-white after:content-[''] after:absolute ${
-              height === 'h-8' ? 'after:top-[3.5px] after:left-[4px]' : 'after:top-[2px] after:left-[2px]'
+              height === 'h-8' ? 'after:top-[3.5px] after:left-1' : 'after:top-[2px] after:left-[2px]'
             }  after:bg-white after:border-gray-300 after:border after:rounded-full ${
               height === 'h-8' ? 'after:h-6 after:w-6' : 'after:h-4 after:w-4'
             } after:transition-all dark:border-gray-600 peer-checked:bg-green-100`}

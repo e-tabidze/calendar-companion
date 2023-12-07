@@ -62,7 +62,7 @@ const MainPage = () => {
             ცნობილი ფაქტია, რომ გვერდის წაკითხვად შიგთავსს შეუძლია მკითხველის ყურადღება მიიზიდოს
           </Typography>
         </ContentContainer>
-        <ContentContainer className="md:rounded-3xl overflow-hidden px-0 md:px-5 lg:px-8">
+        <ContentContainer className="px-0 md:px-5 lg:px-8">
           <Carousel
             itemsArray={latestProducts?.map((product: any) => (
               <ProductCard
@@ -88,7 +88,7 @@ const MainPage = () => {
             ცნობილი ფაქტია, რომ გვერდის წაკითხვად შიგთავსს შეუძლია მკითხველის ყურადღება მიიზიდოს
           </Typography>
         </ContentContainer>
-        <ContentContainer className="md:rounded-3xl overflow-hidden px-0 md:px-5 lg:px-8">
+        <ContentContainer className="px-0 md:px-5 lg:px-8">
           <Carousel
             itemsArray={popularProducts?.map((product: any) => (
               <ProductCard

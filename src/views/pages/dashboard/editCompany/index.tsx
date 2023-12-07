@@ -175,7 +175,7 @@ const EditCompany = () => {
           type='button'
         />
 
-        <Typography type='h3' className='font-bold mt-24 text-[20px] md:text-[24px]'>
+        <Typography type='h3' className='font-bold mt-24 text-3md md:text-2lg'>
           საკონტაქტო
         </Typography>
         <div className='grid grid-cols-2 gap-4 mt-5 my-10'>

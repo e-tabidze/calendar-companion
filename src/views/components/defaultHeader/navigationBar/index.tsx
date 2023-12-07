@@ -8,7 +8,7 @@ const NavigationBar = () => {
     const {activeCompany } = useProfile()
 
     return (
-        <div className="lg:hidden bg-[#ffffff] py-[16px] fixed bottom-0 left-0 w-full z-[3] box-shadow-sm">
+        <div className="lg:hidden bg-[#ffffff] py-4 fixed bottom-0 left-0 w-full z-[3] box-shadow-sm">
             <ul className="flex justify-around">
                 <li>
                     <a href={`${activeCompany ? 'dashboard':'main'}`}>
@@ -17,8 +17,8 @@ const NavigationBar = () => {
                               <Image src='/icons/home.svg' alt='' width={24} height={24} />
                             </span>
                             {activeCompany ?
-                            <span className="mt-[4px]">დეშბორდი</span> :
-                            <span className="mt-[4px]">მთავარი</span>
+                            <span className="mt-1">დეშბორდი</span> :
+                            <span className="mt-1">მთავარი</span>
                             }
                         </div>
                     </a>
@@ -30,7 +30,7 @@ const NavigationBar = () => {
                             <span className="flex">
                                 <Image src='/icons/add-outline.svg' alt='' width={24} height={24}/>
                             </span>
-                            <span className="mt-[4px]">დამატება</span>
+                            <span className="mt-1">დამატება</span>
                         </div>
                     </a>
                 </li>
@@ -43,7 +43,7 @@ const NavigationBar = () => {
                                 <span className="flex">
                                     <Image src='/icons/favorite.svg' alt='' width={24} height={24}/>
                                 </span>
-                            <span className="text-[10px] mt-[4px]">ფავორიტები</span>
+                            <span className="text-[10px] mt-1">ფავორიტები</span>
                         </div>
                     </a>
                 </li>
@@ -54,7 +54,7 @@ const NavigationBar = () => {
                             <span className="flex">
                                 <Image src='/icons/bell.svg' alt='' width={24} height={24}/>
                             </span>
-                            <span className="text-[10px] mt-[4px]">შეტყობინებები</span>
+                            <span className="text-[10px] mt-1">შეტყობინებები</span>
                         </div>
                     </a>
                 </li>
@@ -62,10 +62,10 @@ const NavigationBar = () => {
                 <li>
                     <button onClick={() => toggleBurger(!burger)}>
                         <div className="flex flex-col items-center text-[#686A73]">
-                            <span className="w-[24px] h-[24px] relative flex items-center justify-center rounded-full overflow-hidden">
+                            <span className="w-6 h-6 relative flex items-center justify-center rounded-full overflow-hidden">
                                 <Image src='/images/avatar.png' alt='' width={24} height={24} />
                             </span>
-                            <span className="text-[10px] mt-[4px]">პროფილი</span>
+                            <span className="text-[10px] mt-1">პროფილი</span>
                         </div>
                     </button>
                     <BurgerMenu open={burger} setOpen={() => toggleBurger(!burger)} />

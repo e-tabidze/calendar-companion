@@ -140,7 +140,7 @@ const AdditionalFilters: React.FC<Props> = ({
                       control={control}
                       label={width > 641 ? 'მინიმუმ ფასი დღიურად' : 'მინ. ფასი დღიურად'}
                       errors={''}
-                      className='md:w-52 mb-[8px] md:mb-0'
+                      className='md:w-52 mb-2 md:mb-0'
                       type='number'
                       min={0}
                     />
@@ -280,7 +280,7 @@ const AdditionalFilters: React.FC<Props> = ({
                   <Divider />
 
                   <SectionWrapper>
-                    <Typography type='h5' weight='normal' className='mb-[8px] md:mb-0'>
+                    <Typography type='h5' weight='normal' className='mb-2 md:mb-0'>
                       კარის რაოდენობა
                     </Typography>
                     <ListWrapper>
@@ -297,7 +297,7 @@ const AdditionalFilters: React.FC<Props> = ({
                   <Divider />
 
                   <SectionWrapper>
-                    <Typography type='h5' weight='normal' className='mb-[8px] md:mb-0'>
+                    <Typography type='h5' weight='normal' className='mb-2 md:mb-0'>
                       წამყვანი საბურავები
                     </Typography>
                     <ListWrapper>
@@ -313,7 +313,7 @@ const AdditionalFilters: React.FC<Props> = ({
                   <Divider />
 
                   <SectionWrapper>
-                    <Typography type='h5' weight='normal' className='mb-[8px] md:mb-0'>
+                    <Typography type='h5' weight='normal' className='mb-2 md:mb-0'>
                       ტრანსმისია
                     </Typography>
                     <ListWrapper>

@@ -21,11 +21,11 @@ const CityCard: React.FC<Props> = ({ src, city, numberOfCars, onClick }) => {
           type='h4'
           weight='normal'
           color='dark'
-          className='text-[14px] lg:text-[16px] text-center xl:text-left'
+          className='text-2sm lg:text-md text-center xl:text-left'
         >
           {city}
         </Typography>
-        <Typography type='body' color='light' className='text-[12px] text-black/50 text-center xl:text-left'>
+        <Typography type='body' color='light' className='text-sm text-black/50 text-center xl:text-left'>
           {numberOfCars} ავტომობილი
         </Typography>
       </Container>

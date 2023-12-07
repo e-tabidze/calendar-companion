@@ -71,17 +71,17 @@ const BookingModal: React.FC<Props> = ({ open, onClose, addresses, control }) =>
                 </div>
                 <div className='overflow-auto max-h-[70vh] pb-5 sm:pb-6 w-max-full'>
                   <Tab.Group>
-                    <Tab.List className='flex justify-end space-x-[32px] border-b border-raisin-10 pt-[24px] px-4 sm:px-10'>
+                    <Tab.List className='flex justify-end space-x-8 border-b border-raisin-10 pt-6 px-4 sm:px-10'>
                       {cat.map((category, key: number) => (
                         <Tab key={key} className='focus:outline-none'>
                           {({ selected }) => (
                             <div
-                              className={`flex items-center pb-[24px] ${
+                              className={`flex items-center pb-6 ${
                                 selected ? 'border-b-2 border-green-100' : 'border-none'
                               }`}
                             >
-                              <Image src={category.icon} alt='' className='flex mr-[12px]' />
-                              <Typography type='body' color='dark' className='text-[14px]'>
+                              <Image src={category.icon} alt='' className='flex mr-3' />
+                              <Typography type='body' color='dark' className='text-2sm'>
                                 {category.title}
                               </Typography>
                             </div>
@@ -102,9 +102,9 @@ const BookingModal: React.FC<Props> = ({ open, onClose, addresses, control }) =>
                   <IconTextButton
                     label='გასუფთავება'
                     icon='/icons/return.svg'
-                    className='text-raisin-50 text-[12px] underline font-normal'
+                    className='text-raisin-50 text-sm underline font-normal'
                   />
-                  <div className='flex items-center justify-center bg-green-100 text-white text-[16px] rounded-[12px] px-[32px] h-[56px]'>
+                  <div className='flex items-center justify-center bg-green-100 text-white text-md rounded-xl px-8 h-14'>
                     შენახვა
                   </div>
                 </div>

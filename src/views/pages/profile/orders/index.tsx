@@ -20,7 +20,7 @@ const Orders = () => {
         <div className=''>
           <div className='flex justify-between p-2 md:p-4 items-center'>
             <Typography type='h3'>ჩემი შეკვეთები</Typography>
-            <div className='flex gap-[16px] md:gap-[32px]'>
+            <div className='flex gap-4 md:gap-8'>
               <IconTextButton label={width > 779 ? 'ფილტრი' : ''} icon={'/icons/filters.svg'} />
               <IconTextButton label={width > 779 ? 'ძებნა' : ''} icon={'/icons/sort.svg'} />
             </div>

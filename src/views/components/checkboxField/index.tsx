@@ -60,7 +60,7 @@ const CheckboxField: React.FC<Props> = ({
                       }
                     }}
                   >
-                    <span className={`flex items-center justify-center w-5 h-5 rounded-[4px] border ${selectedOptions.includes(option.id) ? 'border-green-100 bg-green-100':'border-raisin-10'}`}>
+                    <span className={`flex items-center justify-center w-5 h-5 rounded border ${selectedOptions.includes(option.id) ? 'border-green-100 bg-green-100':'border-raisin-10'}`}>
                       <Icon svgPath='check' height={10} width={14} className="fill-transparent" />
                     </span>
                     <input

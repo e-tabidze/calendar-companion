@@ -31,7 +31,6 @@ const CreateCompany = () => {
     appendAddress,
     createCompany,
     setValue,
-    isValid,
     saveCompanyLogo
   } = useCreateCompany()
 
@@ -73,6 +72,7 @@ const CreateCompany = () => {
   }
 
   console.log(companyValues, 'companyValues')
+  
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <NewListingLayout

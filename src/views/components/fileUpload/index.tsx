@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent } from 'react'
+import React, { ChangeEvent } from 'react'
 import Icon from 'src/views/app/Icon'
 import { IconButton } from 'src/views/components/button'
 import Image from 'src/views/components/image'
@@ -14,7 +14,7 @@ interface Props {
 
 const FileUpload: React.FC<Props> = ({ title, description, onChange, handleDelete, value }) => {
 
-  const supportedFileTypes = ['pdf', 'jpg', 'jpeg', 'png', 'gif']
+  // const supportedFileTypes = ['pdf', 'jpg', 'jpeg', 'png', 'gif']
 
   return (
     <div className='flex items-center gap-8'>

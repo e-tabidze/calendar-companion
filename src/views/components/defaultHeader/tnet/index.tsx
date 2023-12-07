@@ -6,7 +6,7 @@ import Typography from '../../typography'
 const Tnet = () => {
     return (
         <Menu as='div' className='relative text-left hidden md:flex'>
-                <Menu.Button className='bg-transparent border-[#E9EAEB] hover:border-[#3c74ff] relative rounded-full border w-[40px] h-[40px] flex items-center justify-center ml-[16px] transition-all'>
+                <Menu.Button className='bg-transparent border-[#E9EAEB] hover:border-[#3c74ff] relative rounded-full border w-10 h-10 flex items-center justify-center ml-4 transition-all'>
                     <Image src='/icons/tnet/tnet.svg' alt='img'/>
                 </Menu.Button>
                 <Transition
@@ -18,58 +18,58 @@ const Tnet = () => {
                     leaveFrom='transform opacity-100 scale-100'
                     leaveTo='transform opacity-0 scale-95'
                 >
-                    <Menu.Items className='w-[376px] px-[12px] pt-[20px] pb-[12px] absolute z-2 top-full mt-[20px] right-0 bg-[#ffffff] rounded-[16px] shadow-[0px_6px_18px_#000000/10]'>
+                    <Menu.Items className='w-[376px] px-3 pt-5 pb-3 absolute z-2 top-full mt-5 right-0 bg-[#ffffff] rounded-2xl shadow-[0px_6px_18px_#000000/10]'>
 
-                        <div className="px-[16px]">
+                        <div className="px-4">
 
-                            <Typography type='h5' weight='normal' className='font-bold text-[18px] text-[#000000] mb-[8px]'>TNET</Typography>
+                            <Typography type='h5' weight='normal' className='font-bold text-[18px] text-[#000000] mb-2'>TNET</Typography>
 
-                            <Typography type='body' className='font-medium text-[12px] text-[#7D7F87] mb-[16px]'>
+                            <Typography type='body' className='font-medium text-sm text-[#7D7F87] mb-4'>
                             ყველაზე დიდი ტექნოლოგიური ეკოსისტემა, რომელიც აერთიანებს 11 პლატფორმას:
                             </Typography>
                         </div>
-                        <div className="grid gap-[4px] grid-cols-3">
-                        <a className="h-[80px] py-[24px] px-[16px] flex items-center justify-center bg-[#F5F5F8] hover:bg-[#F5F5F8] rounded-[8px] transition-all"
+                        <div className="grid gap-1 grid-cols-3">
+                        <a className="h-20 py-6 px-4 flex items-center justify-center bg-[#F5F5F8] hover:bg-[#F5F5F8] rounded-lg transition-all"
                            href="https://www.myauto.ge/ka/" target="_blank" rel="noreferrer">
                             <Image src='/icons/tnet/myauto.svg' alt='img' width={80} height={24}/>
                         </a>
-                        <a className="h-[80px] py-[24px] px-[16px] flex items-center justify-center hover:bg-[#F5F5F8] rounded-[8px] transition-all"
+                        <a className="h-20 py-6 px-4 flex items-center justify-center hover:bg-[#F5F5F8] rounded-lg transition-all"
                            href="https://www.myhome.ge/ka/" target="_blank" rel="noreferrer">
                             <Image src='/icons/tnet/myhome.svg' alt='img' width={80} height={24}/>
                         </a>
-                        <a className="h-[80px] py-[24px] px-[16px] flex items-center justify-center hover:bg-[#F5F5F8] rounded-[8px] transition-all"
+                        <a className="h-20 py-6 px-4 flex items-center justify-center hover:bg-[#F5F5F8] rounded-lg transition-all"
                            href="https://www.mymarket.ge/ka/" target="_blank" rel="noreferrer">
                             <Image src='/icons/tnet/mymarket.svg' alt='img' width={83} height={24}/>
                         </a>
-                        <a className="h-[80px] py-[24px] px-[16px] flex items-center justify-center hover:bg-[#F5F5F8] rounded-[8px] transition-all"
+                        <a className="h-20 py-6 px-4 flex items-center justify-center hover:bg-[#F5F5F8] rounded-lg transition-all"
                            href="https://www.myparts.ge/ka/" target="_blank" rel="noreferrer">
                             <Image src='/icons/tnet/myparts.svg' alt='img' width={82} height={24}/>
                         </a>
-                        <a className="h-[80px] py-[24px] px-[16px] flex items-center justify-center hover:bg-[#F5F5F8] rounded-[8px] transition-all"
+                        <a className="h-20 py-6 px-4 flex items-center justify-center hover:bg-[#F5F5F8] rounded-lg transition-all"
                            href="https://www.vendoo.ge" target="_blank" rel="noreferrer">
                             <Image src='/icons/tnet/vendoo.svg' alt='img' width={64} height={14}/>
                         </a>
-                        <a className="h-[80px] py-[24px] px-[16px] flex items-center justify-center hover:bg-[#F5F5F8] rounded-[8px] transition-all"
+                        <a className="h-20 py-6 px-4 flex items-center justify-center hover:bg-[#F5F5F8] rounded-lg transition-all"
                            href="https://www.swoop.ge" target="_blank" rel="noreferrer">
                             <Image src='/icons/tnet/swoop.svg' alt='img' width={83} height={24}/>
                         </a>
-                        <a className="h-[80px] py-[24px] px-[16px] flex items-center justify-center hover:bg-[#F5F5F8] rounded-[8px] transition-all"
+                        <a className="h-20 py-6 px-4 flex items-center justify-center hover:bg-[#F5F5F8] rounded-lg transition-all"
                            href="https://www.tkt.ge" target="_blank" rel="noreferrer">
                             <Image src='/icons/tnet/tkt.svg' alt='img' width={67} height={18}/>
                         </a>
-                        <a className="h-[80px] py-[24px] px-[16px] flex items-center justify-center hover:bg-[#F5F5F8] rounded-[8px] transition-all"
+                        <a className="h-20 py-6 px-4 flex items-center justify-center hover:bg-[#F5F5F8] rounded-lg transition-all"
                            href="https://www.livo.ge" target="_blank" rel="noreferrer">
                             <Image src='/icons/tnet/livo.svg' alt='img' width={59} height={20}/>
                         </a>
-                        <a className="h-[80px] py-[24px] px-[16px] flex items-center justify-center hover:bg-[#F5F5F8] rounded-[8px] transition-all"
+                        <a className="h-20 py-6 px-4 flex items-center justify-center hover:bg-[#F5F5F8] rounded-lg transition-all"
                            href="https://www.saba.com.ge" target="_blank" rel="noreferrer">
                             <Image src='/icons/tnet/saba.png' alt='img' width={52} height={24}/>
                         </a>
-                        <a className="h-[80px] py-[24px] px-[16px] flex items-center justify-center hover:bg-[#F5F5F8] rounded-[8px] transition-all"
+                        <a className="h-20 py-6 px-4 flex items-center justify-center hover:bg-[#F5F5F8] rounded-lg transition-all"
                            href="https://www.myshop.ge" target="_blank" rel="noreferrer">
                             <Image src='/icons/tnet/myshop.svg' alt='img' width={69} height={12}/>
                         </a>
-                        <a className="h-[80px] py-[24px] px-[16px] flex items-center justify-center hover:bg-[#F5F5F8] rounded-[8px] transition-all"
+                        <a className="h-20 py-6 px-4 flex items-center justify-center hover:bg-[#F5F5F8] rounded-lg transition-all"
                            href="https://superapp.tnet.ge" target="_blank" rel="noreferrer">
                             <Image src='/icons/tnet/super-app.svg' alt='img' width={65} height={20}/>
                         </a>

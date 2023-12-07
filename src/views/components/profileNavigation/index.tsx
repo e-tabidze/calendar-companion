@@ -55,7 +55,7 @@ const ProfileNavigation: React.FC<Props> = ({
           <Typography
             type='h5'
             weight='medium'
-            className={`overflow-hidden transition-all duration-300 text-[14px] 2xl-[16px] ${
+            className={`overflow-hidden transition-all duration-300 text-2sm 2xl-4 ${
               sidebarCollapsed ? 'w-0 opacity-0' : 'xl:ml-4 xl:w-full opacity-0 xl:opacity-100'
             }`}
           >
@@ -105,7 +105,7 @@ const ProfileNavigation: React.FC<Props> = ({
               sidebarCollapsed ? 'px-5' : 'lg:px-5 xl:px-0 2xl:px-4'
             }`}
           >
-            <span className="transition-all duration-300 opacity-0 group-hover:opacity-100 xl:group-hover:opacity-0 z-[111] after:content[''] after:absolute after:left-[-6px] after:w-0 after:h-0 after:border-t-[6px] after:border-b-[6px] after:border-r-[6px] after:border-t-transparent  after:border-b-transparent after:border-r-raisin-100 absolute flex items-center bg-raisin-100 left-full ml-[-10px] top-1/2 -translate-y-1/2 text-white text-[12px] h-[32px] px-[12px] rounded-[8px]">
+            <span className="transition-all duration-300 opacity-0 group-hover:opacity-100 xl:group-hover:opacity-0 z-[111] after:content[''] after:absolute after:left-[-6px] after:w-0 after:h-0 after:border-t-[6px] after:border-b-[6px] after:border-r-[6px] after:border-t-transparent  after:border-b-transparent after:border-r-raisin-100 absolute flex items-center bg-raisin-100 left-full ml-[-10px] top-1/2 -translate-y-1/2 text-white text-sm h-8 px-3 rounded-lg">
               {route.item}
             </span>
             <div
@@ -123,7 +123,7 @@ const ProfileNavigation: React.FC<Props> = ({
             </div>
             <Typography
               type='h5'
-              className={`transition-all duration-300 overflow-hidden text-[14px] 2xl:text-[16px] ${
+              className={`transition-all duration-300 overflow-hidden text-2sm 2xl:text-md ${
                 sidebarCollapsed ? 'opacity-0' : 'opacity-100 ml-4 2xl:ml-6'
               } ${selectedRoute.path.split('/')[2] === route.path.split('/')[2] ? 'text-orange-100' : ''}' ${
                 route.path === router?.asPath && 'text-orange-100'

@@ -1,6 +1,5 @@
 import useWindowDimensions from 'src/hooks/useWindowDimensions'
 import { IconButton } from 'src/views/components/button'
-import Divider from 'src/views/components/divider'
 import Image from 'src/views/components/image'
 import Typography from 'src/views/components/typography'
 
@@ -12,7 +11,7 @@ const OrderListComponent: React.FC<Props> = ({ toggleDetails }) => {
   const { width } = useWindowDimensions()
 
   return (
-    <div className='' onClick={toggleDetails}>
+    <div className='border-b-1 border-raisin-10 last:border-none' onClick={toggleDetails}>
       <div className='flex flex-col px-2 py-4 md:w-full gap-10 md:px-0 md:flex-row md:items-center'>
         <div className='flex gap-4 2xl:gap-6 min-w-max'>
           <Image src='/images/car.png' alt='orders' height={48} width={64} className='rounded-lg object-cover' />
@@ -43,7 +42,6 @@ const OrderListComponent: React.FC<Props> = ({ toggleDetails }) => {
           {width > 779 && <IconButton icon='/icons/chevronWithBg.svg' height={38} width={38} onClick={toggleDetails} />}
         </div>
       </div>
-      <Divider />
     </div>
   )
 }

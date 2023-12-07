@@ -217,6 +217,7 @@ const ProductDetails = () => {
             loop
             onClick={toggleProductImageDialog}
             pagination={true}
+            detailSwiper
           />
         </MaxWidthContainer>
         <MaxWidthContainer className={`${isSticky ? 'sticky top-20' : ''} bg-white z-[30]`} ref={ref} id='head'>

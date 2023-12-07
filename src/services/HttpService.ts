@@ -5,7 +5,7 @@ import { API_URL, ACCESS_TOKEN_NAME, TOKEN_TIME_MINUTES, TOKEN_EXPIRE_TIME_NAME 
 
 import axios from 'axios'
 
-let apiUrl = API_URL
+const apiUrl = API_URL
 class HttpService {
   post(endpoint: any, data: any = {}, headers: any = null, serverReq = null, responseType = 'json') {
     let dataMerged = {

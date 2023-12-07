@@ -4,9 +4,9 @@ import React from 'react'
 export const DefaultButton = ({ text, onClick, bg, className, textColor, type, disabled }: any) => {
   return (
     <button
-      className={`${bg} rounded-xl ${disabled ? 'opacity-60' : ''}  ${bg ? `${textColor}` : 'text-raisin-130'} text-2sm w-max ${
-        bg ? 'border-none' : 'border border-px-raisin-130'
-      } py-3 px-6 font-normal' ${className}`}
+      className={`${bg} rounded-xl ${disabled ? 'opacity-60' : ''}  ${bg ? `${textColor}` : 'text-raisin-100'} text-2sm ${
+        bg ? 'border-none' : 'border border-px-raisin-100'
+      } h-10 min-w-10 px-3 font-normal ${className}`}
       onClick={onClick}
       type={type}
       disabled={disabled}
@@ -18,7 +18,7 @@ export const DefaultButton = ({ text, onClick, bg, className, textColor, type, d
 
 export const OutlinedButton = ({ label, onClick, type = 'button' }: any) => {
   return (
-    <button className='border border-raisin-130 rounded-2xl px-3 py-2 h-max text-sm' onClick={onClick} type={type}>
+    <button className='border border-raisin-100 h-10 min-w-10 flex items-center justify-center rounded-xl' onClick={onClick} type={type}>
       {label}
     </button>
   )
@@ -44,7 +44,7 @@ export const IconButton = ({
       ref={innerRef}
       className={`flex shrink-0 group items-center cursor-pointer ${
         hasBg ? 'p-4 xl:p-5' : ''
-      } rounded-2xl w-[32px] h-[32px] ${hasBg ? `bg-${bg}` : ''} ${className}`}
+      } rounded-2xl w-8 h-8 ${hasBg ? `bg-${bg}` : ''} ${className}`}
     >
       <Image src={icon} height={height} width={width} alt='' className={`group-disabled:opacity-30 !max-w-none `} />
     </button>

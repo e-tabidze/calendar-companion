@@ -13,9 +13,9 @@ const Action: React.FC<Props> = ({ icon, label, bg, onClick }) => {
   return (
     <div className='flex flex-col items-center cursor-pointer' onClick={onClick}>
       <div className={`w-8 h-8 flex items-center justify-center rounded-lg ${bg} mb-2`}>
-        <Icon svgPath={icon} height={15} width={15} />
+        <Icon svgPath={icon} height={20} width={20} />
       </div>
-      <Typography type='body'>{label}</Typography>
+      <Typography type='body' className="text-2sm">{label}</Typography>
     </div>
   )
 }
