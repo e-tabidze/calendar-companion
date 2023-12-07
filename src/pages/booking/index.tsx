@@ -46,7 +46,7 @@ const Booking = () => {
 
   console.log(singleCompanyBranches, 'companyBranches')
 
-  const { control, bookingValues, errors, handleSubmit, appendAdditionalService } = useBooking(id)
+  const { control, bookingValues, errors, handleSubmit } = useBooking(id)
 
   console.log(bookingValues, 'bookingValues')
 
@@ -100,7 +100,7 @@ const Booking = () => {
               <DefaultInput control={control} name='phone' errors={errors} label='მობილურის ნომერი' />
               <DefaultInput control={control} name='email' errors={errors} label='ელ.ფოსტა' />
 
-              <DateDropdown label={'აირჩიე დაბადების თარიღი'} name='birth_date' control={control} />
+              <DateDropdown label={'აირჩიე დაბადების თარიღი'} name='dob' control={control} />
               <DateDropdown
                 label={'მართვის მოწმობის მოქმედების ვადა'}
                 name='driver_license_expiration'

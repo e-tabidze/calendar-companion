@@ -10,6 +10,7 @@ import AddressAndSchedule from './addressAndSchedule'
 import DeleteAddressConfirmationModal from '../../../components/deleteAddressConfirmationModal'
 import DeleteCompanyConfirmationModal from '../../../components/deleteCompanyConfirmationModal'
 import useCompany from './useCompany'
+import { useRouter } from 'next/router'
 
 interface Props {
   id: number
@@ -43,6 +44,8 @@ const Company: React.FC<Props> = ({ id, name, productsCount, logo }) => {
 
   const queryClient = useQueryClient()
 
+  const router = useRouter()
+
   const updateCompanyMutation = useMutation(() => updateCompanyInfo(companyValues), {
     onSuccess: () => {
       queryClient.invalidateQueries(['companyInfo'])
@@ -69,6 +72,7 @@ const Company: React.FC<Props> = ({ id, name, productsCount, logo }) => {
 
   const deletCompany = () => {
     deleteCompanyMutation.mutate()
+    router.push('/profile/orders')
   }
 
   const deletCompanyAddress = () => {

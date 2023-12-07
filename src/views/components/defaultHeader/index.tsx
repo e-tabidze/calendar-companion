@@ -8,6 +8,7 @@ import useProfile from 'src/hooks/useProfile'
 import { DefaultButton } from '../button'
 import LanguagePicker from './languagePicker'
 import { useEffect } from 'react'
+import { TNET_AUTH } from 'src/env'
 
 const DefaultHeader = () => {
   const router = useRouter()
@@ -35,18 +36,23 @@ const DefaultHeader = () => {
   }
 
   const handleLogin = () => {
-    const externalPageUrl = 'https://test.auth.tnet.ge/ka/user/login/?Continue=https://test-front-rent.myauto.ge/'
+    const externalPageUrl = TNET_AUTH
     window.location.href = externalPageUrl
+    router.push('/')
   }
-
-
 
   return (
     <InnerContainer>
       <Image src='/images/logo-rent.svg' onClick={onClickLogo} alt='logo' className='w-24 md:w-32 cursor-pointer' />
       <div className='flex items-center'>
-        <LanguagePicker responsive className="mx-4"/>
-        {isLoading ? <>Loading... </> : isAuthenticated ? <User /> : <DefaultButton text='შესვლა' onClick={handleLogin} />}
+        <LanguagePicker responsive className='mx-4' />
+        {isLoading ? (
+          <>Loading... </>
+        ) : isAuthenticated ? (
+          <User />
+        ) : (
+          <DefaultButton text='შესვლა' onClick={handleLogin} />
+        )}
         <Tnet />
       </div>
       <NavigationBar />

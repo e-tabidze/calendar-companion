@@ -7,7 +7,7 @@ export type Booking = {
   booking: BookingDates
   first_name: string
   last_name: string
-  birth_date: string | null
+  dob: string | null
   driver_license_expiration: string | null
   email: string
   phone: string
@@ -18,4 +18,5 @@ export type Booking = {
   end_address: string
   start_time: '',
   end_time: ''
+  product_id: string | number
 }

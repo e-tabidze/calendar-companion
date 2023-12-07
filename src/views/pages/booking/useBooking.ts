@@ -1,4 +1,4 @@
-import { useFieldArray, useForm, useWatch } from 'react-hook-form'
+import { useForm, useWatch } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 
 import { BookingSchema } from 'src/@core/validation/bookingSchema'
@@ -6,12 +6,18 @@ import useProfile from 'src/hooks/useProfile'
 import { useEffect } from 'react'
 import { Booking } from 'src/types/Booking'
 import useSingleProductDetails from '../details/useSingleProductDetails'
+import { useRouter } from 'next/router'
+import { Service } from 'src/types/Product'
 
 const useBooking = (id: number | string | string[]) => {
   const { userInfo } = useProfile()
   const { singleProductDetails } = useSingleProductDetails(id)
+  const router = useRouter()
+  const { book_from, book_to } = router.query
 
-  const additionalService = singleProductDetails?.product_services.map(service => ({
+  console.log(singleProductDetails?.product_services, 'singleProductDetails?.product_services')
+
+  const additionalService = singleProductDetails?.product_services.map((service: Service) => ({
     id: service.id,
     count: 0,
     is_selected: false,
@@ -22,16 +28,17 @@ const useBooking = (id: number | string | string[]) => {
   }))
 
   const defaultValues: Booking = {
+    product_id: Number(id),
     first_name: '',
     last_name: '',
     email: '',
     phone: '',
     identification_number: '',
     booking: {
-      book_from: '',
-      book_to: ''
+      book_from: book_from,
+      book_to: book_to
     },
-    birth_date: null,
+    dob: null,
     driver_license_expiration: null,
     additional_services: additionalService,
     supply: '0',
@@ -71,10 +78,7 @@ const useBooking = (id: number | string | string[]) => {
       )
       setValue('email', userInfo?.UserID === userInfo?.active_profile_id ? userInfo?.Email : '')
       setValue('phone', userInfo?.UserID === userInfo?.active_profile_id ? userInfo?.phone : '')
-      setValue(
-        'birth_date',
-        userInfo?.UserID === userInfo?.active_profile_id ? userInfo?.information?.birth_date : null
-      )
+      setValue('dob', userInfo?.UserID === userInfo?.active_profile_id ? userInfo?.information?.birth_date : null)
       setValue(
         'driver_license_expiration',
         userInfo?.UserID === userInfo?.active_profile_id ? userInfo?.information?.driver_license_expiration : null
@@ -82,15 +86,13 @@ const useBooking = (id: number | string | string[]) => {
       setValue('start_address', singleProductDetails ? singleProductDetails?.start_address : '')
       setValue('end_address', singleProductDetails ? singleProductDetails?.end_address : '')
       setValue('additional_services', singleProductDetails ? additionalService : [])
+
+      setValue('booking.book_from', book_from ? book_from : new Date())
+      setValue('booking.book_to', book_to ? book_to : new Date())
     }
-  }, [userInfo, setValue, singleProductDetails])
+  }, [userInfo, setValue, singleProductDetails, book_from, book_to])
 
   console.log(singleProductDetails?.start_address, 'singleProductDetails?.start_address')
-
-  const { fields: additionalServices, append: appendAdditionalService } = useFieldArray({
-    control,
-    name: 'additional_services'
-  })
 
   return {
     control,
@@ -101,9 +103,7 @@ const useBooking = (id: number | string | string[]) => {
     resetField,
     setError,
     clearErrors,
-    setValue,
-    additionalServices,
-    appendAdditionalService
+    setValue
   }
 }
 

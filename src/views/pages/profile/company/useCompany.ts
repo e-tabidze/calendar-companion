@@ -4,8 +4,13 @@ import useCompanyInfo from '../../../../hooks/useCompanyInfo'
 import { Company, CompanyAddress, WorkingTime } from 'src/types/Company'
 import { CompanySchema } from 'src/@core/validation/companySchema'
 import CompanyService from 'src/services/CompanyService'
+import { useEffect } from 'react'
 
 const useCompany = (id: number) => {
+  useEffect(() => {
+    console.log(id, 'ID?')
+  }, [id])
+
   const { companyInfo } = useCompanyInfo(id)
 
   const defaultAddress: CompanyAddress[] = companyInfo?.addresses?.map((address: any) => ({
@@ -103,7 +108,7 @@ const useCompany = (id: number) => {
     company_type_id: companyInfo.company_type_id,
     company_information: {
       name: companyInfo?.information?.name,
-      logo: '',
+      logo: companyInfo?.information?.logo,
       description: companyInfo?.information?.description,
       email: companyInfo?.information?.email,
       phone_numbers: companyInfo?.information?.phone_numbers
@@ -125,6 +130,16 @@ const useCompany = (id: number) => {
     defaultValues,
     resolver: yupResolver(CompanySchema)
   })
+
+  useEffect(() => {
+    setValue('identification_number', companyInfo?.identification_number)
+    setValue('company_information.name', companyInfo?.information?.name)
+    setValue('company_information.description', companyInfo?.information?.description)
+    setValue('company_information.email', companyInfo?.information?.email)
+    setValue('company_information.logo', companyInfo?.information?.name)
+    setValue('company_id', id)
+    setValue('addresses', defaultAddress)
+  }, [setValue, id])
 
   const {
     fields: addressFields,
