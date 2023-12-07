@@ -13,9 +13,11 @@ const BookingSchema = Yup.object<Booking>().shape({
   birth_date: Yup.mixed().nullable().required('აუცილებელი ველი') as Yup.StringSchema<string | null>,
   driver_license_expiration: Yup.mixed().nullable().required('აუცილებელი ველი') as Yup.StringSchema<string | null>,
   email: Yup.string().required('აუცილებელი ველი'),
-  phone: Yup.string().required('აუცილებელი ველი'),
+  phone: Yup.string()
+    .matches(/^\d+$/, 'ტელეფონის ნომერი უნდა იყოს რიცხვი')
+    .max(9, 'ტელეფონის ნომერი უნდა იყოს მაქსიმუმ 9 ციფრი')
+    .required('აუცილებელი ველი'),
   identification_number: Yup.string().required('აუცილებელი ველი')
 })
-
 
 export { BookingSchema }

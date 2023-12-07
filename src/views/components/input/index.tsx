@@ -203,7 +203,7 @@ export const InputWithComponent: React.FC<Props> = ({ label, className, onCompon
                 onChange={e => onChange(e)}
               />
               {errors && (
-                <div id={id} className='text-sm text-red-100 absolute bottom-0'>
+                <div id={id} className='text-sm text-red-100 absolute -bottom-5'>
                   {_.get(errors, name)?.message}
                 </div>
               )}

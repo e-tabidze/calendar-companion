@@ -8,9 +8,10 @@ interface Props {
   index: number
   label: string
   description: string
+  errors: any
 }
 
-const ServiceDetails: React.FC<Props> = ({ control, index, label, description }) => {
+const ServiceDetails: React.FC<Props> = ({ control, index, label, description, errors }) => {
   return (
     <div className='mb-8'>
       <Typography type='subtitle' className='text-black font-bold mt-9 mb-2'>
@@ -21,7 +22,7 @@ const ServiceDetails: React.FC<Props> = ({ control, index, label, description })
           {description}
         </Typography>
         <div className='flex gap-4 justify-center'>
-          <DefaultInput label={label} className='!w-64' control={control} name={`company_services.${index}.price`} />
+          <DefaultInput label={label} className='!w-64' control={control} name={`company_services.${index}.price`} errors={errors} type="number" />
           <TwoOptionSelector
             control={control}
             name={`company_services.${index}.currency`}

@@ -2,6 +2,7 @@ import Radio from 'src/views/components/radio'
 import Typography from 'src/views/components/typography'
 import Divider from 'src/views/components/divider'
 import FileUpload from 'src/views/components/fileUpload'
+import { ChangeEvent } from 'react'
 
 interface Props {
   control: any
@@ -10,8 +11,30 @@ interface Props {
 const StepSeven: React.FC<Props> = ({ control }) => {
   const Insured = () => (
     <div className='flex flex-col gap-5 m-12'>
-      <FileUpload title='სადაზღვევო პოლისი' description='ატვირთეთ დაზღვევის დამადასტურებელი დოკუმენტი' />
-      <FileUpload title='სადაზღვევო პოლისი' description='ატვირთეთ დაზღვევის დამადასტურებელი დოკუმენტი' />
+      <FileUpload
+        title='სადაზღვევო პოლისი'
+        description='ატვირთეთ დაზღვევის დამადასტურებელი დოკუმენტი'
+        onChange={function (event: ChangeEvent<HTMLInputElement>): void {
+          console.log(event)
+          throw new Error('Function not implemented.')
+        }}
+        handleDelete={function (): void {
+          throw new Error('Function not implemented.')
+        }}
+        value={undefined}
+      />
+      <FileUpload
+        title='სადაზღვევო პოლისი'
+        description='ატვირთეთ დაზღვევის დამადასტურებელი დოკუმენტი'
+        onChange={function (event: ChangeEvent<HTMLInputElement>): void {
+          console.log(event)
+          throw new Error('Function not implemented.')
+        }}
+        handleDelete={function (): void {
+          throw new Error('Function not implemented.')
+        }}
+        value={undefined}
+      />
     </div>
   )
 

@@ -12,6 +12,7 @@ import { useQueryClient, useMutation } from '@tanstack/react-query'
 import DeleteAddressConfirmationModal from '../../../components/deleteAddressConfirmationModal'
 import DeleteCompanyConfirmationModal from 'src/views/components/deleteCompanyConfirmationModal'
 import useCompany from './useEditCompany'
+import { useWatch } from 'react-hook-form'
 
 const EditCompany = () => {
   const [deleteAddresseModal, setDeleteAddressModal] = useState(false)
@@ -74,6 +75,8 @@ const EditCompany = () => {
     deleteAddressId && deleteCompanyAddressMutation.mutate(deleteAddressId)
   }
 
+  const formState = useWatch({ control })
+
   if (isLoading) {
     return <>Loading...</>
   }
@@ -83,7 +86,7 @@ const EditCompany = () => {
       <div className='md:border md:border-raisin-10 md:rounded-3xl md:p-8'>
         <div className='flex gap-6 items-center mb-10'>
           <Image
-            src='/images/avatar.png'
+            src={formState?.company_information?.logo || ''}
             width={96}
             height={96}
             alt=''
@@ -106,9 +109,29 @@ const EditCompany = () => {
         </div>
         <Divider />
         <div className='md:grid md:grid-cols-3 md:gap-4 mt-10'>
-          <DefaultInput name='company_information.name' control={control} errors={''} label='დასახელება' className="mb-4 md:mb-0" />
-          <DefaultInput name='identification_number' control={control} errors={''} label='საიდენტიფიკაციო კოდი' className="mb-4 md:mb-0" />
-          <DefaultInput name='company_information.name' control={control} errors={''} label='იურიდიული დასახელება' className="mb-4 md:mb-0" />
+          <DefaultInput
+            name='company_information.name'
+            control={control}
+            errors={''}
+            label='დასახელება'
+            className='mb-4 md:mb-0'
+          />
+          <DefaultInput
+            name='identification_number'
+            control={control}
+            errors={''}
+            label='საიდენტიფიკაციო კოდი'
+            className='mb-4 md:mb-0'
+            disabled
+          />
+          <DefaultInput
+            name='company_information.name'
+            control={control}
+            errors={''}
+            label='იურიდიული დასახელება'
+            className='mb-4 md:mb-0'
+            disabled
+          />
           <DefaultInput
             name='company_information.description'
             control={control}

@@ -11,8 +11,8 @@ const useNewProduct = () => {
 
   const services = companyServices?.map((service: any) => ({
     id: service.id,
-    price: '',
-    currency: '',
+    price: service.type_id === 3 ? 0 : null,
+    currency: 'GEL',
     quantity: '',
     isSelected: false
   }))
@@ -49,7 +49,6 @@ const useNewProduct = () => {
       currency: 'GEL'
     },
     apply_discount: false,
-    identification_number: '123456789098',
     is_active: true,
     discount: [discount_item],
     company_services: [services],

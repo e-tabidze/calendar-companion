@@ -92,6 +92,7 @@ const BranchInfoComponent: React.FC<Props> = ({ index, control, errors, setValue
                 name={`addresses.${index}.address`}
                 control={control}
                 className='lg:col-span-2'
+                errors={errors}
               />
 
               {locationSuggestions?.result?.data && value.length >= 3 && (

@@ -103,7 +103,7 @@ const EditProduct: React.FC = ({}) => {
           />
         )
       case 4:
-        return <StepFour control={control} step={step.step} />
+        return <StepFour control={control} step={step.step} errors={errors} />
       case 5:
         return <StepFive control={control} setValue={setValue} />
       case 6:

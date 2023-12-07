@@ -90,6 +90,7 @@ const ProfileRouter = ({ userInfo }: { userInfo: UserInfo }) => {
         id={Number(companyid)}
         name={companyInfo?.information?.name}
         productsCount={companyInfo?.count_company_poduct}
+        logo={companyInfo?.information?.logo}
       />
     ) : (
       <></>
@@ -122,7 +123,7 @@ const Profile = () => {
   const companyRoutes =
     userCompanies?.map((company: any) => ({
       id: 8 + company?.id,
-      icon: '',
+      icon: company?.information?.logo,
       item: company?.information.name,
       path: `/profile/company/${company?.id}`
     })) || []
