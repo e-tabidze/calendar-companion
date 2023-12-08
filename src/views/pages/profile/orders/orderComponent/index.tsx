@@ -130,7 +130,7 @@ const OrderComponent: React.FC<Props> = ({ toggleDetails }) => {
           <DefaultButton bg='bg-raisin-10' text='ჯავშნის გაუქმება' onClick={toggleCancelOrderDialog} />
         </div>
       </PriceDetailsContainer>
-      <CancelOrderDialog open={cancelOrderDialog} close={toggleCancelOrderDialog} />
+      <CancelOrderDialog open={cancelOrderDialog} close={toggleCancelOrderDialog} handleCancel={undefined} />
     </div>
   )
 }

@@ -29,11 +29,11 @@ const IncomingOrders = () => {
         ))} */}
       </div>
       <div className='px-none md:px-6 2xl:px-8'>
-        <OrderListComponent toggleDetails={toggleDetails} />
-        <OrderListComponent toggleDetails={toggleDetails} />
-        <OrderListComponent toggleDetails={toggleDetails} />
-        <OrderListComponent toggleDetails={toggleDetails} />
-        <OrderListComponent toggleDetails={toggleDetails} />
+        <OrderListComponent toggleDetails={toggleDetails} startAddress={''} startDate={''} startTime={''} endDate={''} endTime={''} firstName={''} lastName={''} days={0} productDetails={undefined} price={0} discount={0} status={0} />
+        <OrderListComponent toggleDetails={toggleDetails} startAddress={''} startDate={''} startTime={''} endDate={''} endTime={''} firstName={''} lastName={''} days={0} productDetails={undefined} price={0} discount={0} status={0} />
+        <OrderListComponent toggleDetails={toggleDetails} startAddress={''} startDate={''} startTime={''} endDate={''} endTime={''} firstName={''} lastName={''} days={0} productDetails={undefined} price={0} discount={0} status={0} />
+        <OrderListComponent toggleDetails={toggleDetails} startAddress={''} startDate={''} startTime={''} endDate={''} endTime={''} firstName={''} lastName={''} days={0} productDetails={undefined} price={0} discount={0} status={0} />
+        <OrderListComponent toggleDetails={toggleDetails} startAddress={''} startDate={''} startTime={''} endDate={''} endTime={''} firstName={''} lastName={''} days={0} productDetails={undefined} price={0} discount={0} status={0} />
       </div>
     </div>
   )

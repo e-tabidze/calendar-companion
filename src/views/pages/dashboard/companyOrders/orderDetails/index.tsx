@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import Image from 'next/image'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { DefaultButton, IconTextButton } from 'src/views/components/button'
 import Divider from 'src/views/components/divider'
 import Typography from 'src/views/components/typography'
@@ -25,7 +25,6 @@ interface Props {
 
 const OrderDetails: React.FC<Props> = ({ toggleDetails, setOrderId, orderId }) => {
   const [cancelOrderDialog, setCancelOrderDialog] = useState(false)
-  const [companyData, setCompanyData] = useState(null)
 
   const { companyOrder, postOrderStatus } = useCompanyOrders(orderId!)
 
@@ -48,12 +47,6 @@ const OrderDetails: React.FC<Props> = ({ toggleDetails, setOrderId, orderId }) =
       queryClient.invalidateQueries(['companyOrders'])
     }
   })
-
-  useEffect(() => {
-    if (companyOrder?.product_data) {
-      setCompanyData(JSON.parse(companyOrder?.product_data))
-    }
-  }, [companyOrder?.product_data])
 
   return (
     <>
