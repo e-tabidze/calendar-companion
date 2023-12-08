@@ -8,9 +8,15 @@ import { Details, DetailsWrapper, InnerDetailsContainer, PreviousPrice, PriceCon
 
 interface Props {
   productId: string | number
+  manufacturer: string
+  year: number
+  model: string
+  city: string
+  price: number
+  isDeleted: boolean
 }
 
-const ListComponent: React.FC<Props> = ({ productId }) => {
+const ListComponent: React.FC<Props> = ({ productId, manufacturer, model, year, city, price, isDeleted }) => {
   const { width } = useWindowDimensions()
 
   const { toggleUserFavourites } = useFavourites(productId)
@@ -38,25 +44,27 @@ const ListComponent: React.FC<Props> = ({ productId }) => {
         <div className='relative w-full sm:h-[140px] sm:m-auto flex flex-col justify-between'>
           <div className=''>
             <Typography type='h4' weight='normal' color='dark'>
-              {` hyunday elantra 2011 => ${productId}`}
+              {manufacturer} {model} {year}
             </Typography>
             <div className='flex gap-2 items-center mt-1'>
               <Image src='/icons/star.svg' alt='' height={16} width={16} />
-              <Typography type='subtitle'>4.89</Typography>
+              <Typography type='subtitle'>{city}</Typography>
               <div className='h-[5px] w-px bg-raisin-10' />
               <Typography type='body' color='light'>
-                თბილისი
+                {year}
               </Typography>
             </div>
           </div>
           <div className='flex justify-between w-full mt-3 sm:mt-none'>
             <div className='flex items-center gap-6'>
               <Typography type='h4' weight='medium' color='dark'>
-                <PriceContainer>
-                  27₾ <PreviousPrice>47₾</PreviousPrice>
-                </PriceContainer>
+                <PriceContainer>{price} ₾ / დღე</PriceContainer>
               </Typography>
-              <Typography type='subtitle'>დღე</Typography>
+              {isDeleted && (
+                <Typography type='subtitle'>
+                  <PreviousPrice>პროდუქტი წაშლილია</PreviousPrice>
+                </Typography>
+              )}
             </div>
             <InnerDetailsContainer>
               <DetailsWrapper>
