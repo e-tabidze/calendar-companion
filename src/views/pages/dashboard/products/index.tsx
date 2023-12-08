@@ -18,7 +18,7 @@ const filters = [
   {
     label: 'ყველა',
     id: '1',
-    filterOption: null as null
+    filterOption: ''
   },
   {
     label: 'აქტიური',
@@ -38,7 +38,7 @@ const filters = [
 ]
 const Products = () => {
   const { width } = useWindowDimensions()
-  const [filterQuery, setFilterQuery] = useState<null | 0 | 1 | 2>(null)
+  const [filterQuery, setFilterQuery] = useState<'' | 0 | 1 | 2>('')
   const { companyProducts, isLoading } = useProducts(filterQuery)
 
   return (
@@ -61,7 +61,7 @@ const Products = () => {
               height='h-10'
               key={filter.id}
               className={`${filter.filterOption === filterQuery ? 'border !border-orange-100' : ''} rounded-xl`}
-              handleClick={() => setFilterQuery(filter.filterOption as null | 0 | 1 | 2)}
+              handleClick={() => setFilterQuery(filter.filterOption as '' | 0 | 1 | 2)}
             />
           ))}
         </div>

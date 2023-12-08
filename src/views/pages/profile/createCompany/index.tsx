@@ -52,8 +52,6 @@ const CreateCompany = () => {
   const createCompanyMutation = useMutation(() => createCompany('', companyValues), {
     onSuccess: data => {
       queryClient.invalidateQueries(['profileInfo'])
-      console.log(data, 'create company mutation response data')
-
       if (data) {
         saveCompanyLogoMutation.mutate({
           logo: data?.result?.data?.information?.logo,
@@ -71,8 +69,6 @@ const CreateCompany = () => {
     createCompanyMutation.mutate(companyValues)
   }
 
-  console.log(companyValues, 'companyValues')
-  
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <NewListingLayout

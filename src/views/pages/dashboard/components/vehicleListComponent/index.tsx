@@ -16,7 +16,7 @@ interface Props {
   prodYear: number
   active: number
   id: number
-  filter: null | 0 | 1 | 2
+  filter: '' | 0 | 1 | 2
 }
 
 const VehicleListComponent: React.FC<Props> = ({ price, startCity, prodYear, model, manufacturer, active, id, filter }) => {
