@@ -22,6 +22,7 @@ const CategoryPopover: React.FC<Props> = ({ control, appendCategory, handleSubmi
         append={appendCategory}
         width='50'
         height='45'
+        classList="border-b-1 border-raisin-10 pb-3"
       />
       <div className='flex items-center justify-between'>
         <IconButton icon='/icons/rotate.svg' text='გასუფთავება' hasBg={false} width={16} height={16} onClick={() => reset("category")} />

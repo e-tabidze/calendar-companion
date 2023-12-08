@@ -14,7 +14,7 @@ const SwitchField: React.FC<Props> = ({ label, className, description, control, 
   return (
     <div className={`flex justify-between items-center w-full ${className}`}>
       <div>
-        <Typography type='subtitle' color='dark'>
+        <Typography type='subtitle' color='dark' className="text-md">
           {label}
         </Typography>
         {description && (

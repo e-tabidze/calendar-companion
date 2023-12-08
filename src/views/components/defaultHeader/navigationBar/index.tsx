@@ -8,7 +8,7 @@ const NavigationBar = () => {
     const {activeCompany } = useProfile()
 
     return (
-        <div className="lg:hidden bg-[#ffffff] py-4 fixed bottom-0 left-0 w-full z-[3] box-shadow-sm">
+        <div className="lg:hidden bg-[#ffffff] py-4 fixed bottom-0 left-0 w-full z-[111] box-shadow-sm">
             <ul className="flex justify-around">
                 <li>
                     <a href={`${activeCompany ? 'dashboard':'main'}`}>

@@ -30,14 +30,14 @@ const MainPage = () => {
         </LargeContainer>
 
         <ContentContainer>
-          <Typography type='h3' className='mt-12'>
+          <Typography type='h3' className='text-3md md:text-2lg mt-12'>
             მოძებნე კატეგორიების მიხედვით
           </Typography>
           <Typography type='subtitle' color='light' className='mb-12'>
             იპოვეთ თქვენთვის სასურველი ავტომობილი კონკრეტული საჭიროებისთვის ერთ სივრცეში
           </Typography>
         </ContentContainer>
-        <ContentContainer className='mb-12'>
+        <ContentContainer className='px-0 md:px-5 lg:px-8 mb-12'>
           <Carousel
             itemsArray={categoriesFilter?.map((product: any) => (
               <CategoryItem
@@ -55,7 +55,7 @@ const MainPage = () => {
           <Divider />
         </LargeContainer>
         <ContentContainer>
-          <Typography type='h3' className='mt-12'>
+          <Typography type='h3' className='text-3md md:text-2lg mt-12'>
             ბოლოს დამატებული
           </Typography>
           <Typography type='subtitle' color='light' className='mb-12'>
@@ -81,7 +81,7 @@ const MainPage = () => {
           />
         </ContentContainer>
         <ContentContainer>
-          <Typography type='h3' className='mt-12'>
+          <Typography type='h3' className='text-3md md:text-2lg mt-12'>
             პოპულარული მანქანები
           </Typography>
           <Typography type='subtitle' color='light' className='mb-12'>
@@ -106,7 +106,7 @@ const MainPage = () => {
             type='products'
           />
         </ContentContainer>
-        <ResponsiveContainer className='mt-20'>
+        <ResponsiveContainer className='mt-16 md:mt-20'>
           <Cities />
         </ResponsiveContainer>
       </MainPageBox>

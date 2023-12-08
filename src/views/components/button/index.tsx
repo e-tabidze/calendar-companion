@@ -6,7 +6,7 @@ export const DefaultButton = ({ text, onClick, bg, className, textColor, type, d
     <button
       className={`${bg} rounded-xl ${disabled ? 'opacity-60' : ''}  ${bg ? `${textColor}` : 'text-raisin-100'} text-2sm ${
         bg ? 'border-none' : 'border border-px-raisin-100'
-      } h-10 min-w-10 px-3 font-normal ${className}`}
+      } inline-flex items-center justify-center h-10 min-w-10 px-3 font-normal ${className}`}
       onClick={onClick}
       type={type}
       disabled={disabled}
@@ -18,7 +18,7 @@ export const DefaultButton = ({ text, onClick, bg, className, textColor, type, d
 
 export const OutlinedButton = ({ label, onClick, type = 'button' }: any) => {
   return (
-    <button className='border border-raisin-100 h-10 min-w-10 flex items-center justify-center rounded-xl' onClick={onClick} type={type}>
+    <button className='border border-raisin-100 h-10 min-w-10 inline-flex items-center justify-center rounded-xl' onClick={onClick} type={type}>
       {label}
     </button>
   )

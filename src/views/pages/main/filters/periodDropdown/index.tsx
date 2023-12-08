@@ -40,7 +40,7 @@ const LocationDropdown: React.FC<Props> = ({ control }) => {
         leaveFrom='transform opacity-100 scale-100'
         leaveTo='transform opacity-0 scale-95'
       >
-        <Menu.Items className='absolute top-full z-10 p-4 right-0 mt-4 w-full flex justify-center origin-top-right divide-y divide-gray-100 rounded-2xl bg-white shadow-lg focus:outline-none'>
+        <Menu.Items className='absolute top-full z-[11] p-4 right-0 mt-4 w-full flex justify-center origin-top-right divide-y divide-gray-100 rounded-2xl bg-white shadow-lg focus:outline-none'>
           <Controller
             name='booking'
             control={control}

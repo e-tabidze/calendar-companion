@@ -49,7 +49,7 @@ const CategoryCard: React.FC<Props> = ({ border, name, control, options, append 
                 <Typography type='body' color='dark' className='mt-4'>
                   {}
                 </Typography>
-                <Typography type='body' color={value === option.id ? 'dark' : 'light'} className='text-md font-light'>
+                <Typography type='body' color={value === option.id ? 'dark' : 'light'} className='text-2sm text-raisin-100'>
                   {option.title}
                 </Typography>
               </div>

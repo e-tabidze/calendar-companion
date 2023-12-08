@@ -117,6 +117,7 @@ ${(props: any) => (props.className ? props.className : '')}
 ${(props: any) => (props.weight === 'medium' ? 'font-medium' : 'font-normal')}
 text-base-100
 text-md
+whitespace-normal
 `
 
 const SubtitleTypography = tw.p<TextComponent>`

@@ -2,6 +2,21 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer utilities {
+  @variants responsive {
+    /* Hide scrollbar for Chrome, Safari and Opera */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+
+    /* Hide scrollbar for IE, Edge and Firefox */
+    .no-scrollbar {
+      -ms-overflow-style: none;  /* IE and Edge */
+      scrollbar-width: none;  /* Firefox */
+    }
+  }
+}
+
 @font-face {
   font-family: 'TBCXLight';
   src: url('/fonts/tbc/TBCXLight.eot');
@@ -14,6 +29,15 @@
   outline: none;
 }
 
+@media(max-width: 480px) {
+  .react-datepicker__month {
+    margin: 0 !important;
+  }
+  .react-datepicker__day-name,
+  .react-datepicker__day {
+    margin: 1px !important;
+  }
+}
 .react-datepicker__tab-loop {
  position: absolute;
 }
@@ -103,9 +127,9 @@
   }
 } */
 
-/* .swiper-slide-prev, .swiper-slide-next {
-  opacity: 0.3 !important;
-} */
+/* .swiper-slide-prev, .swiper-slide-next {*/
+/*  opacity: 0.3 !important;*/
+/*}*/
 
 .css-17db9ma-control {
   height: 56px !important;

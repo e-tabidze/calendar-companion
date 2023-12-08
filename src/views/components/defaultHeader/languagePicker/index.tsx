@@ -48,7 +48,7 @@ const LanguagePicker = ({dropdownUp, responsive, className}: Props) =>  {
           leaveFrom='transform opacity-100 scale-100'
           leaveTo='transform opacity-0 scale-95'
         >
-          <Menu.Items className={`${dropdownUp ? 'bottom-full mb-5':'top-full mt-5'} min-w-[200px] absolute z-[2] right-0 left-auto md:right-0 md:left-1/2 md:-translate-x-1/2  bg-[#ffffff] rounded-2xl  shadow-[0px_6px_18px_#000000/10] py-4`}>
+          <Menu.Items className={`${dropdownUp ? 'bottom-full mb-5':'top-full mt-5'} shadow-sm  min-w-[200px] absolute z-[2] right-0 left-auto md:right-0 md:left-1/2 md:-translate-x-1/2  bg-[#ffffff] rounded-2xl  shadow-[0px_6px_18px_#000000/10] py-4`}>
             {langs.map(lang => (
               <Menu.Item key={lang.id}>
                 <button

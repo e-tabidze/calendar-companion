@@ -190,7 +190,7 @@ const Booking = () => {
           }}
         />
       ) : (
-        <ResponsivePriceCalcCard toggleDrawer={toggleDrawer} />
+        <ResponsivePriceCalcCard toggleDrawer={toggleDrawer} bookingModal />
       )}
       <BookingModal
         open={openEditModal}
