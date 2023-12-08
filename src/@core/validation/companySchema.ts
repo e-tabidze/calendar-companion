@@ -51,7 +51,9 @@ const CompanySchema = Yup.object<Company>().shape({
 
   company_information: CompanyInfoSchema,
 
-  addresses: Yup.array<CompanyAddress>().of(CompanyAddressSchema)
+  addresses: Yup.array<CompanyAddress>().of(CompanyAddressSchema),
+  
+  company_id: Yup.mixed()
 })
 
 export { CompanySchema }

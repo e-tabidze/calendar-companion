@@ -20,6 +20,7 @@ import TakeAway from 'src/views/pages/booking/takeAway'
 import Delivery from 'src/views/pages/booking/delivery'
 import BookingModal from 'src/views/pages/booking/bookingModal'
 import CheckServices from 'src/views/pages/booking/checkServices'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 
 const Booking = () => {
   const [additionalServices, toggleAdditionalServices] = useState(false)
@@ -46,9 +47,11 @@ const Booking = () => {
 
   console.log(singleCompanyBranches, 'companyBranches')
 
-  const { control, bookingValues, errors, handleSubmit, appendAdditionalService } = useBooking(id)
+  const { control, bookingValues, errors, handleSubmit, postOrder } = useBooking(id)
 
   console.log(bookingValues, 'bookingValues')
+
+  const queryClient = useQueryClient()
 
   const onClickLogo = () => {
     router.push('/')
@@ -67,13 +70,17 @@ const Booking = () => {
     }
   ]
 
+  const createCompanyMutation = useMutation(() => postOrder('', bookingValues), {
+    onSuccess: () => {
+      queryClient.invalidateQueries(['profileInfo'])
+    }
+  })
+
   const onSubmit = () => {
-    console.log(bookingValues, 'V')
+    createCompanyMutation.mutate()
   }
 
   const formsState = useWatch({ control })
-
-  console.log(formsState, 'formState')
 
   console.log(singleProductDetails?.product_services, 'additionalServices')
 
@@ -100,7 +107,7 @@ const Booking = () => {
               <DefaultInput control={control} name='phone' errors={errors} label='მობილურის ნომერი' />
               <DefaultInput control={control} name='email' errors={errors} label='ელ.ფოსტა' />
 
-              <DateDropdown label={'აირჩიე დაბადების თარიღი'} name='birth_date' control={control} />
+              <DateDropdown label={'აირჩიე დაბადების თარიღი'} name='dob' control={control} />
               <DateDropdown
                 label={'მართვის მოწმობის მოქმედების ვადა'}
                 name='driver_license_expiration'
@@ -132,16 +139,9 @@ const Booking = () => {
 
               {/* {additionalServices && <AdditionalServices control={control} />} */}
               {additionalServices && (
-                <CheckServices
-                  name={`additional_services.service`}
-                  control={control}
-                  options={singleProductDetails?.product_services}
-                  append={() => appendAdditionalService(appendAdditionalService)}
-                  className='my-2'
-                />
+                <CheckServices control={control} options={formsState?.additional_services as any} />
               )}
             </div>
-            {!additionalServices && <Divider />}
 
             {/* <div>
               <div className='mt-11 flex items-center justify-between mb-8' onClick={() => toggleInsurance(!insurance)}>
@@ -167,9 +167,7 @@ const Booking = () => {
                     (24 * 60 * 60 * 1000)
                 ) + 1
               }
-              onClick={function (): void {
-                throw new Error('Function not implemented.')
-              }}
+              onClick={onSubmit}
             />
           </div>
         </ContentContainer>

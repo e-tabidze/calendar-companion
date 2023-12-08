@@ -43,7 +43,7 @@ const AddressAndSchedule: React.FC<Props> = ({ index, control, address, errors }
         <Divider />
         <div
           className={`w-full flex flex-col justify-between p-4 lg:flex-row ${
-            formState.addresses[index].is_same_time === 1 ? 'lg:items-center' : 'lg:items-start'
+            formState?.addresses[index]?.is_same_time === 1 ? 'lg:items-center' : 'lg:items-start'
           } gap-4 sm:gap-12`}
         >
           <div className='flex items-center gap-4 w-full'>

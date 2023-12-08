@@ -7,10 +7,8 @@ const useCompanyInfo = (id: any) => {
     enabled: !!id
   })
 
-
-
   const useCompanyBranches: any = useQuery({
-    queryKey: ['singleCompanyBranches'],
+    queryKey: ['singleCompanyBranches', id],
     queryFn: () => getSingleCompanyBranches(id),
     staleTime: Infinity,
     enabled: !!id

@@ -3,8 +3,8 @@ import { useState } from 'react'
 import useWindowDimensions from 'src/hooks/useWindowDimensions'
 import DefaultHeader from 'src/views/components/defaultHeader'
 import ProfileNavigation from 'src/views/components/profileNavigation'
-import HeaderWrapper from "../views/components/headerWrapper";
-import Footer from "src/views/components/footer";
+import HeaderWrapper from '../views/components/headerWrapper'
+import Footer from 'src/views/components/footer'
 
 interface Route {
   id: number
@@ -50,9 +50,9 @@ const ProfileLayout: React.FC<Props> = ({ routes, dividerIndexes, children }) =>
           selectedRoute={selectedRoute}
           dividerIndexes={dividerIndexes}
         />
-        <div className="transition-all duration-300 w-full z-[11] p-4 lg:p-0">{children}</div>
+        <div className='transition-all duration-300 w-full z-[11] p-4 lg:p-0'>{children}</div>
       </div>
-      <Footer/>
+      <Footer />
     </main>
   )
 }

@@ -12,8 +12,11 @@ export type Discount = {
 export type Service = {
   id: number
   price: number
-  currency: string
+  currency?: string
   quantity: number
+  description: any
+  title: any
+  company_service_type_id?: any
 }
 
 export type Product = {

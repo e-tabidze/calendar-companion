@@ -36,7 +36,7 @@ const BookingList: React.FC<Props> = ({ addresses, control }) => {
             render={({ field: { value, onChange } }) => (
               <RadioGroup value={value} onChange={onChange} name='start_address'>
                 <div className='w-full'>
-                  {addresses.map((cityData: any) => (
+                  {addresses?.map((cityData: any) => (
                     <div key={cityData.city} className='w-full'>
                       {cityData.addresses.map((address: any) => (
                         <RadioGroup.Option key={address.address} value={address.address} className='w-full'>
@@ -84,7 +84,7 @@ const BookingList: React.FC<Props> = ({ addresses, control }) => {
         render={({ field: { value, onChange } }) => (
           <RadioGroup value={value} onChange={onChange} name='end_address'>
             <div className='w-full'>
-              {addresses.map((cityData: any) => (
+              {addresses?.map((cityData: any) => (
                 <div key={cityData.city} className='w-full'>
                   {cityData.addresses.map((address: any) => (
                     <RadioGroup.Option key={address.address} value={address.address} className='w-full'>

@@ -8,6 +8,7 @@ import Typography from 'src/views/components/typography'
 
 import ListComponent from '../components/orderListComponent'
 import OrderDetails from './orderDetails'
+import useCompanyOrders from './useCompanyOrders'
 
 const filters = [
   {
@@ -36,16 +37,20 @@ const filters = [
   }
 ]
 
-const IncomingOrders = () => {
+const CompanyOrders = () => {
+  const { companyOrders } = useCompanyOrders()
   const [details, setDetails] = useState(false)
+  const [orderId, setOrderId] = useState(0)
   const { width } = useWindowDimensions()
+
+  console.log(companyOrders, 'companyOrders')
 
   const toggleDetails = () => setDetails(!details)
 
   return (
     <>
       {details ? (
-        <OrderDetails toggleDetails={toggleDetails} />
+        <OrderDetails toggleDetails={toggleDetails} setOrderId={setOrderId} orderId={orderId} />
       ) : (
         <div>
           <div className='border border-raisin-10 rounded-2xl'>
@@ -63,13 +68,29 @@ const IncomingOrders = () => {
                 <Tag label={filter.label} height='h-10' key={filter.id} className='rounded-xl' />
               ))}
             </div>
-            <Divider/>
+            <Divider />
             <div className='px-none md:px-6 2xl:px-8'>
-              <ListComponent toggleDetails={toggleDetails} />
-              <ListComponent toggleDetails={toggleDetails} />
-              <ListComponent toggleDetails={toggleDetails} />
-              <ListComponent toggleDetails={toggleDetails} />
-              <ListComponent toggleDetails={toggleDetails} />
+              {companyOrders?.map((order: any) => (
+                <ListComponent
+                  key={order?.id}
+                  toggleDetails={() => {
+                    toggleDetails()
+                    setOrderId(order?.id)
+                  }}
+                  startAddress={order?.start_address}
+                  startDate={order?.start_date}
+                  startTime={order?.start_time}
+                  endDate={order?.end_date}
+                  endTime={order?.end_time}
+                  firstName={order?.first_name}
+                  lastName={order?.last_name}
+                  days={order?.days}
+                  productDetails={JSON.parse(order?.product_data)}
+                  price={order?.price}
+                  discount={order?.discount_percent}
+                  status={order?.status_id}
+                />
+              ))}
             </div>
           </div>
           <Pagination totalPages={20} onPageChange={() => console.log('change Page')} />
@@ -79,4 +100,4 @@ const IncomingOrders = () => {
   )
 }
 
-export default IncomingOrders
+export default CompanyOrders

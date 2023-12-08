@@ -3,8 +3,9 @@ import dynamic from 'next/dynamic'
 
 import useProfile, { getUserInfo } from 'src/hooks/useProfile'
 import { UserInfo } from 'src/types/User'
-import { dehydrate, QueryClient } from '@tanstack/query-core'
+import { dehydrate } from '@tanstack/query-core'
 import useCompanyInfo from 'src/hooks/useCompanyInfo'
+import { QueryClient, useQueryClient } from '@tanstack/react-query'
 
 const Orders = dynamic(() => import('src/views/pages/profile/orders'), { ssr: true })
 const Favourites = dynamic(() => import('src/views/pages/profile/favourites'), { ssr: true })
@@ -56,6 +57,8 @@ const routes = [
 
 const ProfileRouter = ({ userInfo }: { userInfo: UserInfo }) => {
   const router = useRouter()
+  const queryClient = useQueryClient()
+
   let key = ''
   let companyid
 
@@ -84,6 +87,8 @@ const ProfileRouter = ({ userInfo }: { userInfo: UserInfo }) => {
       const queryKey = ['companyInfo', companyid]
       queryClient.invalidateQueries(queryKey)
     }
+
+    console.log(router, 'router')
 
     return companyid && companyInfo ? (
       <Company
@@ -122,8 +127,9 @@ const Profile = () => {
 
   const companyRoutes =
     userCompanies?.map((company: any) => ({
-      id: 8 + company?.id,
-      icon: company?.information?.logo,
+      id: company?.id,
+      companyId: company?.id,
+      image: company?.information?.logo,
       item: company?.information.name,
       path: `/profile/company/${company?.id}`
     })) || []

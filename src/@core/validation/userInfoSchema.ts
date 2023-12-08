@@ -12,7 +12,10 @@ const UserInfoSchema = Yup.object().shape({
 
       return !isNaN(numericValue) && numericValue.toString().length === 11
     }),
-  phone: Yup.number().typeError('ტელეფონის ნომერი უნდა იყოს რიცხვი').required('აუცილებელი ველი').max(9, 'მაქსიმუმ 9 რიცხვი')
+  phone: Yup.number()
+    .typeError('ტელეფონის ნომერი უნდა იყოს რიცხვი')
+    .required('აუცილებელი ველი')
+    .min(6, 'მინიმუმ 8 რიცხვი')
 })
 
 export { UserInfoSchema }

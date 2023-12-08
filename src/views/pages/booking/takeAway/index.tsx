@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import { useWatch } from 'react-hook-form'
 import { generateTimeOptions } from 'src/utils/timeValues'
+import Icon from 'src/views/app/Icon'
 import SelectField from 'src/views/components/selectField'
 import Typography from 'src/views/components/typography'
 
@@ -49,7 +50,7 @@ const TakeAway: React.FC<Props> = ({ control, toggleEditModal }) => {
       </div>
       <div className='flex items-center mt-3'>
         <div className='w-2/12 flex items-start'>
-          <Image src='/icons/stop.svg' alt='' height={24} width={24} />
+          <Icon svgPath='stop' height={24} width={24} />
 
           <div className='flex flex-col ml-3'>
             <span className='text-sm'>დაბრუნება</span>

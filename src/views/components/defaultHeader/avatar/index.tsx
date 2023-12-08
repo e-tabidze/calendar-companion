@@ -104,7 +104,11 @@ const Avatar = () => {
       <Menu.Button>
         <AvatarContainer>
           <AvatarInnerContainer>
-            <Image src='/images/avatar.png' className='rounded-full' alt='avatar' />
+            <Image
+              src={!!activeCompany ? activeCompany.information.logo : userInfo?.information?.profile_pic}
+              className='rounded-full'
+              alt='avatar'
+            />
           </AvatarInnerContainer>
           <AvatarResponsiveContainer>
             <Typography type='subtitle'>
@@ -134,38 +138,38 @@ const Avatar = () => {
                   </button>
                 </div>
                 <ul className='py-3 max-h-[335px] overflow-y-auto'>
-                  {userCompanies?.map((company: { information: { name: string | undefined, logo: string }; id: string }) => (
-                    <li onClick={() => handleProfileSwitch(company?.id)} key={company.id}>
-                      <div className='cursor-pointer px-4 py-3 hover:bg-grey-100 flex items-center justify-between'>
-                        <div className='flex items-center text-2sm'>
-                          <span className='w-10 h-10 mr-4 relative flex items-center justify-center rounded-full overflow-hidden'>
-                            <Image src={company?.information?.logo || ''} className='rounded-full' alt='avatar' />
-                          </span>
-                          <div className='flex flex-col'>
-                            <span className='text-2sm overflow-hidden text-ellipsis whitespace-nowrap max-w-[140px] inline-block'>
-                              {company?.information?.name}
+                  {userCompanies?.map(
+                    (company: { information: { name: string | undefined; logo: string }; id: string }) => (
+                      <li onClick={() => handleProfileSwitch(company?.id)} key={company.id}>
+                        <div className='cursor-pointer px-4 py-3 hover:bg-grey-100 flex items-center justify-between'>
+                          <div className='flex items-center text-2sm'>
+                            <span className='w-10 h-10 mr-4 relative flex items-center justify-center rounded-full overflow-hidden'>
+                              <Image src={company?.information?.logo || ''} className='rounded-full' alt='avatar' />
                             </span>
-                            <span className='flex text-sm text-raisin-80'>ID: {company?.id} </span>
+                            <div className='flex flex-col'>
+                              <span className='text-2sm overflow-hidden text-ellipsis whitespace-nowrap max-w-[140px] inline-block'>
+                                {company?.information?.name}
+                              </span>
+                              <span className='flex text-sm text-raisin-80'>ID: {company?.id} </span>
+                            </div>
                           </div>
+                          {/*TODO default: border-2 border-raisin-60, active: border-[7px] border-green-100*/}
+                          <span
+                            className={`flex shrink-0 ml-6 w-6 h-6 rounded-full ${
+                              activeCompanyId === company.id
+                                ? 'border border-[7px] border-green-100'
+                                : 'border-2 border-raisin-60'
+                            } `}
+                          ></span>
                         </div>
-                        {/*TODO default: border-2 border-raisin-60, active: border-[7px] border-green-100*/}
-                        <span
-                          className={`flex shrink-0 ml-6 w-6 h-6 rounded-full ${
-                            activeCompanyId === company.id
-                              ? 'border border-[7px] border-green-100'
-                              : 'border-2 border-raisin-60'
-                          } `}
-                        ></span>
-                      </div>
-                    </li>
-                  ))}
+                      </li>
+                    )
+                  )}
                   <div onClick={() => handleProfileSwitch(userInfo?.UserID)}>
-                    <> {console.log(userInfo, 'userInfo')} </>
-
                     <div className='cursor-pointer px-4 py-3 hover:bg-grey-100 flex items-center justify-between'>
                       <div className='flex items-center text-2sm'>
                         <span className='w-10 h-10 mr-4 relative flex items-center justify-center rounded-full overflow-hidden'>
-                          <Image src='/images/avatar.png' className='rounded-full' alt='avatar' />
+                          <Image src={userInfo?.information?.profile_pic} className='rounded-full' alt='avatar' />
                         </span>
                         <div className='flex flex-col'>
                           <span className='text-2sm overflow-hidden text-ellipsis whitespace-nowrap max-w-[140px] inline-block'>
@@ -190,7 +194,7 @@ const Avatar = () => {
                 <div className='flex items-center justify-between border-b-[1px] border-raisin-10 px-6 py-4'>
                   <div className='flex items-center'>
                     <span className='w-10 h-10 mr-3 relative flex items-center justify-center rounded-full overflow-hidden'>
-                      <Image src='/images/avatar.png' className='rounded-full' alt='avatar' />
+                      <Image src={userInfo?.information?.profile_pic} className='rounded-full' alt='avatar' />
                     </span>
                     <div className='flex flex-col'>
                       <span className='text-2sm text-[#272A37] overflow-hidden text-ellipsis whitespace-nowrap max-w-[150px] inline-block'>
@@ -199,6 +203,7 @@ const Avatar = () => {
                       <span className='flex text-2sm text-[#272A37]'>ID: {userInfo?.active_profile_id}</span>
                     </div>
                   </div>
+                  
                   {/*<button className='cursor-pointer shrink-0 flex' onClick={handleSetActive}>*/}
                   {/*  <Image src='/icons/chevron-right.svg' alt='chevron' />*/}
                   {/*</button>*/}
