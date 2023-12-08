@@ -10,6 +10,7 @@ interface Route {
   icon: string
   item: string
   path: string
+  image?: string
 }
 interface Props {
   routes: Route[]
@@ -45,7 +46,7 @@ const ProfileNavigation: React.FC<Props> = ({
         <div className='flex items-center'>
           <div className='flex shrink-0'>
             <Image
-              src={!!activeCompany ? activeCompany?.information.logo : '/images/avatar.png'}
+              src={!!activeCompany ? activeCompany?.information.logo : !activeCompany ? 'userInfo?.information?.profile_pic' : ''}
               alt='avatar'
               className='rounded-full'
               width={48}
@@ -113,13 +114,17 @@ const ProfileNavigation: React.FC<Props> = ({
                 route.path === router?.asPath ? 'bg-orange-10' : 'bg-raisin-10'
               } flex items-center justify-center shrink-0`}
             >
-              <Icon
-                svgPath={route.icon}
-                width={20}
-                height={20}
-                color='#fff'
-                className={`${route.path === router?.asPath ? 'fill-orange-100' : 'fill-raisin-70'}`}
-              />
+              {route.image ? (
+                <Image src={route.image || ''} />
+              ) : (
+                <Icon
+                  svgPath={route.icon}
+                  width={20}
+                  height={20}
+                  color='#fff'
+                  className={`${route.path === router?.asPath ? 'fill-orange-100' : 'fill-raisin-70'}`}
+                />
+              )}
             </div>
             <Typography
               type='h5'

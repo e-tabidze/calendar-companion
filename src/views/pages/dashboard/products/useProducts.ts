@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 import CompanyService from 'src/services/CompanyService'
 import ProductService from 'src/services/ProductService'
 
-const useProducts = (filter: 0 | 1 | 2 | null) => {
+const useProducts = (filter: 0 | 1 | 2 | '') => {
   const useCompanyProducts: any = useQuery({
     queryKey: ['companyProducts', filter],
     queryFn: () => getCompanyProducts('', filter),
@@ -25,7 +25,7 @@ const useProducts = (filter: 0 | 1 | 2 | null) => {
 
 export default useProducts
 
-const getCompanyProducts = async (accessToken = '', activeStatus: 0 | 1 | 2 | null) => {
+const getCompanyProducts = async (accessToken = '', activeStatus: 0 | 1 | 2 | '') => {
   try {
     const response: any = await CompanyService.getCompanyProducts(accessToken, activeStatus)
 

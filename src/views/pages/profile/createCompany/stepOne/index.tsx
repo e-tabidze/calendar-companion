@@ -85,7 +85,6 @@ const StepOne: React.FC<Props> = ({ control, errors, clearErrors, setValue }) =>
               handleDelete={handleRemoveFile}
               value={value}
               onChange={(e: any) => {
-                // console.log(e.target.files[0], 'E')
                 onChange()
                 handleFileUpload(e.target.files[0])
               }}

@@ -5,6 +5,7 @@ import { Company, CompanyAddress, WorkingTime } from 'src/types/Company'
 import { CompanySchema } from 'src/@core/validation/companySchema'
 import CompanyService from 'src/services/CompanyService'
 import { useEffect } from 'react'
+import StaticService from 'src/services/StaticService'
 
 const useCompany = (id: number) => {
   const { companyInfo } = useCompanyInfo(id)
@@ -103,8 +104,8 @@ const useCompany = (id: number) => {
     identification_number: companyInfo?.identification_number,
     company_type_id: companyInfo?.company_type_id,
     company_information: {
-      name: companyInfo?.information?.name,
-      logo: '',
+      name: companyInfo?.information?.name || '',
+      logo: companyInfo?.information?.logo || '',
       description: companyInfo?.information?.description,
       email: companyInfo?.information?.email,
       phone_numbers: companyInfo?.information?.phone_numbers
@@ -192,6 +193,28 @@ const useCompany = (id: number) => {
     }
   }
 
+  const uploadCompanyLogo = async (File: any) => {
+    try {
+      const response: any = await StaticService.postUploadCompanyLogo('', File)
+
+      return response.data
+    } catch (error) {
+      console.error('Error fetching location suggestions:', error)
+      throw error
+    }
+  }
+
+  const saveCompanyLogo = async (AccessToken: string, Logo: any, companyId: number | string) => {
+    try {
+      const response: any = await StaticService.postSaveCompanyLogo(AccessToken, Logo, companyId)
+
+      return response.data
+    } catch (error) {
+      console.error('Error fetching location suggestions:', error)
+      throw error
+    }
+  }
+
   return {
     control,
     handleSubmit,
@@ -208,7 +231,9 @@ const useCompany = (id: number) => {
     remove,
     updateCompanyInfo,
     deleteCompany,
-    deleteCompanyAddress
+    deleteCompanyAddress,
+    uploadCompanyLogo,
+    saveCompanyLogo
   }
 }
 

@@ -170,28 +170,6 @@ const useCompany = (id: number) => {
     }
   }
 
-  const deleteCompany = async () => {
-    try {
-      const response: any = await CompanyService.deleteCompany('', id)
-
-      return response
-    } catch (error) {
-      console.error('Error deleting company:', error)
-      throw error
-    }
-  }
-
-  const deleteCompanyAddress = async (adressId: number) => {
-    try {
-      const response: any = await CompanyService.deleteCompanyAddress('', adressId)
-
-      return response
-    } catch (error) {
-      console.error('Error deleting company address:', error)
-      throw error
-    }
-  }
-
   return {
     control,
     handleSubmit,
@@ -206,9 +184,7 @@ const useCompany = (id: number) => {
     appendAddress,
     defaultEmptyAddress,
     remove,
-    updateCompanyInfo,
-    deleteCompany,
-    deleteCompanyAddress
+    updateCompanyInfo
   }
 }
 

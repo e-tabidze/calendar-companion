@@ -67,8 +67,6 @@ const ProfileRouter = () => {
   const router = useRouter()
   let key = ''
 
-  console.log(router, 'router')
-
   if (router.query.link?.length) {
     key = router.query?.link[0]
   }

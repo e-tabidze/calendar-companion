@@ -1,6 +1,5 @@
 import Image from 'next/image'
-import Link from 'next/link'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import useCompanyInfo from 'src/hooks/useCompanyInfo'
 import useProfile from 'src/hooks/useProfile'
 import { DefaultButton, IconTextButton } from 'src/views/components/button'
@@ -11,8 +10,8 @@ import AddressAndSchedule from '../../profile/company/addressAndSchedule'
 import { useQueryClient, useMutation } from '@tanstack/react-query'
 import DeleteAddressConfirmationModal from '../../../components/deleteAddressConfirmationModal'
 import DeleteCompanyConfirmationModal from 'src/views/components/deleteCompanyConfirmationModal'
-import useCompany from './useEditCompany'
-import { useWatch } from 'react-hook-form'
+import useEditCompany from './useEditCompany'
+import { Controller, useWatch } from 'react-hook-form'
 
 const EditCompany = () => {
   const [deleteAddresseModal, setDeleteAddressModal] = useState(false)
@@ -25,6 +24,8 @@ const EditCompany = () => {
   const toggleDeleteCompanyModal = () => setDeleteCompanyModal(!deleteCompanyeModal)
 
   const { activeCompanyId } = useProfile()
+
+  const { companyInfo } = useCompanyInfo(activeCompanyId)
 
   const { isLoading } = useCompanyInfo(activeCompanyId)
 
@@ -39,14 +40,25 @@ const EditCompany = () => {
     remove,
     updateCompanyInfo,
     deleteCompany,
-    deleteCompanyAddress
-  } = useCompany(activeCompanyId)
+    deleteCompanyAddress,
+    uploadCompanyLogo,
+    saveCompanyLogo,
+    setValue
+  } = useEditCompany(activeCompanyId)
 
   const queryClient = useQueryClient()
 
   const updateCompanyMutation = useMutation(() => updateCompanyInfo(companyValues), {
-    onSuccess: () => {
+    onSuccess: data => {
       queryClient.invalidateQueries(['companyInfo'])
+      queryClient.invalidateQueries(['profileInfo'])
+      queryClient.invalidateQueries(['companyLogo'])
+      if (data) {
+        saveCompanyLogoMutation.mutate({
+          logo: data?.result?.data?.information?.logo,
+          companyId: data?.result?.data?.id
+        })
+      }
     }
   })
 
@@ -63,6 +75,24 @@ const EditCompany = () => {
     }
   })
 
+  const uploadCompanyLogoMutation: any = useMutation(uploadCompanyLogo, {
+    onSettled: () => {
+      queryClient.invalidateQueries(['companyLogo'])
+    }
+  })
+
+  const saveCompanyLogoMutation = useMutation((variables: any) =>
+    saveCompanyLogo('', variables.logo, variables.companyId)
+  )
+
+  const handleFileUpload = async (file: any) => {
+    try {
+      await uploadCompanyLogoMutation.mutateAsync(file)
+    } catch (error) {
+      console.error('Error uploading file:', error)
+    }
+  }
+
   const onSubmit = () => {
     updateCompanyMutation.mutate(companyValues)
   }
@@ -77,6 +107,10 @@ const EditCompany = () => {
 
   const formState = useWatch({ control })
 
+  useEffect(() => {
+    setValue('company_information.logo', uploadCompanyLogoMutation.data?.Data?.FilesList[0])
+  }, [uploadCompanyLogoMutation.data?.Data?.FilesList[0]])
+
   if (isLoading) {
     return <>Loading...</>
   }
@@ -86,25 +120,39 @@ const EditCompany = () => {
       <div className='md:border md:border-raisin-10 md:rounded-3xl md:p-8'>
         <div className='flex gap-6 items-center mb-10'>
           <Image
-            src={formState?.company_information?.logo || ''}
+            src={formState?.company_information?.logo || companyInfo?.information?.logo || ''}
             width={96}
             height={96}
-            alt=''
+            alt={formState?.company_information?.name || ''}
             className='border border-raisin-10 rounded-3xl'
           />
           <div>
             <div className='flex items-center gap-4'>
               <Typography type='h3' className='font-bold'>
-                ბენე ექსკლუზივი
+                {companyInfo?.information?.name}
               </Typography>
               <Image src='/icons/warning.svg' height={20} width={20} alt='' />
               <Typography type='subtitle' className='hidden md:flex text-raisin-100 bg-yellow-10 p-2 rounded-2xl'>
                 არავერიფიცირებული
               </Typography>
             </div>
-            <Link href='/abc'>
-              <Typography type='subtitle'>სურათის შეცვლა</Typography>
-            </Link>
+            <Controller
+              name='company_information.logo'
+              control={control}
+              render={({ field: { onChange } }) => (
+                <label>
+                  სურათის შეცვლა
+                  <input
+                    type='file'
+                    className='opacity-0 text-blue-100'
+                    onChange={(e: any) => {
+                      onChange()
+                      handleFileUpload(e.target.files[0])
+                    }}
+                  />
+                </label>
+              )}
+            />
           </div>
         </div>
         <Divider />
