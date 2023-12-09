@@ -2,6 +2,7 @@ import PopoverDropdown from 'src/views/components/popoverDropdown'
 import useFilters from 'src/hooks/useFilters'
 import CheckboxField from 'src/views/components/checkboxField'
 import { DefaultButton, IconButton } from 'src/views/components/button'
+import { useWatch } from 'react-hook-form'
 
 interface Props {
   control: any
@@ -13,8 +14,14 @@ interface Props {
 const CategoryPopover: React.FC<Props> = ({ control, appendCategory, handleSubmit, reset }) => {
   const { categoriesFilter } = useFilters()
 
+  const formState = useWatch({ control })
+
   return (
-    <PopoverDropdown label='კატეგორია' maxWidth='max-w-md'>
+    <PopoverDropdown
+      label='კატეგორია'
+      maxWidth='max-w-md'
+      className={`${formState.category.length > 0 ? 'border border-raisin-100' : ''}`}
+    >
       <CheckboxField
         options={categoriesFilter}
         name='category'
