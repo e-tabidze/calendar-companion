@@ -7,62 +7,7 @@ import useProfile from 'src/hooks/useProfile'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import Link from 'next/link'
 import Cookie from 'src/helpers/Cookie'
-
-const companyRoutes = [
-  {
-    id: 1,
-    item: 'დეშბორდი',
-    path: '/dashboard/dashboard'
-  },
-  {
-    id: 2,
-    item: 'განცხადების დამატება',
-    path: '/dashboard/new-product/'
-  },
-  {
-    id: 3,
-    item: 'შემოსული ჯავშნები',
-    path: '/dashboard/orders/'
-  },
-  {
-    id: 4,
-    item: 'გადახდები',
-    path: '/dashboard/payments/'
-  },
-  {
-    id: 5,
-    item: 'ავტომობილები',
-    path: '/dashboard/vehicles/'
-  },
-  {
-    id: 6,
-    item: 'კომპანიის რედაქტირება',
-    path: '/dashboard/edit-company/'
-  }
-]
-
-const profileRoutes = [
-  {
-    id: 1,
-    item: 'ჩემი შეკვეთები',
-    path: '/profile/orders/'
-  },
-  {
-    id: 2,
-    item: 'ბარათები და ტრანზაქციები',
-    path: '/profile/transactions/'
-  },
-  {
-    id: 3,
-    item: 'პარამეტრები',
-    path: '/profile/personal-information/'
-  },
-  {
-    id: 4,
-    item: 'კომპანიის შექმნა',
-    path: '/profile/create-company/'
-  }
-]
+import { dashboardRoutes, profileRoutes } from 'src/utils/routes'
 
 const Avatar = () => {
   const [active, setActive] = useState(false)
@@ -93,8 +38,9 @@ const Avatar = () => {
   const handleLogout = async () => {
     Cookie.removeAll()
     localStorage.clear()
-    router.reload()
+    router.replace('/')
     await queryClient.invalidateQueries(['profileInfo'])
+    Cookie.remove('AccessToken')
   }
 
   const routeClass = `px-6 flex whitespace-nowrap text-md text-[#272A37] py-2 hover:bg-grey-100 transition-all`
@@ -203,7 +149,7 @@ const Avatar = () => {
                       <span className='flex text-2sm text-[#272A37]'>ID: {userInfo?.active_profile_id}</span>
                     </div>
                   </div>
-                  
+
                   {/*<button className='cursor-pointer shrink-0 flex' onClick={handleSetActive}>*/}
                   {/*  <Image src='/icons/chevron-right.svg' alt='chevron' />*/}
                   {/*</button>*/}
@@ -217,7 +163,7 @@ const Avatar = () => {
                   </button>
                   {activeCompany ? (
                     <ul className='mb-2'>
-                      {companyRoutes?.map(route => (
+                      {dashboardRoutes?.map(route => (
                         <li key={route.id}>
                           <Link href={route.path} className={routeClass}>
                             {route.item}

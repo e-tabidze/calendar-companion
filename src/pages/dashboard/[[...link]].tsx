@@ -7,61 +7,11 @@ const EditCompany = dynamic(() => import('src/views/pages/dashboard/editCompany'
 const NewProduct = dynamic(() => import('src/views/pages/dashboard/newProduct'), { ssr: true })
 
 import dynamic from 'next/dynamic'
+import { dashboardRoutes } from 'src/utils/routes'
 
 const ProfileLayout = dynamic(() => import('src/layouts/ProfileLayout'), { ssr: true })
 
 const EditProduct = dynamic(() => import('src/views/pages/dashboard/editProduct'), { ssr: true })
-
-const routes = [
-  {
-    id: 1,
-    icon: 'dashboard',
-    item: 'დეშბორდი',
-    path: '/dashboard/dashboard/'
-  },
-  {
-    id: 2,
-    icon: 'newProduct',
-    item: 'განცხადების დამატება',
-    path: '/dashboard/new-product/'
-  },
-  {
-    id: 3,
-    icon: 'incomingOrders',
-    item: 'შემოსული ჯავშნები',
-    path: '/dashboard/orders/'
-  },
-  {
-    id: 4,
-    icon: 'bellOutline',
-    item: 'შეტყობინება',
-    path: '/dashboard/notifications/'
-  },
-  {
-    id: 5,
-    icon: 'payments',
-    item: 'გადახდები',
-    path: '/dashboard/payments/'
-  },
-  {
-    id: 6,
-    icon: 'car',
-    item: 'ავტომობილები',
-    path: '/dashboard/vehicles/'
-  },
-  {
-    id: 7,
-    icon: 'editOutline',
-    item: 'კომპანიის რედაქტირება',
-    path: '/dashboard/edit-company/'
-  },
-  {
-    id: 8,
-    icon: 'logout',
-    item: 'გასვლა',
-    path: '/dashboard/sign-out'
-  }
-]
 
 const ProfileRouter = () => {
   const router = useRouter()
@@ -101,7 +51,7 @@ const Profile = () => {
       ) : router.asPath.includes('/dashboard/edit-product/') ? (
         <EditProduct />
       ) : (
-        <ProfileLayout routes={routes} dividerIndexes={[5]}>
+        <ProfileLayout routes={dashboardRoutes} dividerIndexes={[5]}>
           <ProfileRouter />
         </ProfileLayout>
       )}

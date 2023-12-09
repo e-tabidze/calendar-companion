@@ -6,6 +6,7 @@ import { UserInfo } from 'src/types/User'
 import { dehydrate } from '@tanstack/query-core'
 import useCompanyInfo from 'src/hooks/useCompanyInfo'
 import { QueryClient, useQueryClient } from '@tanstack/react-query'
+import { profileRoutes } from 'src/utils/routes'
 
 const Orders = dynamic(() => import('src/views/pages/profile/orders'), { ssr: true })
 const Favourites = dynamic(() => import('src/views/pages/profile/favourites'), { ssr: true })
@@ -15,45 +16,6 @@ const CreateCompany = dynamic(() => import('src/views/pages/profile/createCompan
 const CardsAndTransactions = dynamic(() => import('src/views/pages/profile/cardsAndTransactions'), { ssr: true })
 const Company = dynamic(() => import('src/views/pages/profile/company'), { ssr: true })
 const ProfileLayout = dynamic(() => import('src/layouts/ProfileLayout'), { ssr: true })
-
-const routes = [
-  {
-    id: 1,
-    icon: 'orders',
-    item: 'ჩემი შეკვეთები',
-    path: '/profile/orders/'
-  },
-  {
-    id: 2,
-    icon: 'favIconOutlinedDark',
-    item: 'ფავორიტები',
-    path: '/profile/favourites/'
-  },
-  {
-    id: 3,
-    icon: 'card',
-    item: 'ბარათები და ტრანზაქციები',
-    path: '/profile/transactions/'
-  },
-  {
-    id: 4,
-    icon: 'settings',
-    item: 'პარამეტრები',
-    path: '/profile/personal-information/'
-  },
-  {
-    id: 5,
-    icon: 'createCompany',
-    item: 'კომპანიის შექმნა',
-    path: '/profile/create-company/'
-  },
-  {
-    id: 6,
-    icon: 'bellOutline',
-    item: 'შეტყობინებები',
-    path: '/profile/notifications/'
-  }
-]
 
 const ProfileRouter = ({ userInfo }: { userInfo: UserInfo }) => {
   const router = useRouter()
@@ -135,7 +97,7 @@ const Profile = () => {
     })) || []
 
   const allRoutes = [
-    ...routes,
+    ...profileRoutes,
     ...companyRoutes,
     {
       id: 9,

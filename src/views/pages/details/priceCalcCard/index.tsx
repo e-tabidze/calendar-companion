@@ -8,12 +8,15 @@ interface Props {
   days: number | null | undefined
   className?: string
   onClick: () => void
+  handleDateChange: () => void
 }
 
-const PriceCalcCard: React.FC<Props> = ({ price, dates, days, className, onClick }) => {
+const PriceCalcCard: React.FC<Props> = ({ price, dates, days, className, onClick, handleDateChange }) => {
   const { userInfo } = useProfile()
 
   console.log(userInfo?.active_profile_id, 'userInfo?.active_profile_id')
+
+  console.log(days, 'days')
 
   return (
     <div className={`shadow-2xl w-full rounded-3xl pt-5 px-4 lg:px-6 pb-10 ${className}`}>
@@ -38,9 +41,9 @@ const PriceCalcCard: React.FC<Props> = ({ price, dates, days, className, onClick
             | {days} days
           </Typography>
         </div>
-        <div>
-          <button className='border border-raisin-100 rounded-xl p-1 text-sm'>შეცვლა</button>
-        </div>
+        <button className='border border-raisin-100 rounded-xl p-1 text-sm' onClick={handleDateChange}>
+          შეცვლა
+        </button>
       </div>
 
       <div className='w-full h-px bg-raisin-10' />
@@ -80,6 +83,7 @@ const PriceCalcCard: React.FC<Props> = ({ price, dates, days, className, onClick
           textColor='text-white'
           type='submit'
           onClick={onClick}
+          disabled={days === null}
         />
       )}
     </div>

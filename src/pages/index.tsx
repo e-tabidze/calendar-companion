@@ -39,15 +39,17 @@ const MainPage = () => {
         </ContentContainer>
         <ContentContainer className='px-0 md:px-5 lg:px-8 mb-12'>
           <Carousel
-            itemsArray={categoriesFilter?.map((product: any) => (
-              <CategoryItem
+            itemsArray={categoriesFilter
+              ?.filter((product: any) => product?.count_products > 0)
+              ?.map((product: any) => (
+                <CategoryItem
                   svgPath={product?.icon}
                   title={product?.title}
                   count={product?.count_products}
                   id={product?.id}
                   key={product?.id}
-              />
-            ))}
+                />
+              ))}
             type='categories'
           />
         </ContentContainer>
@@ -62,7 +64,7 @@ const MainPage = () => {
             ცნობილი ფაქტია, რომ გვერდის წაკითხვად შიგთავსს შეუძლია მკითხველის ყურადღება მიიზიდოს
           </Typography>
         </ContentContainer>
-        <ContentContainer className="px-0 md:px-5 lg:px-8">
+        <ContentContainer className='px-0 md:px-5 lg:px-8'>
           <Carousel
             itemsArray={latestProducts?.map((product: any) => (
               <ProductCard
@@ -88,7 +90,7 @@ const MainPage = () => {
             ცნობილი ფაქტია, რომ გვერდის წაკითხვად შიგთავსს შეუძლია მკითხველის ყურადღება მიიზიდოს
           </Typography>
         </ContentContainer>
-        <ContentContainer className="px-0 md:px-5 lg:px-8">
+        <ContentContainer className='px-0 md:px-5 lg:px-8'>
           <Carousel
             itemsArray={popularProducts?.map((product: any) => (
               <ProductCard
