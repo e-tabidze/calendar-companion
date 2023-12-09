@@ -19,7 +19,7 @@ const StepOne: React.FC<Props> = ({ control, errors, clearErrors, setValue }) =>
 
   const queryClient = useQueryClient()
 
-  const mutation: any = useMutation(uploadCompanyLogo, {
+  const uploadCompanyLogoMutation: any = useMutation(uploadCompanyLogo, {
     onSettled: () => {
       queryClient.invalidateQueries(['companyLogo'])
     }
@@ -27,15 +27,15 @@ const StepOne: React.FC<Props> = ({ control, errors, clearErrors, setValue }) =>
 
   const handleFileUpload = async (file: any) => {
     try {
-      await mutation.mutateAsync(file)
+      await uploadCompanyLogoMutation.mutateAsync(file)
     } catch (error) {
       console.error('Error uploading file:', error)
     }
   }
 
   useEffect(() => {
-    setValue('company_information.logo', mutation.data?.Data?.FilesList[0])
-  }, [mutation.data?.Data?.FilesList[0]])
+    setValue('company_information.logo', uploadCompanyLogoMutation.data?.Data?.FilesList[0])
+  }, [uploadCompanyLogoMutation.data?.Data?.FilesList[0]])
 
   const handleRemoveFile = () => setValue('company_information.logo', '')
 
@@ -93,9 +93,9 @@ const StepOne: React.FC<Props> = ({ control, errors, clearErrors, setValue }) =>
         )}
       />
 
-      {mutation.isLoading && <p>Uploading...</p>}
+      {uploadCompanyLogoMutation.isLoading && <p>Uploading...</p>}
 
-      {mutation.isError && <p>Error uploading file: {mutation.error.message}</p>}
+      {uploadCompanyLogoMutation.isError && <p>Error uploading file: {uploadCompanyLogoMutation.error.message}</p>}
     </div>
   )
 }

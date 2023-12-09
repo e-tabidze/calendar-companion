@@ -5,6 +5,7 @@ import { Product } from 'src/types/Product'
 import { NewProductSchema } from 'src/@core/validation/newProductSchema'
 import useProductInfo from '../useProductInfo'
 import { useEffect } from 'react'
+import StaticService from 'src/services/StaticService'
 
 const useNewProduct = () => {
   const { companyServices } = useProductInfo()
@@ -36,6 +37,7 @@ const useNewProduct = () => {
     },
     additional_information: '',
     use_instruction: '',
+    product_images: [],
     category_id: '',
     fuel_type_id: '',
     seat_type_id: '',
@@ -131,8 +133,32 @@ const useNewProduct = () => {
     discount_item,
     removeDiscountItem,
     createNewProduct,
-    isValid
+    isValid,
+    postUploadProductImages
   }
 }
 
 export default useNewProduct
+
+const postUploadProductImages = async (Files, count, userId) => {
+  console.log( Files, count, userId, 'body')
+  try {
+    const response: any = await StaticService.postUploadProductImages('', Files, count, userId)
+
+    return response.data
+  } catch (error) {
+    console.error('Error fetching location suggestions:', error)
+    throw error
+  }
+}
+
+const saveCompanyLogo = async (AccessToken: string, Logo: any, companyId: number | string) => {
+  try {
+    const response: any = await StaticService.postSaveCompanyLogo(AccessToken, Logo, companyId)
+
+    return response.data
+  } catch (error) {
+    console.error('Error fetching location suggestions:', error)
+    throw error
+  }
+}
