@@ -65,8 +65,6 @@ const SearchPage = () => {
 
   const { book_from, book_to } = router.query
 
-  console.log(book_from, 'from', book_to, 'to')
-
   const startIndex = asPath.indexOf('/search/?') + '/search/?'.length
   const searchString = asPath.slice(startIndex)
 
@@ -106,14 +104,7 @@ const SearchPage = () => {
               />
               <Tag
                 label='უფასო მიწოდება'
-                component={
-                  <Switcher
-                    height='h-5'
-                    name='free_delivery'
-                    control={control}
-                    onChangeCallback={onSubmit}
-                  />
-                }
+                component={<Switcher height='h-5' name='free_delivery' control={control} onChangeCallback={onSubmit} />}
                 height='h-10'
                 control={control}
               />

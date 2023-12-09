@@ -12,7 +12,7 @@ interface Props {
   control: any
 }
 
-const PeriodDropdown: React.FC<Props> = ({ control }) => {
+const LocationDropdown: React.FC<Props> = ({ control }) => {
   const [dateRange, setDateRange] = useState<[Date, Date] | [null, null]>([null, null])
   const [startDate, endDate] = dateRange
 
@@ -74,4 +74,4 @@ const PeriodDropdown: React.FC<Props> = ({ control }) => {
   )
 }
 
-export default PeriodDropdown
+export default LocationDropdown

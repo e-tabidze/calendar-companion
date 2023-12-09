@@ -21,7 +21,6 @@ const PricePopover: React.FC<Props> = ({ control, handleSubmit, reset }) => {
         <IconButton
           icon='/icons/rotate.svg'
           text='გასუფთავება'
-          hasBg={false}
           width={16}
           height={16}
           onClick={() => {

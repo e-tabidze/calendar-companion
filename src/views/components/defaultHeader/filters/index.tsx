@@ -1,4 +1,4 @@
-import { IconTextButton } from '../../../components/button'
+import { IconTextButton } from '../../button'
 import LocationDropdown from './locationDropdown'
 import { Divider, ExtraFiltersContainer, FiltersContainer } from './styles'
 import PeriodDropdown from './periodDropdown'
@@ -7,7 +7,11 @@ import { useRouter } from 'next/router'
 import useSearch from 'src/hooks/useSearch'
 import AdditionalFilters from 'src/views/components/additionalFilters'
 
-const Filters = () => {
+interface Props {
+  className?: string
+}
+
+const Filters: React.FC<Props> = ({ className }) => {
   const [filters, toggleFilters] = useState(false)
 
   const router = useRouter()
@@ -23,15 +27,9 @@ const Filters = () => {
     appendDoorType,
     appendTransmissionType,
     appendAdditionalInformation,
-    objectToURI, 
+    objectToURI,
     reset
   } = useSearch()
-
-  console.log(searchValues, 'searchValues')
-  const queryString = objectToURI(searchValues)
-
-  console.log(queryString, 'queryString')
-
 
   const onClickSearch = async () => {
     const queryString = objectToURI(searchValues)
@@ -39,7 +37,7 @@ const Filters = () => {
   }
 
   return (
-    <form>
+    <form className={className}>
       <FiltersContainer>
         <LocationDropdown control={control} />
         <Divider />

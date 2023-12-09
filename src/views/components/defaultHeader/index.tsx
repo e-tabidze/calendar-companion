@@ -10,6 +10,9 @@ import LanguagePicker from './languagePicker'
 import { useEffect } from 'react'
 import { TNET_AUTH } from 'src/env'
 
+import dynamic from 'next/dynamic'
+const Filters = dynamic(() => import('src/views/pages/search/filters'), { ssr: false })
+
 const DefaultHeader = () => {
   const router = useRouter()
 
@@ -44,6 +47,7 @@ const DefaultHeader = () => {
   return (
     <InnerContainer>
       <Image src='/images/logo-rent.svg' onClick={onClickLogo} alt='logo' className='w-24 md:w-32 cursor-pointer' />
+      {router?.asPath?.startsWith('/search') && <Filters />}
       <div className='flex items-center'>
         <LanguagePicker responsive className='mx-4' />
         {isLoading ? (
