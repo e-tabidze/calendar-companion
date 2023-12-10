@@ -22,6 +22,7 @@ const PricePopover: React.FC<Props> = ({ control, handleSubmit, reset }) => {
           icon='rotate'
           text='გასუფთავება'
           hasBg={false}
+          className='fill-transparent'
           width={20}
           height={22}
           onClick={() => {

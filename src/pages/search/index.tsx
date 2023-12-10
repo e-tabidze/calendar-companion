@@ -152,6 +152,7 @@ const SearchPage = () => {
                 icon='return'
                 width={20}
                 height={22}
+                className='fill-transparent'
                 label='ფილტრის გასუფთავება'
                 labelClassname='text-orange-120'
                 type='reset'

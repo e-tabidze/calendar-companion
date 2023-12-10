@@ -104,7 +104,7 @@ const BookingModal: React.FC<Props> = ({ open, onClose, addresses, control }) =>
                     icon='return'
                     width={20}
                     height={22}
-                    className='text-raisin-50 text-sm underline font-normal'
+                    className='fill-transparent text-raisin-50 text-sm underline font-normal'
                   />
                   <div className='flex items-center justify-center bg-green-100 text-white text-md rounded-xl px-8 h-14'>
                     შენახვა

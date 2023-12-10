@@ -28,9 +28,10 @@ const SuitcasesPopover: React.FC<Props> = ({ control, appendLuggageNumber, handl
         <IconButton
           icon='rotate'
           text='გასუფთავება'
+          className='fill-transparent'
           hasBg={false}
-          width={16}
-          height={16}
+          width={20}
+          height={22}
           onClick={() => reset('luggage_numbers')}
         />
         <DefaultButton
