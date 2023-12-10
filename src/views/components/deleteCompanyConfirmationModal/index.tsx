@@ -59,7 +59,9 @@ const DeleteCompanyConfirmationModal: React.FC<Props> = ({ open, toggleModal, co
                   <IconTextButton
                     label='წაშლა'
                     className='text-red-120'
-                    icon='/icons/clear.svg'
+                    icon='clear'
+                    width={16}
+                    height={16}
                     type='submit'
                     onClick={() => {
                       deleteCompany(companyId)

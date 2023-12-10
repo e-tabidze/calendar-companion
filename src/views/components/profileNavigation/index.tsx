@@ -44,11 +44,11 @@ const ProfileNavigation: React.FC<Props> = ({
         } flex justify-between items-center mb-6 w-full overflow-hidden `}
       >
         <div className='flex items-center'>
-          <div className='flex shrink-0'>
+          <div className='flex shrink-0 w-12 h-12 relative rounded-full overflow-hidden'>
             <Image
               src={!!activeCompany ? activeCompany?.information.logo : !activeCompany ? 'userInfo?.information?.profile_pic' : ''}
               alt='avatar'
-              className='rounded-full'
+              className='object-cover w-full h-full'
               width={48}
               height={48}
             />
@@ -110,12 +110,11 @@ const ProfileNavigation: React.FC<Props> = ({
               {route.item}
             </span>
             <div
-              className={`h-8 w-8 rounded-lg ${
-                route.path === router?.asPath ? 'bg-orange-10' : 'bg-raisin-10'
-              } flex items-center justify-center shrink-0`}
+              className={`flex items-center justify-center shrink-0 relative overflow-hidden h-8 w-8 rounded-lg ${
+                route.path === router?.asPath ? 'bg-orange-10' : 'bg-raisin-10'} `}
             >
               {route.image ? (
-                <Image src={route.image || ''} />
+                <Image src={route.image || ''} alt='' className='object-cover w-full h-full' />
               ) : (
                 <Icon
                   svgPath={route.icon}

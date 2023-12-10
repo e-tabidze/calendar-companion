@@ -103,7 +103,6 @@ const NewListingLayout: React.FC<Props> = ({
           ></DefaultButton>
         </div>
       </div>
-      <Footer/>
     </MaxWidthContainer>
   )
 }

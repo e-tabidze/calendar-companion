@@ -198,11 +198,11 @@ const EditCompany = () => {
             <AddressAndSchedule index={index} control={control} address={address} errors={errors} />
             <div className='w-full flex justify-end pr-8'>
               <IconTextButton
-                icon='/icons/clear.svg'
+                icon='clear'
                 type='button'
                 label='წაშლა'
-                width={16}
-                height={16}
+                width={24}
+                height={24}
                 onClick={() => {
                   setIndex(index)
                   toggleDeleteAddressModal()
@@ -215,7 +215,9 @@ const EditCompany = () => {
 
         <IconTextButton
           label='მისამართის დამატება'
-          icon='/icons/add.svg'
+          icon='add'
+          width={20}
+          height={20}
           className='ml-4'
           onClick={() => {
             appendAddress(defaultEmptyAddress)
@@ -248,7 +250,9 @@ const EditCompany = () => {
           <DefaultButton text='შენახვა' bg='bg-orange-100' textColor='text-white' type='submit' />
           <IconTextButton
             label='კომპანიის წაშლა'
-            icon='/icons/trash.svg'
+            icon='trash'
+            width={20}
+            height={21}
             className='text-orange-130'
             onClick={toggleDeleteCompanyModal}
           />

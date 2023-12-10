@@ -8,10 +8,10 @@ const Notification = () => {
     return (
         <Menu as='div' className='hidden md:flex relative'>
             <Menu.Button>
-               <div className="relative flex items-center justify-center w-10 h-10 rounded-full hover:bg-[#F2F3F6] transition-all">
+               <div className="relative flex items-center justify-center w-10 h-10 rounded-full hover:bg-grey-100 transition-all">
                    <Image src='/icons/bell.svg' className='rounded-full' alt='notification' />
                       <span
-                          className="absolute right-0 top-0 mt-1 mr-1 w-3 h-3 flex items-center justify-center bg-[#FD4100] rounded-full text-[#ffffff] text-[10px] font-medium">
+                          className="absolute right-0 top-0 mt-1 mr-1 w-3 h-3 flex items-center justify-center orange-100 rounded-full text-white text-[10px] font-medium">
                      3
                     </span>
                </div>
@@ -25,7 +25,7 @@ const Notification = () => {
                 leaveFrom='transform opacity-100 scale-100'
                 leaveTo='transform opacity-0 scale-95'
             >
-                <Menu.Items className='w-[348px] border border-raisin-10 absolute z-2 top-full left-1/2 -translate-x-1/2 mt-5 bg-[#ffffff] rounded-2xl shadow-[0px_6px_18px_#000000/10]'>
+                <Menu.Items className='w-[348px] border border-raisin-10 absolute z-2 top-full left-1/2 -translate-x-1/2 mt-5 bg-white rounded-2xl shadow-[0px_6px_18px_#000000/10]'>
                     <div className="border-b-1 border-raisin-10 p-4 text-md font-bold text-raisin-100">
                         შეტყობინებები
                     </div>

@@ -19,11 +19,11 @@ const PricePopover: React.FC<Props> = ({ control, handleSubmit, reset }) => {
       </TagsWrapper>
       <ActionsWrapper>
         <IconButton
-          icon='/icons/rotate.svg'
+          icon='rotate'
           text='გასუფთავება'
           hasBg={false}
-          width={16}
-          height={16}
+          width={20}
+          height={22}
           onClick={() => {
             reset('price_min')
             reset('price_max')

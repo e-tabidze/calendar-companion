@@ -5,7 +5,7 @@ import User from './user'
 import Tnet from './tnet'
 import NavigationBar from './navigationBar'
 import useProfile from 'src/hooks/useProfile'
-import { DefaultButton } from '../button'
+import {IconTextButton} from '../button'
 import LanguagePicker from './languagePicker'
 import { useEffect } from 'react'
 import { TNET_AUTH } from 'src/env'
@@ -51,7 +51,8 @@ const DefaultHeader = () => {
         ) : isAuthenticated ? (
           <User />
         ) : (
-          <DefaultButton text='შესვლა' onClick={handleLogin} />
+          <IconTextButton icon='auth' width={25} height={24} label='შესვლა'
+                          className="border border-raisin-10 rounded-xl px-3 h-10 items-center text-raisin-100 text-2sm transition-all hover:bg-grey-100 hover:border-raisin-30" onClick={handleLogin} />
         )}
         <Tnet />
       </div>

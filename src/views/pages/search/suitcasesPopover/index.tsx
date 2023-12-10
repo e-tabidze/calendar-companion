@@ -26,7 +26,7 @@ const SuitcasesPopover: React.FC<Props> = ({ control, appendLuggageNumber, handl
       </div>
       <div className='flex items-center justify-between'>
         <IconButton
-          icon='/icons/rotate.svg'
+          icon='rotate'
           text='გასუფთავება'
           hasBg={false}
           width={16}

@@ -11,8 +11,8 @@ const Categories = () => {
     }
 
     return (
-        <div className="py-4 lg:py-0 border-b-[1px] border-[#E9EAEB] lg:border-0">
-            <Typography type='h5' weight='medium' className="flex items-center justify-between font-medium text-md text-[#272A37]" onClick={handleSetActive}>
+        <div className="py-4 lg:py-0 border-b-[1px] border-raisin-10 lg:border-0">
+            <Typography type='h5' weight='medium' className="flex items-center justify-between font-medium text-md text-raisin-100" onClick={handleSetActive}>
                 კატეგორიები
                 <span className={`${active?'rotate-180':''} flex lg:hidden transition-all`}>
                    <Image src='/icons/footer-arrow.svg' alt='img' width={24} height={24}/>

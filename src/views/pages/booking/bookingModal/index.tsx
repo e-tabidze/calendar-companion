@@ -101,7 +101,9 @@ const BookingModal: React.FC<Props> = ({ open, onClose, addresses, control }) =>
                 <div className='w-full flex flex-col md:flex-row md:items-center justify-between py-4 px-4 md:px-10 border-t-1 border-grey-90'>
                   <IconTextButton
                     label='გასუფთავება'
-                    icon='/icons/return.svg'
+                    icon='return'
+                    width={20}
+                    height={22}
                     className='text-raisin-50 text-sm underline font-normal'
                   />
                   <div className='flex items-center justify-center bg-green-100 text-white text-md rounded-xl px-8 h-14'>

@@ -57,7 +57,9 @@ const DeleteProductConfirmationModal: React.FC<Props> = ({ open, toggleModal, pr
                   <IconTextButton
                     label='წაშლა'
                     className='text-red-120'
-                    icon='/icons/clear.svg'
+                    icon='clear'
+                    width={16}
+                    height={16}
                     type='submit'
                     onClick={() => {
                       deleteCompany(productId)

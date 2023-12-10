@@ -19,7 +19,7 @@ const Apps = () => {
                     <Image src='/icons/app-store.svg' alt='img' className='max-w-none' width={130} height={40}/>
                 </a>
             </div>
-            <Typography type='body' className="font-normal text-[#686A73] hover:text-[#272A37] transition-all text-sm lg:ml-8 xl:ml-10 mt-4 mb-6 lg:mt-0 lg:mb-0">
+            <Typography type='body' className="font-normal text-raisin-70 hover:text-raisin-100 transition-all text-sm lg:ml-8 xl:ml-10 mt-4 mb-6 lg:mt-0 lg:mb-0">
                 გადმოწერე აპლიკაცია და მიიღე მუდმივად განახლებული ინფორმაცია
             </Typography>
         </div>

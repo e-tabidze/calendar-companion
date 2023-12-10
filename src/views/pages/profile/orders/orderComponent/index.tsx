@@ -26,7 +26,7 @@ const OrderComponent: React.FC<Props> = ({ toggleDetails }) => {
   return (
     <div>
       <div className='flex items-center md:w-full gap-6 p-4'>
-        <IconTextButton icon='/icons/backWithBg.svg' label='ჩემი შეკვეთები' onClick={toggleDetails} />
+        <IconTextButton icon='backWithBg' width={38} height={38}  label='ჩემი შეკვეთები' onClick={toggleDetails} />
       </div>
       <Divider />
       <RentalDetailsContainer>

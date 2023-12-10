@@ -53,7 +53,9 @@ const OrderDetails: React.FC<Props> = ({ toggleDetails, setOrderId, orderId }) =
       <OrderDetailsContainer>
         <div className='hidden md:flex items-center md:w-full gap-6 p-4'>
           <IconTextButton
-            icon='/icons/backWithBg.svg'
+            icon='backWithBg'
+            width={38}
+            height={38}
             label='შემოსული ჯავშნები'
             onClick={() => {
               toggleDetails()

@@ -30,8 +30,8 @@ const ListComponent: React.FC<Props> = ({ productId, manufacturer, model, year, 
   }
 
   return (
-    <>
-      <div className='flex flex-col sm:flex-row gap-6 w-full sm:my-5 border border-raisin-10 my-2 sm:my-none rounded-2xl sm:rounded-none p-4 sm:p-none sm:border-none'>
+
+      <div className='flex flex-col sm:flex-row gap-6 w-full sm:my-5 border border-raisin-10 my-2 sm:my-none rounded-2xl sm:rounded-none p-4 sm:p-none sm:border-none last:border-none'>
         <div className=''>
           <Image
             src='/images/car.png'
@@ -78,7 +78,7 @@ const ListComponent: React.FC<Props> = ({ productId, manufacturer, model, year, 
             </InnerDetailsContainer>
           </div>
           <IconButton
-            icon='/icons/favIconActive.svg'
+            icon='favIconActive'
             height={13}
             width={14}
             className='absolute right-0 top-0 bg-red-10 w-8 !h-8 justify-center'
@@ -87,8 +87,6 @@ const ListComponent: React.FC<Props> = ({ productId, manufacturer, model, year, 
           />
         </div>
       </div>
-      {width > 640 && <Divider />}
-    </>
   )
 }
 

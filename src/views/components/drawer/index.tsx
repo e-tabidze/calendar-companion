@@ -1,3 +1,5 @@
+import Icon from "src/views/app/Icon";
+
 const DrawerBottom = ({ children, isOpen, title, setIsOpen, onBack, showBack }: any) => {
   return (
     <main
@@ -27,13 +29,14 @@ const DrawerBottom = ({ children, isOpen, title, setIsOpen, onBack, showBack }: 
             />
           )}
           <span>{title}</span>
-          <img
+          <Icon
             className='absolute right-4 top-4 z-40'
-            src='/icons/close.svg'
+            svgPath='close'
+            width={40}
+            height={40}
             onClick={() => {
               setIsOpen(false)
             }}
-            alt='close'
           />
         </header>
         <article className='border-b-1 border-raisin-10 relative w-screen px-5 pb-10 h-full flex flex-col overflow-y-scroll'>{children}</article>

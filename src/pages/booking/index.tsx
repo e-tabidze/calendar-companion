@@ -87,7 +87,8 @@ const Booking = () => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <LargeContainer className='flex items-baseline pt-5 flex-col md:flex-row'>
-        <Image src='/images/logo-rent.svg' alt='logo' onClick={onClickLogo} />
+        <Image src='/images/logo-rent.svg' alt='logo' className="cursor-pointer" onClick={onClickLogo} />
+      </LargeContainer>
         <ContentContainer className='flex gap-12'>
           <div className='w-full md:w-9/12'>
             <div className='flex items-baseline my-8 gap-3'>
@@ -133,14 +134,14 @@ const Booking = () => {
                 <Typography type='h3'>დამატებითი სერვისები</Typography>
                 <Image
                   src='/icons/chevron.svg'
-                  className={`${additionalServices ? '' : 'rotate-180'} w-auto h-4 transition duration-300`}
+                  className={`${additionalServices ? 'rotate-180' : ''} w-auto h-4 transition duration-300 mr-6`}
                 />
               </div>
+                {/* {additionalServices && <AdditionalServices control={control} />} */}
+                {additionalServices && (
+                    <CheckServices control={control} options={formsState?.additional_services as any} />
+                )}
 
-              {/* {additionalServices && <AdditionalServices control={control} />} */}
-              {additionalServices && (
-                <CheckServices control={control} options={formsState?.additional_services as any} />
-              )}
             </div>
 
             {/* <div>
@@ -155,7 +156,6 @@ const Booking = () => {
               {insurance && <AdditionalServices control={control} />}
             </div> */}
           </div>
-
           <div className='hidden md:inline-block w-5/12 lg:w-4/12'>
             <PriceCalcCard
               price={Number(Array.isArray(price_day) ? price_day[0] : price_day)}
@@ -171,7 +171,7 @@ const Booking = () => {
             />
           </div>
         </ContentContainer>
-      </LargeContainer>
+
       {isOpenDrawer && width < 779 ? (
         <Drawer
           isOpenDrawer={isOpenDrawer}

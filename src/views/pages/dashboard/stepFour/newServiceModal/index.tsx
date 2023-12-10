@@ -79,7 +79,7 @@ const NewServiceModal: React.FC<Props> = ({ open, onClose }) => {
                 <form onSubmit={handleSubmit(onSubmit)}>
                   <Dialog.Title as='h3' className='w-full flex items-center justify-between px-10 py-6'>
                     ახალი სერვისის დამატება
-                    <IconButton icon='/icons/close.svg' onClick={onClose} width={40} height={40} />
+                    <IconButton icon='close' onClick={onClose} width={40} height={40} />
                   </Dialog.Title>
                   <Divider />
                   <div className='p-6 mb-40'>

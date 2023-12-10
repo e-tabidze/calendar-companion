@@ -56,7 +56,9 @@ const CancelOrderDialog: React.FC<Props> = ({ open, toggleModal, handleCancelOrd
                   <IconTextButton
                     label='გაუქმება'
                     className='text-red-120'
-                    icon='/icons/clear.svg'
+                    icon='clear'
+                    width={16}
+                    height={16}
                     type='submit'
                     onClick={() => {
                       handleCancelOrder()

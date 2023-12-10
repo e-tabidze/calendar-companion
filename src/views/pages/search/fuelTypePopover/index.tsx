@@ -27,7 +27,7 @@ const FuelTypePopover: React.FC<Props> = ({ control, appendFuelType, reset }) =>
         )}
       </TagsWrapper>
       <ActionsWrapper>
-        <IconTextButton icon='/icons/rotate.svg' label='გასუფთავება' width={16} height={16} onClick={() => reset("fuel_types")} />
+        <IconTextButton icon='rotate' label='გასუფთავება' width={20} height={22} onClick={() => reset("fuel_types")} />
         <DefaultButton text='შენახვა' bg='bg-orange-100' textColor='text-white' />
       </ActionsWrapper>
     </PopoverDropdown>

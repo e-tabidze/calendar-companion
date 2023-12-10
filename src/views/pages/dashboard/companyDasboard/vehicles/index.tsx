@@ -13,8 +13,8 @@ const Vehicles = () => {
           ავტომობილები
         </Typography>
         <div className='flex md:hidden gap-4 md:gap-8'>
-          <IconTextButton label={width > 779 ? 'ფილტრი' : ''} icon={'/icons/filters.svg'} />
-          <IconTextButton label={width > 779 ? 'სორტირება' : ''} icon={'/icons/sort.svg'} />
+          <IconTextButton label={width > 779 ? 'ფილტრი' : ''} icon='filters' width={22} height={20}/>
+          <IconTextButton label={width > 779 ? 'სორტირება' : ''} icon='sort' width={20} height={12} />
         </div>
       </div>
       <Divider />

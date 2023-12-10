@@ -21,7 +21,9 @@ const StepTwo: React.FC<Props> = ({ control, addressFields, appendAddress, error
 
       <IconTextButton
         label='სხვა  მისამართის დამატება'
-        icon='/icons/add.svg'
+        icon='add'
+        width={20}
+        height={20}
         onClick={() => {
           appendAddress(defaultAddress)
         }}

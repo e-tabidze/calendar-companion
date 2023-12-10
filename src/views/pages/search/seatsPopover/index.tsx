@@ -21,11 +21,11 @@ const SeatsPopover: React.FC<Props> = ({ control, appendSeatType, handleSubmit, 
       </TagsWrapper>
       <div className='flex items-center justify-between'>
         <IconButton
-          icon='/icons/rotate.svg'
+          icon='rotate'
           text='გასუფთავება'
           hasBg={false}
-          width={16}
-          height={16}
+          width={20}
+          height={22}
           onClick={() => reset('seat_types')}
         />
         <DefaultButton

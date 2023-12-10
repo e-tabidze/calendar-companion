@@ -13,7 +13,7 @@ const Favourites = () => {
         <Typography type='h3'>ფავორიტები</Typography>
 
         {/* <div className='flex'>
-          <IconTextButton label={'ძებნა'} icon={'/icons/sort.svg'} />
+          <IconTextButton label={'ძებნა'} icon='sort' width={20} height={12}  />
         </div> */}
       </div>
       {userFavourites?.map((favProduct: any) => (
