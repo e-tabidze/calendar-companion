@@ -6,13 +6,16 @@ import {
   ClearFiltersWrapper,
   FiltersWrapper,
   MainFilters,
-  MapContainer,
+
+  // MapContainer,
+
   ResponsiveDivider,
   SearchContentsContainer,
   SearchResultsContainer
 } from '../../views/pages/search/styles'
 
-import Icon from 'src/views/app/Icon'
+// import Icon from 'src/views/app/Icon'
+
 import SearchLayout from '../../layouts/SearchLayout'
 import useSearch from 'src/hooks/useSearch'
 import { useRouter } from 'next/router'
@@ -21,7 +24,9 @@ import dynamic from 'next/dynamic'
 
 const Divider = dynamic(() => import('src/views/components/divider'), { ssr: true })
 const Image = dynamic(() => import('src/views/components/image'), { ssr: true })
-const MapPicker = dynamic(() => import('src/views/components/mapPicker'), { ssr: true })
+
+// const MapPicker = dynamic(() => import('src/views/components/mapPicker'), { ssr: true })
+
 const ProductCard = dynamic(() => import('src/views/components/productCard'), { ssr: true })
 const Switcher = dynamic(() => import('src/views/components/switcher'), { ssr: true })
 const Tag = dynamic(() => import('src/views/components/tag'), { ssr: true })
@@ -32,7 +37,8 @@ const PricePopover = dynamic(() => import('src/views/pages/search/pricePopover')
 const SeatsPopover = dynamic(() => import('src/views/pages/search/seatsPopover'), { ssr: true })
 const SuitcasesPopover = dynamic(() => import('src/views/pages/search/suitcasesPopover'), { ssr: true })
 const AdditionalFilters = dynamic(() => import('src/views/components/additionalFilters'), { ssr: true })
-const ToggleMapButton = dynamic(() => import('../../views/pages/search/toggleMapButton'), { ssr: true })
+
+// const ToggleMapButton = dynamic(() => import('../../views/pages/search/toggleMapButton'), { ssr: true })
 
 const SearchPage = () => {
   const {
