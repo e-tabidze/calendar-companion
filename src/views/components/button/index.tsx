@@ -46,7 +46,7 @@ export const IconButton = ({
         hasBg ? 'p-4 xl:p-5' : ''
       } rounded-2xl ${hasBg ? `bg-${bg}` : ''} ${className}`}
     >
-      <Icon svgPath={icon} height={height} width={width} className={`group-disabled:opacity-30 !max-w-none `} />
+      <Icon svgPath={icon} height={height} width={width} className={`fill-transparent group-disabled:opacity-30 !max-w-none `} />
     </button>
   )
 }
@@ -58,7 +58,7 @@ export const IconTextButton = ({ label, icon, width, height,  bg, className, onC
       onClick={onClick}
       type={type}
     >
-      <Icon svgPath={icon} width={width} height={height} />
+      <Icon svgPath={icon} width={width} height={height} className='fill-transparent' />
       <span className={`${labelClassname} text-2sm ml-4`}>{label}</span>
     </button>
   )
