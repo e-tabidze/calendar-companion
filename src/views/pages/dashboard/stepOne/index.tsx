@@ -74,7 +74,6 @@ const StepOne: React.FC<Props> = ({ control, productValues, errors, setValue }) 
     const uploadedFiles = uploadProductImagesMutation.data?.Data?.FilesList || []
     console.log(uploadedFiles, 'uploadedFiles')
     setValue('images', uploadedFiles)
-
   }, [uploadProductImagesMutation.data?.Data?.FilesList, setValue])
 
   const formState = useWatch({ control })
@@ -82,7 +81,7 @@ const StepOne: React.FC<Props> = ({ control, productValues, errors, setValue }) 
   console.log(formState, 'formState')
 
   return (
-    <div>
+    <>
       <div className='grid gap-4 grid-cold-1 md:grid-cols-2'>
         <DefaultInput name='vin' control={control} errors={errors} label='ვინ კოდი' />
         <DefaultInput name='plate' control={control} errors={errors} label='სახელმწიფო ნომერი' />
@@ -136,7 +135,6 @@ const StepOne: React.FC<Props> = ({ control, productValues, errors, setValue }) 
         <DefaultInput name='use_instruction' control={control} errors={''} label='გამოყენების ინსტრუქცია' rows={4} />
       </div>
       <div className='flex flex-wrap gap-2 mt-4'>
-
         {/* <ImagesInput label='ავტომობილის ფოტოები' infoText='(მაქს. ზომა 10 მბ, JPG, PNG, SVG)' icon bg='bg-green-10' /> */}
         <Controller
           name='images'
@@ -154,7 +152,7 @@ const StepOne: React.FC<Props> = ({ control, productValues, errors, setValue }) 
           )}
         />
       </div>
-    </div>
+    </>
   )
 }
 

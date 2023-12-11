@@ -47,13 +47,15 @@ const NewProduct: React.FC = () => {
     setValue,
     errors,
     isValid,
-    postSaveProductImages
+    postSaveProductImages,
+    trigger
   } = useNewProduct()
 
   const queryClient = useQueryClient()
 
   const handleGoNextStep = () => {
     const currentIndex = options.findIndex(option => option.value === step.value)
+    trigger('vin')
     if (currentIndex < options.length - 1) {
       setStep(options[currentIndex + 1])
     }

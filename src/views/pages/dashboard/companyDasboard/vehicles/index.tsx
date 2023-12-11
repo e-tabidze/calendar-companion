@@ -13,20 +13,17 @@ const Vehicles = () => {
           ავტომობილები
         </Typography>
         <div className='flex md:hidden gap-4 md:gap-8'>
-          <IconTextButton label={width > 779 ? 'ფილტრი' : ''} icon='filters' width={22} height={20}/>
+          <IconTextButton label={width > 779 ? 'ფილტრი' : ''} icon='filters' width={22} height={20} />
           <IconTextButton label={width > 779 ? 'სორტირება' : ''} icon='sort' width={20} height={12} />
         </div>
       </div>
       <Divider />
       <div className='hidden lg:flex gap-3 mt-8'>
-
         {/* {filters.map(filter => (
           <Tag label={filter.label} height='h-10' key={filter.id} className='rounded-xl' />
         ))} */}
       </div>
       <div>
-        ASDFGH
-
         {/* <VehicleListComponent />
         <VehicleListComponent />
         <VehicleListComponent /> */}
