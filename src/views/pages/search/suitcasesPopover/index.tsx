@@ -1,3 +1,4 @@
+import { useWatch } from 'react-hook-form'
 import useFilters from 'src/hooks/useFilters'
 import { DefaultButton, IconButton } from 'src/views/components/button'
 import PopoverDropdown from 'src/views/components/popoverDropdown'
@@ -13,8 +14,14 @@ interface Props {
 const SuitcasesPopover: React.FC<Props> = ({ control, appendLuggageNumber, handleSubmit, reset }) => {
   const { luggageNumbers } = useFilters()
 
+  const formState = useWatch({ control })
+
   return (
-    <PopoverDropdown label='ჩემოდნების რაოდენობა' maxWidth='max-w-xs'>
+    <PopoverDropdown
+      label='ჩემოდნების რაოდენობა'
+      maxWidth='max-w-xs'
+      className={`${formState.luggage_numbers.length > 0 ? 'border border-raisin-100' : ''}`}
+    >
       <div className='flex flex-wrap gap-4 my-6'>
         <Tag
           options={luggageNumbers}

@@ -40,6 +40,7 @@ const Cities = () => {
           </ViewAllCitiesContainer>
           <CitiesWrapper>
             {cities
+              ?.filter((city: any) => city?.products > 0)
               ?.sort((a: { products: number }, b: { products: number }) => b?.products - a?.products)
               ?.slice(0, 4)
               ?.map((city: any) => (

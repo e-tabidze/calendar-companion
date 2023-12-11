@@ -1,3 +1,4 @@
+import { useWatch } from 'react-hook-form'
 import useFilters from 'src/hooks/useFilters'
 import { DefaultButton, IconButton } from 'src/views/components/button'
 import PopoverDropdown from 'src/views/components/popoverDropdown'
@@ -14,8 +15,14 @@ interface Props {
 const SeatsPopover: React.FC<Props> = ({ control, appendSeatType, handleSubmit, reset }) => {
   const { seatTypesFilter } = useFilters()
 
+  const formState = useWatch({ control })
+
   return (
-    <PopoverDropdown label='ადგილების რაოდენობა' maxWidth='max-w-xs'>
+    <PopoverDropdown
+      label='ადგილების რაოდენობა'
+      maxWidth='max-w-xs'
+      className={`${formState.seat_types.length > 0 ? 'border border-raisin-100' : ''}`}
+    >
       <TagsWrapper>
         <Tag options={seatTypesFilter} name='seat_types' control={control} height='h-10' append={appendSeatType} />
       </TagsWrapper>

@@ -6,13 +6,16 @@ interface Props {
   label: string
   children: any
   maxWidth: string
+  className?: string
 }
 
-const PopoverDropdown = ({ label, children, maxWidth }: Props) => {
+const PopoverDropdown: React.FC<Props> = ({ label, children, maxWidth, className }) => {
   return (
     <div className='block'>
       <Popover className='relative'>
-        <Popover.Button className='flex items-center w-max h-10 border border-gray-90 rounded-xl gap-3 px-4 cursor-pointer'>
+        <Popover.Button
+          className={`flex items-center w-max h-10 border border-gray-90 rounded-xl gap-3 px-4 cursor-pointer ${className}`}
+        >
           <Typography type='body'>{label}</Typography>
           <Icon svgPath='chevron' width={8} height={6} className='fill-transparent'/>
 

@@ -89,7 +89,7 @@ const EditProduct: React.FC = ({}) => {
   const renderStepComponent = () => {
     switch (step.step) {
       case 1:
-        return <StepOne control={control} productValues={productValues} errors={errors} />
+        return <StepOne control={control} productValues={productValues} errors={errors} setValue={setValue} />
       case 2:
         return <StepTwo control={control} appendAdditionalParam={appendAdditionalParam} step={step.step} />
       case 3:

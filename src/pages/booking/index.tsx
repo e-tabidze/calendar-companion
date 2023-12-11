@@ -21,7 +21,7 @@ import Delivery from 'src/views/pages/booking/delivery'
 import BookingModal from 'src/views/pages/booking/bookingModal'
 import CheckServices from 'src/views/pages/booking/checkServices'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import Icon from "src/views/app/Icon";
+import Icon from 'src/views/app/Icon'
 
 const Booking = () => {
   const [additionalServices, toggleAdditionalServices] = useState(false)
@@ -88,61 +88,65 @@ const Booking = () => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <LargeContainer className='flex items-baseline pt-5 flex-col md:flex-row'>
-        <Image src='/images/logo-rent.svg' alt='logo' className="cursor-pointer" onClick={onClickLogo} />
+        <Image src='/images/logo-rent.svg' alt='logo' className='cursor-pointer' onClick={onClickLogo} />
       </LargeContainer>
-        <ContentContainer className='flex gap-12'>
-          <div className='w-full md:w-9/12'>
-            <div className='flex items-baseline my-8 gap-3'>
-              <Typography type='h3' className='font-bold'>
-                {book_from} - {book_to}
-              </Typography>
-              <Typography type='body'>| {days} days</Typography>
-            </div>
-            <Divider />
-            <Typography type='h3' className='mt-11'>
-              პირადი ინფორმაცია *
+      <ContentContainer className='flex gap-12'>
+        <div className='w-full md:w-9/12'>
+          <div className='flex items-baseline my-8 gap-3'>
+            <Typography type='h3' className='font-bold'>
+              {book_from} - {book_to}
             </Typography>
-            <div className='grid gap-3 my-6 grid-cols-1 lg:grid-cols-2 lg:gap-4'>
-              <DefaultInput control={control} name='first_name' errors={errors} label='სახელი' />
-              <DefaultInput control={control} name='last_name' errors={errors} label='გვარი' />
-              <DefaultInput control={control} name='identification_number' errors={errors} label='პირადი ნომერი' />
-              <DefaultInput control={control} name='phone' errors={errors} label='მობილურის ნომერი' />
-              <DefaultInput control={control} name='email' errors={errors} label='ელ.ფოსტა' />
+            <Typography type='body'>| {days} days</Typography>
+          </div>
+          <Divider />
+          <Typography type='h3' className='mt-11'>
+            პირადი ინფორმაცია *
+          </Typography>
+          <div className='grid gap-3 my-6 grid-cols-1 lg:grid-cols-2 lg:gap-4'>
+            <DefaultInput control={control} name='first_name' errors={errors} label='სახელი' />
+            <DefaultInput control={control} name='last_name' errors={errors} label='გვარი' />
+            <DefaultInput control={control} name='identification_number' errors={errors} label='პირადი ნომერი' />
+            <DefaultInput control={control} name='phone' errors={errors} label='მობილურის ნომერი' />
+            <DefaultInput control={control} name='email' errors={errors} label='ელ.ფოსტა' />
 
-              <DateDropdown label={'აირჩიე დაბადების თარიღი'} name='dob' control={control} />
-              <DateDropdown
-                label={'მართვის მოწმობის მოქმედების ვადა'}
-                name='driver_license_expiration'
-                control={control}
+            <DateDropdown label={'აირჩიე დაბადების თარიღი'} name='dob' control={control} />
+            <DateDropdown
+              label={'მართვის მოწმობის მოქმედების ვადა'}
+              name='driver_license_expiration'
+              control={control}
+            />
+          </div>
+          <Typography type='body' color='light' className='mb-14'>
+            გთხოვთ გადაამოწმოთ მითითებული პარამეტრები და შემდეგ დაასრულოთ დაჯავშნის პროცესი, ეს პარამეტრები
+            მნიშვნელოვანია შემდგომში თქვენსა და გამქირავებელს შორის კომუნიკაციისთვის
+          </Typography>
+          <Divider />
+          <Typography type='h3' className='my-11'>
+            ადგილმდებარეობა *
+          </Typography>
+
+          <BookingRadio name='supply' options={options} control={control} color='bg-green-100' />
+
+          <div className='mb-24'>
+            <div
+              className='mt-11 flex items-center justify-between mb-8'
+              onClick={() => toggleAdditionalServices(!additionalServices)}
+            >
+              <Typography type='h3'>დამატებითი სერვისები</Typography>
+              <Icon
+                svgPath='chevron'
+                width={8}
+                height={6}
+                className={`${
+                  additionalServices ? 'rotate-180' : ''
+                } fill-transparent  w-auto h-4 transition duration-300 mr-6`}
               />
             </div>
-            <Typography type='body' color='light' className='mb-14'>
-              გთხოვთ გადაამოწმოთ მითითებული პარამეტრები და შემდეგ დაასრულოთ დაჯავშნის პროცესი, ეს პარამეტრები
-              მნიშვნელოვანია შემდგომში თქვენსა და გამქირავებელს შორის კომუნიკაციისთვის
-            </Typography>
-            <Divider />
-            <Typography type='h3' className='my-11'>
-              ადგილმდებარეობა *
-            </Typography>
+            {/* {additionalServices && <AdditionalServices control={control} />} */}
+            {additionalServices && <CheckServices control={control} options={formsState?.additional_services as any} />}
+          </div>
 
-            <BookingRadio name='supply' options={options} control={control} color='bg-green-100' />
-
-            <div className='mb-24'>
-              <div
-                className='mt-11 flex items-center justify-between mb-8'
-                onClick={() => toggleAdditionalServices(!additionalServices)}
-              >
-                <Typography type='h3'>დამატებითი სერვისები</Typography>
-                <Icon svgPath='chevron' width={8} height={6}  className={`${additionalServices ? 'rotate-180' : ''} fill-transparent  w-auto h-4 transition duration-300 mr-6`} />
-              </div>
-                {/* {additionalServices && <AdditionalServices control={control} />} */}
-                {additionalServices && (
-                    <CheckServices control={control} options={formsState?.additional_services as any} />
-                )}
-
-            </div>
-
-            {/* <div>
+          {/* <div>
               <div className='mt-11 flex items-center justify-between mb-8' onClick={() => toggleInsurance(!insurance)}>
                 <Typography type='h3'>დაზღვევა</Typography>
                 <Icon
@@ -155,22 +159,22 @@ const Booking = () => {
               </div>
               {insurance && <AdditionalServices control={control} />}
             </div> */}
-          </div>
-          <div className='hidden md:inline-block w-5/12 lg:w-4/12'>
-            <PriceCalcCard
-              price={Number(Array.isArray(price_day) ? price_day[0] : price_day)}
-              dates={`${book_from} - ${book_to}`}
-              days={
-                Math.round(
-                  (new Date(Array.isArray(book_to) ? book_to[0] : book_to).getTime() -
-                    new Date(Array.isArray(book_from) ? book_from[0] : book_from).getTime()) /
-                    (24 * 60 * 60 * 1000)
-                ) + 1
-              }
-              onClick={onSubmit}
-            />
-          </div>
-        </ContentContainer>
+        </div>
+        <div className='hidden md:inline-block w-5/12 lg:w-4/12'>
+          <PriceCalcCard
+            price={Number(Array.isArray(price_day) ? price_day[0] : price_day)}
+            dates={`${book_from} - ${book_to}`}
+            days={
+              Math.round(
+                (new Date(Array.isArray(book_to) ? book_to[0] : book_to).getTime() -
+                  new Date(Array.isArray(book_from) ? book_from[0] : book_from).getTime()) /
+                  (24 * 60 * 60 * 1000)
+              ) + 1
+            }
+            onClick={onSubmit}
+          />
+        </div>
+      </ContentContainer>
 
       {isOpenDrawer && width < 779 ? (
         <Drawer
@@ -190,7 +194,11 @@ const Booking = () => {
           }}
         />
       ) : (
-        <ResponsivePriceCalcCard toggleDrawer={toggleDrawer} bookingModal />
+        <ResponsivePriceCalcCard
+          toggleDrawer={toggleDrawer}
+          bookingModal
+          price={Number(Array.isArray(price_day) ? price_day[0] : price_day)}
+        />
       )}
       <BookingModal
         open={openEditModal}

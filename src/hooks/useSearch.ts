@@ -43,7 +43,11 @@ const useSearch = () => {
     model_id: convertToNumberArray(params?.model),
     free_delivery: params?.free_delivery == 'false' ? false : true,
     year_from: params?.year_from || '',
-    year_to: params?.year_to || ''
+    year_to: params?.year_to || '',
+    booking: {
+      book_from: params?.book_from || '',
+      book_to: params?.book_to || ''
+    }
   }
 
   const {
@@ -77,19 +81,6 @@ const useSearch = () => {
     name: 'category'
   })
 
-  const searchProductsMutation = useMutation((querystring: string) => searchProducts(querystring), {
-    onSettled: () => {
-      queryClient.invalidateQueries(['searchProducts'])
-    },
-    onError: error => {
-      console.error('Mutation Error:', error)
-    }
-  })
-
-  const productsData = searchProductsMutation?.data?.result?.data
-  const isLoading = searchProductsMutation?.isLoading
-  const totalProductsCount = searchProductsMutation?.data?.result?.total
-
   const { fields: seatTypes, append: appendSeatType } = useFieldArray({
     control,
     name: 'seat_types'
@@ -119,6 +110,19 @@ const useSearch = () => {
     control,
     name: 'additional_information'
   })
+
+  const searchProductsMutation = useMutation((querystring: string) => searchProducts(querystring), {
+    onSettled: () => {
+      queryClient.invalidateQueries(['searchProducts'])
+    },
+    onError: error => {
+      console.error('Mutation Error:', error)
+    }
+  })
+
+  const productsData = searchProductsMutation?.data?.result?.data
+  const isLoading = searchProductsMutation?.isLoading
+  const totalProductsCount = searchProductsMutation?.data?.result?.total
 
   const searchProducts = async (querystring: string) => {
     try {

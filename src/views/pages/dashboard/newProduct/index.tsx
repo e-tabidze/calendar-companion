@@ -46,7 +46,8 @@ const NewProduct: React.FC = () => {
     createNewProduct,
     setValue,
     errors,
-    isValid
+    isValid,
+    postSaveProductImages
   } = useNewProduct()
 
   const queryClient = useQueryClient()
@@ -64,12 +65,30 @@ const NewProduct: React.FC = () => {
     }
   }
 
+  const saveProductImagesMutation = useMutation((variables: any) =>
+    postSaveProductImages(variables.FilesList, variables.productId)
+  )
+
   const createNewProducteMutation = useMutation(
     (product: Product) => {
       return createNewProduct('', product)
     },
     {
-      onSuccess: () => {
+      onSuccess: data => {
+        console.log(data?.result?.data, 'data?')
+        if (data) {
+          const images = data?.result?.data?.images
+          const productId = data?.result?.data?.id
+
+          if (images && productId) {
+            saveProductImagesMutation.mutate({
+              FilesList: images.split(','),
+              productId: productId
+            })
+          } else {
+            console.error('Error: Images or productId is missing.')
+          }
+        }
         queryClient.invalidateQueries(['companyProducts'])
       }
     }
@@ -86,7 +105,7 @@ const NewProduct: React.FC = () => {
   const renderStepComponent = () => {
     switch (step.step) {
       case 1:
-        return <StepOne control={control} productValues={productValues} errors={errors} />
+        return <StepOne control={control} productValues={productValues} errors={errors} setValue={setValue} />
       case 2:
         return <StepTwo control={control} appendAdditionalParam={appendAdditionalParam} step={step.step} />
       case 3:
@@ -125,7 +144,7 @@ const NewProduct: React.FC = () => {
       onClose={handleClose}
       onSubmit={handleSubmit(onSubmit)}
       submitLabel='დამატება'
-      disabled={!isValid}
+      disabled={false}
     >
       <form>{renderStepComponent()}</form>
     </NewListingLayout>

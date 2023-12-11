@@ -1,19 +1,25 @@
-import { useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { DefaultInput } from 'src/views/components/input'
 import SelectField from 'src/views/components/selectField'
 import TwoOptionSelector from 'src/views/components/twoOptionSelector'
-import ImagesInput from './imagesInput'
+
+// import ImagesInput from './imagesInput'
 import { useEffect } from 'react'
 import useProductInfo, { getManufacturerModels } from '../useProductInfo'
+import useNewProduct from '../newProduct/useNewProduct'
+import { Controller, useWatch } from 'react-hook-form'
+import { generateYearsArray } from 'src/utils/years'
 
 interface Props {
   control: any
   productValues: any
   errors: any
+  setValue: any
 }
 
-const StepOne: React.FC<Props> = ({ control, productValues, errors }) => {
+const StepOne: React.FC<Props> = ({ control, productValues, errors, setValue }) => {
   const { manufacturers } = useProductInfo()
+  const { postUploadProductImages } = useNewProduct()
 
   const selectedManufacturerId = productValues.man_id
 
@@ -30,16 +36,50 @@ const StepOne: React.FC<Props> = ({ control, productValues, errors }) => {
     }
   }, [selectedManufacturerId, refetch])
 
-  const generateYearsArray = () => {
-    const currentYear = new Date().getFullYear()
-    const startYear = 1980
-    const years = []
-    for (let i = currentYear; i >= startYear; i--) {
-      years.push({ value: i, label: i })
-    }
+  const queryClient = useQueryClient()
 
-    return years
+  const uploadProductImagesMutation: any = useMutation(postUploadProductImages, {
+    onSettled: () => {
+      queryClient.invalidateQueries(['productInfo'])
+    }
+  })
+
+  // const handleFileUpload = async (files: any, count: number, userId: number = 4111619) => {
+  //   try {
+  //     await uploadProductImagesMutation.mutateAsync({ Files: files, count, userId })
+  //   } catch (error) {
+  //     console.error('Error uploading file:', error)
+  //   }
+  // }
+
+  const handleFileUpload = async (files: any, count: number, userId = 4111619) => {
+    try {
+      await uploadProductImagesMutation.mutateAsync({
+        Files: Array.from(files),
+        count,
+        userId
+      })
+
+      // const uploadedFiles = uploadProductImagesMutation.data?.Data?.FilesList || []
+      // console.log(uploadedFiles, 'uploadedFiles')
+      // setValue('images', uploadedFiles)
+    } catch (error) {
+      console.error('Error uploading file:', error)
+    }
   }
+
+  console.log(uploadProductImagesMutation.data?.Data?.FilesList, 'uploadProductImagesMutation.data')
+
+  useEffect(() => {
+    const uploadedFiles = uploadProductImagesMutation.data?.Data?.FilesList || []
+    console.log(uploadedFiles, 'uploadedFiles')
+    setValue('images', uploadedFiles)
+
+  }, [uploadProductImagesMutation.data?.Data?.FilesList, setValue])
+
+  const formState = useWatch({ control })
+
+  console.log(formState, 'formState')
 
   return (
     <div>
@@ -96,7 +136,23 @@ const StepOne: React.FC<Props> = ({ control, productValues, errors }) => {
         <DefaultInput name='use_instruction' control={control} errors={''} label='გამოყენების ინსტრუქცია' rows={4} />
       </div>
       <div className='flex flex-wrap gap-2 mt-4'>
-        <ImagesInput label='ავტომობილის ფოტოები' infoText='(მაქს. ზომა 10 მბ, JPG, PNG, SVG)' icon bg='bg-green-10' />
+
+        {/* <ImagesInput label='ავტომობილის ფოტოები' infoText='(მაქს. ზომა 10 მბ, JPG, PNG, SVG)' icon bg='bg-green-10' /> */}
+        <Controller
+          name='images'
+          control={control}
+          render={({ field: { onChange } }) => (
+            <input
+              type='file'
+              multiple
+              onChange={(e: any) => {
+                console.log(Array.from(e.target.files), 'targetfiles')
+                onChange()
+                handleFileUpload(Array.from(e.target.files), e.target.files.length)
+              }}
+            />
+          )}
+        />
       </div>
     </div>
   )

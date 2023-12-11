@@ -16,7 +16,7 @@ const PriceCalcCard = dynamic(() => import('src/views/pages/details/priceCalcCar
 // const InsuranceCard = dynamic(() => import('src/views/pages/details/insuranceCard'), { ssr: false })
 const MapPicker = dynamic(() => import('src/views/components/mapPicker'), { ssr: true })
 
-// const LessorInformationCard = dynamic(() => import('src/views/pages/details/lessorInformationCard'), { ssr: true })
+const LessorInformationCard = dynamic(() => import('src/views/pages/details/lessorInformationCard'), { ssr: true })
 const DetailsPageHeader = dynamic(() => import('src/views/pages/details/detailsPageHeader'), { ssr: true })
 const Divider = dynamic(() => import('src/views/components/divider'), { ssr: false })
 
@@ -44,61 +44,29 @@ const SimilarProducts = dynamic(() => import('src/views/pages/details/similarPro
 const Features = dynamic(() => import('src/views/pages/details/features'), { ssr: true })
 
 const productImages = [
-  <div className="relative aspect-w-16 aspect-h-9 rounded-2xl overflow-hidden"  key={1}>
-    <Image
-        src='/images/car.png'
-        className='object-cover '
-        alt='productdetails'
-    />
+  <div className='relative aspect-w-16 aspect-h-9 rounded-2xl overflow-hidden' key={1}>
+    <Image src='/images/car.png' className='object-cover ' alt='productdetails' />
   </div>,
-  <div className="relative aspect-w-16 aspect-h-9 rounded-2xl overflow-hidden"  key={2}>
-    <Image
-        src='/images/car.png'
-        className='object-cover '
-        alt='productdetails'
-    />
+  <div className='relative aspect-w-16 aspect-h-9 rounded-2xl overflow-hidden' key={2}>
+    <Image src='/images/car.png' className='object-cover ' alt='productdetails' />
   </div>,
-  <div className="relative aspect-w-16 aspect-h-9 rounded-2xl overflow-hidden"  key={3}>
-    <Image
-        src='/images/car.png'
-        className='object-cover '
-        alt='productdetails'
-    />
+  <div className='relative aspect-w-16 aspect-h-9 rounded-2xl overflow-hidden' key={3}>
+    <Image src='/images/car.png' className='object-cover ' alt='productdetails' />
   </div>,
-  <div className="relative aspect-w-16 aspect-h-9 rounded-2xl overflow-hidden"  key={4}>
-    <Image
-        src='/images/car.png'
-        className='object-cover '
-        alt='productdetails'
-    />
+  <div className='relative aspect-w-16 aspect-h-9 rounded-2xl overflow-hidden' key={4}>
+    <Image src='/images/car.png' className='object-cover ' alt='productdetails' />
   </div>,
-  <div className="relative aspect-w-16 aspect-h-9 rounded-2xl overflow-hidden"  key={5}>
-    <Image
-        src='/images/car.png'
-        className='object-cover '
-        alt='productdetails'
-    />
+  <div className='relative aspect-w-16 aspect-h-9 rounded-2xl overflow-hidden' key={5}>
+    <Image src='/images/car.png' className='object-cover ' alt='productdetails' />
   </div>,
-  <div className="relative aspect-w-16 aspect-h-9 rounded-2xl overflow-hidden"  key={6}>
-    <Image
-        src='/images/car.png'
-        className='object-cover '
-        alt='productdetails'
-    />
+  <div className='relative aspect-w-16 aspect-h-9 rounded-2xl overflow-hidden' key={6}>
+    <Image src='/images/car.png' className='object-cover ' alt='productdetails' />
   </div>,
-  <div className="relative aspect-w-16 aspect-h-9 rounded-2xl overflow-hidden"  key={7}>
-    <Image
-        src='/images/car.png'
-        className='object-cover '
-        alt='productdetails'
-    />
+  <div className='relative aspect-w-16 aspect-h-9 rounded-2xl overflow-hidden' key={7}>
+    <Image src='/images/car.png' className='object-cover ' alt='productdetails' />
   </div>,
-  <div className="relative aspect-w-16 aspect-h-9 rounded-2xl overflow-hidden"  key={8}>
-    <Image
-        src='/images/car.png'
-        className='object-cover '
-        alt='productdetails'
-    />
+  <div className='relative aspect-w-16 aspect-h-9 rounded-2xl overflow-hidden' key={8}>
+    <Image src='/images/car.png' className='object-cover ' alt='productdetails' />
   </div>
 ]
 
@@ -270,14 +238,19 @@ const ProductDetails = () => {
                 <Typography type='subtitle' className='mt-8'>
                   {singleProductDetails?.use_instruction}
                 </Typography>
-                <EntityInformationCard name={singleProductDetails?.company_user?.company?.information?.name} entityProductsCount={singleProductDetails?.company_user?.company?.count_company_poduct} />
+                <EntityInformationCard
+                  name={singleProductDetails?.company_user?.company?.information?.name}
+                  entityProductsCount={singleProductDetails?.company_user?.company?.count_company_poduct}
+                />
               </div>
 
               <Features id='features' singleProductDetails={singleProductDetails} />
 
               <Divider />
               <div className='my-8' id='pricing'>
-                <Typography type='h3' className="text-3md md:text-2lg">ღირებულება</Typography>
+                <Typography type='h3' className='text-3md md:text-2lg'>
+                  ღირებულება
+                </Typography>
 
                 <div className='mt-8 mb-11 grid grid-cols-1 gap-4'>
                   {singleProductDetails?.product_services?.map((feature: any) => (
@@ -298,8 +271,10 @@ const ProductDetails = () => {
                 </div>
               </div>
               <Divider />
-              <div className='my-8'>
-                <Typography type='h3' className="text-3md md:text-2lg">პერიოდი</Typography>
+              <div className='my-8' id='calendar'>
+                <Typography type='h3' className='text-3md md:text-2lg'>
+                  პერიოდი
+                </Typography>
                 <div className='flex justify-between mb-16 mt-2'>
                   <div className='flex gap-4'>
                     <Typography type='subtitle' className='text-green-100'>
@@ -381,14 +356,20 @@ const ProductDetails = () => {
               <Divider /> */}
 
               <div className='mt-8'>
-                <Typography type='h3' className="text-3md md:text-2lg">ადგილმდებარეობა</Typography>
+                <Typography type='h3' className='text-3md md:text-2lg'>
+                  ადგილმდებარეობა
+                </Typography>
                 <div className='flex gap-4 items-center mt-10 mb-6'>
                   <Icon svgPath='locationOutline' width={24} height={24} className='fill-transparent'/>
                   <Typography type='h5' weight='normal'>
                     {singleProductDetails?.start_address}
                   </Typography>
                 </div>
-                <MapPicker height='300px' borderRadius='30px' />
+                <MapPicker
+                  height='300px'
+                  borderRadius='30px'
+                  markerCoordinates={[singleProductDetails?.start_lat, singleProductDetails?.start_lon]}
+                />
               </div>
               {/*<Divider />*/}
               {/*<Reviews id='reviews' />*/}
@@ -403,6 +384,7 @@ const ProductDetails = () => {
                   endDate &&
                   Math.round((endDate.getTime() - startDate.getTime()) / (24 * 60 * 60 * 1000)) + 1
                 }
+                handleDateChange={() => handleClick('calendar')}
                 onClick={onSubmit}
               />
             </div>
@@ -411,14 +393,14 @@ const ProductDetails = () => {
           <Typography type='h3' className='text-3md md:text-2lg block my-6 lg:hidden'>
             ფასი მოიცავს
           </Typography>
-          {/*<LessorInformationCard*/}
-          {/*  id='informationcard'*/}
-          {/*  lessor={singleProductDetails?.company_user?.company?.information?.name}*/}
-          {/*  description={singleProductDetails?.company_user?.company?.information?.description}*/}
-          {/*  count={singleProductDetails?.company_user?.company?.count_company_poduct}*/}
-          {/*/>*/}
+          <LessorInformationCard
+            id='informationcard'
+            lessor={singleProductDetails?.company_user?.company?.information?.name}
+            description={singleProductDetails?.company_user?.company?.information?.description}
+            count={singleProductDetails?.company_user?.company?.count_company_poduct}
+          />
           <Divider className='my-10 md:my-20' />
-          <SimilarProducts data={similarProducts}/>
+          {similarProducts?.length > 1 && <SimilarProducts data={similarProducts} />}
         </ContentContainer>
         {isOpenDrawer && width < 779 ? (
           <Drawer
@@ -433,7 +415,7 @@ const ProductDetails = () => {
             onClick={onSubmit}
           />
         ) : (
-          <ResponsivePriceCalcCard toggleDrawer={toggleDrawer} />
+          <ResponsivePriceCalcCard toggleDrawer={toggleDrawer} price={singleProductDetails?.price_gel} />
         )}
         <ProductImagesDialog open={productImageDialogOpen} setOpen={toggleProductImageDialog} images={productImages} />
       </DefaultLayout>

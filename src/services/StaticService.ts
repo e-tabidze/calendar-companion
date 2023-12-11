@@ -16,6 +16,34 @@ class StaticService extends HttpService {
       AccessToken ? { Authorization: `${AccessToken}` } : {}
     )
   }
+
+  postUploadProductImages(AccessToken = '', files: any, count: number, userId: number) {
+    return this.post(
+      'https://test.static.my.ge',
+      { Func: 'UploadPhotos', UploadedFiles: count, IP: '0.0.0.0', UserID: userId, SiteID: '39', 'Files[]': files },
+      AccessToken ? { Authorization: `${AccessToken}` } : {}
+    )
+  }
+
+  reverseAndFormatNumber(dir: number | string) {
+    const reversedDigits = String(dir).split('').reverse().map(Number)
+    const formattedResult = Array.from({ length: 5 }, (_, i) => reversedDigits[i] || 0).join('/')
+    
+    return formattedResult
+  }
+  postSaveProductImages(AccessToken = '', FilesList: string[], productId: string | number) {
+    const mappedPhotos = FilesList?.map(photo => photo )
+
+    return this.post(
+      'save-photos',
+      {
+        Func: 'AddPhotos',
+        'Photos[]': mappedPhotos,
+        PrID: productId,
+      },
+      AccessToken ? { Authorization: `${AccessToken}` } : {}
+    )
+  }
 }
 
 export default new StaticService()

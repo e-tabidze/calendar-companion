@@ -1,6 +1,5 @@
 import Divider from 'src/views/components/divider'
 import Image from 'src/views/components/image'
-import Review from 'src/views/components/review'
 import Typography from 'src/views/components/typography'
 import Icon from "src/views/app/Icon";
 
@@ -17,10 +16,11 @@ const LessorInformationCard: React.FC<Props> = ({ id, lessor, description, count
       <Typography type='h3' className='mb-5 hidden lg:block'>
         ინფორმაცია გამქირავებელზე
       </Typography>
-      <div className='flex gap-3 items-center mb-9 lg:hidden'>
+      
+      {/* <div className='flex gap-3 items-center mb-9 lg:hidden'>
         <Review review={4.89} size='normal' />
         <Typography type='subtitle'>206 შეფასება</Typography>
-      </div>
+      </div> */}
       <Divider />
 
       <div className='flex gap-20 my-6 items-center'>
@@ -39,10 +39,10 @@ const LessorInformationCard: React.FC<Props> = ({ id, lessor, description, count
           </div>
         </div>
 
-        <div className='hidden lg:flex gap-3 items-center'>
+        {/* <div className='hidden lg:flex gap-3 items-center'>
           <Review review={4.89} size='normal' />
           <Typography type='subtitle'>206 შეფასება</Typography>
-        </div>
+        </div> */}
       </div>
       <Typography type='subtitle'>{description}</Typography>
     </div>

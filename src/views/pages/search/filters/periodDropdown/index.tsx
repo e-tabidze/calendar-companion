@@ -6,28 +6,70 @@ import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import { Controller } from 'react-hook-form'
 import { formatDate } from 'src/utils/formatDate'
-import Icon from "src/views/app/Icon";
+import Icon from 'src/views/app/Icon'
 
 interface Props {
   control: any
+  resetField: any
+  setValue: any
 }
 
-const PeriodDropdown: React.FC<Props> = ({ control }) => {
+const PeriodDropwodn: React.FC<Props> = ({ control, resetField, setValue }) => {
   const [dateRange, setDateRange] = useState<[Date, Date] | [null, null]>([null, null])
   const [startDate, endDate] = dateRange
 
+  // const router = useRouter()
+  // const { book_from, book_to } = router?.query
+
+  // const [dateRange, setDateRange] = useState<
+  //   [Date, Date] | [null, null] | [Date, null] | [null, Date] | [undefined, undefined]
+  // >(
+  //   Array.isArray(book_from) && Array.isArray(book_to)
+  //     ? [new Date(book_from[0]), new Date(book_to[0])]
+  //     : [
+  //         book_from ? new Date(book_from as string | number) : null,
+  //         book_to ? new Date(book_to as string | number) : null
+  //       ]
+  // )
+
+  // useEffect(() => {
+  //   if (book_from && book_to) {
+  //     const fromDate = Array.isArray(book_from)
+  //       ? new Date(book_from[0] as string | number)
+  //       : new Date(book_from as string | number)
+  //     const toDate = Array.isArray(book_to)
+  //       ? new Date(book_to[0] as string | number)
+  //       : new Date(book_to as string | number)
+
+  //     setDateRange([fromDate, toDate])
+  //     setValue('booking.book_from', book_from)
+  //     setValue('booking.book_to', book_to)
+  //   }
+  // }, [book_from, book_to])
+
+  console.log(setValue)
+
   return (
     <Menu as='div' className='flex text-left mx-2 w-full'>
-      <Menu.Button className='py-5 px-4 inline-flex w-full justify-center rounded-md bg-raisin bg-opacity-20 text-sm font-medium text-white focus-visible:ring-white focus-visible:ring-opacity-75'>
+      <Menu.Button className='px-4 w-52 inline-flex justify-center rounded-md bg-raisin bg-opacity-20 text-sm font-medium text-white focus-visible:ring-white focus-visible:ring-opacity-75'>
         <FilterContainer>
-          <Typography type='body' color='dark'>
-            ქირაობის პერიოდი
-          </Typography>
           <InnerFilterContainer>
-            <Typography type='subtitle' className='text-raisin-50'>
-              {startDate && endDate ? `${formatDate(startDate)} - ${formatDate(endDate)}` : 'აირჩიეთ თარიღი და დრო'}
+            <Typography type='body' className='text-raisin-50'>
+              {startDate && endDate ? `${formatDate(startDate)} - ${formatDate(endDate)}` : 'ქირაობის პერიოდი'}
             </Typography>
-              <Icon svgPath='chevron' width={8} height={6} className='fill-transparent inline fill-white m-2' />
+            {startDate || endDate ? (
+              <Icon
+                svgPath='clear'
+                width={18}
+                color='raisin-10'
+                height={18}
+                onClick={e => {
+                  resetField(), e.stopPropagation()
+                }}
+              />
+            ) : (
+              <Icon svgPath='chevron' width={10} height={10} />
+            )}
           </InnerFilterContainer>
         </FilterContainer>
       </Menu.Button>
@@ -51,7 +93,7 @@ const PeriodDropdown: React.FC<Props> = ({ control }) => {
                 selectsRange={true}
                 startDate={startDate}
                 endDate={endDate}
-                monthsShown={2}
+                monthsShown={1}
                 onChange={(update: any) => {
                   if (update) {
                     const [start, end] = update
@@ -74,4 +116,4 @@ const PeriodDropdown: React.FC<Props> = ({ control }) => {
   )
 }
 
-export default PeriodDropdown
+export default PeriodDropwodn

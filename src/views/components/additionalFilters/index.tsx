@@ -24,6 +24,7 @@ import { useQuery } from '@tanstack/react-query'
 import useSearch from 'src/hooks/useSearch'
 import { useWatch } from 'react-hook-form'
 import Icon from 'src/views/app/Icon'
+import { generateYearsArray } from 'src/utils/years'
 
 interface Props {
   open: boolean
@@ -72,17 +73,6 @@ const AdditionalFilters: React.FC<Props> = ({
   const { objectToURI } = useSearch()
 
   const formState = useWatch({ control })
-
-  const generateYearsArray = () => {
-    const currentYear = new Date().getFullYear()
-    const startYear = 1980
-    const years = []
-    for (let i = currentYear; i >= startYear; i--) {
-      years.push({ value: i, label: i })
-    }
-
-    return years
-  }
 
   const { data: manufacturerModelFilters, refetch }: any = useQuery({
     queryKey: ['manufacturerModelFilters'],
@@ -190,49 +180,49 @@ const AdditionalFilters: React.FC<Props> = ({
                     <Typography type='h5' weight='normal' className='text-md md:text-3md'>
                       ავტომობილის პარამეტრები
                     </Typography>
-                    <div className="flex flex-col md:flex-row md:gap-6">
+                    <div className='flex flex-col md:flex-row md:gap-6'>
                       <SelectField
-                          name='manufacturer_id'
-                          isMulti
-                          control={control}
-                          options={manufacturerFilters}
-                          placeholder='მწარმოებელი'
-                          className='md:w-4/12 my-2'
-                          valueKey='id'
-                          labelKey='title'
+                        name='manufacturer_id'
+                        isMulti
+                        control={control}
+                        options={manufacturerFilters}
+                        placeholder='მწარმოებელი'
+                        className='md:w-4/12 my-2'
+                        valueKey='id'
+                        labelKey='title'
                       />
                       <SelectField
-                          name='model_id'
-                          isMulti
-                          control={control}
-                          options={manufacturerModelFilters?.result?.data}
-                          placeholder='მოდელი'
-                          disabled={formState.manufacturer_id?.length === 0}
-                          className='md:w-4/12 my-2'
-                          valueKey='id'
-                          labelKey='title'
+                        name='model_id'
+                        isMulti
+                        control={control}
+                        options={manufacturerModelFilters?.result?.data}
+                        placeholder='მოდელი'
+                        disabled={formState.manufacturer_id?.length === 0}
+                        className='md:w-4/12 my-2'
+                        valueKey='id'
+                        labelKey='title'
                       />
                       <div className='md:w-4/12 flex gap-1 items-center'>
                         <SelectField
-                            name='year_from'
-                            control={control}
-                            options={generateYearsArray()}
-                            placeholder='წლიდან'
-                            disabled={false}
-                            className='w-full my-2'
-                            valueKey='value'
-                            labelKey='label'
+                          name='year_from'
+                          control={control}
+                          options={generateYearsArray()}
+                          placeholder='წლიდან'
+                          disabled={false}
+                          className='w-full my-2'
+                          valueKey='value'
+                          labelKey='label'
                         />
                         -
                         <SelectField
-                            name='year_to'
-                            control={control}
-                            options={generateYearsArray()}
-                            placeholder='წლამდე'
-                            disabled={false}
-                            className='w-full my-2'
-                            valueKey='value'
-                            labelKey='label'
+                          name='year_to'
+                          control={control}
+                          options={generateYearsArray()}
+                          placeholder='წლამდე'
+                          disabled={false}
+                          className='w-full my-2'
+                          valueKey='value'
+                          labelKey='label'
                         />
                       </div>
                     </div>
@@ -251,21 +241,21 @@ const AdditionalFilters: React.FC<Props> = ({
                       outlined
                     />
                   </div>
-                  <div className="my-10 md:my-16">
+                  <div className='my-10 md:my-16'>
                     <Typography type='h5' weight='normal' className='text-md md:text-3md'>
                       ადგილების რაოდენობა
                     </Typography>
                     <div className='flex flex-wrap gap-2 my-3 md:gap-4 md:my-6'>
                       <Tag
-                          options={seatTypesFilter}
-                          name='seat_types'
-                          control={control}
-                          height='h-10'
-                          append={appendSeatType}
+                        options={seatTypesFilter}
+                        name='seat_types'
+                        control={control}
+                        height='h-10'
+                        append={appendSeatType}
                       />
                     </div>
                   </div>
-                  <div className="my-10 md:my-16">
+                  <div className='my-10 md:my-16'>
                     <Typography type='h5' weight='normal' className='text-md md:text-3md'>
                       ჩემოდნების რაოდენობა
                     </Typography>
@@ -335,7 +325,7 @@ const AdditionalFilters: React.FC<Props> = ({
                   <Typography type='h5' weight='normal' className='mt-4 md:mt-8'>
                     დამატებითი პარამეტრები
                   </Typography>
-                  <Typography type='body' color='light' className="mt-2 mb-8">
+                  <Typography type='body' color='light' className='mt-2 mb-8'>
                     შეგიძლია მონიშნო ერთი ან რამდენიმე პარამეტრი
                   </Typography>
                   <CheckboxField
