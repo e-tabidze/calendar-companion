@@ -81,6 +81,7 @@ const Products = () => {
                   manufacturer={product.manufacturer?.title}
                   active={product.is_active}
                   filter={filterQuery}
+                  images={product?.images}
                 />
               ))}
             </>

@@ -8,6 +8,7 @@ import DeleteProductConfirmationModal from '../../products/deleteProductModal'
 import useProducts from '../../products/useProducts'
 import Action from './action'
 import Icon from 'src/views/app/Icon'
+import Carousel from 'src/views/components/carousel'
 
 interface Props {
   price: number
@@ -18,6 +19,7 @@ interface Props {
   active: number
   id: number
   filter: '' | 0 | 1 | 2
+  images: string
 }
 
 const VehicleListComponent: React.FC<Props> = ({
@@ -28,7 +30,8 @@ const VehicleListComponent: React.FC<Props> = ({
   manufacturer,
   active,
   id,
-  filter
+  filter,
+  images
 }) => {
   const [deleteProductModal, setDeleteProductModal] = useState(false)
 
@@ -65,13 +68,22 @@ const VehicleListComponent: React.FC<Props> = ({
       <div className='relative border-b-1 border-raisin-10 last:border-none'>
         <div className='flex flex-col px-2 py-4 md:w-full justify-between gap-6 md:px-0 md:flex-row md:items-center'>
           <div className='flex gap-6 2xl:gap-6 min-w-max'>
-            <Image
-              src='/images/car.png'
-              alt=''
-              height={width > 779 ? 150 : 50}
-              width={width > 779 ? 250 : 82}
-              className='rounded-lg object-cover'
-            />
+            <div className='w-56'>
+              <Carousel
+                itemsArray={images?.split(',')?.map((imgUrl, index) => (
+                  <Image
+                    key={index}
+                    src={imgUrl || ''}
+                    alt={`${manufacturer} ${model} ${prodYear}`}
+                    height={width > 779 ? 150 : 50}
+                    width={width > 779 ? 250 : 82}
+                    className='rounded-lg object-cover'
+                  />
+                ))}
+                type='card'
+                key={Math.random()}
+              />
+            </div>
             <div className='min-w-max'>
               <Typography type='body' color='light'>
                 {startCity}

@@ -24,6 +24,7 @@ const NewProductSchema = Yup.object().shape({
   prod_year: Yup.number().required('აუცილებელი ველი').typeError('აუცილებელი ველი'),
   additional_information: Yup.string().required('აუცილებელი ველი').typeError('აუცილებელი ველი'),
   use_instruction: Yup.string().required('აუცილებელი ველი').typeError('აუცილებელი ველი'),
+  images: Yup.mixed(),
   category_id: Yup.number().required('აუცილებელი ველი').typeError('აუცილებელი ველი'),
   fuel_type_id: Yup.number().required('აუცილებელი ველი').typeError('აუცილებელი ველი'),
   seat_type_id: Yup.number().required('აუცილებელი ველი').typeError('აუცილებელი ველი'),

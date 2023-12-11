@@ -14,7 +14,7 @@ interface Props {
   productValues: any
   errors: any
   setValue: any
-  removeImage?: any
+  removeImage: any
 }
 
 const StepOne: React.FC<Props> = ({ control, productValues, errors, setValue, removeImage }) => {
