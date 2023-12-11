@@ -71,7 +71,6 @@ const VehicleListComponent: React.FC<Props> = ({
             <div className='w-[150px] lg:w-[200px] xl:w-[250px]'>
               <Carousel
                 itemsArray={images?.split(',')?.map((imgUrl, index) => (
-                    <div className="overflow-hidden aspect-w-16 aspect-h-9 ">
                       <Image
                           key={index}
                           src={imgUrl || ''}
@@ -80,7 +79,6 @@ const VehicleListComponent: React.FC<Props> = ({
                           width={width > 779 ? 250 : 82}
                           className='rounded-lg object-cover'
                       />
-                    </div>
                 ))}
                 type='card'
                 key={Math.random()}
