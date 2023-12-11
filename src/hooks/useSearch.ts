@@ -28,6 +28,7 @@ const useSearch = () => {
   }
 
   const searchDefaultValues = {
+    page: Number(params?.page) || 1,
     location: params?.location || '',
     fuel_types: convertToNumberArray(params?.fuel_types),
     category: convertToNumberArray(params?.category),
@@ -123,6 +124,7 @@ const useSearch = () => {
   const productsData = searchProductsMutation?.data?.result?.data
   const isLoading = searchProductsMutation?.isLoading
   const totalProductsCount = searchProductsMutation?.data?.result?.total
+  const totalPages = searchProductsMutation?.data?.result?.last_page
 
   const searchProducts = async (querystring: string) => {
     try {
@@ -190,7 +192,8 @@ const useSearch = () => {
     isLoading,
     totalProductsCount,
     objectToURI,
-    searchDefaultValues
+    searchDefaultValues,
+    totalPages
   }
 }
 

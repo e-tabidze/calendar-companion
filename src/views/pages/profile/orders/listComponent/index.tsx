@@ -1,39 +1,78 @@
-import Image from 'next/image'
 import useWindowDimensions from 'src/hooks/useWindowDimensions'
+import Icon from 'src/views/app/Icon'
 import { IconButton } from 'src/views/components/button'
-import Divider from 'src/views/components/divider'
+import Image from 'src/views/components/image'
 import Typography from 'src/views/components/typography'
 
 interface Props {
   toggleDetails: () => void
+  startAddress: string
+  startDate: string
+  startTime: string
+  endDate: string
+  endTime: string
+  productDetails: any
+  price: number
+  status: number
 }
 
-const ListComponent: React.FC<Props> = ({ toggleDetails }) => {
+const OrderListComponent: React.FC<Props> = ({
+  toggleDetails,
+  startAddress,
+  startDate,
+  startTime,
+  endDate,
+  endTime,
+  productDetails,
+  price,
+  status
+}) => {
   const { width } = useWindowDimensions()
-  
+
+  console.log(productDetails, 'productDetails')
+
   return (
-    <div className='' onClick={toggleDetails}>
-      <div className='flex items-center px-2 py-4 md:w-full gap-6 md:px-4'>
-        <Image src='/images/car.png' alt='' height={37} width={50} className='rounded-lg' />
-        <div className='flex flex-col items-baseline md:flex-row md:items-center justify-between w-none md:w-full'>
-          <div className=''>
-            <Typography type='subtitle'>Mercedes E Class 2022</Typography>
+    <div className='border-b-1 border-raisin-10 last:border-none' onClick={toggleDetails}>
+      <div className='flex flex-col px-2 py-4 md:w-full gap-10 md:px-0 md:flex-row md:items-center'>
+        <div className='flex gap-4 2xl:gap-6 min-w-max'>
+          <Image src='/images/car.png' alt='orders' height={48} width={64} className='rounded-lg object-cover' />
+          <div className='min-w-max'>
+            <Typography type='subtitle'>
+              {productDetails?.manufacturer.title} {productDetails?.manufacturer_model?.title}
+              {productDetails?.prod_year}
+            </Typography>
+            <Typography type='body'>{startAddress}</Typography>
             <Typography type='body' color='light'>
-              ივნ 22, 2022 - 14:00 - ივლ 17, 2022 - 16:00
+              {startDate} {startTime} - {endDate} {endTime}
             </Typography>
           </div>
-          <div className='flex w-full gap-2 md:w-max md:gap-10 md:justify-between'>
-            <Typography type='subtitle'>435$</Typography>
-            <Typography type='subtitle' className='text-green-100'>
-              აქტიური
+        </div>
+        <div className='flex flex-col items-baseline md:flex-row md:items-center justify-between w-none md:w-full'>
+          <div className='flex gap-2 ml-[90px] md:mx-none md:w-max md:gap-6 2xl:gap-10 md:justify-between md:ml-0'>
+           
+            <Typography type='subtitle' className='flex items-center gap-2'>
+              {price} <Icon svgPath='gel' width={14} height={14} />
+            </Typography>
+            <Typography
+              type='subtitle'
+              className={`${
+                status === 0
+                  ? 'text-yellow-100'
+                  : status === 1
+                  ? 'text-green-100'
+                  : status === 2
+                  ? 'text-orange-100'
+                  : ''
+              }`}
+            >
+              {status === 0 ? 'მოლოდინში' : status === 1 ? 'დადასტურებული' : status === 2 ? 'გაუქმებული' : ''}
             </Typography>
           </div>
           {width > 779 && <IconButton icon='chevronWithBg' height={38} width={38} onClick={toggleDetails} />}
         </div>
       </div>
-      <Divider />
     </div>
   )
 }
 
-export default ListComponent
+export default OrderListComponent

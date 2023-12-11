@@ -29,7 +29,7 @@ const ProfileNavigation: React.FC<Props> = ({
   selectedRoute,
   dividerIndexes
 }) => {
-  const { userInfo, activeCompany } = useProfile()
+  const { userInfo, activeCompany, isAuthenticated } = useProfile()
 
   const router = useRouter()
 
@@ -46,7 +46,11 @@ const ProfileNavigation: React.FC<Props> = ({
         <div className='flex items-center'>
           <div className='flex shrink-0 w-12 h-12 relative rounded-full overflow-hidden'>
             <Image
-              src={!!activeCompany ? activeCompany?.information.logo : !activeCompany ? 'userInfo?.information?.profile_pic' : ''}
+              src={
+                isAuthenticated && !!activeCompany
+                  ? activeCompany?.information.logo
+                  : userInfo?.information?.profile_pic
+              }
               alt='avatar'
               className='object-cover w-full h-full'
               width={48}
@@ -75,10 +79,14 @@ const ProfileNavigation: React.FC<Props> = ({
           } transition duration-300 flex h-6 rounded-full bg-raisin-10 justify-center items-center shrink-0`}
           onClick={toggleSidebarCollapse}
         >
-          <Icon svgPath='chevron'
-                width={9}
-                height={8}
-                className={`fill-transparent cursor-pointer ${sidebarCollapsed ? 'transform -rotate-90' : 'transform rotate-90'} `} />
+          <Icon
+            svgPath='chevron'
+            width={9}
+            height={8}
+            className={`fill-transparent cursor-pointer ${
+              sidebarCollapsed ? 'transform -rotate-90' : 'transform rotate-90'
+            } `}
+          />
         </div>
       </div>
       <div
@@ -87,8 +95,14 @@ const ProfileNavigation: React.FC<Props> = ({
         } transition duration-300 flex rounded-full bg-raisin-10 justify-center items-center shrink-0`}
         onClick={toggleSidebarCollapse}
       >
-        <Icon svgPath='chevron'   width={9}
-              height={8} className={`fill-transparent cursor-pointer ${sidebarCollapsed ? 'transform -rotate-90' : 'transform rotate-90'} `} />
+        <Icon
+          svgPath='chevron'
+          width={9}
+          height={8}
+          className={`fill-transparent cursor-pointer ${
+            sidebarCollapsed ? 'transform -rotate-90' : 'transform rotate-90'
+          } `}
+        />
       </div>
       <Divider className='mb-4' />
       {routes.map((route, index) => (
@@ -103,7 +117,8 @@ const ProfileNavigation: React.FC<Props> = ({
             </span>
             <div
               className={`flex items-center justify-center shrink-0 relative overflow-hidden h-8 w-8 rounded-lg ${
-                route.path === router?.asPath ? 'bg-orange-10' : 'bg-raisin-10'} `}
+                route.path === router?.asPath ? 'bg-orange-10' : 'bg-raisin-10'
+              } `}
             >
               {route.image ? (
                 <Image src={route.image || ''} alt='' className='object-cover w-full h-full' />

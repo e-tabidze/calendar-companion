@@ -13,21 +13,37 @@ import {
   TakeAwayInfoContsiner,
   TakeAwayWrapper
 } from './styles'
-import Icon from "src/views/app/Icon";
+import Icon from 'src/views/app/Icon'
+import useUserOrders from '../useOrders'
 
 interface Props {
   toggleDetails: () => void
+  orderId: any
+  setOrderId: any
 }
 
-const OrderComponent: React.FC<Props> = ({ toggleDetails }) => {
+const OrderDetails: React.FC<Props> = ({ toggleDetails, orderId, setOrderId }) => {
   const [cancelOrderDialog, setCancelOrderDialog] = useState(false)
 
   const toggleCancelOrderDialog = () => setCancelOrderDialog(!cancelOrderDialog)
 
+  console.log(orderId, 'orderId USER')
+
+  const { userOrderDetails } = useUserOrders(orderId!)
+
   return (
-    <div>
+    <div className='border border-raisin-10 rounded-2xl'>
       <div className='flex items-center md:w-full gap-6 p-4'>
-        <IconTextButton icon='backWithBg' width={38} height={38}  label='ჩემი შეკვეთები' onClick={toggleDetails} />
+        <IconTextButton
+          icon='backWithBg'
+          width={38}
+          height={38}
+          label='ჩემი შეკვეთები'
+          onClick={() => {
+            toggleDetails()
+            setOrderId(null)
+          }}
+        />
       </div>
       <Divider />
       <RentalDetailsContainer>
@@ -35,13 +51,13 @@ const OrderComponent: React.FC<Props> = ({ toggleDetails }) => {
           <Typography type='body' color='light'>
             შეკვეთის თარიღი
           </Typography>
-          <Typography type='subtitle'>30 ივნ, 2022</Typography>
+          <Typography type='subtitle'>{userOrderDetails?.created_at}</Typography>
         </RentalDetailsWrapper>
         <RentalDetailsWrapper>
           <Typography type='body' color='light'>
             შეკვეთის ნომერი
           </Typography>
-          <Typography type='subtitle'>#03122328787</Typography>
+          <Typography type='subtitle'>#{userOrderDetails?.id}</Typography>
         </RentalDetailsWrapper>
         <RentalDetailsWrapper>
           <Typography type='body' color='light'>
@@ -50,7 +66,7 @@ const OrderComponent: React.FC<Props> = ({ toggleDetails }) => {
           <Typography type='subtitle'>შპს ბენე+</Typography>
         </RentalDetailsWrapper>
         <div className='hidden md:flex items-center border border-green-80 rounded-lg gap-2 p-2'>
-          <Icon svgPath='phone' width={20} height={20} className='fill-transparent'/>
+          <Icon svgPath='phone' width={20} height={20} className='fill-transparent' />
           <Typography type='subtitle'>+995 599 33 16 54</Typography>
         </div>
       </RentalDetailsContainer>
@@ -61,32 +77,32 @@ const OrderComponent: React.FC<Props> = ({ toggleDetails }) => {
             <TakeAwayInfoContsiner>
               <TakeAwayWrapper>
                 <TakeAway>
-                  <Icon svgPath='locationPlay' height={24} width={24} className='fill-transparent'/>
+                  <Icon svgPath='locationPlay' height={24} width={24} className='fill-transparent' />
                   <Typography type='body' color='light'>
                     წაყვანა
                   </Typography>
                 </TakeAway>
               </TakeAwayWrapper>
               <div className='w-7/12'>
-                <Typography type='subtitle'>თბილისი, იაკობ ცურტაველის 72</Typography>
+                <Typography type='subtitle'>{userOrderDetails?.start_address}</Typography>
                 <Typography type='body' color='light'>
-                  ივნ 17, 2022. 11:00
+                  {userOrderDetails?.start_date} {userOrderDetails?.start_time}
                 </Typography>
               </div>
             </TakeAwayInfoContsiner>
             <TakeAwayInfoContsiner>
               <TakeAwayWrapper>
                 <TakeAway>
-                  <Icon svgPath='locationPlay' height={24} width={24} className='fill-transparent'/>
+                  <Icon svgPath='locationPlay' height={24} width={24} className='fill-transparent' />
                   <Typography type='body' color='light'>
-                    წაყვანა
+                    დაბრუნება
                   </Typography>
                 </TakeAway>
               </TakeAwayWrapper>
               <div className='w-7/12'>
-                <Typography type='subtitle'>თბილისი, იაკობ ცურტაველის 72</Typography>
+                <Typography type='subtitle'>{userOrderDetails?.end_address}</Typography>
                 <Typography type='body' color='light'>
-                  ივნ 17, 2022. 11:00
+                  {userOrderDetails?.end_date} {userOrderDetails?.end_time}
                 </Typography>
               </div>
             </TakeAwayInfoContsiner>
@@ -94,8 +110,8 @@ const OrderComponent: React.FC<Props> = ({ toggleDetails }) => {
           <Divider />
           <div>
             <PriceDetailsWrapper>
-              <Typography type='subtitle'>ქირაობის ღირებულება x 6 დღე</Typography>
-              <Typography type='subtitle'>203$</Typography>
+              <Typography type='subtitle'>ქირაობის ღირებულება x {userOrderDetails?.days} დღე</Typography>
+              <Typography type='subtitle'>{userOrderDetails?.price * userOrderDetails?.days} </Typography>
             </PriceDetailsWrapper>
             <PriceDetailsWrapper>
               <Typography type='subtitle'>ქირაობის ღირებულება x 6 დღე</Typography>
@@ -125,8 +141,25 @@ const OrderComponent: React.FC<Props> = ({ toggleDetails }) => {
           <Typography type='h5' className='font-bold my-6'>
             Toyota Prius UTO 2017
           </Typography>
-          <Typography type='subtitle' className='text-bold text-green-100 mb-6'>
-            აქტიური
+          <Typography
+            type='subtitle'
+            className={`text-bold ${
+              userOrderDetails?.status_id === 0
+                ? 'text-yellow-100'
+                : userOrderDetails?.status_id === 1
+                ? 'text-green-100'
+                : userOrderDetails?.status_id === 2
+                ? 'text-orange-100'
+                : ''
+            } mb-6`}
+          >
+            {userOrderDetails?.status_id === 0
+              ? 'მოლოდინში'
+              : userOrderDetails?.status_id === 1
+              ? 'დადასტურებული'
+              : userOrderDetails?.status_id === 2
+              ? 'გაუქმებული'
+              : ''}
           </Typography>
           <DefaultButton bg='bg-raisin-10' text='ჯავშნის გაუქმება' onClick={toggleCancelOrderDialog} />
         </div>
@@ -136,4 +169,4 @@ const OrderComponent: React.FC<Props> = ({ toggleDetails }) => {
   )
 }
 
-export default OrderComponent
+export default OrderDetails

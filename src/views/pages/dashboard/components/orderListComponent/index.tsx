@@ -69,7 +69,18 @@ const OrderListComponent: React.FC<Props> = ({
             <Typography type='subtitle' className='flex items-center gap-2'>
               {price} <Icon svgPath='gel' width={14} height={14} />
             </Typography>
-            <Typography type='subtitle' className={`${status === 0 ? 'text-yellow-100' : status === 1 ? 'text-green-100' : status === 2 ? 'text-orange-100' : ''}`}>
+            <Typography
+              type='subtitle'
+              className={`${
+                status === 0
+                  ? 'text-yellow-100'
+                  : status === 1
+                  ? 'text-green-100'
+                  : status === 2
+                  ? 'text-orange-100'
+                  : ''
+              }`}
+            >
               {status === 0 ? 'მოლოდინში' : status === 1 ? 'დადასტურებული' : status === 2 ? 'გაუქმებული' : ''}
             </Typography>
           </div>
