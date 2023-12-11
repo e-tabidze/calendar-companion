@@ -20,6 +20,10 @@ class UserService extends HttpService {
   getUserFavourites(AccessToken = '') {
     return this.get('/user-favourites', {}, AccessToken ? { Authorization: `${AccessToken}` } : {})
   }
+
+  getUserOrders(AccessToken = '') {
+    return this.get('/user-orders', {}, AccessToken ? { Authorization: `${AccessToken}` } : {})
+  }
 }
 
 export default new UserService()
