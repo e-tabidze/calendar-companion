@@ -8,7 +8,6 @@ import {
   MainFilters,
 
   // MapContainer,
-
   ResponsiveDivider,
   SearchContentsContainer,
   SearchResultsContainer
@@ -19,7 +18,9 @@ import useSearch from 'src/hooks/useSearch'
 import { useRouter } from 'next/router'
 import { IconTextButton } from 'src/views/components/button'
 import dynamic from 'next/dynamic'
-import Icon from "src/views/app/Icon";
+import Icon from 'src/views/app/Icon'
+import Pagination from 'src/views/components/pagination'
+import { Controller } from 'react-hook-form'
 
 const Divider = dynamic(() => import('src/views/components/divider'), { ssr: true })
 
@@ -57,6 +58,7 @@ const SearchPage = () => {
     isLoading,
     searchProductsMutation,
     totalProductsCount,
+    totalPages,
     objectToURI
   } = useSearch()
   const { width } = useWindowDimensions()
@@ -131,7 +133,7 @@ const SearchPage = () => {
               <Tag
                 label='ყველა ფილტრი'
                 className='bg-grey-60'
-                component={<Icon svgPath='filters' width={22} height={20} className='fill-transparent'/>}
+                component={<Icon svgPath='filters' width={22} height={20} className='fill-transparent' />}
                 height='h-10'
                 handleClick={() => toggleFilters(!filters)}
               />
@@ -154,12 +156,10 @@ const SearchPage = () => {
           </FiltersWrapper>
           <ResponsiveDivider />
           <FullContainer className='lg:flex pt-20 lg:pt-[185px]'>
-            <SearchContentsContainer
-              className='w-full px-5 md:px-10 transition-all duration-300 lg:w-[calc(100%-40px)] lg:pr-0'
-            >
-            {/*  className={`w-full px-5 md:px-10 transition-all duration-300 ${*/}
-            {/*    mapVisible ? 'lg:w-1/2 pr-8' : 'lg:w-[calc(100%-40px)] lg:pr-0'*/}
-            {/*}`}*/}
+            <SearchContentsContainer className='w-full px-5 md:px-10 transition-all duration-300 lg:w-[calc(100%-40px)] lg:pr-0'>
+              {/*  className={`w-full px-5 md:px-10 transition-all duration-300 ${*/}
+              {/*    mapVisible ? 'lg:w-1/2 pr-8' : 'lg:w-[calc(100%-40px)] lg:pr-0'*/}
+              {/*}`}*/}
               <SearchResultsContainer>
                 <Typography type='h5' weight='normal' className='mr-2 mb-5 md:mb-0'>
                   სულ ნაპოვნია {totalProductsCount} განცხადება
@@ -195,7 +195,7 @@ const SearchPage = () => {
                     <div className='flex'>
                       {width < 1025 && (
                         <Tag
-                          component={<Icon svgPath='filters' width={22} height={20} className='fill-transparent'/>}
+                          component={<Icon svgPath='filters' width={22} height={20} className='fill-transparent' />}
                           className='bg-grey-60'
                           label={'ფილტრი'}
                           height='h-10'
@@ -204,7 +204,7 @@ const SearchPage = () => {
                       )}
                       <Tag
                         className='mx-4 lg:mx-0'
-                        component={<Icon svgPath='sort' width={20} height={12} className='fill-transparent'/>}
+                        component={<Icon svgPath='sort' width={20} height={12} className='fill-transparent' />}
                         label={width > 779 ? 'სორტირება' : ''}
                         height={width > 1025 ? 'h-12' : 'h-10'}
                       />
@@ -212,7 +212,7 @@ const SearchPage = () => {
 
                     {width < 1025 && (
                       <Tag
-                        component={<Icon svgPath='map' width={24} height={24} className='fill-transparent'/>}
+                        component={<Icon svgPath='map' width={24} height={24} className='fill-transparent' />}
                         label='რუკაზე'
                         height='h-10'
                         handleClick={handleToggleMapWidth}
@@ -224,12 +224,10 @@ const SearchPage = () => {
               {isLoading ? (
                 <div>Loading...</div>
               ) : (
-                <div
-                  className='grid sm:grid-cols-2 gap-6 lg:grid-cols-4 2xl:grid-cols-5'
-                >
-                {/*  className={`grid sm:grid-cols-2 gap-6 ${*/}
-                {/*    mapVisible ? 'grid-cols-2 2xl:grid-cols-3' : 'lg:grid-cols-4 2xl:grid-cols-5'*/}
-                {/*}`}*/}
+                <div className='grid sm:grid-cols-2 gap-6 lg:grid-cols-4 2xl:grid-cols-5'>
+                  {/*  className={`grid sm:grid-cols-2 gap-6 ${*/}
+                  {/*    mapVisible ? 'grid-cols-2 2xl:grid-cols-3' : 'lg:grid-cols-4 2xl:grid-cols-5'*/}
+                  {/*}`}*/}
                   {productsData?.map((product: any) => (
                     <ProductCard
                       key={product.id}
@@ -246,6 +244,13 @@ const SearchPage = () => {
                   ))}
                 </div>
               )}
+              <Controller
+                name='page'
+                control={control}
+                render={({ field: { value, onChange } }) => (
+                  <Pagination totalPages={totalPages} currentPage={value} onPageChange={onChange} />
+                )}
+              />
             </SearchContentsContainer>
             {/*<MapContainer*/}
             {/*  className={`absolute z-[11] lg:z-[1] top-[197px] md:top-[153px] w-full left-0 lg:sticky lg:right-0 lg:left-auto lg:top-0 overflow-hidden transition-all duration-300 ${*/}

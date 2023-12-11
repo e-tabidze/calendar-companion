@@ -93,7 +93,7 @@ const CompanyOrders = () => {
               ))}
             </div>
           </div>
-          <Pagination totalPages={20} onPageChange={() => console.log('change Page')} />
+          <Pagination totalPages={20} onPageChange={() => console.log('change Page')} currentPage={0} />
         </div>
       )}
     </>

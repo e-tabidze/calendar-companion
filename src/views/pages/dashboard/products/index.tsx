@@ -87,7 +87,7 @@ const Products = () => {
           )}
         </div>
       </div>
-      <Pagination totalPages={6} onPageChange={() => console.log('change Page')} />
+      <Pagination totalPages={6} onPageChange={() => console.log('change Page')} currentPage={0} />
     </div>
   )
 }
