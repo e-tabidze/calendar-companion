@@ -81,6 +81,8 @@ const StepOne: React.FC<Props> = ({ control, productValues, errors, setValue }) 
 
   console.log(formState, 'formState')
 
+  const handleRemoveFile = () => setValue('images', '')
+
   return (
     <>
       <div className='grid gap-4 grid-cold-1 md:grid-cols-2'>
@@ -167,15 +169,43 @@ const StepOne: React.FC<Props> = ({ control, productValues, errors, setValue }) 
             //   }}
             // />
 
-            <input
-              type='file'
-              multiple
-              onChange={(e: any) => {
-                console.log(Array.from(e.target.files), 'targetfiles')
-                onChange()
-                handleFileUpload(Array.from(e.target.files), e.target.files.length)
-              }}
+            <Controller
+              name='images'
+              control={control}
+              render={({ field: { onChange, value } }) => (
+                // <ImagesInput
+                //   label='ავტომობილის ფოტოები'
+                //   infoText='(მაქს. ზომა 10 მბ, JPG, PNG, SVG)'
+                //   icon
+                //   bg='bg-green-10'
+                //   onChange={(e: any) => {
+                //     console.log(Array.from(e.target.files), 'targetfiles')
+                //     onChange()
+                //     handleFileUpload(Array.from(e.target.files), e.target.files.length)
+                //   }}
+                // />
+                <ImagesInput
+                  title='ავტომობილის ფოტოსურათები'
+                  description='(მაქს. ზომა 10 მბ, JPG, PNG, SVG)'
+                  handleDelete={handleRemoveFile}
+                  value={value}
+                  onChange={(e: any) => {
+                    onChange()
+                    handleFileUpload(Array.from(e.target.files), e.target.files.length)
+                  }}
+                />
+              )}
             />
+
+            // <input
+            //   type='file'
+            //   multiple
+            //   onChange={(e: any) => {
+            //     console.log(Array.from(e.target.files), 'targetfiles')
+            //     onChange()
+            //     handleFileUpload(Array.from(e.target.files), e.target.files.length)
+            //   }}
+            // />
           )}
         />
       </div>
