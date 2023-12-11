@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import Image from "src/views/components/image";
 import Typography from "src/views/components/typography";
 import Social from "src/views/components/footer/Social";
+import Icon from "src/views/app/Icon";
 
 
 const Help = () => {
@@ -16,7 +16,7 @@ const Help = () => {
             <Typography type='h5' weight='medium' className="flex items-center justify-between font-medium text-md text-raisin-100" onClick={handleSetActive}>
                 დახმარება
                 <span className={`${active?'rotate-180':''} flex lg:hidden transition-all`}>
-                   <Image src='/icons/footer-arrow.svg' alt='img' width={24} height={24}/>
+                    <Icon svgPath='footer-arrow' width={24} height={24}/>
                </span>
             </Typography>
             <ul className={`${active ? 'block':'hidden'} lg:block mt-4 lg:mt-6`}>

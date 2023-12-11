@@ -1,6 +1,5 @@
 import Typography from 'src/views/components/typography'
 import Icon from "../../../app/Icon";
-import Image from "../../../components/image";
 
 const Notifications = () => {
     return (
@@ -36,7 +35,7 @@ const Notifications = () => {
                                 </div>
                             </div>
                             <button className="hidden sm:flex w-10 h-10 bg-grey-100 rounded-full ml-4 items-center justify-center shrink-0">
-                                <Image src='/icons/chevron-right.svg' alt='chevron' />
+                                <Icon svgPath='chevron-right' width={20} height={20} className='fill-transparent'/>
                             </button>
 
                         </div>
@@ -66,7 +65,7 @@ const Notifications = () => {
                                 </div>
                             </div>
                             <button className="hidden sm:flex w-10 h-10 bg-grey-100 rounded-full ml-4 items-center justify-center shrink-0">
-                                <Image src='/icons/chevron-right.svg' alt='chevron' />
+                                <Icon svgPath='chevron-right' width={20} height={20} className='fill-transparent'/>
                             </button>
 
                         </div>
@@ -96,7 +95,7 @@ const Notifications = () => {
                                 </div>
                             </div>
                             <button className="hidden sm:flex w-10 h-10 bg-grey-100 rounded-full ml-4 items-center justify-center shrink-0">
-                                <Image src='/icons/chevron-right.svg' alt='chevron' />
+                                <Icon svgPath='chevron-right' width={20} height={20} className='fill-transparent'/>
                             </button>
 
                         </div>
@@ -126,7 +125,7 @@ const Notifications = () => {
                                 </div>
                             </div>
                             <button className="hidden sm:flex w-10 h-10 bg-grey-100 rounded-full ml-4 items-center justify-center shrink-0">
-                                <Image src='/icons/chevron-right.svg' alt='chevron' />
+                                <Icon svgPath='chevron-right' width={20} height={20} className='fill-transparent'/>
                             </button>
 
                         </div>
@@ -156,7 +155,7 @@ const Notifications = () => {
                                 </div>
                             </div>
                             <button className="hidden sm:flex w-10 h-10 bg-grey-100 rounded-full ml-4 items-center justify-center shrink-0">
-                                <Image src='/icons/chevron-right.svg' alt='chevron' />
+                                <Icon svgPath='chevron-right' width={20} height={20} className='fill-transparent'/>
                             </button>
 
                         </div>
@@ -168,7 +167,7 @@ const Notifications = () => {
             <div className='border border-raisin-10 rounded-2xl md:rounded-3xl p-6 md:py-10 md:px-8 mx-4 lg:mx-0'>
                 <div className='flex items-center mb-[48px]'>
                     <button className="flex w-10 h-10 bg-grey-100 rounded-full mr-4 items-center justify-center shrink-0">
-                        <Image src='/icons/chevron-right.svg' alt='chevron' className="rotate rotate-180" />
+                        <Icon svgPath='chevron-right' width={20} height={20} className='fill-transparent'/>
                     </button>
                     <Typography type='h3' className="font-bold md:font-normal text-2sm">შეტყობინებები</Typography>
                 </div>

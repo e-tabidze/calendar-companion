@@ -12,6 +12,7 @@ import DeleteAddressConfirmationModal from '../../../components/deleteAddressCon
 import DeleteCompanyConfirmationModal from 'src/views/components/deleteCompanyConfirmationModal'
 import useEditCompany from './useEditCompany'
 import { Controller, useWatch } from 'react-hook-form'
+import Icon from "src/views/app/Icon";
 
 const EditCompany = () => {
   const [deleteAddresseModal, setDeleteAddressModal] = useState(false)
@@ -118,20 +119,20 @@ const EditCompany = () => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className='md:border md:border-raisin-10 md:rounded-3xl md:p-8'>
-        <div className='flex gap-6 items-center mb-10'>
+        <div className='w-24 h-24 flex gap-6 items-center mb-10 border border-raisin-10 rounded-3xl relative overflow-hidden'>
           <Image
             src={formState?.company_information?.logo || companyInfo?.information?.logo || ''}
             width={96}
             height={96}
             alt={formState?.company_information?.name || ''}
-            className='border border-raisin-10 rounded-3xl'
+            className='object-cover w-full h-full'
           />
           <div>
             <div className='flex items-center gap-4'>
               <Typography type='h3' className='font-bold'>
                 {companyInfo?.information?.name}
               </Typography>
-              <Image src='/icons/warning.svg' height={20} width={20} alt='' />
+              <Icon svgPath='warning' width={20} height={20} />
               <Typography type='subtitle' className='hidden md:flex text-raisin-100 bg-yellow-10 p-2 rounded-2xl'>
                 არავერიფიცირებული
               </Typography>

@@ -2,7 +2,7 @@ import { useController } from 'react-hook-form'
 import { RadioGroup } from '@headlessui/react'
 import tw from 'tailwind-styled-components'
 import { ReactComponentElement } from 'react'
-import Image from 'next/image'
+import Icon from "src/views/app/Icon";
 
 interface Option {
   label: string
@@ -49,7 +49,7 @@ const Radio: React.FC<Props> = ({ name, options, control, color, horizontal }) =
                 >
                   <RadioGroup.Label className='flex gap-4 items-center' style={{ margin: '0px' }}>
                     <Circle checked={checked}>
-                      {checked && <Image src='/icons/check.svg' alt='' height={12} width={16} />}
+                      {checked &&  <Icon svgPath='check' width={14} height={10} className='fill-transparent'/>}
                     </Circle>
                     <span className='text-2sm md:md'>{option.label}</span>
                   </RadioGroup.Label>

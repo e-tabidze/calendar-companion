@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import Image from "src/views/components/image";
 import Typography from "src/views/components/typography";
+import Icon from "src/views/app/Icon";
 
 
 const Categories = () => {
@@ -15,7 +15,7 @@ const Categories = () => {
             <Typography type='h5' weight='medium' className="flex items-center justify-between font-medium text-md text-raisin-100" onClick={handleSetActive}>
                 კატეგორიები
                 <span className={`${active?'rotate-180':''} flex lg:hidden transition-all`}>
-                   <Image src='/icons/footer-arrow.svg' alt='img' width={24} height={24}/>
+                    <Icon svgPath='footer-arrow' width={24} height={24}/>
                </span>
             </Typography>
             <div className={`${active?'block':'hidden'} lg:block`}>

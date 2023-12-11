@@ -1,17 +1,19 @@
-import Image from 'src/views/components/image'
 import Typography from 'src/views/components/typography'
 import { BenefitsCardContainer } from './styles'
+import Icon from "src/views/app/Icon";
 
 interface Props {
-  src: string
+  icon: string
   title: string
   bodyText: string
+  width: number
+  height: number
 }
 
-const BenefitsCard = ({ src, title, bodyText }: Props) => {
+const BenefitsCard = ({ icon, width, height, title, bodyText }: Props) => {
   return (
     <BenefitsCardContainer>
-      <Image src={src} alt='img'/>
+        <Icon svgPath={icon} width={width} height={height}/>
       <Typography type='h5' weight='medium' className='text-md lg:text-[22px] text-green-100'>
         {title}
       </Typography>

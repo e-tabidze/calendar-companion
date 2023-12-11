@@ -5,6 +5,7 @@ import Image from '../../image'
 import { Dialog, Transition } from '@headlessui/react'
 import useProfile from "../../../../hooks/useProfile";
 import {useMutation, useQueryClient} from "@tanstack/react-query";
+import Icon from "src/views/app/Icon";
 
 interface Props {
     open: boolean
@@ -64,7 +65,7 @@ const BurgerMenu: React.FC<Props> = ({ open, setOpen }) => {
                                         მენიუ
                                     </Dialog.Title>
                                     <button onClick={setOpen}>
-                                        <Image src='/icons/close.svg'  alt='' height={40} width={40} />
+                                        <Icon svgPath='close' height={40} width={40}  />
                                     </button>
                                 </div>
                                 <div className='overflow-hidden rounded-2xl'>
@@ -72,7 +73,7 @@ const BurgerMenu: React.FC<Props> = ({ open, setOpen }) => {
                                             <>
                                                 <div className="border-b-1 border-raisin-10">
                                                     <button className="cursor-pointer flex items-center py-4 text-sm" onClick={handleSetActive}>
-                                                        <Image src='/icons/chevron-left.svg' alt='chevron' className="flex mr-4" />
+                                                        <Icon svgPath='chevron-left' width={20} height={20} className='fill-transparent flex mr-4' />
                                                         დაბრუნება
                                                     </button>
                                                 </div>
@@ -131,7 +132,7 @@ const BurgerMenu: React.FC<Props> = ({ open, setOpen }) => {
                                                         </div>
                                                     </div>
                                                     {/*<button className="cursor-pointer shrink-0 flex" onClick={handleSetActive}>*/}
-                                                    {/*    <Image src='/icons/chevron-right.svg' alt='chevron' />*/}
+                                                    {/*<Icon svgPath='chevron-right' width={20} height={20} className="fill-transparent" />*/}
                                                     {/*</button>*/}
                                                 </div>
                                                 <div className="py-8px">

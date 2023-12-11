@@ -11,16 +11,16 @@ const CompanyDashboard = () => {
           border='border-blue-100'
           sum={1503}
           description='დღევანდელი შემოსავალი'
-          icon='/icons/euro.svg'
+          icon='euro'
         />
         <SumUp
           bg='bg-green-10'
           border='border-green-100'
           sum={22114}
           description='ბოლო თვის შემოსავალი'
-          icon='/icons/euro.svg'
+          icon='euro'
         />
-        <SumUp bg='bg-yellow-10' border='border-yellow-100' sum={881} description='სულ ნახვები' icon='/icons/eye.svg' />
+        <SumUp bg='bg-yellow-10' border='border-yellow-100' sum={881} description='სულ ნახვები' icon='eye' />
       </div>
       <IncomingOrders />
       <Vehicles />

@@ -21,6 +21,7 @@ import Delivery from 'src/views/pages/booking/delivery'
 import BookingModal from 'src/views/pages/booking/bookingModal'
 import CheckServices from 'src/views/pages/booking/checkServices'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
+import Icon from "src/views/app/Icon";
 
 const Booking = () => {
   const [additionalServices, toggleAdditionalServices] = useState(false)
@@ -132,10 +133,7 @@ const Booking = () => {
                 onClick={() => toggleAdditionalServices(!additionalServices)}
               >
                 <Typography type='h3'>დამატებითი სერვისები</Typography>
-                <Image
-                  src='/icons/chevron.svg'
-                  className={`${additionalServices ? 'rotate-180' : ''} w-auto h-4 transition duration-300 mr-6`}
-                />
+                <Icon svgPath='chevron' width={8} height={6}  className={`${additionalServices ? 'rotate-180' : ''} fill-transparent  w-auto h-4 transition duration-300 mr-6`} />
               </div>
                 {/* {additionalServices && <AdditionalServices control={control} />} */}
                 {additionalServices && (
@@ -147,9 +145,11 @@ const Booking = () => {
             {/* <div>
               <div className='mt-11 flex items-center justify-between mb-8' onClick={() => toggleInsurance(!insurance)}>
                 <Typography type='h3'>დაზღვევა</Typography>
-                <Image
-                  src='/icons/chevron.svg'
-                  className={`${additionalServices ? '' : 'rotate-180'} w-auto h-4 transition duration-300`}
+                <Icon
+                  svgPath='chevron'
+                  width={8}
+                  height={6}
+                  className={`${additionalServices ? '' : 'rotate-180'} fill-transparent w-auto h-4 transition duration-300`}
                   alt=''
                 />
               </div>

@@ -3,6 +3,7 @@ import Image from 'src/views/components/image'
 import { FileInput } from 'src/views/components/input'
 import Typography from 'src/views/components/typography'
 import { ImageInputInfo, ImageInputLabel } from './styles'
+import Icon from "src/views/app/Icon";
 
 interface Props {
   label?: string
@@ -86,13 +87,12 @@ const ImagesInput: React.FC<Props> = ({ label, infoText, subtitle, icon, bg }) =
             <Image src={image.url} className='w-20 h-[70px] object-cover rounded-xl' alt={`Image ${image.id}`} />
             {hoveredIndex === index && (
               <div className='absolute top-0 right-0 flex justify-between w-full p-2'>
-                <Image
-                  src={index === 0 ? '/icons/photoGreen.svg' : '/icons/photo.svg'}
-                  onClick={() => handleMakeFirst(index)}
-                  className='w-fit h-fit'
-                  alt=''
-                />
-                <Image src='/icons/trash.svg' onClick={() => handleDelete(index)} className='w-fit h-fit' alt='' />
+                <Icon svgPath={index === 0 ? 'photoGreen' : 'photo'}
+                      onClick={() => handleMakeFirst(index)}
+                      width={20}
+                      height={20}
+                      className='w-fit h-fit' />
+                <Icon svgPath='trash' width={20} height={21} onClick={() => handleDelete(index)} className='w-fit h-fit'/>
               </div>
             )}
           </div>
@@ -107,7 +107,7 @@ const ImagesInput: React.FC<Props> = ({ label, infoText, subtitle, icon, bg }) =
           } border-1 border-dashed border-raisin-10 rounded-lg`}
         >
           <ImageInputLabel htmlFor='fileInput'>
-            {icon && <Image src='/icons/upload.svg' alt="" />}
+            {icon && <Icon svgPath='upload' width={29} height={28} className='fill-transparent' /> }
             <ImageInputInfo>
               <Typography type='subtitle'>{label}</Typography>
               <Typography type='body' color='light'>

@@ -5,6 +5,7 @@ import Image from '../../../components/image'
 import Typography from '../../../components/typography'
 import BookingList from './bookingList'
 import BookingMap from './bookingMap'
+import Icon from "src/views/app/Icon";
 
 interface Props {
   open: boolean
@@ -67,7 +68,7 @@ const BookingModal: React.FC<Props> = ({ open, onClose, addresses, control }) =>
                   <Dialog.Title as='h3' className='text-[18px] text-raisin-100 font-normal'>
                     აირჩიე მისამართი საიდან წაიყვან მანქანა
                   </Dialog.Title>
-                  <Image src='/icons/close.svg' onClick={onClose} alt='' height={40} width={40} />
+                  <Icon svgPath='close' height={40} width={40} onClick={onClose} />
                 </div>
                 <div className='overflow-auto max-h-[70vh] pb-5 sm:pb-6 w-max-full'>
                   <Tab.Group>

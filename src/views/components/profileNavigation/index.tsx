@@ -75,13 +75,10 @@ const ProfileNavigation: React.FC<Props> = ({
           } transition duration-300 flex h-6 rounded-full bg-raisin-10 justify-center items-center shrink-0`}
           onClick={toggleSidebarCollapse}
         >
-          <Image
-            src='/icons/chevron.svg'
-            alt=''
-            width={9}
-            height={8}
-            className={`cursor-pointer ${sidebarCollapsed ? 'transform -rotate-90' : 'transform rotate-90'} `}
-          />
+          <Icon svgPath='chevron'
+                width={9}
+                height={8}
+                className={`fill-transparent cursor-pointer ${sidebarCollapsed ? 'transform -rotate-90' : 'transform rotate-90'} `} />
         </div>
       </div>
       <div
@@ -90,13 +87,8 @@ const ProfileNavigation: React.FC<Props> = ({
         } transition duration-300 flex rounded-full bg-raisin-10 justify-center items-center shrink-0`}
         onClick={toggleSidebarCollapse}
       >
-        <Image
-          src='/icons/chevron.svg'
-          alt=''
-          width={9}
-          height={8}
-          className={`cursor-pointer ${sidebarCollapsed ? 'transform -rotate-90' : 'transform rotate-90'} `}
-        />
+        <Icon svgPath='chevron'   width={9}
+              height={8} className={`fill-transparent cursor-pointer ${sidebarCollapsed ? 'transform -rotate-90' : 'transform rotate-90'} `} />
       </div>
       <Divider className='mb-4' />
       {routes.map((route, index) => (

@@ -1,6 +1,6 @@
 import { Popover } from '@headlessui/react'
-import Image from 'src/views/components/image'
 import Typography from 'src/views/components/typography'
+import Icon from "src/views/app/Icon";
 
 interface Props {
   label: string
@@ -14,7 +14,8 @@ const PopoverDropdown = ({ label, children, maxWidth }: Props) => {
       <Popover className='relative'>
         <Popover.Button className='flex items-center w-max h-10 border border-gray-90 rounded-xl gap-3 px-4 cursor-pointer'>
           <Typography type='body'>{label}</Typography>
-          <Image src='/icons/chevron.svg' alt='' />
+          <Icon svgPath='chevron' width={8} height={6} className='fill-transparent'/>
+
         </Popover.Button>
 
         <Popover.Panel

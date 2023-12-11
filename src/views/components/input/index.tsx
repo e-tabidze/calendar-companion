@@ -1,10 +1,10 @@
-import Image from 'next/image'
 import { useState } from 'react'
 import Typography from '../typography'
 import _ from 'lodash'
 
 import { Controller } from 'react-hook-form'
 import { InputContainer } from './styles'
+import Icon from "src/views/app/Icon";
 
 const styles = {
   disabledInput: 'opacity-80',
@@ -162,9 +162,9 @@ export const PasswordInput = ({ label, value, className, onChange, ...rest }: an
           className='absolute top-1/2 right-3 transform -translate-y-1/2'
         >
           {showPassword ? (
-            <Image src='/icons/eye.svg' alt='' height={24} width={24} />
+              <Icon svgPath='eye' width={24} height={24} />
           ) : (
-            <Image src='/icons/eye.svg' alt='' height={24} width={24} />
+              <Icon svgPath='eye' width={24} height={24} />
           )}
         </button>
       </div>
@@ -211,7 +211,7 @@ export const InputWithComponent: React.FC<Props> = ({ label, className, onCompon
           )}
         />
         <div className='flex items-center gap-3 h-full border-l border-raisin-10 px-5 cursor-pointer'>
-          <Image src='/icons/map.svg' alt='' height={24} width={24} onClick={onComponentClick} />
+          <Icon svgPath='map' width={24} height={24} className='fill-transparent'  onClick={onComponentClick} />
           <Typography type='subtitle' className="hidden sm:flex">რუკაზე</Typography>
         </div>
       </InputContainer>

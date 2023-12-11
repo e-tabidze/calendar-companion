@@ -1,8 +1,8 @@
 import { Menu, Transition } from '@headlessui/react'
 import { Fragment, useState } from 'react'
-import Image from '../../image'
 import Typography from '../../typography'
 import { LanPickerContainer } from './styles'
+import Icon from "src/views/app/Icon";
 
 const langs = [
   {
@@ -35,9 +35,9 @@ const LanguagePicker = ({dropdownUp, responsive, className}: Props) =>  {
     <LanPickerContainer className={className}>
       <Menu as='div' className='relative text-left flex'>
         <Menu.Button className={`${responsive?'md:border md:border-raisin-10 md:rounded-xl md:px-3':'border border-raisin-10 rounded-xl px-3'} flex h-10 items-center font-medium text-raisin-100 text-2sm transition-all md:hover:bg-grey-100 md:hover:border-raisin-30`}>
-          <Image src='/icons/globe.svg' alt='img'/>
+          <Icon svgPath='globe' width={21} height={20}/>
           <span className={`${responsive? 'hidden md:flex':'flex'} ml-2`}>{active}</span>
-          <Image src='/icons/chevron.svg' alt='img' className={`${responsive?'hidden md:flex md:ml-2':'flex ml-2'}`}/>
+          <Icon svgPath='chevron' width={8} height={6} className={`fill-transparent ${responsive?'hidden md:flex md:ml-2':'flex ml-2'}`} />
         </Menu.Button>
         <Transition
           as={Fragment}

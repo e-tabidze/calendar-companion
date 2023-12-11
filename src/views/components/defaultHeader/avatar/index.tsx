@@ -7,6 +7,7 @@ import useProfile from 'src/hooks/useProfile'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import Link from 'next/link'
 import Cookie from 'src/helpers/Cookie'
+import Icon from "src/views/app/Icon";
 
 const companyRoutes = [
   {
@@ -114,7 +115,7 @@ const Avatar = () => {
             <Typography type='subtitle'>
               {!!activeCompany ? activeCompany.information.name : userInfo?.information?.first_name}
             </Typography>
-            <Image src='/icons/chevron.svg' alt='img' className='flex ml-2 transition-all' />
+            <Icon svgPath='chevron' width={8} height={6} className='fill-transparent flex ml-2 transition-all'/>
           </AvatarResponsiveContainer>
         </AvatarContainer>
       </Menu.Button>
@@ -133,7 +134,7 @@ const Avatar = () => {
               <>
                 <div className='border-b-1 border-raisin-10'>
                   <button className='cursor-pointer flex items-center w-full text-sm p-4' onClick={handleSetActive}>
-                    <Image src='/icons/chevron-left.svg' alt='chevron' className='flex mr-4' />
+                    <Icon svgPath='chevron-left' width={20} height={20} className='fill-transparent flex mr-4' />
                     დაბრუნება
                   </button>
                 </div>
@@ -205,7 +206,7 @@ const Avatar = () => {
                   </div>
                   
                   {/*<button className='cursor-pointer shrink-0 flex' onClick={handleSetActive}>*/}
-                  {/*  <Image src='/icons/chevron-right.svg' alt='chevron' />*/}
+                  {/*<Icon svgPath='chevron-right' width={20} height={20} className="fill-transparent" />*/}
                   {/*</button>*/}
                 </div>
                 <div className='py-8px'>

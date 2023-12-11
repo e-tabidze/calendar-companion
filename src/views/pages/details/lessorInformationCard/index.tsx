@@ -2,6 +2,7 @@ import Divider from 'src/views/components/divider'
 import Image from 'src/views/components/image'
 import Review from 'src/views/components/review'
 import Typography from 'src/views/components/typography'
+import Icon from "src/views/app/Icon";
 
 interface Props {
   id?: string
@@ -30,7 +31,7 @@ const LessorInformationCard: React.FC<Props> = ({ id, lessor, description, count
               <Typography type='h5' weight='normal'>
                 {lessor}
               </Typography>
-              <Image src='/icons/verify.svg' alt='' />
+                <Icon svgPath='verify' width={24} height={24} className='fill-transparent'/>
             </div>
             <Typography type='body' color='light'>
               {count} განცხადება

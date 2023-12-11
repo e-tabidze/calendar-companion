@@ -1,10 +1,10 @@
 import { Listbox, Transition } from '@headlessui/react'
 import { Fragment } from 'react'
 import { Controller } from 'react-hook-form'
-import Image from 'src/views/components/image'
 import Typography from 'src/views/components/typography'
 import { FilterContainer, InnerFilterContainer } from './styles'
 import useSearchLocations from './useSearchLocations'
+import Icon from "src/views/app/Icon";
 
 interface Props {
   control: any
@@ -30,7 +30,7 @@ const LocationDropdown: React.FC<Props> = ({ control }) => {
                     <Typography type='subtitle' className='text-raisin-50 whitespace-nowrap'>
                       {value || 'ქალაქი, აეროპორტი, მისამართი...'}
                     </Typography>
-                    <Image src='/icons/chevron.svg' className='inline fill-white m-2' alt='img' />
+                    <Icon svgPath='chevron' width={8} height={6} className='fill-transparent inline fill-white m-2' />
                   </InnerFilterContainer>
                 </FilterContainer>
               </Listbox.Button>

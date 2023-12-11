@@ -14,16 +14,14 @@ import {
   SearchResultsContainer
 } from '../../views/pages/search/styles'
 
-// import Icon from 'src/views/app/Icon'
-
 import SearchLayout from '../../layouts/SearchLayout'
 import useSearch from 'src/hooks/useSearch'
 import { useRouter } from 'next/router'
 import { IconTextButton } from 'src/views/components/button'
 import dynamic from 'next/dynamic'
+import Icon from "src/views/app/Icon";
 
 const Divider = dynamic(() => import('src/views/components/divider'), { ssr: true })
-const Image = dynamic(() => import('src/views/components/image'), { ssr: true })
 
 // const MapPicker = dynamic(() => import('src/views/components/mapPicker'), { ssr: true })
 
@@ -142,7 +140,7 @@ const SearchPage = () => {
               <Tag
                 label='ყველა ფილტრი'
                 className='bg-grey-60'
-                component={<Image src='/icons/filters.svg' alt='' />}
+                component={<Icon svgPath='filters' width={22} height={20} className='fill-transparent'/>}
                 height='h-10'
                 handleClick={() => toggleFilters(!filters)}
               />
@@ -206,7 +204,7 @@ const SearchPage = () => {
                     <div className='flex'>
                       {width < 1025 && (
                         <Tag
-                          component={<Image src='/icons/filters.svg' alt='' />}
+                          component={<Icon svgPath='filters' width={22} height={20} className='fill-transparent'/>}
                           className='bg-grey-60'
                           label={'ფილტრი'}
                           height='h-10'
@@ -215,7 +213,7 @@ const SearchPage = () => {
                       )}
                       <Tag
                         className='mx-4 lg:mx-0'
-                        component={<Image src='/icons/sort.svg' alt='' />}
+                        component={<Icon svgPath='sort' width={20} height={12} className='fill-transparent'/>}
                         label={width > 779 ? 'სორტირება' : ''}
                         height={width > 1025 ? 'h-12' : 'h-10'}
                       />
@@ -223,7 +221,7 @@ const SearchPage = () => {
 
                     {width < 1025 && (
                       <Tag
-                        component={<Image src='/icons/map.svg' alt='' />}
+                        component={<Icon svgPath='map' width={24} height={24} className='fill-transparent'/>}
                         label='რუკაზე'
                         height='h-10'
                         handleClick={handleToggleMapWidth}

@@ -13,6 +13,7 @@ import {
   TakeAwayInfoContsiner,
   TakeAwayWrapper
 } from './styles'
+import Icon from "src/views/app/Icon";
 
 interface Props {
   toggleDetails: () => void
@@ -49,7 +50,7 @@ const OrderComponent: React.FC<Props> = ({ toggleDetails }) => {
           <Typography type='subtitle'>შპს ბენე+</Typography>
         </RentalDetailsWrapper>
         <div className='hidden md:flex items-center border border-green-80 rounded-lg gap-2 p-2'>
-          <Image src='/icons/phone.svg' alt='' height={16} width={16} />
+          <Icon svgPath='phone' width={20} height={20} className='fill-transparent'/>
           <Typography type='subtitle'>+995 599 33 16 54</Typography>
         </div>
       </RentalDetailsContainer>
@@ -60,7 +61,7 @@ const OrderComponent: React.FC<Props> = ({ toggleDetails }) => {
             <TakeAwayInfoContsiner>
               <TakeAwayWrapper>
                 <TakeAway>
-                  <Image src='/icons/locationPlay.svg' height={24} width={24} alt='' />
+                  <Icon svgPath='locationPlay' height={24} width={24} className='fill-transparent'/>
                   <Typography type='body' color='light'>
                     წაყვანა
                   </Typography>
@@ -76,7 +77,7 @@ const OrderComponent: React.FC<Props> = ({ toggleDetails }) => {
             <TakeAwayInfoContsiner>
               <TakeAwayWrapper>
                 <TakeAway>
-                  <Image src='/icons/locationPlay.svg' height={24} width={24} alt='' />
+                  <Icon svgPath='locationPlay' height={24} width={24} className='fill-transparent'/>
                   <Typography type='body' color='light'>
                     წაყვანა
                   </Typography>

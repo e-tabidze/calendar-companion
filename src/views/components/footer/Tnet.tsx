@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import Image from "src/views/components/image";
 import Typography from "src/views/components/typography";
+import Icon from "src/views/app/Icon";
 
 
 const Tnet = () => {
@@ -23,7 +24,7 @@ const Tnet = () => {
                                <Image src='/icons/tnet/tineti.svg' alt='img' width={104} height={27}/>
                         </span>
                     <span className={`${active? 'rotate-180':''} flex xl:hidden transition-all`}>
-                           <Image src='/icons/tnet-arrow.svg' alt='img' width={12} height={8}/>
+                            <Icon svgPath='tnet-arrow' width={12} height={8} className='fill-transparent'/>
                      </span>
                 </div>
                 <div

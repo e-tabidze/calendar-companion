@@ -1,7 +1,7 @@
 import useProfile from 'src/hooks/useProfile'
 import { DefaultButton } from 'src/views/components/button'
-import Image from 'src/views/components/image'
 import Typography from 'src/views/components/typography'
+import Icon from "src/views/app/Icon";
 
 interface Props {
   toggleDrawer: () => void,
@@ -21,7 +21,7 @@ const ResponsivePriceCalcCard: React.FC<Props> = ({ toggleDrawer, bookingModal }
           27₾
         </Typography>
         <Typography type='body'>/ დღე</Typography>
-        <Image src='/icons/chevron.svg' className='rotate-180 cursor-pointer' alt='' />
+        <Icon svgPath='chevron' width={8} height={6} className='fill-transparent rotate-180 cursor-pointer' />
       </div>
       {userInfo?.active_profile_id === userInfo?.UserID && (
         <DefaultButton bg='bg-orange-100' text='ჯავშნის დაწყება' textColor='text-white'>

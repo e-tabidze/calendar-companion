@@ -9,6 +9,7 @@ import { InnerContainer } from '../views/components/defaultHeader/styles'
 import Image from '../views/components/image'
 import useProfile from 'src/hooks/useProfile'
 import { useEffect } from 'react'
+import Icon from "src/views/app/Icon";
 
 interface Props {
   children: any
@@ -73,7 +74,7 @@ const NewListingLayout: React.FC<Props> = ({
         <InnerContainer>
           <Image src='/images/logo-rent.svg' alt='' onClick={onClickLogo} className='w-24 md:w-32 cursor-pointer' />
           {width > 781 && renderNewListingSelect()}
-          <Image src='/icons/close.svg' alt='' onClick={onClose} height={40} width={40} />
+          <Icon svgPath='close' onClick={onClose} height={40} width={40}/>
         </InnerContainer>
         <ProgressBar color='green-100' progress={selectedOption.step / options.length} className='md:mt-2' />
       </HeaderWrapper>

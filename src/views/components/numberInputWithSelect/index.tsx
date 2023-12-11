@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Transition } from '@headlessui/react'
-import Image from '../image'
 import { Controller } from 'react-hook-form'
+import Icon from "src/views/app/Icon";
 
 type SelectOption = {
   value: string
@@ -51,7 +51,7 @@ const NumberInputWithSelect: React.FC<Props> = ({ options, control, inputName, s
               className='flex items-center gap-2 md:gap-6 text-2sm text-raisin-130'
             >
               <span>{value}</span>
-              <Image src='/icons/chevron.svg' alt='' />
+                <Icon svgPath='chevron' width={8} height={6} className='fill-transparent' />
             </button>
             <Transition
               show={isOpen}
