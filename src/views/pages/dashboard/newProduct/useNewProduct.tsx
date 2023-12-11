@@ -82,6 +82,7 @@ const useNewProduct = () => {
     control,
     handleSubmit,
     formState: { errors, dirtyFields, isValid },
+    trigger,
     resetField,
     setError,
     clearErrors,
@@ -139,7 +140,8 @@ const useNewProduct = () => {
     createNewProduct,
     isValid,
     postUploadProductImages,
-    postSaveProductImages
+    postSaveProductImages,
+    trigger
   }
 }
 
