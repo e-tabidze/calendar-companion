@@ -6,8 +6,9 @@ import useProductInfo from '../useProductInfo'
 
 interface Props {
   control: any
+  errors: any
 }
-const StepSix: React.FC<Props> = ({ control }) => {
+const StepSix: React.FC<Props> = ({ control, errors }) => {
   const { companyBranches } = useProductInfo()
 
   const formState = useWatch({ control })
@@ -39,6 +40,7 @@ const StepSix: React.FC<Props> = ({ control }) => {
           disabled={false}
           valueKey='value'
           labelKey='label'
+          errors={errors}
         />
         <SelectField
           control={control}
@@ -48,6 +50,7 @@ const StepSix: React.FC<Props> = ({ control }) => {
           disabled={!formState.start_city}
           valueKey='value'
           labelKey='label'
+          errors={errors}
         />
       </div>
       <Typography type='h4' weight='normal' color='dark' className='mb-4'>
@@ -62,6 +65,7 @@ const StepSix: React.FC<Props> = ({ control }) => {
           disabled={false}
           valueKey='value'
           labelKey='label'
+          errors={errors}
         />
         <SelectField
           control={control}
@@ -71,6 +75,7 @@ const StepSix: React.FC<Props> = ({ control }) => {
           disabled={!formState.end_city}
           valueKey='value'
           labelKey='label'
+          errors={errors}
         />
       </div>
       <MapPicker height='275px' borderRadius='16px' />

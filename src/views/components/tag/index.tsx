@@ -1,6 +1,7 @@
 import { Controller } from 'react-hook-form'
 import Icon from 'src/views/app/Icon'
 import Typography from '../typography'
+import _ from 'lodash'
 
 interface Option {
   id: string | number
@@ -16,10 +17,11 @@ interface Props {
   control?: any
   options?: Option[]
   label?: string
-  handleClick?: any
+  handleClick?: any 
   multiselect?: boolean
   append?: any
   outlined?: boolean
+  errors?: any
 }
 
 const Tag: React.FC<Props> = ({
@@ -32,7 +34,8 @@ const Tag: React.FC<Props> = ({
   label,
   handleClick,
   append,
-  outlined
+  outlined,
+  errors
 }) => {
   return (
     <>
@@ -45,6 +48,11 @@ const Tag: React.FC<Props> = ({
 
             return (
               <>
+                {errors && (
+                  <div id={name} className='text-sm text-red-100 absolute -m-6 ml-2'>
+                    {_.get(errors, name)?.message}
+                  </div>
+                )}
                 {options?.map(option => (
                   <div
                     key={option.id}

@@ -2,7 +2,7 @@ import React from 'react'
 import { Controller } from 'react-hook-form'
 import Select, { ClearIndicatorProps, components, DropdownIndicatorProps, GroupBase } from 'react-select'
 import _ from 'lodash'
-import Icon from "src/views/app/Icon";
+import Icon from 'src/views/app/Icon'
 
 const customStyles = {
   indicatorSeparator: () => ({
@@ -17,7 +17,7 @@ const customStyles = {
     border: state.isFocused ? '1px solid #272A37' : '1px solid #E9EAEB',
     boxShadow: state.isFocused ? '1px solid #272A37' : '1px solid #E9EAEB',
     transition: 'border 0.2s',
-    cursor: 'pointer',
+    cursor: 'pointer'
   }),
   valueContainer: (provided: any, state: { hasValue: any }) => ({
     ...provided,
@@ -26,7 +26,7 @@ const customStyles = {
   menu: (provided: any) => ({
     ...provided,
     maxHeight: '150px',
-    overflow: 'auto',
+    overflow: 'auto'
   }),
   placeholder: (defaultStyles: any) => {
     return {
@@ -112,12 +112,6 @@ const SelectField: React.FC<Props> = ({
             <Select
               styles={customStyles}
               options={options}
-
-              // value={options?.find(opt => (valueKey ? opt[valueKey] === value || '' : opt.value === value || ''))}
-              // onChange={(e: any) => {
-              //   console.log(e, 'ee?')
-              //   onChange(valueKey ? e?.[valueKey] : e?.value || '')
-              // }}
               value={
                 isMulti
                   ? options?.filter(opt => (valueKey ? value?.includes(opt[valueKey]) : value.includes(opt.value)))
@@ -143,7 +137,7 @@ const SelectField: React.FC<Props> = ({
               isClearable
               placeholder={placeholder}
               isDisabled={disabled}
-              
+              required
               // @ts-ignore
               emoji={
                 icon && (

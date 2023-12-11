@@ -47,15 +47,13 @@ const NewProduct: React.FC = () => {
     setValue,
     errors,
     isValid,
-    postSaveProductImages,
-    trigger
+    postSaveProductImages
   } = useNewProduct()
 
   const queryClient = useQueryClient()
 
   const handleGoNextStep = () => {
     const currentIndex = options.findIndex(option => option.value === step.value)
-    trigger('vin')
     if (currentIndex < options.length - 1) {
       setStep(options[currentIndex + 1])
     }
@@ -109,7 +107,9 @@ const NewProduct: React.FC = () => {
       case 1:
         return <StepOne control={control} productValues={productValues} errors={errors} setValue={setValue} />
       case 2:
-        return <StepTwo control={control} appendAdditionalParam={appendAdditionalParam} step={step.step} />
+        return (
+          <StepTwo control={control} appendAdditionalParam={appendAdditionalParam} step={step.step} errors={errors} />
+        )
       case 3:
         return (
           <StepThree
@@ -125,7 +125,7 @@ const NewProduct: React.FC = () => {
       case 5:
         return <StepFive control={control} setValue={setValue} />
       case 6:
-        return <StepSix control={control} />
+        return <StepSix control={control} errors={errors} />
 
       // case 7:
       //   return <StepSeven control={control} />
@@ -146,7 +146,7 @@ const NewProduct: React.FC = () => {
       onClose={handleClose}
       onSubmit={handleSubmit(onSubmit)}
       submitLabel='დამატება'
-      disabled={false}
+      disabled={createNewProducteMutation.isLoading || !isValid}
     >
       <form>{renderStepComponent()}</form>
     </NewListingLayout>
