@@ -28,28 +28,8 @@ const useNewProduct = () => {
 
   const newProductDefaultValues = {
     company_id: activeCompanyId,
-    vin: '',
-    plate: '',
-    man_id: '',
-    model_id: '',
-    prod_year: '',
-    odometer: {
-      run: 0,
-      measure: 'km'
-    },
-    additional_information: '',
-    use_instruction: '',
-    images: [],
-    category_id: '',
-    fuel_type_id: '',
-    seat_type_id: '',
-    luggage_numbers: '',
-    door_type_id: '',
-    drive_tires_id: '',
-    transmission_type_id: '',
-    additional_options: [] as any[],
+
     daily_price: {
-      amount: '',
       currency: 'GEL'
     },
     apply_discount: false,
@@ -61,12 +41,7 @@ const useNewProduct = () => {
       has_min_period: false,
       time_interval: 'კვირა',
       time_span: 1
-    },
-    preparation_period: '',
-    start_city: '',
-    start_address: '',
-    end_city: '',
-    end_address: ''
+    }
   }
 
   useEffect(() => {
@@ -92,6 +67,15 @@ const useNewProduct = () => {
     reValidateMode: 'onChange',
     defaultValues: newProductDefaultValues,
     resolver: yupResolver(NewProductSchema) as any
+  })
+
+  const {
+    fields: images,
+    append: appendImages,
+    remove: removeImage
+  } = useFieldArray({
+    control,
+    name: 'images'
   })
 
   const { fields: additionalParams, append: appendAdditionalParam } = useFieldArray({
@@ -130,6 +114,9 @@ const useNewProduct = () => {
     setError,
     clearErrors,
     setValue,
+    images,
+    appendImages,
+    removeImage,
     productValues,
     additionalParams,
     appendAdditionalParam,

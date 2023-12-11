@@ -89,3 +89,19 @@ export const ProductDetailsSlider = {
     spaceBetween: 12
   }
 }
+
+
+export const CardSlider = {
+  320: {
+    slidesPerView: 1,
+    slidesPerGroup: 1,
+    spaceBetween: 12
+
+  },
+
+  768: {
+    slidesPerView: 1,
+    slidesPerGroup: 1,
+    spaceBetween: 12
+  }
+}

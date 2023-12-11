@@ -96,7 +96,7 @@ export const DefaultInput: React.FC<Props> = ({
               max={max}
             />
             {errors && (
-              <div id={id} className='text-sm text-red-100 ml-2'>
+              <div id={id} className={`text-sm text-red-100 ml-2 ${rows ? 'absolute' : 'relative'}`}>
                 {_.get(errors, name)?.message}
               </div>
             )}

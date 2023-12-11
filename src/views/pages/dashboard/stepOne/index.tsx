@@ -2,22 +2,22 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { DefaultInput } from 'src/views/components/input'
 import SelectField from 'src/views/components/selectField'
 import TwoOptionSelector from 'src/views/components/twoOptionSelector'
-
-// import ImagesInput from './imagesInput'
 import { useEffect } from 'react'
 import useProductInfo, { getManufacturerModels } from '../useProductInfo'
 import useNewProduct from '../newProduct/useNewProduct'
 import { Controller, useWatch } from 'react-hook-form'
 import { generateYearsArray } from 'src/utils/years'
+import ImagesInput from './imagesInput'
 
 interface Props {
   control: any
   productValues: any
   errors: any
   setValue: any
+  removeImage: any
 }
 
-const StepOne: React.FC<Props> = ({ control, productValues, errors, setValue }) => {
+const StepOne: React.FC<Props> = ({ control, productValues, errors, setValue, removeImage }) => {
   const { manufacturers } = useProductInfo()
   const { postUploadProductImages } = useNewProduct()
 
@@ -44,14 +44,6 @@ const StepOne: React.FC<Props> = ({ control, productValues, errors, setValue }) 
     }
   })
 
-  // const handleFileUpload = async (files: any, count: number, userId: number = 4111619) => {
-  //   try {
-  //     await uploadProductImagesMutation.mutateAsync({ Files: files, count, userId })
-  //   } catch (error) {
-  //     console.error('Error uploading file:', error)
-  //   }
-  // }
-
   const handleFileUpload = async (files: any, count: number, userId = 4111619) => {
     try {
       await uploadProductImagesMutation.mutateAsync({
@@ -59,36 +51,34 @@ const StepOne: React.FC<Props> = ({ control, productValues, errors, setValue }) 
         count,
         userId
       })
-
-      // const uploadedFiles = uploadProductImagesMutation.data?.Data?.FilesList || []
-      // console.log(uploadedFiles, 'uploadedFiles')
-      // setValue('images', uploadedFiles)
     } catch (error) {
       console.error('Error uploading file:', error)
     }
   }
 
-  console.log(uploadProductImagesMutation.data?.Data?.FilesList, 'uploadProductImagesMutation.data')
-
   useEffect(() => {
     const uploadedFiles = uploadProductImagesMutation.data?.Data?.FilesList || []
-    console.log(uploadedFiles, 'uploadedFiles')
     setValue('images', uploadedFiles)
   }, [uploadProductImagesMutation.data?.Data?.FilesList, setValue])
 
   const formState = useWatch({ control })
 
-  console.log(formState, 'formState')
+  const handleMoveToFront = (index: number) => {
+    const updatedImages = [...formState.images]
+    const movedImage = updatedImages.splice(index, 1)[0]
+    updatedImages.unshift(movedImage)
+    setValue('images', updatedImages)
+  }
 
   return (
     <>
       <div className='grid gap-4 grid-cold-1 md:grid-cols-2'>
-        <DefaultInput name='vin' control={control} errors={errors} label='ვინ კოდი' />
-        <DefaultInput name='plate' control={control} errors={errors} label='სახელმწიფო ნომერი' />
+        <DefaultInput name='vin' control={control} errors={errors} label='ვინ კოდი*' />
+        <DefaultInput name='plate' control={control} errors={errors} label='სახელმწიფო ნომერი*' />
         <SelectField
           name='man_id'
           control={control}
-          placeholder='მწარმოებელი'
+          placeholder='მწარმოებელი*'
           options={manufacturers}
           valueKey='id'
           labelKey='title'
@@ -97,7 +87,7 @@ const StepOne: React.FC<Props> = ({ control, productValues, errors, setValue }) 
         <SelectField
           name='model_id'
           control={control}
-          placeholder='მოდელი'
+          placeholder='მოდელი*'
           options={manufacturerModels?.result?.data}
           valueKey='id'
           labelKey='title'
@@ -107,13 +97,21 @@ const StepOne: React.FC<Props> = ({ control, productValues, errors, setValue }) 
         <SelectField
           name='prod_year'
           control={control}
-          placeholder='წელი'
+          placeholder='წელი*'
           options={generateYearsArray()}
           valueKey='value'
           labelKey='label'
+          errors={errors}
         />
         <div className='flex gap-4 justify-center'>
-          <DefaultInput name='odometer.run' control={control} errors={errors} label='გარბენი' className='flex-grow' />
+          <DefaultInput
+            name='odometer.run'
+            control={control}
+            errors={errors}
+            label='გარბენი*'
+            className='flex-grow'
+            type='number'
+          />
           <TwoOptionSelector
             control={control}
             name='odometer.measure'
@@ -128,23 +126,30 @@ const StepOne: React.FC<Props> = ({ control, productValues, errors, setValue }) 
         <DefaultInput
           name='additional_information'
           control={control}
-          errors={''}
-          label='დამატებითი ინფორმაცია'
+          errors={errors}
+          label='დამატებითი ინფორმაცია*'
           rows={4}
         />
-        <DefaultInput name='use_instruction' control={control} errors={''} label='გამოყენების ინსტრუქცია' rows={4} />
+        <DefaultInput
+          name='use_instruction'
+          control={control}
+          errors={errors}
+          label='გამოყენების ინსტრუქცია*'
+          rows={4}
+        />
       </div>
       <div className='flex flex-wrap gap-2 mt-4'>
-        {/* <ImagesInput label='ავტომობილის ფოტოები' infoText='(მაქს. ზომა 10 მბ, JPG, PNG, SVG)' icon bg='bg-green-10' /> */}
         <Controller
           name='images'
           control={control}
-          render={({ field: { onChange } }) => (
-            <input
-              type='file'
-              multiple
+          render={({ field: { onChange, value } }) => (
+            <ImagesInput
+              title='ავტომობილის ფოტოსურათები'
+              description='(მაქს. ზომა 10 მბ, JPG, PNG, SVG)'
+              handleRemoveImage={removeImage}
+              handleMoveToFront={handleMoveToFront}
+              value={value}
               onChange={(e: any) => {
-                console.log(Array.from(e.target.files), 'targetfiles')
                 onChange()
                 handleFileUpload(Array.from(e.target.files), e.target.files.length)
               }}
