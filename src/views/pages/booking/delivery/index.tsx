@@ -15,7 +15,7 @@ const Delivery: React.FC<Props> = ({ control, toggleEditModal }) => {
 
   return (
     <div className='pl-13 mt-4'>
-      <div className='flex lg:gap-4 flex-col lg:flex-row lg:items-center pb-6 lg:pb-0 border-b-1 border-green-40 lg:border-none'>
+      <div className='flex lg:gap-4 flex-col lg:flex-row lg:items-center pb-6 border-b-1 border-green-40'>
         <div className='lg:w-2/12 flex items-center lg:items-start'>
           <Icon svgPath='booking-start' height={24} width={24} className='fill-transparent flex shrink-0'/>
           <div className='flex flex-col ml-3'>
@@ -68,7 +68,7 @@ const Delivery: React.FC<Props> = ({ control, toggleEditModal }) => {
 
           <button
             onClick={toggleEditModal}
-            className='hidden lg:flex border border-black items-center justify-center h-12 rounded-xl text-sm w-full'
+            className='hidden lg:flex border border-black items-center justify-center h-12 rounded-xl text-sm px-6'
           >
             შეცვლა
           </button>
