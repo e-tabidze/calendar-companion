@@ -13,7 +13,7 @@ interface Props {
 const BookingList: React.FC<Props> = ({ addresses, control }) => {
   const Circle = tw.div<{
     checked: boolean
-  }>`w-8 h-8 flex items-center justify-center rounded-full border-[2px] border-raisin-100  outline-none ${props =>
+  }>`w-6 h-6 md:w-8 md:h-8 flex shrink-0 items-center justify-center rounded-full border-[2px] border-raisin-100  outline-none ${props =>
     props.checked ? `bg-green-100 border-0` : ''}`
 
   console.log(addresses, 'addresses')
@@ -21,12 +21,12 @@ const BookingList: React.FC<Props> = ({ addresses, control }) => {
   const formState = useWatch({ control })
 
   return (
-    <div className='px-4 sm:px-10'>
+    <div className='md:px-10'>
       {formState?.supply === '0' && (
         <>
-          <div className='flex items-center my-4'>
-              <Icon svgPath='start' height={24} width={24} className='fill-transparent flex mr-4'/>
-            <Typography type='body' className='text-2lg font-normal'>
+          <div className='flex items-center my-4 ml-5 md:ml-0'>
+              <Icon svgPath='booking-start' height={24} width={24} className='fill-transparent flex mr-4'/>
+            <Typography type='body' className='text-md md:text-2lg font-normal'>
               წაყვანა
             </Typography>
           </div>
@@ -42,7 +42,7 @@ const BookingList: React.FC<Props> = ({ addresses, control }) => {
                         <RadioGroup.Option key={address.address} value={address.address} className='w-full'>
                           <div className='my-2'>
                             <div
-                              className={`rounded-3xl py-3 pl-10 pr-6 ${
+                              className={`md:rounded-3xl py-3 px-5 md:pl-10 md:pr-6 ${
                                 value === address.address ? 'bg-green-10' : 'bg-raisin-5'
                               }`}
                             >
@@ -53,7 +53,7 @@ const BookingList: React.FC<Props> = ({ addresses, control }) => {
                                         <Icon svgPath='check' width={14} height={10} className='fill-transparent'/>
                                     )}
                                   </Circle>
-                                  <Typography type='subtitle' className='ml-3'>
+                                  <Typography type='subtitle' className='text-sm ml-3'>
                                     {address.address}
                                   </Typography>
                                 </RadioGroup.Label>
@@ -72,9 +72,9 @@ const BookingList: React.FC<Props> = ({ addresses, control }) => {
         </>
       )}
 
-      <div className='flex items-center mb-4'>
-          <Icon svgPath='stop' width={24} height={24} className='fill-transparent flex mr-4' />
-        <Typography type='body' className='text-2lg font-normal'>
+      <div className='flex items-center mb-4 ml-5 md:ml-0'>
+          <Icon svgPath='booking-stop' width={24} height={24} className='fill-transparent flex mr-4' />
+        <Typography type='body' className='text-md md:text-2lg font-normal'>
           დაბრუნება
         </Typography>
       </div>
@@ -90,7 +90,7 @@ const BookingList: React.FC<Props> = ({ addresses, control }) => {
                     <RadioGroup.Option key={address.address} value={address.address} className='w-full'>
                       <div className='my-2'>
                         <div
-                          className={`rounded-3xl py-3 pl-10 pr-6 ${
+                          className={`md:rounded-3xl py-3 px-5 md:pl-10 md:pr-6 ${
                             value === address.address ? 'bg-green-10' : 'bg-raisin-5'
                           }`}
                         >

@@ -6,9 +6,9 @@ const DetailsPageHeader = () => {
     <DetailsHeader>
       <div>breadcrumbs</div>
       <ActionsWrapper>
-        <Icon svgPath='printer' width={24} height={24} />
-        <Icon svgPath='share' width={24} height={24} />
-        <Icon svgPath='favIconOutlinedDark' width={24} height={24} className="fill-black" />
+        <Icon svgPath='printer' width={24} height={24} className='cursor-pointer' />
+        <Icon svgPath='share' width={24} height={24} className='cursor-pointer' />
+        <Icon svgPath='favIconOutlinedDark' width={24} height={24} className="cursor-pointer fill-black" />
       </ActionsWrapper>
     </DetailsHeader>
   )

@@ -81,7 +81,7 @@ export const DefaultInput: React.FC<Props> = ({
               onBlur={handleBlur}
               disabled={disabled}
               value={value || ''}
-              className={`placeholder:text-[13px] ${rows ? 'pt-4' : 'h-14'} ${styles.input} ${
+              className={`placeholder:text-[13px] ${rows ? 'pt-4' : 'h-12 lg:h-14'} ${styles.input} ${
                 value || isFocused ? 'pb-1 pt-3' : 'pt-2 pb-2'
               } ${!disabled ? 'hover:border-raisin-30' : ''} ${
                 _.get(errors, name)?.ref.name === name ? 'border border-red-100' : ''
@@ -147,7 +147,7 @@ export const PasswordInput = ({ label, value, className, onChange, ...rest }: an
         <input
           onFocus={handleFocus}
           onBlur={handleBlur}
-          className={`w-full h-14 rounded-xl px-3 py-2 ${
+          className={`w-full h-12 lg:h-14 rounded-xl px-3 py-2 ${
             isFocused ? 'pt-4' : ''
           } text-sm text-raisin-100 border border-raisin-10 focus:border-raisin-100 focus:outline-none placeholder:text-raisin-100 placeholder:text-2sm ${className}`}
           placeholder={isFocused ? '' : label}
@@ -181,7 +181,7 @@ export const InputWithComponent: React.FC<Props> = ({ label, className, onCompon
 
   return (
     <>
-      <InputContainer className={`${className} h-14 border border-raisin-10 rounded-xl px-3 py-2 flex items-center`}>
+      <InputContainer className={`${className} h-12 lg:h-14 border border-raisin-10 rounded-xl px-3 py-2 flex items-center`}>
         <Controller
           name={name}
           control={control}
