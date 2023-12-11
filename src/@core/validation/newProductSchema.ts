@@ -1,10 +1,7 @@
 import * as Yup from 'yup'
 
 const NewProductPrice = Yup.object().shape({
-  amount: Yup.number()
-    .typeError('თანხის ველი უნდა იყოს რიცხვი')
-    .required('აუცილებელი ველი'),
-    // .test('is-number', 'თანხა უნდა იყოს რიცხვი', value => !isNaN(value)),
+  amount: Yup.number().typeError('თანხის ველი უნდა იყოს რიცხვი').required('აუცილებელი ველი'),
   currency: Yup.string()
 })
 

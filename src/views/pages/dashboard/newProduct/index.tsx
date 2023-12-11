@@ -46,18 +46,76 @@ const NewProduct: React.FC = () => {
     createNewProduct,
     setValue,
     errors,
-    isValid,
-    postSaveProductImages
+    postSaveProductImages,
+    trigger,
+    removeImage
   } = useNewProduct()
 
   const queryClient = useQueryClient()
 
-  const handleGoNextStep = () => {
+  const handleGoNextStep = async () => {
     const currentIndex = options.findIndex(option => option.value === step.value)
-    if (currentIndex < options.length - 1) {
-      setStep(options[currentIndex + 1])
+
+    switch (currentIndex) {
+      case 0:
+        const isValidStep1 = await trigger([
+          'vin',
+          'plate',
+          'man_id',
+          'model_id',
+          'prod_year',
+          'additional_information',
+          'use_instruction',
+          'odometer.run' as any
+        ])
+        if (isValidStep1) {
+          setStep(options[currentIndex + 1])
+        }
+        break
+      case 1:
+        const isValidStep2 = await trigger([
+          'category_id',
+          'fuel_type_id',
+          'seat_type_id',
+          'luggage_numbers',
+          'door_type_id',
+          'drive_tires_id',
+          'transmission_type_id' as any
+        ])
+        if (isValidStep2) {
+          setStep(options[currentIndex + 1])
+        }
+        break
+      case 2:
+        const isValidStep3 = await trigger(['daily_price.amount' as any])
+        if (isValidStep3) {
+          setStep(options[currentIndex + 1])
+        }
+        break
+
+      case 3:
+        setStep(options[currentIndex + 1])
+        break
+
+      case 4:
+        setStep(options[currentIndex + 1])
+        break
+
+      case 5:
+        const isValidStep6 = await trigger(['start_city', 'start_address', 'end_city', 'end_address' as any])
+        if (isValidStep6) {
+          setStep(options[currentIndex + 1])
+        }
+        break
+
+      default:
+        if (currentIndex < options.length - 1) {
+          setStep(options[currentIndex + 1])
+        }
+        break
     }
   }
+
   const handleGoPrevStep = () => {
     const currentIndex = options.findIndex(option => option.step === step.step)
     if (currentIndex > 0) {
@@ -105,7 +163,15 @@ const NewProduct: React.FC = () => {
   const renderStepComponent = () => {
     switch (step.step) {
       case 1:
-        return <StepOne control={control} productValues={productValues} errors={errors} setValue={setValue} />
+        return (
+          <StepOne
+            control={control}
+            productValues={productValues}
+            errors={errors}
+            setValue={setValue}
+            removeImage={removeImage}
+          />
+        )
       case 2:
         return (
           <StepTwo control={control} appendAdditionalParam={appendAdditionalParam} step={step.step} errors={errors} />
@@ -133,8 +199,6 @@ const NewProduct: React.FC = () => {
         return null
     }
   }
-
-  console.log(isValid, 'isValid')
 
   return (
     <NewListingLayout

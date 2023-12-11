@@ -2,8 +2,6 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { DefaultInput } from 'src/views/components/input'
 import SelectField from 'src/views/components/selectField'
 import TwoOptionSelector from 'src/views/components/twoOptionSelector'
-
-// import ImagesInput from './imagesInput'
 import { useEffect } from 'react'
 import useProductInfo, { getManufacturerModels } from '../useProductInfo'
 import useNewProduct from '../newProduct/useNewProduct'
@@ -16,9 +14,10 @@ interface Props {
   productValues: any
   errors: any
   setValue: any
+  removeImage?: any
 }
 
-const StepOne: React.FC<Props> = ({ control, productValues, errors, setValue }) => {
+const StepOne: React.FC<Props> = ({ control, productValues, errors, setValue, removeImage }) => {
   const { manufacturers } = useProductInfo()
   const { postUploadProductImages } = useNewProduct()
 
@@ -45,14 +44,6 @@ const StepOne: React.FC<Props> = ({ control, productValues, errors, setValue }) 
     }
   })
 
-  // const handleFileUpload = async (files: any, count: number, userId: number = 4111619) => {
-  //   try {
-  //     await uploadProductImagesMutation.mutateAsync({ Files: files, count, userId })
-  //   } catch (error) {
-  //     console.error('Error uploading file:', error)
-  //   }
-  // }
-
   const handleFileUpload = async (files: any, count: number, userId = 4111619) => {
     try {
       await uploadProductImagesMutation.mutateAsync({
@@ -60,28 +51,24 @@ const StepOne: React.FC<Props> = ({ control, productValues, errors, setValue }) 
         count,
         userId
       })
-
-      // const uploadedFiles = uploadProductImagesMutation.data?.Data?.FilesList || []
-      // console.log(uploadedFiles, 'uploadedFiles')
-      // setValue('images', uploadedFiles)
     } catch (error) {
       console.error('Error uploading file:', error)
     }
   }
 
-  console.log(uploadProductImagesMutation.data?.Data?.FilesList, 'uploadProductImagesMutation.data')
-
   useEffect(() => {
     const uploadedFiles = uploadProductImagesMutation.data?.Data?.FilesList || []
-    console.log(uploadedFiles, 'uploadedFiles')
     setValue('images', uploadedFiles)
   }, [uploadProductImagesMutation.data?.Data?.FilesList, setValue])
 
   const formState = useWatch({ control })
 
-  console.log(formState, 'formState')
-
-  const handleRemoveFile = () => setValue('images', '')
+  const handleMoveToFront = (index: number) => {
+    const updatedImages = [...formState.images]
+    const movedImage = updatedImages.splice(index, 1)[0]
+    updatedImages.unshift(movedImage)
+    setValue('images', updatedImages)
+  }
 
   return (
     <>
@@ -152,60 +139,21 @@ const StepOne: React.FC<Props> = ({ control, productValues, errors, setValue }) 
         />
       </div>
       <div className='flex flex-wrap gap-2 mt-4'>
-        {/* <ImagesInput label='ავტომობილის ფოტოები' infoText='(მაქს. ზომა 10 მბ, JPG, PNG, SVG)' icon bg='bg-green-10' /> */}
         <Controller
           name='images'
           control={control}
-          render={({ field: { onChange } }) => (
-            // <ImagesInput
-            //   label='ავტომობილის ფოტოები'
-            //   infoText='(მაქს. ზომა 10 მბ, JPG, PNG, SVG)'
-            //   icon
-            //   bg='bg-green-10'
-            //   onChange={(e: any) => {
-            //     console.log(Array.from(e.target.files), 'targetfiles')
-            //     onChange()
-            //     handleFileUpload(Array.from(e.target.files), e.target.files.length)
-            //   }}
-            // />
-
-            <Controller
-              name='images'
-              control={control}
-              render={({ field: { onChange, value } }) => (
-                // <ImagesInput
-                //   label='ავტომობილის ფოტოები'
-                //   infoText='(მაქს. ზომა 10 მბ, JPG, PNG, SVG)'
-                //   icon
-                //   bg='bg-green-10'
-                //   onChange={(e: any) => {
-                //     console.log(Array.from(e.target.files), 'targetfiles')
-                //     onChange()
-                //     handleFileUpload(Array.from(e.target.files), e.target.files.length)
-                //   }}
-                // />
-                <ImagesInput
-                  title='ავტომობილის ფოტოსურათები'
-                  description='(მაქს. ზომა 10 მბ, JPG, PNG, SVG)'
-                  handleDelete={handleRemoveFile}
-                  value={value}
-                  onChange={(e: any) => {
-                    onChange()
-                    handleFileUpload(Array.from(e.target.files), e.target.files.length)
-                  }}
-                />
-              )}
+          render={({ field: { onChange, value } }) => (
+            <ImagesInput
+              title='ავტომობილის ფოტოსურათები'
+              description='(მაქს. ზომა 10 მბ, JPG, PNG, SVG)'
+              handleRemoveImage={removeImage}
+              handleMoveToFront={handleMoveToFront}
+              value={value}
+              onChange={(e: any) => {
+                onChange()
+                handleFileUpload(Array.from(e.target.files), e.target.files.length)
+              }}
             />
-
-            // <input
-            //   type='file'
-            //   multiple
-            //   onChange={(e: any) => {
-            //     console.log(Array.from(e.target.files), 'targetfiles')
-            //     onChange()
-            //     handleFileUpload(Array.from(e.target.files), e.target.files.length)
-            //   }}
-            // />
           )}
         />
       </div>
