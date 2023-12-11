@@ -1,15 +1,12 @@
 import * as Yup from 'yup'
 
 const NewProductPrice = Yup.object().shape({
-  amount: Yup.number()
-    .typeError('თანხის ველი უნდა იყოს რიცხვი')
-    .required('აუცილებელი ველი')
-    .test('is-number', 'თანხა უნდა იყოს რიცხვი', value => !isNaN(value)),
+  amount: Yup.number().typeError('თანხის ველი უნდა იყოს რიცხვი').required('აუცილებელი ველი'),
   currency: Yup.string()
 })
 
 const Odometer = Yup.object().shape({
-  run: Yup.number().required('აუცილებელი ველი')
+  run: Yup.number().required('აუცილებელი ველი').typeError('თანხის ველი უნდა იყოს რიცხვი')
 })
 
 const CompanyService = Yup.object().shape({
@@ -20,11 +17,27 @@ const CompanyService = Yup.object().shape({
 })
 
 const NewProductSchema = Yup.object().shape({
-  man_id: Yup.mixed().required('აუცილებელი ველი'),
-  model_id: Yup.mixed().required('აუცილებელი ველი'),
-  category_id: Yup.mixed().required('აუცილებელი ველი'),
+  vin: Yup.string().required('აუცილებელი ველი'),
+  plate: Yup.string().required('აუცილებელი ველი'),
+  man_id: Yup.number().required('აუცილებელი ველი').typeError('აუცილებელი ველი'),
+  model_id: Yup.number().required('აუცილებელი ველი').typeError('აუცილებელი ველი'),
+  prod_year: Yup.number().required('აუცილებელი ველი').typeError('აუცილებელი ველი'),
+  additional_information: Yup.string().required('აუცილებელი ველი').typeError('აუცილებელი ველი'),
+  use_instruction: Yup.string().required('აუცილებელი ველი').typeError('აუცილებელი ველი'),
+  images: Yup.mixed(),
+  category_id: Yup.number().required('აუცილებელი ველი').typeError('აუცილებელი ველი'),
+  fuel_type_id: Yup.number().required('აუცილებელი ველი').typeError('აუცილებელი ველი'),
+  seat_type_id: Yup.number().required('აუცილებელი ველი').typeError('აუცილებელი ველი'),
+  luggage_numbers: Yup.number().required('აუცილებელი ველი').typeError('აუცილებელი ველი'),
+  door_type_id: Yup.number().required('აუცილებელი ველი').typeError('აუცილებელი ველი'),
+  drive_tires_id: Yup.number().required('აუცილებელი ველი').typeError('აუცილებელი ველი'),
+  transmission_type_id: Yup.number().required('აუცილებელი ველი').typeError('აუცილებელი ველი'),
   daily_price: NewProductPrice,
   odometer: Odometer,
-  company_services: Yup.array().of(CompanyService)
+  company_services: Yup.array().of(CompanyService),
+  start_city: Yup.string().required('აუცილებელი ველი').typeError('აუცილებელი ველი'),
+  start_address: Yup.string().required('აუცილებელი ველი').typeError('აუცილებელი ველი'),
+  end_city: Yup.string().required('აუცილებელი ველი').typeError('აუცილებელი ველი'),
+  end_address: Yup.string().required('აუცილებელი ველი').typeError('აუცილებელი ველი')
 })
 export { NewProductSchema }

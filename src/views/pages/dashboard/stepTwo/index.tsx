@@ -11,6 +11,7 @@ interface Props {
   control: any
   appendAdditionalParam: any
   step: number
+  errors: any
 }
 
 const suitcases = [
@@ -21,14 +22,14 @@ const suitcases = [
   { title: 5, id: 5 }
 ]
 
-const StepTwo: React.FC<Props> = ({ control, appendAdditionalParam, step }) => {
+const StepTwo: React.FC<Props> = ({ control, appendAdditionalParam, step, errors }) => {
   const { width } = useWindowDimensions()
   const { productDetails, additionalParams, isProductDetailsLoading, isAdditionalParamsLoading } = useProductInfo(step)
 
   return (
     <div>
       <Typography type='h4' color='dark'>
-        ავტომობილის კატეგორია
+        ავტომობილის კატეგორია*
       </Typography>
       {isProductDetailsLoading ? (
         <>Loading</>
@@ -36,7 +37,13 @@ const StepTwo: React.FC<Props> = ({ control, appendAdditionalParam, step }) => {
         <>
           {width > 779 ? (
             <div className='flex flex-wrap gap-4 my-6'>
-              <CategoryCard name='category_id' control={control} options={productDetails?.categories} border />
+              <CategoryCard
+                name='category_id'
+                control={control}
+                options={productDetails?.categories}
+                border
+                errors={errors}
+              />
             </div>
           ) : (
             <SelectField
@@ -52,41 +59,61 @@ const StepTwo: React.FC<Props> = ({ control, appendAdditionalParam, step }) => {
       )}
 
       <Typography type='h4' color='dark' className='mt-14'>
-        საწვავის ტიპი
+        საწვავის ტიპი*
       </Typography>
       <div className='flex flex-wrap gap-3 my-6'>
         {isProductDetailsLoading ? (
           <>Loading</>
         ) : (
-          <Tag name='fuel_type_id' control={control} options={productDetails?.fuel_types} height='h-12' outlined />
+          <Tag
+            name='fuel_type_id'
+            control={control}
+            options={productDetails?.fuel_types}
+            height='h-12'
+            outlined
+            errors={errors}
+          />
         )}
       </div>
       <Typography type='h5' weight='normal' className=' mt-14'>
-        ადგილების რაოდენობა
+        ადგილების რაოდენობა*
       </Typography>
       <div className='flex flex-wrap gap-4 my-6'>
         {isProductDetailsLoading ? (
           <>Loading</>
         ) : (
-          <Tag name='seat_type_id' control={control} options={productDetails?.seat_types} height='h-12' />
+          <Tag
+            name='seat_type_id'
+            control={control}
+            options={productDetails?.seat_types}
+            height='h-10'
+            errors={errors}
+          />
         )}
       </div>
       <Typography type='h5' weight='normal' className=' mt-14'>
-        ჩემოდნების რაოდენობა
+        ჩემოდნების რაოდენობა*
       </Typography>
       <div className='flex flex-wrap gap-4 my-6'>
-        <Tag name='luggage_numbers' control={control} options={suitcases} height='h-10' />
+        <Tag name='luggage_numbers' control={control} options={suitcases} height='h-10' errors={errors} />
       </div>
       <Divider />
       <div className='flex justify-between my-10 flex-col items-baseline md:items-center md:flex-row'>
         <Typography type='h5' weight='normal' className=' mb-4 md:mb-0'>
-          კარის რაოდენობა
+          კარის რაოდენობა*
         </Typography>
         <div className='flex w-max gap-2'>
           {isProductDetailsLoading ? (
             <>Loading</>
           ) : (
-            <Tag name='door_type_id' control={control} options={productDetails?.door_types} height='h-12' outlined />
+            <Tag
+              name='door_type_id'
+              control={control}
+              options={productDetails?.door_types}
+              height='h-12'
+              outlined
+              errors={errors}
+            />
           )}
         </div>
       </div>
@@ -95,13 +122,19 @@ const StepTwo: React.FC<Props> = ({ control, appendAdditionalParam, step }) => {
 
       <div className='flex justify-between my-10 flex-col items-baseline md:items-center md:flex-row'>
         <Typography type='h5' weight='normal' className='mb-4 md:mb-0'>
-          წამყვანი საბურავები
+          წამყვანი საბურავები*
         </Typography>
         <div className='flex w-max gap-2'>
           {isProductDetailsLoading ? (
             <>Loading</>
           ) : (
-            <Tag name='drive_tires_id' control={control} options={productDetails?.drive_tires} height='h-12' />
+            <Tag
+              name='drive_tires_id'
+              control={control}
+              options={productDetails?.drive_tires}
+              height='h-12'
+              errors={errors}
+            />
           )}
         </div>
       </div>
@@ -109,7 +142,7 @@ const StepTwo: React.FC<Props> = ({ control, appendAdditionalParam, step }) => {
 
       <div className='flex justify-between my-10 flex-col items-baseline md:items-center md:flex-row'>
         <Typography type='h5' weight='normal' className='mb-4 md:mb-0'>
-          ტრანსმისია
+          ტრანსმისია*
         </Typography>
         <div className='flex w-max gap-2'>
           {isProductDetailsLoading ? (
@@ -120,6 +153,7 @@ const StepTwo: React.FC<Props> = ({ control, appendAdditionalParam, step }) => {
               control={control}
               options={productDetails?.transmission_types}
               height='h-12'
+              errors={errors}
             />
           )}
         </div>

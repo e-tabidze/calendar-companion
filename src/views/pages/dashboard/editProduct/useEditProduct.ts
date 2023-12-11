@@ -45,6 +45,7 @@ const useEditProduct = (id: number) => {
     },
     additional_information: '',
     use_instruction: '',
+    images: [] as any[],
     category_id: '',
     fuel_type_id: '',
     seat_type_id: '',
@@ -89,6 +90,7 @@ const useEditProduct = (id: number) => {
       setValue('odometer.measure', productDetailsData?.measure)
       setValue('additional_information', productDetailsData?.additional_information)
       setValue('use_instruction', productDetailsData?.use_instruction)
+      setValue('images', productDetailsData?.images?.split(',') || [])
       setValue('category_id', productDetailsData?.category_id)
       setValue('fuel_type_id', productDetailsData?.fuel_type_id)
       setValue('seat_type_id', productDetailsData?.seat_type_id)
@@ -135,14 +137,22 @@ const useEditProduct = (id: number) => {
     resetField,
     setError,
     clearErrors,
-    setValue
+    setValue,
+    trigger
   } = useForm({
     mode: 'onChange',
     reValidateMode: 'onChange',
     defaultValues: productDefaultValues,
+    resolver: yupResolver(NewProductSchema) as any
+  })
 
-    // @ts-ignore
-    resolver: yupResolver(NewProductSchema)
+  const {
+    fields: images,
+    append: appendImages,
+    remove: removeImage
+  } = useFieldArray({
+    control,
+    name: 'images'
   })
 
   const { fields: additionalParams, append: appendAdditionalParam } = useFieldArray({
@@ -181,6 +191,9 @@ const useEditProduct = (id: number) => {
     setError,
     clearErrors,
     setValue,
+    images,
+    appendImages,
+    removeImage,
     productValues,
     additionalParams,
     appendAdditionalParam,
@@ -190,7 +203,8 @@ const useEditProduct = (id: number) => {
     removeDiscountItem,
     editProduct,
     productDefaultValues,
-    isValid
+    isValid,
+    trigger
   }
 }
 

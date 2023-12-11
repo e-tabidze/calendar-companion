@@ -56,7 +56,7 @@ export const getCompanyOrder = async (AccessToken = '', orderId: number | string
 
 export const postOrderStatus = async (AccessToken = '', orderId: number | string | undefined, status: 0 | 1 | 2) => {
   try {
-    const response: any = orderId && await OrderService.postOrderStatus(AccessToken, orderId, status)
+    const response: any = orderId && await OrderService.postCompanyOrderStatus(AccessToken, orderId, status)
 
     return response.data
   } catch (error) {

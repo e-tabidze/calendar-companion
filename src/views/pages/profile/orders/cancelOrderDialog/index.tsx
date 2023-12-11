@@ -40,7 +40,7 @@ const CancelOrderDialog: React.FC<Props> = ({ open, close, handleCancel }) => {
             >
               <div className='bg-white rounded-lg max-w-lg mx-auto'>
                 <div className='p-6'>
-                  <Icon svgPath='cancelOrder' width={64} height={64} className='fill-transparent m-auto pb-6' />
+                  <Icon svgPath='cancelOrder' width={84} height={84} className='fill-transparent m-auto pb-6' />
                   <Typography type='h5'>ნამდვილად გსურთ ჯავშნის გაუქმება?</Typography>
                 </div>
 
@@ -48,7 +48,7 @@ const CancelOrderDialog: React.FC<Props> = ({ open, close, handleCancel }) => {
 
                 <div className='flex justify-end p-4 gap-4'>
                   <DefaultButton text='უარყოფა' onClick={close} className='border-none' />
-                  <DefaultButton text='გაუქმება' bg='bg-orange-100' onClick={handleCancel} />
+                  <DefaultButton text='გაუქმება' bg='bg-orange-100' onClick={handleCancel} textColor="text-white" />
                 </div>
               </div>
             </Transition.Child>

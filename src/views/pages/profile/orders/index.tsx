@@ -4,20 +4,25 @@ import { IconTextButton } from 'src/views/components/button'
 import Divider from 'src/views/components/divider'
 import Typography from 'src/views/components/typography'
 import ListComponent from './listComponent'
-import OrderComponent from './orderComponent'
+import OrderDetails from './orderDetails'
+import useUserOrders from './useOrders'
 
 const Orders = () => {
   const [details, setDetails] = useState(false)
   const { width } = useWindowDimensions()
+  const { userOrders } = useUserOrders()
+  const [orderId, setOrderId] = useState(0)
+
+  console.log(userOrders, 'userOrders')
 
   const toggleDetails = () => setDetails(!details)
 
   return (
     <>
       {details ? (
-        <OrderComponent toggleDetails={toggleDetails} />
+        <OrderDetails toggleDetails={toggleDetails} orderId={orderId} setOrderId={setOrderId} />
       ) : (
-        <div className=''>
+        <div className='p-2 md:p-10 md:border border-raisin-10 rounded-3xl'>
           <div className='flex justify-between p-2 md:p-4 items-center'>
             <Typography type='h3'>ჩემი შეკვეთები</Typography>
             <div className='flex gap-4 md:gap-8'>
@@ -26,12 +31,23 @@ const Orders = () => {
             </div>
           </div>
           <Divider />
-          <ListComponent toggleDetails={toggleDetails} />
-          <ListComponent toggleDetails={toggleDetails} />
-          <ListComponent toggleDetails={toggleDetails} />
-          <ListComponent toggleDetails={toggleDetails} />
-          <ListComponent toggleDetails={toggleDetails} />
-          <ListComponent toggleDetails={toggleDetails} />
+          {userOrders?.map((order: any) => (
+            <ListComponent
+              key={order?.id}
+              toggleDetails={() => {
+                toggleDetails()
+                setOrderId(order?.id)
+              }}
+              startAddress={order?.start_address}
+              startDate={order?.start_date}
+              startTime={order?.start_time}
+              endDate={order?.end_date}
+              endTime={order?.end_time}
+              productDetails={JSON.parse(order?.product_data)}
+              price={order?.price}
+              status={order?.status_id}
+            />
+          ))}
         </div>
       )}
     </>

@@ -7,7 +7,8 @@ import Typography from 'src/views/components/typography'
 import DeleteProductConfirmationModal from '../../products/deleteProductModal'
 import useProducts from '../../products/useProducts'
 import Action from './action'
-import Icon from "src/views/app/Icon";
+import Icon from 'src/views/app/Icon'
+import Carousel from 'src/views/components/carousel'
 
 interface Props {
   price: number
@@ -18,9 +19,20 @@ interface Props {
   active: number
   id: number
   filter: '' | 0 | 1 | 2
+  images: string
 }
 
-const VehicleListComponent: React.FC<Props> = ({ price, startCity, prodYear, model, manufacturer, active, id, filter }) => {
+const VehicleListComponent: React.FC<Props> = ({
+  price,
+  startCity,
+  prodYear,
+  model,
+  manufacturer,
+  active,
+  id,
+  filter,
+  images
+}) => {
   const [deleteProductModal, setDeleteProductModal] = useState(false)
 
   const { width } = useWindowDimensions()
@@ -53,18 +65,25 @@ const VehicleListComponent: React.FC<Props> = ({ price, startCity, prodYear, mod
 
   return (
     <>
-      {deleteProductMutation.isLoading && <div>Deleting...</div>}
-      {deleteProductMutation.isSuccess && <div>Product deleted successfully!</div>}
       <div className='relative border-b-1 border-raisin-10 last:border-none'>
         <div className='flex flex-col px-2 py-4 md:w-full justify-between gap-6 md:px-0 md:flex-row md:items-center'>
           <div className='flex gap-6 2xl:gap-6 min-w-max'>
-            <Image
-              src='/images/car.png'
-              alt=''
-              height={width > 779 ? 150 : 50}
-              width={width > 779 ? 250 : 82}
-              className='rounded-lg object-cover'
-            />
+            <div className='w-56'>
+              <Carousel
+                itemsArray={images?.split(',')?.map((imgUrl, index) => (
+                  <Image
+                    key={index}
+                    src={imgUrl || ''}
+                    alt={`${manufacturer} ${model} ${prodYear}`}
+                    height={width > 779 ? 150 : 50}
+                    width={width > 779 ? 250 : 82}
+                    className='rounded-lg object-cover'
+                  />
+                ))}
+                type='card'
+                key={Math.random()}
+              />
+            </div>
             <div className='min-w-max'>
               <Typography type='body' color='light'>
                 {startCity}
@@ -95,14 +114,21 @@ const VehicleListComponent: React.FC<Props> = ({ price, startCity, prodYear, mod
               label={active ? 'გამორთვა' : 'ჩართვა'}
               icon={active ? 'stop' : 'play'}
               onClick={toggleActivateProduct}
+              disabled={activeProductMutation?.isLoading}
             />
             <Link href={`/dashboard/edit-product?id=${id}`} as={`/dashboard/edit-product?id=${id}`}>
               <Action bg='bg-raisin-10' label='რედაქტირება' icon='edit' />
             </Link>
-            <Action bg='bg-raisin-10' label='წაშლა' icon='trash' onClick={toggleDeleteProductModal} />
+            <Action
+              bg='bg-raisin-10'
+              label='წაშლა'
+              icon='trash'
+              onClick={toggleDeleteProductModal}
+              disabled={deleteProductMutation.isLoading}
+            />
           </div>
         </div>
-        <Icon svgPath='more' width={4} height={14} className='absolute right-5 top-5 md:hidden'/>
+        <Icon svgPath='more' width={4} height={14} className='absolute right-5 top-5 md:hidden' />
       </div>
       <DeleteProductConfirmationModal
         open={deleteProductModal}

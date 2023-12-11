@@ -14,12 +14,20 @@ class OrderService extends HttpService {
     return this.get(`/orders/${orderId}`, AccessToken ? { Authorization: `${AccessToken}` } : {})
   }
 
-  postOrderStatus(AccessToken = '', orderId: string | number, status: 0 | 1 | 2) {
+  postCompanyOrderStatus(AccessToken = '', orderId: string | number, status: 0 | 1 | 2) {
     return this.post(
       `/status/orders`,
       { id: orderId, status_id: status },
       AccessToken ? { Authorization: `${AccessToken}` } : {}
     )
+  }
+
+  getUserOrders(AccessToken = '') {
+    return this.get('/user-orders', {}, AccessToken ? { Authorization: `${AccessToken}` } : {})
+  }
+
+  getUserOrdersDetails(AccessToken = '', orderId: number | string | undefined) {
+    return this.get(`/user-orders/${orderId}`, {}, AccessToken ? { Authorization: `${AccessToken}` } : {})
   }
 }
 

@@ -6,8 +6,9 @@ import useProductInfo from '../useProductInfo'
 
 interface Props {
   control: any
+  errors: any
 }
-const StepSix: React.FC<Props> = ({ control }) => {
+const StepSix: React.FC<Props> = ({ control, errors }) => {
   const { companyBranches } = useProductInfo()
 
   const formState = useWatch({ control })
@@ -28,7 +29,7 @@ const StepSix: React.FC<Props> = ({ control }) => {
   return (
     <div>
       <Typography type='h4' weight='normal' color='dark' className='mb-4'>
-        საიდან წაიყვანს მომხმარებელი მანქანას
+        საიდან წაიყვანს მომხმარებელი მანქანას*
       </Typography>
       <div className='grid gap-6 mb-10 mt-4 grid-cols-1 md:grid-cols-2'>
         <SelectField
@@ -39,6 +40,7 @@ const StepSix: React.FC<Props> = ({ control }) => {
           disabled={false}
           valueKey='value'
           labelKey='label'
+          errors={errors}
         />
         <SelectField
           control={control}
@@ -48,10 +50,11 @@ const StepSix: React.FC<Props> = ({ control }) => {
           disabled={!formState.start_city}
           valueKey='value'
           labelKey='label'
+          errors={errors}
         />
       </div>
       <Typography type='h4' weight='normal' color='dark' className='mb-4'>
-        სად დააბრუნებს მომხმარებელი მანქანას
+        სად დააბრუნებს მომხმარებელი მანქანას*
       </Typography>
       <div className='grid gap-6 mb-10 mt-4 grid-cols-1 md:grid-cols-2'>
         <SelectField
@@ -62,6 +65,7 @@ const StepSix: React.FC<Props> = ({ control }) => {
           disabled={false}
           valueKey='value'
           labelKey='label'
+          errors={errors}
         />
         <SelectField
           control={control}
@@ -71,6 +75,7 @@ const StepSix: React.FC<Props> = ({ control }) => {
           disabled={!formState.end_city}
           valueKey='value'
           labelKey='label'
+          errors={errors}
         />
       </div>
       <MapPicker height='275px' borderRadius='16px' />

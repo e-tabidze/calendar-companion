@@ -16,7 +16,7 @@ import {
   TakeAwayInfoContsiner,
   TakeAwayWrapper
 } from './styles'
-import Icon from "src/views/app/Icon";
+import Icon from 'src/views/app/Icon'
 
 interface Props {
   toggleDetails: () => void
@@ -96,11 +96,11 @@ const OrderDetails: React.FC<Props> = ({ toggleDetails, setOrderId, orderId }) =
                   <Typography type='subtitle'>{companyOrder?.dob}</Typography>
                 </li>
                 <li className='flex items-center space-x-4 my-3'>
-                  <Icon svgPath='email'  width={20} height={18} />
+                  <Icon svgPath='email' width={20} height={18} />
                   <Typography type='subtitle'>{companyOrder?.email}</Typography>
                 </li>
                 <li className='flex items-center space-x-4 my-3'>
-                  <Icon svgPath='phone'  width={20} height={20} className='fill-transparent' />
+                  <Icon svgPath='phone' width={20} height={20} className='fill-transparent' />
                   <Typography type='subtitle'>{companyOrder?.phone}</Typography>
                 </li>
               </ul>
@@ -109,7 +109,7 @@ const OrderDetails: React.FC<Props> = ({ toggleDetails, setOrderId, orderId }) =
                   <Typography type='subtitle'>მართვის მოწმობის მოქმედების ვადა</Typography>
                 </li>
                 <li className='flex items-center space-x-4 my-3'>
-                  <Icon svgPath='calendar'  width={24} height={24}  className='fill-transparent'/>
+                  <Icon svgPath='calendar' width={24} height={24} className='fill-transparent' />
                   <Typography type='subtitle'>{companyOrder?.driver_license_expiration}</Typography>
                 </li>
               </ul>
@@ -122,7 +122,7 @@ const OrderDetails: React.FC<Props> = ({ toggleDetails, setOrderId, orderId }) =
                     <Typography type='body' color='light'>
                       დაწყება
                     </Typography>
-                    <Icon svgPath='calendarGreen'  width={18} height={20} />
+                    <Icon svgPath='calendarGreen' width={18} height={20} />
                     <Typography type='body' color='light'>
                       {companyOrder?.start_date} {companyOrder?.start_time}
                     </Typography>
@@ -138,9 +138,9 @@ const OrderDetails: React.FC<Props> = ({ toggleDetails, setOrderId, orderId }) =
                     <Typography type='body' color='light'>
                       დასრულება
                     </Typography>
-                    <Icon svgPath='calendarRed'  width={18} height={20} />
+                    <Icon svgPath='calendarRed' width={18} height={20} />
                     <Typography type='body' color='light'>
-                      27-01-2027, 15:00 {companyOrder?.end_date} {companyOrder?.end_date}
+                      {companyOrder?.end_date} {companyOrder?.end_time}
                     </Typography>
                   </TakeAway>
                 </TakeAwayWrapper>
