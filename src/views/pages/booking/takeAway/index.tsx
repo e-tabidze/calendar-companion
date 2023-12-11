@@ -1,4 +1,3 @@
-import Image from 'next/image'
 import { useWatch } from 'react-hook-form'
 import { generateTimeOptions } from 'src/utils/timeValues'
 import Icon from 'src/views/app/Icon'
@@ -19,7 +18,7 @@ const TakeAway: React.FC<Props> = ({ control, toggleEditModal }) => {
     <div className='pl-13 mt-4'>
       <div className='flex items-center'>
         <div className='w-2/12 flex items-start'>
-          <Image src='/icons/start.svg' alt='' height={24} width={24} />
+          <Icon svgPath='start' height={24} width={24} className='fill-transparent'/>
           <div className='flex flex-col ml-3'>
             <span className='text-sm'>წაყვანა</span>
             <span className='text-sm text-black/60'>15 ივნ</span>
@@ -50,8 +49,7 @@ const TakeAway: React.FC<Props> = ({ control, toggleEditModal }) => {
       </div>
       <div className='flex items-center mt-3'>
         <div className='w-2/12 flex items-start'>
-          <Icon svgPath='stop' height={24} width={24} />
-
+          <Icon svgPath='stop' height={24} width={24} className='fill-transparent'/>
           <div className='flex flex-col ml-3'>
             <span className='text-sm'>დაბრუნება</span>
             <span className='text-sm text-black/60'>20 ივნ</span>

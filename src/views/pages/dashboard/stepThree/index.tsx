@@ -90,7 +90,9 @@ const StepThree: React.FC<Props> = ({ control, discountItems, appendDiscountItem
               {index > 0 && (
                 <IconTextButton
                   label={width > 779 ? 'წაშლა' : ''}
-                  icon='/icons/clear.svg'
+                  icon='clear'
+                  width={16}
+                  height={16}
                   labelClassname='text-orange-120'
                   onClick={() => {
                     remove(index)
@@ -105,7 +107,9 @@ const StepThree: React.FC<Props> = ({ control, discountItems, appendDiscountItem
           <IconTextButton
             className='mt-6 mb-8'
             label='ახალი ფასდაკლების დამატება'
-            icon='/icons/add.svg'
+            icon='add'
+            width={20}
+            height={20}
             onClick={() => appendDiscountItem(discount_item)}
             type='button'
           />

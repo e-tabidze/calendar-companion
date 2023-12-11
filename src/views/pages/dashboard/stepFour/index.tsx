@@ -56,7 +56,9 @@ const StepFour: React.FC<Props> = ({ control, step, errors }) => {
       <div>
         <IconTextButton
           label='ახალი სერვისის დამატება'
-          icon='/icons/add.svg'
+          icon='add'
+          width={20}
+          height={20}
           onClick={handleNewServiceModal}
           className='p-0 mb-12'
           type="button"

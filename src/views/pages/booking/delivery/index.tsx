@@ -1,9 +1,9 @@
-import Image from 'next/image'
 import Typography from '../../../components/typography'
 import SelectField from '../../../components/selectField'
 import { DefaultInput } from 'src/views/components/input'
 import { generateTimeOptions } from 'src/utils/timeValues'
 import { useWatch } from 'react-hook-form'
+import Icon from "src/views/app/Icon";
 
 interface Props {
   control?: any
@@ -17,7 +17,7 @@ const Delivery: React.FC<Props> = ({ control, toggleEditModal }) => {
     <div className='pl-13 mt-4'>
       <div className='flex items-center'>
         <div className='w-3/12 flex items-start'>
-          <Image src='/icons/start.svg' alt='' height={24} width={24} />
+          <Icon svgPath='start' height={24} width={24} className='fill-transparent'/>
           <div className='flex flex-col ml-3'>
             <span className='text-sm'>მიწოდება</span>
 
@@ -41,7 +41,7 @@ const Delivery: React.FC<Props> = ({ control, toggleEditModal }) => {
       </div>
       <div className='flex items-center mt-3'>
         <div className='w-2/12 flex items-start'>
-          <Image src='/icons/stop.svg' alt='' height={24} width={24} />
+          <Icon svgPath='stop' width={24} height={24} className='fill-transparent' />
 
           <div className='flex flex-col ml-3'>
             <span className='text-sm'>დაბრუნება</span>

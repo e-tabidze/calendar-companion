@@ -1,12 +1,12 @@
 import { Menu, Transition } from '@headlessui/react'
 import { Fragment, useState } from 'react'
-import Image from 'src/views/components/image'
 import Typography from 'src/views/components/typography'
 import { FilterContainer, InnerFilterContainer } from './styles'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import { Controller } from 'react-hook-form'
 import { formatDate } from 'src/utils/formatDate'
+import Icon from "src/views/app/Icon";
 
 interface Props {
   control: any
@@ -27,7 +27,7 @@ const PeriodDropdown: React.FC<Props> = ({ control }) => {
             <Typography type='subtitle' className='text-raisin-50'>
               {startDate && endDate ? `${formatDate(startDate)} - ${formatDate(endDate)}` : 'აირჩიეთ თარიღი და დრო'}
             </Typography>
-            <Image src='/icons/chevron.svg' className='inline fill-white m-2' alt='img' />
+              <Icon svgPath='chevron' width={8} height={6} className='fill-transparent inline fill-white m-2' />
           </InnerFilterContainer>
         </FilterContainer>
       </Menu.Button>

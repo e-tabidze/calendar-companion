@@ -1,9 +1,9 @@
-import Image from 'next/image'
 import Typography from '../../../../components/typography'
 import Divider from '../../../../components/divider'
 import tw from 'tailwind-styled-components'
 import { RadioGroup } from '@headlessui/react'
 import { Controller, useWatch } from 'react-hook-form'
+import Icon from "src/views/app/Icon";
 
 interface Props {
   addresses: any
@@ -25,7 +25,7 @@ const BookingList: React.FC<Props> = ({ addresses, control }) => {
       {formState?.supply === '0' && (
         <>
           <div className='flex items-center my-4'>
-            <Image src='/icons/start.svg' alt='' height={24} width={24} className='flex mr-4' />
+              <Icon svgPath='start' height={24} width={24} className='fill-transparent flex mr-4'/>
             <Typography type='body' className='text-2lg font-normal'>
               წაყვანა
             </Typography>
@@ -50,7 +50,7 @@ const BookingList: React.FC<Props> = ({ addresses, control }) => {
                                 <RadioGroup.Label className='flex items-center' style={{ margin: '0px' }}>
                                   <Circle checked={value === address.address}>
                                     {value === address.address && (
-                                      <Image src='/icons/check.svg' alt='' height={12} width={16} />
+                                        <Icon svgPath='check' width={14} height={10} className='fill-transparent'/>
                                     )}
                                   </Circle>
                                   <Typography type='subtitle' className='ml-3'>
@@ -73,7 +73,7 @@ const BookingList: React.FC<Props> = ({ addresses, control }) => {
       )}
 
       <div className='flex items-center mb-4'>
-        <Image src='/icons/stop.svg' alt='' height={24} width={24} className='flex mr-4' />
+          <Icon svgPath='stop' width={24} height={24} className='fill-transparent flex mr-4' />
         <Typography type='body' className='text-2lg font-normal'>
           დაბრუნება
         </Typography>
@@ -98,7 +98,7 @@ const BookingList: React.FC<Props> = ({ addresses, control }) => {
                             <RadioGroup.Label className='flex items-center' style={{ margin: '0px' }}>
                               <Circle checked={value === address.address}>
                                 {value === address.address && (
-                                  <Image src='/icons/check.svg' alt='' height={12} width={16} />
+                                    <Icon svgPath='check' width={14} height={10} className='fill-transparent'/>
                                 )}
                               </Circle>
                               <Typography type='subtitle' className='ml-3'>

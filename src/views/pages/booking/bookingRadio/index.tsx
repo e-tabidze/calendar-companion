@@ -2,7 +2,7 @@ import { useController } from 'react-hook-form'
 import { RadioGroup } from '@headlessui/react'
 import tw from 'tailwind-styled-components'
 import { ReactComponentElement } from 'react'
-import Image from 'next/image'
+import Icon from "src/views/app/Icon";
 
 interface Option {
   label: string
@@ -44,7 +44,7 @@ const BookingRadio: React.FC<Props> = ({ options, control, color, horizontal, na
                   <div className='flex justify-between items-center'>
                     <RadioGroup.Label className='flex items-center' style={{ margin: '0px' }}>
                       <Circle checked={checked}>
-                        {checked && <Image src='/icons/check.svg' alt='' height={12} width={16} />}
+                        {checked &&        <Icon svgPath='check' width={14} height={10} className='fill-transparent'/>}
                       </Circle>
                       <span className='text-2sm md:md ml-5'>{option.label}</span>
                     </RadioGroup.Label>

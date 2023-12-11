@@ -16,6 +16,7 @@ import {
   TakeAwayInfoContsiner,
   TakeAwayWrapper
 } from './styles'
+import Icon from "src/views/app/Icon";
 
 interface Props {
   toggleDetails: () => void
@@ -53,7 +54,9 @@ const OrderDetails: React.FC<Props> = ({ toggleDetails, setOrderId, orderId }) =
       <OrderDetailsContainer>
         <div className='hidden md:flex items-center md:w-full gap-6 p-4'>
           <IconTextButton
-            icon='/icons/backWithBg.svg'
+            icon='backWithBg'
+            width={38}
+            height={38}
             label='შემოსული ჯავშნები'
             onClick={() => {
               toggleDetails()
@@ -89,15 +92,15 @@ const OrderDetails: React.FC<Props> = ({ toggleDetails, setOrderId, orderId }) =
             <div className='flex w-full justify-between my-6'>
               <ul className=''>
                 <li className='flex items-center space-x-4 my-3'>
-                  <Image src='/icons/user.svg' alt='' width={20} height={20} />
+                  <Icon svgPath='user' width={18} height={20} />
                   <Typography type='subtitle'>{companyOrder?.dob}</Typography>
                 </li>
                 <li className='flex items-center space-x-4 my-3'>
-                  <Image src='/icons/email.svg' alt='' width={20} height={20} />
+                  <Icon svgPath='email'  width={20} height={18} />
                   <Typography type='subtitle'>{companyOrder?.email}</Typography>
                 </li>
                 <li className='flex items-center space-x-4 my-3'>
-                  <Image src='/icons/phone.svg' alt='' width={20} height={20} />
+                  <Icon svgPath='phone'  width={20} height={20} className='fill-transparent' />
                   <Typography type='subtitle'>{companyOrder?.phone}</Typography>
                 </li>
               </ul>
@@ -106,7 +109,7 @@ const OrderDetails: React.FC<Props> = ({ toggleDetails, setOrderId, orderId }) =
                   <Typography type='subtitle'>მართვის მოწმობის მოქმედების ვადა</Typography>
                 </li>
                 <li className='flex items-center space-x-4 my-3'>
-                  <Image src='/icons/calendar.svg' alt='' width={20} height={20} />
+                  <Icon svgPath='calendar'  width={24} height={24}  className='fill-transparent'/>
                   <Typography type='subtitle'>{companyOrder?.driver_license_expiration}</Typography>
                 </li>
               </ul>
@@ -119,7 +122,7 @@ const OrderDetails: React.FC<Props> = ({ toggleDetails, setOrderId, orderId }) =
                     <Typography type='body' color='light'>
                       დაწყება
                     </Typography>
-                    <Image src='/icons/calendarGreen.svg' height={24} width={24} alt='' />
+                    <Icon svgPath='calendarGreen'  width={18} height={20} />
                     <Typography type='body' color='light'>
                       {companyOrder?.start_date} {companyOrder?.start_time}
                     </Typography>
@@ -135,7 +138,7 @@ const OrderDetails: React.FC<Props> = ({ toggleDetails, setOrderId, orderId }) =
                     <Typography type='body' color='light'>
                       დასრულება
                     </Typography>
-                    <Image src='/icons/calendarRed.svg' height={24} width={24} alt='' />
+                    <Icon svgPath='calendarRed'  width={18} height={20} />
                     <Typography type='body' color='light'>
                       27-01-2027, 15:00 {companyOrder?.end_date} {companyOrder?.end_date}
                     </Typography>

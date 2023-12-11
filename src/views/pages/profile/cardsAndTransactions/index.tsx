@@ -13,7 +13,9 @@ const CardsAndTransactions = () => {
         <Typography type='h3'>ბარათები და ტრანზაქციები</Typography>
         <IconTextButton
           label='ახალი ბარათი'
-          icon='/icons/add.svg'
+          icon='add'
+          width={20}
+          height={20}
           className='border border-raisin-10 h-8 px-4'
           onClick={() => console.log('CLICK')}
         />
@@ -22,8 +24,8 @@ const CardsAndTransactions = () => {
       <div className='flex justify-between items-center my-7'>
         <Typography type='h3'>ჩემი შეკვეთები</Typography>
         <div className='flex gap-4 md:gap-8'>
-          <IconTextButton label={width > 779 ? 'ფილტრი' : ''} icon={'/icons/filters.svg'} />
-          <IconTextButton label={width > 779 ? 'ძებნა' : ''} icon={'/icons/sort.svg'} />
+          <IconTextButton label={width > 779 ? 'ფილტრი' : ''} icon='filters' width={22} height={20} />
+          <IconTextButton label={width > 779 ? 'ძებნა' : ''} icon='sort' width={20} height={12} />
         </div>
       </div>
       <div>

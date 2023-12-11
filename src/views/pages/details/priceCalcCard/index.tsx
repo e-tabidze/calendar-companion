@@ -8,7 +8,7 @@ interface Props {
   days: number | null | undefined
   className?: string
   onClick: () => void
-  handleDateChange: () => void
+  handleDateChange?: () => void
 }
 
 const PriceCalcCard: React.FC<Props> = ({ price, dates, days, className, onClick, handleDateChange }) => {

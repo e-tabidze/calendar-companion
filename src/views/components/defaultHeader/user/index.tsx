@@ -1,5 +1,4 @@
 import { RentBtn, FavoriteBtn, UserContainer } from './styles'
-import Image from '../../image'
 import Typography from '../../typography'
 import Avatar from '../avatar'
 import Notification from '../notification'
@@ -20,7 +19,7 @@ const User = () => {
     <UserContainer>
       {activeCompany && isAuthenticated && (
         <RentBtn className='hidden md:flex' onClick={() => router.push('/dashboard/new-product/')}>
-          <Image src={'/icons/plus.svg'} alt='img' />
+          <Icon svgPath='plus' width={16} height={16} />
           <Typography
             type='button'
             weight='normal'

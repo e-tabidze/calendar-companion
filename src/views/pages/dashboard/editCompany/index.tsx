@@ -12,6 +12,7 @@ import DeleteAddressConfirmationModal from '../../../components/deleteAddressCon
 import DeleteCompanyConfirmationModal from 'src/views/components/deleteCompanyConfirmationModal'
 import useEditCompany from './useEditCompany'
 import { Controller, useWatch } from 'react-hook-form'
+import Icon from "src/views/app/Icon";
 
 const EditCompany = () => {
   const [deleteAddresseModal, setDeleteAddressModal] = useState(false)
@@ -118,20 +119,20 @@ const EditCompany = () => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className='md:border md:border-raisin-10 md:rounded-3xl md:p-8'>
-        <div className='flex gap-6 items-center mb-10'>
+        <div className='w-24 h-24 flex gap-6 items-center mb-10 border border-raisin-10 rounded-3xl relative overflow-hidden'>
           <Image
             src={formState?.company_information?.logo || companyInfo?.information?.logo || ''}
             width={96}
             height={96}
             alt={formState?.company_information?.name || ''}
-            className='border border-raisin-10 rounded-3xl'
+            className='object-cover w-full h-full'
           />
           <div>
             <div className='flex items-center gap-4'>
               <Typography type='h3' className='font-bold'>
                 {companyInfo?.information?.name}
               </Typography>
-              <Image src='/icons/warning.svg' height={20} width={20} alt='' />
+              <Icon svgPath='warning' width={20} height={20} />
               <Typography type='subtitle' className='hidden md:flex text-raisin-100 bg-yellow-10 p-2 rounded-2xl'>
                 არავერიფიცირებული
               </Typography>
@@ -198,11 +199,11 @@ const EditCompany = () => {
             <AddressAndSchedule index={index} control={control} address={address} errors={errors} />
             <div className='w-full flex justify-end pr-8'>
               <IconTextButton
-                icon='/icons/clear.svg'
+                icon='clear'
                 type='button'
                 label='წაშლა'
-                width={16}
-                height={16}
+                width={24}
+                height={24}
                 onClick={() => {
                   setIndex(index)
                   toggleDeleteAddressModal()
@@ -215,7 +216,9 @@ const EditCompany = () => {
 
         <IconTextButton
           label='მისამართის დამატება'
-          icon='/icons/add.svg'
+          icon='add'
+          width={20}
+          height={20}
           className='ml-4'
           onClick={() => {
             appendAddress(defaultEmptyAddress)
@@ -248,7 +251,9 @@ const EditCompany = () => {
           <DefaultButton text='შენახვა' bg='bg-orange-100' textColor='text-white' type='submit' />
           <IconTextButton
             label='კომპანიის წაშლა'
-            icon='/icons/trash.svg'
+            icon='trash'
+            width={20}
+            height={21}
             className='text-orange-130'
             onClick={toggleDeleteCompanyModal}
           />

@@ -1,8 +1,8 @@
 import React from 'react'
-import Image from 'next/image'
 import { Controller } from 'react-hook-form'
 import Select, { ClearIndicatorProps, components, DropdownIndicatorProps, GroupBase } from 'react-select'
 import _ from 'lodash'
+import Icon from "src/views/app/Icon";
 
 const customStyles = {
   indicatorSeparator: () => ({
@@ -148,7 +148,7 @@ const SelectField: React.FC<Props> = ({
               emoji={
                 icon && (
                   <div className='ml-4'>
-                    <Image src='/icons/clock.svg' alt='' height={18} width={18} />
+                    <Icon svgPath='clock' width={18} height={18} />
                   </div>
                 )
               }

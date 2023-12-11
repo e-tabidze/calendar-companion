@@ -41,7 +41,7 @@ const CancelOrderDialog: React.FC<Props> = ({ open, toggleModal, handleCancelOrd
                   <Dialog.Title as='h3' className='text-2md text-base-100 leading-6'>
                     ნამდვილად გსურთ ჯავშნის გაუქმება?
                   </Dialog.Title>
-                  <Icon svgPath='close.svg' onClick={toggleModal} height={40} width={40} />
+                  <Icon svgPath='close' onClick={toggleModal} height={40} width={40} />
                 </div>
 
                 <div className='w-full flex flex-col md:flex-row md:items-center justify-between py-4 px-4 md:px-10 border-t-1 border-grey-90'>
@@ -56,7 +56,9 @@ const CancelOrderDialog: React.FC<Props> = ({ open, toggleModal, handleCancelOrd
                   <IconTextButton
                     label='გაუქმება'
                     className='text-red-120'
-                    icon='/icons/clear.svg'
+                    icon='clear'
+                    width={16}
+                    height={16}
                     type='submit'
                     onClick={() => {
                       handleCancelOrder()

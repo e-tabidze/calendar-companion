@@ -1,5 +1,5 @@
-import Image from 'next/image'
 import Typography from 'src/views/components/typography'
+import Icon from "src/views/app/Icon";
 
 interface Props {
   border: string
@@ -15,8 +15,8 @@ const SumUp: React.FC<Props> = ({ border, bg, icon, sum, description }) => {
       className={`${bg} border ${border} rounded-3xl  gap-4 p-7`}
     >
       <div className='flex items-center'>
-        <Image src={icon} alt='' height={20} width={30} className='max-w-sm' />
-        <Typography type='h3' className='font-bold text-smlg md:text-2xl ml-6'>
+        <Icon svgPath={icon} height={24} width={24} className='max-w-sm' />
+        <Typography type='h3' className='font-bold text-2lg md:text-2xl ml-6'>
           {sum}
         </Typography>
       </div>

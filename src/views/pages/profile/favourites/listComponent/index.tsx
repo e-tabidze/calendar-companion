@@ -2,9 +2,9 @@ import Image from 'next/image'
 import useFavourites from 'src/hooks/useFavourites'
 import useWindowDimensions from 'src/hooks/useWindowDimensions'
 import { IconButton } from 'src/views/components/button'
-import Divider from 'src/views/components/divider'
 import Typography from 'src/views/components/typography'
 import { Details, DetailsWrapper, InnerDetailsContainer, PreviousPrice, PriceContainer } from './styles'
+import Icon from "src/views/app/Icon";
 
 interface Props {
   productId: string | number
@@ -30,8 +30,8 @@ const ListComponent: React.FC<Props> = ({ productId, manufacturer, model, year, 
   }
 
   return (
-    <>
-      <div className='flex flex-col sm:flex-row gap-6 w-full sm:my-5 border border-raisin-10 my-2 sm:my-none rounded-2xl sm:rounded-none p-4 sm:p-none sm:border-none'>
+
+      <div className='flex flex-col sm:flex-row gap-6 w-full sm:my-5 border border-raisin-10 my-2 sm:my-none rounded-2xl sm:rounded-none p-4 sm:p-none sm:border-none last:border-none'>
         <div className=''>
           <Image
             src='/images/car.png'
@@ -47,7 +47,7 @@ const ListComponent: React.FC<Props> = ({ productId, manufacturer, model, year, 
               {manufacturer} {model} {year}
             </Typography>
             <div className='flex gap-2 items-center mt-1'>
-              <Image src='/icons/star.svg' alt='' height={16} width={16} />
+              <Icon svgPath='star' width={16} height={16}/>
               <Typography type='subtitle'>{city}</Typography>
               <div className='h-[5px] w-px bg-raisin-10' />
               <Typography type='body' color='light'>
@@ -69,16 +69,16 @@ const ListComponent: React.FC<Props> = ({ productId, manufacturer, model, year, 
             <InnerDetailsContainer>
               <DetailsWrapper>
                 <Details>
-                  <Image src='/icons/views.svg' alt='' width={20} height={20} /> <span></span>
+                  <Icon svgPath='views' width={20} height={20} className='fill-transparent' /> <span></span>
                 </Details>
                 <Details>
-                  <Image src='/icons/briefcase.svg' alt='' width={20} height={20} /> <span></span>
+                  <Icon svgPath='briefcase' width={20} height={20} className='fill-transparent' /> <span></span>
                 </Details>
               </DetailsWrapper>
             </InnerDetailsContainer>
           </div>
           <IconButton
-            icon='/icons/favIconActive.svg'
+            icon='favIconActive'
             height={13}
             width={14}
             className='absolute right-0 top-0 bg-red-10 w-8 !h-8 justify-center'
@@ -87,8 +87,6 @@ const ListComponent: React.FC<Props> = ({ productId, manufacturer, model, year, 
           />
         </div>
       </div>
-      {width > 640 && <Divider />}
-    </>
   )
 }
 

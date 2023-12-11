@@ -4,7 +4,6 @@ import { Divider, ExtraFiltersContainer, FiltersContainer } from './styles'
 import PeriodDropdown from './periodDropdown'
 import { useRouter } from 'next/router'
 import useSearch from 'src/hooks/useSearch'
-import { useEffect } from 'react'
 
 const Filters = () => {
   const router = useRouter()

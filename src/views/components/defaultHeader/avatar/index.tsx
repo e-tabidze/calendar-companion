@@ -8,6 +8,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import Link from 'next/link'
 import Cookie from 'src/helpers/Cookie'
 import { dashboardRoutes, profileRoutes } from 'src/utils/routes'
+import Icon from 'src/views/app/Icon'
 
 const Avatar = () => {
   const [active, setActive] = useState(false)
@@ -43,7 +44,7 @@ const Avatar = () => {
     Cookie.remove('AccessToken')
   }
 
-  const routeClass = `px-6 flex whitespace-nowrap text-md text-[#272A37] py-2 hover:bg-grey-100 transition-all`
+  const routeClass = `px-6 flex whitespace-nowrap text-md text-raisin-100 py-2 hover:bg-grey-100 transition-all`
 
   return (
     <Menu as='div' className='relative text-left hidden md:flex'>
@@ -52,7 +53,7 @@ const Avatar = () => {
           <AvatarInnerContainer>
             <Image
               src={!!activeCompany ? activeCompany.information.logo : userInfo?.information?.profile_pic}
-              className='rounded-full'
+              className='object-cover w-full h-full'
               alt='avatar'
             />
           </AvatarInnerContainer>
@@ -60,7 +61,7 @@ const Avatar = () => {
             <Typography type='subtitle'>
               {!!activeCompany ? activeCompany.information.name : userInfo?.information?.first_name}
             </Typography>
-            <Image src='/icons/chevron.svg' alt='img' className='flex ml-2 transition-all' />
+            <Icon svgPath='chevron' width={8} height={6} className='fill-transparent flex ml-2 transition-all'/>
           </AvatarResponsiveContainer>
         </AvatarContainer>
       </Menu.Button>
@@ -73,13 +74,13 @@ const Avatar = () => {
         leaveFrom='transform opacity-100 scale-100'
         leaveTo='transform opacity-0 scale-95'
       >
-        <Menu.Items className='w-[280px] absolute z-2 top-full mt-5 right-0 bg-[#ffffff] rounded-2xl border border-raisin-10 shadow-[0px_6px_18px_#000000/10]'>
+        <Menu.Items className='w-[280px] absolute z-2 top-full mt-5 right-0 bg-white rounded-2xl border border-raisin-10 shadow-[0px_6px_18px_#000000/10]'>
           <div className='overflow-hidden rounded-2xl'>
             {active ? (
               <>
                 <div className='border-b-1 border-raisin-10'>
                   <button className='cursor-pointer flex items-center w-full text-sm p-4' onClick={handleSetActive}>
-                    <Image src='/icons/chevron-left.svg' alt='chevron' className='flex mr-4' />
+                    <Icon svgPath='chevron-left' width={20} height={20} className='fill-transparent flex mr-4' />
                     დაბრუნება
                   </button>
                 </div>
@@ -90,7 +91,7 @@ const Avatar = () => {
                         <div className='cursor-pointer px-4 py-3 hover:bg-grey-100 flex items-center justify-between'>
                           <div className='flex items-center text-2sm'>
                             <span className='w-10 h-10 mr-4 relative flex items-center justify-center rounded-full overflow-hidden'>
-                              <Image src={company?.information?.logo || ''} className='rounded-full' alt='avatar' />
+                              <Image src={company?.information?.logo || ''} className='object-cover w-full h-full' alt='avatar' />
                             </span>
                             <div className='flex flex-col'>
                               <span className='text-2sm overflow-hidden text-ellipsis whitespace-nowrap max-w-[140px] inline-block'>
@@ -115,7 +116,7 @@ const Avatar = () => {
                     <div className='cursor-pointer px-4 py-3 hover:bg-grey-100 flex items-center justify-between'>
                       <div className='flex items-center text-2sm'>
                         <span className='w-10 h-10 mr-4 relative flex items-center justify-center rounded-full overflow-hidden'>
-                          <Image src={userInfo?.information?.profile_pic} className='rounded-full' alt='avatar' />
+                          <Image src={userInfo?.information?.profile_pic} className='object-cover w-full h-full' alt='avatar' />
                         </span>
                         <div className='flex flex-col'>
                           <span className='text-2sm overflow-hidden text-ellipsis whitespace-nowrap max-w-[140px] inline-block'>
@@ -143,20 +144,20 @@ const Avatar = () => {
                       <Image src={userInfo?.information?.profile_pic} className='rounded-full' alt='avatar' />
                     </span>
                     <div className='flex flex-col'>
-                      <span className='text-2sm text-[#272A37] overflow-hidden text-ellipsis whitespace-nowrap max-w-[150px] inline-block'>
+                      <span className='text-2sm text-raisin-100 overflow-hidden text-ellipsis whitespace-nowrap max-w-[150px] inline-block'>
                         {userInfo?.Email}
                       </span>
-                      <span className='flex text-2sm text-[#272A37]'>ID: {userInfo?.active_profile_id}</span>
+                      <span className='flex text-2sm text-raisin-100'>ID: {userInfo?.active_profile_id}</span>
                     </div>
                   </div>
 
                   {/*<button className='cursor-pointer shrink-0 flex' onClick={handleSetActive}>*/}
-                  {/*  <Image src='/icons/chevron-right.svg' alt='chevron' />*/}
+                  {/*<Icon svgPath='chevron-right' width={20} height={20} className="fill-transparent" />*/}
                   {/*</button>*/}
                 </div>
                 <div className='py-8px'>
                   <button
-                    className='mt-2 px-6 flex w-full whitespace-nowrap text-md text-[#272A37] py-2 hover:bg-grey-100 transition-all'
+                    className='mt-2 px-6 flex w-full whitespace-nowrap text-md text-raisin-100 py-2 hover:bg-grey-100 transition-all'
                     onClick={handleSetActive}
                   >
                     Switch Account

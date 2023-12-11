@@ -36,6 +36,7 @@ import { Controller } from 'react-hook-form'
 import { formatDate } from 'src/utils/formatDate'
 import useSingleProductDetails from '../../views/pages/details/useSingleProductDetails'
 import useMain from 'src/views/pages/main/useMain'
+import Icon from "src/views/app/Icon";
 
 const SimilarProducts = dynamic(() => import('src/views/pages/details/similarProducts'), { ssr: true })
 
@@ -230,7 +231,7 @@ const ProductDetails = () => {
                     ან მსგავსი
                   </Typography>
                   <Typography type='subtitle'>| </Typography>
-                  <Image src='/icons/locationOutline.svg' width={24} height={24} alt='' />
+                  <Icon svgPath='locationOutline' width={24} height={24} className='fill-transparent' />
                   <Typography type='subtitle'>{singleProductDetails?.start_address}</Typography>
                 </div>
                 <Typography type='subtitle'>{singleProductDetails?.additional_information}</Typography>
@@ -296,7 +297,7 @@ const ProductDetails = () => {
                     )}
                   </div>
                   <div className='hidden lg:flex gap-4 cursor-pointer '>
-                    <Image src='/icons/rotate.svg' alt='' />
+                    <Icon svgPath='rotate' width={20} height={22} className='fill-transparent'/>
                     <Typography
                       type='body'
                       color='light'
@@ -359,7 +360,7 @@ const ProductDetails = () => {
                   ადგილმდებარეობა
                 </Typography>
                 <div className='flex gap-4 items-center mt-10 mb-6'>
-                  <Image src='/icons/locationOutline.svg' alt='' />
+                  <Icon svgPath='locationOutline' width={24} height={24} className='fill-transparent'/>
                   <Typography type='h5' weight='normal'>
                     {singleProductDetails?.start_address}
                   </Typography>

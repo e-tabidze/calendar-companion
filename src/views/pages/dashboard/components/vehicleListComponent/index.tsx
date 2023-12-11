@@ -7,6 +7,7 @@ import Typography from 'src/views/components/typography'
 import DeleteProductConfirmationModal from '../../products/deleteProductModal'
 import useProducts from '../../products/useProducts'
 import Action from './action'
+import Icon from "src/views/app/Icon";
 
 interface Props {
   price: number
@@ -101,7 +102,7 @@ const VehicleListComponent: React.FC<Props> = ({ price, startCity, prodYear, mod
             <Action bg='bg-raisin-10' label='წაშლა' icon='trash' onClick={toggleDeleteProductModal} />
           </div>
         </div>
-        <Image src='/icons/more.svg' alt='' height={13} width={3} className='absolute right-5 top-5 md:hidden' />
+        <Icon svgPath='more' width={4} height={14} className='absolute right-5 top-5 md:hidden'/>
       </div>
       <DeleteProductConfirmationModal
         open={deleteProductModal}

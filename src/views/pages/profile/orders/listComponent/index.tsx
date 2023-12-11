@@ -28,7 +28,7 @@ const ListComponent: React.FC<Props> = ({ toggleDetails }) => {
               აქტიური
             </Typography>
           </div>
-          {width > 779 && <IconButton icon='/icons/chevronWithBg.svg' height={38} width={38} onClick={toggleDetails} />}
+          {width > 779 && <IconButton icon='chevronWithBg' height={38} width={38} onClick={toggleDetails} />}
         </div>
       </div>
       <Divider />

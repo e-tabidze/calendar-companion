@@ -1,9 +1,9 @@
 import { Fragment } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
-import Image from 'next/image'
 import Typography from 'src/views/components/typography'
 import Divider from 'src/views/components/divider'
 import { DefaultButton } from 'src/views/components/button'
+import Icon from "src/views/app/Icon";
 
 interface Props {
   open: boolean
@@ -40,7 +40,7 @@ const CancelOrderDialog: React.FC<Props> = ({ open, close, handleCancel }) => {
             >
               <div className='bg-white rounded-lg max-w-lg mx-auto'>
                 <div className='p-6'>
-                  <Image src='/icons/cancelOrder.svg' width={54} height={54} alt='' className='m-auto pb-6' />
+                  <Icon svgPath='cancelOrder' width={64} height={64} className='fill-transparent m-auto pb-6' />
                   <Typography type='h5'>ნამდვილად გსურთ ჯავშნის გაუქმება?</Typography>
                 </div>
 

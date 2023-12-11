@@ -78,7 +78,7 @@ const EditScheduleModal: React.FC<Props> = ({ open, onClose, control, address, i
               <Dialog.Panel className='w-full max-w-[900px] transform overflow-hidden rounded-2xl bg-white text-left align-middle shadow-xl transition-all'>
                 <Dialog.Title as='h3' className='w-full flex items-center justify-between px-10 py-6'>
                   საათების რედაქტირება
-                  <IconButton icon='/icons/close.svg' onClick={onClose} width={40} height={40} />
+                  <IconButton icon='close' onClick={onClose} width={40} height={40} />
                 </Dialog.Title>
                 <Divider />
                 <div className='mb-20'>

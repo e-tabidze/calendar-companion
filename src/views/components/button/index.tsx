@@ -1,5 +1,5 @@
-import Image from 'next/image'
 import React from 'react'
+import Icon from "src/views/app/Icon";
 
 export const DefaultButton = ({ text, onClick, bg, className, textColor, type, disabled }: any) => {
   return (
@@ -47,23 +47,23 @@ export const IconButton = ({
       type={type}
       onClick={onClick}
       ref={innerRef}
-      className={`flex shrink-0 group items-center cursor-pointer ${bg ? 'p-4 xl:p-5' : ''} rounded-2xl w-8 h-8 ${
-        bg ? `bg-${bg}` : ''
-      } ${className}`}
+      className={`flex shrink-0 group items-center cursor-pointer ${
+        bg ? 'p-4 xl:p-5' : ''
+      } rounded-2xl ${bg ? `bg-${bg}` : ''} ${className}`}
     >
-      <Image src={icon} height={height} width={width} alt='' className={`group-disabled:opacity-30 !max-w-none `} />
+      <Icon svgPath={icon} height={height} width={width} className={`fill-transparent group-disabled:opacity-30 !max-w-none `} />
     </button>
   )
 }
 
-export const IconTextButton = ({ label, icon, bg, className, onClick, labelClassname, type }: any) => {
+export const IconTextButton = ({ label, icon, width, height,  bg, className, onClick, labelClassname, type }: any) => {
   return (
     <button
       className={`flex items-center focus:outline-none rounded-2xl ${bg} ${bg ? 'p-4' : ''} ${className}`}
       onClick={onClick}
       type={type}
     >
-      <img src={icon} className='max-w-none' alt='img' />
+      <Icon svgPath={icon} width={width} height={height} className='fill-transparent' />
       <span className={`${labelClassname} text-2sm ml-4`}>{label}</span>
     </button>
   )

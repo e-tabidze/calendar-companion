@@ -48,7 +48,9 @@ const Filters = () => {
         <ExtraFiltersContainer>
           <IconTextButton
             label={'დამატებითი ფილტრი'}
-            icon={'/icons/filters.svg'}
+            icon='filters'
+            width={22}
+            height={20}
             bg='white'
             labelClassname='text-xs text-base-100 text-left md:hidden'
             className='mr-4'
@@ -57,7 +59,9 @@ const Filters = () => {
           />
           <IconTextButton
             label={'ძებნა'}
-            icon={'/icons/search.svg'}
+            icon='search'
+            width={20}
+            height={20}
             bg='bg-red-100'
             labelClassname='text-2sm text-white md:hidden'
             onClick={onClickSearch}

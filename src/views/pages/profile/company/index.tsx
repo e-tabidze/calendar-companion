@@ -84,8 +84,8 @@ const Company: React.FC<Props> = ({ id, name, productsCount, logo }) => {
       <div className='md:border border-raisin-10 rounded-3xl mx-4 lg:mx-0'>
         <div className='p-2 md:p-6'>
           <div className='flex items-center gap-6 md:mb-10'>
-            <div className='flex items-center justify-center border border-raisin-10 rounded-2xl md:rounded-3xl w-[76px] h-[76px] md:w-24 md:h-24'>
-              <Image src={logo || ''} alt='' height={96} width={97} className='rounded-3xl' />
+            <div className='flex items-center justify-center border border-raisin-10 relative overflow-hidden rounded-2xl md:rounded-3xl w-[76px] h-[76px] md:w-24 md:h-24'>
+              <Image src={logo || ''} alt='' height={96} width={97} className='object-cover w-full h-full' />
             </div>
             <div>
               <Typography type='h3' className='font-bold text-3md md:text-2lg'>
@@ -138,10 +138,10 @@ const Company: React.FC<Props> = ({ id, name, productsCount, logo }) => {
               <AddressAndSchedule index={index} control={control} address={address} errors={errors} />
               <div className='w-full flex justify-end pr-8'>
                 <IconTextButton
-                  icon='/icons/clear.svg'
+                  icon='clear'
                   label='წაშლა'
-                  width={16}
-                  height={16}
+                  width={24}
+                  height={24}
                   onClick={() => {
                     setIndex(index)
                     toggleDeleteAddressModal()
@@ -154,7 +154,9 @@ const Company: React.FC<Props> = ({ id, name, productsCount, logo }) => {
 
           <IconTextButton
             label='მისამართის დამატება'
-            icon='/icons/add.svg'
+            icon='add'
+            width={20}
+            height={20}
             className='ml-4'
             onClick={() => {
               appendAddress(defaultEmptyAddress)
@@ -187,7 +189,9 @@ const Company: React.FC<Props> = ({ id, name, productsCount, logo }) => {
           <DefaultButton text='შენახვა' bg='bg-orange-100' textColor='text-white' type='submit' />
           <IconTextButton
             label='კომპანიის წაშლა'
-            icon='/icons/trash.svg'
+            width={20}
+            height={21}
+            icon='trash'
             className='text-orange-130'
             onClick={toggleDeleteCompanyModal}
           />

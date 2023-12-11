@@ -1,5 +1,5 @@
 import { Menu, Transition } from '@headlessui/react'
-import { Fragment, useEffect, useState } from 'react'
+import { Fragment, useState } from 'react'
 import Typography from 'src/views/components/typography'
 import { FilterContainer, InnerFilterContainer } from './styles'
 import DatePicker from 'react-datepicker'
@@ -7,7 +7,6 @@ import 'react-datepicker/dist/react-datepicker.css'
 import { Controller } from 'react-hook-form'
 import { formatDate } from 'src/utils/formatDate'
 import Icon from 'src/views/app/Icon'
-import { useRouter } from 'next/navigation'
 
 interface Props {
   control: any
@@ -47,6 +46,8 @@ const PeriodDropwodn: React.FC<Props> = ({ control, resetField, setValue }) => {
   //     setValue('booking.book_to', book_to)
   //   }
   // }, [book_from, book_to])
+
+  console.log(setValue)
 
   return (
     <Menu as='div' className='flex text-left mx-2 w-full'>

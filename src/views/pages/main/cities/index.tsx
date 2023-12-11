@@ -1,6 +1,5 @@
 import { useRouter } from 'next/router'
 import { DefaultButton } from 'src/views/components/button'
-import Image from 'src/views/components/image'
 import Typography from 'src/views/components/typography'
 import useSearchLocations from '../filters/locationDropdown/useSearchLocations'
 import BenefitsCard from './benefitsCard'
@@ -15,6 +14,7 @@ import {
   Divider,
   ViewAllCitiesContainer
 } from './styles'
+import Icon from "src/views/app/Icon";
 
 const Cities = () => {
   const { cities } = useSearchLocations()
@@ -26,7 +26,7 @@ const Cities = () => {
       <CitiesInnerContainer>
         <CitiesListContainer>
           <ViewAllCitiesContainer>
-            <Image src='/icons/location.svg' className='hidden sm:inline-flex' alt='img' />
+            <Icon svgPath='location' width={28} height={36} className='shrink-0 hidden sm:inline-flex'/>
             <Container>
               <Typography type='h3' className='text-3md lg:text-[30px] mb-8'>
                 ავტომობილები ტოპ ქალაქების მიხედვით
@@ -58,17 +58,23 @@ const Cities = () => {
         <Divider />
         <BenefitsContainer>
           <BenefitsCard
-            src='/icons/timeStart.svg'
+            icon='timeStart'
+            width={64}
+            height={64}
             title='უსაფრთხოება'
             bodyText='ცნობილი ფაქტია, რომ გვერდის წაკითხვად შიგთავსს შეუძლია მკითხველის ყურადღება მიიზიდოს და დიზაინის აღქმაში ხელი შეუშალოს. Lorem Ipsum-ის გამოყენებით ვღებულობთ იმაზე'
           />
           <BenefitsCard
-            src='/icons/timeStart.svg'
+              icon='timeStart'
+              width={64}
+              height={64}
             title='უსაფრთხოება'
             bodyText='ცნობილი ფაქტია, რომ გვერდის წაკითხვად შიგთავსს შეუძლია მკითხველის ყურადღება მიიზიდოს და დიზაინის აღქმაში ხელი შეუშალოს. Lorem Ipsum-ის გამოყენებით ვღებულობთ იმაზე'
           />
           <BenefitsCard
-            src='/icons/timeStart.svg'
+              icon='timeStart'
+              width={64}
+              height={64}
             title='უსაფრთხოება'
             bodyText='ცნობილი ფაქტია, რომ გვერდის წაკითხვად შიგთავსს შეუძლია მკითხველის ყურადღება მიიზიდოს და დიზაინის აღქმაში ხელი შეუშალოს. Lorem Ipsum-ის გამოყენებით ვღებულობთ იმაზე'
           />
