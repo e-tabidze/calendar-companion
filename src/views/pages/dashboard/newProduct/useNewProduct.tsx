@@ -6,9 +6,11 @@ import { NewProductSchema } from 'src/@core/validation/newProductSchema'
 import useProductInfo from '../useProductInfo'
 import { useEffect } from 'react'
 import StaticService from 'src/services/StaticService'
+import useProfile from 'src/hooks/useProfile'
 
 const useNewProduct = () => {
   const { companyServices } = useProductInfo()
+  const { activeCompanyId } = useProfile()
 
   const services = companyServices?.map((service: any) => ({
     id: service.id,
@@ -25,7 +27,7 @@ const useNewProduct = () => {
   }
 
   const newProductDefaultValues = {
-    company_id: 161,
+    company_id: activeCompanyId,
     vin: '',
     plate: '',
     man_id: '',
@@ -37,7 +39,7 @@ const useNewProduct = () => {
     },
     additional_information: '',
     use_instruction: '',
-    product_images: [],
+    images: [],
     category_id: '',
     fuel_type_id: '',
     seat_type_id: '',
@@ -61,7 +63,6 @@ const useNewProduct = () => {
       time_span: 1
     },
     preparation_period: '',
-
     start_city: '',
     start_address: '',
     end_city: '',
@@ -72,7 +73,10 @@ const useNewProduct = () => {
     if (companyServices) {
       setValue('company_services', services)
     }
-  }, [companyServices])
+    if (activeCompanyId) {
+      setValue('company_id', activeCompanyId)
+    }
+  }, [companyServices, activeCompanyId])
 
   const {
     control,
@@ -134,14 +138,14 @@ const useNewProduct = () => {
     removeDiscountItem,
     createNewProduct,
     isValid,
-    postUploadProductImages
+    postUploadProductImages,
+    postSaveProductImages
   }
 }
 
 export default useNewProduct
 
-const postUploadProductImages = async (Files, count, userId) => {
-  console.log( Files, count, userId, 'body')
+const postUploadProductImages = async ({ Files, count, userId }: any) => {
   try {
     const response: any = await StaticService.postUploadProductImages('', Files, count, userId)
 
@@ -152,9 +156,9 @@ const postUploadProductImages = async (Files, count, userId) => {
   }
 }
 
-const saveCompanyLogo = async (AccessToken: string, Logo: any, companyId: number | string) => {
+const postSaveProductImages = async (FilesList: string[], productId: number | string) => {
   try {
-    const response: any = await StaticService.postSaveCompanyLogo(AccessToken, Logo, companyId)
+    const response: any = await StaticService.postSaveProductImages('', FilesList, productId)
 
     return response.data
   } catch (error) {

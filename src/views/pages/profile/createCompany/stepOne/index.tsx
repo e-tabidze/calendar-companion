@@ -77,19 +77,16 @@ const StepOne: React.FC<Props> = ({ control, errors, clearErrors, setValue }) =>
         name='company_information.logo'
         control={control}
         render={({ field: { value, onChange } }) => (
-          <>
-            {console.log(value, 'value')}
-            <FileUpload
-              title='კომპანიის ლოგო'
-              description='(მაქს. ზომა 10 მბ, JPG, PNG, SVG)'
-              handleDelete={handleRemoveFile}
-              value={value}
-              onChange={(e: any) => {
-                onChange()
-                handleFileUpload(e.target.files[0])
-              }}
-            />
-          </>
+          <FileUpload
+            title='კომპანიის ლოგო'
+            description='(მაქს. ზომა 10 მბ, JPG, PNG, SVG)'
+            handleDelete={handleRemoveFile}
+            value={value}
+            onChange={(e: any) => {
+              onChange()
+              handleFileUpload(e.target.files[0])
+            }}
+          />
         )}
       />
 

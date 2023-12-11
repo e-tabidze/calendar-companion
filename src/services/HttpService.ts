@@ -18,8 +18,13 @@ class HttpService {
     if (data?.File || data?.Func) {
       const formData = new FormData()
       Object.entries(dataMerged).forEach(([key, value]) => {
-        // @ts-ignore
-        formData.append(key, value)
+        if (typeof value == 'object') {
+          for (const val of value) {
+            formData.append(key, val)
+          }
+        } else {
+          formData.append(key, value)
+        }
       })
       dataMerged = formData
     }

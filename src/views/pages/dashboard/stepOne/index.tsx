@@ -6,7 +6,7 @@ import ImagesInput from './imagesInput'
 import { useEffect } from 'react'
 import useProductInfo, { getManufacturerModels } from '../useProductInfo'
 import useNewProduct from '../newProduct/useNewProduct'
-import { Controller } from 'react-hook-form'
+import { Controller, useWatch } from 'react-hook-form'
 import { generateYearsArray } from 'src/utils/years'
 
 interface Props {
@@ -43,20 +43,41 @@ const StepOne: React.FC<Props> = ({ control, productValues, errors, setValue }) 
     }
   })
 
+  // const handleFileUpload = async (files: any, count: number, userId: number = 4111619) => {
+  //   try {
+  //     await uploadProductImagesMutation.mutateAsync({ Files: files, count, userId })
+  //   } catch (error) {
+  //     console.error('Error uploading file:', error)
+  //   }
+  // }
+
   const handleFileUpload = async (files: any, count: number, userId: number = 4111619) => {
-    console.log(files, 'Files', count, 'count <=======')
     try {
-      await uploadProductImagesMutation.mutateAsync(files, count, userId)
+      await uploadProductImagesMutation.mutateAsync({
+        Files: Array.from(files),
+        count,
+        userId
+      })
+      // const uploadedFiles = uploadProductImagesMutation.data?.Data?.FilesList || []
+      // console.log(uploadedFiles, 'uploadedFiles')
+      // setValue('images', uploadedFiles)
     } catch (error) {
       console.error('Error uploading file:', error)
     }
   }
 
-  console.log(uploadProductImagesMutation.data, 'uploadProductImagesMutation.data')
+  console.log(uploadProductImagesMutation.data?.Data?.FilesList, 'uploadProductImagesMutation.data')
 
   useEffect(() => {
-    setValue('product_images', uploadProductImagesMutation.data)
-  }, [uploadProductImagesMutation.data])
+    const uploadedFiles = uploadProductImagesMutation.data?.Data?.FilesList || []
+    console.log(uploadedFiles, 'uploadedFiles')
+    setValue('images', uploadedFiles)
+
+  }, [uploadProductImagesMutation.data?.Data?.FilesList, setValue])
+
+  const formState = useWatch({ control })
+
+  console.log(formState, 'formState')
 
   return (
     <div>
@@ -115,7 +136,7 @@ const StepOne: React.FC<Props> = ({ control, productValues, errors, setValue }) 
       <div className='flex flex-wrap gap-2 mt-4'>
         {/* <ImagesInput label='ავტომობილის ფოტოები' infoText='(მაქს. ზომა 10 მბ, JPG, PNG, SVG)' icon bg='bg-green-10' /> */}
         <Controller
-          name='product_images'
+          name='images'
           control={control}
           render={({ field: { onChange } }) => (
             <input
