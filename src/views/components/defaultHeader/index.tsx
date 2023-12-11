@@ -11,6 +11,7 @@ import { useEffect } from 'react'
 import { TNET_AUTH } from 'src/env'
 
 import dynamic from 'next/dynamic'
+
 const Filters = dynamic(() => import('src/views/pages/search/filters'), { ssr: false })
 
 const DefaultHeader = () => {

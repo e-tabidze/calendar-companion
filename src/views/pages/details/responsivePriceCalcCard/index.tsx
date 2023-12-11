@@ -6,7 +6,7 @@ import Icon from "src/views/app/Icon";
 interface Props {
   toggleDrawer: () => void
   bookingModal?: boolean
-  price: string
+  price: string | number
 }
 
 const ResponsivePriceCalcCard: React.FC<Props> = ({ toggleDrawer, bookingModal, price }) => {

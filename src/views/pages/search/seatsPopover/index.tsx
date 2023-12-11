@@ -30,15 +30,10 @@ const SeatsPopover: React.FC<Props> = ({ control, appendSeatType, handleSubmit, 
         <IconButton
           icon='rotate'
           text='გასუფთავება'
-<<<<<<< HEAD
-          width={16}
-          height={16}
-=======
           hasBg={false}
           className='fill-transparent'
           width={20}
           height={22}
->>>>>>> 06b78d3795b9880a6c2d93643051bf093504bc77
           onClick={() => reset('seat_types')}
         />
         <DefaultButton

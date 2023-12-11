@@ -2,7 +2,8 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { DefaultInput } from 'src/views/components/input'
 import SelectField from 'src/views/components/selectField'
 import TwoOptionSelector from 'src/views/components/twoOptionSelector'
-import ImagesInput from './imagesInput'
+
+// import ImagesInput from './imagesInput'
 import { useEffect } from 'react'
 import useProductInfo, { getManufacturerModels } from '../useProductInfo'
 import useNewProduct from '../newProduct/useNewProduct'
@@ -51,13 +52,14 @@ const StepOne: React.FC<Props> = ({ control, productValues, errors, setValue }) 
   //   }
   // }
 
-  const handleFileUpload = async (files: any, count: number, userId: number = 4111619) => {
+  const handleFileUpload = async (files: any, count: number, userId = 4111619) => {
     try {
       await uploadProductImagesMutation.mutateAsync({
         Files: Array.from(files),
         count,
         userId
       })
+
       // const uploadedFiles = uploadProductImagesMutation.data?.Data?.FilesList || []
       // console.log(uploadedFiles, 'uploadedFiles')
       // setValue('images', uploadedFiles)
@@ -134,6 +136,7 @@ const StepOne: React.FC<Props> = ({ control, productValues, errors, setValue }) 
         <DefaultInput name='use_instruction' control={control} errors={''} label='გამოყენების ინსტრუქცია' rows={4} />
       </div>
       <div className='flex flex-wrap gap-2 mt-4'>
+
         {/* <ImagesInput label='ავტომობილის ფოტოები' infoText='(მაქს. ზომა 10 მბ, JPG, PNG, SVG)' icon bg='bg-green-10' /> */}
         <Controller
           name='images'

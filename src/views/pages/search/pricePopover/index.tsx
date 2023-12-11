@@ -40,15 +40,10 @@ const PricePopover: React.FC<Props> = ({ control, handleSubmit, reset }) => {
         <IconButton
           icon='rotate'
           text='გასუფთავება'
-<<<<<<< HEAD
-          width={16}
-          height={16}
-=======
           hasBg={false}
           className='fill-transparent'
           width={20}
           height={22}
->>>>>>> 06b78d3795b9880a6c2d93643051bf093504bc77
           onClick={() => {
             reset('price_min')
             reset('price_max')

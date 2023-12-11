@@ -12,7 +12,7 @@ interface Props {
   height?: string;
   borderRadius?: string;
   className?: string;
-  markerCoordinates?: [number, number];
+  markerCoordinates?: [number, number] | any;
 }
 
 const MapPicker: React.FC<Props> = ({ className, width, height, borderRadius, markerCoordinates }) => {
