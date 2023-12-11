@@ -45,7 +45,7 @@ const StepThree: React.FC<Props> = ({ control, discountItems, appendDiscountItem
     <StepThreeContainer>
       <StepThreePriceContainer>
         <DefaultInput
-          label='დღიური ღირებულება'
+          label='დღიური ღირებულება*'
           control={control}
           name='daily_price.amount'
           errors={errors}

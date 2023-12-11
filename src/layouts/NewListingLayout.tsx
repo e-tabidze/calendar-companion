@@ -99,7 +99,7 @@ const NewListingLayout: React.FC<Props> = ({
             text={selectedOption.step === options.length ? submitLabel : 'შემდეგი'}
             textColor='text-white'
             onClick={selectedOption.step === options.length ? onSubmit : onNextStep}
-            disabled={disabled}
+            disabled={selectedOption.step === options.length && disabled}
           ></DefaultButton>
         </div>
       </div>

@@ -29,7 +29,7 @@ const StepSix: React.FC<Props> = ({ control, errors }) => {
   return (
     <div>
       <Typography type='h4' weight='normal' color='dark' className='mb-4'>
-        საიდან წაიყვანს მომხმარებელი მანქანას
+        საიდან წაიყვანს მომხმარებელი მანქანას*
       </Typography>
       <div className='grid gap-6 mb-10 mt-4 grid-cols-1 md:grid-cols-2'>
         <SelectField
@@ -54,7 +54,7 @@ const StepSix: React.FC<Props> = ({ control, errors }) => {
         />
       </div>
       <Typography type='h4' weight='normal' color='dark' className='mb-4'>
-        სად დააბრუნებს მომხმარებელი მანქანას
+        სად დააბრუნებს მომხმარებელი მანქანას*
       </Typography>
       <div className='grid gap-6 mb-10 mt-4 grid-cols-1 md:grid-cols-2'>
         <SelectField

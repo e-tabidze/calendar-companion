@@ -146,7 +146,7 @@ const NewProduct: React.FC = () => {
       onClose={handleClose}
       onSubmit={handleSubmit(onSubmit)}
       submitLabel='დამატება'
-      disabled={createNewProducteMutation.isLoading || !isValid}
+      disabled={createNewProducteMutation.isLoading}
     >
       <form>{renderStepComponent()}</form>
     </NewListingLayout>

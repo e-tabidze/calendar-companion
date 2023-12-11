@@ -59,7 +59,7 @@ const StepTwo: React.FC<Props> = ({ control, appendAdditionalParam, step, errors
       )}
 
       <Typography type='h4' color='dark' className='mt-14'>
-        საწვავის ტიპი
+        საწვავის ტიპი*
       </Typography>
       <div className='flex flex-wrap gap-3 my-6'>
         {isProductDetailsLoading ? (
@@ -76,7 +76,7 @@ const StepTwo: React.FC<Props> = ({ control, appendAdditionalParam, step, errors
         )}
       </div>
       <Typography type='h5' weight='normal' className=' mt-14'>
-        ადგილების რაოდენობა
+        ადგილების რაოდენობა*
       </Typography>
       <div className='flex flex-wrap gap-4 my-6'>
         {isProductDetailsLoading ? (
@@ -86,13 +86,13 @@ const StepTwo: React.FC<Props> = ({ control, appendAdditionalParam, step, errors
             name='seat_type_id'
             control={control}
             options={productDetails?.seat_types}
-            height='h-12'
+            height='h-10'
             errors={errors}
           />
         )}
       </div>
       <Typography type='h5' weight='normal' className=' mt-14'>
-        ჩემოდნების რაოდენობა
+        ჩემოდნების რაოდენობა*
       </Typography>
       <div className='flex flex-wrap gap-4 my-6'>
         <Tag name='luggage_numbers' control={control} options={suitcases} height='h-10' errors={errors} />
@@ -100,7 +100,7 @@ const StepTwo: React.FC<Props> = ({ control, appendAdditionalParam, step, errors
       <Divider />
       <div className='flex justify-between my-10 flex-col items-baseline md:items-center md:flex-row'>
         <Typography type='h5' weight='normal' className=' mb-4 md:mb-0'>
-          კარის რაოდენობა
+          კარის რაოდენობა*
         </Typography>
         <div className='flex w-max gap-2'>
           {isProductDetailsLoading ? (
@@ -122,7 +122,7 @@ const StepTwo: React.FC<Props> = ({ control, appendAdditionalParam, step, errors
 
       <div className='flex justify-between my-10 flex-col items-baseline md:items-center md:flex-row'>
         <Typography type='h5' weight='normal' className='mb-4 md:mb-0'>
-          წამყვანი საბურავები
+          წამყვანი საბურავები*
         </Typography>
         <div className='flex w-max gap-2'>
           {isProductDetailsLoading ? (
@@ -142,7 +142,7 @@ const StepTwo: React.FC<Props> = ({ control, appendAdditionalParam, step, errors
 
       <div className='flex justify-between my-10 flex-col items-baseline md:items-center md:flex-row'>
         <Typography type='h5' weight='normal' className='mb-4 md:mb-0'>
-          ტრანსმისია
+          ტრანსმისია*
         </Typography>
         <div className='flex w-max gap-2'>
           {isProductDetailsLoading ? (
