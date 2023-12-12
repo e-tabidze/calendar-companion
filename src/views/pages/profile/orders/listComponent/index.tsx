@@ -49,7 +49,6 @@ const OrderListComponent: React.FC<Props> = ({
         </div>
         <div className='flex flex-col items-baseline md:flex-row md:items-center justify-between w-none md:w-full'>
           <div className='flex gap-2 ml-[90px] md:mx-none md:w-max md:gap-6 2xl:gap-10 md:justify-between md:ml-0'>
-           
             <Typography type='subtitle' className='flex items-center gap-2'>
               {price} <Icon svgPath='gel' width={14} height={14} />
             </Typography>

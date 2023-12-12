@@ -24,7 +24,7 @@ const useBooking = (id: number | string | string[]) => {
     is_selected: false,
     description: service.description,
     title: service?.title,
-    type: service?.company_service_type_id,
+    type_id: service?.company_service_type_id,
     price: service?.price
   }))
 

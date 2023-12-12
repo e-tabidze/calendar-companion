@@ -251,7 +251,7 @@ const EditCompany = () => {
 
         <Divider />
         <div className='flex justify-between items-center p-2 md:p-6'>
-          <DefaultButton text='შენახვა' bg='bg-orange-100' textColor='text-white' type='submit' />
+          <DefaultButton text='შენახვა' bg='bg-orange-100' textColor='text-white' type='submit' disabled={updateCompanyMutation.isLoading} />
           <IconTextButton
             label='კომპანიის წაშლა'
             icon='trash'

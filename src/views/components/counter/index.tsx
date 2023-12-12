@@ -6,9 +6,10 @@ interface Props {
   name: string
   control: any
   defaultValue?: number
+  disabled?: boolean
 }
 
-const Counter: React.FC<Props> = ({ name, control, defaultValue }) => {
+const Counter: React.FC<Props> = ({ name, control, defaultValue, disabled }) => {
   const [count, setCount] = useState(defaultValue || 0)
 
   const decrementCount = () => {
@@ -27,7 +28,11 @@ const Counter: React.FC<Props> = ({ name, control, defaultValue }) => {
       control={control}
       defaultValue={defaultValue}
       render={({ field: { onChange } }) => (
-        <div className='flex items-center w-32 justify-between'>
+        <div
+          className={`flex items-center w-32 justify-between ${
+            disabled ? 'cursor-default pointer-events-none opacity-50' : ''
+          }`}
+        >
           <button
             className={`rounded-full px-4 py-2 ${
               count === 0 ? 'cursor-not-allowed bg-grey-110 opacity-25' : 'bg-white shadow-sm'

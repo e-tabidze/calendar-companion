@@ -148,7 +148,7 @@ const SelectField: React.FC<Props> = ({
               }
             />
             {errors && (
-              <div id={name} className='text-sm text-red-100 ml-2'>
+              <div id={name} className='text-sm text-red-100 ml-2 absolute -bottom-4'>
                 {_.get(errors, name)?.message}
               </div>
             )}
