@@ -62,12 +62,12 @@ const Booking = () => {
     {
       label: 'წავიყვან ოფისიდან',
       value: '0',
-      children: <TakeAway control={control} toggleEditModal={toggleEditModal} />
+      children: <TakeAway control={control} toggleEditModal={toggleEditModal} errors={errors} />
     },
     {
       label: 'მიწოდება',
       value: '1',
-      children: <Delivery control={control} toggleEditModal={toggleEditModal} />
+      children: <Delivery control={control} toggleEditModal={toggleEditModal} errors={errors} />
     }
   ]
 
@@ -142,7 +142,6 @@ const Booking = () => {
                 } fill-transparent  w-auto h-4 transition duration-300 mr-6`}
               />
             </div>
-            {/* {additionalServices && <AdditionalServices control={control} />} */}
             {additionalServices && <CheckServices control={control} options={formsState?.additional_services as any} />}
           </div>
 
@@ -162,15 +161,13 @@ const Booking = () => {
         </div>
         <div className='hidden md:flex w-[300px] lg:w-[400px] shrink-0 h-fit'>
           <PriceCalcCard
-            price={Number(Array.isArray(price_day) ? price_day[0] : price_day)}
+            price={singleProductDetails?.price}
             dates={`${book_from} - ${book_to}`}
-            days={
-              Math.round(
-                (new Date(Array.isArray(book_to) ? book_to[0] : book_to).getTime() -
-                  new Date(Array.isArray(book_from) ? book_from[0] : book_from).getTime()) /
-                  (24 * 60 * 60 * 1000)
-              ) + 1
-            }
+            days={Math.round(
+              (new Date(Array.isArray(book_to) ? book_to[0] : book_to).getTime() -
+                new Date(Array.isArray(book_from) ? book_from[0] : book_from).getTime()) /
+                (24 * 60 * 60 * 1000)
+            )}
             onClick={onSubmit}
           />
         </div>
@@ -189,9 +186,7 @@ const Booking = () => {
                 (24 * 60 * 60 * 1000)
             ) + 1
           }
-          onClick={function (): void {
-            throw new Error('Function not implemented.')
-          }}
+          onClick={onSubmit}
         />
       ) : (
         <ResponsivePriceCalcCard

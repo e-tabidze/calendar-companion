@@ -2,10 +2,10 @@ import { useQuery } from '@tanstack/react-query'
 import useProfile from 'src/hooks/useProfile'
 import OrderService from 'src/services/OrderService'
 
-const useUserOrders = (orderId?: string | number | undefined) => {
+const UseOrders = (orderId?: string | number | undefined) => {
   const { isAuthenticated } = useProfile()
 
-  const useOrders: any = useQuery({
+  const useUserOrders: any = useQuery({
     queryKey: ['userOders'],
     queryFn: () => getUserOrders(),
     staleTime: Infinity,
@@ -19,16 +19,19 @@ const useUserOrders = (orderId?: string | number | undefined) => {
     enabled: !!isAuthenticated && !!orderId
   })
 
-  const userOrders = useOrders?.data?.result?.data
+  const userOrders = useUserOrders?.data?.result?.data
   const userOrderDetails = useOrderDetails?.data?.result?.data
+  const productData = useOrderDetails?.data && JSON.parse(useOrderDetails?.data?.result?.data?.product_data)
 
   return {
     userOrders,
-    userOrderDetails
+    userOrderDetails,
+    productData,
+    cancelUserOrder
   }
 }
 
-export default useUserOrders
+export default UseOrders
 
 export const getUserOrders = async () => {
   try {
@@ -44,6 +47,17 @@ export const getUserOrders = async () => {
 export const getUserOrderDetails = async (orderId: number | string | undefined) => {
   try {
     const response: any = await OrderService.getUserOrdersDetails('', orderId)
+
+    return response.data
+  } catch (error) {
+    console.error(error)
+    throw error
+  }
+}
+
+export const cancelUserOrder = async (orderId: number | string, status: number) => {
+  try {
+    const response: any = await OrderService.postUserCancelOrder('', orderId, status)
 
     return response.data
   } catch (error) {

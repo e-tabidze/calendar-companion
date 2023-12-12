@@ -8,7 +8,7 @@ import useSearch from 'src/hooks/useSearch'
 const Filters = () => {
   const router = useRouter()
 
-  const { control, objectToURI, getValues, resetField, setValue, searchValues } = useSearch()
+  const { control, objectToURI, getValues, resetField, searchValues } = useSearch()
 
   console.log(searchValues, 'searchValues')
 
@@ -22,7 +22,7 @@ const Filters = () => {
       <FiltersContainer>
         <LocationDropdown control={control} resetField={() => resetField('location')} />
         <Divider />
-        <PeriodDropdown control={control} resetField={() => resetField('booking')} setValue={setValue} />
+        <PeriodDropdown control={control} resetField={() => resetField('booking')} />
         <Divider />
         <ExtraFiltersContainer>
           <IconButton

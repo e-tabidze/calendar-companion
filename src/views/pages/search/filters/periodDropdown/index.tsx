@@ -11,10 +11,9 @@ import Icon from 'src/views/app/Icon'
 interface Props {
   control: any
   resetField: any
-  setValue: any
 }
 
-const PeriodDropwodn: React.FC<Props> = ({ control, resetField, setValue }) => {
+const PeriodDropwodn: React.FC<Props> = ({ control, resetField }) => {
   const [dateRange, setDateRange] = useState<[Date, Date] | [null, null]>([null, null])
   const [startDate, endDate] = dateRange
 

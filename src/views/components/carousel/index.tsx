@@ -36,8 +36,6 @@ const Carousel = ({ itemsArray, type, onClick, thumbs = false }: Props) => {
     if (type === 'card') return CardSlider
   }
 
-  const slideRefs = useRef<Array<HTMLDivElement | null>>([])
-
   return (
     <div className='relative'>
       <Swiper

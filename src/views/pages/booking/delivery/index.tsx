@@ -8,9 +8,10 @@ import Icon from "src/views/app/Icon";
 interface Props {
   control?: any
   toggleEditModal: any
+  errors: any
 }
 
-const Delivery: React.FC<Props> = ({ control, toggleEditModal }) => {
+const Delivery: React.FC<Props> = ({ control, toggleEditModal, errors }) => {
   const formsState = useWatch({ control })
 
   return (
@@ -34,8 +35,9 @@ const Delivery: React.FC<Props> = ({ control, toggleEditModal }) => {
             labelKey='label'
             name='start_time'
             options={generateTimeOptions()}
-            placeholder='დრო'
+            placeholder='დრო*'
             className='bg-transparent border-green-100 flex shrink-0 w-full'
+            errors={errors}
           />
         </div>
       </div>
@@ -59,8 +61,9 @@ const Delivery: React.FC<Props> = ({ control, toggleEditModal }) => {
                 labelKey='label'
                 name='end_time'
                 options={generateTimeOptions()}
-                placeholder='დრო'
+                placeholder='დრო*'
                 className='bg-transparent border-green-100 flex shrink-0'
+                errors={errors}
             />
           </div>
         </div>
