@@ -130,7 +130,7 @@ const EditCompany = () => {
           <div>
             <div className='flex items-center gap-4'>
               <Typography type='h3' className='font-bold'>
-                {companyInfo?.information?.name}
+                {companyInfo?.information?.name} ABC
               </Typography>
               <Icon svgPath='warning' width={20} height={20} />
               <Typography type='subtitle' className='hidden md:flex text-raisin-100 bg-yellow-10 p-2 rounded-2xl'>

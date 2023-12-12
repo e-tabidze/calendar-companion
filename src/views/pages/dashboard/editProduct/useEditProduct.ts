@@ -20,9 +20,9 @@ const useEditProduct = (id: number) => {
 
   const services = productDetailsData?.product_services?.map((service: any) => ({
     id: service?.company_service_id,
-    price: service?.price,
+    price: service?.price || '',
     currency: service?.currency || 'GEL',
-    quantity: service?.quantity,
+    quantity: service?.quantity || '',
     isSelected: true
   }))
 
@@ -62,7 +62,7 @@ const useEditProduct = (id: number) => {
     identification_number: '',
     is_active: '',
     discount: [discount_item],
-    company_services: [services],
+    company_services: [services] as any,
     any_period: true,
     min_period: {
       has_min_period: false,
@@ -109,9 +109,9 @@ const useEditProduct = (id: number) => {
         'company_services',
         productDetailsData?.product_services?.map((service: any) => ({
           id: service?.company_service_id,
-          price: service?.price,
+          price: service?.price || '',
           currency: service?.currency || 'GEL',
-          quantity: service?.quantity,
+          quantity: service?.quantity || '',
           isSelected: true
         }))
       )
