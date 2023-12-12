@@ -125,8 +125,8 @@ const OrderDetails: React.FC<Props> = ({ toggleDetails, orderId, setOrderId }) =
               <Typography type='subtitle'>ქირაობის ღირებულება x {userOrderDetails?.days} დღე</Typography>
               <Typography type='subtitle'>{productData?.price * userOrderDetails?.days} </Typography>
             </PriceDetailsWrapper>
-            {productData?.user_selected_product_services.map((service: any) => (
-              <PriceDetailsWrapper>
+            {productData?.user_selected_product_services.map((service: any, index: number) => (
+              <PriceDetailsWrapper key={index}>
                 <Typography type='subtitle'>
                   {service?.title} {service?.quantity && 'x'} {service?.quantity}
                 </Typography>

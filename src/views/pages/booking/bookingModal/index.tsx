@@ -1,6 +1,6 @@
 import { Fragment } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
-import { DefaultButton, IconTextButton } from '../../../components/button'
+import { DefaultButton } from '../../../components/button'
 
 // import Typography from '../../../components/typography'
 

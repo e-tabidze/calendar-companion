@@ -1,6 +1,4 @@
 import { useState } from 'react'
-import useWindowDimensions from 'src/hooks/useWindowDimensions'
-import { IconTextButton } from 'src/views/components/button'
 import Divider from 'src/views/components/divider'
 import Typography from 'src/views/components/typography'
 import ListComponent from './listComponent'
