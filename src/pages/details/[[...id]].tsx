@@ -43,30 +43,6 @@ const SimilarProducts = dynamic(() => import('src/views/pages/details/similarPro
 // const Reviews = dynamic(() => import('src/views/pages/details/reviews'), { ssr: true })
 const Features = dynamic(() => import('src/views/pages/details/features'), { ssr: true })
 
-const productImages = [
-  <div className='relative aspect-w-16 aspect-h-9 rounded-2xl overflow-hidden' key={1}>
-    <Image src='/images/car.png' className='object-cover ' alt='productdetails' />
-  </div>,
-  <div className='relative aspect-w-16 aspect-h-9 rounded-2xl overflow-hidden' key={2}>
-    <Image src='/images/car.png' className='object-cover ' alt='productdetails' />
-  </div>,
-  <div className='relative aspect-w-16 aspect-h-9 rounded-2xl overflow-hidden' key={3}>
-    <Image src='/images/car.png' className='object-cover ' alt='productdetails' />
-  </div>,
-  <div className='relative aspect-w-16 aspect-h-9 rounded-2xl overflow-hidden' key={4}>
-    <Image src='/images/car.png' className='object-cover ' alt='productdetails' />
-  </div>,
-  <div className='relative aspect-w-16 aspect-h-9 rounded-2xl overflow-hidden' key={5}>
-    <Image src='/images/car.png' className='object-cover ' alt='productdetails' />
-  </div>,
-  <div className='relative aspect-w-16 aspect-h-9 rounded-2xl overflow-hidden' key={6}>
-    <Image src='/images/car.png' className='object-cover ' alt='productdetails' />
-  </div>,
-  <div className='relative aspect-w-16 aspect-h-9 rounded-2xl overflow-hidden' key={7}>
-    <Image src='/images/car.png' className='object-cover ' alt='productdetails' />
-  </div>
-]
-
 const ProductDetails = () => {
   const router = useRouter()
   const { id, book_from, book_to } = router.query
@@ -150,7 +126,7 @@ const ProductDetails = () => {
   const toggleDrawer = () => setIsOpenDrawer(!isOpenDrawer)
 
   const toggleProductImageDialog = () => {
-    console.log("CLICK")
+    console.log('CLICK')
     setProductImageDialogOpen(!productImageDialogOpen)
   }
 

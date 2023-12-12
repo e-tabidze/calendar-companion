@@ -20,6 +20,7 @@ const SimilarProducts: React.FC<Props> = ({ data }) => {
             priceGel={product?.price_gel}
             luggageNumbers={product.luggage_numbers}
             seats={product?.seat_types?.title}
+            images={product?.images.split(',')}
           />
         ))}
       </div>
