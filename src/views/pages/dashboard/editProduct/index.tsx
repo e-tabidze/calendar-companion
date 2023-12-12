@@ -50,7 +50,6 @@ const EditProduct: React.FC = ({}) => {
     editProduct,
     setValue,
     errors,
-    isValid,
     removeImage,
     trigger
   } = useEditProduct(Number(id))
@@ -216,7 +215,7 @@ const EditProduct: React.FC = ({}) => {
       onClose={handleClose}
       onSubmit={handleSubmit(onSubmit)}
       submitLabel='დამატება'
-      disabled={isValid}
+      disabled={createNewProducteMutation.isLoading}
     >
       <form>{renderStepComponent()}</form>
     </NewListingLayout>

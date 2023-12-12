@@ -240,17 +240,20 @@ const SearchPage = () => {
                       bookTo={Array.isArray(book_to) ? book_to[0] : book_to}
                       luggageNumbers={product?.luggage_numbers}
                       seats={product?.seat_type?.title}
+                      images={product?.images?.split(',')}
                     />
                   ))}
                 </div>
               )}
-              <Controller
-                name='page'
-                control={control}
-                render={({ field: { value, onChange } }) => (
-                  <Pagination totalPages={totalPages} currentPage={value} onPageChange={onChange} />
-                )}
-              />
+              {totalPages > 1 && (
+                <Controller
+                  name='page'
+                  control={control}
+                  render={({ field: { value, onChange } }) => (
+                    <Pagination totalPages={totalPages} currentPage={value} onPageChange={onChange} />
+                  )}
+                />
+              )}
             </SearchContentsContainer>
             {/*<MapContainer*/}
             {/*  className={`absolute z-[11] lg:z-[1] top-[197px] md:top-[153px] w-full left-0 lg:sticky lg:right-0 lg:left-auto lg:top-0 overflow-hidden transition-all duration-300 ${*/}

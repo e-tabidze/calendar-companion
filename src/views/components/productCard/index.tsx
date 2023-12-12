@@ -1,7 +1,9 @@
 import { useRouter } from 'next/router'
 import useFavourites from 'src/hooks/useFavourites'
 import useProfile from 'src/hooks/useProfile'
+import useWindowDimensions from 'src/hooks/useWindowDimensions'
 import Icon from 'src/views/app/Icon'
+import Carousel from '../carousel'
 import Image from '../image'
 import Typography from '../typography'
 import {
@@ -10,7 +12,7 @@ import {
   DetailsWrapper,
   InnerDetailsContainer,
   PriceContainer,
-  ProductCardContainer,
+  ProductCardContainer
 } from './styles'
 
 interface Props {
@@ -24,6 +26,7 @@ interface Props {
   bookFrom?: string | undefined
   bookTo?: string | undefined
   seats: string | number
+  images: string[]
 }
 
 const ProductCard: React.FC<Props> = ({
@@ -36,9 +39,12 @@ const ProductCard: React.FC<Props> = ({
   luggageNumbers,
   bookFrom,
   bookTo,
-  seats
+  seats,
+  images
 }) => {
   const router = useRouter()
+
+  const { width } = useWindowDimensions()
 
   const { isAuthenticated, activeCompanyId } = useProfile()
 
@@ -73,14 +79,27 @@ const ProductCard: React.FC<Props> = ({
     }
   }
 
+  console.log(images, 'images')
+
   return (
     <ProductCardContainer onClick={handleCardClick}>
-      <div
-        className={`overflow-hidden aspect-w-16 aspect-h-9 cursor-pointer ${
-          swiperCard ? 'w-full' : 'sticky'
-        } `}
-      >
-        <Image src='/images/car.png' alt='' className='rounded-tl-3xl rounded-tr-3xl object-cover' />
+      <div className={`overflow-hidden aspect-w-16 aspect-h-9 cursor-pointer ${swiperCard ? 'w-full' : 'sticky'} `}>
+        <div className='w-full h-6'>
+          <Carousel
+            itemsArray={images?.map((imgUrl, index) => (
+              <Image
+                key={index}
+                src={imgUrl || ''}
+                alt={`${manufacturer} ${model} ${prodYear}`}
+                height={width > 779 ? '100%' : 50}
+                width={width > 779 ? '100%' : 82}
+                className='rounded-lg object-cover'
+              />
+            ))}
+            type='card'
+            key={Math.random()}
+          />
+        </div>
       </div>
 
       {activeCompanyId === undefined && isAuthenticated && (
@@ -103,22 +122,23 @@ const ProductCard: React.FC<Props> = ({
         </div>
       )}
       <DetailsContainer>
-        <Typography type='h5' className="flex items-center">
-          <span className="overflow-hidden text-ellipsis whitespace-nowrap inline-block">{manufacturer} {model} </span>
-          <span className="ml-1">{prodYear}</span>
+        <Typography type='h5' className='flex items-center'>
+          <span className='overflow-hidden text-ellipsis whitespace-nowrap inline-block'>
+            {manufacturer} {model}{' '}
+          </span>
+          <span className='ml-1'>{prodYear}</span>
         </Typography>
         <InnerDetailsContainer>
           <PriceContainer>
-            {priceGel} ₾
-            
-            {/*<PreviousPrice>47₾</PreviousPrice>*/}
+            {priceGel} ₾{/*<PreviousPrice>47₾</PreviousPrice>*/}
           </PriceContainer>
           <DetailsWrapper>
             <Details>
               <Icon svgPath='views' width={20} height={20} className='fill-transparent' /> <span>{seats}</span>
             </Details>
             <Details>
-              <Icon svgPath='briefcase' width={20} height={20} className='fill-transparent' /> <span>{luggageNumbers}</span>
+              <Icon svgPath='briefcase' width={20} height={20} className='fill-transparent' />{' '}
+              <span>{luggageNumbers}</span>
             </Details>
           </DetailsWrapper>
         </InnerDetailsContainer>

@@ -20,9 +20,9 @@ const useEditProduct = (id: number) => {
 
   const services = productDetailsData?.product_services?.map((service: any) => ({
     id: service?.company_service_id,
-    price: service?.price,
+    price: service?.price || '',
     currency: service?.currency || 'GEL',
-    quantity: service?.quantity,
+    quantity: service?.quantity || '',
     isSelected: true
   }))
 
@@ -45,7 +45,7 @@ const useEditProduct = (id: number) => {
     },
     additional_information: '',
     use_instruction: '',
-    images: [] as any[],
+    images: null,
     category_id: '',
     fuel_type_id: '',
     seat_type_id: '',
@@ -62,7 +62,7 @@ const useEditProduct = (id: number) => {
     identification_number: '',
     is_active: '',
     discount: [discount_item],
-    company_services: [services],
+    company_services: [services] as any,
     any_period: true,
     min_period: {
       has_min_period: false,
@@ -90,7 +90,7 @@ const useEditProduct = (id: number) => {
       setValue('odometer.measure', productDetailsData?.measure)
       setValue('additional_information', productDetailsData?.additional_information)
       setValue('use_instruction', productDetailsData?.use_instruction)
-      setValue('images', productDetailsData?.images?.split(',') || [])
+      setValue('images', productDetailsData?.images?.split(',') || null)
       setValue('category_id', productDetailsData?.category_id)
       setValue('fuel_type_id', productDetailsData?.fuel_type_id)
       setValue('seat_type_id', productDetailsData?.seat_type_id)
@@ -109,9 +109,9 @@ const useEditProduct = (id: number) => {
         'company_services',
         productDetailsData?.product_services?.map((service: any) => ({
           id: service?.company_service_id,
-          price: service?.price,
+          price: service?.price || '',
           currency: service?.currency || 'GEL',
-          quantity: service?.quantity,
+          quantity: service?.quantity || '',
           isSelected: true
         }))
       )

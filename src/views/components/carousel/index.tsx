@@ -43,15 +43,11 @@ const Carousel = ({ itemsArray, type, onClick, thumbs = false }: Props) => {
       <Swiper
         watchSlidesProgress
         ref={swiperRef}
-
-        // @ts-ignore
         breakpoints={handleBreakpoints()}
         navigation={{
           prevEl: prevRef.current,
           nextEl: nextRef.current
         }}
-        
-        // onSwiper={swiper => handleSlideChange(swiper)}
         onBeforeInit={(swiper: any) => {
           swiper.params.navigation.prevEl = prevRef.current
           swiper.params.navigation.nextEl = nextRef.current
@@ -61,46 +57,59 @@ const Carousel = ({ itemsArray, type, onClick, thumbs = false }: Props) => {
         }}
         controller={{ control: [] }}
         keyboard={true}
-
-        // centeredSlides={type === 'productDetails'}
         thumbs={{ swiper: thumbsSwiper }}
       >
         {itemsArray?.map((item, index) => (
-          <SwiperSlide key={index}>
-            <div ref={element => (slideRefs.current[index] = element)}>{item}</div>
+          <SwiperSlide key={index} onClick={onClick}>
+            {item}
           </SwiperSlide>
         ))}
       </Swiper>
       <div
+        onClick={(e: any) => {
+          e.stopPropagation()
+          e.preventDefault()
+        }}
         className={`
-         ${(type === 'categories' || type === 'products' ) ? 'w-[46px] h-[46px] lg:w-14 md:h-14 left-4 md:left-0 lg:left-[-28px]' : ''}
+         ${
+           type === 'categories' || type === 'products'
+             ? 'w-[46px] h-[46px] lg:w-14 md:h-14 left-4 md:left-0 lg:left-[-28px]'
+             : ''
+         }
          
-        ${type === 'productDetails' ? 'w-[46px] h-[46px] lg:w-14 md:h-14 left-5' : ''
-        }
-        ${type === 'card' ? 'w-6 h-6 left-4': ''}
+        ${type === 'productDetails' ? 'w-[46px] h-[46px] lg:w-14 md:h-14 left-5' : ''}
+        ${type === 'card' ? 'w-6 h-6 left-4' : ''}
         cursor-pointer shadow-sm absolute inset-y-0 top-1/2 -translate-y-1/2 bg-white rounded-2xl flex items-center justify-center z-10`}
         ref={prevRef}
       >
-
-          {type === 'card' ?
-              (<Icon svgPath='caret-l' width={7} height={9} className='fill-transparent'/>) :
-              (<Icon svgPath='caret-left' width={26} height={26} className='fill-transparent'/>)
-          }
+        {type === 'card' ? (
+          <Icon svgPath='caret-l' width={7} height={9} className='fill-transparent' />
+        ) : (
+          <Icon svgPath='caret-left' width={26} height={26} className='fill-transparent' />
+        )}
       </div>
       <div
+        onClick={(e: any) => {
+          e.stopPropagation()
+          e.preventDefault()
+        }}
         className={`
-           ${(type === 'categories' || type === 'products' ) ? 'w-[46px] h-[46px] lg:w-14 md:h-14 right-4 md:right-0 lg:right-[-28px]' : ''}
+           ${
+             type === 'categories' || type === 'products'
+               ? 'w-[46px] h-[46px] lg:w-14 md:h-14 right-4 md:right-0 lg:right-[-28px]'
+               : ''
+           }
          
-        ${type === 'productDetails' ? 'w-[46px] h-[46px] lg:w-14 md:h-14 right-5' : ''
-        }
-        ${type === 'card' ? 'w-6 h-6 right-4': ''}
+        ${type === 'productDetails' ? 'w-[46px] h-[46px] lg:w-14 md:h-14 right-5' : ''}
+        ${type === 'card' ? 'w-6 h-6 right-4' : ''}
         cursor-pointer shadow-sm absolute inset-y-0 top-1/2 -translate-y-1/2  bg-white rounded-2xl flex items-center justify-center z-10`}
         ref={nextRef}
       >
-          {type === 'card' ?
-              (<Icon svgPath='caret-r' width={7} height={9} className='fill-transparent'/>) :
-              (<Icon svgPath='caret-right' width={26} height={26} className='fill-transparent'/>)
-          }
+        {type === 'card' ? (
+          <Icon svgPath='caret-r' width={7} height={9} className='fill-transparent' />
+        ) : (
+          <Icon svgPath='caret-right' width={26} height={26} className='fill-transparent' />
+        )}
       </div>
 
       {thumbs && (
@@ -116,9 +125,7 @@ const Carousel = ({ itemsArray, type, onClick, thumbs = false }: Props) => {
         >
           {itemsArray.map((item, index) => (
             <SwiperSlide key={index} className={`${type === 'productDetails' && 'h-full'}`}>
-              <div ref={element => (slideRefs.current[index] = element)} className='ANB' onClick={onClick}>
-                {item}
-              </div>
+              {item}
             </SwiperSlide>
           ))}
         </Swiper>
