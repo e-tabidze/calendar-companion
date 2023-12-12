@@ -91,7 +91,7 @@ const Booking = () => {
         <Image src='/images/logo-rent.svg' alt='logo' className='cursor-pointer' onClick={onClickLogo} />
       </LargeContainer>
       <ContentContainer className='flex gap-12'>
-        <div className='w-full md:w-9/12'>
+        <div className='w-full'>
           <div className='flex items-baseline my-8 gap-3'>
             <Typography type='h3' className='font-bold'>
               {book_from} - {book_to}
@@ -160,7 +160,7 @@ const Booking = () => {
               {insurance && <AdditionalServices control={control} />}
             </div> */}
         </div>
-        <div className='hidden md:inline-block w-5/12 lg:w-4/12'>
+        <div className='hidden md:flex w-[300px] lg:w-[400px] shrink-0 h-fit'>
           <PriceCalcCard
             price={Number(Array.isArray(price_day) ? price_day[0] : price_day)}
             dates={`${book_from} - ${book_to}`}

@@ -22,7 +22,8 @@ const Tnet = () => {
 
                         <div className="px-4">
 
-                            <Typography type='h5' weight='normal' className='font-bold text-[18px] text-black mb-2'>TNET</Typography>
+
+                            <Typography type='h5' weight='normal' className='font-bold text-2md text-black mb-2'>TNET</Typography>
 
                             <Typography type='body' className='font-medium text-sm text-raisin-60 mb-4'>
                             ყველაზე დიდი ტექნოლოგიური ეკოსისტემა, რომელიც აერთიანებს 11 პლატფორმას:

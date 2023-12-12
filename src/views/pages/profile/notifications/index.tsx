@@ -165,7 +165,7 @@ const Notifications = () => {
 
             {/*TODO: Notifications detail page*/}
             <div className='border border-raisin-10 rounded-2xl md:rounded-3xl p-6 md:py-10 md:px-8 mx-4 lg:mx-0'>
-                <div className='flex items-center mb-[48px]'>
+                <div className='flex items-center mb-12'>
                     <button className="flex w-10 h-10 bg-grey-100 rounded-full mr-4 items-center justify-center shrink-0">
                         <Icon svgPath='chevron-right' width={20} height={20} className='fill-transparent'/>
                     </button>
@@ -174,7 +174,7 @@ const Notifications = () => {
                 <div
                     className="">
                     <div className="flex items-center">
-                        <span className="w-[56px] h-[56px] bg-grey-100 rounded-xl mr-6 flex items-center justify-center shrink-0">
+                        <span className="w-14 h-14 bg-grey-100 rounded-xl mr-6 flex items-center justify-center shrink-0">
                           <Icon
                               svgPath='approved'
                               width={24}
@@ -207,7 +207,7 @@ const Notifications = () => {
                             დაწკაპუნებით აირჩიეთ ჯავშნის გაუქმება
 
                         </Typography>
-                        <button className="mt-10 flex px-8 h-[52px] bg-green-100 text-white text-2sm rounded-xl items-center justify-center">
+                        <button className="mt-10 flex px-8 h-13 bg-green-100 text-white text-2sm rounded-xl items-center justify-center">
                             ჯავშნის ნახვა
                         </button>
                     </div>

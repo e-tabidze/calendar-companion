@@ -68,17 +68,17 @@ const VehicleListComponent: React.FC<Props> = ({
       <div className='relative border-b-1 border-raisin-10 last:border-none'>
         <div className='flex flex-col px-2 py-4 md:w-full justify-between gap-6 md:px-0 md:flex-row md:items-center'>
           <div className='flex gap-6 2xl:gap-6 min-w-max'>
-            <div className='w-56'>
+            <div className='w-[150px] lg:w-[200px] xl:w-[250px]'>
               <Carousel
                 itemsArray={images?.split(',')?.map((imgUrl, index) => (
-                  <Image
-                    key={index}
-                    src={imgUrl || ''}
-                    alt={`${manufacturer} ${model} ${prodYear}`}
-                    height={width > 779 ? 150 : 50}
-                    width={width > 779 ? 250 : 82}
-                    className='rounded-lg object-cover'
-                  />
+                      <Image
+                          key={index}
+                          src={imgUrl || ''}
+                          alt={`${manufacturer} ${model} ${prodYear}`}
+                          height={width > 779 ? 150 : 50}
+                          width={width > 779 ? 250 : 82}
+                          className='rounded-lg object-cover'
+                      />
                 ))}
                 type='card'
                 key={Math.random()}

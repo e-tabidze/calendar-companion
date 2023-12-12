@@ -45,7 +45,7 @@ const useEditProduct = (id: number) => {
     },
     additional_information: '',
     use_instruction: '',
-    images: [] as any[],
+    images: null,
     category_id: '',
     fuel_type_id: '',
     seat_type_id: '',
@@ -90,7 +90,7 @@ const useEditProduct = (id: number) => {
       setValue('odometer.measure', productDetailsData?.measure)
       setValue('additional_information', productDetailsData?.additional_information)
       setValue('use_instruction', productDetailsData?.use_instruction)
-      setValue('images', productDetailsData?.images?.split(',') || [])
+      setValue('images', productDetailsData?.images?.split(',') || null)
       setValue('category_id', productDetailsData?.category_id)
       setValue('fuel_type_id', productDetailsData?.fuel_type_id)
       setValue('seat_type_id', productDetailsData?.seat_type_id)

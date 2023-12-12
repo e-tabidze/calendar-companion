@@ -36,7 +36,7 @@ import { Controller } from 'react-hook-form'
 import { formatDate } from 'src/utils/formatDate'
 import useSingleProductDetails from '../../views/pages/details/useSingleProductDetails'
 import useMain from 'src/views/pages/main/useMain'
-import Icon from "src/views/app/Icon";
+import Icon from 'src/views/app/Icon'
 
 const SimilarProducts = dynamic(() => import('src/views/pages/details/similarProducts'), { ssr: true })
 
@@ -63,9 +63,6 @@ const productImages = [
     <Image src='/images/car.png' className='object-cover ' alt='productdetails' />
   </div>,
   <div className='relative aspect-w-16 aspect-h-9 rounded-2xl overflow-hidden' key={7}>
-    <Image src='/images/car.png' className='object-cover ' alt='productdetails' />
-  </div>,
-  <div className='relative aspect-w-16 aspect-h-9 rounded-2xl overflow-hidden' key={8}>
     <Image src='/images/car.png' className='object-cover ' alt='productdetails' />
   </div>
 ]
@@ -153,6 +150,7 @@ const ProductDetails = () => {
   const toggleDrawer = () => setIsOpenDrawer(!isOpenDrawer)
 
   const toggleProductImageDialog = () => {
+    console.log("CLICK")
     setProductImageDialogOpen(!productImageDialogOpen)
   }
 
@@ -182,13 +180,16 @@ const ProductDetails = () => {
         </ContentContainer>
         <MaxWidthContainer>
           <Carousel
-            itemsArray={productImages}
+            itemsArray={singleProductDetails?.large_images?.split(',').map((imageUrl: string) => (
+              <div className='relative aspect-w-16 aspect-h-9 rounded-2xl overflow-hidden' key={8}>
+                <Image src={imageUrl} className='object-cover ' alt='productdetails' />
+              </div>
+            ))}
             type='productDetails'
             key={Math.random()}
             loop
             onClick={toggleProductImageDialog}
             pagination={true}
-            detailSwiper
           />
         </MaxWidthContainer>
         <MaxWidthContainer className={`${isSticky ? 'sticky top-20' : ''} bg-white z-[30]`} ref={ref} id='head'>
@@ -297,7 +298,7 @@ const ProductDetails = () => {
                     )}
                   </div>
                   <div className='hidden lg:flex gap-4 cursor-pointer '>
-                    <Icon svgPath='rotate' width={20} height={22} className='fill-transparent'/>
+                    <Icon svgPath='rotate' width={20} height={22} className='fill-transparent' />
                     <Typography
                       type='body'
                       color='light'
@@ -360,7 +361,7 @@ const ProductDetails = () => {
                   ადგილმდებარეობა
                 </Typography>
                 <div className='flex gap-4 items-center mt-10 mb-6'>
-                  <Icon svgPath='locationOutline' width={24} height={24} className='fill-transparent'/>
+                  <Icon svgPath='locationOutline' width={24} height={24} className='fill-transparent' />
                   <Typography type='h5' weight='normal'>
                     {singleProductDetails?.start_address}
                   </Typography>
@@ -417,7 +418,15 @@ const ProductDetails = () => {
         ) : (
           <ResponsivePriceCalcCard toggleDrawer={toggleDrawer} price={singleProductDetails?.price_gel} />
         )}
-        <ProductImagesDialog open={productImageDialogOpen} setOpen={toggleProductImageDialog} images={productImages} />
+        <ProductImagesDialog
+          open={productImageDialogOpen}
+          setOpen={toggleProductImageDialog}
+          images={singleProductDetails?.large_images?.split(',').map((imageUrl: string) => (
+            <div className='relative aspect-w-16 aspect-h-9 rounded-2xl overflow-hidden' key={8}>
+              <Image src={imageUrl} className='object-cover ' alt='productdetails' />
+            </div>
+          ))}
+        />
       </DefaultLayout>
     </form>
   )

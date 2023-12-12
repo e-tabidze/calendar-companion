@@ -14,7 +14,7 @@ const BookingCard = ()  => {
                     <div className="w-6 h-6 flex items-center justify-center rounded-full bg-green-100 mr-4">
                         <Icon svgPath='check' width={14} height={10} className='fill-transparent'/>
                     </div>
-                    <Icon svgPath='start' width={24} height={24} className='fill-transparent mr-4' />
+                    <Icon svgPath='booking-start' width={24} height={24} className='fill-transparent mr-4' />
                     წაყვანა
                 </div>
                 <div className="flex items-center text-2sm">
@@ -26,7 +26,7 @@ const BookingCard = ()  => {
                 <div className="flex items-center text-sm">
                     <div className="w-6 h-6 flex items-center justify-center rounded-full border border-black mr-4">
                     </div>
-                    <Icon svgPath='stop' width={24} height={24} className='fill-transparent mr-4' />
+                    <Icon svgPath='booking-stop' width={24} height={24} className='fill-transparent mr-4' />
                     დაბრუნება
                 </div>
                 <div className="flex items-center text-2sm">

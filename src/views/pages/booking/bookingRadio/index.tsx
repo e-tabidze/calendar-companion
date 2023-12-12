@@ -26,7 +26,7 @@ const BookingRadio: React.FC<Props> = ({ options, control, color, horizontal, na
 
   const Circle = tw.div<{
     checked: boolean
-  }>`w-8 h-8 flex items-center justify-center rounded-full border border-raisin-1300  outline-none ${props =>
+  }>`w-6 h-6 lg:w-8 lg:h-8 flex items-center justify-center rounded-full border border-raisin-1300  outline-none ${props =>
     props.checked ? `${color} border-0` : ''}`
 
   return (
@@ -37,7 +37,7 @@ const BookingRadio: React.FC<Props> = ({ options, control, color, horizontal, na
             {({ checked }) => (
               <div className='my-2'>
                 <div
-                  className={`rounded-xl border py-8 pl-10 pr-6 ${
+                  className={`rounded-xl border py-5 xl:py-8 xl:pl-10 xl:pr-6 px-4 lg:px-5 ${
                     checked ? ' border-green-100 bg-green-10' : 'border-raisin-10'
                   }`}
                 >

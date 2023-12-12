@@ -77,6 +77,7 @@ const MainPage = () => {
                 priceGel={product?.price_gel}
                 luggageNumbers={product?.luggage_numbers}
                 seats={product?.seat_type?.title}
+                images={product?.images?.split(',')}
               />
             ))}
             type='products'
@@ -103,6 +104,7 @@ const MainPage = () => {
                 priceGel={product?.price_gel}
                 luggageNumbers={product?.luggage_numbers}
                 seats={product?.seat_type?.title}
+                images={product?.images?.split(',')}
               />
             ))}
             type='products'
