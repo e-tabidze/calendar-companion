@@ -14,7 +14,8 @@ import {
   TakeAwayWrapper
 } from './styles'
 import Icon from 'src/views/app/Icon'
-import useUserOrders from '../useOrders'
+import useOrders from '../useOrders'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 
 interface Props {
   toggleDetails: () => void
@@ -29,7 +30,18 @@ const OrderDetails: React.FC<Props> = ({ toggleDetails, orderId, setOrderId }) =
 
   console.log(orderId, 'orderId USER')
 
-  const { userOrderDetails } = useUserOrders(orderId!)
+  const queryClient = useQueryClient()
+
+  const { userOrderDetails, productData, cancelUserOrder } = useOrders(orderId!)
+
+  console.log(productData, 'productData')
+
+  const cancelOrderStatusMutation = useMutation(() => cancelUserOrder(orderId!, 2), {
+    onSuccess: () => {
+      queryClient.invalidateQueries(['userOders'])
+      queryClient.invalidateQueries(['userOdersDetails'])
+    }
+  })
 
   return (
     <div className='border border-raisin-10 rounded-2xl'>
@@ -63,11 +75,11 @@ const OrderDetails: React.FC<Props> = ({ toggleDetails, orderId, setOrderId }) =
           <Typography type='body' color='light'>
             განმცხადებელი
           </Typography>
-          <Typography type='subtitle'>შპს ბენე+</Typography>
+          <Typography type='subtitle'>{userOrderDetails && productData?.company?.information?.name}</Typography>
         </RentalDetailsWrapper>
         <div className='hidden md:flex items-center border border-green-80 rounded-lg gap-2 p-2'>
           <Icon svgPath='phone' width={20} height={20} className='fill-transparent' />
-          <Typography type='subtitle'>+995 599 33 16 54</Typography>
+          <Typography type='subtitle'>{productData?.company?.information?.phone_numbers}</Typography>
         </div>
       </RentalDetailsContainer>
       <Divider />
@@ -111,35 +123,40 @@ const OrderDetails: React.FC<Props> = ({ toggleDetails, orderId, setOrderId }) =
           <div>
             <PriceDetailsWrapper>
               <Typography type='subtitle'>ქირაობის ღირებულება x {userOrderDetails?.days} დღე</Typography>
-              <Typography type='subtitle'>{userOrderDetails?.price * userOrderDetails?.days} </Typography>
+              <Typography type='subtitle'>{productData?.price * userOrderDetails?.days} </Typography>
             </PriceDetailsWrapper>
-            <PriceDetailsWrapper>
-              <Typography type='subtitle'>ქირაობის ღირებულება x 6 დღე</Typography>
-              <Typography type='subtitle'>203$</Typography>
-            </PriceDetailsWrapper>
-            <PriceDetailsWrapper>
-              <Typography type='subtitle'>ქირაობის ღირებულება x 6 დღე</Typography>
-              <Typography type='subtitle'>203$</Typography>
-            </PriceDetailsWrapper>
-            <PriceDetailsWrapper>
-              <Typography type='subtitle'>ქირაობის ღირებულება x 6 დღე</Typography>
-              <Typography type='subtitle'>203$</Typography>
-            </PriceDetailsWrapper>
+            {productData?.user_selected_product_services.map((service: any) => (
+              <PriceDetailsWrapper>
+                <Typography type='subtitle'>
+                  {service?.title} {service?.quantity && 'x'} {service?.quantity}
+                </Typography>
+                <Typography type='subtitle'> {service?.type_id ==1 ? (service?.price * service?.quantity)*userOrderDetails?.days:service?.price * service?.quantity } ₾ </Typography>
+              </PriceDetailsWrapper>
+            ))}
+
             <Divider />
             <PriceDetailsWrapper>
               <Typography type='subtitle' className='font-bold'>
                 ჯამი
               </Typography>
               <Typography type='subtitle' className='font-bold'>
-                203$
+                {userOrderDetails.price} ₾
               </Typography>
             </PriceDetailsWrapper>
           </div>
         </div>
         <div className='w-5/12 flex flex-col items-center'>
-          <Image src='/images/car.png' alt='' height={150} width={200} className='m-auto rounded-lg' />
+          <Image
+            src={productData?.images?.split(',')[0]}
+            alt={productData?.manufacturer?.title + productData?.manufacturer_model?.title + productData?.prod_year}
+            height={150}
+            width={200}
+            className='m-auto rounded-lg'
+          />
           <Typography type='h5' className='font-bold my-6'>
-            Toyota Prius UTO 2017
+            {productData?.manufacturer?.title}
+            {productData?.manufacturer_model?.title}
+            {productData?.prod_year}
           </Typography>
           <Typography
             type='subtitle'
@@ -161,10 +178,20 @@ const OrderDetails: React.FC<Props> = ({ toggleDetails, orderId, setOrderId }) =
               ? 'გაუქმებული'
               : ''}
           </Typography>
-          <DefaultButton bg='bg-raisin-10' text='ჯავშნის გაუქმება' onClick={toggleCancelOrderDialog} />
+          {userOrderDetails?.status_id === 0 ||
+            (userOrderDetails?.status_id === 1 && (
+              <DefaultButton bg='bg-raisin-10' text='ჯავშნის გაუქმება' onClick={toggleCancelOrderDialog} />
+            ))}
         </div>
       </PriceDetailsContainer>
-      <CancelOrderDialog open={cancelOrderDialog} close={toggleCancelOrderDialog} handleCancel={undefined} />
+      <CancelOrderDialog
+        open={cancelOrderDialog}
+        close={toggleCancelOrderDialog}
+        handleCancel={() => {
+          cancelOrderStatusMutation.mutate()
+          toggleCancelOrderDialog()
+        }}
+      />
     </div>
   )
 }

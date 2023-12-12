@@ -29,6 +29,14 @@ class OrderService extends HttpService {
   getUserOrdersDetails(AccessToken = '', orderId: number | string | undefined) {
     return this.get(`/user-orders/${orderId}`, {}, AccessToken ? { Authorization: `${AccessToken}` } : {})
   }
+
+  postUserCancelOrder(AccessToken = '', orderId: string | number, status: string | number) {
+    return this.post(
+      `/status/orders`,
+      { id: orderId, status_id: status },
+      AccessToken ? { Authorization: `${AccessToken}` } : {}
+    )
+  }
 }
 
 export default new OrderService()

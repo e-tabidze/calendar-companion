@@ -383,7 +383,7 @@ const ProductDetails = () => {
                 days={
                   startDate &&
                   endDate &&
-                  Math.round((endDate.getTime() - startDate.getTime()) / (24 * 60 * 60 * 1000)) + 1
+                  Math.round((endDate.getTime() - startDate.getTime()) / (24 * 60 * 60 * 1000))
                 }
                 handleDateChange={() => handleClick('calendar')}
                 onClick={onSubmit}
@@ -411,7 +411,7 @@ const ProductDetails = () => {
             price={singleProductDetails?.price_gel}
             dates={startDate && endDate ? `${formatDate(startDate)} - ${formatDate(endDate)}` : ''}
             days={
-              startDate && endDate && Math.round((endDate.getTime() - startDate.getTime()) / (24 * 60 * 60 * 1000)) + 1
+              startDate && endDate && Math.round((endDate.getTime() - startDate.getTime()) / (24 * 60 * 60 * 1000))
             }
             onClick={onSubmit}
           />

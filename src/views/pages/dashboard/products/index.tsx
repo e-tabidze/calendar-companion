@@ -41,6 +41,8 @@ const Products = () => {
   const [filterQuery, setFilterQuery] = useState<'' | 0 | 1 | 2>('')
   const { companyProducts, isLoading } = useProducts(filterQuery)
 
+  console.log(companyProducts, 'companyProducts')
+
   return (
     <div>
       <div className='border border-raisin-10 rounded-2xl md:px-8'>
@@ -70,7 +72,7 @@ const Products = () => {
             <>Loading...</>
           ) : (
             <>
-              {companyProducts?.map((product: Products) => (
+              {companyProducts?.data?.map((product: Products) => (
                 <VehicleListComponent
                   key={product.id}
                   id={product.id}

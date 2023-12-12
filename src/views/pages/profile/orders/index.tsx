@@ -9,7 +9,6 @@ import useUserOrders from './useOrders'
 
 const Orders = () => {
   const [details, setDetails] = useState(false)
-  const { width } = useWindowDimensions()
   const { userOrders } = useUserOrders()
   const [orderId, setOrderId] = useState(0)
 
@@ -23,13 +22,10 @@ const Orders = () => {
         <OrderDetails toggleDetails={toggleDetails} orderId={orderId} setOrderId={setOrderId} />
       ) : (
         <div className='p-2 md:p-10 md:border border-raisin-10 rounded-3xl'>
-          <div className='flex justify-between p-2 md:p-4 items-center'>
-            <Typography type='h3'>ჩემი შეკვეთები</Typography>
-            <div className='flex gap-4 md:gap-8'>
-              <IconTextButton label={width > 779 ? 'ფილტრი' : ''} icon='filters' width={22} height={20} />
-              <IconTextButton label={width > 779 ? 'ძებნა' : ''} icon='sort' width={20} height={12} />
-            </div>
-          </div>
+          <Typography type='h3' className='mb-6'>
+            ჩემი შეკვეთები
+          </Typography>
+
           <Divider />
           {userOrders?.map((order: any) => (
             <ListComponent
