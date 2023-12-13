@@ -1,4 +1,3 @@
-import Image from 'next/image'
 import { useState } from 'react'
 import { DefaultButton, IconTextButton } from 'src/views/components/button'
 import Divider from 'src/views/components/divider'
@@ -16,6 +15,7 @@ import {
 import Icon from 'src/views/app/Icon'
 import useOrders from '../useOrders'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { Image } from 'react-mapbox-gl'
 
 interface Props {
   toggleDetails: () => void

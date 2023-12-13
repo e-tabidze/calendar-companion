@@ -1,10 +1,9 @@
-import Image from 'next/image'
 import useFavourites from 'src/hooks/useFavourites'
-import useWindowDimensions from 'src/hooks/useWindowDimensions'
 import { IconButton } from 'src/views/components/button'
 import Typography from 'src/views/components/typography'
 import { Details, DetailsWrapper, InnerDetailsContainer, PreviousPrice, PriceContainer } from './styles'
 import Icon from "src/views/app/Icon";
+import Image from 'src/views/components/image'
 
 interface Props {
   productId: string | number
@@ -17,7 +16,6 @@ interface Props {
 }
 
 const ListComponent: React.FC<Props> = ({ productId, manufacturer, model, year, city, price, isDeleted }) => {
-  const { width } = useWindowDimensions()
 
   const { toggleUserFavourites } = useFavourites(productId)
 
@@ -32,11 +30,11 @@ const ListComponent: React.FC<Props> = ({ productId, manufacturer, model, year, 
   return (
 
       <div className='flex flex-col sm:flex-row gap-6 w-full sm:my-5 border border-raisin-10 my-2 sm:my-none rounded-2xl sm:rounded-none sm:border-none last:border-none'>
-        <div className=''>
+        <div className='aspect-w-4 aspect-h-3'>
           <Image
             src='/images/car.png'
-            width={width > 640 ? 230 : 350}
-            height={width > 640 ? 150 : 256}
+            width={'100%'}
+            height={'100%'}
             alt=''
             className='rounded-2xl object-cover'
           />
