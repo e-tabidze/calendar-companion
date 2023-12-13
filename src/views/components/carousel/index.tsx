@@ -76,7 +76,7 @@ const Carousel = ({ itemsArray, type, onClick, thumbs = false }: Props) => {
          }
          
         ${type === 'productDetails' ? 'w-[46px] h-[46px] lg:w-14 md:h-14 left-5' : ''}
-        ${type === 'card' ? 'w-6 h-6 left-4' : ''}
+        ${type === 'card' ? 'hidden md:flex w-6 h-6 left-4' : ''}
         cursor-pointer shadow-sm absolute inset-y-0 top-1/2 -translate-y-1/2 bg-white rounded-2xl flex items-center justify-center z-10`}
         ref={prevRef}
       >
@@ -99,7 +99,7 @@ const Carousel = ({ itemsArray, type, onClick, thumbs = false }: Props) => {
            }
          
         ${type === 'productDetails' ? 'w-[46px] h-[46px] lg:w-14 md:h-14 right-5' : ''}
-        ${type === 'card' ? 'w-6 h-6 right-4' : ''}
+        ${type === 'card' ? 'hidden md:flex w-6 h-6 right-4' : ''}
         cursor-pointer shadow-sm absolute inset-y-0 top-1/2 -translate-y-1/2  bg-white rounded-2xl flex items-center justify-center z-10`}
         ref={nextRef}
       >

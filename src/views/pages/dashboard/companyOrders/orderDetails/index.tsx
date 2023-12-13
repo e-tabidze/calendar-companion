@@ -52,7 +52,7 @@ const OrderDetails: React.FC<Props> = ({ toggleDetails, setOrderId, orderId }) =
   return (
     <>
       <OrderDetailsContainer>
-        <div className='hidden md:flex items-center md:w-full gap-6 p-4'>
+        <div className='flex items-center md:w-full gap-6 p-4'>
           <IconTextButton
             icon='backWithBg'
             width={38}
@@ -84,12 +84,12 @@ const OrderDetails: React.FC<Props> = ({ toggleDetails, setOrderId, orderId }) =
         <Divider />
         <Divider />
         <PriceDetailsContainer>
-          <div className='w-full md:w-7/12'>
-            <Typography type='h3' className='font-bold'>
+          <div className='w-full lg:w-7/12'>
+            <Typography type='h3' className='font-bold text-3md lg:text-2lg'>
               {companyOrder?.first_name} {companyOrder?.last_name}
             </Typography>
-            <Typography type='h5'>პ.ნ. {companyOrder?.identification_number}</Typography>
-            <div className='flex w-full justify-between my-6'>
+            <Typography type='h5' className='text-2sm lg:text-md'>პ.ნ. {companyOrder?.identification_number}</Typography>
+            <div className='flex flex-col sm:flex-row w-full justify-between my-6'>
               <ul className=''>
                 <li className='flex items-center space-x-4 my-3'>
                   <Icon svgPath='user' width={18} height={20} />
@@ -122,13 +122,18 @@ const OrderDetails: React.FC<Props> = ({ toggleDetails, setOrderId, orderId }) =
                     <Typography type='body' color='light'>
                       დაწყება
                     </Typography>
-                    <Icon svgPath='calendarGreen' width={18} height={20} />
-                    <Typography type='body' color='light'>
-                      {companyOrder?.start_date} {companyOrder?.start_time}
-                    </Typography>
+                    <div className="flex items-center">
+                      <div className="flex-shrink-0 mr-4 lg:mr-0">
+                        <Icon svgPath='calendarGreen' width={18} height={20} />
+                      </div>
+                      <Typography type='body' color='light'>
+                        {companyOrder?.start_date} {companyOrder?.start_time}
+                      </Typography>
+                    </div>
+
                   </TakeAway>
                 </TakeAwayWrapper>
-                <div className='w-7/12'>
+                <div className='lg:w-7/12'>
                   <Typography type='subtitle'>{companyOrder?.start_address}</Typography>
                 </div>
               </TakeAwayInfoContsiner>
@@ -138,13 +143,18 @@ const OrderDetails: React.FC<Props> = ({ toggleDetails, setOrderId, orderId }) =
                     <Typography type='body' color='light'>
                       დასრულება
                     </Typography>
-                    <Icon svgPath='calendarRed' width={18} height={20} />
-                    <Typography type='body' color='light'>
-                      {companyOrder?.end_date} {companyOrder?.end_time}
-                    </Typography>
+                    <div className="flex items-center">
+                      <div className="flex-shrink-0 mr-4 lg:mr-0">
+                        <Icon svgPath='calendarRed' width={18} height={20} />
+                      </div>
+                      <Typography type='body' color='light'>
+                        {companyOrder?.end_date} {companyOrder?.end_time}
+                      </Typography>
+                    </div>
+
                   </TakeAway>
                 </TakeAwayWrapper>
-                <div className='w-7/12'>
+                <div className='lg:w-7/12'>
                   <Typography type='subtitle'>{companyOrder?.end_address}</Typography>
                 </div>
               </TakeAwayInfoContsiner>
@@ -178,7 +188,7 @@ const OrderDetails: React.FC<Props> = ({ toggleDetails, setOrderId, orderId }) =
               </PriceDetailsWrapper>
             </div>
           </div>
-          <div className='w-full mb-6 md:mb-0 md:w-5/12 flex flex-col items-center'>
+          <div className='w-full mb-6 md:mb-0 lg:w-5/12 flex flex-col items-center md:w-auto shrink-0 md:pl-16 lg:pl-0'>
             <Image src='/images/car.png' alt='' height={150} width={200} className='m-auto rounded-lg' />
             <div>
               <Typography type='h5' className='font-bold mt-6'>

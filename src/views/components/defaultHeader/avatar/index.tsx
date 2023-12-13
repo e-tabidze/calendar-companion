@@ -58,7 +58,7 @@ const Avatar = () => {
             />
           </AvatarInnerContainer>
           <AvatarResponsiveContainer>
-            <Typography type='subtitle'>
+            <Typography type='subtitle' className='max-w-[120px] inline-block overflow-hidden text-ellipsis whitespace-nowrap'>
               {!!activeCompany ? activeCompany.information.name : userInfo?.information?.first_name}
             </Typography>
             <Icon svgPath='chevron' width={8} height={6} className='fill-transparent flex ml-2 transition-all'/>

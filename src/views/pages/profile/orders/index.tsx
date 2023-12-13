@@ -19,8 +19,8 @@ const Orders = () => {
       {details ? (
         <OrderDetails toggleDetails={toggleDetails} orderId={orderId} setOrderId={setOrderId} />
       ) : (
-        <div className='p-2 md:p-10 md:border border-raisin-10 rounded-3xl'>
-          <Typography type='h3' className='mb-6'>
+        <div className='md:p-10 md:border border-raisin-10 rounded-3xl'>
+          <Typography type='h3' className='text-md md:text-2lg mb-6'>
             ჩემი შეკვეთები
           </Typography>
 

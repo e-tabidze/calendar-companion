@@ -26,7 +26,7 @@ const Radio: React.FC<Props> = ({ name, options, control, color, horizontal }) =
 
   const Circle = tw.div<{
     checked: boolean
-  }>`w-8 h-8 flex items-center justify-center rounded-full border border-raisin-1300  outline-none ${props =>
+  }>`w-6 h-6 md:w-8 md:h-8 flex items-center justify-center rounded-full border border-raisin-1300  outline-none ${props =>
     props.checked ? `${color} border-0` : ''}`
 
   return (
@@ -51,7 +51,7 @@ const Radio: React.FC<Props> = ({ name, options, control, color, horizontal }) =
                     <Circle checked={checked}>
                       {checked &&  <Icon svgPath='check' width={14} height={10} className='fill-transparent'/>}
                     </Circle>
-                    <span className='text-2sm md:md'>{option.label}</span>
+                    <span className='text-sm md:text-2sm'>{option.label}</span>
                   </RadioGroup.Label>
                   {option.info && (
                     <RadioGroup.Description className='text-raisin-130' as='span'>

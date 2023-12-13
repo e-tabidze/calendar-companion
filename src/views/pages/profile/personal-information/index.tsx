@@ -11,6 +11,7 @@ import PasswordForm from './passwordForm'
 import { UserInfo } from 'src/types/User'
 import usePersonalInfo from './usePersonalInfo'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
+import useWindowDimensions from "src/hooks/useWindowDimensions";
 
 const cat = [
   {
@@ -33,6 +34,8 @@ interface Props {
 
 const PersonalInfo: React.FC<Props> = ({ userData }) => {
   const { control, errors, handleSubmit, userInfoValues, updateUserInfo } = usePersonalInfo(userData)
+
+  const { width } = useWindowDimensions()
 
   const renderTabContent = (id: any) => {
     if (id === 0) {
@@ -63,15 +66,15 @@ const PersonalInfo: React.FC<Props> = ({ userData }) => {
         <Typography type='h3' className='hidden md:inline-block'>
           პარამეტრები
         </Typography>
-        <div className='border border-raisin-10 p-4 md:border-none md:p-0 rounded-2xl flex items-center gap-3 mt-8 '>
+        <div className='border border-raisin-10 p-4 md:border-none md:p-0 rounded-2xl flex items-center gap-6 md:mt-8 '>
           <Image
             src={userData?.information.profile_pic}
-            height={96}
-            width={96}
+            height={width > 779 ? 96 : 48}
+            width={width > 779 ? 96 : 48}
             alt=''
             className='rounded-full md:rounded-3xl'
           />
-          <div className='flex flex-col gap-2'>
+          <div className='flex flex-col md:gap-2'>
             <Typography type='h3' className='text-md md:text-2lg font-medium md:font-bold'>
               {userData?.information?.first_name} {userData?.information?.last_name}
             </Typography>
@@ -108,7 +111,7 @@ const PersonalInfo: React.FC<Props> = ({ userData }) => {
         </Tab.Group>
       </div>
       <Divider className='hidden md:block' />
-      <div className='flex items-center gap-3 p-2 md:p-4'>
+      <div className='flex items-center justify-end md:justify-start gap-3 p-2 md:p-4'>
         <DefaultButton type='submit' text='შენახვა' textColor='text-white' bg='bg-orange-100'></DefaultButton>
         <DefaultButton text='უარყოფა' bg='bg-grey-100'></DefaultButton>
       </div>

@@ -8,9 +8,9 @@ const CardsAndTransactions = () => {
   const { width } = useWindowDimensions()
   
   return (
-    <div className='px-5 md:px-10'>
+    <div className='md:px-10'>
       <div className='flex justify-between items-center my-10'>
-        <Typography type='h3'>ბარათები და ტრანზაქციები</Typography>
+        <Typography type='h3' className='text-md md:text-2lg'>ბარათები და ტრანზაქციები</Typography>
         <IconTextButton
           label='ახალი ბარათი'
           icon='add'
@@ -22,7 +22,7 @@ const CardsAndTransactions = () => {
       </div>
       <Divider />
       <div className='flex justify-between items-center my-7'>
-        <Typography type='h3'>ჩემი შეკვეთები</Typography>
+        <Typography type='h3' className='text-md md:text-2lg'>ჩემი შეკვეთები</Typography>
         <div className='flex gap-4 md:gap-8'>
           <IconTextButton label={width > 779 ? 'ფილტრი' : ''} icon='filters' width={22} height={20} />
           <IconTextButton label={width > 779 ? 'ძებნა' : ''} icon='sort' width={20} height={12} />

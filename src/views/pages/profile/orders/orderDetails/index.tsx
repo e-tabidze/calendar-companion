@@ -45,7 +45,7 @@ const OrderDetails: React.FC<Props> = ({ toggleDetails, orderId, setOrderId }) =
 
   return (
     <div className='border border-raisin-10 rounded-2xl'>
-      <div className='flex items-center md:w-full gap-6 p-4'>
+      <div className='flex items-center md:w-full gap-6 p-4 md:p-8'>
         <IconTextButton
           icon='backWithBg'
           width={38}
@@ -84,18 +84,18 @@ const OrderDetails: React.FC<Props> = ({ toggleDetails, orderId, setOrderId }) =
       </RentalDetailsContainer>
       <Divider />
       <PriceDetailsContainer>
-        <div className='w-full md:w-7/12'>
+        <div className='w-full lg:w-8/12 xl:w-7/12'>
           <div className=''>
             <TakeAwayInfoContsiner>
               <TakeAwayWrapper>
                 <TakeAway>
-                  <Icon svgPath='locationPlay' height={24} width={24} className='fill-transparent' />
+                  <Icon svgPath='booking-start' height={24} width={24} className='fill-transparent' />
                   <Typography type='body' color='light'>
                     წაყვანა
                   </Typography>
                 </TakeAway>
               </TakeAwayWrapper>
-              <div className='w-7/12'>
+              <div className='lg:w-7/12 pl-9 lg:pl-0'>
                 <Typography type='subtitle'>{userOrderDetails?.start_address}</Typography>
                 <Typography type='body' color='light'>
                   {userOrderDetails?.start_date} {userOrderDetails?.start_time}
@@ -105,13 +105,13 @@ const OrderDetails: React.FC<Props> = ({ toggleDetails, orderId, setOrderId }) =
             <TakeAwayInfoContsiner>
               <TakeAwayWrapper>
                 <TakeAway>
-                  <Icon svgPath='locationPlay' height={24} width={24} className='fill-transparent' />
+                  <Icon svgPath='booking-stop' height={24} width={24} className='fill-transparent' />
                   <Typography type='body' color='light'>
                     დაბრუნება
                   </Typography>
                 </TakeAway>
               </TakeAwayWrapper>
-              <div className='w-7/12'>
+              <div className='lg:w-7/12 pl-9 lg:pl-0'>
                 <Typography type='subtitle'>{userOrderDetails?.end_address}</Typography>
                 <Typography type='body' color='light'>
                   {userOrderDetails?.end_date} {userOrderDetails?.end_time}
@@ -145,7 +145,7 @@ const OrderDetails: React.FC<Props> = ({ toggleDetails, orderId, setOrderId }) =
             </PriceDetailsWrapper>
           </div>
         </div>
-        <div className='w-5/12 flex flex-col items-center'>
+        <div className='lg:w-4/12 xl:w-5/12 flex flex-col items-center md:pl-10 lg:pl-0 shrink-0'>
           <Image
             src={productData?.images?.split(',')[0]}
             alt={productData?.manufacturer?.title + productData?.manufacturer_model?.title + productData?.prod_year}

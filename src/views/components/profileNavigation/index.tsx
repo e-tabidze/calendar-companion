@@ -76,31 +76,28 @@ const ProfileNavigation: React.FC<Props> = ({
         <div
           className={`${
             sidebarCollapsed ? 'w-0 opacity-0' : 'w-6 opacity-100'
-          } transition duration-300 flex h-6 rounded-full bg-raisin-10 justify-center items-center shrink-0`}
+          } cursor-pointer transition duration-300 flex h-6 rounded-full bg-raisin-10 justify-center items-center shrink-0`}
           onClick={toggleSidebarCollapse}
         >
           <Icon
-            svgPath='chevron'
-            width={9}
-            height={8}
-            className={`fill-transparent cursor-pointer ${
-              sidebarCollapsed ? 'transform -rotate-90' : 'transform rotate-90'
-            } `}
+            svgPath='chevron-l'
+            width={8}
+            height={12}
           />
         </div>
       </div>
       <div
         className={`${
           sidebarCollapsed ? 'mx-auto xl:mb-6 xl:w-6 xl:h-6 xl:opacity-100 lg:w-0 lg:opacity-0' : 'w-0 opacity-0'
-        } transition duration-300 flex rounded-full bg-raisin-10 justify-center items-center shrink-0`}
+        } cursor-pointer transition duration-300 flex rounded-full bg-raisin-10 justify-center items-center shrink-0`}
         onClick={toggleSidebarCollapse}
       >
         <Icon
-          svgPath='chevron'
-          width={9}
-          height={8}
+          svgPath='chevron-l'
+          width={8}
+          height={12}
           className={`fill-transparent cursor-pointer ${
-            sidebarCollapsed ? 'transform -rotate-90' : 'transform rotate-90'
+            sidebarCollapsed ? 'transform rotate-180' : ''
           } `}
         />
       </div>
