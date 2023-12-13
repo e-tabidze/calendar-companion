@@ -122,7 +122,7 @@ const SearchPage = () => {
                   reset={resetField}
                 />
               </div>
-              <div className='hidden xl:flex'>
+              <div className='hidden 2xl:flex'>
                 <SuitcasesPopover
                   control={control}
                   appendLuggageNumber={appendLuggageNumber}

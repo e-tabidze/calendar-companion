@@ -56,10 +56,10 @@ const PeriodDropwodn: React.FC<Props> = ({ control, resetField }) => {
             </Typography>
             {startDate || endDate ? (
               <Icon
-                svgPath='clear'
-                width={18}
+                svgPath='clear-xs'
+                width={7}
+                height={7}
                 color='raisin-10'
-                height={18}
                 onClick={e => {
                   resetField(), e.stopPropagation()
                 }}
