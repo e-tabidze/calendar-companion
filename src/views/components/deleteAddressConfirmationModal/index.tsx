@@ -60,8 +60,8 @@ const DeleteAddressConfirmationModal: React.FC<Props> = ({ open, toggleModal, ad
                     label='წაშლა'
                     className='text-red-120'
                     icon='clear'
-                    width={16}
-                    height={16}
+                    width={24}
+                    height={24}
                     type='submit'
                     onClick={() => {
                       deleteAddress(addressId)

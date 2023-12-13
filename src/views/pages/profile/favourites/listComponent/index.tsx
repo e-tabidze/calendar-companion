@@ -28,58 +28,69 @@ const ListComponent: React.FC<Props> = ({ productId, manufacturer, model, year, 
   }
 
   return (
-
-      <div className='flex flex-col sm:flex-row gap-6 w-full sm:my-5 border border-raisin-10 my-2 sm:my-none rounded-2xl sm:rounded-none sm:border-none last:border-none'>
-        <div className='aspect-w-4 aspect-h-3'>
-          <Image
-            src='/images/car.png'
-            width={'100%'}
-            height={'100%'}
-            alt=''
-            className='rounded-2xl object-cover'
-          />
-        </div>
-        <div className='relative w-full sm:h-[140px] sm:m-auto flex flex-col justify-between'>
-          <div className=''>
-            <Typography type='h4' weight='normal' color='dark' className='text-md md:text-3md'>
-              {manufacturer} {model} {year}
-            </Typography>
-            <div className='flex gap-2 items-center mt-1'>
-              {/*<Icon svgPath='star' width={16} height={16}/>*/}
-              <Typography type='subtitle' className='text-black/50'>{city}</Typography>
-              <div className='h-[5px] w-px bg-raisin-10' />
+      <div className='w-full sm:border-b-1 sm:border-b-1 sm:border-raisin-10 my-3 sm:my-2 last:border-none'>
+        <div className='w-full sm:gap-6 flex flex-col sm:flex-row sm:my-5 border border-raisin-10 sm:border-none overflow-hidden rounded-xl sm:rounded-0'>
+          <div className="w-full sm:w-[200px] relative">
+            <div className='aspect-w-16 aspect-h-9 sm:rounded-2xl overflow-hidden'>
+              <Image
+                  src='/images/car.png'
+                  width={'100%'}
+                  height={'100%'}
+                  alt=''
+                  className='object-cover'
+              />
             </div>
+            <IconButton
+                icon='favIconActive'
+                height={13}
+                width={14}
+                className='flex sm:hidden absolute right-5 top-5 bg-red-10 w-8 !h-8 justify-center'
+                onClick={handleFavorites}
+                type='button'
+            />
           </div>
-          <div className='flex justify-between w-full mt-3 sm:mt-none'>
-            <div className='flex items-center gap-6'>
-              <Typography type='h4' weight='medium' color='dark'>
-                <PriceContainer>{price} ₾ / დღე</PriceContainer>
+          <div className='relative w-full flex flex-col justify-between p-6 sm:p-0'>
+            <div className=''>
+              <Typography type='h4' weight='normal' color='dark' className='text-md md:text-3md'>
+                {manufacturer} {model} {year}
               </Typography>
-              {isDeleted && (
-                <Typography type='subtitle'>
-                  <PreviousPrice>პროდუქტი წაშლილია</PreviousPrice>
-                </Typography>
-              )}
+              <div className='flex gap-2 items-center mt-1'>
+                {/*<Icon svgPath='star' width={16} height={16}/>*/}
+                <Typography type='subtitle' className='text-black/50'>{city}</Typography>
+                <div className='h-[5px] w-px bg-raisin-10' />
+              </div>
             </div>
-            <InnerDetailsContainer>
-              <DetailsWrapper>
-                <Details>
-                  <Icon svgPath='views' width={20} height={20} className='fill-transparent' /> <span></span>
-                </Details>
-                <Details>
-                  <Icon svgPath='briefcase' width={20} height={20} className='fill-transparent' /> <span></span>
-                </Details>
-              </DetailsWrapper>
-            </InnerDetailsContainer>
+            <div className='flex justify-between w-full mt-3 sm:mt-none'>
+              <div className='flex items-center gap-6'>
+                <Typography type='h4' weight='medium' color='dark'>
+                  <PriceContainer>{price} ₾ / დღე</PriceContainer>
+                </Typography>
+                {isDeleted && (
+                  <Typography type='subtitle'>
+                    <PreviousPrice>პროდუქტი წაშლილია</PreviousPrice>
+                  </Typography>
+                )}
+              </div>
+              <InnerDetailsContainer>
+                <DetailsWrapper>
+                  <Details>
+                    <Icon svgPath='views' width={20} height={20} className='fill-transparent' /> <span></span>
+                  </Details>
+                  <Details>
+                    <Icon svgPath='briefcase' width={20} height={20} className='fill-transparent' /> <span></span>
+                  </Details>
+                </DetailsWrapper>
+              </InnerDetailsContainer>
+            </div>
+            <IconButton
+              icon='favIconActive'
+              height={13}
+              width={14}
+              className='hidden sm:flex absolute right-0 top-0 bg-red-10 w-8 !h-8 justify-center'
+              onClick={handleFavorites}
+              type='button'
+            />
           </div>
-          <IconButton
-            icon='favIconActive'
-            height={13}
-            width={14}
-            className='absolute right-0 top-0 bg-red-10 w-8 !h-8 justify-center'
-            onClick={handleFavorites}
-            type='button'
-          />
         </div>
       </div>
   )

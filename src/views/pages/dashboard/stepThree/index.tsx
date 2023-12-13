@@ -91,8 +91,8 @@ const StepThree: React.FC<Props> = ({ control, discountItems, appendDiscountItem
                 <IconTextButton
                   label={width > 779 ? 'წაშლა' : ''}
                   icon='clear'
-                  width={16}
-                  height={16}
+                  width={24}
+                  height={24}
                   labelClassname='text-orange-120'
                   onClick={() => {
                     remove(index)

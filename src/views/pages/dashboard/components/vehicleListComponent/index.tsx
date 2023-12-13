@@ -71,13 +71,13 @@ const VehicleListComponent: React.FC<Props> = ({
             <div className='w-[64px] md:w-[150px] lg:w-[200px] xl:w-[250px]'>
               <Carousel
                 itemsArray={images?.split(',')?.map((imgUrl, index) => (
-                  <div className='aspect-w-4 aspect-h-3' key={index}>
+                  <div className='aspect-w-16 aspect-h-9 rounded-lg overflow-hidden' key={index}>
                     <Image
                       src={imgUrl || ''}
                       alt={`${manufacturer} ${model} ${prodYear}`}
                       height={'100%'}
                       width={'100%'}
-                      className='rounded-lg object-cover'
+                      className='object-cover'
                     />
                   </div>
                 ))}

@@ -1,4 +1,4 @@
-import Image from 'next/image'
+import Image from 'src/views/components/image'
 import Divider from 'src/views/components/divider'
 import Typography from 'src/views/components/typography'
 import Icon from 'src/views/app/Icon'
@@ -21,7 +21,7 @@ const Success = () => {
                 <PriceDetailsContainer>
                     <div className="lg:w-4/12 xl:w-5/12 flex flex-col items-center shrink-0">
                         <div className="flex items-center mb-4 md:mb-0">
-                            <Icon svgPath='success' height={40} width={40} className='fill-transparent mr-4' />
+                            <Icon svgPath='success' height={40} width={40} className='fill-transparent mr-4 flex shrink-0' />
                             <Typography type='h3' className='text-white text-md md:text-2lg'>
                                 წარმატებული ტრანზაქცია
                             </Typography>
@@ -52,15 +52,14 @@ const Success = () => {
             </RentalDetailsContainer>
             <Divider />
             <PriceDetailsContainer className='md:py-10 lg:py-16 p-4 md:px-10 lg:px-0'>
-                <div className='lg:w-4/12 xl:w-5/12 flex flex-col items-center shrink-0'>
+                <div className='lg:w-4/12 xl:w-5/12 flex flex-col xl:items-center shrink-0'>
                     <div className="flex flex-col">
-                        <Image
-                            src='/images/car.png'
-                            alt=''
-                            height={150}
-                            width={200}
-                            className='m-auto rounded-lg'
-                        />
+                        <div className="w-[260px] shrink-0">
+                            <div className="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden">
+                                <Image src='/images/car.png' alt='' height={'100%'} width={'100%'} className='object-cover' />
+                            </div>
+                        </div>
+
                         <Typography type='h5' className='font-bold my-4'>
                             Fiat 500X 2017
                         </Typography>
@@ -70,15 +69,15 @@ const Success = () => {
                             აქტიური
                         </Typography>
                     </div>
-
-
                 </div>
                 <div className='w-full lg:w-6/12 xl:w-5/12 md:pl-10 lg:pl-0'>
                     <div className=''>
                         <TakeAwayInfoContsiner>
                             <TakeAwayWrapper>
                                 <TakeAway>
-                                    <Icon svgPath='booking-start' height={24} width={24} className='fill-transparent' />
+                                    <div className="flex shrink-0">
+                                        <Icon svgPath='booking-start' height={24} width={24} className='fill-transparent' />
+                                    </div>
                                     <Typography type='body' color='light'>
                                         წაყვანა
                                     </Typography>
@@ -94,7 +93,9 @@ const Success = () => {
                         <TakeAwayInfoContsiner>
                             <TakeAwayWrapper>
                                 <TakeAway>
-                                    <Icon svgPath='booking-stop' height={24} width={24} className='fill-transparent' />
+                                    <div className="flex shrink-0">
+                                     <Icon svgPath='booking-stop' height={24} width={24} className='fill-transparent' />
+                                    </div>
                                     <Typography type='body' color='light'>
                                         დაბრუნება
                                     </Typography>
@@ -112,28 +113,28 @@ const Success = () => {
                     <div>
                         <PriceDetailsWrapper>
                             <Typography type='subtitle'>ქირაობის ღირებულება x 6 დღე</Typography>
-                            <Typography type='subtitle'>520 ₾</Typography>
+                            <Typography type='subtitle' className='whitespace-nowrap flex shrink-0'>520 ₾</Typography>
                         </PriceDetailsWrapper>
 
                         <PriceDetailsWrapper>
                             <Typography type='subtitle'>
                                 დაზღვევა - საბაზისო
                             </Typography>
-                            <Typography type='subtitle'> 120 ₾ </Typography>
+                            <Typography type='subtitle' className='whitespace-nowrap flex shrink-0'> 120 ₾ </Typography>
                         </PriceDetailsWrapper>
 
                         <PriceDetailsWrapper>
                             <Typography type='subtitle'>
                                 გადასახადები და საკომისიოები
                             </Typography>
-                            <Typography type='subtitle'> 20 ₾ </Typography>
+                            <Typography type='subtitle' className='whitespace-nowrap flex shrink-0'> 20 ₾ </Typography>
                         </PriceDetailsWrapper>
 
                         <PriceDetailsWrapper>
                             <Typography type='subtitle'>
                                 ბავშვის სავარძელი
                             </Typography>
-                            <Typography type='subtitle'> 20 ₾ </Typography>
+                            <Typography type='subtitle' className='whitespace-nowrap flex shrink-0'> 20 ₾ </Typography>
                         </PriceDetailsWrapper>
 
                         <Divider />
@@ -145,6 +146,9 @@ const Success = () => {
                                 750 ₾
                             </Typography>
                         </PriceDetailsWrapper>
+                        <div className="pb-12 pt-6">
+                            <button className='rounded-xl bg-raisin-100 flex items-center text-white text-sm md:text-md px-6 h-10 md:h-12'>შეკვეთების ისტორია</button>
+                        </div>
                     </div>
                 </div>
             </PriceDetailsContainer>

@@ -40,23 +40,24 @@ const LocationDropdown: React.FC<Props> = ({ control }) => {
                 leaveFrom='opacity-100'
                 leaveTo='opacity-0'
               >
-                <Listbox.Options className='absolute top-full z-[11] mt-4 w-full origin-top-right divide-y divide-gray-100 rounded-2xl bg-white shadow-lg focus:outline-none'>
+                <Listbox.Options className='absolute top-full py-2 z-[11] mt-2 w-full overflow-hidden origin-top-right divide-y divide-gray-100 rounded-2xl bg-white shadow-lg focus:outline-none'>
                   {cities?.map((city: any, index: number) => (
                     <Listbox.Option
                       key={index}
                       className={({ active }) =>
-                        `relative cursor-pointer my-2 select-none py-2 pl-10 pr-4 ${
-                          active ? 'bg-raisin-10' : 'text-gray-900'
+                        `hover:bg-raisin-5 relative cursor-pointer my-2 select-none py-1 pl-6 pr-4 border-none ${
+                          active ? 'bg-raisin-5' : 'text-gray-900'
                         }`
                       }
                       value={city.city}
                     >
                       {({ selected }) => (
-                        <>
-                          <span className={`block truncate ${selected ? 'font-medium' : 'font-normal'}`}>
+                        <div className='flex items-center cursor-pointer'>
+                          <Icon svgPath='city' width={24} height={24} className='fill-transparent mr-3' />
+                          <span className={`text-sm block truncate ${selected ? 'font-medium text-black' : 'font-normal text-black/70'}`}>
                             {city.city}
                           </span>
-                        </>
+                        </div>
                       )}
                     </Listbox.Option>
                   ))}

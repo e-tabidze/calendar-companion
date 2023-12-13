@@ -146,13 +146,17 @@ const OrderDetails: React.FC<Props> = ({ toggleDetails, orderId, setOrderId }) =
           </div>
         </div>
         <div className='lg:w-4/12 xl:w-5/12 flex flex-col items-center md:pl-10 lg:pl-0 shrink-0'>
-          <Image
-            src={productData?.images?.split(',')[0]}
-            alt={productData?.manufacturer?.title + productData?.manufacturer_model?.title + productData?.prod_year}
-            height={150}
-            width={200}
-            className='m-auto rounded-lg'
-          />
+          <div className="w-[260px] shrink-0">
+            <div className="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden">
+              <Image
+                   src={productData?.images?.split(',')[0]}
+                    alt={productData?.manufacturer?.title + productData?.manufacturer_model?.title + productData?.prod_year}
+                     height={'100%'}
+                     width={'100%'}
+                     className='object-cover' />
+            </div>
+          </div>
+
           <Typography type='h5' className='font-bold my-6'>
             {productData?.manufacturer?.title}
             {productData?.manufacturer_model?.title}

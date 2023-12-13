@@ -56,7 +56,7 @@ const Products = () => {
           </div>
         </div>
         <Divider />
-        <div className='hidden lg:flex gap-3 mt-8'>
+        <div className='hidden lg:flex gap-3 py-8'>
           {filters.map(filter => (
             <Tag
               label={filter.label}

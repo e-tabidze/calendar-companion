@@ -91,14 +91,16 @@ const ProductCard: React.FC<Props> = ({
         <div className='w-full h-6'>
           <Carousel
             itemsArray={images?.map((imgUrl, index) => (
-              <Image
-                key={index}
-                src={imgUrl || ''}
-                alt={`${manufacturer} ${model} ${prodYear}`}
-                height={width > 779 ? '100%' : 50}
-                width={width > 779 ? '100%' : 82}
-                className='rounded-lg object-cover'
-              />
+                <div className='aspect-w-16 aspect-h-9 rounded-tl-3xl rounded-tr-3xl overflow-hidden' key={index}>
+                  <Image
+                      src={imgUrl || ''}
+                      alt={`${manufacturer} ${model} ${prodYear}`}
+                      height={'100%'}
+                      width={'10%'}
+                      className='object-cover'
+                  />
+                </div>
+
             ))}
             type='card'
             key={Math.random()}

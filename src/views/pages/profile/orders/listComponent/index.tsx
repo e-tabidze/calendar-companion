@@ -35,7 +35,11 @@ const OrderListComponent: React.FC<Props> = ({
     <div className='border-b-1 border-raisin-10 last:border-none' onClick={toggleDetails}>
       <div className='flex flex-col py-4 md:w-full gap-4 md:gap-10 md:flex-row md:items-center'>
         <div className='flex items-center gap-4 2xl:gap-6'>
-          <Image src='/images/car.png' alt='orders' height={48} width={64} className='rounded-lg object-cover h-min' />
+          <div className="w-[64px] shrink-0">
+            <div className="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden">
+              <Image src='/images/car.png' alt='orders' height={'100%'} width={'100%'} className='object-cover' />
+            </div>
+          </div>
           <div className=''>
             <Typography type='subtitle' className='text-md'>
               {productDetails?.manufacturer.title} {productDetails?.manufacturer_model?.title}

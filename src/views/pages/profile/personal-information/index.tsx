@@ -1,4 +1,4 @@
-import Image from 'next/image'
+import Image from 'src/views/components/image'
 import Link from 'next/link'
 import { DefaultButton } from 'src/views/components/button'
 import Divider from 'src/views/components/divider'
@@ -67,13 +67,16 @@ const PersonalInfo: React.FC<Props> = ({ userData }) => {
           პარამეტრები
         </Typography>
         <div className='border border-raisin-10 p-4 md:border-none md:p-0 rounded-2xl flex items-center gap-6 md:mt-8 '>
-          <Image
-            src={userData?.information.profile_pic}
-            height={width > 779 ? 96 : 48}
-            width={width > 779 ? 96 : 48}
-            alt=''
-            className='rounded-full md:rounded-3xl'
-          />
+          <div className="w-12 h-12 md:w-24 md:h-24 rounded-full md:rounded-3xl">
+            <Image
+                src={userData?.information.profile_pic}
+                height={'100%'}
+                width={'100%'}
+                alt=''
+                className='object-cover'
+            />
+          </div>
+
           <div className='flex flex-col md:gap-2'>
             <Typography type='h3' className='text-md md:text-2lg font-medium md:font-bold'>
               {userData?.information?.first_name} {userData?.information?.last_name}

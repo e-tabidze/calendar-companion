@@ -121,11 +121,11 @@ const OrderDetails: React.FC<Props> = ({ toggleDetails, setOrderId, orderId }) =
               <TakeAwayInfoContsiner>
                 <TakeAwayWrapper>
                   <TakeAway>
-                    <Typography type='body' color='light'>
+                    <Typography type='body' color='light' className='lg:w-4/12'>
                       დაწყება
                     </Typography>
-                    <div className='flex items-center'>
-                      <div className='flex-shrink-0 mr-4 lg:mr-0'>
+                    <div className='flex items-center lg:w-8/12'>
+                      <div className='flex-shrink-0 mr-3'>
                         <Icon svgPath='calendarGreen' width={18} height={20} />
                       </div>
                       <Typography type='body' color='light'>
@@ -134,18 +134,18 @@ const OrderDetails: React.FC<Props> = ({ toggleDetails, setOrderId, orderId }) =
                     </div>
                   </TakeAway>
                 </TakeAwayWrapper>
-                <div className='lg:w-7/12'>
+                <div className='lg:w-6/12 lg:pl-4'>
                   <Typography type='subtitle'>{companyOrder?.start_address}</Typography>
                 </div>
               </TakeAwayInfoContsiner>
               <TakeAwayInfoContsiner>
                 <TakeAwayWrapper>
                   <TakeAway>
-                    <Typography type='body' color='light'>
+                    <Typography type='body' color='light' className='lg:w-4/12'>
                       დასრულება
                     </Typography>
-                    <div className='flex items-center'>
-                      <div className='flex-shrink-0 mr-4 lg:mr-0'>
+                    <div className='flex items-center lg:w-8/12'>
+                      <div className='flex-shrink-0 mr-3'>
                         <Icon svgPath='calendarRed' width={18} height={20} />
                       </div>
                       <Typography type='body' color='light'>
@@ -154,7 +154,7 @@ const OrderDetails: React.FC<Props> = ({ toggleDetails, setOrderId, orderId }) =
                     </div>
                   </TakeAway>
                 </TakeAwayWrapper>
-                <div className='lg:w-7/12'>
+                <div className='lg:w-6/12 lg:pl-4'>
                   <Typography type='subtitle'>{companyOrder?.end_address}</Typography>
                 </div>
               </TakeAwayInfoContsiner>
@@ -189,7 +189,11 @@ const OrderDetails: React.FC<Props> = ({ toggleDetails, setOrderId, orderId }) =
             </div>
           </div>
           <div className='w-full mb-6 md:mb-0 lg:w-5/12 flex flex-col items-center md:w-auto shrink-0 md:pl-16 lg:pl-0'>
-            <Image src='/images/car.png' alt='' height={'100%'} width={'100%'} className='m-auto rounded-lg' />
+            <div className="w-[260px] shrink-0">
+              <div className="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden">
+                <Image src='/images/car.png' alt='' height={'100%'} width={'100%'} className='object-cover' />
+              </div>
+            </div>
             <div>
               <Typography type='h5' className='font-bold mt-6'>
                 {companyOrder?.product_data?.manufacturer?.title}
