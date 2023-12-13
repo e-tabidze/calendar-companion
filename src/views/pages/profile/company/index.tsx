@@ -1,5 +1,4 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
 import { DefaultButton, IconTextButton } from 'src/views/components/button'
@@ -11,6 +10,7 @@ import DeleteAddressConfirmationModal from '../../../components/deleteAddressCon
 import DeleteCompanyConfirmationModal from '../../../components/deleteCompanyConfirmationModal'
 import useCompany from './useCompany'
 import { useRouter } from 'next/router'
+import Image from 'src/views/components/image'
 
 interface Props {
   id: number
@@ -85,7 +85,7 @@ const Company: React.FC<Props> = ({ id, name, productsCount, logo }) => {
         <div className='p-2 md:p-6'>
           <div className='flex items-center gap-6 md:mb-10'>
             <div className='flex items-center justify-center border border-raisin-10 relative overflow-hidden rounded-2xl md:rounded-3xl w-[76px] h-[76px] md:w-24 md:h-24'>
-              <Image src={logo || ''} alt='' height={96} width={97} className='object-cover w-full h-full' />
+              <Image src={logo || ''} alt='' height={'100%'} width={'100%'} className='object-cover w-full h-full' />
             </div>
             <div>
               <Typography type='h3' className='font-bold text-3md md:text-2lg'>

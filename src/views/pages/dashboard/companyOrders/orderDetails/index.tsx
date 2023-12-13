@@ -1,5 +1,4 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import Image from 'next/image'
 import { useState } from 'react'
 import { DefaultButton, IconTextButton } from 'src/views/components/button'
 import Divider from 'src/views/components/divider'
@@ -17,6 +16,7 @@ import {
   TakeAwayWrapper
 } from './styles'
 import Icon from 'src/views/app/Icon'
+import Image from 'src/views/components/image'
 
 interface Props {
   toggleDetails: () => void
@@ -88,7 +88,9 @@ const OrderDetails: React.FC<Props> = ({ toggleDetails, setOrderId, orderId }) =
             <Typography type='h3' className='font-bold text-3md lg:text-2lg'>
               {companyOrder?.first_name} {companyOrder?.last_name}
             </Typography>
-            <Typography type='h5' className='text-2sm lg:text-md'>პ.ნ. {companyOrder?.identification_number}</Typography>
+            <Typography type='h5' className='text-2sm lg:text-md'>
+              პ.ნ. {companyOrder?.identification_number}
+            </Typography>
             <div className='flex flex-col sm:flex-row w-full justify-between my-6'>
               <ul className=''>
                 <li className='flex items-center space-x-4 my-3'>
@@ -122,15 +124,14 @@ const OrderDetails: React.FC<Props> = ({ toggleDetails, setOrderId, orderId }) =
                     <Typography type='body' color='light'>
                       დაწყება
                     </Typography>
-                    <div className="flex items-center">
-                      <div className="flex-shrink-0 mr-4 lg:mr-0">
+                    <div className='flex items-center'>
+                      <div className='flex-shrink-0 mr-4 lg:mr-0'>
                         <Icon svgPath='calendarGreen' width={18} height={20} />
                       </div>
                       <Typography type='body' color='light'>
                         {companyOrder?.start_date} {companyOrder?.start_time}
                       </Typography>
                     </div>
-
                   </TakeAway>
                 </TakeAwayWrapper>
                 <div className='lg:w-7/12'>
@@ -143,15 +144,14 @@ const OrderDetails: React.FC<Props> = ({ toggleDetails, setOrderId, orderId }) =
                     <Typography type='body' color='light'>
                       დასრულება
                     </Typography>
-                    <div className="flex items-center">
-                      <div className="flex-shrink-0 mr-4 lg:mr-0">
+                    <div className='flex items-center'>
+                      <div className='flex-shrink-0 mr-4 lg:mr-0'>
                         <Icon svgPath='calendarRed' width={18} height={20} />
                       </div>
                       <Typography type='body' color='light'>
                         {companyOrder?.end_date} {companyOrder?.end_time}
                       </Typography>
                     </div>
-
                   </TakeAway>
                 </TakeAwayWrapper>
                 <div className='lg:w-7/12'>
@@ -189,7 +189,7 @@ const OrderDetails: React.FC<Props> = ({ toggleDetails, setOrderId, orderId }) =
             </div>
           </div>
           <div className='w-full mb-6 md:mb-0 lg:w-5/12 flex flex-col items-center md:w-auto shrink-0 md:pl-16 lg:pl-0'>
-            <Image src='/images/car.png' alt='' height={150} width={200} className='m-auto rounded-lg' />
+            <Image src='/images/car.png' alt='' height={'100%'} width={'100%'} className='m-auto rounded-lg' />
             <div>
               <Typography type='h5' className='font-bold mt-6'>
                 {companyOrder?.product_data?.manufacturer?.title}

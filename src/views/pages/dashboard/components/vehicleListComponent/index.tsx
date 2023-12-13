@@ -1,5 +1,4 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
 import useWindowDimensions from 'src/hooks/useWindowDimensions'
@@ -9,6 +8,7 @@ import useProducts from '../../products/useProducts'
 import Action from './action'
 import Icon from 'src/views/app/Icon'
 import Carousel from 'src/views/components/carousel'
+import Image from 'src/views/components/image'
 
 interface Props {
   price: number
@@ -71,14 +71,15 @@ const VehicleListComponent: React.FC<Props> = ({
             <div className='w-[64px] md:w-[150px] lg:w-[200px] xl:w-[250px]'>
               <Carousel
                 itemsArray={images?.split(',')?.map((imgUrl, index) => (
-                      <Image
-                          key={index}
-                          src={imgUrl || ''}
-                          alt={`${manufacturer} ${model} ${prodYear}`}
-                          height={width > 779 ? 150 : 50}
-                          width={width > 779 ? 250 : 82}
-                          className='rounded-lg object-cover'
-                      />
+                  <div className='aspect-w-4 aspect-h-3' key={index}>
+                    <Image
+                      src={imgUrl || ''}
+                      alt={`${manufacturer} ${model} ${prodYear}`}
+                      height={'100%'}
+                      width={'100%'}
+                      className='rounded-lg object-cover'
+                    />
+                  </div>
                 ))}
                 type='card'
                 key={Math.random()}
@@ -93,7 +94,12 @@ const VehicleListComponent: React.FC<Props> = ({
                   {manufacturer} {model} {prodYear}
                 </Typography>
                 <div className='flex items-center gap-10 md:mt-10'>
-                  <Typography type='h4' weight={width > 779 ? 'medium' : 'normal'} color='dark' className='text-md md:text-3md'>
+                  <Typography
+                    type='h4'
+                    weight={width > 779 ? 'medium' : 'normal'}
+                    color='dark'
+                    className='text-md md:text-3md'
+                  >
                     {price} ₾ დღე
                   </Typography>
                   <Typography
