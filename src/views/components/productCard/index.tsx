@@ -1,7 +1,6 @@
 import { useRouter } from 'next/router'
 import useFavourites from 'src/hooks/useFavourites'
 import useProfile from 'src/hooks/useProfile'
-import useWindowDimensions from 'src/hooks/useWindowDimensions'
 import Icon from 'src/views/app/Icon'
 import Carousel from '../carousel'
 
@@ -49,8 +48,6 @@ const ProductCard: React.FC<Props> = ({
   images
 }) => {
   const router = useRouter()
-
-  const { width } = useWindowDimensions()
 
   const { isAuthenticated, activeCompanyId } = useProfile()
 

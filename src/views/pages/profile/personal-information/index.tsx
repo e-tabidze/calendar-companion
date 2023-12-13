@@ -11,7 +11,6 @@ import PasswordForm from './passwordForm'
 import { UserInfo } from 'src/types/User'
 import usePersonalInfo from './usePersonalInfo'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import useWindowDimensions from "src/hooks/useWindowDimensions";
 
 const cat = [
   {
@@ -34,8 +33,6 @@ interface Props {
 
 const PersonalInfo: React.FC<Props> = ({ userData }) => {
   const { control, errors, handleSubmit, userInfoValues, updateUserInfo } = usePersonalInfo(userData)
-
-  const { width } = useWindowDimensions()
 
   const renderTabContent = (id: any) => {
     if (id === 0) {
