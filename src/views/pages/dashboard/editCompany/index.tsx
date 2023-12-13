@@ -52,8 +52,6 @@ const EditCompany = () => {
   const updateCompanyMutation = useMutation(() => updateCompanyInfo(companyValues), {
     onSuccess: data => {
       queryClient.invalidateQueries(['companyInfo'])
-      queryClient.invalidateQueries(['profileInfo'])
-      queryClient.invalidateQueries(['companyLogo'])
       if (data) {
         saveCompanyLogoMutation.mutate({
           logo: data?.result?.data?.information?.logo,
@@ -121,13 +119,17 @@ const EditCompany = () => {
       <div className='md:border md:border-raisin-10 md:rounded-3xl md:p-8'>
         <div className='flex gap-6 items-center mb-10'>
           <div className='flex shrink-0 w-[76px] h-[76px] md:w-24 md:h-24 border border-raisin-10 rounded-3xl relative overflow-hidden'>
-            <Image
-              src={formState?.company_information?.logo || companyInfo?.information?.logo || ''}
-              width={'100%'}
-              height={'100%'}
-              alt={formState?.company_information?.name || ''}
-              className='object-cover w-full h-full'
-            />
+            {updateCompanyMutation?.isLoading ? (
+              <>Loading</>
+            ) : (
+              <Image
+                src={formState?.company_information?.logo || companyInfo?.information?.logo || ''}
+                width={'100%'}
+                height={'100%'}
+                alt={formState?.company_information?.name || ''}
+                className='object-cover w-full h-full'
+              />
+            )}
           </div>
 
           <div>
@@ -146,16 +148,13 @@ const EditCompany = () => {
             <Controller
               name='company_information.logo'
               control={control}
-              render={({ field: { onChange } }) => (
+              render={({ field: { onChange, value } }) => (
                 <label className='text-2sm flex flex-col cursor-pointer max-w-[220px] md:max-w-none'>
                   სურათის შეცვლა
                   <input
                     type='file'
                     className='opacity-0 text-blue-100'
-                    onChange={(e: any) => {
-                      onChange()
-                      handleFileUpload(e.target.files[0])
-                    }}
+                    onChange={(e: any) => handleFileUpload(e.target.files)}
                   />
                 </label>
               )}
@@ -167,14 +166,14 @@ const EditCompany = () => {
           <DefaultInput
             name='company_information.name'
             control={control}
-            errors={''}
+            errors={errors}
             label='დასახელება'
             className='mb-4 md:mb-0'
           />
           <DefaultInput
             name='identification_number'
             control={control}
-            errors={''}
+            errors={errors}
             label='საიდენტიფიკაციო კოდი'
             className='mb-4 md:mb-0'
             disabled
@@ -190,7 +189,7 @@ const EditCompany = () => {
           <DefaultInput
             name='company_information.description'
             control={control}
-            errors={''}
+            errors={errors}
             label='აღწერა'
             rows={4}
             className='col-span-3 mb-4 md:mb-0'
