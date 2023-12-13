@@ -49,6 +49,8 @@ const EditCompany = () => {
 
   const queryClient = useQueryClient()
 
+  console.log(companyValues, 'companyValues')
+
   const updateCompanyMutation = useMutation(() => updateCompanyInfo(companyValues), {
     onSuccess: data => {
       queryClient.invalidateQueries(['companyInfo'])
@@ -126,7 +128,7 @@ const EditCompany = () => {
                 src={formState?.company_information?.logo || companyInfo?.information?.logo || ''}
                 width={'100%'}
                 height={'100%'}
-                alt={formState?.company_information?.name || ''}
+                alt={companyInfo?.information?.name}
                 className='object-cover w-full h-full'
               />
             )}
@@ -148,7 +150,7 @@ const EditCompany = () => {
             <Controller
               name='company_information.logo'
               control={control}
-              render={({ field: { onChange, value } }) => (
+              render={() => (
                 <label className='text-2sm flex flex-col cursor-pointer max-w-[220px] md:max-w-none'>
                   სურათის შეცვლა
                   <input
