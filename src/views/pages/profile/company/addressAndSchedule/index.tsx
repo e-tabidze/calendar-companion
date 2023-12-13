@@ -30,6 +30,8 @@ const AddressAndSchedule: React.FC<Props> = ({ index, control, address, errors }
     />
   )
 
+  console.log(formState.addresses[0].is_same_time, "is same?")
+
   return (
     <>
       <div className='border border-raisin-10 rounded-xl my-4'>
@@ -47,7 +49,7 @@ const AddressAndSchedule: React.FC<Props> = ({ index, control, address, errors }
           } gap-4 sm:gap-12`}
         >
           <div className='flex items-center gap-4 w-full'>
-            {formState.addresses[index].is_same_time === 1 ? (
+            {formState.addresses[index].is_same_time === 1 || formState.addresses[index].is_same_time === true ? (
               <div className='w-full flex flex-col sm:flex-row justify-between sm:items-center'>
                 <div className='flex md:gap-4 gap-[6px]'>
                   {days.map(day => (

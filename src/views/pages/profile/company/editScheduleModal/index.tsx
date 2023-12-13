@@ -88,7 +88,8 @@ const EditScheduleModal: React.FC<Props> = ({ open, onClose, control, address, i
                       name={`addresses.${index}.is_same_time`}
                       control={control}
                     />
-                    {formState.addresses[index].is_same_time === 1 ? (
+                    {formState.addresses[index].is_same_time === 1 ||
+                    formState.addresses[index].is_same_time === true ? (
                       <div className='flex items-center gap-4'>
                         {workDayData().map((dayData: any) => (
                           <div key={dayData.day}>
@@ -104,7 +105,6 @@ const EditScheduleModal: React.FC<Props> = ({ open, onClose, control, address, i
                                       ...value,
                                       is_selected: !value.is_selected
                                     }
-                                    console.log(updatedValue, 'updatedValue')
                                     if (!updatedValue.is_selected) {
                                       updatedValue.start_time = ''
                                       updatedValue.end_time = ''
@@ -149,54 +149,51 @@ const EditScheduleModal: React.FC<Props> = ({ open, onClose, control, address, i
                     ) : (
                       <div>
                         {workDayData().map((dayData: any) => (
-                          <>
-                            <div className='flex items-center gap-4' key={dayData.day}>
-                              <Controller
-                                key={dayData.day}
-                                name={`addresses.${index}.working_hours.${dayData.day}`}
+                          <div className='flex items-center gap-4' key={dayData.day}>
+                            <Controller
+                              key={dayData.day}
+                              name={`addresses.${index}.working_hours.${dayData.day}`}
+                              control={control}
+                              render={({ field: { value, onChange } }) => (
+                                <RoundedTag
+                                  label={dayData.label}
+                                  handleSelect={() => {
+                                    const updatedValue = {
+                                      ...value,
+                                      is_selected: !value.is_selected
+                                    }
+                                    if (!updatedValue.is_selected) {
+                                      updatedValue.start_time = ''
+                                      updatedValue.end_time = ''
+                                    }
+                                    onChange(updatedValue)
+                                  }}
+                                  selected={value?.is_selected}
+                                />
+                              )}
+                            />
+                            <div className='flex items-center gap-1'>
+                              <SelectField
+                                options={generateTimeOptions()}
+                                className='my-2'
+                                icon
+                                name={`addresses.${index}.working_hours.${dayData.day}.start_time`}
                                 control={control}
-                                render={({ field: { value, onChange } }) => (
-                                  <RoundedTag
-                                    label={dayData.label}
-                                    handleSelect={() => {
-                                      const updatedValue = {
-                                        ...value,
-                                        is_selected: !value.is_selected
-                                      }
-                                      console.log(updatedValue, 'updatedValue')
-                                      if (!updatedValue.is_selected) {
-                                        updatedValue.start_time = ''
-                                        updatedValue.end_time = ''
-                                      }
-                                      onChange(updatedValue)
-                                    }}
-                                    selected={value?.is_selected}
-                                  />
-                                )}
+                                valueKey='value'
+                                labelKey='label'
                               />
-                              <div className='flex items-center gap-1'>
-                                <SelectField
-                                  options={generateTimeOptions()}
-                                  className='my-2'
-                                  icon
-                                  name={`addresses.${index}.working_hours.${dayData.day}.start_time`}
-                                  control={control}
-                                  valueKey='value'
-                                  labelKey='label'
-                                />
-                                <div className='h-px w-[6px] bg-raisin-130' />
-                                <SelectField
-                                  options={generateTimeOptions()}
-                                  className='my-2'
-                                  icon
-                                  control={control}
-                                  name={`addresses.${index}.working_hours.${dayData.day}.end_time`}
-                                  valueKey='value'
-                                  labelKey='label'
-                                />
-                              </div>
+                              <div className='h-px w-[6px] bg-raisin-130' />
+                              <SelectField
+                                options={generateTimeOptions()}
+                                className='my-2'
+                                icon
+                                control={control}
+                                name={`addresses.${index}.working_hours.${dayData.day}.end_time`}
+                                valueKey='value'
+                                labelKey='label'
+                              />
                             </div>
-                          </>
+                          </div>
                         ))}
                       </div>
                     )}

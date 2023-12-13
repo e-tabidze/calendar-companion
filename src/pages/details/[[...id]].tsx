@@ -38,8 +38,7 @@ import useSingleProductDetails from '../../views/pages/details/useSingleProductD
 import useMain from 'src/views/pages/main/useMain'
 import Icon from 'src/views/app/Icon'
 import { days } from 'src/utils/sample-data'
-
-const SimilarProducts = dynamic(() => import('src/views/pages/details/similarProducts'), { ssr: true })
+import ProductCard from 'src/views/components/productCard'
 
 // const Reviews = dynamic(() => import('src/views/pages/details/reviews'), { ssr: true })
 const Features = dynamic(() => import('src/views/pages/details/features'), { ssr: true })
@@ -210,7 +209,7 @@ const ProductDetails = () => {
                     ან მსგავსი
                   </Typography>
                   <Typography type='subtitle'>| </Typography>
-                  <div className="flex shrink-0">
+                  <div className='flex shrink-0'>
                     <Icon svgPath='locationOutline' width={24} height={24} className='fill-transparent' />
                   </div>
                   <Typography type='subtitle'>{singleProductDetails?.start_address}</Typography>
@@ -352,7 +351,7 @@ const ProductDetails = () => {
                   markerCoordinates={[singleProductDetails?.start_lat, singleProductDetails?.start_lon]}
                 />
               </div>
-              
+
               {/*<Divider />*/}
               {/*<Reviews id='reviews' />*/}
             </div>
@@ -381,7 +380,25 @@ const ProductDetails = () => {
             count={singleProductDetails?.company_user?.company?.count_company_poduct}
           />
           <Divider className='my-10 md:my-20' />
-          {similarProducts?.length > 1 && <SimilarProducts data={similarProducts} />}
+          {similarProducts?.length > 1 && (
+            <Carousel
+              itemsArray={similarProducts?.map((product: any) => (
+                <ProductCard
+                  key={product?.id}
+                  swiperCard={true}
+                  productId={product?.id}
+                  manufacturer={product?.manufacturer?.title}
+                  model={product?.manufacturer_model?.title}
+                  prodYear={product?.prod_year}
+                  priceGel={product?.price_gel}
+                  luggageNumbers={product?.luggage_numbers}
+                  seats={product?.seat_type?.title}
+                  images={product?.images?.split(',')}
+                />
+              ))}
+              type='products'
+            />
+          )}
         </ContentContainer>
         {isOpenDrawer && width < 779 ? (
           <Drawer

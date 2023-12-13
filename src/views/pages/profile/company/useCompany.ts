@@ -7,10 +7,6 @@ import CompanyService from 'src/services/CompanyService'
 import { useEffect } from 'react'
 
 const useCompany = (id: number) => {
-  useEffect(() => {
-    console.log(id, 'ID?')
-  }, [id])
-
   const { companyInfo } = useCompanyInfo(id)
 
   const defaultAddress: CompanyAddress[] = companyInfo?.addresses?.map((address: any) => ({
