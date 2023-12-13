@@ -140,7 +140,7 @@ const OrderDetails: React.FC<Props> = ({ toggleDetails, orderId, setOrderId }) =
                 ჯამი
               </Typography>
               <Typography type='subtitle' className='font-bold'>
-                {userOrderDetails.price} ₾
+                {userOrderDetails?.price} ₾
               </Typography>
             </PriceDetailsWrapper>
           </div>

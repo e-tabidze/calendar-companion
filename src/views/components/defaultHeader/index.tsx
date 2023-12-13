@@ -47,8 +47,10 @@ const DefaultHeader = () => {
 
   return (
     <InnerContainer>
-      <Image src='/images/logo-rent.svg' onClick={onClickLogo} alt='logo' className='w-24 md:w-32 cursor-pointer' />
-      {router?.asPath?.startsWith('/search') && <Filters />}
+      <div className="flex items-center">
+        <Image src='/images/logo-rent.svg' onClick={onClickLogo} alt='logo' className='w-24 md:w-32 cursor-pointer' />
+        {router?.asPath?.startsWith('/search') && <Filters />}
+      </div>
       <div className='flex items-center'>
         <LanguagePicker responsive className='md:mx-4' />
         {isLoading ? (
