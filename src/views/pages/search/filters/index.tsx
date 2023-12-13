@@ -1,4 +1,3 @@
-import { IconButton } from '../../../components/button'
 import LocationDropdown from './locationDropdown'
 import { Divider, ExtraFiltersContainer, FiltersContainer } from './styles'
 import PeriodDropdown from './periodDropdown'

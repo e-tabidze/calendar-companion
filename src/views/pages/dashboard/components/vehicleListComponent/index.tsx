@@ -75,7 +75,7 @@ const VehicleListComponent: React.FC<Props> = ({
                           key={index}
                           src={imgUrl || ''}
                           alt={`${manufacturer} ${model} ${prodYear}`}
-                          height={'100%'}
+                          height={width > 779 ? 150 : 50}
                           width={width > 779 ? 250 : 82}
                           className='rounded-lg object-cover'
                       />
