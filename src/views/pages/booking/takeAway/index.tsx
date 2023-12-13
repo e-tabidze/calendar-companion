@@ -13,8 +13,6 @@ interface Props {
 const TakeAway: React.FC<Props> = ({ control, toggleEditModal, errors }) => {
   const formsState = useWatch({ control })
 
-  console.log(formsState, 'formsTate')
-
   return (
     <div className='pl-13 mt-4'>
       <div className='flex lg:gap-4 flex-col lg:flex-row lg:items-center pb-6 border-b-1 border-green-40'>

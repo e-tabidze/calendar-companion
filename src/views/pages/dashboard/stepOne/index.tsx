@@ -8,6 +8,7 @@ import useNewProduct from '../newProduct/useNewProduct'
 import { Controller, useWatch } from 'react-hook-form'
 import { generateYearsArray } from 'src/utils/years'
 import ImagesInput from './imagesInput'
+import useProfile from 'src/hooks/useProfile'
 
 interface Props {
   control: any
@@ -20,6 +21,7 @@ interface Props {
 const StepOne: React.FC<Props> = ({ control, productValues, errors, setValue, removeImage }) => {
   const { manufacturers } = useProductInfo()
   const { postUploadProductImages } = useNewProduct()
+  const { userId } = useProfile()
 
   const selectedManufacturerId = productValues.man_id
 
@@ -44,7 +46,7 @@ const StepOne: React.FC<Props> = ({ control, productValues, errors, setValue, re
     }
   })
 
-  const handleFileUpload = async (files: any, count: number, userId = 4111619) => {
+  const handleFileUpload = async (files: any, count: number) => {
     try {
       await uploadProductImagesMutation.mutateAsync({
         Files: Array.from(files),

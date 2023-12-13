@@ -46,8 +46,6 @@ const Booking = () => {
 
   const { singleCompanyBranches } = useCompanyInfo(company_id && company_id)
 
-  console.log(singleCompanyBranches, 'companyBranches')
-
   const { control, bookingValues, errors, handleSubmit, postOrder } = useBooking(id)
 
   console.log(bookingValues, 'bookingValues')
@@ -71,81 +69,107 @@ const Booking = () => {
     }
   ]
 
-  const createCompanyMutation = useMutation(() => postOrder('', bookingValues), {
-    onSuccess: () => {
+  // const createOrderMutation = useMutation(() => postOrder('', bookingValues), {
+  //   onSuccess: data => {
+  //     queryClient.invalidateQueries(['profileInfo'])
+  //     console.log(JSON.parse(data?.result?.data?.payment_method))
+  //   }
+  // })
+
+  const createOrderMutation = useMutation(() => postOrder('', bookingValues), {
+    onSuccess: data => {
       queryClient.invalidateQueries(['profileInfo'])
+      const paymentResponse = JSON.parse(data?.result?.data?.payment_method)
+
+      const trans_id = paymentResponse?.PaymentData?.trans_id
+      const method = paymentResponse?.PaymentMethod
+      const PaymentURL = paymentResponse?.PaymentURL
+
+      const secondForm: any = document.getElementById('secondForm')
+
+      if (secondForm) {
+        const transIdInput = secondForm.querySelector('input[name="trans_id"]')
+        if (transIdInput) {
+          transIdInput.value = trans_id
+          secondForm.action = PaymentURL
+          secondForm.method = method
+
+          secondForm.submit()
+        }
+      }
     }
   })
 
   const onSubmit = () => {
-    createCompanyMutation.mutate()
+    createOrderMutation.mutate()
   }
 
   const formsState = useWatch({ control })
 
-  console.log(singleProductDetails?.product_services, 'additionalServices')
-
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <LargeContainer className='flex items-baseline pt-5 flex-col md:flex-row'>
-        <Image src='/images/logo-rent.svg' alt='logo' className='cursor-pointer' onClick={onClickLogo} />
-      </LargeContainer>
-      <ContentContainer className='flex gap-12'>
-        <div className='w-full'>
-          <div className='flex items-baseline my-8 gap-3'>
-            <Typography type='h3' className='font-bold'>
-              {book_from} - {book_to}
+    <>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <LargeContainer className='flex items-baseline pt-5 flex-col md:flex-row'>
+          <Image src='/images/logo-rent.svg' alt='logo' className='cursor-pointer' onClick={onClickLogo} />
+        </LargeContainer>
+        <ContentContainer className='flex gap-12'>
+          <div className='w-full'>
+            <div className='flex items-baseline my-8 gap-3'>
+              <Typography type='h3' className='font-bold'>
+                {book_from} - {book_to}
+              </Typography>
+              <Typography type='body'>| {days} days</Typography>
+            </div>
+            <Divider />
+            <Typography type='h3' className='mt-11'>
+              პირადი ინფორმაცია *
             </Typography>
-            <Typography type='body'>| {days} days</Typography>
-          </div>
-          <Divider />
-          <Typography type='h3' className='mt-11'>
-            პირადი ინფორმაცია *
-          </Typography>
-          <div className='grid gap-3 my-6 grid-cols-1 lg:grid-cols-2 lg:gap-4'>
-            <DefaultInput control={control} name='first_name' errors={errors} label='სახელი' />
-            <DefaultInput control={control} name='last_name' errors={errors} label='გვარი' />
-            <DefaultInput control={control} name='identification_number' errors={errors} label='პირადი ნომერი' />
-            <DefaultInput control={control} name='phone' errors={errors} label='მობილურის ნომერი' />
-            <DefaultInput control={control} name='email' errors={errors} label='ელ.ფოსტა' />
+            <div className='grid gap-3 my-6 grid-cols-1 lg:grid-cols-2 lg:gap-4'>
+              <DefaultInput control={control} name='first_name' errors={errors} label='სახელი' />
+              <DefaultInput control={control} name='last_name' errors={errors} label='გვარი' />
+              <DefaultInput control={control} name='identification_number' errors={errors} label='პირადი ნომერი' />
+              <DefaultInput control={control} name='phone' errors={errors} label='მობილურის ნომერი' />
+              <DefaultInput control={control} name='email' errors={errors} label='ელ.ფოსტა' />
 
-            <DateDropdown label={'აირჩიე დაბადების თარიღი'} name='dob' control={control} />
-            <DateDropdown
-              label={'მართვის მოწმობის მოქმედების ვადა'}
-              name='driver_license_expiration'
-              control={control}
-            />
-          </div>
-          <Typography type='body' color='light' className='mb-14'>
-            გთხოვთ გადაამოწმოთ მითითებული პარამეტრები და შემდეგ დაასრულოთ დაჯავშნის პროცესი, ეს პარამეტრები
-            მნიშვნელოვანია შემდგომში თქვენსა და გამქირავებელს შორის კომუნიკაციისთვის
-          </Typography>
-          <Divider />
-          <Typography type='h3' className='my-11'>
-            ადგილმდებარეობა *
-          </Typography>
-
-          <BookingRadio name='supply' options={options} control={control} color='bg-green-100' />
-
-          <div className='mb-24'>
-            <div
-              className='mt-11 flex items-center justify-between mb-8'
-              onClick={() => toggleAdditionalServices(!additionalServices)}
-            >
-              <Typography type='h3'>დამატებითი სერვისები</Typography>
-              <Icon
-                svgPath='chevron'
-                width={8}
-                height={6}
-                className={`${
-                  additionalServices ? 'rotate-180' : ''
-                } fill-transparent  w-auto h-4 transition duration-300 mr-6`}
+              <DateDropdown label={'აირჩიე დაბადების თარიღი'} name='dob' control={control} />
+              <DateDropdown
+                label={'მართვის მოწმობის მოქმედების ვადა'}
+                name='driver_license_expiration'
+                control={control}
               />
             </div>
-            {additionalServices && <CheckServices control={control} options={formsState?.additional_services as any} />}
-          </div>
+            <Typography type='body' color='light' className='mb-14'>
+              გთხოვთ გადაამოწმოთ მითითებული პარამეტრები და შემდეგ დაასრულოთ დაჯავშნის პროცესი, ეს პარამეტრები
+              მნიშვნელოვანია შემდგომში თქვენსა და გამქირავებელს შორის კომუნიკაციისთვის
+            </Typography>
+            <Divider />
+            <Typography type='h3' className='my-11'>
+              ადგილმდებარეობა *
+            </Typography>
 
-          {/* <div>
+            <BookingRadio name='supply' options={options} control={control} color='bg-green-100' />
+
+            <div className='mb-24'>
+              <div
+                className='mt-11 flex items-center justify-between mb-8'
+                onClick={() => toggleAdditionalServices(!additionalServices)}
+              >
+                <Typography type='h3'>დამატებითი სერვისები</Typography>
+                <Icon
+                  svgPath='chevron'
+                  width={8}
+                  height={6}
+                  className={`${
+                    additionalServices ? 'rotate-180' : ''
+                  } fill-transparent  w-auto h-4 transition duration-300 mr-6`}
+                />
+              </div>
+              {additionalServices && (
+                <CheckServices control={control} options={formsState?.additional_services as any} />
+              )}
+            </div>
+
+            {/* <div>
               <div className='mt-11 flex items-center justify-between mb-8' onClick={() => toggleInsurance(!insurance)}>
                 <Typography type='h3'>დაზღვევა</Typography>
                 <Icon
@@ -158,50 +182,57 @@ const Booking = () => {
               </div>
               {insurance && <AdditionalServices control={control} />}
             </div> */}
-        </div>
-        <div className='hidden md:flex w-[300px] lg:w-[400px] shrink-0 h-fit'>
-          <PriceCalcCard
-            price={singleProductDetails?.price}
+          </div>
+          <div className='hidden md:flex w-[300px] lg:w-[400px] shrink-0 h-fit'>
+            <PriceCalcCard
+              price={singleProductDetails?.price}
+              dates={`${book_from} - ${book_to}`}
+              days={Math.round(
+                (new Date(Array.isArray(book_to) ? book_to[0] : book_to).getTime() -
+                  new Date(Array.isArray(book_from) ? book_from[0] : book_from).getTime()) /
+                  (24 * 60 * 60 * 1000)
+              )}
+              onClick={onSubmit}
+              disabled={createOrderMutation?.isLoading}
+            />
+          </div>
+        </ContentContainer>
+
+        {isOpenDrawer && width < 779 ? (
+          <Drawer
+            isOpenDrawer={isOpenDrawer}
+            setIsOpenDrawer={setIsOpenDrawer}
+            price={Number(Array.isArray(price_day) ? price_day[0] : price_day)}
             dates={`${book_from} - ${book_to}`}
-            days={Math.round(
-              (new Date(Array.isArray(book_to) ? book_to[0] : book_to).getTime() -
-                new Date(Array.isArray(book_from) ? book_from[0] : book_from).getTime()) /
-                (24 * 60 * 60 * 1000)
-            )}
+            days={
+              Math.round(
+                (new Date(Array.isArray(book_to) ? book_to[0] : book_to).getTime() -
+                  new Date(Array.isArray(book_from) ? book_from[0] : book_from).getTime()) /
+                  (24 * 60 * 60 * 1000)
+              ) + 1
+            }
             onClick={onSubmit}
           />
-        </div>
-      </ContentContainer>
+        ) : (
+          <ResponsivePriceCalcCard
+            toggleDrawer={toggleDrawer}
+            bookingModal
+            price={Number(Array.isArray(price_day) ? price_day[0] : price_day)}
+          />
+        )}
+        <BookingModal
+          open={openEditModal}
+          onClose={toggleEditModal}
+          addresses={singleCompanyBranches}
+          control={control}
+        />
+      </form>
 
-      {isOpenDrawer && width < 779 ? (
-        <Drawer
-          isOpenDrawer={isOpenDrawer}
-          setIsOpenDrawer={setIsOpenDrawer}
-          price={Number(Array.isArray(price_day) ? price_day[0] : price_day)}
-          dates={`${book_from} - ${book_to}`}
-          days={
-            Math.round(
-              (new Date(Array.isArray(book_to) ? book_to[0] : book_to).getTime() -
-                new Date(Array.isArray(book_from) ? book_from[0] : book_from).getTime()) /
-                (24 * 60 * 60 * 1000)
-            ) + 1
-          }
-          onClick={onSubmit}
-        />
-      ) : (
-        <ResponsivePriceCalcCard
-          toggleDrawer={toggleDrawer}
-          bookingModal
-          price={Number(Array.isArray(price_day) ? price_day[0] : price_day)}
-        />
-      )}
-      <BookingModal
-        open={openEditModal}
-        onClose={toggleEditModal}
-        addresses={singleCompanyBranches}
-        control={control}
-      />
-    </form>
+      <form method='POST' action='https://ecommerce.ufc.ge/ecomm2/ClientHandler' id='secondForm'>
+        <input name='trans_id' type='hidden' />
+        <button type='submit'>PAY</button>
+      </form>
+    </>
   )
 }
 
