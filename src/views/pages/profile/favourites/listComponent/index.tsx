@@ -31,28 +31,25 @@ const ListComponent: React.FC<Props> = ({ productId, manufacturer, model, year, 
 
   return (
 
-      <div className='flex flex-col sm:flex-row gap-6 w-full sm:my-5 border border-raisin-10 my-2 sm:my-none rounded-2xl sm:rounded-none p-4 sm:p-none sm:border-none last:border-none'>
+      <div className='flex flex-col sm:flex-row gap-6 w-full sm:my-5 border border-raisin-10 my-2 sm:my-none rounded-2xl sm:rounded-none sm:border-none last:border-none'>
         <div className=''>
           <Image
             src='/images/car.png'
             width={width > 640 ? 230 : 350}
             height={width > 640 ? 150 : 256}
             alt=''
-            className='rounded-2xl w-full h-auto sm:w-[250px] sm:h-[150px] object-cover'
+            className='rounded-2xl object-cover'
           />
         </div>
         <div className='relative w-full sm:h-[140px] sm:m-auto flex flex-col justify-between'>
           <div className=''>
-            <Typography type='h4' weight='normal' color='dark'>
+            <Typography type='h4' weight='normal' color='dark' className='text-md md:text-3md'>
               {manufacturer} {model} {year}
             </Typography>
             <div className='flex gap-2 items-center mt-1'>
-              <Icon svgPath='star' width={16} height={16}/>
-              <Typography type='subtitle'>{city}</Typography>
+              {/*<Icon svgPath='star' width={16} height={16}/>*/}
+              <Typography type='subtitle' className='text-black/50'>{city}</Typography>
               <div className='h-[5px] w-px bg-raisin-10' />
-              <Typography type='body' color='light'>
-                {year}
-              </Typography>
             </div>
           </div>
           <div className='flex justify-between w-full mt-3 sm:mt-none'>

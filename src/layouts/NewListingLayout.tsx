@@ -74,7 +74,7 @@ const NewListingLayout: React.FC<Props> = ({
         <InnerContainer>
           <Image src='/images/logo-rent.svg' alt='' onClick={onClickLogo} className='w-24 md:w-32 cursor-pointer' />
           {width > 781 && renderNewListingSelect()}
-          <Icon svgPath='close' onClick={onClose} height={40} width={40} />
+          <Icon svgPath='close' onClick={onClose} height={40} width={40} className='cursor-pointer' />
         </InnerContainer>
         <ProgressBar color='green-100' progress={selectedOption.step / options.length} className='md:mt-2' />
       </HeaderWrapper>

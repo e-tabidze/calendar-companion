@@ -67,8 +67,8 @@ const VehicleListComponent: React.FC<Props> = ({
     <>
       <div className='relative border-b-1 border-raisin-10 last:border-none'>
         <div className='flex flex-col px-2 py-4 md:w-full justify-between gap-6 md:px-0 md:flex-row md:items-center'>
-          <div className='flex gap-6 2xl:gap-6 min-w-max'>
-            <div className='w-[150px] lg:w-[200px] xl:w-[250px]'>
+          <div className='flex gap-6 2xl:gap-6'>
+            <div className='w-[64px] md:w-[150px] lg:w-[200px] xl:w-[250px]'>
               <Carousel
                 itemsArray={images?.split(',')?.map((imgUrl, index) => (
                       <Image
@@ -84,7 +84,7 @@ const VehicleListComponent: React.FC<Props> = ({
                 key={Math.random()}
               />
             </div>
-            <div className='min-w-max'>
+            <div className='pr-6 md:pr-0'>
               <Typography type='body' color='light'>
                 {startCity}
               </Typography>
@@ -93,12 +93,12 @@ const VehicleListComponent: React.FC<Props> = ({
                   {manufacturer} {model} {prodYear}
                 </Typography>
                 <div className='flex items-center gap-10 md:mt-10'>
-                  <Typography type='h4' weight={width > 779 ? 'medium' : 'normal'} color='dark'>
+                  <Typography type='h4' weight={width > 779 ? 'medium' : 'normal'} color='dark' className='text-md md:text-3md'>
                     {price} ₾ დღე
                   </Typography>
                   <Typography
                     type='subtitle'
-                    className={`cursor-default py-1 px-2 rounded-lg text-2sm ${
+                    className={`cursor-default py-1 px-2 rounded-lg text-sm md:text-2sm ${
                       active ? 'text-white bg-green-100' : 'text-raisin-100 bg-grey-100'
                     }`}
                   >

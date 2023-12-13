@@ -210,7 +210,9 @@ const ProductDetails = () => {
                     ან მსგავსი
                   </Typography>
                   <Typography type='subtitle'>| </Typography>
-                  <Icon svgPath='locationOutline' width={24} height={24} className='fill-transparent' />
+                  <div className="flex shrink-0">
+                    <Icon svgPath='locationOutline' width={24} height={24} className='fill-transparent' />
+                  </div>
                   <Typography type='subtitle'>{singleProductDetails?.start_address}</Typography>
                 </div>
                 <Typography type='subtitle'>{singleProductDetails?.additional_information}</Typography>

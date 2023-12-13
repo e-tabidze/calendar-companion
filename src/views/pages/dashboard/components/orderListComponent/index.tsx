@@ -41,29 +41,29 @@ const OrderListComponent: React.FC<Props> = ({
 
   return (
     <div className='border-b-1 border-raisin-10 last:border-none' onClick={toggleDetails}>
-      <div className='flex flex-col px-2 py-4 md:w-full gap-10 md:px-0 md:flex-row md:items-center'>
-        <div className='flex gap-4 2xl:gap-6 min-w-max'>
-          <Image src='/images/car.png' alt='orders' height={48} width={64} className='rounded-lg object-cover' />
-          <div className='min-w-max'>
-            <Typography type='subtitle'>
+      <div className='flex flex-col px-2 py-4 md:w-full gap-4 xl:gap-10 md:px-0 md:flex-row md:items-center'>
+        <div className='flex items-center gap-4 2xl:gap-6'>
+          <Image src='/images/car.png' alt='orders' height={48} width={64} className='rounded-lg object-cover h-min' />
+          <div>
+            <Typography type='subtitle' className="text-md">
               {productDetails?.manufacturer.title} {productDetails?.manufacturer_model?.title}
               {productDetails?.prod_year}
             </Typography>
-            <Typography type='body'>{startAddress}</Typography>
-            <Typography type='body' color='light'>
+            <Typography type='body' className='hidden md:flex text-sm xl:text-2sm'>{startAddress}</Typography>
+            <Typography type='body' color='light' className='text-sm'>
               {startDate} {startTime} - {endDate} {endTime}
             </Typography>
           </div>
         </div>
         <div className='flex flex-col items-baseline md:flex-row md:items-center justify-between w-none md:w-full'>
-          <div className='flex gap-2 ml-[90px] md:mx-none md:w-max md:gap-6 2xl:gap-10 md:justify-between md:ml-0'>
-            <Typography type='subtitle' className='hidden lg:inline-block'>
+          <div className='flex items-center gap-2 ml-[90px] md:mx-none md:w-max md:gap-4 2xl:gap-10 md:justify-between md:ml-0'>
+            <Typography type='subtitle' className='hidden lg:inline-flex text-sm xl:text-2sm'>
               {firstName} {lastName}
             </Typography>
-            <Typography type='subtitle' className='hidden lg:inline-block'>
-              დასდაკლება {discount} %
+            <Typography type='subtitle' className='hidden lg:inline-flex text-sm xl:text-2sm'>
+              ფასდაკლება {discount} %
             </Typography>
-            <Typography type='subtitle' className='hidden lg:inline-block'>
+            <Typography type='subtitle' className='hidden lg:inline-flex text-sm xl:text-2sm'>
               {days} დღე
             </Typography>
             <Typography type='subtitle' className='flex items-center gap-2'>
@@ -71,7 +71,7 @@ const OrderListComponent: React.FC<Props> = ({
             </Typography>
             <Typography
               type='subtitle'
-              className={`${
+              className={`text-sm xl:text-2sm ${
                 status === 0
                   ? 'text-yellow-100'
                   : status === 1
@@ -84,7 +84,7 @@ const OrderListComponent: React.FC<Props> = ({
               {status === 0 ? 'მოლოდინში' : status === 1 ? 'დადასტურებული' : status === 2 ? 'გაუქმებული' : ''}
             </Typography>
           </div>
-          {width > 779 && <IconButton icon='chevronWithBg' height={38} width={38} onClick={toggleDetails} />}
+          {width > 779 && <IconButton icon='chevronWithBg' height={38} width={38} onClick={toggleDetails} className="ml-4" />}
         </div>
       </div>
     </div>

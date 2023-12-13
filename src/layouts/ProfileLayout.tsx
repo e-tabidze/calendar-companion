@@ -40,7 +40,7 @@ const ProfileLayout: React.FC<Props> = ({ routes, dividerIndexes, children }) =>
       <HeaderWrapper fullWidth>
         <DefaultHeader />
       </HeaderWrapper>
-      <div className='w-full m-auto 2xl:max-w-[1470px] lg:px-8 2xl:px-0 flex gap-none lg:gap-4 mt-9'>
+      <div className='w-full m-auto 2xl:max-w-[1470px] lg:px-8 2xl:px-0 flex gap-none lg:gap-4 lg:mt-10'>
         <ProfileNavigation
           routes={routes}
           sidebarCollapsed={sidebarCollapsed}

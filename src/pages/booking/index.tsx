@@ -106,12 +106,9 @@ const Booking = () => {
 
   const formsState = useWatch({ control })
 
-  console.log(singleProductDetails?.product_services, 'additionalServices')
-
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
-        {/* <input name='trans_id' value='8gfnSI4LMlHGDxnvWXzpXGRMJDU=' /> */}
         <LargeContainer className='flex items-baseline pt-5 flex-col md:flex-row'>
           <Image src='/images/logo-rent.svg' alt='logo' className='cursor-pointer' onClick={onClickLogo} />
         </LargeContainer>

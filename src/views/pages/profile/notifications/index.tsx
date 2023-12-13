@@ -4,10 +4,10 @@ import Icon from "../../../app/Icon";
 const Notifications = () => {
     return (
         <>
-            <div className='border border-raisin-10 rounded-2xl md:rounded-3xl p-6 md:py-10 md:px-8 mx-4 lg:mx-0'>
+            <div className='border border-raisin-10 rounded-2xl md:rounded-3xl p-6 md:py-10 md:px-8'>
                 <div className='flex justify-between items-center pb-4'>
-                    <Typography type='h3' className="font-bold md:font-normal text-md md:text-2lg">შეტყობინებები</Typography>
-                    <button className="text-sm md:text-2sm text-black ml-10 whitespace-normal">ყველას წაკითხულად მონიშვნა</button>
+                    <Typography type='h3' className="font-bold md:font-normal text-2sm md:text-md md:text-2lg">შეტყობინებები</Typography>
+                    <button className="text-sm md:text-sm md:text-2sm text-black ml-10 whitespace-normal">ყველას წაკითხულად მონიშვნა</button>
                 </div>
                 <ul>
                     <li>
@@ -23,10 +23,10 @@ const Notifications = () => {
                                   />
                             </span>
                                 <div className="flex flex-col">
-                                    <Typography type='h5' className='text-md font-medium text-raisin-100'>
+                                    <Typography type='h5' className='text-2sm md:text-md font-medium text-raisin-100'>
                                         შემოსულია ახალი ჯავშანი
                                     </Typography>
-                                    <Typography type='subtitle' className='text-2sm font-normal text-raisin-100'>
+                                    <Typography type='subtitle' className='text-sm md:text-2sm font-normal text-raisin-100'>
                                         მართვის მოწმობის თეორიული და პრაქტიკული (მეორე ეტაპი) გამოცდის ჯავშანი. სატრასპორტო
                                     </Typography>
                                     <Typography type='subtitle' className='text-sm font-normal text-raisin-30'>
@@ -53,10 +53,10 @@ const Notifications = () => {
                                   />
                             </span>
                                 <div className="flex flex-col">
-                                    <Typography type='h5' className='text-md font-medium text-raisin-100'>
+                                    <Typography type='h5' className='text-2sm md:text-md font-medium text-raisin-100'>
                                         შემოსულია ახალი ჯავშანი
                                     </Typography>
-                                    <Typography type='subtitle' className='text-2sm font-normal text-raisin-100'>
+                                    <Typography type='subtitle' className='text-sm md:text-2sm font-normal text-raisin-100'>
                                         მართვის მოწმობის თეორიული და პრაქტიკული (მეორე ეტაპი) გამოცდის ჯავშანი. სატრასპორტო
                                     </Typography>
                                     <Typography type='subtitle' className='text-sm font-normal text-raisin-30'>
@@ -83,10 +83,10 @@ const Notifications = () => {
                                   />
                             </span>
                                 <div className="flex flex-col">
-                                    <Typography type='h5' className='text-md font-medium text-raisin-100'>
+                                    <Typography type='h5' className='text-2sm md:text-md font-medium text-raisin-100'>
                                         შემოსულია ახალი ჯავშანი
                                     </Typography>
-                                    <Typography type='subtitle' className='text-2sm font-normal text-raisin-100'>
+                                    <Typography type='subtitle' className='text-sm md:text-2sm font-normal text-raisin-100'>
                                         მართვის მოწმობის თეორიული და პრაქტიკული (მეორე ეტაპი) გამოცდის ჯავშანი. სატრასპორტო
                                     </Typography>
                                     <Typography type='subtitle' className='text-sm font-normal text-raisin-30'>
@@ -113,10 +113,10 @@ const Notifications = () => {
                                   />
                             </span>
                                 <div className="flex flex-col">
-                                    <Typography type='h5' className='text-md font-medium text-raisin-100'>
+                                    <Typography type='h5' className='text-2sm md:text-md font-medium text-raisin-100'>
                                         შემოსულია ახალი ჯავშანი
                                     </Typography>
-                                    <Typography type='subtitle' className='text-2sm font-normal text-raisin-100'>
+                                    <Typography type='subtitle' className='text-sm md:text-2sm font-normal text-raisin-100'>
                                         მართვის მოწმობის თეორიული და პრაქტიკული (მეორე ეტაპი) გამოცდის ჯავშანი. სატრასპორტო
                                     </Typography>
                                     <Typography type='subtitle' className='text-sm font-normal text-raisin-30'>
@@ -143,10 +143,10 @@ const Notifications = () => {
                                   />
                             </span>
                                 <div className="flex flex-col">
-                                    <Typography type='h5' className='text-md font-medium text-raisin-100'>
+                                    <Typography type='h5' className='text-2sm md:text-md font-medium text-raisin-100'>
                                         შემოსულია ახალი ჯავშანი
                                     </Typography>
-                                    <Typography type='subtitle' className='text-2sm font-normal text-raisin-100'>
+                                    <Typography type='subtitle' className='text-sm md:text-2sm font-normal text-raisin-100'>
                                         მართვის მოწმობის თეორიული და პრაქტიკული (მეორე ეტაპი) გამოცდის ჯავშანი. სატრასპორტო
                                     </Typography>
                                     <Typography type='subtitle' className='text-sm font-normal text-raisin-30'>
@@ -164,12 +164,12 @@ const Notifications = () => {
             </div>
 
             {/*TODO: Notifications detail page*/}
-            <div className='border border-raisin-10 rounded-2xl md:rounded-3xl p-6 md:py-10 md:px-8 mx-4 lg:mx-0'>
+            <div className='border border-raisin-10 rounded-2xl md:rounded-3xl p-6 md:py-10 md:px-8'>
                 <div className='flex items-center mb-12'>
                     <button className="flex w-10 h-10 bg-grey-100 rounded-full mr-4 items-center justify-center shrink-0">
                         <Icon svgPath='chevron-right' width={20} height={20} className='fill-transparent'/>
                     </button>
-                    <Typography type='h3' className="font-bold md:font-normal text-2sm">შეტყობინებები</Typography>
+                    <Typography type='h3' className="font-bold md:font-normal text-sm md:text-2sm">შეტყობინებები</Typography>
                 </div>
                 <div
                     className="">
@@ -185,13 +185,13 @@ const Notifications = () => {
                             <Typography type='subtitle' className='text-sm font-normal text-raisin-30'>
                                 2 დღის წინ
                             </Typography>
-                            <Typography type='h5' className='text-md font-medium text-raisin-100'>
+                            <Typography type='h5' className='text-2sm md:text-md font-medium text-raisin-100'>
                                 შემოსულია ახალი ჯავშანი - Jeep Wrangler
                             </Typography>
                         </div>
                     </div>
                     <div className="pl-20">
-                        <Typography type='body' className=' text-2sm font-normal text-raisin-100'>
+                        <Typography type='body' className=' text-sm md:text-2sm font-normal text-raisin-100'>
                             თუ სტუმრობისას პრობლემა შეგექმნებათ, საშუალება გექნებათ, სთხოვოთ მასპინძელს მისი მოგვარება, თანხის ნაწილობრივ დაბრუნება ან ჯავშნის გაუქმება თანხის სრულად დაბრუნებით. მოთხოვნის გადაგზავნა აუცილებელია პრობლემის აღმოჩენიდან 24 საათის განმავლობაში, რის შემდეგაც მასპინძელს გამოხმაურებისთვის 1 საათი ექნება. თუ მასპინძელი უარყოფს მოთხოვნას, ან არ გამოგეხმაურებათ, დახმარებისთვის შეძლებთ Airbnb‑ს მიმართოთ.
 
                             გადადით სტუმრობებზე და აირჩიეთ სტუმრობა, რომლის გაუქმებაც გსურთ
@@ -207,7 +207,7 @@ const Notifications = () => {
                             დაწკაპუნებით აირჩიეთ ჯავშნის გაუქმება
 
                         </Typography>
-                        <button className="mt-10 flex px-8 h-13 bg-green-100 text-white text-2sm rounded-xl items-center justify-center">
+                        <button className="mt-10 flex px-8 h-13 bg-green-100 text-white text-sm md:text-2sm rounded-xl items-center justify-center">
                             ჯავშნის ნახვა
                         </button>
                     </div>

@@ -120,7 +120,7 @@ const EditCompany = () => {
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className='md:border md:border-raisin-10 md:rounded-3xl md:p-8'>
         <div className='flex gap-6 items-center mb-10'>
-          <div className="w-24 h-24 border border-raisin-10 rounded-3xl relative overflow-hidden">
+          <div className="flex shrink-0 w-[76px] h-[76px] md:w-24 md:h-24 border border-raisin-10 rounded-3xl relative overflow-hidden">
             <Image
                 src={formState?.company_information?.logo || companyInfo?.information?.logo || ''}
                 width={96}
@@ -132,7 +132,7 @@ const EditCompany = () => {
 
           <div>
             <div className='flex items-center gap-4'>
-              <Typography type='h3' className='font-bold'>
+              <Typography type='h3' className='font-bold text-3md md:text-2lg overflow-hidden text-ellipsis whitespace-nowrap max-w-[200px] md:max-w-none inline-block'>
                 {companyInfo?.information?.name} ABC
               </Typography>
               <Icon svgPath='warning' width={20} height={20} />
@@ -144,7 +144,7 @@ const EditCompany = () => {
               name='company_information.logo'
               control={control}
               render={({ field: { onChange } }) => (
-                <label>
+                <label className='text-2sm flex flex-col cursor-pointer max-w-[220px] md:max-w-none'>
                   სურათის შეცვლა
                   <input
                     type='file'
@@ -193,7 +193,7 @@ const EditCompany = () => {
             className='col-span-3 mb-4 md:mb-0'
           />
         </div>
-        <Typography type='h3' className='font-bold'>
+        <Typography type='h3' className='font-bold text-3md md:text-2lg mt-10 md:mt-16'>
           მისამართები და განრიგი
         </Typography>
 
@@ -229,7 +229,7 @@ const EditCompany = () => {
           type='button'
         />
 
-        <Typography type='h3' className='font-bold mt-24 text-3md md:text-2lg'>
+        <Typography type='h3' className='font-bold mt-10 md:mt-16 text-3md md:text-2lg'>
           საკონტაქტო
         </Typography>
         <div className='grid grid-cols-2 gap-4 mt-5 my-10'>
@@ -250,7 +250,7 @@ const EditCompany = () => {
         </div>
 
         <Divider />
-        <div className='flex justify-between items-center p-2 md:p-6'>
+        <div className='flex justify-between items-center pt-8'>
           <DefaultButton text='შენახვა' bg='bg-orange-100' textColor='text-white' type='submit' disabled={updateCompanyMutation.isLoading} />
           <IconTextButton
             label='კომპანიის წაშლა'
