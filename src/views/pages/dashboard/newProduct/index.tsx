@@ -133,7 +133,6 @@ const NewProduct: React.FC = () => {
     },
     {
       onSuccess: data => {
-        console.log(data?.result?.data, 'data?')
         if (data) {
           const images = data?.result?.data?.images
           const productId = data?.result?.data?.id
@@ -148,6 +147,7 @@ const NewProduct: React.FC = () => {
           }
         }
         queryClient.invalidateQueries(['companyProducts'])
+        queryClient.invalidateQueries(['latestProducts'])
       }
     }
   )

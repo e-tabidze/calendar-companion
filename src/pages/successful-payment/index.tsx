@@ -10,10 +10,10 @@ import {
     TakeAway,
     TakeAwayInfoContsiner,
     TakeAwayWrapper
-} from './styles'
+} from '../../views/pages/success/styles'
 
 
-const Success = () => {
+const SuccessfulPayment = () => {
 
     return (
         <div className='bg-white'>
@@ -156,4 +156,4 @@ const Success = () => {
     )
 }
 
-export default Success
+export default SuccessfulPayment
