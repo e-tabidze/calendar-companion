@@ -4,8 +4,14 @@ import useProfile from 'src/hooks/useProfile'
 import useWindowDimensions from 'src/hooks/useWindowDimensions'
 import Icon from 'src/views/app/Icon'
 import Carousel from '../carousel'
-import Image from '../image'
+
+const Image = dynamic(() => import('src/views/components/image'), { ssr: true })
+
+import dynamic from 'next/dynamic'
+
 import Typography from '../typography'
+
+
 import {
   Details,
   DetailsContainer,
@@ -78,8 +84,6 @@ const ProductCard: React.FC<Props> = ({
       console.log(error)
     }
   }
-
-  console.log(images, 'images')
 
   return (
     <ProductCardContainer onClick={handleCardClick}>

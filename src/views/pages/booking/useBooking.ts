@@ -13,6 +13,7 @@ import OrderService from 'src/services/OrderService'
 const useBooking = (id: number | string | string[]) => {
   const { userInfo } = useProfile()
   const { singleProductDetails } = useSingleProductDetails(id)
+
   const router = useRouter()
   const { book_from, book_to } = router.query
 
@@ -91,8 +92,6 @@ const useBooking = (id: number | string | string[]) => {
   }, [userInfo, setValue, singleProductDetails, book_from, book_to, id])
 
   const bookingValues: any = useWatch({ control })
-
-  console.log(singleProductDetails?.start_address, 'singleProductDetails?.start_address')
 
   const postOrder = async (AccessToken = '', company: Order) => {
     try {

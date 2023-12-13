@@ -9,14 +9,11 @@ interface Props {
   className?: string
   onClick: () => void
   handleDateChange?: () => void
+  disabled: boolean
 }
 
-const PriceCalcCard: React.FC<Props> = ({ price, dates, days, className, onClick, handleDateChange }) => {
+const PriceCalcCard: React.FC<Props> = ({ price, dates, days, className, onClick, handleDateChange, disabled }) => {
   const { userInfo } = useProfile()
-
-  console.log(userInfo?.active_profile_id, 'userInfo?.active_profile_id')
-
-  console.log(days, 'days')
 
   return (
     <div className={`shadow-2xl w-full rounded-3xl pt-5 px-4 lg:px-6 pb-10 ${className}`}>
@@ -83,7 +80,7 @@ const PriceCalcCard: React.FC<Props> = ({ price, dates, days, className, onClick
           textColor='text-white'
           type='submit'
           onClick={onClick}
-          disabled={days === null}
+          disabled={days === null || disabled}
         />
       )}
     </div>

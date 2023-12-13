@@ -37,6 +37,7 @@ import { formatDate } from 'src/utils/formatDate'
 import useSingleProductDetails from '../../views/pages/details/useSingleProductDetails'
 import useMain from 'src/views/pages/main/useMain'
 import Icon from 'src/views/app/Icon'
+import { days } from 'src/utils/sample-data'
 
 const SimilarProducts = dynamic(() => import('src/views/pages/details/similarProducts'), { ssr: true })
 
@@ -68,6 +69,8 @@ const ProductDetails = () => {
 
   const [startDate, endDate] = dateRange
   const [productImageDialogOpen, setProductImageDialogOpen] = useState<boolean>(false)
+
+  console.log(id, 'ID?')
 
   const { singleProductDetails } = useSingleProductDetails(id)
 
@@ -126,7 +129,6 @@ const ProductDetails = () => {
   const toggleDrawer = () => setIsOpenDrawer(!isOpenDrawer)
 
   const toggleProductImageDialog = () => {
-    console.log('CLICK')
     setProductImageDialogOpen(!productImageDialogOpen)
   }
 
@@ -142,7 +144,7 @@ const ProductDetails = () => {
         book_from: bookingValues?.booking?.book_from,
         book_to: bookingValues?.booking?.book_to,
         price_day: singleProductDetails?.price_gel,
-        days: startDate && endDate && Math.round((endDate.getTime() - startDate.getTime()) / (24 * 60 * 60 * 1000)) + 1,
+        days: startDate && endDate && Math.round((endDate.getTime() - startDate.getTime()) / (24 * 60 * 60 * 1000)),
         company_id: singleProductDetails?.company_id
       }
     })
@@ -268,7 +270,7 @@ const ProductDetails = () => {
                         | {'    '}
                         {startDate &&
                           endDate &&
-                          Math.round((endDate.getTime() - startDate.getTime()) / (24 * 60 * 60 * 1000)) + 1}
+                          Math.round((endDate.getTime() - startDate.getTime()) / (24 * 60 * 60 * 1000))}
                         დღე
                       </Typography>
                     )}
@@ -348,6 +350,7 @@ const ProductDetails = () => {
                   markerCoordinates={[singleProductDetails?.start_lat, singleProductDetails?.start_lon]}
                 />
               </div>
+              
               {/*<Divider />*/}
               {/*<Reviews id='reviews' />*/}
             </div>
@@ -361,6 +364,7 @@ const ProductDetails = () => {
                 }
                 handleDateChange={() => handleClick('calendar')}
                 onClick={onSubmit}
+                disabled={days === null}
               />
             </div>
           </div>

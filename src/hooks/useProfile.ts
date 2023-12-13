@@ -37,6 +37,7 @@ const useProfile = () => {
   const userCompanies = usePersonalInfo.data?.result?.data?.companies
   const activeCompany = usePersonalInfo?.data?.result?.data?.active_profile
   const activeCompanyId = usePersonalInfo?.data?.result?.data?.active_profile?.id
+  const userId = usePersonalInfo.data?.result?.data?.UserID
 
   return {
     router,
@@ -47,7 +48,8 @@ const useProfile = () => {
     postSwitchProfile,
     activeCompany,
     activeCompanyId,
-    isAuthenticated: usePersonalInfo.data || false
+    isAuthenticated: usePersonalInfo.data || false,
+    userId
   }
 }
 
