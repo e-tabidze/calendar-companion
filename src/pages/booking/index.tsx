@@ -39,7 +39,7 @@ const Booking = () => {
 
   const router = useRouter()
 
-  const { book_from, book_to, price_day, days, company_id, id } = router.query
+  const { book_from, book_to, price_day, company_id, id } = router.query
 
   const { singleProductDetails } = useSingleProductDetails(id)
 
@@ -122,7 +122,15 @@ const Booking = () => {
                     )}`
                   : ''}
               </Typography>
-              <Typography type='body'>| {days} days</Typography>
+              <Typography type='body'>
+                |{' '}
+                {Math.round(
+                  (new Date(Array.isArray(book_to) ? book_to[0] : book_to).getTime() -
+                    new Date(Array.isArray(book_from) ? book_from[0] : book_from).getTime()) /
+                    (24 * 60 * 60 * 1000)
+                )}{' '}
+                დღე
+              </Typography>
             </div>
             <Divider />
             <Typography type='h3' className='mt-11'>
@@ -208,6 +216,7 @@ const Booking = () => {
               )}
               onClick={onSubmit}
               disabled={createOrderMutation?.isLoading}
+              changeDates={false}
             />
           </div>
         </ContentContainer>

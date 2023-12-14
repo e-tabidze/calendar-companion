@@ -2,22 +2,25 @@ import { DefaultInput } from 'src/views/components/input'
 import PopoverDropdown from 'src/views/components/popoverDropdown'
 import { DefaultButton, IconButton } from 'src/views/components/button'
 import { ActionsWrapper, Divider, TagsWrapper } from './styles'
-import { useWatch } from 'react-hook-form'
+import { useRouter } from 'next/router'
 
 interface Props {
   control: any
   handleSubmit: () => void
   reset: any
+  searchValues: any
 }
 
-const PricePopover: React.FC<Props> = ({ control, handleSubmit, reset }) => {
-  const formState = useWatch({ control })
+const PricePopover: React.FC<Props> = ({ control, handleSubmit, reset, searchValues }) => {
+  const router = useRouter()
+
+  const { price_min, price_max } = router.query
 
   return (
     <PopoverDropdown
       label='ფასი'
       maxWidth='max-w-md'
-      className={formState.price_min.length > 0 || formState?.price_max.length > 0 ? 'border border-raisin-100' : ''}
+      className={price_min || price_max ? 'border border-raisin-100' : ''}
     >
       <TagsWrapper>
         <DefaultInput
@@ -40,7 +43,6 @@ const PricePopover: React.FC<Props> = ({ control, handleSubmit, reset }) => {
         <IconButton
           icon='rotate'
           text='გასუფთავება'
-          hasBg={false}
           className='fill-transparent'
           width={20}
           height={22}

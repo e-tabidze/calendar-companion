@@ -46,7 +46,7 @@ const OrderDetails: React.FC<Props> = ({ toggleDetails, orderId, setOrderId }) =
     }
   })
 
-  console.log(productData?.images?.split(',')[0], 'productData')
+  console.log(productData, 'productData')
 
   return (
     <div className='border border-raisin-10 rounded-2xl'>
@@ -148,11 +148,10 @@ const OrderDetails: React.FC<Props> = ({ toggleDetails, orderId, setOrderId }) =
                   {service?.title} {service?.quantity && 'x'} {service?.quantity}
                 </Typography>
                 <Typography type='subtitle'>
-                  {' '}
                   {service?.type_id == 1
                     ? service?.price * service?.quantity * userOrderDetails?.days
-                    : service?.price * service?.quantity}{' '}
-                  ₾{' '}
+                    : service?.price * service?.quantity}
+                  ₾
                 </Typography>
               </PriceDetailsWrapper>
             ))}

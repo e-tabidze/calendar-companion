@@ -1,5 +1,5 @@
 import { Menu, Transition } from '@headlessui/react'
-import { Fragment, useState } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 import Typography from 'src/views/components/typography'
 import { FilterContainer, InnerFilterContainer } from './styles'
 import DatePicker from 'react-datepicker'
@@ -14,9 +14,10 @@ import { ka } from 'date-fns/locale'
 interface Props {
   control: any
   resetField: any
+  setValue: any
 }
 
-const PeriodDropwodn: React.FC<Props> = ({ control, resetField }) => {
+const PeriodDropwodn: React.FC<Props> = ({ control, resetField, setValue }) => {
   const router = useRouter()
   const { book_from, book_to } = router?.query
 
@@ -32,18 +33,36 @@ const PeriodDropwodn: React.FC<Props> = ({ control, resetField }) => {
   )
   const [startDate, endDate] = dateRange
 
+  useEffect(() => {
+    if (book_from && book_to) {
+      const fromDate = Array.isArray(book_from)
+        ? new Date(book_from[0] as string | number)
+        : new Date(book_from as string | number)
+      const toDate = Array.isArray(book_to)
+        ? new Date(book_to[0] as string | number)
+        : new Date(book_to as string | number)
+
+      setDateRange([fromDate, toDate])
+      setValue('booking.book_from', book_from)
+      setValue('booking.book_to', book_to)
+    }
+  }, [book_from, book_to])
+
+  console.log(book_from, book_to)
+
   return (
     <Menu as='div' className='flex text-left mx-2 w-full'>
       <Menu.Button className='px-4 w-52 inline-flex justify-center rounded-md bg-raisin bg-opacity-20 text-sm font-medium text-white focus-visible:ring-white focus-visible:ring-opacity-75'>
         <FilterContainer>
           <InnerFilterContainer>
             <Typography type='body' className='text-raisin-50'>
-              {startDate && endDate
+              {startDate && endDate && book_from && book_to
                 ? `${format(startDate, 'd MMM yyyy', { locale: ka })} - ${format(endDate, 'd MMM yyyy', {
                     locale: ka
                   })}`
                 : 'ქირაობის პერიოდი'}
             </Typography>
+
             {startDate || endDate ? (
               <Icon
                 svgPath='clear-xs'
@@ -51,6 +70,7 @@ const PeriodDropwodn: React.FC<Props> = ({ control, resetField }) => {
                 height={7}
                 color='raisin-10'
                 onClick={e => {
+                  setDateRange([null, null])
                   resetField(), e.stopPropagation()
                 }}
               />

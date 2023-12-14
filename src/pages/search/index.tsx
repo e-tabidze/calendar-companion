@@ -59,7 +59,8 @@ const SearchPage = () => {
     searchProductsMutation,
     totalProductsCount,
     totalPages,
-    objectToURI
+    objectToURI,
+    searchValues
   } = useSearch()
   const { width } = useWindowDimensions()
 
@@ -101,7 +102,7 @@ const SearchPage = () => {
           <Divider />
           <FiltersWrapper>
             <MainFilters>
-              <PricePopover control={control} handleSubmit={onSubmit} reset={resetField} />
+              <PricePopover control={control} handleSubmit={onSubmit} reset={resetField} searchValues={searchValues} />
               <FuelTypePopover control={control} appendFuelType={appendFuelType} reset={resetField} />
               <CategoryPopover
                 control={control}
@@ -148,9 +149,12 @@ const SearchPage = () => {
                 label='ფილტრის გასუფთავება'
                 labelClassname='text-orange-120'
                 type='reset'
-                onClick={() => {
+                onClick={(e: { preventDefault: () => void }) => {
                   reset()
+                  e.preventDefault() // Prevent the default form submission behavior
+
                   onSubmit()
+                  router.push('/search/?page=1&order_by=desc')
                 }}
               />
             </ClearFiltersWrapper>

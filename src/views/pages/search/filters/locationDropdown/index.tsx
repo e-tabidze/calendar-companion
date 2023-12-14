@@ -36,7 +36,7 @@ const LocationDropdown: React.FC<Props> = ({ control, resetField }) => {
                         svgPath='clear-xs'
                         width={7}
                         height={7}
-                        color="raisin-10"
+                        color='raisin-10'
                         onClick={e => {
                           resetField(), e.stopPropagation()
                         }}

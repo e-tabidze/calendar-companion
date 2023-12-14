@@ -8,19 +8,25 @@ import Icon from 'src/views/app/Icon'
 const Filters = () => {
   const router = useRouter()
 
-  const { control, objectToURI, getValues, resetField, searchValues } = useSearch()
+  const { control, objectToURI, getValues, resetField, reset, setValue, searchValues } = useSearch()
 
   const onSubmit = () => {
     const updatedSearchValues = getValues()
     router.push(`/search?${objectToURI(updatedSearchValues)}`)
   }
 
+  const handleResetBooking = () => {
+    setValue('booking', { book_from: '', book_to: '' })
+  }
+
+  console.log(searchValues, 'searchValues')
+
   return (
     <div className='hidden xl:flex border border-raisin-10 ml-14 rounded-3xl h-12 flex items-center'>
       <FiltersContainer>
         <LocationDropdown control={control} resetField={() => resetField('location')} />
         <Divider />
-        <PeriodDropdown control={control} resetField={() => resetField('booking')} />
+        <PeriodDropdown control={control} resetField={handleResetBooking} setValue={setValue} />
         <Divider />
         <ExtraFiltersContainer>
           <button

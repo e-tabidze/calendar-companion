@@ -3,6 +3,7 @@ import useFilters from 'src/hooks/useFilters'
 import CheckboxField from 'src/views/components/checkboxField'
 import { DefaultButton, IconButton } from 'src/views/components/button'
 import { useWatch } from 'react-hook-form'
+import { useState, useEffect } from 'react'
 
 interface Props {
   control: any
@@ -16,11 +17,17 @@ const CategoryPopover: React.FC<Props> = ({ control, appendCategory, handleSubmi
 
   const formState = useWatch({ control })
 
+  const [hasCategory, setHasCategory] = useState(false)
+
+  useEffect(() => {
+    setHasCategory(!!formState?.category?.length)
+  }, [formState?.category?.length])
+
   return (
     <PopoverDropdown
       label='კატეგორია'
       maxWidth='max-w-md'
-      className={`${formState.category.length > 0 ? 'border border-raisin-100' : ''}`}
+      className={`${hasCategory ? 'border border-raisin-100' : ''}`}
     >
       <CheckboxField
         options={categoriesFilter}
@@ -32,7 +39,14 @@ const CategoryPopover: React.FC<Props> = ({ control, appendCategory, handleSubmi
         classList='border-b-1 border-raisin-10 pb-3'
       />
       <div className='flex items-center justify-between'>
-        <IconButton icon='rotate' text='გასუფთავება' className='fill-transparent' hasBg={false} width={20} height={22} onClick={() => reset("category")} />
+        <IconButton
+          icon='rotate'
+          text='გასუფთავება'
+          className='fill-transparent'
+          width={20}
+          height={22}
+          onClick={() => reset('category')}
+        />
         <DefaultButton
           text='შენახვა'
           bg='bg-orange-100'

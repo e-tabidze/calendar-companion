@@ -184,31 +184,19 @@ const OrderDetails: React.FC<Props> = ({ toggleDetails, setOrderId, orderId }) =
             </div>
             <Divider />
             <div>
-              <PriceDetailsWrapper>
-                <Typography type='subtitle'>ქირაობის ღირებულება x {companyOrder?.days} დღე</Typography>
-                <Typography type='subtitle'>{companyOrder?.price} ₾</Typography>
-              </PriceDetailsWrapper>
-              <PriceDetailsWrapper>
-                <Typography type='subtitle'>დაზღვევა - საბაზისო</Typography>
-                <Typography type='subtitle'>0.00 ₾</Typography>
-              </PriceDetailsWrapper>
-              <PriceDetailsWrapper>
-                <Typography type='subtitle'>გადასახადები და საკომისიოები</Typography>
-                <Typography type='subtitle'>203 ₾</Typography>
-              </PriceDetailsWrapper>
-              <PriceDetailsWrapper>
-                <Typography type='subtitle'>ბავშვის სავარძელი</Typography>
-                <Typography type='subtitle'>203 ₾</Typography>
-              </PriceDetailsWrapper>
-              <Divider />
-              <PriceDetailsWrapper>
-                <Typography type='subtitle' className='font-bold'>
-                  ჯამი
-                </Typography>
-                <Typography type='subtitle' className='font-bold'>
-                  203 ₾
-                </Typography>
-              </PriceDetailsWrapper>
+              {companyOrderproductData?.user_selected_product_services.map((service: any, index: number) => (
+                <PriceDetailsWrapper key={index}>
+                  <Typography type='subtitle'>
+                    {service?.title} {service?.quantity && 'x'} {service?.quantity}
+                  </Typography>
+                  <Typography type='subtitle'>
+                    {service?.type_id == 1
+                      ? service?.price * service?.quantity * companyOrder?.days
+                      : service?.price * service?.quantity}
+                    ₾
+                  </Typography>
+                </PriceDetailsWrapper>
+              ))}
             </div>
           </div>
           <div className='w-full mb-6 md:mb-0 lg:w-5/12 flex flex-col items-center md:w-auto shrink-0 md:pl-16 lg:pl-0'>

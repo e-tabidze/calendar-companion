@@ -146,7 +146,6 @@ const ProductDetails = () => {
         book_from: bookingValues?.booking?.book_from,
         book_to: bookingValues?.booking?.book_to,
         price_day: singleProductDetails?.price_gel,
-        days: startDate && endDate && Math.round((endDate.getTime() - startDate.getTime()) / (24 * 60 * 60 * 1000)),
         company_id: singleProductDetails?.company_id
       }
     })
@@ -373,6 +372,7 @@ const ProductDetails = () => {
                 handleDateChange={() => handleClick('calendar')}
                 onClick={onSubmit}
                 disabled={days === null}
+                changeDates
               />
             </div>
           </div>

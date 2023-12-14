@@ -5,6 +5,7 @@ import { DefaultButton, IconTextButton } from 'src/views/components/button'
 import { ActionsWrapper, TagsWrapper } from './styles'
 import useFilters from 'src/hooks/useFilters'
 import { useWatch } from 'react-hook-form'
+import { useEffect, useState } from 'react'
 
 interface Props {
   control: any
@@ -15,13 +16,19 @@ interface Props {
 const FuelTypePopover: React.FC<Props> = ({ control, appendFuelType, reset }) => {
   const { fuelTypesFilter, isLoading } = useFilters()
 
+  const [hasFuelTypes, setFuelTypes] = useState(false)
+
   const formState = useWatch({ control })
+
+  useEffect(() => {
+    setFuelTypes(!!formState?.fuel_types?.length)
+  }, [formState?.fuel_types?.length])
 
   return (
     <PopoverDropdown
       label='საწვავის ტიპი'
       maxWidth='max-w-sm'
-      className={`${formState?.fuel_types.length > 0 ? 'border border-raisin-100' : ''}`}
+      className={`${hasFuelTypes ? 'border border-raisin-100' : ''}`}
     >
       <Typography type='body' color='light'>
         შეგიძლიათ მონიშნოთ ერთი ან რამდენიმე
@@ -41,7 +48,14 @@ const FuelTypePopover: React.FC<Props> = ({ control, appendFuelType, reset }) =>
         )}
       </TagsWrapper>
       <ActionsWrapper>
-        <IconTextButton icon='rotate' label='გასუფთავება' className='fill-transparent' width={20} height={22} onClick={() => reset("fuel_types")} />
+        <IconTextButton
+          icon='rotate'
+          label='გასუფთავება'
+          className='fill-transparent'
+          width={20}
+          height={22}
+          onClick={() => reset('fuel_types')}
+        />
         <DefaultButton text='შენახვა' bg='bg-orange-100' textColor='text-white' />
       </ActionsWrapper>
     </PopoverDropdown>

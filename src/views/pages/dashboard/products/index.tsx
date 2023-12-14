@@ -1,6 +1,6 @@
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import useWindowDimensions from 'src/hooks/useWindowDimensions'
 import { Products } from 'src/types/Products'
 import { IconTextButton } from 'src/views/components/button'
@@ -19,35 +19,40 @@ import useProducts from './useProducts'
 const filters = [
   {
     label: 'ყველა',
-    id: '1',
+    id: 1,
     filterOption: ''
   },
   {
     label: 'აქტიური',
-    id: '2',
-    filterOption: 1
+    id: 2,
+    filterOption: '1'
   },
   {
     label: 'გამორთული',
-    id: '3',
-    filterOption: 0
+    id: 3,
+    filterOption: '0'
   },
   {
     label: 'დაბლოკილი',
-    id: '4',
-    filterOption: 2
+    id: 4,
+    filterOption: '2'
   }
 ]
 const Products = () => {
-  const { width } = useWindowDimensions()
   const router = useRouter()
-  const [filterQuery, setFilterQuery] = useState<'' | 0 | 1 | 2>('')
-
+  const { width } = useWindowDimensions()
   const { is_active, page } = router.query
 
-  console.log(is_active, page, 'is_active, page')
+  const [filterQuery, setFilterQuery] = useState<'' | '0' | '1' | '2'>('')
 
-  const { companyProducts, isLoading } = useProducts(filterQuery, Number(page))
+  useEffect(() => {
+    if (is_active !== undefined) {
+      const activeValue = Array.isArray(is_active) ? is_active[0] : is_active
+      setFilterQuery(activeValue as '' | '0' | '1' | '2')
+    }
+  }, [is_active])
+
+  const { companyProducts, isLoading } = useProducts(is_active, Number(page))
 
   console.log(companyProducts, 'companyProducts')
 
@@ -58,7 +63,7 @@ const Products = () => {
     })
   }
 
-  const handleFilterChange = (newFilter: '' | 0 | 1 | 2) => {
+  const handleFilterChange = (newFilter: '' | '0' | '1' | '2') => {
     setFilterQuery(newFilter)
     router.push({
       pathname: router.pathname,
@@ -89,9 +94,8 @@ const Products = () => {
               label={filter.label}
               height='h-10'
               key={filter.id}
-              className={`${filter.filterOption === filterQuery ? 'border !border-orange-100' : ''} rounded-xl`}
-              // handleClick={() => setFilterQuery(filter.filterOption as '' | 0 | 1 | 2)}
-              handleClick={() => handleFilterChange(filter.filterOption as '' | 0 | 1 | 2)}
+              className={`${filter.filterOption == filterQuery ? 'border !border-orange-100' : ''} rounded-xl`}
+              handleClick={() => handleFilterChange(filter.filterOption as '' | '0' | '1' | '2')}
             />
           ))}
         </div>
