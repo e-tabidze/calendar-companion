@@ -30,7 +30,7 @@ const ProfileRouter = () => {
       return <CompanyOrders />
     case 'payments':
       return <div>Payments</div>
-    case 'vehicles':
+    case 'products':
       return <Products />
     case 'edit-company':
       return <EditCompany />

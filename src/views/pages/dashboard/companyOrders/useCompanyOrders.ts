@@ -20,13 +20,15 @@ const useCompanyOrders = (orderId?: string | number | undefined) => {
 
   const companyOrders = useOrders?.data?.result?.data
   const companyOrder = useOrder?.data?.result?.data
+  const companyOrderproductData = useOrder?.data && JSON.parse(useOrder?.data?.result?.data?.product_data)
 
   return {
     companyOrders,
     companyOrdersLoading: useOrders.isLoading,
     companyOrder,
     companyOrderLoading: useOrder.isLoading,
-    postOrderStatus
+    postOrderStatus,
+    companyOrderproductData
   }
 }
 
@@ -56,7 +58,7 @@ export const getCompanyOrder = async (AccessToken = '', orderId: number | string
 
 export const postOrderStatus = async (AccessToken = '', orderId: number | string | undefined, status: 0 | 1 | 2) => {
   try {
-    const response: any = orderId && await OrderService.postCompanyOrderStatus(AccessToken, orderId, status)
+    const response: any = orderId && (await OrderService.postCompanyOrderStatus(AccessToken, orderId, status))
 
     return response.data
   } catch (error) {

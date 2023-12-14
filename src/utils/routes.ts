@@ -72,7 +72,7 @@ export const dashboardRoutes = [
     id: 6,
     icon: 'car',
     item: 'ავტომობილები',
-    path: '/dashboard/vehicles/'
+    path: '/dashboard/products?is_active=&page=1'
   },
   {
     id: 7,

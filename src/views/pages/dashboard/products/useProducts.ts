@@ -2,10 +2,10 @@ import { useQuery } from '@tanstack/react-query'
 import CompanyService from 'src/services/CompanyService'
 import ProductService from 'src/services/ProductService'
 
-const useProducts = (filter: 0 | 1 | 2 | '') => {
+const useProducts = (filter: 0 | 1 | 2 | '', page: number) => {
   const useCompanyProducts: any = useQuery({
-    queryKey: ['companyProducts', filter],
-    queryFn: () => getCompanyProducts('', filter),
+    queryKey: ['companyProducts', filter, page],
+    queryFn: () => getCompanyProducts('', filter, page),
     staleTime: Infinity,
     enabled: true
   })
@@ -25,9 +25,9 @@ const useProducts = (filter: 0 | 1 | 2 | '') => {
 
 export default useProducts
 
-const getCompanyProducts = async (accessToken = '', activeStatus: 0 | 1 | 2 | '') => {
+const getCompanyProducts = async (accessToken = '', activeStatus: 0 | 1 | 2 | '', page: number) => {
   try {
-    const response: any = await CompanyService.getCompanyProducts(accessToken, activeStatus)
+    const response: any = await CompanyService.getCompanyProducts(accessToken, activeStatus, page)
 
     return response.data
   } catch (error) {

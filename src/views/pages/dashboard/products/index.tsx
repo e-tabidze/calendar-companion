@@ -1,4 +1,5 @@
 import dynamic from 'next/dynamic'
+import { useRouter } from 'next/router'
 import { useState } from 'react'
 import useWindowDimensions from 'src/hooks/useWindowDimensions'
 import { Products } from 'src/types/Products'
@@ -6,6 +7,7 @@ import { IconTextButton } from 'src/views/components/button'
 import Divider from 'src/views/components/divider'
 import Tag from 'src/views/components/tag'
 import Typography from 'src/views/components/typography'
+import SkeletonLoading from './skeletonLoading'
 
 const Pagination = dynamic(() => import('src/views/components/pagination'), { ssr: false })
 const VehicleListComponent = dynamic(() => import('src/views/pages/dashboard/components/vehicleListComponent'), {
@@ -38,10 +40,35 @@ const filters = [
 ]
 const Products = () => {
   const { width } = useWindowDimensions()
+  const router = useRouter()
   const [filterQuery, setFilterQuery] = useState<'' | 0 | 1 | 2>('')
-  const { companyProducts, isLoading } = useProducts(filterQuery)
+
+  const { is_active, page } = router.query
+
+  console.log(is_active, page, 'is_active, page')
+
+  const { companyProducts, isLoading } = useProducts(filterQuery, Number(page))
 
   console.log(companyProducts, 'companyProducts')
+
+  const handlePageChange = (newPage: number) => {
+    router.push({
+      pathname: router.pathname,
+      query: { ...router.query, page: newPage }
+    })
+  }
+
+  const handleFilterChange = (newFilter: '' | 0 | 1 | 2) => {
+    setFilterQuery(newFilter)
+    router.push({
+      pathname: router.pathname,
+      query: { ...router.query, page: 1, is_active: newFilter }
+    })
+  }
+
+  if (isLoading) {
+    return <SkeletonLoading />
+  }
 
   return (
     <div>
@@ -63,34 +90,35 @@ const Products = () => {
               height='h-10'
               key={filter.id}
               className={`${filter.filterOption === filterQuery ? 'border !border-orange-100' : ''} rounded-xl`}
-              handleClick={() => setFilterQuery(filter.filterOption as '' | 0 | 1 | 2)}
+              // handleClick={() => setFilterQuery(filter.filterOption as '' | 0 | 1 | 2)}
+              handleClick={() => handleFilterChange(filter.filterOption as '' | 0 | 1 | 2)}
             />
           ))}
         </div>
         <div>
-          {isLoading ? (
-            <>Loading...</>
-          ) : (
-            <>
-              {companyProducts?.data?.map((product: Products) => (
-                <VehicleListComponent
-                  key={product.id}
-                  id={product.id}
-                  price={product.price}
-                  startCity={product.start_city}
-                  prodYear={product.prod_year}
-                  model={product?.manufacturer_model?.title}
-                  manufacturer={product.manufacturer?.title}
-                  active={product.is_active}
-                  filter={filterQuery}
-                  images={product?.images}
-                />
-              ))}
-            </>
-          )}
+          {companyProducts?.data?.map((product: Products) => (
+            <VehicleListComponent
+              key={product.id}
+              id={product.id}
+              price={product.price}
+              startCity={product.start_city}
+              prodYear={product.prod_year}
+              model={product?.manufacturer_model?.title}
+              manufacturer={product.manufacturer?.title}
+              active={product.is_active}
+              filter={filterQuery}
+              images={product?.images}
+            />
+          ))}
         </div>
       </div>
-      <Pagination totalPages={6} onPageChange={() => console.log('change Page')} currentPage={0} />
+      {companyProducts?.last_page > 1 && (
+        <Pagination
+          totalPages={companyProducts?.last_page}
+          onPageChange={handlePageChange}
+          currentPage={Number(page)}
+        />
+      )}
     </div>
   )
 }
