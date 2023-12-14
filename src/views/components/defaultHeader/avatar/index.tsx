@@ -6,7 +6,8 @@ import { Fragment, useState } from 'react'
 import useProfile from 'src/hooks/useProfile'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import Link from 'next/link'
-import Cookie from 'src/helpers/Cookie'
+
+// import Cookie from 'src/helpers/Cookie'
 import { dashboardRoutes, profileRoutes } from 'src/utils/routes'
 import Icon from 'src/views/app/Icon'
 
@@ -36,13 +37,13 @@ const Avatar = () => {
     setActive(!active)
   }
 
-  const handleLogout = async () => {
-    Cookie.removeAll()
-    localStorage.clear()
-    router.replace('/')
-    await queryClient.invalidateQueries(['profileInfo'])
-    Cookie.remove('AccessToken')
-  }
+  // const handleLogout = async () => {
+  //   Cookie.removeAll()
+  //   localStorage.clear()
+  //   router.replace('/')
+  //   await queryClient.invalidateQueries(['profileInfo'])
+  //   Cookie.remove('AccessToken')
+  // }
 
   const routeClass = `px-6 flex whitespace-nowrap text-md text-raisin-100 py-2 hover:bg-grey-100 transition-all`
 
@@ -161,11 +162,12 @@ const Avatar = () => {
                     onClick={handleSetActive}
                   >
                     Switch Account
+                    {/*<Icon svgPath='chevron-left' width={20} height={20} className='fill-transparent flex ml-4' ></Icon>*/}
                   </button>
                   {activeCompany ? (
                     <ul className='mb-2'>
                       {dashboardRoutes?.map(route => (
-                        <li key={route.id}>
+                        <li key={route.id} className='last:border-t-1 border-raisin-10 last:pt-2'>
                           <Link href={route.path} className={routeClass}>
                             {route.item}
                           </Link>
@@ -184,12 +186,12 @@ const Avatar = () => {
                     </ul>
                   )}
                 </div>
-                <div
-                  className='border-t-[1px] border-raisin-10 cursor-pointer py-4 px-8 hover:bg-grey-100 transition-all'
-                  onClick={handleLogout}
-                >
-                  გასვლა
-                </div>
+                {/*<div*/}
+                {/*  className='border-t-[1px] border-raisin-10 cursor-pointer py-4 px-8 hover:bg-grey-100 transition-all'*/}
+                {/*  onClick={handleLogout}*/}
+                {/*>*/}
+                {/*  გასვლა*/}
+                {/*</div>*/}
               </>
             )}
           </div>
