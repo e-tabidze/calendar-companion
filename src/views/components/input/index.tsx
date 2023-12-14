@@ -4,7 +4,7 @@ import _ from 'lodash'
 
 import { Controller } from 'react-hook-form'
 import { InputContainer } from './styles'
-import Icon from "src/views/app/Icon";
+import Icon from 'src/views/app/Icon'
 
 const styles = {
   disabledInput: 'opacity-80',
@@ -38,7 +38,7 @@ interface Props {
   handleChange?: (e: any) => void
   placeholder?: string
   inputValue?: string
-  min?: number,
+  min?: number
   max?: number
 }
 
@@ -161,18 +161,22 @@ export const PasswordInput = ({ label, value, className, onChange, ...rest }: an
           onClick={togglePasswordVisibility}
           className='absolute top-1/2 right-3 transform -translate-y-1/2'
         >
-          {showPassword ? (
-              <Icon svgPath='eye' width={24} height={24} />
-          ) : (
-              <Icon svgPath='eye' width={24} height={24} />
-          )}
+          {showPassword ? <Icon svgPath='eye' width={24} height={24} /> : <Icon svgPath='eye' width={24} height={24} />}
         </button>
       </div>
     </InputContainer>
   )
 }
 
-export const InputWithComponent: React.FC<Props> = ({ label, className, onComponentClick, name, control, errors, id }) => {
+export const InputWithComponent: React.FC<Props> = ({
+  label,
+  className,
+  onComponentClick,
+  name,
+  control,
+  errors,
+  id
+}) => {
   const [isFocused, setIsFocused] = useState(false)
 
   const handleFocus = () => setIsFocused(true)
@@ -181,7 +185,9 @@ export const InputWithComponent: React.FC<Props> = ({ label, className, onCompon
 
   return (
     <>
-      <InputContainer className={`${className} h-12 lg:h-14 border border-raisin-10 rounded-xl px-3 py-2 flex items-center`}>
+      <InputContainer
+        className={`${className} h-12 lg:h-14 border border-raisin-10 rounded-xl px-3 py-2 flex items-center`}
+      >
         <Controller
           name={name}
           control={control}
@@ -211,8 +217,10 @@ export const InputWithComponent: React.FC<Props> = ({ label, className, onCompon
           )}
         />
         <div className='flex items-center gap-3 h-full border-l border-raisin-10 px-5 cursor-pointer'>
-          <Icon svgPath='map' width={24} height={24} className='fill-transparent'  onClick={onComponentClick} />
-          <Typography type='subtitle' className="hidden sm:flex">რუკაზე</Typography>
+          <Icon svgPath='map' width={24} height={24} className='fill-transparent' onClick={onComponentClick} />
+          <Typography type='subtitle' className='hidden sm:flex'>
+            რუკაზე
+          </Typography>
         </div>
       </InputContainer>
     </>

@@ -336,14 +336,21 @@ const AdditionalFilters: React.FC<Props> = ({
                     className='my-2'
                   />
                 </div>
-                <div className='w-full flex flex-row items-center justify-between py-4 px-4 md:px-10 border-t-1 border-grey-90'>
-                  <IconTextButton label='გასუფთავება' icon='return' className='fill-transparent' width={20} height={22} onClick={() => reset()} />
+                <div className='w-full flex flex-row items-center justify-between py-4 px-4 md:px-10 border-t-1 border-grey-90 shadow-md'>
+                  <IconTextButton
+                    label='გასუფთავება'
+                    icon='return'
+                    className='fill-transparent'
+                    width={20}
+                    height={22}
+                    onClick={() => reset()}
+                  />
                   <div className='flex items-center justify-between md:justify-start text-md gap-4'>
                     {/* სულ 136 შედეგი */}
                     <IconTextButton
                       label='ძებნა'
                       bg='bg-orange-100'
-                      className='text-white'
+                      className='text-white pl-[24px] pr-[32px]'
                       icon='search'
                       width={20}
                       height={20}
