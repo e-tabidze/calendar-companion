@@ -22,7 +22,7 @@ class SearchService extends HttpService {
   }
 
   getSearchProducts(querystring: string) {
-    return this.get(`https://test-api-rent-golang.myauto.ge/api/search-products?${querystring}&order_by=asc`)
+    return this.get(`/search-products?${querystring}&order_by=asc`)
   }
 
   getCities() {

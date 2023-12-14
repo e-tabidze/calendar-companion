@@ -15,7 +15,10 @@ import {
 import Icon from 'src/views/app/Icon'
 import useOrders from '../useOrders'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { Image } from 'react-mapbox-gl'
+
+import { parseISO, format } from 'date-fns'
+import { ka } from 'date-fns/locale'
+import Image from 'src/views/components/image'
 
 interface Props {
   toggleDetails: () => void
@@ -43,6 +46,8 @@ const OrderDetails: React.FC<Props> = ({ toggleDetails, orderId, setOrderId }) =
     }
   })
 
+  console.log(productData?.images?.split(',')[0], 'productData')
+
   return (
     <div className='border border-raisin-10 rounded-2xl'>
       <div className='flex items-center md:w-full gap-6 p-4 md:p-8'>
@@ -63,7 +68,11 @@ const OrderDetails: React.FC<Props> = ({ toggleDetails, orderId, setOrderId }) =
           <Typography type='body' color='light'>
             შეკვეთის თარიღი
           </Typography>
-          <Typography type='subtitle'>{userOrderDetails?.created_at}</Typography>
+          {userOrderDetails?.created_at && (
+            <Typography type='subtitle'>
+              {format(parseISO(userOrderDetails?.created_at), 'd MMM yyyy HH:mm', { locale: ka })}
+            </Typography>
+          )}
         </RentalDetailsWrapper>
         <RentalDetailsWrapper>
           <Typography type='body' color='light'>
@@ -97,9 +106,13 @@ const OrderDetails: React.FC<Props> = ({ toggleDetails, orderId, setOrderId }) =
               </TakeAwayWrapper>
               <div className='lg:w-7/12 pl-9 lg:pl-0'>
                 <Typography type='subtitle'>{userOrderDetails?.start_address}</Typography>
-                <Typography type='body' color='light'>
-                  {userOrderDetails?.start_date} {userOrderDetails?.start_time}
-                </Typography>
+                {userOrderDetails?.start_date && userOrderDetails?.start_time && (
+                  <Typography type='body' color='light'>
+                    {format(parseISO(userOrderDetails?.start_date), 'd MMM yyyy', { locale: ka })}
+                    {' - '}
+                    {format(parseISO(`1970-01-01T${userOrderDetails?.start_time}`), 'HH:mm')}
+                  </Typography>
+                )}
               </div>
             </TakeAwayInfoContsiner>
             <TakeAwayInfoContsiner>
@@ -113,9 +126,13 @@ const OrderDetails: React.FC<Props> = ({ toggleDetails, orderId, setOrderId }) =
               </TakeAwayWrapper>
               <div className='lg:w-7/12 pl-9 lg:pl-0'>
                 <Typography type='subtitle'>{userOrderDetails?.end_address}</Typography>
-                <Typography type='body' color='light'>
-                  {userOrderDetails?.end_date} {userOrderDetails?.end_time}
-                </Typography>
+                {userOrderDetails?.end_date && userOrderDetails?.end_time && (
+                  <Typography type='body' color='light'>
+                    {format(parseISO(userOrderDetails?.end_date), 'd MMM yyyy', { locale: ka })}
+                    {' - '}
+                    {format(parseISO(`1970-01-01T${userOrderDetails?.end_time}`), 'HH:mm')}
+                  </Typography>
+                )}
               </div>
             </TakeAwayInfoContsiner>
           </div>
@@ -130,7 +147,13 @@ const OrderDetails: React.FC<Props> = ({ toggleDetails, orderId, setOrderId }) =
                 <Typography type='subtitle'>
                   {service?.title} {service?.quantity && 'x'} {service?.quantity}
                 </Typography>
-                <Typography type='subtitle'> {service?.type_id ==1 ? (service?.price * service?.quantity)*userOrderDetails?.days:service?.price * service?.quantity } ₾ </Typography>
+                <Typography type='subtitle'>
+                  {' '}
+                  {service?.type_id == 1
+                    ? service?.price * service?.quantity * userOrderDetails?.days
+                    : service?.price * service?.quantity}{' '}
+                  ₾{' '}
+                </Typography>
               </PriceDetailsWrapper>
             ))}
 
@@ -146,14 +169,19 @@ const OrderDetails: React.FC<Props> = ({ toggleDetails, orderId, setOrderId }) =
           </div>
         </div>
         <div className='lg:w-4/12 xl:w-5/12 flex flex-col items-center md:pl-10 lg:pl-0 shrink-0'>
-          <div className="w-[260px] shrink-0">
-            <div className="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden">
-              <Image
-                   src={productData?.images?.split(',')[0]}
-                    alt={productData?.manufacturer?.title + productData?.manufacturer_model?.title + productData?.prod_year}
-                     height={'100%'}
-                     width={'100%'}
-                     className='object-cover' />
+          <div className='w-[260px] shrink-0'>
+            <div className='aspect-w-16 aspect-h-9 rounded-lg overflow-hidden'>
+              {productData?.images && (
+                <Image
+                  src={productData?.images?.split(',')[0]}
+                  alt={
+                    productData?.manufacturer?.title + productData?.manufacturer_model?.title + productData?.prod_year
+                  }
+                  height={'100%'}
+                  width={'100%'}
+                  className='object-cover'
+                />
+              )}
             </div>
           </div>
 

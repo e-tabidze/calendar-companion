@@ -15,6 +15,9 @@ import UseOrders from 'src/views/pages/profile/orders/useOrders'
 import { useRouter } from 'next/router'
 import { DefaultButton } from 'src/views/components/button'
 
+import { parseISO, format } from 'date-fns'
+import { ka } from 'date-fns/locale'
+
 const SuccessfulPayment = () => {
   const router = useRouter()
 
@@ -41,9 +44,11 @@ const SuccessfulPayment = () => {
               <Typography type='body' color='light' className='text-white/50'>
                 შეკვეთის თარიღი
               </Typography>
-              <Typography type='subtitle' className='text-white'>
-                {userOrderDetails?.created_at}
-              </Typography>
+              {userOrderDetails?.created_at && (
+                <Typography type='subtitle' className='text-white'>
+                  {format(parseISO(userOrderDetails?.created_at), 'd MMM yyyy HH:mm', { locale: ka })}
+                </Typography>
+              )}
             </RentalDetailsWrapper>
             <RentalDetailsWrapper>
               <Typography type='body' color='light' className='text-white/50'>
@@ -97,9 +102,13 @@ const SuccessfulPayment = () => {
               </TakeAwayWrapper>
               <div className='lg:w-7/12'>
                 <Typography type='subtitle'>{userOrderDetails?.start_address}</Typography>
-                <Typography type='body' color='light'>
-                  {userOrderDetails?.start_date} {userOrderDetails?.start_time}
-                </Typography>
+                {userOrderDetails?.start_date && userOrderDetails?.start_time && (
+                  <Typography type='body' color='light'>
+                    {format(parseISO(userOrderDetails?.start_date), 'd MMM yyyy', { locale: ka })}
+                    {' - '}
+                    {format(parseISO(`1970-01-01T${userOrderDetails?.start_time}`), 'HH:mm')}
+                  </Typography>
+                )}
               </div>
             </TakeAwayInfoContsiner>
             <TakeAwayInfoContsiner>
@@ -115,9 +124,13 @@ const SuccessfulPayment = () => {
               </TakeAwayWrapper>
               <div className='lg:w-7/12'>
                 <Typography type='subtitle'>{userOrderDetails?.end_address}</Typography>
-                <Typography type='body' color='light'>
-                  {userOrderDetails?.end_date} {userOrderDetails?.end_time}
-                </Typography>
+                {userOrderDetails?.end_date && userOrderDetails?.end_time && (
+                  <Typography type='body' color='light'>
+                    {format(parseISO(userOrderDetails?.end_date), 'd MMM yyyy', { locale: ka })}
+                    {' - '}
+                    {format(parseISO(`1970-01-01T${userOrderDetails?.end_time}`), 'HH:mm')}
+                  </Typography>
+                )}
               </div>
             </TakeAwayInfoContsiner>
           </div>

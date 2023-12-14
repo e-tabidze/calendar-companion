@@ -11,3 +11,4 @@ export const formatDate = (date: Date | null): string => {
     .reverse()
     .join('-')
 }
+

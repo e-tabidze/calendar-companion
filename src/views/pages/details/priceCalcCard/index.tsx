@@ -15,6 +15,8 @@ interface Props {
 const PriceCalcCard: React.FC<Props> = ({ price, dates, days, className, onClick, handleDateChange, disabled }) => {
   const { userInfo } = useProfile()
 
+  console.log(dates, 'dates')
+
   return (
     <div className={`shadow-2xl w-full rounded-3xl pt-5 px-4 lg:px-6 pb-10 ${className}`}>
       <div className='flex items-center gap-2'>
