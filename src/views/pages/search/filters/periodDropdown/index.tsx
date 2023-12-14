@@ -7,6 +7,7 @@ import 'react-datepicker/dist/react-datepicker.css'
 import { Controller } from 'react-hook-form'
 import { formatDate } from 'src/utils/formatDate'
 import Icon from 'src/views/app/Icon'
+import { useRouter } from 'next/router'
 
 interface Props {
   control: any
@@ -14,22 +15,20 @@ interface Props {
 }
 
 const PeriodDropwodn: React.FC<Props> = ({ control, resetField }) => {
-  const [dateRange, setDateRange] = useState<[Date, Date] | [null, null]>([null, null])
+  const router = useRouter()
+  const { book_from, book_to } = router?.query
+
+  const [dateRange, setDateRange] = useState<
+    [Date, Date] | [null, null] | [Date, null] | [null, Date] | [undefined, undefined]
+  >(
+    Array.isArray(book_from) && Array.isArray(book_to)
+      ? [new Date(book_from[0]), new Date(book_to[0])]
+      : [
+          book_from ? new Date(book_from as string | number) : null,
+          book_to ? new Date(book_to as string | number) : null
+        ]
+  )
   const [startDate, endDate] = dateRange
-
-  // const router = useRouter()
-  // const { book_from, book_to } = router?.query
-
-  // const [dateRange, setDateRange] = useState<
-  //   [Date, Date] | [null, null] | [Date, null] | [null, Date] | [undefined, undefined]
-  // >(
-  //   Array.isArray(book_from) && Array.isArray(book_to)
-  //     ? [new Date(book_from[0]), new Date(book_to[0])]
-  //     : [
-  //         book_from ? new Date(book_from as string | number) : null,
-  //         book_to ? new Date(book_to as string | number) : null
-  //       ]
-  // )
 
   // useEffect(() => {
   //   if (book_from && book_to) {

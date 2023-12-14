@@ -62,7 +62,8 @@ const SearchPage = () => {
     objectToURI
   } = useSearch()
   const { width } = useWindowDimensions()
-  const [mapVisible, setMapVisible] = useState(true)
+
+  // const [mapVisible, setMapVisible] = useState(true)
   const [filters, toggleFilters] = useState(false)
 
   const router = useRouter()
@@ -74,17 +75,17 @@ const SearchPage = () => {
   const startIndex = asPath.indexOf('/search/?') + '/search/?'.length
   const searchString = asPath.slice(startIndex)
 
-  useEffect(() => {
-    setMapVisible(width >= 1025)
-  }, [width])
+  // useEffect(() => {
+  //   setMapVisible(width >= 1025)
+  // }, [width])
 
   useEffect(() => {
     searchProductsMutation.mutateAsync(searchString)
   }, [searchString])
 
-  const handleToggleMapWidth = () => {
-    setMapVisible(!mapVisible)
-  }
+  // const handleToggleMapWidth = () => {
+  //   setMapVisible(!mapVisible)
+  // }
 
   const onSubmit = () => {
     const updatedSearchValues = getValues()
@@ -210,14 +211,14 @@ const SearchPage = () => {
                       />
                     </div>
 
-                    {width < 1025 && (
+                    {/* {width < 1025 && (
                       <Tag
                         component={<Icon svgPath='map' width={24} height={24} className='fill-transparent' />}
                         label='რუკაზე'
                         height='h-10'
                         handleClick={handleToggleMapWidth}
                       />
-                    )}
+                    )} */}
                   </div>
                 </div>
               </SearchResultsContainer>
