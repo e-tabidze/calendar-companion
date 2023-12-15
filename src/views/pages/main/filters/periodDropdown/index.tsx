@@ -38,6 +38,7 @@ const PeriodDropdown: React.FC<Props> = ({ control }) => {
           </InnerFilterContainer>
         </FilterContainer>
       </Menu.Button>
+
       <Transition
         as={Fragment}
         enter='transition ease-out duration-100'
