@@ -8,6 +8,7 @@ import Typography from 'src/views/components/typography'
 
 import ListComponent from '../components/orderListComponent'
 import OrderDetails from './orderDetails'
+import SkeletonLoading from './skeletorLoading'
 import useCompanyOrders from './useCompanyOrders'
 
 const filters = [
@@ -38,7 +39,7 @@ const filters = [
 ]
 
 const CompanyOrders = () => {
-  const { companyOrders } = useCompanyOrders()
+  const { companyOrders, companyOrdersLoading } = useCompanyOrders()
   const [details, setDetails] = useState(false)
   const [orderId, setOrderId] = useState(0)
   const { width } = useWindowDimensions()
@@ -46,6 +47,10 @@ const CompanyOrders = () => {
   console.log(companyOrders, 'companyOrders')
 
   const toggleDetails = () => setDetails(!details)
+
+  if (companyOrdersLoading) {
+    return <SkeletonLoading filters={filters} />
+  }
 
   return (
     <>

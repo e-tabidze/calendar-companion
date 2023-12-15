@@ -9,7 +9,7 @@ const NewProduct = dynamic(() => import('src/views/pages/dashboard/newProduct'),
 import dynamic from 'next/dynamic'
 import { dashboardRoutes } from 'src/utils/routes'
 
-const ProfileLayout = dynamic(() => import('src/layouts/ProfileLayout'), { ssr: true })
+const ProfileLayout = dynamic(() => import('src/layouts/ProfileLayout'), { ssr: false })
 
 const EditProduct = dynamic(() => import('src/views/pages/dashboard/editProduct'), { ssr: true })
 
@@ -30,7 +30,7 @@ const ProfileRouter = () => {
       return <CompanyOrders />
     case 'payments':
       return <div>Payments</div>
-    case 'vehicles':
+    case 'products':
       return <Products />
     case 'edit-company':
       return <EditCompany />

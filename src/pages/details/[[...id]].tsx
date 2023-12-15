@@ -43,6 +43,9 @@ import ProductCard from 'src/views/components/productCard'
 // const Reviews = dynamic(() => import('src/views/pages/details/reviews'), { ssr: true })
 const Features = dynamic(() => import('src/views/pages/details/features'), { ssr: true })
 
+import { format } from 'date-fns'
+import { ka } from 'date-fns/locale'
+
 const ProductDetails = () => {
   const router = useRouter()
   const { id, book_from, book_to } = router.query
@@ -143,7 +146,6 @@ const ProductDetails = () => {
         book_from: bookingValues?.booking?.book_from,
         book_to: bookingValues?.booking?.book_to,
         price_day: singleProductDetails?.price_gel,
-        days: startDate && endDate && Math.round((endDate.getTime() - startDate.getTime()) / (24 * 60 * 60 * 1000)),
         company_id: singleProductDetails?.company_id
       }
     })
@@ -258,12 +260,10 @@ const ProductDetails = () => {
                 <div className='flex justify-between mb-16 mt-2'>
                   <div className='flex gap-4'>
                     <Typography type='subtitle' className='text-green-100'>
-                      {/* {startDate && endDate
-                        ? `${startDate?.toISOString().split('T')[0]} - ${endDate?.toISOString().split('T')[0]}`
-                        : 'აირჩიეთ თარიღი და დრო'} */}
-
                       {startDate && endDate
-                        ? `${formatDate(startDate)} - ${formatDate(endDate)}`
+                        ? `${format(startDate, 'd MMM yyyy', { locale: ka })} - ${format(endDate, 'd MMM yyyy', {
+                            locale: ka
+                          })}`
                         : 'აირჩიეთ თარიღი და დრო'}
                     </Typography>
                     {startDate && endDate && (
@@ -359,13 +359,20 @@ const ProductDetails = () => {
               <PriceCalcCard
                 className={`${isSticky ? 'sticky top-44' : ''} z-[11]`}
                 price={singleProductDetails?.price_gel}
-                dates={startDate && endDate ? `${formatDate(startDate)} - ${formatDate(endDate)}` : ''}
+                dates={
+                  startDate && endDate
+                    ? `${format(startDate, 'd MMM yyyy', { locale: ka })} - ${format(endDate, 'd MMM yyyy', {
+                        locale: ka
+                      })}`
+                    : ''
+                }
                 days={
                   startDate && endDate && Math.round((endDate.getTime() - startDate.getTime()) / (24 * 60 * 60 * 1000))
                 }
                 handleDateChange={() => handleClick('calendar')}
                 onClick={onSubmit}
                 disabled={days === null}
+                changeDates
               />
             </div>
           </div>
@@ -406,7 +413,13 @@ const ProductDetails = () => {
             setIsOpenDrawer={setIsOpenDrawer}
             className={`${isSticky ? 'sticky top-44' : ''} z-[11]`}
             price={singleProductDetails?.price_gel}
-            dates={startDate && endDate ? `${formatDate(startDate)} - ${formatDate(endDate)}` : ''}
+            dates={
+              startDate && endDate
+                ? `${format(startDate, 'd MMM yyyy', { locale: ka })} - ${format(endDate, 'd MMM yyyy', {
+                    locale: ka
+                  })}`
+                : ''
+            }
             days={startDate && endDate && Math.round((endDate.getTime() - startDate.getTime()) / (24 * 60 * 60 * 1000))}
             onClick={onSubmit}
           />

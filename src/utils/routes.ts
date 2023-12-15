@@ -34,6 +34,12 @@ export const profileRoutes = [
     icon: 'bellOutline',
     item: 'შეტყობინებები',
     path: '/profile/notifications/'
+  },
+  {
+    id: 7,
+    icon: 'logout',
+    item: 'გასვლა',
+    onClick: null
   }
 ]
 
@@ -72,7 +78,7 @@ export const dashboardRoutes = [
     id: 6,
     icon: 'car',
     item: 'ავტომობილები',
-    path: '/dashboard/vehicles/'
+    path: '/dashboard/products?is_active=&page=1'
   },
   {
     id: 7,
@@ -84,6 +90,6 @@ export const dashboardRoutes = [
     id: 8,
     icon: 'logout',
     item: 'გასვლა',
-    path: ''
+    onClick: null
   }
 ]

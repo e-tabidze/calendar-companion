@@ -18,7 +18,7 @@ interface Props {
   prodYear: number
   active: number
   id: number
-  filter: '' | 0 | 1 | 2
+  filter: '' | '0' | '1' | '2'
   images: string
 }
 
@@ -82,7 +82,6 @@ const VehicleListComponent: React.FC<Props> = ({
                   </div>
                 ))}
                 type='card'
-                key={Math.random()}
               />
             </div>
             <div className='pr-6 md:pr-0'>

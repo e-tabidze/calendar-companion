@@ -10,10 +10,22 @@ interface Props {
   onClick: () => void
   handleDateChange?: () => void
   disabled: boolean
+  changeDates: boolean
 }
 
-const PriceCalcCard: React.FC<Props> = ({ price, dates, days, className, onClick, handleDateChange, disabled }) => {
+const PriceCalcCard: React.FC<Props> = ({
+  price,
+  dates,
+  days,
+  className,
+  onClick,
+  handleDateChange,
+  disabled,
+  changeDates = true
+}) => {
   const { userInfo } = useProfile()
+
+  console.log(dates, 'dates')
 
   return (
     <div className={`shadow-2xl w-full rounded-3xl pt-5 px-4 lg:px-6 pb-10 ${className}`}>
@@ -38,9 +50,11 @@ const PriceCalcCard: React.FC<Props> = ({ price, dates, days, className, onClick
             | {days} days
           </Typography>
         </div>
-        <button className='border border-raisin-100 rounded-xl p-1 text-sm' onClick={handleDateChange}>
-          შეცვლა
-        </button>
+        {changeDates && (
+          <button className='border border-raisin-100 rounded-xl p-1 text-sm' onClick={handleDateChange}>
+            შეცვლა
+          </button>
+        )}
       </div>
 
       <div className='w-full h-px bg-raisin-10' />

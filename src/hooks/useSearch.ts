@@ -1,4 +1,6 @@
 import { QueryClient, useMutation } from '@tanstack/react-query'
+import { useRouter } from 'next/router'
+import { useEffect } from 'react'
 import { useFieldArray, useForm, useWatch } from 'react-hook-form'
 import SearchService from 'src/services/SearchService'
 
@@ -6,6 +8,8 @@ const useSearch = () => {
   const urlSearchParams = typeof window !== 'undefined' ? new URLSearchParams(window?.location.search) : null
   const params: any = {}
   const queryClient = new QueryClient()
+
+  const router = useRouter()
 
   if (urlSearchParams) {
     for (const [key, value] of urlSearchParams.entries()) {
@@ -50,6 +54,28 @@ const useSearch = () => {
       book_to: params?.book_to || ''
     }
   }
+
+  useEffect(() => {
+    setValue('page', Number(params?.page) || 1)
+    setValue('location', params?.location || '')
+    setValue('fuel_types', convertToNumberArray(params?.fuel_types))
+    setValue('category', convertToNumberArray(params?.category))
+    setValue('seat_types', convertToNumberArray(params?.seat_types))
+    setValue('luggage_numbers', convertToNumberArray(params?.luggage_numbers))
+    setValue('drive_tires', convertToNumberArray(params?.drive_tires))
+    setValue('door_types', convertToNumberArray(params?.door_types))
+    setValue('transmission_types', convertToNumberArray(params?.transmission_types))
+    setValue('additional_information', convertToNumberArray(params?.additional_information))
+    setValue('price_min', params?.price_min || '')
+    setValue('price_max', params?.price_max || '')
+    setValue('manufacturer_id', convertToNumberArray(params?.manufacturer_id))
+    setValue('model_id', convertToNumberArray(params?.model))
+    setValue('free_delivery', params?.free_delivery == 'false' ? false : true)
+    setValue('year_from', params?.year_from || '')
+    setValue('year_to', params?.year_to || '')
+    setValue('booking.book_from', params?.book_from || '')
+    setValue('booking.book_to', params?.book_to || '')
+  }, [router.query])
 
   const {
     control,
