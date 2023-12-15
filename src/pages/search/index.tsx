@@ -21,6 +21,7 @@ import dynamic from 'next/dynamic'
 import Icon from 'src/views/app/Icon'
 import Pagination from 'src/views/components/pagination'
 import { Controller } from 'react-hook-form'
+import SkeletonLoading from 'src/views/pages/search/skeletonLoading'
 
 const Divider = dynamic(() => import('src/views/components/divider'), { ssr: true })
 
@@ -59,8 +60,7 @@ const SearchPage = () => {
     searchProductsMutation,
     totalProductsCount,
     totalPages,
-    objectToURI,
-    searchValues
+    objectToURI
   } = useSearch()
   const { width } = useWindowDimensions()
 
@@ -93,8 +93,6 @@ const SearchPage = () => {
     router.push(`/search?${objectToURI(updatedSearchValues)}`)
   }
 
-  console.log(productsData, 'productsData')
-
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -102,7 +100,7 @@ const SearchPage = () => {
           <Divider />
           <FiltersWrapper>
             <MainFilters>
-              <PricePopover control={control} handleSubmit={onSubmit} reset={resetField} searchValues={searchValues} />
+              <PricePopover control={control} handleSubmit={onSubmit} reset={resetField} />
               <FuelTypePopover control={control} appendFuelType={appendFuelType} reset={resetField} />
               <CategoryPopover
                 control={control}
@@ -226,8 +224,9 @@ const SearchPage = () => {
                   </div>
                 </div>
               </SearchResultsContainer>
+
               {isLoading ? (
-                <div>Loading...</div>
+                <SkeletonLoading />
               ) : (
                 <div className='grid sm:grid-cols-2 gap-6 lg:grid-cols-4 2xl:grid-cols-5'>
                   {/*  className={`grid sm:grid-cols-2 gap-6 ${*/}
@@ -250,6 +249,7 @@ const SearchPage = () => {
                   ))}
                 </div>
               )}
+
               {totalPages > 1 && (
                 <Controller
                   name='page'

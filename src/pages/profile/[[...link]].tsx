@@ -85,7 +85,7 @@ const ProfileRouter = ({ userInfo }: { userInfo: UserInfo }) => {
 }
 
 const Profile = () => {
-  const { userInfo, router, userCompanies } = useProfile()
+  const { userInfo, router, userCompanies, handleLogout } = useProfile()
 
   const companyRoutes =
     userCompanies?.map((company: any) => ({
@@ -97,13 +97,13 @@ const Profile = () => {
     })) || []
 
   const allRoutes = [
-    ...profileRoutes,
+    ...profileRoutes.filter((route) => route.path),
     ...companyRoutes,
     {
       id: 9,
       icon: 'logout',
       item: 'გასვლა',
-      path: '/profile/sign-out'
+      onClick: handleLogout
     }
   ]
 

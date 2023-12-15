@@ -9,8 +9,9 @@ interface Route {
   id: number
   icon: string
   item: string
-  path: string
+  path?: string
   image?: string
+  onClick?: any
 }
 interface Props {
   routes: Route[]
@@ -29,7 +30,7 @@ const ProfileNavigation: React.FC<Props> = ({
   selectedRoute,
   dividerIndexes
 }) => {
-  const { userInfo, activeCompany, isAuthenticated } = useProfile()
+  const { userInfo, activeCompany, isAuthenticated, handleLogout } = useProfile()
 
   const router = useRouter()
 
@@ -79,11 +80,7 @@ const ProfileNavigation: React.FC<Props> = ({
           } cursor-pointer transition duration-300 flex h-6 rounded-full bg-raisin-10 justify-center items-center shrink-0`}
           onClick={toggleSidebarCollapse}
         >
-          <Icon
-            svgPath='chevron-l'
-            width={8}
-            height={12}
-          />
+          <Icon svgPath='chevron-l' width={8} height={12} />
         </div>
       </div>
       <div
@@ -96,14 +93,12 @@ const ProfileNavigation: React.FC<Props> = ({
           svgPath='chevron-l'
           width={8}
           height={12}
-          className={`fill-transparent cursor-pointer ${
-            sidebarCollapsed ? 'transform rotate-180' : ''
-          } `}
+          className={`fill-transparent cursor-pointer ${sidebarCollapsed ? 'transform rotate-180' : ''} `}
         />
       </div>
       <Divider className='mb-4' />
       {routes.map((route, index) => (
-        <div key={route.id} onClick={() => handleRouteChange(route)}>
+        <div key={route.id} onClick={route.path ? () => handleRouteChange(route) : handleLogout}>
           <div
             className={`group relative flex items-center my-2  cursor-pointer transition-all duration-300 ${
               sidebarCollapsed ? 'px-5' : 'lg:px-5 xl:px-0 2xl:px-4'
@@ -133,9 +128,9 @@ const ProfileNavigation: React.FC<Props> = ({
               type='h5'
               className={`transition-all duration-300 overflow-hidden text-2sm 2xl:text-md ${
                 sidebarCollapsed ? 'opacity-0' : 'opacity-100 ml-4 2xl:ml-6'
-              } ${selectedRoute.path.split('/')[2] === route.path.split('/')[2] ? 'text-orange-100' : ''}' ${
-                route.path === router?.asPath && 'text-orange-100'
-              }`}
+              } ${
+                route.path && selectedRoute?.path?.split('/')[2] === route.path.split('/')[2] ? 'text-orange-100' : ''
+              }' ${route.path === router?.asPath && 'text-orange-100'}`}
             >
               {route.item}
             </Typography>

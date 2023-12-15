@@ -8,7 +8,7 @@ import Icon from 'src/views/app/Icon'
 const Filters = () => {
   const router = useRouter()
 
-  const { control, objectToURI, getValues, resetField, reset, setValue, searchValues } = useSearch()
+  const { control, objectToURI, getValues, resetField, setValue, searchValues } = useSearch()
 
   const onSubmit = () => {
     const updatedSearchValues = getValues()

@@ -56,6 +56,7 @@ const OrderDetails: React.FC<Props> = ({ toggleDetails, setOrderId, orderId }) =
   if (companyOrderLoading) {
     return <OrderDetailsSkeleton />
   }
+  
   return (
     <>
       <OrderDetailsContainer>
@@ -78,7 +79,11 @@ const OrderDetails: React.FC<Props> = ({ toggleDetails, setOrderId, orderId }) =
               <Typography type='body' color='light'>
                 შეკვეთის თარიღი
               </Typography>
-              <Typography type='subtitle'>{companyOrder?.created_at}</Typography>
+              {companyOrder?.created_at && (
+                <Typography type='subtitle'>
+                  {format(parseISO(companyOrder?.created_at), 'd MMM yyyy HH:mm', { locale: ka })}
+                </Typography>
+              )}
             </RentalDetailsWrapper>
             <RentalDetailsWrapper>
               <Typography type='body' color='light'>
@@ -184,6 +189,10 @@ const OrderDetails: React.FC<Props> = ({ toggleDetails, setOrderId, orderId }) =
             </div>
             <Divider />
             <div>
+              <PriceDetailsWrapper>
+                <Typography type='subtitle'>ქირაობის ღირებულება x {companyOrder?.days} დღე</Typography>
+                <Typography type='subtitle'>{companyOrderproductData?.price * companyOrder?.days} </Typography>
+              </PriceDetailsWrapper>
               {companyOrderproductData?.user_selected_product_services.map((service: any, index: number) => (
                 <PriceDetailsWrapper key={index}>
                   <Typography type='subtitle'>
@@ -197,6 +206,14 @@ const OrderDetails: React.FC<Props> = ({ toggleDetails, setOrderId, orderId }) =
                   </Typography>
                 </PriceDetailsWrapper>
               ))}
+              <PriceDetailsWrapper>
+                <Typography type='subtitle' className='font-bold'>
+                  ჯამი
+                </Typography>
+                <Typography type='subtitle' className='font-bold'>
+                  {companyOrder?.price} ₾
+                </Typography>
+              </PriceDetailsWrapper>
             </div>
           </div>
           <div className='w-full mb-6 md:mb-0 lg:w-5/12 flex flex-col items-center md:w-auto shrink-0 md:pl-16 lg:pl-0'>

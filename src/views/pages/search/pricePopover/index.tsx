@@ -8,10 +8,9 @@ interface Props {
   control: any
   handleSubmit: () => void
   reset: any
-  searchValues: any
 }
 
-const PricePopover: React.FC<Props> = ({ control, handleSubmit, reset, searchValues }) => {
+const PricePopover: React.FC<Props> = ({ control, handleSubmit, reset }) => {
   const router = useRouter()
 
   const { price_min, price_max } = router.query

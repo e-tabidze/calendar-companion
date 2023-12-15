@@ -6,7 +6,6 @@ import { Fragment, useState } from 'react'
 import useProfile from 'src/hooks/useProfile'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import Link from 'next/link'
-import Cookie from 'src/helpers/Cookie'
 import { dashboardRoutes, profileRoutes } from 'src/utils/routes'
 import Icon from 'src/views/app/Icon'
 
@@ -15,7 +14,8 @@ const Avatar = () => {
 
   const queryClient = useQueryClient()
 
-  const { userInfo, userCompanies, postSwitchProfile, activeCompany, router, activeCompanyId } = useProfile()
+  const { userInfo, userCompanies, postSwitchProfile, activeCompany, router, activeCompanyId, handleLogout } =
+    useProfile()
 
   const switchProfileMutation = useMutation((active_profile_id: string) => postSwitchProfile('', active_profile_id), {
     onSettled: () => {
@@ -36,14 +36,6 @@ const Avatar = () => {
     setActive(!active)
   }
 
-  const handleLogout = async () => {
-    Cookie.removeAll()
-    localStorage.clear()
-    router.replace('/')
-    await queryClient.invalidateQueries(['profileInfo'])
-    Cookie.remove('AccessToken')
-  }
-
   const routeClass = `px-6 flex whitespace-nowrap text-md text-raisin-100 py-2 hover:bg-grey-100 transition-all`
 
   return (
@@ -58,10 +50,13 @@ const Avatar = () => {
             />
           </AvatarInnerContainer>
           <AvatarResponsiveContainer>
-            <Typography type='subtitle' className='max-w-[120px] inline-block overflow-hidden text-ellipsis whitespace-nowrap'>
+            <Typography
+              type='subtitle'
+              className='max-w-[120px] inline-block overflow-hidden text-ellipsis whitespace-nowrap'
+            >
               {!!activeCompany ? activeCompany.information.name : userInfo?.information?.first_name}
             </Typography>
-            <Icon svgPath='chevron' width={8} height={6} className='fill-transparent flex ml-2 transition-all'/>
+            <Icon svgPath='chevron' width={8} height={6} className='fill-transparent flex ml-2 transition-all' />
           </AvatarResponsiveContainer>
         </AvatarContainer>
       </Menu.Button>
@@ -91,7 +86,11 @@ const Avatar = () => {
                         <div className='cursor-pointer px-4 py-3 hover:bg-grey-100 flex items-center justify-between'>
                           <div className='flex items-center text-2sm'>
                             <span className='w-10 h-10 mr-4 relative flex items-center justify-center rounded-full overflow-hidden'>
-                              <Image src={company?.information?.logo || ''} className='object-cover w-full h-full' alt='avatar' />
+                              <Image
+                                src={company?.information?.logo || ''}
+                                className='object-cover w-full h-full'
+                                alt='avatar'
+                              />
                             </span>
                             <div className='flex flex-col'>
                               <span className='text-2sm overflow-hidden text-ellipsis whitespace-nowrap max-w-[140px] inline-block'>
@@ -116,7 +115,11 @@ const Avatar = () => {
                     <div className='cursor-pointer px-4 py-3 hover:bg-grey-100 flex items-center justify-between'>
                       <div className='flex items-center text-2sm'>
                         <span className='w-10 h-10 mr-4 relative flex items-center justify-center rounded-full overflow-hidden'>
-                          <Image src={userInfo?.information?.profile_pic} className='object-cover w-full h-full' alt='avatar' />
+                          <Image
+                            src={userInfo?.information?.profile_pic}
+                            className='object-cover w-full h-full'
+                            alt='avatar'
+                          />
                         </span>
                         <div className='flex flex-col'>
                           <span className='text-2sm overflow-hidden text-ellipsis whitespace-nowrap max-w-[140px] inline-block'>
@@ -166,9 +169,15 @@ const Avatar = () => {
                     <ul className='mb-2'>
                       {dashboardRoutes?.map(route => (
                         <li key={route.id}>
-                          <Link href={route.path} className={routeClass}>
-                            {route.item}
-                          </Link>
+                          {route.path ? (
+                            <Link href={route.path} className={routeClass}>
+                              {route.item}
+                            </Link>
+                          ) : (
+                            <button className={routeClass} onClick={handleLogout}>
+                              {route.item}
+                            </button>
+                          )}
                         </li>
                       ))}
                     </ul>
@@ -176,20 +185,26 @@ const Avatar = () => {
                     <ul>
                       {profileRoutes?.map(route => (
                         <li key={route.id}>
-                          <Link href={route.path} className={routeClass}>
-                            {route.item}
-                          </Link>
+                          {route.path ? (
+                            <Link href={route.path} className={routeClass}>
+                              {route.item}
+                            </Link>
+                          ) : (
+                            <button className={routeClass} onClick={handleLogout}>
+                              {route.item}
+                            </button>
+                          )}
                         </li>
                       ))}
                     </ul>
                   )}
                 </div>
-                <div
+                {/* <div
                   className='border-t-[1px] border-raisin-10 cursor-pointer py-4 px-8 hover:bg-grey-100 transition-all'
                   onClick={handleLogout}
                 >
                   გასვლა
-                </div>
+                </div> */}
               </>
             )}
           </div>
