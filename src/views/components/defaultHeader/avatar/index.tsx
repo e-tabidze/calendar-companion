@@ -159,7 +159,7 @@ const Avatar = () => {
                     className='mt-2 px-6 flex w-full flex items-center justify-between whitespace-nowrap text-md text-raisin-100 py-2 hover:bg-grey-100 transition-all'
                     onClick={handleSetActive}
                   >
-                    Switch Account
+                    ანგარიშის შეცვლა
                     <Icon svgPath='chevron-right' width={20} height={20} className="fill-transparent" />
                   </button>
                   {activeCompany ? (

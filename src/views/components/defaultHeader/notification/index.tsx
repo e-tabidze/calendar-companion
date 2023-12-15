@@ -8,7 +8,7 @@ const Notification = () => {
         <Menu as='div' className='hidden md:flex relative'>
             <Menu.Button>
                <div className="relative flex items-center justify-center w-10 h-10 rounded-full hover:bg-grey-100 transition-all">
-                   <Icon svgPath='bell' width={25} height={24}  className='rounded-full'/>
+                   <Icon svgPath='bell' width={25} height={24}  className='fill-raisin-100 rounded-full'/>
                       <span
                           className="absolute right-0 top-0 mt-1 mr-1 w-3 h-3 flex items-center justify-center orange-100 rounded-full text-white text-[10px] font-medium">
                      3
