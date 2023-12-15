@@ -5,7 +5,7 @@ import User from './user'
 import Tnet from './tnet'
 import NavigationBar from './navigationBar'
 import useProfile from 'src/hooks/useProfile'
-import {IconTextButton} from '../button'
+import { IconTextButton } from '../button'
 import LanguagePicker from './languagePicker'
 import { useEffect } from 'react'
 import { TNET_AUTH } from 'src/env'
@@ -47,19 +47,25 @@ const DefaultHeader = () => {
 
   return (
     <InnerContainer>
-      <div className="flex items-center">
+      <div className='flex items-center'>
         <Image src='/images/logo-rent.svg' onClick={onClickLogo} alt='logo' className='w-24 md:w-32 cursor-pointer' />
         {router?.asPath?.startsWith('/search') && <Filters />}
       </div>
       <div className='flex items-center'>
         <LanguagePicker responsive className='md:mx-4' />
-        {isLoading ? (
+        {isAuthenticated && isLoading ? (
           <>Loading... </>
         ) : isAuthenticated ? (
           <User />
         ) : (
-          <IconTextButton icon='auth' width={25} height={24} label='შესვლა'
-                          className="fill-transparent border border-raisin-10 rounded-xl px-3 h-10 items-center text-raisin-100 text-2sm transition-all hover:bg-grey-100 hover:border-raisin-30" onClick={handleLogin} />
+          <IconTextButton
+            icon='auth'
+            width={25}
+            height={24}
+            label='შესვლა'
+            className='fill-transparent border border-raisin-10 rounded-xl px-3 h-10 items-center text-raisin-100 text-2sm transition-all hover:bg-grey-100 hover:border-raisin-30'
+            onClick={handleLogin}
+          />
         )}
         <Tnet />
       </div>
