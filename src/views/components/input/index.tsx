@@ -72,11 +72,14 @@ export const DefaultInput: React.FC<Props> = ({
         rules={{ required: true }}
         render={({ field: { onChange, value } }) => (
           <>
-            <label className={`absolute left-3 ${isFocused || value ? 'text-sm text-raisin-50 top-[3px]' : 'hidden'}`}>
+            <label
+              className={`absolute left-3 transition-all pointer-events-none text-sm ${
+                isFocused || value ? 'text-sm text-raisin-50 top-1' : 'top-1/2 transform -translate-y-1/2'
+              }`}
+            >
               {label}
             </label>
             <InputComponent
-              placeholder={label}
               onFocus={handleFocus}
               onBlur={handleBlur}
               disabled={disabled}
