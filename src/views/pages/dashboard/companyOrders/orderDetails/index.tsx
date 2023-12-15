@@ -18,6 +18,10 @@ import {
 import Icon from 'src/views/app/Icon'
 import Image from 'src/views/components/image'
 
+import { parseISO, format } from 'date-fns'
+import { ka } from 'date-fns/locale'
+import OrderDetailsSkeleton from './skeletonLoading'
+
 interface Props {
   toggleDetails: () => void
   setOrderId: any
@@ -27,11 +31,11 @@ interface Props {
 const OrderDetails: React.FC<Props> = ({ toggleDetails, setOrderId, orderId }) => {
   const [cancelOrderDialog, setCancelOrderDialog] = useState(false)
 
-  const { companyOrder, postOrderStatus } = useCompanyOrders(orderId!)
+  const { companyOrder, postOrderStatus, companyOrderproductData, companyOrderLoading } = useCompanyOrders(orderId!)
 
   const queryClient = useQueryClient()
 
-  console.log(companyOrder && JSON.parse(companyOrder?.product_data), 'DATA')
+  console.log(companyOrderproductData, 'DATA')
 
   const toggleCancelOrderDialog = () => setCancelOrderDialog(!cancelOrderDialog)
 
@@ -49,6 +53,10 @@ const OrderDetails: React.FC<Props> = ({ toggleDetails, setOrderId, orderId }) =
     }
   })
 
+  if (companyOrderLoading) {
+    return <OrderDetailsSkeleton />
+  }
+  
   return (
     <>
       <OrderDetailsContainer>
@@ -71,7 +79,11 @@ const OrderDetails: React.FC<Props> = ({ toggleDetails, setOrderId, orderId }) =
               <Typography type='body' color='light'>
                 შეკვეთის თარიღი
               </Typography>
-              <Typography type='subtitle'>{companyOrder?.created_at}</Typography>
+              {companyOrder?.created_at && (
+                <Typography type='subtitle'>
+                  {format(parseISO(companyOrder?.created_at), 'd MMM yyyy HH:mm', { locale: ka })}
+                </Typography>
+              )}
             </RentalDetailsWrapper>
             <RentalDetailsWrapper>
               <Typography type='body' color='light'>
@@ -95,7 +107,11 @@ const OrderDetails: React.FC<Props> = ({ toggleDetails, setOrderId, orderId }) =
               <ul className=''>
                 <li className='flex items-center space-x-4 my-3'>
                   <Icon svgPath='user' width={18} height={20} />
-                  <Typography type='subtitle'>{companyOrder?.dob}</Typography>
+                  {companyOrder?.dob && (
+                    <Typography type='subtitle'>
+                      {format(parseISO(companyOrder?.dob), 'd MMM yyyy', { locale: ka })}{' '}
+                    </Typography>
+                  )}
                 </li>
                 <li className='flex items-center space-x-4 my-3'>
                   <Icon svgPath='email' width={20} height={18} />
@@ -112,7 +128,11 @@ const OrderDetails: React.FC<Props> = ({ toggleDetails, setOrderId, orderId }) =
                 </li>
                 <li className='flex items-center space-x-4 my-3'>
                   <Icon svgPath='calendar' width={24} height={24} className='fill-transparent' />
-                  <Typography type='subtitle'>{companyOrder?.driver_license_expiration}</Typography>
+                  {companyOrder?.driver_license_expiration && (
+                    <Typography type='subtitle'>
+                      {format(parseISO(companyOrder?.driver_license_expiration), 'd MMM yyyy', { locale: ka })}
+                    </Typography>
+                  )}
                 </li>
               </ul>
             </div>
@@ -128,9 +148,13 @@ const OrderDetails: React.FC<Props> = ({ toggleDetails, setOrderId, orderId }) =
                       <div className='flex-shrink-0 mr-3'>
                         <Icon svgPath='calendarGreen' width={18} height={20} />
                       </div>
-                      <Typography type='body' color='light'>
-                        {companyOrder?.start_date} {companyOrder?.start_time}
-                      </Typography>
+                      {companyOrder?.start_date && companyOrder?.start_time && (
+                        <Typography type='body' color='light'>
+                          {format(parseISO(companyOrder?.start_date), 'd MMM yyyy', { locale: ka })}
+                          {' - '}
+                          {format(parseISO(`1970-01-01T${companyOrder?.start_time}`), 'HH:mm')}
+                        </Typography>
+                      )}
                     </div>
                   </TakeAway>
                 </TakeAwayWrapper>
@@ -148,9 +172,13 @@ const OrderDetails: React.FC<Props> = ({ toggleDetails, setOrderId, orderId }) =
                       <div className='flex-shrink-0 mr-3'>
                         <Icon svgPath='calendarRed' width={18} height={20} />
                       </div>
-                      <Typography type='body' color='light'>
-                        {companyOrder?.end_date} {companyOrder?.end_time}
-                      </Typography>
+                      {companyOrder?.end_date && companyOrder?.end_time && (
+                        <Typography type='body' color='light'>
+                          {format(parseISO(companyOrder?.end_date), 'd MMM yyyy', { locale: ka })}
+                          {' - '}
+                          {format(parseISO(`1970-01-01T${companyOrder?.end_time}`), 'HH:mm')}
+                        </Typography>
+                      )}
                     </div>
                   </TakeAway>
                 </TakeAwayWrapper>
@@ -163,42 +191,48 @@ const OrderDetails: React.FC<Props> = ({ toggleDetails, setOrderId, orderId }) =
             <div>
               <PriceDetailsWrapper>
                 <Typography type='subtitle'>ქირაობის ღირებულება x {companyOrder?.days} დღე</Typography>
-                <Typography type='subtitle'>{companyOrder?.price}</Typography>
+                <Typography type='subtitle'>{companyOrderproductData?.price * companyOrder?.days} </Typography>
               </PriceDetailsWrapper>
-              <PriceDetailsWrapper>
-                <Typography type='subtitle'>დაზღვევა - საბაზისო</Typography>
-                <Typography type='subtitle'>0.00$</Typography>
-              </PriceDetailsWrapper>
-              <PriceDetailsWrapper>
-                <Typography type='subtitle'>გადასახადები და საკომისიოები</Typography>
-                <Typography type='subtitle'>203$</Typography>
-              </PriceDetailsWrapper>
-              <PriceDetailsWrapper>
-                <Typography type='subtitle'>ბავშვის სავარძელი</Typography>
-                <Typography type='subtitle'>203$</Typography>
-              </PriceDetailsWrapper>
-              <Divider />
+              {companyOrderproductData?.user_selected_product_services.map((service: any, index: number) => (
+                <PriceDetailsWrapper key={index}>
+                  <Typography type='subtitle'>
+                    {service?.title} {service?.quantity && 'x'} {service?.quantity}
+                  </Typography>
+                  <Typography type='subtitle'>
+                    {service?.type_id == 1
+                      ? service?.price * service?.quantity * companyOrder?.days
+                      : service?.price * service?.quantity}
+                    ₾
+                  </Typography>
+                </PriceDetailsWrapper>
+              ))}
               <PriceDetailsWrapper>
                 <Typography type='subtitle' className='font-bold'>
                   ჯამი
                 </Typography>
                 <Typography type='subtitle' className='font-bold'>
-                  203$
+                  {companyOrder?.price} ₾
                 </Typography>
               </PriceDetailsWrapper>
             </div>
           </div>
           <div className='w-full mb-6 md:mb-0 lg:w-5/12 flex flex-col items-center md:w-auto shrink-0 md:pl-16 lg:pl-0'>
-            <div className="w-[260px] shrink-0">
-              <div className="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden">
-                <Image src='/images/car.png' alt='' height={'100%'} width={'100%'} className='object-cover' />
+            <div className='w-[260px] shrink-0'>
+              <div className='aspect-w-16 aspect-h-9 rounded-lg overflow-hidden'>
+                <Image
+                  src={companyOrderproductData?.images.split(',')[0]}
+                  alt=''
+                  height={'100%'}
+                  width={'100%'}
+                  className='object-cover'
+                />
               </div>
             </div>
             <div>
               <Typography type='h5' className='font-bold mt-6'>
-                {companyOrder?.product_data?.manufacturer?.title}
-                {companyOrder?.product_data?.manufacturer_model?.title}
-                {companyOrder?.product_data?.prod_year}
+                {companyOrderproductData?.manufacturer?.title}
+                {companyOrderproductData?.manufacturer_model?.title}
+                {companyOrderproductData?.prod_year}
               </Typography>
               <Typography
                 type='subtitle'

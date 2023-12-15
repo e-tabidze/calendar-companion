@@ -23,6 +23,9 @@ import CheckServices from 'src/views/pages/booking/checkServices'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import Icon from 'src/views/app/Icon'
 
+import { format } from 'date-fns'
+import { ka } from 'date-fns/locale'
+
 const Booking = () => {
   const [additionalServices, toggleAdditionalServices] = useState(false)
   const [isOpenDrawer, setIsOpenDrawer] = useState(false)
@@ -36,7 +39,7 @@ const Booking = () => {
 
   const router = useRouter()
 
-  const { book_from, book_to, price_day, days, company_id, id } = router.query
+  const { book_from, book_to, price_day, company_id, id } = router.query
 
   const { singleProductDetails } = useSingleProductDetails(id)
 
@@ -68,13 +71,6 @@ const Booking = () => {
       children: <Delivery control={control} toggleEditModal={toggleEditModal} errors={errors} />
     }
   ]
-
-  // const createOrderMutation = useMutation(() => postOrder('', bookingValues), {
-  //   onSuccess: data => {
-  //     queryClient.invalidateQueries(['profileInfo'])
-  //     console.log(JSON.parse(data?.result?.data?.payment_method))
-  //   }
-  // })
 
   const createOrderMutation = useMutation(() => postOrder('', bookingValues), {
     onSuccess: data => {
@@ -116,9 +112,25 @@ const Booking = () => {
           <div className='w-full'>
             <div className='flex items-baseline my-8 gap-3'>
               <Typography type='h3' className='font-bold'>
-                {book_from} - {book_to}
+                {book_from && book_to
+                  ? `${format(new Date(String(book_from)), 'd MMM yyyy', { locale: ka })} - ${format(
+                      new Date(String(book_to)),
+                      'd MMM yyyy',
+                      {
+                        locale: ka
+                      }
+                    )}`
+                  : ''}
               </Typography>
-              <Typography type='body'>| {days} days</Typography>
+              <Typography type='body'>
+                |{' '}
+                {Math.round(
+                  (new Date(Array.isArray(book_to) ? book_to[0] : book_to).getTime() -
+                    new Date(Array.isArray(book_from) ? book_from[0] : book_from).getTime()) /
+                    (24 * 60 * 60 * 1000)
+                )}{' '}
+                დღე
+              </Typography>
             </div>
             <Divider />
             <Typography type='h3' className='mt-11'>
@@ -186,7 +198,17 @@ const Booking = () => {
           <div className='hidden md:flex w-[300px] lg:w-[400px] shrink-0 h-fit'>
             <PriceCalcCard
               price={singleProductDetails?.price}
-              dates={`${book_from} - ${book_to}`}
+              dates={
+                book_from && book_to
+                  ? `${format(new Date(String(book_from)), 'd MMM yyyy', { locale: ka })} - ${format(
+                      new Date(String(book_to)),
+                      'd MMM yyyy',
+                      {
+                        locale: ka
+                      }
+                    )}`
+                  : ''
+              }
               days={Math.round(
                 (new Date(Array.isArray(book_to) ? book_to[0] : book_to).getTime() -
                   new Date(Array.isArray(book_from) ? book_from[0] : book_from).getTime()) /
@@ -194,6 +216,7 @@ const Booking = () => {
               )}
               onClick={onSubmit}
               disabled={createOrderMutation?.isLoading}
+              changeDates={false}
             />
           </div>
         </ContentContainer>

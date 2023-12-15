@@ -1,6 +1,6 @@
 import UserService from 'src/services/UserService'
 import { useRouter } from 'next/router'
-import { useQuery } from '@tanstack/react-query'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
 import Cookie from 'src/helpers/Cookie'
 
 const useProfile = () => {
@@ -19,6 +19,21 @@ const useProfile = () => {
     },
     staleTime: Infinity
   })
+
+  const queryClient = useQueryClient()
+
+  const handleLogout = async () => {
+    Cookie.remove('AccessToken')
+    localStorage.clear()
+    await queryClient.invalidateQueries(['profileInfo'])
+
+    if (router?.pathname.includes('profile') || router?.pathname.includes('dashboard')) {
+      await router.replace('/')
+      await router.reload()
+    } else {
+      await router.reload()
+    }
+  }
 
   const postSwitchProfile = async (accessToken = '', active_profile_id: string) => {
     try {
@@ -49,7 +64,8 @@ const useProfile = () => {
     activeCompany,
     activeCompanyId,
     isAuthenticated: usePersonalInfo.data || false,
-    userId
+    userId,
+    handleLogout
   }
 }
 

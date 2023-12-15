@@ -21,6 +21,7 @@ import dynamic from 'next/dynamic'
 import Icon from 'src/views/app/Icon'
 import Pagination from 'src/views/components/pagination'
 import { Controller } from 'react-hook-form'
+import SkeletonLoading from 'src/views/pages/search/skeletonLoading'
 
 const Divider = dynamic(() => import('src/views/components/divider'), { ssr: true })
 
@@ -62,7 +63,8 @@ const SearchPage = () => {
     objectToURI
   } = useSearch()
   const { width } = useWindowDimensions()
-  const [mapVisible, setMapVisible] = useState(true)
+
+  // const [mapVisible, setMapVisible] = useState(true)
   const [filters, toggleFilters] = useState(false)
 
   const router = useRouter()
@@ -74,24 +76,22 @@ const SearchPage = () => {
   const startIndex = asPath.indexOf('/search/?') + '/search/?'.length
   const searchString = asPath.slice(startIndex)
 
-  useEffect(() => {
-    setMapVisible(width >= 1025)
-  }, [width])
+  // useEffect(() => {
+  //   setMapVisible(width >= 1025)
+  // }, [width])
 
   useEffect(() => {
     searchProductsMutation.mutateAsync(searchString)
   }, [searchString])
 
-  const handleToggleMapWidth = () => {
-    setMapVisible(!mapVisible)
-  }
+  // const handleToggleMapWidth = () => {
+  //   setMapVisible(!mapVisible)
+  // }
 
   const onSubmit = () => {
     const updatedSearchValues = getValues()
     router.push(`/search?${objectToURI(updatedSearchValues)}`)
   }
-
-  console.log(productsData, 'productsData')
 
   return (
     <>
@@ -147,9 +147,12 @@ const SearchPage = () => {
                 label='ფილტრის გასუფთავება'
                 labelClassname='text-orange-120'
                 type='reset'
-                onClick={() => {
+                onClick={(e: { preventDefault: () => void }) => {
                   reset()
+                  e.preventDefault() // Prevent the default form submission behavior
+
                   onSubmit()
+                  router.push('/search/?page=1&order_by=desc')
                 }}
               />
             </ClearFiltersWrapper>
@@ -210,19 +213,20 @@ const SearchPage = () => {
                       />
                     </div>
 
-                    {width < 1025 && (
+                    {/* {width < 1025 && (
                       <Tag
                         component={<Icon svgPath='map' width={24} height={24} className='fill-transparent' />}
                         label='რუკაზე'
                         height='h-10'
                         handleClick={handleToggleMapWidth}
                       />
-                    )}
+                    )} */}
                   </div>
                 </div>
               </SearchResultsContainer>
+
               {isLoading ? (
-                <div>Loading...</div>
+                <SkeletonLoading />
               ) : (
                 <div className='grid sm:grid-cols-2 gap-6 lg:grid-cols-4 2xl:grid-cols-5'>
                   {/*  className={`grid sm:grid-cols-2 gap-6 ${*/}
@@ -245,6 +249,7 @@ const SearchPage = () => {
                   ))}
                 </div>
               )}
+
               {totalPages > 1 && (
                 <Controller
                   name='page'

@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import { useWatch } from 'react-hook-form'
 import useFilters from 'src/hooks/useFilters'
 import { DefaultButton, IconButton } from 'src/views/components/button'
@@ -13,15 +14,21 @@ interface Props {
 }
 
 const SeatsPopover: React.FC<Props> = ({ control, appendSeatType, handleSubmit, reset }) => {
-  const { seatTypesFilter } = useFilters()
+  const [hasSeatTypes, setHasFuelType] = useState(false)
 
   const formState = useWatch({ control })
+
+  useEffect(() => {
+    setHasFuelType(!!formState?.seat_types?.length)
+  }, [formState?.seat_types?.length])
+
+  const { seatTypesFilter } = useFilters()
 
   return (
     <PopoverDropdown
       label='ადგილების რაოდენობა'
       maxWidth='max-w-xs'
-      className={`${formState.seat_types.length > 0 ? 'border border-raisin-100' : ''}`}
+      className={`${hasSeatTypes ? 'border border-raisin-100' : ''}`}
     >
       <TagsWrapper>
         <Tag options={seatTypesFilter} name='seat_types' control={control} height='h-10' append={appendSeatType} />
@@ -30,7 +37,6 @@ const SeatsPopover: React.FC<Props> = ({ control, appendSeatType, handleSubmit, 
         <IconButton
           icon='rotate'
           text='გასუფთავება'
-          hasBg={false}
           className='fill-transparent'
           width={20}
           height={22}

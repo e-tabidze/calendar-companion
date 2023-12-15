@@ -1,5 +1,5 @@
 import { Menu, Transition } from '@headlessui/react'
-import { Fragment, useState } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 import Typography from 'src/views/components/typography'
 import { FilterContainer, InnerFilterContainer } from './styles'
 import DatePicker from 'react-datepicker'
@@ -7,44 +7,48 @@ import 'react-datepicker/dist/react-datepicker.css'
 import { Controller } from 'react-hook-form'
 import { formatDate } from 'src/utils/formatDate'
 import Icon from 'src/views/app/Icon'
+import { useRouter } from 'next/router'
+import { format } from 'date-fns'
+import { ka } from 'date-fns/locale'
 
 interface Props {
   control: any
   resetField: any
+  setValue: any
 }
 
-const PeriodDropwodn: React.FC<Props> = ({ control, resetField }) => {
-  const [dateRange, setDateRange] = useState<[Date, Date] | [null, null]>([null, null])
+const PeriodDropwodn: React.FC<Props> = ({ control, resetField, setValue }) => {
+  const router = useRouter()
+  const { book_from, book_to } = router?.query
+
+  const [dateRange, setDateRange] = useState<
+    [Date, Date] | [null, null] | [Date, null] | [null, Date] | [undefined, undefined]
+  >(
+    Array.isArray(book_from) && Array.isArray(book_to)
+      ? [new Date(book_from[0]), new Date(book_to[0])]
+      : [
+          book_from ? new Date(book_from as string | number) : null,
+          book_to ? new Date(book_to as string | number) : null
+        ]
+  )
   const [startDate, endDate] = dateRange
 
-  // const router = useRouter()
-  // const { book_from, book_to } = router?.query
+  useEffect(() => {
+    if (book_from && book_to) {
+      const fromDate = Array.isArray(book_from)
+        ? new Date(book_from[0] as string | number)
+        : new Date(book_from as string | number)
+      const toDate = Array.isArray(book_to)
+        ? new Date(book_to[0] as string | number)
+        : new Date(book_to as string | number)
 
-  // const [dateRange, setDateRange] = useState<
-  //   [Date, Date] | [null, null] | [Date, null] | [null, Date] | [undefined, undefined]
-  // >(
-  //   Array.isArray(book_from) && Array.isArray(book_to)
-  //     ? [new Date(book_from[0]), new Date(book_to[0])]
-  //     : [
-  //         book_from ? new Date(book_from as string | number) : null,
-  //         book_to ? new Date(book_to as string | number) : null
-  //       ]
-  // )
+      setDateRange([fromDate, toDate])
+      setValue('booking.book_from', book_from)
+      setValue('booking.book_to', book_to)
+    }
+  }, [book_from, book_to])
 
-  // useEffect(() => {
-  //   if (book_from && book_to) {
-  //     const fromDate = Array.isArray(book_from)
-  //       ? new Date(book_from[0] as string | number)
-  //       : new Date(book_from as string | number)
-  //     const toDate = Array.isArray(book_to)
-  //       ? new Date(book_to[0] as string | number)
-  //       : new Date(book_to as string | number)
-
-  //     setDateRange([fromDate, toDate])
-  //     setValue('booking.book_from', book_from)
-  //     setValue('booking.book_to', book_to)
-  //   }
-  // }, [book_from, book_to])
+  console.log(book_from, book_to)
 
   return (
     <Menu as='div' className='flex text-left mx-2 w-full'>
@@ -52,8 +56,13 @@ const PeriodDropwodn: React.FC<Props> = ({ control, resetField }) => {
         <FilterContainer>
           <InnerFilterContainer>
             <Typography type='body' className='text-raisin-50'>
-              {startDate && endDate ? `${formatDate(startDate)} - ${formatDate(endDate)}` : 'ქირაობის პერიოდი'}
+              {startDate && endDate && book_from && book_to
+                ? `${format(startDate, 'd MMM yyyy', { locale: ka })} - ${format(endDate, 'd MMM yyyy', {
+                    locale: ka
+                  })}`
+                : 'ქირაობის პერიოდი'}
             </Typography>
+
             {startDate || endDate ? (
               <Icon
                 svgPath='clear-xs'
@@ -61,6 +70,7 @@ const PeriodDropwodn: React.FC<Props> = ({ control, resetField }) => {
                 height={7}
                 color='raisin-10'
                 onClick={e => {
+                  setDateRange([null, null])
                   resetField(), e.stopPropagation()
                 }}
               />

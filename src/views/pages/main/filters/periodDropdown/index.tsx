@@ -6,7 +6,10 @@ import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import { Controller } from 'react-hook-form'
 import { formatDate } from 'src/utils/formatDate'
-import Icon from "src/views/app/Icon";
+import Icon from 'src/views/app/Icon'
+
+import { format } from 'date-fns'
+import { ka } from 'date-fns/locale'
 
 interface Props {
   control: any
@@ -25,9 +28,13 @@ const PeriodDropdown: React.FC<Props> = ({ control }) => {
           </Typography>
           <InnerFilterContainer>
             <Typography type='subtitle' className='text-raisin-50'>
-              {startDate && endDate ? `${formatDate(startDate)} - ${formatDate(endDate)}` : 'აირჩიეთ თარიღი და დრო'}
+              {startDate && endDate
+                ? `${format(startDate, 'd MMM yyyy', { locale: ka })} - ${format(endDate, 'd MMM yyyy', {
+                    locale: ka
+                  })}`
+                : 'აირჩიეთ თარიღი და დრო'}
             </Typography>
-              <Icon svgPath='chevron' width={8} height={6} className='fill-transparent inline fill-white m-2' />
+            <Icon svgPath='chevron' width={8} height={6} className='inline fill-white m-2' />
           </InnerFilterContainer>
         </FilterContainer>
       </Menu.Button>

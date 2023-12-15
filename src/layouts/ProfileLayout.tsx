@@ -10,7 +10,8 @@ interface Route {
   id: number
   icon: string
   item: string
-  path: string
+  path?: string
+  onClick?: any
 }
 
 interface Props {
@@ -28,7 +29,9 @@ const ProfileLayout: React.FC<Props> = ({ routes, dividerIndexes, children }) =>
   const [sidebarCollapsed, setSidebarCollapsed] = useState<boolean>(false)
 
   const handleRouteChange = (route: any) => {
-    router.push(route.path)
+    if (route.path) {
+      router.push(route.path)
+    }
     setSelectedRoute(route)
     width < 1024 && setIsSidebarVisible(!isSidebarVisible)
   }
