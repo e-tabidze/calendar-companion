@@ -59,7 +59,7 @@ const DefaultHeader = () => {
           <User />
         ) : (
           <IconTextButton icon='auth' width={25} height={24} label='შესვლა'
-                          className="fill-transparent border border-raisin-10 rounded-xl px-3 h-10 items-center text-raisin-100 text-2sm transition-all hover:bg-grey-100 hover:border-raisin-30" onClick={handleLogin} />
+                          className="hidden lg:flex fill-transparent border border-raisin-10 rounded-xl px-3 h-10 items-center text-raisin-100 text-2sm transition-all hover:bg-grey-100 hover:border-raisin-30" onClick={handleLogin} />
         )}
         <Tnet />
       </div>
