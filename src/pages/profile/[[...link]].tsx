@@ -110,7 +110,7 @@ const Profile = () => {
       {router.asPath === '/profile/create-company/' ? (
         <CreateCompany />
       ) : (
-        <ProfileLayout routes={allRoutes} dividerIndexes={[2, 4]}>
+        <ProfileLayout routes={allRoutes} dividerIndexes={[2, 5]}>
           <ProfileRouter userInfo={userInfo} />
         </ProfileLayout>
       )}

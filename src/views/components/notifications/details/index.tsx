@@ -1,23 +1,27 @@
+import Link from 'next/link'
 import { useRouter } from 'next/router'
 import useNotifications from 'src/hooks/useNotifications'
 import Icon from 'src/views/app/Icon'
 import Typography from 'src/views/components/typography'
+import { parseISO, format } from 'date-fns'
+import { ka } from 'date-fns/locale'
 
-const Details = () => {
-  const router = useRouter()
-  const { id } = router.query
+interface Props {
+  id: string
+  company: string
+  url: string
+}
 
-  console.log(id, 'id')
-
-  const { notifictionDetails } = useNotifications(String(id))
+const Details: React.FC<Props> = ({ id, company, url }) => {
+  const { notifictionDetails } = useNotifications(String(id), String(company))
   console.log(notifictionDetails, 'notifictionDetails')
-  
+
   return (
     <div className='border border-raisin-10 rounded-2xl md:rounded-3xl p-6 md:py-10 md:px-8'>
       <div className='flex items-center mb-12'>
-        <button className='flex w-10 h-10 bg-grey-100 rounded-full mr-4 items-center justify-center shrink-0'>
-          <Icon svgPath='chevron-right' width={20} height={20} className='fill-transparent' />
-        </button>
+        <Link href={url} className='flex w-10 h-10 bg-grey-100 rounded-full mr-4 items-center justify-center shrink-0'>
+          <Icon svgPath='chevron-left' width={20} height={20} className='fill-transparent' />
+        </Link>
         <Typography type='h3' className='font-bold md:font-normal text-sm md:text-2sm'>
           შეტყობინებები
         </Typography>
@@ -29,7 +33,8 @@ const Details = () => {
           </span>
           <div className='flex flex-col'>
             <Typography type='subtitle' className='text-sm font-normal text-raisin-30'>
-              2 დღის წინ
+              {notifictionDetails &&
+                format(parseISO(notifictionDetails?.created_at), 'd MMM yyyy HH:mm', { locale: ka })}
             </Typography>
             <Typography type='h5' className='text-2sm md:text-md font-medium text-raisin-100'>
               შემოსულია ახალი ჯავშანი - Jeep Wrangler

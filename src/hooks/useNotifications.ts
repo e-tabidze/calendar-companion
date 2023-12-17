@@ -1,9 +1,12 @@
 import { useQuery } from '@tanstack/react-query'
+import { useRouter } from 'next/router'
 import Cookie from 'src/helpers/Cookie'
 import NotificationsService from 'src/services/NotificationsService'
 
-const useNotifications = (id?: string) => {
+const useNotifications = (notificationId?: string, companyId?: string) => {
   const AccessToken = Cookie.get('AccessToken')
+
+  const router = useRouter()
 
   const useGetNotifications: any = useQuery({
     queryKey: ['notifications'],
@@ -13,20 +16,20 @@ const useNotifications = (id?: string) => {
   })
 
   const useGetNotificationDetails: any = useQuery({
-    queryKey: ['notificationDetails', id, 'notifications'],
-    queryFn: () => id && getNotificationDetails('', id),
+    queryKey: ['notificationDetails', notificationId, 'notifications', companyId, router.asPath],
+    queryFn: () => notificationId && companyId && getNotificationDetails('', notificationId, companyId),
     staleTime: Infinity,
-    enabled: !!AccessToken && !!id
+    enabled: !!AccessToken && !!notificationId && !!companyId
   })
 
   const notifictions = useGetNotifications.data?.result?.data
   const notifictionDetails = useGetNotificationDetails.data?.result?.data
-
-  console.log(useGetNotificationDetails.status, 'useGetNotificationDetails status')
+  const refetchNotifications = useGetNotifications.refetch
 
   return {
     notifictions,
-    notifictionDetails
+    notifictionDetails,
+    refetchNotifications
   }
 }
 
@@ -43,9 +46,9 @@ export const getNotifications = async (accessToken = '') => {
   }
 }
 
-export const getNotificationDetails = async (accessToken = '', id: string) => {
+export const getNotificationDetails = async (accessToken = '', notificationId: string, companyId: string) => {
   try {
-    const response: any = await NotificationsService.getNotificationDetails(accessToken, id)
+    const response: any = await NotificationsService.getNotificationDetails(accessToken, notificationId, companyId)
 
     return response.data
   } catch (error) {

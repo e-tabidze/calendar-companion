@@ -18,14 +18,14 @@ const Notifications = () => {
   return (
     <>
       {router.query.id ? (
-        <Details url='/profile/notifications' id={String(id)} company={String(company)} />
+        <Details url='/dashboard/notifications' id={String(id)} company={String(company)} />
       ) : (
         <div className='border border-raisin-10 rounded-2xl md:rounded-3xl p-6 md:py-10 md:px-8'>
           <Header />
           <ul>
             {notifictions?.map((notification: any) => (
               <ListItem
-                url={`/profile/notifications/?id=${notification?.id}&company=${notification?.data?.company_id}`}
+                url={`/dashboard/notifications/?id=${notification?.id}&company=${notification?.data?.company_id}`}
                 notification={notification}
               />
             ))}
