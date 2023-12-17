@@ -77,8 +77,6 @@ const ProfileRouter = ({ userInfo }: { userInfo: UserInfo }) => {
       return userInfo && <PersonalInfo userData={userInfo} />
     case 'create-company':
       return <CreateCompany />
-    case 'notifications':
-      return <Notifications />
     default:
       return <></>
   }
@@ -97,7 +95,7 @@ const Profile = () => {
     })) || []
 
   const allRoutes = [
-    ...profileRoutes.filter((route) => route.path),
+    ...profileRoutes.filter(route => route.path),
     ...companyRoutes,
     {
       id: 9,

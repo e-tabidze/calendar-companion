@@ -36,7 +36,7 @@ const Notification = () => {
             {notifictions
               ?.filter((not: any) => not.read_at === null)
               ?.map((notification: any) => (
-                <li>
+                <li key={notification?.id}>
                   <a href='#' className='px-4 flex items-center py-2 relative'>
                     <span
                       className={`w-1 h-1 rounded-full ${

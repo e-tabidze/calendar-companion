@@ -144,7 +144,7 @@ const Avatar = () => {
                 <div className='flex items-center justify-between border-b-[1px] border-raisin-10 px-6 py-4'>
                   <div className='flex items-center'>
                     <span className='w-10 h-10 mr-3 relative flex items-center justify-center rounded-full overflow-hidden'>
-                      <Image src={userInfo?.information?.profile_pic} className='rounded-full' alt='avatar' />
+                      <Image src={!!activeCompany ? activeCompany.information.logo : userInfo?.information?.profile_pic} className='h-full w-full object-cover' alt='avatar' />
                     </span>
                     <div className='flex flex-col'>
                       <span className='text-2sm text-raisin-100 overflow-hidden text-ellipsis whitespace-nowrap max-w-[150px] inline-block'>
@@ -153,17 +153,14 @@ const Avatar = () => {
                       <span className='flex text-2sm text-raisin-100'>ID: {userInfo?.active_profile_id}</span>
                     </div>
                   </div>
-
-                  {/*<button className='cursor-pointer shrink-0 flex' onClick={handleSetActive}>*/}
-                  {/*<Icon svgPath='chevron-right' width={20} height={20} className="fill-transparent" />*/}
-                  {/*</button>*/}
                 </div>
                 <div className='py-8px'>
                   <button
-                    className='mt-2 px-6 flex w-full whitespace-nowrap text-md text-raisin-100 py-2 hover:bg-grey-100 transition-all'
+                    className='mt-2 px-6 flex w-full flex items-center justify-between whitespace-nowrap text-md text-raisin-100 py-2 hover:bg-grey-100 transition-all'
                     onClick={handleSetActive}
                   >
-                    Switch Account
+                    ანგარიშის შეცვლა
+                    <Icon svgPath='chevron-right' width={20} height={20} className="fill-transparent" />
                   </button>
                   {activeCompany ? (
                     <ul className='mb-2'>
@@ -174,7 +171,7 @@ const Avatar = () => {
                               {route.item}
                             </Link>
                           ) : (
-                            <button className={routeClass} onClick={handleLogout}>
+                            <button className={`border-t-1 border-raisin-10 w-full mt-2 pt-2 ${routeClass}`} onClick={handleLogout}>
                               {route.item}
                             </button>
                           )}
@@ -190,7 +187,7 @@ const Avatar = () => {
                               {route.item}
                             </Link>
                           ) : (
-                            <button className={routeClass} onClick={handleLogout}>
+                            <button className={`border-t-1 border-raisin-10 w-full mt-2 pt-2 ${routeClass}`}  onClick={handleLogout}>
                               {route.item}
                             </button>
                           )}
@@ -199,12 +196,6 @@ const Avatar = () => {
                     </ul>
                   )}
                 </div>
-                {/* <div
-                  className='border-t-[1px] border-raisin-10 cursor-pointer py-4 px-8 hover:bg-grey-100 transition-all'
-                  onClick={handleLogout}
-                >
-                  გასვლა
-                </div> */}
               </>
             )}
           </div>
