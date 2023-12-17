@@ -19,27 +19,23 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { parseISO, format } from 'date-fns'
 import { ka } from 'date-fns/locale'
 import Image from 'src/views/components/image'
+import { useRouter } from 'next/router'
 
-interface Props {
-  toggleDetails: () => void
-  orderId: any
-  setOrderId: any
-}
-
-const OrderDetails: React.FC<Props> = ({ toggleDetails, orderId, setOrderId }) => {
+const OrderDetails = () => {
   const [cancelOrderDialog, setCancelOrderDialog] = useState(false)
+
+  const router = useRouter()
+  const { id } = router.query
 
   const toggleCancelOrderDialog = () => setCancelOrderDialog(!cancelOrderDialog)
 
-  console.log(orderId, 'orderId USER')
-
   const queryClient = useQueryClient()
 
-  const { userOrderDetails, productData, cancelUserOrder } = useOrders(orderId!)
+  const { userOrderDetails, productData, cancelUserOrder } = useOrders(String(id)!)
 
   console.log(productData, 'productData')
 
-  const cancelOrderStatusMutation = useMutation(() => cancelUserOrder(orderId!, 2), {
+  const cancelOrderStatusMutation = useMutation(() => cancelUserOrder(String(id)!, 2), {
     onSuccess: () => {
       queryClient.invalidateQueries(['userOders'])
       queryClient.invalidateQueries(['userOdersDetails'])
@@ -56,10 +52,7 @@ const OrderDetails: React.FC<Props> = ({ toggleDetails, orderId, setOrderId }) =
           width={38}
           height={38}
           label='ჩემი შეკვეთები'
-          onClick={() => {
-            toggleDetails()
-            setOrderId(null)
-          }}
+          onClick={() => router.push('/profile/orders/')}
         />
       </div>
       <Divider />
