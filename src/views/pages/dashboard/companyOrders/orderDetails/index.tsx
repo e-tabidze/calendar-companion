@@ -21,17 +21,16 @@ import Image from 'src/views/components/image'
 import { parseISO, format } from 'date-fns'
 import { ka } from 'date-fns/locale'
 import OrderDetailsSkeleton from './skeletonLoading'
+import { useRouter } from 'next/router'
 
-interface Props {
-  toggleDetails: () => void
-  setOrderId: any
-  orderId: number
-}
-
-const OrderDetails: React.FC<Props> = ({ toggleDetails, setOrderId, orderId }) => {
+const OrderDetails = () => {
   const [cancelOrderDialog, setCancelOrderDialog] = useState(false)
 
-  const { companyOrder, postOrderStatus, companyOrderproductData, companyOrderLoading } = useCompanyOrders(orderId!)
+  const router = useRouter()
+
+  const { id } = router.query
+
+  const { companyOrder, postOrderStatus, companyOrderproductData, companyOrderLoading } = useCompanyOrders(String(id)!)
 
   const queryClient = useQueryClient()
 
@@ -39,14 +38,14 @@ const OrderDetails: React.FC<Props> = ({ toggleDetails, setOrderId, orderId }) =
 
   const toggleCancelOrderDialog = () => setCancelOrderDialog(!cancelOrderDialog)
 
-  const activeOrderStatusMutation = useMutation(() => postOrderStatus('', orderId!, 1), {
+  const activeOrderStatusMutation = useMutation(() => postOrderStatus('', String(id)!, 1), {
     onSuccess: () => {
       queryClient.invalidateQueries(['companyOrder'])
       queryClient.invalidateQueries(['companyOrders'])
     }
   })
 
-  const cancelOrderStatusMutation = useMutation(() => postOrderStatus('', orderId!, 2), {
+  const cancelOrderStatusMutation = useMutation(() => postOrderStatus('', String(id)!, 2), {
     onSuccess: () => {
       queryClient.invalidateQueries(['companyOrder'])
       queryClient.invalidateQueries(['companyOrders'])
@@ -56,7 +55,7 @@ const OrderDetails: React.FC<Props> = ({ toggleDetails, setOrderId, orderId }) =
   if (companyOrderLoading) {
     return <OrderDetailsSkeleton />
   }
-  
+
   return (
     <>
       <OrderDetailsContainer>
@@ -66,10 +65,7 @@ const OrderDetails: React.FC<Props> = ({ toggleDetails, setOrderId, orderId }) =
             width={38}
             height={38}
             label='შემოსული ჯავშნები'
-            onClick={() => {
-              toggleDetails()
-              setOrderId(null)
-            }}
+            onClick={() => router.push('/dashboard/orders')}
           />
         </div>
         <Divider />
