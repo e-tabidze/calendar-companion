@@ -18,4 +18,12 @@ const UserInfoSchema = Yup.object().shape({
     .min(6, 'მინიმუმ 8 რიცხვი')
 })
 
-export { UserInfoSchema }
+const PasswordSchema = Yup.object().shape({
+  current_password: Yup.string().required('აუცილებელი ველი'),
+  password: Yup.string().required('აუცილებელი ველი'),
+  confirm_password: Yup.string()
+    .required('აუცილებელი ველი')
+    .oneOf([Yup.ref('password'), ''], 'Passwords must match')
+})
+
+export { UserInfoSchema, PasswordSchema }

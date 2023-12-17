@@ -19,11 +19,8 @@ const customStyles = {
     transition: 'border 0.2s',
     cursor: 'pointer'
   }),
-  valueContainer: (provided: any, state: { hasValue: any }) => ({
+  valueContainer: (provided: any) => ({
     ...provided
-    // display: state.hasValue ? 'flex' : '',
-    // overflow: 'auto',
-    // width: 'max-content'
   }),
   menu: (provided: any) => ({
     ...provided,
@@ -139,6 +136,7 @@ const SelectField: React.FC<Props> = ({
               isClearable
               placeholder={placeholder}
               isDisabled={disabled}
+              
               // @ts-ignore
               emoji={
                 icon && (

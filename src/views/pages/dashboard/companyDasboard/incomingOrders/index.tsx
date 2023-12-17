@@ -1,4 +1,3 @@
-import { useRouter } from 'next/router'
 import useWindowDimensions from 'src/hooks/useWindowDimensions'
 import { IconTextButton } from 'src/views/components/button'
 import Divider from 'src/views/components/divider'
@@ -7,9 +6,6 @@ import OrderListComponent from 'src/views/pages/dashboard/components/orderListCo
 
 const IncomingOrders = () => {
   const { width } = useWindowDimensions()
-  const router = useRouter()
-
-  const toggleDetails = () => router.push('/dashboard/orders')
 
   return (
     <div className='border border-raisin-10 rounded-2xl mt-11'>
@@ -18,8 +14,8 @@ const IncomingOrders = () => {
           შემოსული ჯავშნები
         </Typography>
         <div className='flex gap-4 md:gap-8'>
-          <IconTextButton label={width > 779 ? 'ფილტრი' : ''} icon='filters' width={22} height={20}/>
-          <IconTextButton label={width > 779 ? 'სორტირება' : ''} icon='sort' width={20} height={12}/>
+          <IconTextButton label={width > 779 ? 'ფილტრი' : ''} icon='filters' width={22} height={20} />
+          <IconTextButton label={width > 779 ? 'სორტირება' : ''} icon='sort' width={20} height={12} />
         </div>
       </div>
       <Divider />
@@ -29,11 +25,76 @@ const IncomingOrders = () => {
         ))} */}
       </div>
       <div className='px-none md:px-6 2xl:px-8'>
-        <OrderListComponent toggleDetails={toggleDetails} startAddress={''} startDate={''} startTime={''} endDate={''} endTime={''} firstName={''} lastName={''} days={0} productDetails={undefined} price={0} discount={0} status={0} />
-        <OrderListComponent toggleDetails={toggleDetails} startAddress={''} startDate={''} startTime={''} endDate={''} endTime={''} firstName={''} lastName={''} days={0} productDetails={undefined} price={0} discount={0} status={0} />
-        <OrderListComponent toggleDetails={toggleDetails} startAddress={''} startDate={''} startTime={''} endDate={''} endTime={''} firstName={''} lastName={''} days={0} productDetails={undefined} price={0} discount={0} status={0} />
-        <OrderListComponent toggleDetails={toggleDetails} startAddress={''} startDate={''} startTime={''} endDate={''} endTime={''} firstName={''} lastName={''} days={0} productDetails={undefined} price={0} discount={0} status={0} />
-        <OrderListComponent toggleDetails={toggleDetails} startAddress={''} startDate={''} startTime={''} endDate={''} endTime={''} firstName={''} lastName={''} days={0} productDetails={undefined} price={0} discount={0} status={0} />
+        <OrderListComponent
+          startAddress={''}
+          startDate={''}
+          startTime={''}
+          endDate={''}
+          endTime={''}
+          firstName={''}
+          lastName={''}
+          days={0}
+          productDetails={undefined}
+          price={0}
+          discount={0}
+          status={0}
+        />
+        <OrderListComponent
+          startAddress={''}
+          startDate={''}
+          startTime={''}
+          endDate={''}
+          endTime={''}
+          firstName={''}
+          lastName={''}
+          days={0}
+          productDetails={undefined}
+          price={0}
+          discount={0}
+          status={0}
+        />
+        <OrderListComponent
+          startAddress={''}
+          startDate={''}
+          startTime={''}
+          endDate={''}
+          endTime={''}
+          firstName={''}
+          lastName={''}
+          days={0}
+          productDetails={undefined}
+          price={0}
+          discount={0}
+          status={0}
+        />
+        <OrderListComponent
+          startAddress={''}
+          startDate={''}
+          startTime={''}
+          endDate={''}
+          endTime={''}
+          firstName={''}
+          lastName={''}
+          days={0}
+          productDetails={undefined}
+          price={0}
+          discount={0}
+          status={0}
+        />
+        <OrderListComponent
+          startAddress={''}
+          startDate={''}
+          startTime={''}
+          endDate={''}
+          endTime={''}
+          firstName={''}
+          lastName={''}
+          days={0}
+          productDetails={undefined}
+          price={0}
+          discount={0}
+          status={0}
+        />
       </div>
     </div>
   )

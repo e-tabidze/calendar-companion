@@ -58,6 +58,12 @@ export const DefaultInput: React.FC<Props> = ({
   max
 }) => {
   const [isFocused, setIsFocused] = useState(false)
+  const [showPassword, setShowPassword] = useState(false)
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword)
+  }
+
   const InputComponent = rows ? 'textarea' : 'input'
 
   const handleFocus = () => setIsFocused(true)
@@ -89,7 +95,7 @@ export const DefaultInput: React.FC<Props> = ({
               } ${!disabled ? 'hover:border-raisin-30' : ''} ${
                 _.get(errors, name)?.ref.name === name ? 'border border-red-100' : ''
               }`}
-              type={type}
+              type={type === 'password' ? (showPassword ? 'text' : 'password') : type}
               onChange={e => {
                 onChange(e)
               }}
@@ -102,6 +108,20 @@ export const DefaultInput: React.FC<Props> = ({
               <div id={id} className={`text-sm text-red-100 ml-2 ${rows ? 'absolute' : 'relative'}`}>
                 {_.get(errors, name)?.message}
               </div>
+            )}
+
+            {type === 'password' && (
+              <button
+                type='button'
+                onClick={togglePasswordVisibility}
+                className='absolute top-1/2 right-3 transform -translate-y-1/2'
+              >
+                {showPassword ? (
+                  <Icon svgPath='eye' width={24} height={24} />
+                ) : (
+                  <Icon svgPath='eye' width={24} height={24} />
+                )}
+              </button>
             )}
           </>
         )}
@@ -120,54 +140,6 @@ export const FileInput = ({ type, accept, className, onChange, ...rest }: any) =
       onChange={onChange}
       {...rest}
     />
-  )
-}
-
-export const PasswordInput = ({ label, value, className, onChange, ...rest }: any) => {
-  const [isFocused, setIsFocused] = useState((value && value?.length > 0) || false)
-  const [showPassword, setShowPassword] = useState(false)
-
-  const handleFocus = () => {
-    setIsFocused(true)
-  }
-
-  const handleBlur = (e: any) => {
-    setIsFocused(e.target.value.length > 0)
-  }
-
-  const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword)
-  }
-
-  const labelClasses = isFocused
-    ? 'text-sm z-10 absolute top-3 -translate-y-1/2 transition-transform'
-    : 'text-sm absolute top-1/2 transform -translate-y-1/2 transition-transform'
-
-  return (
-    <InputContainer>
-      {isFocused && <label className={`${labelClasses} left-3 text-raisin-50`}>{label}</label>}
-      <div className='relative'>
-        <input
-          onFocus={handleFocus}
-          onBlur={handleBlur}
-          className={`w-full h-12 lg:h-14 rounded-xl px-3 py-2 ${
-            isFocused ? 'pt-4' : ''
-          } text-sm text-raisin-100 border border-raisin-10 focus:border-raisin-100 focus:outline-none placeholder:text-raisin-100 placeholder:text-2sm ${className}`}
-          placeholder={isFocused ? '' : label}
-          type={showPassword ? 'text' : 'password'}
-          value={value}
-          onChange={onChange}
-          {...rest}
-        />
-        <button
-          type='button'
-          onClick={togglePasswordVisibility}
-          className='absolute top-1/2 right-3 transform -translate-y-1/2'
-        >
-          {showPassword ? <Icon svgPath='eye' width={24} height={24} /> : <Icon svgPath='eye' width={24} height={24} />}
-        </button>
-      </div>
-    </InputContainer>
   )
 }
 

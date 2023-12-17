@@ -27,6 +27,7 @@ const Notifications = () => {
               <ListItem
                 url={`/profile/notifications/?id=${notification?.id}&company=${notification?.data?.company_id}`}
                 notification={notification}
+                key={notification?.id}
               />
             ))}
           </ul>

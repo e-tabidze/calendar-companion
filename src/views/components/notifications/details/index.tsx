@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import { useRouter } from 'next/router'
 import useNotifications from 'src/hooks/useNotifications'
 import Icon from 'src/views/app/Icon'
 import Typography from 'src/views/components/typography'

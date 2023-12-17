@@ -23,7 +23,7 @@ const Orders = () => {
 
           <Divider />
           {userOrders?.map((order: any) => (
-            <Link href={`/profile/orders/?id=${order?.id}`} as={`/profile/orders/?id=${order?.id}`}>
+            <Link href={`/profile/orders/?id=${order?.id}`} as={`/profile/orders/?id=${order?.id}`} key={order?.id}>
               <ListComponent
                 key={order?.id}
                 startAddress={order?.start_address}
