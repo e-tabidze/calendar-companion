@@ -1,7 +1,17 @@
+import { useRouter } from 'next/router'
+import useNotifications from 'src/hooks/useNotifications'
 import Icon from 'src/views/app/Icon'
 import Typography from 'src/views/components/typography'
 
 const Details = () => {
+  const router = useRouter()
+  const { id } = router.query
+
+  console.log(id, 'id')
+
+  const { notifictionDetails } = useNotifications(String(id))
+  console.log(notifictionDetails, 'notifictionDetails')
+  
   return (
     <div className='border border-raisin-10 rounded-2xl md:rounded-3xl p-6 md:py-10 md:px-8'>
       <div className='flex items-center mb-12'>

@@ -10,7 +10,6 @@ const Notification = () => {
   const { notifictions } = useNotifications()
   const { activeCompany } = useProfile()
 
-  console.log(notifictions, 'notifictions')
   return (
     <Menu as='div' className='hidden md:flex relative'>
       <Menu.Button>
