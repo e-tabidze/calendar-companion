@@ -14,7 +14,7 @@ import 'react-datepicker/dist/react-datepicker.css'
 const PriceCalcCard = dynamic(() => import('src/views/pages/details/priceCalcCard'), { ssr: false })
 
 // const InsuranceCard = dynamic(() => import('src/views/pages/details/insuranceCard'), { ssr: false })
-const MapPicker = dynamic(() => import('src/views/components/mapPicker'), { ssr: true })
+// const MapPicker = dynamic(() => import('src/views/components/mapPicker'), { ssr: true })
 
 const LessorInformationCard = dynamic(() => import('src/views/pages/details/lessorInformationCard'), { ssr: true })
 const DetailsPageHeader = dynamic(() => import('src/views/pages/details/detailsPageHeader'), { ssr: true })
@@ -238,7 +238,7 @@ const ProductDetails = () => {
                   {singleProductDetails?.product_services?.map((feature: any) => (
                     <ProductFeature
                       feature={feature?.title}
-                      icon='briefcase'
+                      icon='feature'
                       key={feature.id}
                       description={feature.description}
                       price={
@@ -319,7 +319,8 @@ const ProductDetails = () => {
                   )}
                 />
               </div>
-              <Divider />
+
+              {/*<Divider />*/}
 
               {/* <div className='mt-11 mb-16 md:mb-28 overflow-auto' id='insurance'>
                 <Typography type='h3' className="text-3md md:text-2lg">დაზღვევა</Typography>
@@ -335,22 +336,22 @@ const ProductDetails = () => {
 
               <Divider /> */}
 
-              <div className='mt-8'>
-                <Typography type='h3' className='text-3md md:text-2lg'>
-                  ადგილმდებარეობა
-                </Typography>
-                <div className='flex gap-4 items-center mt-10 mb-6'>
-                  <Icon svgPath='locationOutline' width={24} height={24} className='fill-transparent' />
-                  <Typography type='h5' weight='normal'>
-                    {singleProductDetails?.start_address}
-                  </Typography>
-                </div>
-                <MapPicker
-                  height='300px'
-                  borderRadius='30px'
-                  markerCoordinates={[singleProductDetails?.start_lat, singleProductDetails?.start_lon]}
-                />
-              </div>
+              {/*<div className='mt-8'>*/}
+              {/*  <Typography type='h3' className='text-3md md:text-2lg'>*/}
+              {/*    ადგილმდებარეობა*/}
+              {/*  </Typography>*/}
+              {/*  <div className='flex gap-4 items-center mt-10 mb-6'>*/}
+              {/*    <Icon svgPath='locationOutline' width={24} height={24} className='fill-transparent' />*/}
+              {/*    <Typography type='h5' weight='normal'>*/}
+              {/*      {singleProductDetails?.start_address}*/}
+              {/*    </Typography>*/}
+              {/*  </div>*/}
+              {/*  <MapPicker*/}
+              {/*    height='300px'*/}
+              {/*    borderRadius='30px'*/}
+              {/*    markerCoordinates={[singleProductDetails?.start_lat, singleProductDetails?.start_lon]}*/}
+              {/*  />*/}
+              {/*</div>*/}
 
               {/*<Divider />*/}
               {/*<Reviews id='reviews' />*/}

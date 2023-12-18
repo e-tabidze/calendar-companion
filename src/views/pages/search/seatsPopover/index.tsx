@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useWatch } from 'react-hook-form'
 import useFilters from 'src/hooks/useFilters'
-import { DefaultButton, IconButton } from 'src/views/components/button'
+import {DefaultButton, IconTextButton} from 'src/views/components/button'
 import PopoverDropdown from 'src/views/components/popoverDropdown'
 import Tag from 'src/views/components/tag'
 import { TagsWrapper } from './styles'
@@ -34,9 +34,9 @@ const SeatsPopover: React.FC<Props> = ({ control, appendSeatType, handleSubmit, 
         <Tag options={seatTypesFilter} name='seat_types' control={control} height='h-10' append={appendSeatType} />
       </TagsWrapper>
       <div className='flex items-center justify-between'>
-        <IconButton
+        <IconTextButton
           icon='rotate'
-          text='გასუფთავება'
+          label='გასუფთავება'
           className='fill-transparent'
           width={20}
           height={22}

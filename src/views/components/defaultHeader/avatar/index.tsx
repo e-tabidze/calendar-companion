@@ -69,7 +69,7 @@ const Avatar = () => {
         leaveFrom='transform opacity-100 scale-100'
         leaveTo='transform opacity-0 scale-95'
       >
-        <Menu.Items className='w-[280px] absolute z-2 top-full mt-5 right-0 bg-white rounded-2xl border border-raisin-10 shadow-[0px_6px_18px_#000000/10]'>
+        <Menu.Items className='w-[280px] absolute z-2 top-full mt-5 right-0 bg-white rounded-2xl shadow-sm'>
           <div className='overflow-hidden rounded-2xl'>
             {active ? (
               <>

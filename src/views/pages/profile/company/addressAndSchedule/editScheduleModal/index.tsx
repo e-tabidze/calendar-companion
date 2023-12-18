@@ -49,7 +49,7 @@ const EditScheduleModal: React.FC<Props> = ({ open, onClose, control, index, dat
                   <Typography type='h5' weight='normal' className='text-2md'>
                     საათების რედაქტირება
                   </Typography>
-                  <IconTextButton icon='close' onClick={onClose} width={40} height={40} />
+                  <IconTextButton icon='close' onClick={onClose} width={40} height={40} className='cursor-pointer' />
                 </Dialog.Title>
                 <Divider />
                 <div className='mb-20'>

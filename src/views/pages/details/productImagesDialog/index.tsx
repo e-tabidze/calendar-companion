@@ -24,7 +24,7 @@ const ProductImagesDialog = ({ open, setOpen, images }: Props) => {
         >
           <Dialog.Panel className='fixed inset-0 z-10 transform p-10 bg-white text-left shadow-xl transition-all w-screen h-screen overflow-y-auto'>
             <div className='w-full flex justify-end items-center'>
-              <IconButton icon='close' className='!w-16 !h-16' onClick={setOpen} width={48} height={48} />
+              <IconButton icon='close' className='!w-16 !h-16 cursor-pointer' onClick={setOpen} width={48} height={48} />
             </div>
             <div className='w-8/12 m-auto px-4 w-max-full'>
               <Carousel itemsArray={images} type='productDetails' singleSlide thumbs />

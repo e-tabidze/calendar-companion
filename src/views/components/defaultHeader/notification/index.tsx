@@ -29,7 +29,7 @@ const Notification = () => {
         leaveFrom='transform opacity-100 scale-100'
         leaveTo='transform opacity-0 scale-95'
       >
-        <Menu.Items className='w-[348px] border border-raisin-10 absolute z-2 top-full left-1/2 -translate-x-1/2 mt-5 bg-white rounded-2xl shadow-[0px_6px_18px_#000000/10]'>
+        <Menu.Items className='w-[348px] absolute z-2 top-full left-1/2 -translate-x-1/2 mt-5 bg-white rounded-2xl shadow-sm'>
           <div className='border-b-1 border-raisin-10 p-4 text-md font-bold text-raisin-100'>შეტყობინებები</div>
           <ul className='py-6 max-h-[320px] overflow-y-auto'>
             {notifictions

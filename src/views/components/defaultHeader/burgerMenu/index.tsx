@@ -76,7 +76,7 @@ const BurgerMenu: React.FC<Props> = ({ open, setOpen }) => {
                                         მენიუ
                                     </Dialog.Title>
                                     <button onClick={setOpen}>
-                                        <Icon svgPath='close' height={40} width={40}  />
+                                        <Icon svgPath='close' height={40} width={40} className='cursor-pointer'  />
                                     </button>
                                 </div>
                                 <div>

@@ -39,7 +39,7 @@ const DeleteProductConfirmationModal: React.FC<Props> = ({ open, toggleModal, pr
             >
               <Dialog.Panel className='relative transform overflow-hidden rounded-3xl bg-white text-left shadow-xl transition-all w-full md:my-4 md:max-w-3xl'>
                 <div className='w-full flex justify-end p-3'>
-                  <Icon svgPath='close' onClick={toggleModal} height={40} width={40} />
+                  <Icon svgPath='close' onClick={toggleModal} height={40} width={40} className='cursor-pointer' />
                 </div>
                 <Dialog.Title as='h3' className='text-2md text-base-100 leading-6 px-6 pb-6 pt-1'>
                   ნამდვილად გსურთ პროდუქტის წაშლა?

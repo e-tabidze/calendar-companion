@@ -1,7 +1,7 @@
 import PopoverDropdown from 'src/views/components/popoverDropdown'
 import useFilters from 'src/hooks/useFilters'
 import CheckboxField from 'src/views/components/checkboxField'
-import { DefaultButton, IconButton } from 'src/views/components/button'
+import {DefaultButton, IconTextButton} from 'src/views/components/button'
 import { useWatch } from 'react-hook-form'
 import { useState, useEffect } from 'react'
 
@@ -36,12 +36,11 @@ const CategoryPopover: React.FC<Props> = ({ control, appendCategory, handleSubmi
         append={appendCategory}
         width='50'
         height='45'
-        classList='border-b-1 border-raisin-10 pb-3'
       />
       <div className='flex items-center justify-between'>
-        <IconButton
+        <IconTextButton
           icon='rotate'
-          text='გასუფთავება'
+          label='გასუფთავება'
           className='fill-transparent'
           width={20}
           height={22}
