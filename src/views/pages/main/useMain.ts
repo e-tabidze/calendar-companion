@@ -23,14 +23,24 @@ const useMain = (manId?: any, modelId?: any) => {
     enabled: !!manId && !!modelId
   })
 
+  const useLasSeenProducts: any = useQuery({
+    queryKey: ['lastSeenProducts'],
+    queryFn: () => getLastSeenProducts(''),
+    staleTime: Infinity,
+    enabled: true
+  })
+
   const latestProducts = useLatestProducts?.data?.result?.data
   const popularProducts = usePopularProducts?.data?.result?.data
   const similarProducts = useSimilarProducts?.data?.result?.data
+  const lastSeenProducts = useLasSeenProducts?.data?.result?.data?.data
+
 
   return {
     latestProducts,
     popularProducts,
     similarProducts,
+    lastSeenProducts,
     isLatestProductsoading: useLatestProducts.isLoading,
     isPopularProductsoading: usePopularProducts.isLoading,
     isSimilarProductsLoading: useSimilarProducts.isLoading
@@ -53,6 +63,17 @@ export const getLatestProducts = async () => {
 export const getPopularProducts = async () => {
   try {
     const response: any = await MainPageService.getPopulaProducts()
+
+    return response.data
+  } catch (error) {
+    console.error(error)
+    throw error
+  }
+}
+
+export const getLastSeenProducts = async (AccessToken = '') => {
+  try {
+    const response: any = await MainPageService.getLastSeenProducts(AccessToken)
 
     return response.data
   } catch (error) {

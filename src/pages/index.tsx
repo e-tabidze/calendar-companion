@@ -21,7 +21,9 @@ import { queryClient } from './_app'
 const MainPageBox = tw.div<TailwindDiv>`flex w-full items-center flex-col`
 
 const MainPage = () => {
-  const { latestProducts, popularProducts } = useMain()
+  const { latestProducts, popularProducts, lastSeenProducts } = useMain()
+
+  console.log(lastSeenProducts, 'lastSeenProducts')
 
   const { categoriesFilter } = useFilters()
 
@@ -108,6 +110,33 @@ const MainPage = () => {
                 luggageNumbers={product?.luggage_numbers}
                 seats={product?.seat_type?.title}
                 images={product?.images?.split(',')}
+              />
+            ))}
+            type='products'
+          />
+        </ContentContainer>
+        <ContentContainer>
+          <Typography type='h3' className='text-3md md:text-2lg mt-12'>
+            ბოლოს ნანახი
+          </Typography>
+          <Typography type='subtitle' color='light' className='mb-12'>
+            ცნობილი ფაქტია, რომ გვერდის წაკითხვად შიგთავსს შეუძლია მკითხველის ყურადღება მიიზიდოს
+          </Typography>
+        </ContentContainer>
+        <ContentContainer className='px-0 md:px-5 lg:px-8'>
+          <Carousel
+            itemsArray={lastSeenProducts?.map((product: any) => (
+              <ProductCard
+                key={product?.id}
+                swiperCard={true}
+                productId={product?.id}
+                manufacturer={product?.manufacturer?.title}
+                model={product?.manufacturer_model?.title}
+                prodYear={product?.prod_year}
+                priceGel={product?.price_gel}
+                luggageNumbers={product?.luggage_numbers}
+                seats={product?.seat_type?.title}
+                images={product?.product?.images?.split(',')}
               />
             ))}
             type='products'

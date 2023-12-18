@@ -7,6 +7,7 @@ import { dehydrate } from '@tanstack/query-core'
 import useCompanyInfo from 'src/hooks/useCompanyInfo'
 import { QueryClient, useQueryClient } from '@tanstack/react-query'
 import { profileRoutes } from 'src/utils/routes'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 const Orders = dynamic(() => import('src/views/pages/profile/orders'), { ssr: true })
 const Favourites = dynamic(() => import('src/views/pages/profile/favourites'), { ssr: true })
@@ -24,16 +25,16 @@ const ProfileRouter = ({ userInfo }: { userInfo: UserInfo }) => {
   let key = ''
   let companyid
 
-  if (router.query.link?.length) {
-    key = router.query?.link[0]
+  if (router.query.slug?.length) {
+    key = router.query?.slug[0]
   }
 
-  if (router.query.link?.length == 2) {
+  if (router.query.slug?.length == 2) {
     key = 'profile'
   }
 
-  if (router.query.link?.includes('company')) {
-    companyid = router.query.link[router.query.link.length - 1]
+  if (router.query.slug?.includes('company')) {
+    companyid = router.query.slug[router.query.slug.length - 1]
 
     key = `/company/${companyid}`
   }
@@ -120,7 +121,25 @@ const Profile = () => {
 
 const queryClient = new QueryClient()
 
-export async function getServerSideProps() {
+// export async function getServerSideProps() {
+//   try {
+//     await queryClient.prefetchQuery({
+//       queryKey: ['userInfo'],
+//       queryFn: () => getUserInfo(),
+//       staleTime: Infinity
+//     })
+
+//     return {
+//       props: {
+//         dehydratedState: dehydrate(queryClient)
+//       }
+//     }
+//   } catch (e) {
+//     return { notFound: true }
+//   }
+// }
+
+export async function getServerSideProps({ locale }: any) {
   try {
     await queryClient.prefetchQuery({
       queryKey: ['userInfo'],
@@ -130,6 +149,8 @@ export async function getServerSideProps() {
 
     return {
       props: {
+        ...(await serverSideTranslations(locale, ['common', 'productDetails'])),
+
         dehydratedState: dehydrate(queryClient)
       }
     }
