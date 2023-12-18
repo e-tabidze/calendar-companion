@@ -15,7 +15,8 @@ import {
     CardSlider,
     GallerySlider
 } from 'src/@core/configs/swiper'
-import Icon from 'src/views/app/Icon'
+
+// import Icon from 'src/views/app/Icon'
 
 interface Props {
   itemsArray: any[]
