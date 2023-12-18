@@ -105,3 +105,10 @@ export const CardSlider = {
     spaceBetween: 12
   }
 }
+
+export const GallerySlider = {
+  320: {
+    slidesPerView: 1,
+    slidesPerGroup: 1
+  }
+}

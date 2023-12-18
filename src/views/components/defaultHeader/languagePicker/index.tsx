@@ -64,9 +64,8 @@ const LanguagePicker = ({ dropdownUp, responsive, className }: Props) => {
                   onClick={() => router.push(router.asPath, router.asPath, { locale: lang.locale })}
                   className='w-full flex items-center text-raisin-130 text-2sm font-medium py-2 hover:bg-grey-100 px-6 cursor-pointer'
                 >
-                  {/*TODO active add class border-2 border-orange-100 */}
                   <span
-                    className={`${selectedLang?.id ? 'border-raisin-10' : ''} w-6 h-6 border rounded-full flex mr-4`}
+                    className={`${lang.locale === router.locale ? 'border-[7px] border-green-100' : 'border-raisin-10'} w-6 h-6 border rounded-full flex mr-4`}
                   ></span>
                   <Typography type='subtitle'>{lang.title}</Typography>
                 </button>
