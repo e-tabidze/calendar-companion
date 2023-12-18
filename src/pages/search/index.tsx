@@ -22,6 +22,9 @@ import Icon from 'src/views/app/Icon'
 import Pagination from 'src/views/components/pagination'
 import { Controller } from 'react-hook-form'
 import SkeletonLoading from 'src/views/pages/search/skeletonLoading'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { dehydrate } from '@tanstack/react-query'
+import { queryClient } from '../_app'
 
 const Divider = dynamic(() => import('src/views/components/divider'), { ssr: true })
 
@@ -299,3 +302,14 @@ const SearchPage = () => {
 }
 
 export default SearchPage
+
+export async function getStaticProps({ locale }: { locale: string }) {
+  const [translations] = await Promise.all([serverSideTranslations(locale)])
+
+  return {
+    props: {
+      dehydratedState: dehydrate(queryClient),
+      ...translations
+    }
+  }
+}

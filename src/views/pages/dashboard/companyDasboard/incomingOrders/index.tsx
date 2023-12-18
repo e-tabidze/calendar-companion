@@ -1,100 +1,35 @@
-import useWindowDimensions from 'src/hooks/useWindowDimensions'
-import { IconTextButton } from 'src/views/components/button'
 import Divider from 'src/views/components/divider'
 import Typography from 'src/views/components/typography'
 import OrderListComponent from 'src/views/pages/dashboard/components/orderListComponent'
+import useProductInfo from '../../useProductInfo'
 
 const IncomingOrders = () => {
-  const { width } = useWindowDimensions()
+  const { dashboardData } = useProductInfo()
 
   return (
-    <div className='border border-raisin-10 rounded-2xl mt-11'>
-      <div className='flex justify-between items-center my-4 px-2 md:px-6 2xl:px-8'>
-        <Typography type='h3' className='text-md md:text-2lg'>
-          შემოსული ჯავშნები
-        </Typography>
-        <div className='flex gap-4 md:gap-8'>
-          <IconTextButton label={width > 779 ? 'ფილტრი' : ''} icon='filters' width={22} height={20} />
-          <IconTextButton label={width > 779 ? 'სორტირება' : ''} icon='sort' width={20} height={12} />
-        </div>
-      </div>
+    <div className='md:p-8 lg:p-10 md:border border-raisin-10 rounded-3xl mt-8'>
+      <Typography type='h3' className='text-md md:text-2lg mb-6'>
+        შემოსული ჯავშნები
+      </Typography>
       <Divider />
-      <div className='hidden lg:flex gap-3 p-2'>
-        {/* {filters.map(filter => (
-          <Tag label={filter.label} height='h-10' key={filter.id} className='rounded-xl' />
-        ))} */}
-      </div>
       <div className='px-none md:px-6 2xl:px-8'>
-        <OrderListComponent
-          startAddress={''}
-          startDate={''}
-          startTime={''}
-          endDate={''}
-          endTime={''}
-          firstName={''}
-          lastName={''}
-          days={0}
-          productDetails={undefined}
-          price={0}
-          discount={0}
-          status={0}
-        />
-        <OrderListComponent
-          startAddress={''}
-          startDate={''}
-          startTime={''}
-          endDate={''}
-          endTime={''}
-          firstName={''}
-          lastName={''}
-          days={0}
-          productDetails={undefined}
-          price={0}
-          discount={0}
-          status={0}
-        />
-        <OrderListComponent
-          startAddress={''}
-          startDate={''}
-          startTime={''}
-          endDate={''}
-          endTime={''}
-          firstName={''}
-          lastName={''}
-          days={0}
-          productDetails={undefined}
-          price={0}
-          discount={0}
-          status={0}
-        />
-        <OrderListComponent
-          startAddress={''}
-          startDate={''}
-          startTime={''}
-          endDate={''}
-          endTime={''}
-          firstName={''}
-          lastName={''}
-          days={0}
-          productDetails={undefined}
-          price={0}
-          discount={0}
-          status={0}
-        />
-        <OrderListComponent
-          startAddress={''}
-          startDate={''}
-          startTime={''}
-          endDate={''}
-          endTime={''}
-          firstName={''}
-          lastName={''}
-          days={0}
-          productDetails={undefined}
-          price={0}
-          discount={0}
-          status={0}
-        />
+        {dashboardData?.orders?.map((order: any) => (
+          <OrderListComponent
+            key={order?.id}
+            startAddress={order?.start_address}
+            startDate={order?.start_date}
+            startTime={order?.start_time}
+            endDate={order?.end_date}
+            endTime={order?.end_time}
+            firstName={order?.first_name}
+            lastName={order?.last_name}
+            days={order?.days}
+            productDetails={JSON.parse(order?.product_data)}
+            price={order?.price}
+            discount={order?.discount_percent}
+            status={order?.status_id}
+          />
+        ))}
       </div>
     </div>
   )

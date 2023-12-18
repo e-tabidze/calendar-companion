@@ -17,7 +17,6 @@ const PriceCalcCard = dynamic(() => import('src/views/pages/details/priceCalcCar
 // const MapPicker = dynamic(() => import('src/views/components/mapPicker'), { ssr: true })
 
 const LessorInformationCard = dynamic(() => import('src/views/pages/details/lessorInformationCard'), { ssr: true })
-const DetailsPageHeader = dynamic(() => import('src/views/pages/details/detailsPageHeader'), { ssr: true })
 const Divider = dynamic(() => import('src/views/components/divider'), { ssr: false })
 
 const EntityInformationCard = dynamic(() => import('src/views/pages/details/entitiInformationCard'), { ssr: true })
@@ -45,12 +44,13 @@ const Features = dynamic(() => import('src/views/pages/details/features'), { ssr
 
 import { format } from 'date-fns'
 import { ka } from 'date-fns/locale'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 const ProductDetails = () => {
   const router = useRouter()
-  const { id, book_from, book_to } = router.query
+  const { slug, book_from, book_to } = router.query
 
-  const { control, handleSubmit, bookingValues, resetField, setValue } = useBooking(id)
+  const { control, handleSubmit, bookingValues, resetField, setValue } = useBooking(slug)
 
   const { width } = useWindowDimensions()
 
@@ -72,9 +72,8 @@ const ProductDetails = () => {
   const [startDate, endDate] = dateRange
   const [productImageDialogOpen, setProductImageDialogOpen] = useState<boolean>(false)
 
-  console.log(id, 'ID?')
 
-  const { singleProductDetails } = useSingleProductDetails(id)
+  const { singleProductDetails } = useSingleProductDetails(slug)
 
   const { similarProducts } = useMain(singleProductDetails?.man_id, singleProductDetails?.model_id)
 
@@ -142,7 +141,7 @@ const ProductDetails = () => {
     router.push({
       pathname: '/booking',
       query: {
-        id: id,
+        id: slug,
         book_from: bookingValues?.booking?.book_from,
         book_to: bookingValues?.booking?.book_to,
         price_day: singleProductDetails?.price_gel,
@@ -154,12 +153,13 @@ const ProductDetails = () => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <DefaultLayout>
-        <ContentContainer>
+
+        {/* <ContentContainer>
           <DetailsPageHeader />
-        </ContentContainer>
+        </ContentContainer> */}
         <MaxWidthContainer>
           <Carousel
-            itemsArray={singleProductDetails?.large_images?.split(',').map((imageUrl: string) => (
+            itemsArray={singleProductDetails?.large_images?.split(',')?.map((imageUrl: string) => (
               <div className='relative aspect-w-16 aspect-h-9 rounded-2xl overflow-hidden' key={8}>
                 <Image src={imageUrl} className='object-cover ' alt='productdetails' />
               </div>
@@ -442,3 +442,11 @@ const ProductDetails = () => {
 }
 
 export default ProductDetails
+
+export async function getServerSideProps({ locale }: any) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ['common', 'productDetails']))
+    }
+  }
+}

@@ -20,11 +20,13 @@ import TakeAway from 'src/views/pages/booking/takeAway'
 import Delivery from 'src/views/pages/booking/delivery'
 import BookingModal from 'src/views/pages/booking/bookingModal'
 import CheckServices from 'src/views/pages/booking/checkServices'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { dehydrate, useMutation, useQueryClient } from '@tanstack/react-query'
 import Icon from 'src/views/app/Icon'
 
 import { format } from 'date-fns'
 import { ka } from 'date-fns/locale'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { queryClient } from '../_app'
 
 const Booking = () => {
   const [additionalServices, toggleAdditionalServices] = useState(false)
@@ -260,3 +262,14 @@ const Booking = () => {
 }
 
 export default Booking
+
+export async function getStaticProps({ locale }: { locale: string }) {
+  const [translations] = await Promise.all([serverSideTranslations(locale)])
+
+  return {
+    props: {
+      dehydratedState: dehydrate(queryClient),
+      ...translations
+    }
+  }
+}
