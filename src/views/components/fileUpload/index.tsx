@@ -15,6 +15,8 @@ interface Props {
 const FileUpload: React.FC<Props> = ({ title, description, onChange, handleDelete, value }) => {
   // const supportedFileTypes = ['pdf', 'jpg', 'jpeg', 'png', 'gif']
 
+  console.log(value, 'value')
+
   return (
     <div className='flex items-center gap-8'>
       <div className='w-24 h-20 flex items-center justify-center overflow-hidden rounded-2xl bg-green-10 border-dashed border-raisin-10'>

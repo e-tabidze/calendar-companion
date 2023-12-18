@@ -55,6 +55,10 @@ const Booking = () => {
 
   console.log(bookingValues, 'bookingValues')
 
+  const formState = useWatch({ control })
+
+  console.log(formState, 'formState')
+
   const queryClient = useQueryClient()
 
   const onClickLogo = () => {
@@ -219,6 +223,7 @@ const Booking = () => {
               onClick={onSubmit}
               disabled={createOrderMutation?.isLoading}
               changeDates={false}
+              services={formState?.additional_services?.filter((service) => service?.is_selected)}
             />
           </div>
         </ContentContainer>
@@ -237,6 +242,7 @@ const Booking = () => {
               ) + 1
             }
             onClick={onSubmit}
+            services={formState?.additional_services?.filter((service) => service?.is_selected)}
           />
         ) : (
           <ResponsivePriceCalcCard

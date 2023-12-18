@@ -31,6 +31,7 @@ const CheckServices: React.FC<Props> = ({ control, options }) => {
             render={({ field: { value, onChange } }) => (
               <>
                 <div
+                  key={service.id}
                   onClick={() => onChange(!service.is_selected)}
                   className='flex items-center justify-between py-5 border-b-1 border-raisin-10 last:border-none'
                 >
@@ -51,21 +52,24 @@ const CheckServices: React.FC<Props> = ({ control, options }) => {
                     </Typography>
                   </div>
                   <div className='flex items-center gap-16'>
-                    {service.type === 1 || service.type === 2 ? (
-                      <div
-                        onClick={event => {
-                          event.stopPropagation()
-                        }}
-                      >
-                        {service.is_selected ? (
-                          <Counter name={`additional_services.${index}.count`} control={control} />
-                        ) : (
-                          <Counter name={`additional_services.${index}.count`} control={control} disabled />
-                        )}
-                      </div>
-                    ) : (
+                    {/* {service.type === 1 || service.type === 2 ? ( */}
+                    <Typography type='body' className='text-md w-max'>
+                      {service.price} ₾
+                    </Typography>
+                    <div
+                      onClick={event => {
+                        event.stopPropagation()
+                      }}
+                    >
+                      {service.is_selected ? (
+                        <Counter name={`additional_services.${index}.count`} control={control} />
+                      ) : (
+                        <Counter name={`additional_services.${index}.count`} control={control} disabled />
+                      )}
+                    </div>
+                    {/* ) : (
                       <></>
-                    )}
+                    )} */}
 
                     <Typography type='subtitle' className='text-md'>
                       {service.type === 1
