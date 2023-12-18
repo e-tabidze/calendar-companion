@@ -20,7 +20,7 @@ interface Props {
 const LanguagePicker = ({ dropdownUp, responsive, className }: Props) => {
   const router = useRouter()
   const selectedLang = langs.find(lang => lang.locale === router.locale)
-  const { t, i18n } = useTranslation()
+  const { t } = useTranslation()
 
   return (
     <LanPickerContainer className={className}>
