@@ -225,7 +225,7 @@ const ProductDetails = () => {
                   entityProductsCount={singleProductDetails?.company_user?.company?.count_company_poduct}
                 />
               </div>
-
+              <Divider />
               <Features id='features' singleProductDetails={singleProductDetails} />
 
               <Divider />
