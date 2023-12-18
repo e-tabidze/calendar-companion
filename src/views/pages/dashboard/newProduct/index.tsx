@@ -66,7 +66,8 @@ const NewProduct: React.FC = () => {
           'prod_year',
           'additional_information',
           'use_instruction',
-          'odometer.run' as any
+          'odometer.run',
+          'images' as any
         ])
         if (isValidStep1) {
           setStep(options[currentIndex + 1])

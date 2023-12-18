@@ -28,7 +28,6 @@ const useNewProduct = () => {
 
   const newProductDefaultValues = {
     company_id: activeCompanyId,
-
     daily_price: {
       currency: 'GEL'
     },

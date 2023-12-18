@@ -2,10 +2,9 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useEffect } from 'react'
 import { Controller } from 'react-hook-form'
 import FileUpload from 'src/views/components/fileUpload'
-
-// import FileUpload from 'src/views/components/fileUpload'
 import { DefaultInput } from 'src/views/components/input'
 import useCreateCompany from '../useCreateCompany'
+import _ from 'lodash'
 
 interface Props {
   control: any
@@ -77,16 +76,21 @@ const StepOne: React.FC<Props> = ({ control, errors, clearErrors, setValue }) =>
         name='company_information.logo'
         control={control}
         render={({ field: { value, onChange } }) => (
-          <FileUpload
-            title='კომპანიის ლოგო'
-            description='(მაქს. ზომა 10 მბ, JPG, PNG, SVG)'
-            handleDelete={handleRemoveFile}
-            value={value}
-            onChange={(e: any) => {
-              onChange()
-              handleFileUpload(e.target.files[0])
-            }}
-          />
+          <>
+            <FileUpload
+              title='კომპანიის ლოგო'
+              description='(მაქს. ზომა 10 მბ, JPG, PNG, SVG)'
+              handleDelete={handleRemoveFile}
+              value={value}
+              onChange={(e: any) => {
+                onChange()
+                handleFileUpload(e.target.files[0])
+              }}
+            />
+            {errors && (
+              <div className={`text-sm text-red-100 ml-2`}>{_.get(errors, 'company_information.logo')?.message}</div>
+            )}
+          </>
         )}
       />
 

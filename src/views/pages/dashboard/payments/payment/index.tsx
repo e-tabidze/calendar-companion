@@ -4,21 +4,27 @@ import { parseISO, format } from 'date-fns'
 import { ka } from 'date-fns/locale'
 
 interface Props {
+  firstName: string
+  lastName: string
   date: string
   id: string
   price: string
   status: number
 }
 
-const Transaction: React.FC<Props> = ({ date, id, price, status }) => {
+const Payment: React.FC<Props> = ({ firstName, lastName, date, id, price, status }) => {
   return (
     <div>
       <div className='flex items-center justify-between my-3'>
         <div className='flex flex-col md:gap-10 md:items-center md:flex-row'>
+          <Typography type='subtitle'>
+            {firstName} {lastName}
+          </Typography>
+
           <Typography type='body' color='light'>
             {format(parseISO(date), 'd MMM yyyy', { locale: ka })}
           </Typography>
-          <Typography type='subtitle'>ორდერის ID: #{id} </Typography>
+          <Typography type='subtitle'>ინვოისი: #{id} </Typography>
           <Typography
             type='subtitle'
             className={`text-sm xl:text-2sm ${
@@ -28,11 +34,11 @@ const Transaction: React.FC<Props> = ({ date, id, price, status }) => {
             {status === 0 ? 'მოლოდინში' : status === 1 ? 'დადასტურებული' : status === 2 ? 'გაუქმებული' : ''}
           </Typography>
         </div>
-        <Typography type='h5'>-{price}₾</Typography>
+        <Typography type='h5'>{price}₾</Typography>
       </div>
       <Divider />
     </div>
   )
 }
 
-export default Transaction
+export default Payment

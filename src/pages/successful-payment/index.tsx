@@ -106,7 +106,7 @@ const SuccessfulPayment = () => {
                   <Typography type='body' color='light'>
                     {format(parseISO(userOrderDetails?.start_date), 'd MMM yyyy', { locale: ka })}
                     {' - '}
-                    {format(parseISO(`1970-01-01T${userOrderDetails?.start_time}`), 'HH:mm')}
+                    {format(parseISO(`${userOrderDetails?.start_time}`), 'HH:mm')}
                   </Typography>
                 )}
               </div>

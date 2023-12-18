@@ -1,10 +1,10 @@
 import Divider from 'src/views/components/divider'
 import Typography from 'src/views/components/typography'
-import UseOrders from '../orders/useOrders'
-import Transaction from './transaction'
+import Payment from './payment'
+import useCompanyOrders from 'src/views/pages/dashboard/companyOrders/useCompanyOrders'
 
-const CardsAndTransactions = () => {
-  const { userOrders } = UseOrders()
+const Payments = () => {
+  const { companyOrders } = useCompanyOrders()
 
   return (
     <div className='md:p-10 md:border border-raisin-10 rounded-3xl'>
@@ -12,9 +12,11 @@ const CardsAndTransactions = () => {
         ბარათები და ტრანზაქციები
       </Typography>
       <Divider />
-      {userOrders?.map((order: any) => (
-        <Transaction
+      {companyOrders?.map((order: any) => (
+        <Payment
           key={order?.id}
+          firstName={order?.first_name}
+          lastName={order.last_name}
           date={order?.created_at}
           id={order?.payment_order_id}
           price={order?.price}
@@ -25,4 +27,4 @@ const CardsAndTransactions = () => {
   )
 }
 
-export default CardsAndTransactions
+export default Payments
