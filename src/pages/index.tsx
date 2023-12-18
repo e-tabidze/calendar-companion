@@ -1,3 +1,5 @@
+import { dehydrate } from '@tanstack/react-query'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import useFilters from 'src/hooks/useFilters'
 import { TailwindDiv } from 'src/interfaces/tailwind'
 import DefaultLayout from 'src/layouts/DefaultLayout'
@@ -13,6 +15,7 @@ import useMain from 'src/views/pages/main/useMain'
 
 // ** Tailwind Styled
 import tw from 'tailwind-styled-components'
+import { queryClient } from './_app'
 
 // ** Styled Components
 const MainPageBox = tw.div<TailwindDiv>`flex w-full items-center flex-col`
@@ -119,3 +122,14 @@ const MainPage = () => {
 }
 
 export default MainPage
+
+export async function getStaticProps({ locale }: { locale: string }) {
+  const [translations] = await Promise.all([serverSideTranslations(locale)])
+
+  return {
+    props: {
+      dehydratedState: dehydrate(queryClient),
+      ...translations
+    }
+  }
+}

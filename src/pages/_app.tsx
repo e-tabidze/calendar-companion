@@ -1,5 +1,6 @@
 import React, { FC } from 'react'
 import { AppProps } from 'next/app'
+import { appWithTranslation } from 'next-i18next'
 
 // ** Global css styles
 import '../../styles/globals.css'
@@ -15,6 +16,8 @@ import { Toaster } from 'react-hot-toast'
 
 import { Hydrate, QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+
+export const queryClient = new QueryClient()
 
 const App: FC<AppProps> = ({ Component, pageProps }) => {
   const [queryClient] = React.useState(() => new QueryClient())
@@ -36,4 +39,4 @@ const App: FC<AppProps> = ({ Component, pageProps }) => {
   )
 }
 
-export default App
+export default appWithTranslation(App)

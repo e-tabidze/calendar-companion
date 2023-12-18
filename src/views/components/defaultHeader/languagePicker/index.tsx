@@ -1,22 +1,15 @@
 import { Menu, Transition } from '@headlessui/react'
-import { Fragment, useState } from 'react'
+import { Fragment } from 'react'
 import Typography from '../../typography'
 import { LanPickerContainer } from './styles'
 import Icon from 'src/views/app/Icon'
+import { useRouter } from 'next/router'
+import { useTranslation } from 'next-i18next'
 
 const langs = [
-  {
-    lan: 'English',
-    id: 1
-  },
-  {
-    lan: 'ქართული',
-    id: 2
-  },
-  {
-    lan: 'Русский',
-    id: 3
-  }
+  { id: 0, title: 'ქართული', locale: 'ka' },
+  { id: 1, title: 'English', locale: 'en' },
+  { id: 2, title: 'Русский', locale: 'ru' }
 ]
 interface Props {
   dropdownUp?: boolean
@@ -25,11 +18,9 @@ interface Props {
 }
 
 const LanguagePicker = ({ dropdownUp, responsive, className }: Props) => {
-  const [active, setActive] = useState('ქართული')
-
-  const handleChangeLanguage = (e: any) => {
-    setActive(e.target.value)
-  }
+  const router = useRouter()
+  const selectedLang = langs.find(lang => lang.locale === router.locale)
+  const { t, i18n } = useTranslation()
 
   return (
     <LanPickerContainer className={className}>
@@ -42,7 +33,9 @@ const LanguagePicker = ({ dropdownUp, responsive, className }: Props) => {
           } flex h-10 items-center font-medium text-raisin-100 text-2sm transition-all md:hover:bg-grey-100 md:hover:border-raisin-30`}
         >
           <Icon svgPath='globe' width={21} height={20} />
-          <span className={`${responsive ? 'hidden md:flex' : 'flex'} ml-2`}>{active}</span>
+          <span className={`${responsive ? 'hidden md:flex' : 'flex'} ml-2`}>
+            {selectedLang?.title} {t('easiest_way_to_your_new_home')}
+          </span>
           <Icon
             svgPath='chevron'
             width={8}
@@ -62,18 +55,20 @@ const LanguagePicker = ({ dropdownUp, responsive, className }: Props) => {
           <Menu.Items
             className={`${
               dropdownUp ? 'left-0  bottom-full mb-5' : 'top-full mt-5 left-auto right-0 md:right-0'
-            } shadow-sm  min-w-[200px] absolute z-[2]  md:left-1/2 md:-translate-x-1/2  bg-white rounded-2xl  shadow-[0px_6px_18px_#000000/10] py-4`}
+            } min-w-[200px] absolute z-[2]  md:left-1/2 md:-translate-x-1/2  bg-white rounded-2xl  shadow-[0px_6px_18px_#000000/10] py-4`}
           >
             {langs.map(lang => (
               <Menu.Item key={lang.id}>
                 <button
-                  value={lang.lan}
-                  onClick={handleChangeLanguage}
+                  value={lang.title}
+                  onClick={() => router.push(router.asPath, router.asPath, { locale: lang.locale })}
                   className='w-full flex items-center text-raisin-130 text-2sm font-medium py-2 hover:bg-grey-100 px-6 cursor-pointer'
                 >
                   {/*TODO active add class border-2 border-orange-100 */}
-                  <span className={`${active ? 'border-raisin-10' : ''} w-6 h-6 border rounded-full flex mr-4`}></span>
-                  <Typography type='subtitle'>{lang.lan}</Typography>
+                  <span
+                    className={`${selectedLang?.id ? 'border-raisin-10' : ''} w-6 h-6 border rounded-full flex mr-4`}
+                  ></span>
+                  <Typography type='subtitle'>{lang.title}</Typography>
                 </button>
               </Menu.Item>
             ))}
