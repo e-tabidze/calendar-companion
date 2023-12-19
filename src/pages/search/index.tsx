@@ -96,6 +96,8 @@ const SearchPage = () => {
     router.push(`/search?${objectToURI(updatedSearchValues)}`)
   }
 
+
+
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)}>

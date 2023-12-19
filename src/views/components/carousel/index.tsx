@@ -9,18 +9,18 @@ import 'swiper/css/pagination'
 import 'swiper/css/navigation'
 
 import {
-    CategoryCardSlider,
-    ProductCardSlider,
-    ProductDetailsSlider,
-    CardSlider,
-    GallerySlider
+  CategoryCardSlider,
+  ProductCardSlider,
+  ProductDetailsSlider,
+  CardSlider,
+  GallerySlider
 } from 'src/@core/configs/swiper'
 
 // import Icon from 'src/views/app/Icon'
 
 interface Props {
   itemsArray: any[]
-  type: 'products' | 'categories' | 'productDetails' | 'card' |'gallery'
+  type: 'products' | 'categories' | 'productDetails' | 'card' | 'gallery'
   loop?: boolean
   onClick?: () => void
   thumbs?: boolean
@@ -47,13 +47,12 @@ const Carousel = ({ itemsArray, type, onClick, thumbs = false }: Props) => {
   return (
     <div className='relative'>
       <Swiper
-        className={`${type === 'card'? 'arrows-sm' : 'arrows-lg'}`}
+        className={`${type === 'card' ? 'arrows-sm' : 'arrows-lg'}`}
         watchSlidesProgress
         ref={swiperRef}
         breakpoints={handleBreakpoints()}
         modules={[Navigation]}
         navigation={true}
-
         // navigation={{
         //   prevEl: prevRef.current,
         //   nextEl: nextRef.current
@@ -66,8 +65,6 @@ const Carousel = ({ itemsArray, type, onClick, thumbs = false }: Props) => {
         mousewheel={{
           forceToAxis: true
         }}
-        centeredSlides={type==='productDetails'}
-        loop={type==='productDetails'}
         controller={{ control: [] }}
         keyboard={true}
         thumbs={{ swiper: thumbsSwiper }}

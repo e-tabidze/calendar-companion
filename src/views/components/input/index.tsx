@@ -55,7 +55,7 @@ export const DefaultInput: React.FC<Props> = ({
   index,
   type = 'text',
   min,
-  max
+  max,
 }) => {
   const [isFocused, setIsFocused] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
