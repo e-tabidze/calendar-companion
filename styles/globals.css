@@ -288,10 +288,11 @@ input[type=number] {
 }
 .arrows-sm .swiper-button-prev,
 .arrows-sm .swiper-button-next {
+  display: none;
+  /*display: flex ;*/
   cursor:pointer;
   background: #fff;
   border-radius: 50%;
-  display: flex ;
   align-items:center;
   justify-content: center;
   z-index: 1;
@@ -310,4 +311,17 @@ input[type=number] {
   background:url(/icons/caret-r.svg) no-repeat center center ;
   width: 7px;
   height: 9px;
+}
+.arrows-sm .swiper-pagination {
+  display: flex;
+}
+.arrows-sm .swiper-pagination-bullet {
+  width: 100%;
+  background: #fff;
+  opacity: 0.5;
+  border-radius: 0;
+  height: 2px;
+}
+.arrows-sm .swiper-pagination-bullet.swiper-pagination-bullet-active {
+  opacity: 1;
 }

@@ -1,5 +1,6 @@
 import React from 'react'
-import LanguagePicker from "src/views/components/defaultHeader/languagePicker";
+
+// import LanguagePicker from "src/views/components/defaultHeader/languagePicker";
 import Tnet from "src/views/components/footer/Tnet";
 import Navigation from "src/views/components/footer/Navigation";
 import Help from "src/views/components/footer/Help";
@@ -39,7 +40,8 @@ const Footer = () => {
                                <Rules/>
                             </div>
                             <div className="2xl:w-1/2 w-full flex justify-between items-center mt-5 lg:mt-0">
-                                <LanguagePicker dropdownUp/>
+
+                                {/*<LanguagePicker dropdownUp/>*/}
                                 {/*<div>TOP.GE</div>*/}
                             </div>
                         </div>

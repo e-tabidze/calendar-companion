@@ -388,6 +388,9 @@ const ProductDetails = () => {
             count={singleProductDetails?.company_user?.company?.count_company_poduct}
           />
           <Divider className='my-10 md:my-20' />
+          <Typography type='h3' className='text-3md md:text-2lg mb-8'>
+            მსგავსი შეთავაზებები
+          </Typography>
           {similarProducts?.length > 1 && (
             <Carousel
               itemsArray={similarProducts?.map((product: any) => (

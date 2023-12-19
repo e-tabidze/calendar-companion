@@ -51,8 +51,9 @@ const Carousel = ({ itemsArray, type, onClick, thumbs = false }: Props) => {
         watchSlidesProgress
         ref={swiperRef}
         breakpoints={handleBreakpoints()}
-        modules={[Navigation]}
+        modules={[Navigation, Pagination]}
         navigation={true}
+        pagination={type==='card'}
 
         // navigation={{
         //   prevEl: prevRef.current,
@@ -66,8 +67,9 @@ const Carousel = ({ itemsArray, type, onClick, thumbs = false }: Props) => {
         mousewheel={{
           forceToAxis: true
         }}
-        centeredSlides={type==='productDetails'}
-        loop={type==='productDetails'}
+
+        // centeredSlides={type==='productDetails'}
+        // loop={type==='productDetails'}
         controller={{ control: [] }}
         keyboard={true}
         thumbs={{ swiper: thumbsSwiper }}
@@ -135,7 +137,7 @@ const Carousel = ({ itemsArray, type, onClick, thumbs = false }: Props) => {
           freeMode={true}
           watchSlidesProgress={true}
           modules={[FreeMode, Navigation, Thumbs]}
-          className='gallery-thumbs mt-6'
+          className='gallery-thumbs mt-6 md:!flex !hidden'
         >
           {itemsArray.map((item, index) => (
             <SwiperSlide key={index} className={`${type === 'productDetails' && 'h-full'}`}>
