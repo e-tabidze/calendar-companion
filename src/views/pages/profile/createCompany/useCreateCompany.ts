@@ -63,7 +63,8 @@ const useCreateCompany = () => {
     resetField,
     setError,
     clearErrors,
-    setValue
+    setValue,
+    trigger
   } = useForm({
     mode: 'onChange',
     reValidateMode: 'onChange',
@@ -140,7 +141,8 @@ const useCreateCompany = () => {
     getLocationSuggestions,
     uploadCompanyLogo,
     saveCompanyLogo,
-    isValid
+    isValid,
+    trigger
   }
 }
 

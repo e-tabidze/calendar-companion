@@ -19,9 +19,8 @@ const customStyles = {
     transition: 'border 0.2s',
     cursor: 'pointer'
   }),
-  valueContainer: (provided: any, state: { hasValue: any }) => ({
-    ...provided,
-    marginTop: state.hasValue ? '10px' : '0px'
+  valueContainer: (provided: any) => ({
+    ...provided
   }),
   menu: (provided: any) => ({
     ...provided,

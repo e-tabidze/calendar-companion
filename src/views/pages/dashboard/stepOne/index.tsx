@@ -8,6 +8,7 @@ import useNewProduct from '../newProduct/useNewProduct'
 import { Controller, useWatch } from 'react-hook-form'
 import { generateYearsArray } from 'src/utils/years'
 import ImagesInput from './imagesInput'
+import _ from 'lodash'
 import useProfile from 'src/hooks/useProfile'
 
 interface Props {
@@ -145,17 +146,20 @@ const StepOne: React.FC<Props> = ({ control, productValues, errors, setValue, re
           name='images'
           control={control}
           render={({ field: { onChange, value } }) => (
-            <ImagesInput
-              title='ავტომობილის ფოტოსურათები'
-              description='(მაქს. ზომა 10 მბ, JPG, PNG, SVG)'
-              handleRemoveImage={removeImage}
-              handleMoveToFront={handleMoveToFront}
-              value={value}
-              onChange={(e: any) => {
-                onChange()
-                handleFileUpload(Array.from(e.target.files), e.target.files.length)
-              }}
-            />
+            <>
+              <ImagesInput
+                title='ავტომობილის ფოტოსურათები'
+                description='(მაქს. ზომა 10 მბ, JPG, PNG, SVG)'
+                handleRemoveImage={removeImage}
+                handleMoveToFront={handleMoveToFront}
+                value={value}
+                onChange={(e: any) => {
+                  onChange()
+                  handleFileUpload(Array.from(e.target.files), e.target.files.length)
+                }}
+              />
+              {errors && <div className={`text-sm text-red-100 ml-2`}>{_.get(errors, 'images')?.message}</div>}
+            </>
           )}
         />
       </div>

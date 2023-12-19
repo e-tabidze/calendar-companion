@@ -1,8 +1,11 @@
 import { useQuery } from '@tanstack/react-query'
+import useProfile from 'src/hooks/useProfile'
 import CompanyService from 'src/services/CompanyService'
 import ProductService from 'src/services/ProductService'
 
 const useProductInfo = (step?: number | undefined) => {
+  const { isAuthenticated, activeCompany } = useProfile()
+
   const useProductDetails: any = useQuery({
     queryKey: ['productDetails'],
     queryFn: () => getProductDetails(),
@@ -37,6 +40,13 @@ const useProductInfo = (step?: number | undefined) => {
     enabled: true
   })
 
+  const useGetDashboardData: any = useQuery({
+    queryKey: ['dashboardData'],
+    queryFn: () => getDashboardData(''),
+    staleTime: Infinity,
+    enabled: !!isAuthenticated && !!activeCompany
+  })
+
   const productDetails = useProductDetails?.data?.result?.data
 
   const manufacturers = useManufacturers?.data?.result?.data
@@ -47,6 +57,8 @@ const useProductInfo = (step?: number | undefined) => {
 
   const companyBranches = useCompanyBranches?.data?.result?.data
 
+  const dashboardData = useGetDashboardData?.data?.result?.data
+
   return {
     productDetails,
     manufacturers,
@@ -56,7 +68,8 @@ const useProductInfo = (step?: number | undefined) => {
     isManufacturersLoading: useManufacturers.isLoading,
     isAdditionalParamsLoading: useAdditionalParams.isLoading,
     isCompanyServicesLoading: useCompanyServices.isLoading,
-    companyBranches
+    companyBranches,
+    dashboardData
   }
 }
 
@@ -120,6 +133,17 @@ export const getCompanyServices = async (accessToken = '') => {
 export const getCompanyBranches = async (accessToken = '') => {
   try {
     const response: any = await CompanyService.getCompanyBranches(accessToken)
+
+    return response.data
+  } catch (error) {
+    console.error(error)
+    throw error
+  }
+}
+
+export const getDashboardData = async (accessToken = '') => {
+  try {
+    const response: any = await CompanyService.getDashboardData(accessToken)
 
     return response.data
   } catch (error) {

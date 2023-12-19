@@ -5,9 +5,9 @@ import Image from 'src/views/components/image'
 import Typography from 'src/views/components/typography'
 import { parseISO, format } from 'date-fns'
 import { ka } from 'date-fns/locale'
+import { useRouter } from 'next/router'
 
 interface Props {
-  toggleDetails: () => void
   startAddress: string
   startDate: string
   startTime: string
@@ -23,7 +23,6 @@ interface Props {
 }
 
 const OrderListComponent: React.FC<Props> = ({
-  toggleDetails,
   startAddress,
   startDate,
   startTime,
@@ -41,10 +40,12 @@ const OrderListComponent: React.FC<Props> = ({
 
   console.log(productDetails, 'productDetails')
 
+  const router = useRouter()
+
   return (
-    <div className='border-b-1 border-raisin-10 last:border-none' onClick={toggleDetails}>
+    <div className='border-b-1 border-raisin-10 last:border-none' onClick={() => router.push('/dashboard/orders/')}>
       <div className='flex flex-col px-2 py-4 md:w-full gap-4 xl:gap-10 md:px-0 md:flex-row md:items-center'>
-        <div className='flex items-center gap-4 2xl:gap-6'>
+        <div className='flex items-center gap-4 2xl:gap-6 md:w-5/12 shrink-0'>
           <div className='w-[64px] shrink-0'>
             <div className='aspect-w-16 aspect-h-9 rounded-lg overflow-hidden'>
               <Image
@@ -105,9 +106,7 @@ const OrderListComponent: React.FC<Props> = ({
               {status === 0 ? 'მოლოდინში' : status === 1 ? 'დადასტურებული' : status === 2 ? 'გაუქმებული' : ''}
             </Typography>
           </div>
-          {width > 779 && (
-            <IconButton icon='chevronWithBg' height={38} width={38} onClick={toggleDetails} className='ml-4' />
-          )}
+          {width > 779 && <IconButton icon='chevronWithBg' height={38} width={38} className='ml-4' />}
         </div>
       </div>
     </div>

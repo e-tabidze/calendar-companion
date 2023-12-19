@@ -1,6 +1,6 @@
 import { DefaultInput } from 'src/views/components/input'
 import PopoverDropdown from 'src/views/components/popoverDropdown'
-import { DefaultButton, IconButton } from 'src/views/components/button'
+import {DefaultButton, IconTextButton} from 'src/views/components/button'
 import { ActionsWrapper, Divider, TagsWrapper } from './styles'
 import { useRouter } from 'next/router'
 
@@ -39,9 +39,9 @@ const PricePopover: React.FC<Props> = ({ control, handleSubmit, reset }) => {
         />
       </TagsWrapper>
       <ActionsWrapper>
-        <IconButton
+        <IconTextButton
           icon='rotate'
-          text='გასუფთავება'
+          label='გასუფთავება'
           className='fill-transparent'
           width={20}
           height={22}

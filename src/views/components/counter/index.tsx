@@ -7,9 +7,10 @@ interface Props {
   control: any
   defaultValue?: number
   disabled?: boolean
+  max?: number
 }
 
-const Counter: React.FC<Props> = ({ name, control, defaultValue, disabled }) => {
+const Counter: React.FC<Props> = ({ name, control, defaultValue, disabled, max }) => {
   const [count, setCount] = useState(defaultValue || 0)
 
   const decrementCount = () => {
@@ -50,12 +51,15 @@ const Counter: React.FC<Props> = ({ name, control, defaultValue, disabled }) => 
             {count}
           </Typography>
           <button
-            className='rounded-full bg-white px-4 py-2 shadow-sm'
+            className={`rounded-full bg-white px-4 py-2 shadow-sm ${
+              max !== undefined && count === max ? 'cursor-not-allowed opacity-25' : ''
+            }`}
             type='button'
             onClick={() => {
               incrementCount()
               onChange(count + 1)
             }}
+            disabled={max !== undefined && count === max}
           >
             +
           </button>

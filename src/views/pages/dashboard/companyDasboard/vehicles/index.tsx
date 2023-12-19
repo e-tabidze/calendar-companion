@@ -1,32 +1,32 @@
-import useWindowDimensions from 'src/hooks/useWindowDimensions'
-import { IconTextButton } from 'src/views/components/button'
 import Divider from 'src/views/components/divider'
 import Typography from 'src/views/components/typography'
+import VehicleListComponent from '../../components/vehicleListComponent'
+import useProductInfo from '../../useProductInfo'
 
 const Vehicles = () => {
-  const { width } = useWindowDimensions()
+  const { dashboardData } = useProductInfo()
 
   return (
-    <div className='border border-raisin-10 rounded-2xl mt-11 md:px-8'>
-      <div className='flex justify-between items-center my-4 px-2'>
-        <Typography type='h3' className='text-md md:text-2lg'>
-          ავტომობილები
-        </Typography>
-        <div className='flex md:hidden gap-4 md:gap-8'>
-          <IconTextButton label={width > 779 ? 'ფილტრი' : ''} icon='filters' width={22} height={20} />
-          <IconTextButton label={width > 779 ? 'სორტირება' : ''} icon='sort' width={20} height={12} />
-        </div>
-      </div>
+    <div className='md:p-8 lg:p-10 md:border border-raisin-10 rounded-3xl mt-8'>
+      <Typography type='h3' className='text-md md:text-2lg mb-6'>
+        ავტომობილები
+      </Typography>
       <Divider />
-      <div className='hidden lg:flex gap-3 py-8'>
-        {/* {filters.map(filter => (
-          <Tag label={filter.label} height='h-10' key={filter.id} className='rounded-xl' />
-        ))} */}
-      </div>
       <div>
-        {/* <VehicleListComponent />
-        <VehicleListComponent />
-        <VehicleListComponent /> */}
+        {dashboardData?.products?.map((product: any) => (
+          <VehicleListComponent
+            key={product.id}
+            id={product.id}
+            price={product.price}
+            startCity={product.start_city}
+            prodYear={product.prod_year}
+            model={product?.manufacturer_model?.title}
+            manufacturer={product.manufacturer?.title}
+            active={product.is_active}
+            filter={''}
+            images={product?.images}
+          />
+        ))}
       </div>
     </div>
   )

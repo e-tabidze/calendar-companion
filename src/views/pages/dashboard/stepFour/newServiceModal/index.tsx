@@ -79,7 +79,7 @@ const NewServiceModal: React.FC<Props> = ({ open, onClose }) => {
                 <form onSubmit={handleSubmit(onSubmit)}>
                   <Dialog.Title as='h3' className='w-full flex items-center justify-between px-10 py-6'>
                     ახალი სერვისის დამატება
-                    <IconButton icon='close' onClick={onClose} width={40} height={40} />
+                    <IconButton icon='close' onClick={onClose} width={40} height={40} className='cursor-pointer' />
                   </Dialog.Title>
                   <Divider />
                   <div className='p-6 mb-40'>
@@ -96,6 +96,7 @@ const NewServiceModal: React.FC<Props> = ({ open, onClose }) => {
                       bg='bg-green-100'
                       className='my-4 mr-10'
                       textColor='text-white'
+                      disabled={createNewServiceMutation.isLoading}
                     ></DefaultButton>
                   </div>
                 </form>

@@ -7,6 +7,8 @@ import { useRouter } from 'next/router'
 import useSearch from 'src/hooks/useSearch'
 import AdditionalFilters from 'src/views/components/additionalFilters'
 
+// import PeriodMob from "src/views/pages/main/filters/periodMob";
+
 const Filters = () => {
   const [filters, toggleFilters] = useState(false)
 
@@ -44,6 +46,7 @@ const Filters = () => {
         <LocationDropdown control={control} />
         <Divider />
         <PeriodDropdown control={control} />
+        {/*<PeriodMob />*/}
         <Divider />
         <ExtraFiltersContainer>
           <IconTextButton

@@ -20,11 +20,13 @@ import TakeAway from 'src/views/pages/booking/takeAway'
 import Delivery from 'src/views/pages/booking/delivery'
 import BookingModal from 'src/views/pages/booking/bookingModal'
 import CheckServices from 'src/views/pages/booking/checkServices'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { dehydrate, useMutation, useQueryClient } from '@tanstack/react-query'
 import Icon from 'src/views/app/Icon'
 
 import { format } from 'date-fns'
 import { ka } from 'date-fns/locale'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { queryClient } from '../_app'
 
 const Booking = () => {
   const [additionalServices, toggleAdditionalServices] = useState(false)
@@ -52,6 +54,10 @@ const Booking = () => {
   const { control, bookingValues, errors, handleSubmit, postOrder } = useBooking(id)
 
   console.log(bookingValues, 'bookingValues')
+
+  const formState = useWatch({ control })
+
+  console.log(formState, 'formState')
 
   const queryClient = useQueryClient()
 
@@ -217,6 +223,7 @@ const Booking = () => {
               onClick={onSubmit}
               disabled={createOrderMutation?.isLoading}
               changeDates={false}
+              services={formState?.additional_services?.filter(service => service?.is_selected)}
             />
           </div>
         </ContentContainer>
@@ -225,16 +232,25 @@ const Booking = () => {
           <Drawer
             isOpenDrawer={isOpenDrawer}
             setIsOpenDrawer={setIsOpenDrawer}
-            price={Number(Array.isArray(price_day) ? price_day[0] : price_day)}
-            dates={`${book_from} - ${book_to}`}
-            days={
-              Math.round(
-                (new Date(Array.isArray(book_to) ? book_to[0] : book_to).getTime() -
-                  new Date(Array.isArray(book_from) ? book_from[0] : book_from).getTime()) /
-                  (24 * 60 * 60 * 1000)
-              ) + 1
+            price={singleProductDetails?.price}
+            dates={
+              book_from && book_to
+                ? `${format(new Date(String(book_from)), 'd MMM yyyy', { locale: ka })} - ${format(
+                    new Date(String(book_to)),
+                    'd MMM yyyy',
+                    {
+                      locale: ka
+                    }
+                  )}`
+                : ''
             }
+            days={Math.round(
+              (new Date(Array.isArray(book_to) ? book_to[0] : book_to).getTime() -
+                new Date(Array.isArray(book_from) ? book_from[0] : book_from).getTime()) /
+                (24 * 60 * 60 * 1000)
+            )}
             onClick={onSubmit}
+            services={formState?.additional_services?.filter(service => service?.is_selected)}
           />
         ) : (
           <ResponsivePriceCalcCard
@@ -260,3 +276,14 @@ const Booking = () => {
 }
 
 export default Booking
+
+export async function getStaticProps({ locale }: { locale: string }) {
+  const [translations] = await Promise.all([serverSideTranslations(locale)])
+
+  return {
+    props: {
+      dehydratedState: dehydrate(queryClient),
+      ...translations
+    }
+  }
+}

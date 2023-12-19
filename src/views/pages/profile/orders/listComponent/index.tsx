@@ -7,7 +7,6 @@ import { parseISO, format } from 'date-fns'
 import { ka } from 'date-fns/locale'
 
 interface Props {
-  toggleDetails: () => void
   startAddress: string
   startDate: string
   startTime: string
@@ -19,7 +18,6 @@ interface Props {
 }
 
 const OrderListComponent: React.FC<Props> = ({
-  toggleDetails,
   startAddress,
   startDate,
   startTime,
@@ -31,12 +29,10 @@ const OrderListComponent: React.FC<Props> = ({
 }) => {
   const { width } = useWindowDimensions()
 
-  console.log(productDetails, 'productDetails')
-
   return (
-    <div className='border-b-1 border-raisin-10 last:border-none' onClick={toggleDetails}>
+    <div className='border-b-1 border-raisin-10 last:border-none'>
       <div className='flex flex-col py-4 md:w-full gap-4 md:gap-10 md:flex-row md:items-center'>
-        <div className='flex items-center gap-4 2xl:gap-6'>
+        <div className='flex items-center gap-4 2xl:gap-6 md:w-5/12 shrink-0'>
           <div className='w-[64px] shrink-0'>
             <div className='aspect-w-16 aspect-h-9 rounded-lg overflow-hidden'>
               {productDetails?.images && (
@@ -88,7 +84,7 @@ const OrderListComponent: React.FC<Props> = ({
               {status === 0 ? 'მოლოდინში' : status === 1 ? 'დადასტურებული' : status === 2 ? 'გაუქმებული' : ''}
             </Typography>
           </div>
-          {width > 779 && <IconButton icon='chevronWithBg' height={38} width={38} onClick={toggleDetails} />}
+          {width > 779 && <IconButton icon='chevronWithBg' height={38} width={38} />}
         </div>
       </div>
     </div>

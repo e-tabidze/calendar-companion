@@ -1,3 +1,5 @@
+import { dehydrate } from '@tanstack/react-query'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import useFilters from 'src/hooks/useFilters'
 import { TailwindDiv } from 'src/interfaces/tailwind'
 import DefaultLayout from 'src/layouts/DefaultLayout'
@@ -13,12 +15,15 @@ import useMain from 'src/views/pages/main/useMain'
 
 // ** Tailwind Styled
 import tw from 'tailwind-styled-components'
+import { queryClient } from './_app'
 
 // ** Styled Components
 const MainPageBox = tw.div<TailwindDiv>`flex w-full items-center flex-col`
 
 const MainPage = () => {
-  const { latestProducts, popularProducts } = useMain()
+  const { latestProducts, popularProducts, lastSeenProducts } = useMain()
+
+  console.log(lastSeenProducts, 'lastSeenProducts')
 
   const { categoriesFilter } = useFilters()
 
@@ -110,6 +115,33 @@ const MainPage = () => {
             type='products'
           />
         </ContentContainer>
+        <ContentContainer>
+          <Typography type='h3' className='text-3md md:text-2lg mt-12'>
+            ბოლოს ნანახი
+          </Typography>
+          <Typography type='subtitle' color='light' className='mb-12'>
+            ცნობილი ფაქტია, რომ გვერდის წაკითხვად შიგთავსს შეუძლია მკითხველის ყურადღება მიიზიდოს
+          </Typography>
+        </ContentContainer>
+        <ContentContainer className='px-0 md:px-5 lg:px-8'>
+          <Carousel
+            itemsArray={lastSeenProducts?.map((product: any) => (
+              <ProductCard
+                key={product?.id}
+                swiperCard={true}
+                productId={product?.id}
+                manufacturer={product?.manufacturer?.title}
+                model={product?.manufacturer_model?.title}
+                prodYear={product?.prod_year}
+                priceGel={product?.price_gel}
+                luggageNumbers={product?.luggage_numbers}
+                seats={product?.seat_type?.title}
+                images={product?.product?.images?.split(',')}
+              />
+            ))}
+            type='products'
+          />
+        </ContentContainer>
         <ResponsiveContainer className='mt-16 md:mt-20'>
           <Cities />
         </ResponsiveContainer>
@@ -119,3 +151,14 @@ const MainPage = () => {
 }
 
 export default MainPage
+
+export async function getStaticProps({ locale }: { locale: string }) {
+  const [translations] = await Promise.all([serverSideTranslations(locale)])
+
+  return {
+    props: {
+      dehydratedState: dehydrate(queryClient),
+      ...translations
+    }
+  }
+}

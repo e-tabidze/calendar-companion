@@ -13,7 +13,7 @@ const CompanyService = Yup.object().shape({
   id: Yup.number().required('აუცილებელი ველი'),
   currency: Yup.string(),
   quantity: Yup.string(),
-  isSelected: Yup.boolean()
+  is_selected: Yup.boolean()
 })
 
 const NewProductSchema = Yup.object().shape({
@@ -24,7 +24,7 @@ const NewProductSchema = Yup.object().shape({
   prod_year: Yup.number().required('აუცილებელი ველი').typeError('აუცილებელი ველი'),
   additional_information: Yup.string().required('აუცილებელი ველი').typeError('აუცილებელი ველი'),
   use_instruction: Yup.string().required('აუცილებელი ველი').typeError('აუცილებელი ველი'),
-  images: Yup.mixed(),
+  images: Yup.array().of(Yup.string()).min(1, 'გთხოვთ, ატვირთოთ ავტომობილის ფოტოები'),
   category_id: Yup.number().required('აუცილებელი ველი').typeError('აუცილებელი ველი'),
   fuel_type_id: Yup.number().required('აუცილებელი ველი').typeError('აუცილებელი ველი'),
   seat_type_id: Yup.number().required('აუცილებელი ველი').typeError('აუცილებელი ველი'),

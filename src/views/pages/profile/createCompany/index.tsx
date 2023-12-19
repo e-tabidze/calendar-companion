@@ -31,15 +31,51 @@ const CreateCompany = () => {
     appendAddress,
     createCompany,
     setValue,
-    saveCompanyLogo
+    saveCompanyLogo,
+    trigger
   } = useCreateCompany()
 
   const queryClient = useQueryClient()
 
-  const handleGoNextStep = () => {
+  // const handleGoNextStep = () => {
+  //   const currentIndex = options.findIndex(option => option.value === step.value)
+  //   if (currentIndex < options.length - 1) {
+  //     setStep(options[currentIndex + 1])
+  //   }
+  // }
+  const handleGoNextStep = async () => {
     const currentIndex = options.findIndex(option => option.value === step.value)
-    if (currentIndex < options.length - 1) {
-      setStep(options[currentIndex + 1])
+
+    switch (currentIndex) {
+      case 0:
+        const isValidStep1 = await trigger([
+          'identification_number',
+          'company_information.name',
+          'company_information.description',
+          'company_information.logo'
+        ])
+        if (isValidStep1) {
+          setStep(options[currentIndex + 1])
+        }
+        break
+      case 1:
+        const isValidStep2 = await trigger(['addresses'])
+        if (isValidStep2) {
+          setStep(options[currentIndex + 1])
+        }
+        break
+      case 2:
+        const isValidStep3 = await trigger(['company_information.email', 'company_information.phone_numbers'])
+        if (isValidStep3) {
+          setStep(options[currentIndex + 1])
+        }
+        break
+
+      default:
+        if (currentIndex < options.length - 1) {
+          setStep(options[currentIndex + 1])
+        }
+        break
     }
   }
   const handleGoPrevStep = () => {
@@ -69,6 +105,8 @@ const CreateCompany = () => {
     createCompanyMutation.mutate(companyValues)
   }
 
+  console.log(errors, 'errors')
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <NewListingLayout
@@ -89,7 +127,7 @@ const CreateCompany = () => {
             addressFields={addressFields}
             appendAddress={appendAddress}
             errors={errors}
-            setValue={setValue}
+            setValue={saveCompanyLogoMutation.isLoading || saveCompanyLogoMutation.isLoading}
           />
         )}
         {step.step === 3 && <StepThree control={control} errors={errors} />}

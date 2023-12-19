@@ -246,3 +246,62 @@ input::-webkit-inner-spin-button {
 input[type=number] {
   -moz-appearance: textfield;
 }
+
+
+.arrows-lg .swiper-button-prev,
+.arrows-lg .swiper-button-next {
+  cursor:pointer;
+  background: #fff;
+  border-radius: 8px;
+  display: flex ;
+  align-items:center;
+  justify-content: center;
+  z-index: 1;
+  width: 56px;
+  height: 56px;
+  box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
+}
+@media(max-width: 767px) {
+  .arrows-lg .swiper-button-prev,
+  .arrows-lg .swiper-button-next {
+    width: 46px;
+    height: 46px;
+  }
+}
+.arrows-lg .swiper-button-prev:after {
+  content: '';
+  background:url(/icons/caret-left.svg) no-repeat center center ;
+  width: 26px;
+  height: 26px;
+}
+.arrows-lg .swiper-button-next:after {
+  content: '';
+  background:url(/icons/caret-right.svg) no-repeat center center ;
+  width: 26px;
+  height: 26px;
+}
+.arrows-sm .swiper-button-prev,
+.arrows-sm .swiper-button-next {
+  cursor:pointer;
+  background: #fff;
+  border-radius: 50%;
+  display: flex ;
+  align-items:center;
+  justify-content: center;
+  z-index: 1;
+  width: 24px;
+  height: 24px;
+  box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
+}
+.arrows-sm .swiper-button-prev:after {
+  content: '';
+  background:url(/icons/caret-l.svg) no-repeat center center ;
+  width: 7px;
+  height: 9px;
+}
+.arrows-sm .swiper-button-next:after {
+  content: '';
+  background:url(/icons/caret-r.svg) no-repeat center center ;
+  width: 7px;
+  height: 9px;
+}

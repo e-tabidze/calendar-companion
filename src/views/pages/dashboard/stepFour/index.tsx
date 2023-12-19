@@ -78,9 +78,9 @@ const StepFour: React.FC<Props> = ({ control, step, errors }) => {
                     className='my-8'
                     description={service.description}
                     control={control}
-                    name={`company_services.${index}.isSelected`}
+                    name={`company_services.${index}.is_selected`}
                   />
-                  {formState.company_services[index]?.isSelected && renderServiceDetails(service, index)}
+                  {formState.company_services[index]?.is_selected && renderServiceDetails(service, index)}
                   <Divider />
                 </div>
               ))}

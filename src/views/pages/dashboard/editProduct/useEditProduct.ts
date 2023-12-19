@@ -6,9 +6,11 @@ import { NewProductSchema } from 'src/@core/validation/newProductSchema'
 import useProductInfo from '../useProductInfo'
 import { useEffect } from 'react'
 import { useQuery } from '@tanstack/react-query'
+import useProfile from 'src/hooks/useProfile'
 
 const useEditProduct = (id: number) => {
   const { companyServices } = useProductInfo()
+  const { activeCompanyId } = useProfile()
 
   const useProductDetailsData = useQuery(['productDetails', id], () => getProductDetails('', id), {
     enabled: !!id
@@ -18,12 +20,14 @@ const useEditProduct = (id: number) => {
 
   console.log(productDetailsData, 'productDetailsData in edit')
 
+  console.log(productDetailsData?.product_services, ' productDetailsData?.product_services')
+
   const services = productDetailsData?.product_services?.map((service: any) => ({
     id: service?.company_service_id,
     price: service?.price || '',
     currency: service?.currency || 'GEL',
     quantity: service?.quantity || '',
-    isSelected: true
+    isSelected: true,
   }))
 
   const discount_item = {
@@ -33,7 +37,7 @@ const useEditProduct = (id: number) => {
   }
 
   const productDefaultValues = {
-    company_id: 161,
+    company_id: activeCompanyId,
     vin: '',
     plate: '',
     man_id: '',

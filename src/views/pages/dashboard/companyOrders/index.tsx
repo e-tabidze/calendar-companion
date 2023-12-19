@@ -1,6 +1,5 @@
-import { useState } from 'react'
-import useWindowDimensions from 'src/hooks/useWindowDimensions'
-import { IconTextButton } from 'src/views/components/button'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
 import Divider from 'src/views/components/divider'
 import Pagination from 'src/views/components/pagination'
 import Tag from 'src/views/components/tag'
@@ -40,13 +39,10 @@ const filters = [
 
 const CompanyOrders = () => {
   const { companyOrders, companyOrdersLoading } = useCompanyOrders()
-  const [details, setDetails] = useState(false)
-  const [orderId, setOrderId] = useState(0)
-  const { width } = useWindowDimensions()
 
   console.log(companyOrders, 'companyOrders')
 
-  const toggleDetails = () => setDetails(!details)
+  const router = useRouter()
 
   if (companyOrdersLoading) {
     return <SkeletonLoading filters={filters} />
@@ -54,19 +50,15 @@ const CompanyOrders = () => {
 
   return (
     <>
-      {details ? (
-        <OrderDetails toggleDetails={toggleDetails} setOrderId={setOrderId} orderId={orderId} />
+      {router.query.id ? (
+        <OrderDetails />
       ) : (
         <div>
-          <div className='border border-raisin-10 rounded-2xl'>
+          <div className='border border-raisin-10 rounded-3xl'>
             <div className='flex justify-between items-center my-4 px-2 md:px-6 2xl:px-8'>
               <Typography type='h3' className='text-md md:text-2lg'>
                 შემოსული ჯავშნები
               </Typography>
-              <div className='flex gap-4 md:gap-8'>
-                <IconTextButton label={width > 779 ? 'ფილტრი' : ''} icon='filters' width={22} height={20} />
-                <IconTextButton label={width > 779 ? 'სორტირება' : ''} icon='sort' width={20} height={12} />
-              </div>
             </div>
             <div className='hidden lg:flex gap-3 p-2 md:p-8'>
               {filters.map(filter => (
@@ -76,25 +68,26 @@ const CompanyOrders = () => {
             <Divider />
             <div className='px-none md:px-6 2xl:px-8'>
               {companyOrders?.map((order: any) => (
-                <ListComponent
+                <Link
+                  href={`/dashboard/orders/?id=${order?.id}`}
+                  as={`/dashboard/orders/?id=${order?.id}`}
                   key={order?.id}
-                  toggleDetails={() => {
-                    toggleDetails()
-                    setOrderId(order?.id)
-                  }}
-                  startAddress={order?.start_address}
-                  startDate={order?.start_date}
-                  startTime={order?.start_time}
-                  endDate={order?.end_date}
-                  endTime={order?.end_time}
-                  firstName={order?.first_name}
-                  lastName={order?.last_name}
-                  days={order?.days}
-                  productDetails={JSON.parse(order?.product_data)}
-                  price={order?.price}
-                  discount={order?.discount_percent}
-                  status={order?.status_id}
-                />
+                >
+                  <ListComponent
+                    startAddress={order?.start_address}
+                    startDate={order?.start_date}
+                    startTime={order?.start_time}
+                    endDate={order?.end_date}
+                    endTime={order?.end_time}
+                    firstName={order?.first_name}
+                    lastName={order?.last_name}
+                    days={order?.days}
+                    productDetails={JSON.parse(order?.product_data)}
+                    price={order?.price}
+                    discount={order?.discount_percent}
+                    status={order?.status_id}
+                  />
+                </Link>
               ))}
             </div>
           </div>

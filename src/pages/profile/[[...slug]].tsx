@@ -7,6 +7,7 @@ import { dehydrate } from '@tanstack/query-core'
 import useCompanyInfo from 'src/hooks/useCompanyInfo'
 import { QueryClient, useQueryClient } from '@tanstack/react-query'
 import { profileRoutes } from 'src/utils/routes'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 const Orders = dynamic(() => import('src/views/pages/profile/orders'), { ssr: true })
 const Favourites = dynamic(() => import('src/views/pages/profile/favourites'), { ssr: true })
@@ -24,16 +25,16 @@ const ProfileRouter = ({ userInfo }: { userInfo: UserInfo }) => {
   let key = ''
   let companyid
 
-  if (router.query.link?.length) {
-    key = router.query?.link[0]
+  if (router.query.slug?.length) {
+    key = router.query?.slug[0]
   }
 
-  if (router.query.link?.length == 2) {
+  if (router.query.slug?.length == 2) {
     key = 'profile'
   }
 
-  if (router.query.link?.includes('company')) {
-    companyid = router.query.link[router.query.link.length - 1]
+  if (router.query.slug?.includes('company')) {
+    companyid = router.query.slug[router.query.slug.length - 1]
 
     key = `/company/${companyid}`
   }
@@ -77,8 +78,6 @@ const ProfileRouter = ({ userInfo }: { userInfo: UserInfo }) => {
       return userInfo && <PersonalInfo userData={userInfo} />
     case 'create-company':
       return <CreateCompany />
-    case 'notifications':
-      return <Notifications />
     default:
       return <></>
   }
@@ -97,7 +96,7 @@ const Profile = () => {
     })) || []
 
   const allRoutes = [
-    ...profileRoutes.filter((route) => route.path),
+    ...profileRoutes.filter(route => route.path),
     ...companyRoutes,
     {
       id: 9,
@@ -112,7 +111,7 @@ const Profile = () => {
       {router.asPath === '/profile/create-company/' ? (
         <CreateCompany />
       ) : (
-        <ProfileLayout routes={allRoutes} dividerIndexes={[2, 4]}>
+        <ProfileLayout routes={allRoutes} dividerIndexes={[2, 5]}>
           <ProfileRouter userInfo={userInfo} />
         </ProfileLayout>
       )}
@@ -122,7 +121,7 @@ const Profile = () => {
 
 const queryClient = new QueryClient()
 
-export async function getServerSideProps() {
+export async function getServerSideProps({ locale }: any) {
   try {
     await queryClient.prefetchQuery({
       queryKey: ['userInfo'],
@@ -132,6 +131,8 @@ export async function getServerSideProps() {
 
     return {
       props: {
+        ...(await serverSideTranslations(locale, ['common', 'productDetails'])),
+
         dehydratedState: dehydrate(queryClient)
       }
     }

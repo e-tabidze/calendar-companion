@@ -13,6 +13,14 @@ class UserService extends HttpService {
     return this.post('/user-informations', userInfo, AccessToken ? { Authorization: `${AccessToken}` } : {})
   }
 
+  changeUserPassword(AccessToken = '', passwordInfo: any) {
+    return this.post(
+      'https://test.accounts.tnet.ge/api/ka/password',
+      passwordInfo,
+      AccessToken ? { Authorization: `${AccessToken}` } : {}
+    )
+  }
+
   addUserFavourites(AccessToken = '', product_id: any) {
     return this.post('/add-user-favourites', product_id, AccessToken ? { Authorization: `${AccessToken}` } : {})
   }
@@ -20,8 +28,6 @@ class UserService extends HttpService {
   getUserFavourites(AccessToken = '') {
     return this.get('/user-favourites', {}, AccessToken ? { Authorization: `${AccessToken}` } : {})
   }
-
-
 }
 
 export default new UserService()

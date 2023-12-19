@@ -17,6 +17,9 @@ import { DefaultButton } from 'src/views/components/button'
 
 import { parseISO, format } from 'date-fns'
 import { ka } from 'date-fns/locale'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { dehydrate } from '@tanstack/react-query'
+import { queryClient } from '../_app'
 
 const SuccessfulPayment = () => {
   const router = useRouter()
@@ -106,7 +109,7 @@ const SuccessfulPayment = () => {
                   <Typography type='body' color='light'>
                     {format(parseISO(userOrderDetails?.start_date), 'd MMM yyyy', { locale: ka })}
                     {' - '}
-                    {format(parseISO(`1970-01-01T${userOrderDetails?.start_time}`), 'HH:mm')}
+                    {format(parseISO(`${userOrderDetails?.start_time}`), 'HH:mm')}
                   </Typography>
                 )}
               </div>
@@ -188,3 +191,14 @@ const SuccessfulPayment = () => {
 }
 
 export default SuccessfulPayment
+
+export async function getStaticProps({ locale }: { locale: string }) {
+  const [translations] = await Promise.all([serverSideTranslations(locale)])
+
+  return {
+    props: {
+      dehydratedState: dehydrate(queryClient),
+      ...translations
+    }
+  }
+}

@@ -6,6 +6,10 @@ import useNewProduct from './useNewProduct'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { Product } from 'src/types/Product'
 
+import toast from 'react-hot-toast'
+import Link from 'next/link'
+import Typography from 'src/views/components/typography'
+
 const StepOne = dynamic(() => import('../stepOne'), { ssr: false })
 const StepTwo = dynamic(() => import('../stepTwo'), { ssr: false })
 const StepThree = dynamic(() => import('../stepThree'), { ssr: false })
@@ -66,7 +70,8 @@ const NewProduct: React.FC = () => {
           'prod_year',
           'additional_information',
           'use_instruction',
-          'odometer.run' as any
+          'odometer.run',
+          'images' as any
         ])
         if (isValidStep1) {
           setStep(options[currentIndex + 1])
@@ -142,12 +147,25 @@ const NewProduct: React.FC = () => {
               FilesList: images.split(','),
               productId: productId
             })
+
+            toast.custom(
+              <div>
+                <Typography type='subtitle'>ავტომობილი წარმატებით დაემატა!</Typography>
+                <Link href='/dashboard/products'>ავტომობილები</Link>
+              </div>
+            )
           } else {
             console.error('Error: Images or productId is missing.')
           }
         }
+
         queryClient.invalidateQueries(['companyProducts'])
         queryClient.invalidateQueries(['latestProducts'])
+      },
+      onSettled: () => {
+        setTimeout(() => {
+          router.push('/dashboard/products')
+        }, 6000)
       }
     }
   )
@@ -210,7 +228,7 @@ const NewProduct: React.FC = () => {
       onClose={handleClose}
       onSubmit={handleSubmit(onSubmit)}
       submitLabel='დამატება'
-      disabled={createNewProducteMutation.isLoading}
+      disabled={createNewProducteMutation.isLoading || saveProductImagesMutation.isLoading}
     >
       <form>{renderStepComponent()}</form>
     </NewListingLayout>

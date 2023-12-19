@@ -17,7 +17,8 @@ const useProfile = () => {
         return false
       }
     },
-    staleTime: Infinity
+    staleTime: Infinity,
+    enabled: !!AccessToken
   })
 
   const queryClient = useQueryClient()

@@ -26,7 +26,8 @@ const useBooking = (id: number | string | string[]) => {
     description: service.description,
     title: service?.title,
     type_id: service?.company_service_type_id,
-    price: service?.price
+    price: service?.price,
+    max: service?.quantity
   }))
 
   const defaultValues: Order = {

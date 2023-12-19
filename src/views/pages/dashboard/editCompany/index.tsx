@@ -11,7 +11,6 @@ import DeleteAddressConfirmationModal from '../../../components/deleteAddressCon
 import DeleteCompanyConfirmationModal from 'src/views/components/deleteCompanyConfirmationModal'
 import useEditCompany from './useEditCompany'
 import { Controller, useWatch } from 'react-hook-form'
-import Icon from 'src/views/app/Icon'
 import Image from 'src/views/components/image'
 
 const EditCompany = () => {
@@ -140,11 +139,7 @@ const EditCompany = () => {
                 type='h3'
                 className='font-bold text-3md md:text-2lg overflow-hidden text-ellipsis whitespace-nowrap max-w-[200px] md:max-w-none inline-block'
               >
-                {companyInfo?.information?.name} ABC
-              </Typography>
-              <Icon svgPath='warning' width={20} height={20} />
-              <Typography type='subtitle' className='hidden md:flex text-raisin-100 bg-yellow-10 p-2 rounded-2xl'>
-                არავერიფიცირებული
+                {companyInfo?.information?.name}
               </Typography>
             </div>
             <Controller
