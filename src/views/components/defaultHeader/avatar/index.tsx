@@ -144,7 +144,11 @@ const Avatar = () => {
                 <div className='flex items-center justify-between border-b-[1px] border-raisin-10 px-6 py-4'>
                   <div className='flex items-center'>
                     <span className='w-10 h-10 mr-3 relative flex items-center justify-center rounded-full overflow-hidden'>
-                      <Image src={!!activeCompany ? activeCompany.information.logo : userInfo?.information?.profile_pic} className='h-full w-full object-cover' alt='avatar' />
+                      <Image
+                        src={!!activeCompany ? activeCompany.information.logo : userInfo?.information?.profile_pic}
+                        className='h-full w-full object-cover'
+                        alt='avatar'
+                      />
                     </span>
                     <div className='flex flex-col'>
                       <span className='text-2sm text-raisin-100 overflow-hidden text-ellipsis whitespace-nowrap max-w-[150px] inline-block'>
@@ -160,7 +164,7 @@ const Avatar = () => {
                     onClick={handleSetActive}
                   >
                     ანგარიშის შეცვლა
-                    <Icon svgPath='chevron-right' width={20} height={20} className="fill-transparent" />
+                    <Icon svgPath='chevron-right' width={20} height={20} className='fill-transparent' />
                   </button>
                   {activeCompany ? (
                     <ul className='mb-2'>
@@ -171,7 +175,10 @@ const Avatar = () => {
                               {route.item}
                             </Link>
                           ) : (
-                            <button className={`border-t-1 border-raisin-10 w-full mt-2 pt-2 ${routeClass}`} onClick={handleLogout}>
+                            <button
+                              className={`border-t-1 border-raisin-10 w-full mt-2 pt-2 ${routeClass}`}
+                              onClick={handleLogout}
+                            >
                               {route.item}
                             </button>
                           )}
@@ -187,7 +194,10 @@ const Avatar = () => {
                               {route.item}
                             </Link>
                           ) : (
-                            <button className={`border-t-1 border-raisin-10 w-full mt-2 pt-2 ${routeClass}`}  onClick={handleLogout}>
+                            <button
+                              className={`border-t-1 border-raisin-10 w-full mt-2 pt-2 ${routeClass}`}
+                              onClick={handleLogout}
+                            >
                               {route.item}
                             </button>
                           )}

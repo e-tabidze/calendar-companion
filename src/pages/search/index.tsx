@@ -232,7 +232,7 @@ const SearchPage = () => {
               {isLoading ? (
                 <SkeletonLoading />
               ) : (
-                <div className='grid sm:grid-cols-2 gap-6 lg:grid-cols-4 2xl:grid-cols-5'>
+                <div className='grid sm:grid-cols-2 gap-6 lg:grid-cols-4 2xl:grid-cols-4'>
                   {/*  className={`grid sm:grid-cols-2 gap-6 ${*/}
                   {/*    mapVisible ? 'grid-cols-2 2xl:grid-cols-3' : 'lg:grid-cols-4 2xl:grid-cols-5'*/}
                   {/*}`}*/}

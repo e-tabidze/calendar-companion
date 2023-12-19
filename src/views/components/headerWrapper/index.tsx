@@ -13,8 +13,6 @@ const HeaderWrapper = ({ fixedHeader, fullWidth, children }: Props) => {
   useEffect(() => {
     const handleScroll = () => {
       const scrollTop = window.scrollY
-
-      // You can adjust the threshold value based on your design
       const threshold = 10
 
       setIsScrolled(scrollTop > threshold)
