@@ -25,7 +25,6 @@ import SkeletonLoading from 'src/views/pages/search/skeletonLoading'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { dehydrate } from '@tanstack/react-query'
 import { queryClient } from '../_app'
-import SortListBox from 'src/views/pages/search/sortListBox'
 
 const Divider = dynamic(() => import('src/views/components/divider'), { ssr: true })
 
@@ -65,7 +64,6 @@ const SearchPage = () => {
     totalProductsCount,
     totalPages,
     objectToURI,
-    setValue
   } = useSearch()
   const { width } = useWindowDimensions()
 
@@ -95,7 +93,6 @@ const SearchPage = () => {
 
   const onSubmit = () => {
     const updatedSearchValues = getValues()
-    console.log(updatedSearchValues, 'updatedSearchValues')
     router.push(`/search?${objectToURI(updatedSearchValues)}`)
   }
 
@@ -210,13 +207,14 @@ const SearchPage = () => {
                           handleClick={() => toggleFilters(!filters)}
                         />
                       )}
+
                       {/* <Tag
                         className='mx-4 lg:mx-0'
                         component={<Icon svgPath='sort' width={20} height={12} className='fill-transparent' />}
                         label={width > 779 ? 'სორტირება' : ''}
                         height={width > 1025 ? 'h-12' : 'h-10'}
                       /> */}
-                      <SortListBox control={control} onClick={onSubmit} getValues={getValues} setValue={setValue} />
+                      {/* <SortListBox control={control} onClick={onSubmit} getValues={getValues} setValue={setValue} /> */}
                     </div>
 
                     {/* {width < 1025 && (
