@@ -63,7 +63,7 @@ const SearchPage = () => {
     searchProductsMutation,
     totalProductsCount,
     totalPages,
-    objectToURI
+    objectToURI,
   } = useSearch()
   const { width } = useWindowDimensions()
 
@@ -152,8 +152,7 @@ const SearchPage = () => {
                 type='reset'
                 onClick={(e: { preventDefault: () => void }) => {
                   reset()
-                  e.preventDefault() // Prevent the default form submission behavior
-
+                  e.preventDefault()
                   onSubmit()
                   router.push('/search/?page=1&order_by=desc')
                 }}
@@ -208,12 +207,14 @@ const SearchPage = () => {
                           handleClick={() => toggleFilters(!filters)}
                         />
                       )}
-                      <Tag
+
+                      {/* <Tag
                         className='mx-4 lg:mx-0'
                         component={<Icon svgPath='sort' width={20} height={12} className='fill-transparent' />}
                         label={width > 779 ? 'სორტირება' : ''}
                         height={width > 1025 ? 'h-12' : 'h-10'}
-                      />
+                      /> */}
+                      {/* <SortListBox control={control} onClick={onSubmit} getValues={getValues} setValue={setValue} /> */}
                     </div>
 
                     {/* {width < 1025 && (

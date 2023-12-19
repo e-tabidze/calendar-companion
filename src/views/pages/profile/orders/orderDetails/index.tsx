@@ -44,6 +44,8 @@ const OrderDetails = () => {
 
   console.log(productData, 'productData')
 
+  console.log(productData?.user_selected_product_services, 'productData?.user_selected_product_services')
+
   return (
     <div className='border border-raisin-10 rounded-2xl'>
       <div className='flex items-center md:w-full gap-6 p-4 md:p-8'>
@@ -142,8 +144,8 @@ const OrderDetails = () => {
                 </Typography>
                 <Typography type='subtitle'>
                   {service?.company_service_type_id == 1
-                    ? service?.price * service?.quantity * userOrderDetails?.days
-                    : service?.price * service?.quantity}
+                    ? service?.price * service?.count * userOrderDetails?.days
+                    : service?.price * service?.count}
                   ₾
                 </Typography>
               </PriceDetailsWrapper>

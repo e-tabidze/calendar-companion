@@ -78,6 +78,41 @@ const useFilters = () => {
     }
   ]
 
+  const sortFilters = [
+    {
+      id: 'id',
+      label: 'ფასი ზრდადობით',
+      order_by: 'asc'
+    },
+    {
+      id: 'price',
+      label: 'ფასი კლებადობით',
+      order_by: 'desc'
+    },
+    {
+      id: 'luggage_numbers',
+      label: 'ჩემოდნების რაოდენობა - ზრდადობით',
+      order_by: 'asc'
+    },
+    {
+      id: 'luggage_numbers',
+      label: 'ჩემოდნების რაოდენობა - კლებადობით',
+      order_by: 'desc'
+
+    },
+    {
+      id: 'prod_year',
+      label: 'წელი - ზრდადობით',
+      order_by: 'asc'
+    },
+    {
+      id: 'prod_year',
+      label: 'წელი - კლებადობით',
+      order_by: 'desc'
+
+    }
+  ]
+
   const isLoading = useProductFilters.isLoading
 
   return {
@@ -88,6 +123,7 @@ const useFilters = () => {
     driveTiresFilter,
     transmisisonTypesFilter,
     luggageNumbers,
+    sortFilters,
     additionalInformationFilters,
     manufacturerFilters,
     isLoading

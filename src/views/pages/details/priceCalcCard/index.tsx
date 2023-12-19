@@ -102,18 +102,22 @@ const PriceCalcCard: React.FC<Props> = ({
             ჯამი
           </Typography>
         </div>
-        <Typography type='h5' weight='normal' className='font-bold'>
-          {services?.reduce((accumulator: number, service: { type_id: number; count: number; price: number }) => {
-            if (service.type_id === 1) {
-              accumulator += service.count * service.price * days!
-            } else {
-              accumulator += service.count * service.price
-            }
-            
-            return accumulator
-          }, 0) +
-            price * days!}
-        </Typography>
+        {days && (
+          <Typography type='h5' weight='normal' className='font-bold'>
+            {days * price +
+              (services
+                ? services.reduce((accumulator: number, service: { type_id: number; count: number; price: number }) => {
+                    if (service.type_id === 1) {
+                      accumulator += service.count * service.price * days
+                    } else {
+                      accumulator += service.count * service.price
+                    }
+                    
+                    return accumulator
+                  }, 0)
+                : 0)}
+          </Typography>
+        )}
       </div>
 
       {userInfo?.active_profile_id === userInfo?.UserID && (

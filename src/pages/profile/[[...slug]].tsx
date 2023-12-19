@@ -40,8 +40,6 @@ const ProfileRouter = ({ userInfo }: { userInfo: UserInfo }) => {
   }
   const { companyInfo, isLoading } = useCompanyInfo(Number(companyid))
 
-  console.log(companyInfo, 'companyInfo')
-
   if (key.startsWith('/company/')) {
     if (isLoading) {
       return <div>Loading...</div>
@@ -50,8 +48,6 @@ const ProfileRouter = ({ userInfo }: { userInfo: UserInfo }) => {
       const queryKey = ['companyInfo', companyid]
       queryClient.invalidateQueries(queryKey)
     }
-
-    console.log(router, 'router')
 
     return companyid && companyInfo ? (
       <Company

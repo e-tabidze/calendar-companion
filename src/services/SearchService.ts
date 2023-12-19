@@ -14,15 +14,15 @@ class SearchService extends HttpService {
   }
 
   getManufacturerFilters() {
-    return this.get('https://test-api-rent-golang.myauto.ge/api/manufacturer-filters')
+    return this.get('/manufacturer-filters')
   }
 
   getManufacturerModelsFilters(queryString: string) {
-    return this.get(`https://test-api-rent-golang.myauto.ge/api/manufacturer-model-filters?${queryString}`)
+    return this.get(`/manufacturer-model-filters?${queryString}`)
   }
 
   getSearchProducts(querystring: string) {
-    return this.get(`/search-products?${querystring}&order_by=asc&sort_by=id`)
+    return this.get(`/search-products?${querystring}&`)
   }
 
   getCities() {

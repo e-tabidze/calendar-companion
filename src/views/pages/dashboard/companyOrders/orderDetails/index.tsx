@@ -196,8 +196,8 @@ const OrderDetails = () => {
                   </Typography>
                   <Typography type='subtitle'>
                     {service?.company_service_type_id == 1
-                      ? service?.price * service?.quantity * companyOrder?.days
-                      : service?.price * service?.quantity}
+                      ? service?.price * service?.count * companyOrder?.days
+                      : service?.price * service?.count}
                     ₾
                   </Typography>
                 </PriceDetailsWrapper>

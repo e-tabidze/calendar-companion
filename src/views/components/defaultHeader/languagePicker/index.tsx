@@ -4,7 +4,8 @@ import Typography from '../../typography'
 import { LanPickerContainer } from './styles'
 import Icon from 'src/views/app/Icon'
 import { useRouter } from 'next/router'
-import { useTranslation } from 'next-i18next'
+
+// import { useTranslation } from 'next-i18next'
 
 const langs = [
   { id: 0, title: 'ქართული', locale: 'ka' },
@@ -20,7 +21,8 @@ interface Props {
 const LanguagePicker = ({ dropdownUp, responsive, className }: Props) => {
   const router = useRouter()
   const selectedLang = langs.find(lang => lang.locale === router.locale)
-  const { t } = useTranslation()
+  
+  // const { t } = useTranslation()
 
   return (
     <LanPickerContainer className={className}>
@@ -34,7 +36,9 @@ const LanguagePicker = ({ dropdownUp, responsive, className }: Props) => {
         >
           <Icon svgPath='globe' width={21} height={20} />
           <span className={`${responsive ? 'hidden md:flex' : 'flex'} ml-2`}>
-            {selectedLang?.title} {t('easiest_way_to_your_new_home')}
+            {selectedLang?.title} 
+
+            {/* {t('easiest_way_to_your_new_home')} */}
           </span>
           <Icon
             svgPath='chevron'
