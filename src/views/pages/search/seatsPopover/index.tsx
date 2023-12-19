@@ -1,73 +1,58 @@
-import { useState } from 'react'
-import { IconButton } from 'src/views/components/button'
+import { useEffect, useState } from 'react'
+import { useWatch } from 'react-hook-form'
+import useFilters from 'src/hooks/useFilters'
+import {DefaultButton, IconTextButton} from 'src/views/components/button'
 import PopoverDropdown from 'src/views/components/popoverDropdown'
 import Tag from 'src/views/components/tag'
 import { TagsWrapper } from './styles'
 
-const seats = [
-  {
-    id: 1,
-    label: 'ნებისმიერი'
-  },
-  {
-    id: 2,
-    label: '1'
-  },
-  {
-    id: 3,
-    label: '2'
-  },
-  {
-    id: 4,
-    label: '3'
-  },
-  {
-    id: 5,
-    label: '4'
-  },
-  {
-    id: 6,
-    label: '5'
-  },
-  {
-    id: 7,
-    label: '6'
-  },
-  {
-    id: 8,
-    label: '7'
-  },
-  {
-    id: 9,
-    label: '8+'
-  }
-]
+interface Props {
+  control: any
+  appendSeatType: any
+  handleSubmit: () => void
+  reset: any
+}
 
-const SeatsPopover = () => {
-  const [selectedSeats, setSelectedSeats] = useState<any[]>([1])
+const SeatsPopover: React.FC<Props> = ({ control, appendSeatType, handleSubmit, reset }) => {
+  const [hasSeatTypes, setHasFuelType] = useState(false)
 
-  const handleSelectedSeats = (id: number) => {
-    if (selectedSeats.includes(id)) {
-      setSelectedSeats(selectedSeats.filter(type => type !== id))
-    } else {
-      setSelectedSeats(prevState => [...prevState, id])
-    }
-  }
+  const formState = useWatch({ control })
+
+  useEffect(() => {
+    setHasFuelType(!!formState?.seat_types?.length)
+  }, [formState?.seat_types?.length])
+
+  const { seatTypesFilter } = useFilters()
 
   return (
-    <PopoverDropdown label='ადგილების რაოდენობა' maxWidth='max-w-xs'>
+    <PopoverDropdown
+      label='ადგილების რაოდენობა'
+      maxWidth='max-w-xs'
+      className={`${hasSeatTypes ? 'border border-raisin-100' : ''}`}
+    >
       <TagsWrapper>
-        {seats.map(seat => (
-          <Tag
-            label={seat.label}
-            key={seat.id}
-            height='h-10'
-            selected={selectedSeats.includes(seat.id)}
-            handleClick={() => handleSelectedSeats(seat.id)}
-          />
-        ))}
+        <Tag options={seatTypesFilter} name='seat_types' control={control} height='h-10' append={appendSeatType} />
       </TagsWrapper>
-      <IconButton icon='/icons/rotate.svg' text='გასუფთავება' width={16} height={16} />
+      <div className='flex items-center justify-between'>
+        <IconTextButton
+          icon='rotate'
+          label='გასუფთავება'
+          className='fill-transparent'
+          width={20}
+          height={22}
+          onClick={() => reset('seat_types')}
+        />
+        <DefaultButton
+          text='შენახვა'
+          bg='bg-orange-100'
+          textColor='text-white'
+          type='submit'
+          onClick={() => {
+            handleSubmit()
+            close()
+          }}
+        />
+      </div>
     </PopoverDropdown>
   )
 }

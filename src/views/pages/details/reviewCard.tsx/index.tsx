@@ -1,5 +1,6 @@
 import Image from 'src/views/components/image'
 import Typography from 'src/views/components/typography'
+import Icon from "src/views/app/Icon";
 
 const ReviewCard = () => {
   return (
@@ -10,11 +11,11 @@ const ReviewCard = () => {
           ზურაბ ფანასკერტელი
         </Typography>
         <div className='flex gap-2 mb-4'>
-          <Image src='/icons/star.svg' alt='' />
-          <Image src='/icons/star.svg' alt='' />
-          <Image src='/icons/star.svg' alt='' />
-          <Image src='/icons/star.svg' alt='' />
-          <Image src='/icons/star.svg' alt='' />
+          <Icon svgPath='star' width={16} height={16}/>
+          <Icon svgPath='star' width={16} height={16}/>
+          <Icon svgPath='star' width={16} height={16}/>
+          <Icon svgPath='star' width={16} height={16}/>
+          <Icon svgPath='star' width={16} height={16}/>
         </div>
         <Typography type='body' color='light'>
           sdfghjkl

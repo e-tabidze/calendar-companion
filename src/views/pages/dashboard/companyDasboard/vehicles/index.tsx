@@ -1,56 +1,32 @@
-import useWindowDimensions from 'src/hooks/useWindowDimensions'
-import { IconTextButton } from 'src/views/components/button'
 import Divider from 'src/views/components/divider'
-import Tag from 'src/views/components/tag'
 import Typography from 'src/views/components/typography'
-import VehicleListComponent from 'src/views/pages/dashboard/components/vehicleListComponent'
+import VehicleListComponent from '../../components/vehicleListComponent'
+import useProductInfo from '../../useProductInfo'
 
-const filters = [
-  {
-    label: 'ყველა',
-    id: '1'
-  },
-  {
-    label: 'აქტიური',
-    id: '2'
-  },
-  {
-    label: 'გამორთული',
-    id: '3'
-  },
-  {
-    label: 'შენახული',
-    id: '4'
-  },
-  {
-    label: 'დაბლოკილი',
-    id: '5'
-  }
-]
 const Vehicles = () => {
-  const { width } = useWindowDimensions()
-  
+  const { dashboardData } = useProductInfo()
+
   return (
-    <div className='border border-raisin-10 rounded-2xl mt-11 md:px-8'>
-      <div className='flex justify-between items-center my-4 px-2'>
-        <Typography type='h3' className='text-md md:text-2lg'>
-          ავტომობილები
-        </Typography>
-        <div className='flex md:hidden'>
-          <IconTextButton label={width > 779 ? 'ფილტრი' : ''} icon={'/icons/filters.svg'} />
-          <IconTextButton label={width > 779 ? 'სორტირება' : ''} icon={'/icons/sort.svg'} />
-        </div>
-      </div>
+    <div className='md:p-8 lg:p-10 md:border border-raisin-10 rounded-3xl mt-8'>
+      <Typography type='h3' className='text-md md:text-2lg mb-6'>
+        ავტომობილები
+      </Typography>
       <Divider />
-      <div className='hidden lg:flex gap-3 mt-8'>
-        {filters.map(filter => (
-          <Tag label={filter.label} height='h-10' key={filter.id} className='rounded-xl' />
-        ))}
-      </div>
       <div>
-        <VehicleListComponent />
-        <VehicleListComponent />
-        <VehicleListComponent />
+        {dashboardData?.products?.map((product: any) => (
+          <VehicleListComponent
+            key={product.id}
+            id={product.id}
+            price={product.price}
+            startCity={product.start_city}
+            prodYear={product.prod_year}
+            model={product?.manufacturer_model?.title}
+            manufacturer={product.manufacturer?.title}
+            active={product.is_active}
+            filter={''}
+            images={product?.images}
+          />
+        ))}
       </div>
     </div>
   )

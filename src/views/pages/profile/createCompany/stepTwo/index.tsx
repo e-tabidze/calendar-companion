@@ -7,26 +7,29 @@ interface Props {
   addressFields: any
   appendAddress: any
   errors: any
+  setValue: any
 }
 
-const StepTwo: React.FC<Props> = ({ control, addressFields, appendAddress, errors }) => {
+const StepTwo: React.FC<Props> = ({ control, addressFields, appendAddress, errors, setValue }) => {
   const { defaultAddress } = useCreateCompany()
-  
+
   return (
-    <div>
+    <>
       {addressFields.map((field: any, index: number) => (
-        <BranchInfoComponent index={index} control={control} key={field.id} errors={errors} />
+        <BranchInfoComponent index={index} control={control} key={field.id} errors={errors} setValue={setValue} />
       ))}
 
       <IconTextButton
         label='სხვა  მისამართის დამატება'
-        icon='/icons/add.svg'
+        icon='add'
+        width={20}
+        height={20}
         onClick={() => {
           appendAddress(defaultAddress)
         }}
         type='button'
       />
-    </div>
+    </>
   )
 }
 

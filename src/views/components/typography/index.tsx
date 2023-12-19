@@ -100,7 +100,7 @@ const H1Typography = tw.h1<TextComponent>`${(props: any) =>
   props.className ? props.className : ''} whitespace-normal font-bold text-2xl text-secondary-title-100`
 
 const H2Typography = tw.h2<TextComponent>`${(props: any) =>
-  props.className ? props.className : ''} whitespace-normal font-bold text-3lg text-secondary-title-100`
+  props.className ? props.className : ''} whitespace-normal font-bold text-2lg text-secondary-title-100`
 
 const H3Typography = tw.h3<TextComponent>`${(props: any) =>
   props.className ? props.className : ''} whitespace-normal font-normal text-2lg text-base-100`
@@ -117,12 +117,13 @@ ${(props: any) => (props.className ? props.className : '')}
 ${(props: any) => (props.weight === 'medium' ? 'font-medium' : 'font-normal')}
 text-base-100
 text-md
+whitespace-normal
 `
 
 const SubtitleTypography = tw.p<TextComponent>`
-${(props: any) => (props.className ? props.className : 'whitespace-normal')}
+${(props: any) => (props.className ? props.className : '')}
 ${(props: any) => (props.color === 'light' ? 'text-raisin-50' : 'text-raisin-130')}
-font-normal text-2sm`
+font-normal text-2sm whitespace-normal`
 
 const BodyTypography = tw.p<TextComponent>`whitespace-normal font-normal text-sm 
 ${(props: any) => (props.color === 'light' ? 'text-raisin-50' : 'text-raisin-130')}

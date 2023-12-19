@@ -1,37 +1,42 @@
-import { useState } from 'react'
-import useWindowDimensions from 'src/hooks/useWindowDimensions'
-import { IconTextButton } from 'src/views/components/button'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
 import Divider from 'src/views/components/divider'
 import Typography from 'src/views/components/typography'
 import ListComponent from './listComponent'
-import OrderComponent from './orderComponent'
+import OrderDetails from './orderDetails'
+import useUserOrders from './useOrders'
 
 const Orders = () => {
-  const [details, setDetails] = useState(false)
-  const { width } = useWindowDimensions()
+  const { userOrders } = useUserOrders()
 
-  const toggleDetails = () => setDetails(!details)
+  const router = useRouter()
 
   return (
     <>
-      {details ? (
-        <OrderComponent toggleDetails={toggleDetails} />
+      {router.query.id ? (
+        <OrderDetails />
       ) : (
-        <div className=''>
-          <div className='flex justify-between p-2 md:p-4 items-center'>
-            <Typography type='h3'>ჩემი შეკვეთები</Typography>
-            <div className='flex'>
-              <IconTextButton label={width > 779 ? 'ფილტრი' : ''} icon={'/icons/filters.svg'} />
-              <IconTextButton label={width > 779 ? 'ძებნა' : ''} icon={'/icons/sort.svg'} />
-            </div>
-          </div>
+        <div className='md:p-10 md:border border-raisin-10 rounded-3xl'>
+          <Typography type='h3' className='text-md md:text-2lg mb-6'>
+            ჩემი შეკვეთები
+          </Typography>
+
           <Divider />
-          <ListComponent toggleDetails={toggleDetails} />
-          <ListComponent toggleDetails={toggleDetails} />
-          <ListComponent toggleDetails={toggleDetails} />
-          <ListComponent toggleDetails={toggleDetails} />
-          <ListComponent toggleDetails={toggleDetails} />
-          <ListComponent toggleDetails={toggleDetails} />
+          {userOrders?.map((order: any) => (
+            <Link href={`/profile/orders/?id=${order?.id}`} as={`/profile/orders/?id=${order?.id}`} key={order?.id}>
+              <ListComponent
+                key={order?.id}
+                startAddress={order?.start_address}
+                startDate={order?.start_date}
+                startTime={order?.start_time}
+                endDate={order?.end_date}
+                endTime={order?.end_time}
+                productDetails={JSON.parse(order?.product_data)}
+                price={order?.price}
+                status={order?.status_id}
+              />
+            </Link>
+          ))}
         </div>
       )}
     </>

@@ -1,19 +1,13 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { DefaultButton } from '../button'
 
 interface Props {
   totalPages: number
   onPageChange: (pageNumber: number) => void
+  currentPage: number
 }
 
-const Pagination: React.FC<Props> = ({ totalPages, onPageChange }) => {
-  const [currentPage, setCurrentPage] = useState(1)
-
-  const handlePageChange = (pageNumber: number) => {
-    setCurrentPage(pageNumber)
-    onPageChange(pageNumber)
-  }
-
+const Pagination: React.FC<Props> = ({ totalPages, onPageChange, currentPage }) => {
   const renderPageNumbers = () => {
     const pageNumbers = []
     const maxVisiblePages = 3
@@ -29,9 +23,13 @@ const Pagination: React.FC<Props> = ({ totalPages, onPageChange }) => {
         <DefaultButton
           text={i}
           key={i}
-          onClick={() => handlePageChange(i)}
+          onClick={() => onPageChange(i)}
           className={`w-10 h-10 px-0 py-0 mx-1 ${
-            i === currentPage ? 'bg-white border border-raisin-130' : 'bg-raisin-10 border border-raisin-10'
+            i == currentPage
+              ? 'bg-white border border-raisin-130'
+              : currentPage == undefined
+              ? 'default-style'
+              : 'bg-raisin-10 border border-raisin-10'
           }`}
         />
       )
@@ -41,14 +39,14 @@ const Pagination: React.FC<Props> = ({ totalPages, onPageChange }) => {
   }
 
   const handlePreviousPage = () => {
-    if (currentPage > 1) {
-      handlePageChange(currentPage - 1)
+    if (currentPage >= 0) {
+      onPageChange(currentPage - 1)
     }
   }
 
   const handleNextPage = () => {
-    if (currentPage < totalPages) {
-      handlePageChange(currentPage + 1)
+    if (currentPage <= totalPages) {
+      onPageChange(currentPage + 1)
     }
   }
 
@@ -57,13 +55,12 @@ const Pagination: React.FC<Props> = ({ totalPages, onPageChange }) => {
       <DefaultButton
         text='უკან'
         onClick={handlePreviousPage}
-        className={`${currentPage === 1 ? 'opacity-50 cursor-not-allowed' : ''}`}
+        className={`${currentPage == 1 ? 'opacity-50 cursor-not-allowed' : ''}`}
       />
       <div>{renderPageNumbers()}</div>
       <DefaultButton
         text='შემდეგი'
         onClick={handleNextPage}
-        disabled={currentPage === totalPages}
         className={`${currentPage === totalPages ? 'opacity-50 cursor-not-allowed' : ''}`}
       />
     </div>

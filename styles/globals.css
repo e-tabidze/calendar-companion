@@ -2,6 +2,21 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer utilities {
+  @variants responsive {
+    /* Hide scrollbar for Chrome, Safari and Opera */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+
+    /* Hide scrollbar for IE, Edge and Firefox */
+    .no-scrollbar {
+      -ms-overflow-style: none; /* IE and Edge */
+      scrollbar-width: none; /* Firefox */
+    }
+  }
+}
+
 @font-face {
   font-family: 'TBCXLight';
   src: url('/fonts/tbc/TBCXLight.eot');
@@ -10,6 +25,22 @@
     url('/fonts/tbc/TBCXLight.woff') format('woff'), url('/fonts/tbc/TBCXLight.woff2') format('woff2');
 }
 
+* {
+  outline: none;
+}
+
+@media (max-width: 480px) {
+  .react-datepicker__month {
+    margin: 0 !important;
+  }
+  .react-datepicker__day-name,
+  .react-datepicker__day {
+    margin: 1px !important;
+  }
+}
+.react-datepicker__tab-loop {
+  position: absolute;
+}
 /* Date Picek */
 .react-datepicker {
   border: none !important;
@@ -22,7 +53,7 @@
 
 .react-datepicker__month-container {
   border: none !important;
-  box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.15) !important
+  box-shadow: none !important;
 }
 
 .react-datepicker__year-read-view--down-arrow,
@@ -96,9 +127,9 @@
   }
 } */
 
-.swiper-slide-prev {
-  opacity: 0.3 !important;
-}
+/* .swiper-slide-prev, .swiper-slide-next {*/
+/*  opacity: 0.3 !important;*/
+/*}*/
 
 .css-17db9ma-control {
   height: 56px !important;
@@ -110,9 +141,22 @@
   width: 0px;
   background: transparent; /* make scrollbar transparent */
 }
+/*.swiper {*/
+/*  overflow: visible !important;*/
+/*}*/
+/*.swiper-slide {*/
+/*  opacity: 0.2;*/
+/*}*/
+/*.swiper-slide-visible {*/
+/*  opacity: 1;*/
+/*}*/
 
 .swiper-slide-active {
   position: relative !important;
+}
+.swiper-button-disabled {
+  opacity: 0;
+  transition: 0.3s all;
 }
 
 /* .swiper-pagination-custom { */
@@ -176,8 +220,8 @@ html {
 }
 
 body {
-  overflow-x: hidden;
-  max-width: 4000px;
+  /*overflow-x: hidden;*/
+  /*max-width: 4000px;*/
   scrollbar-width: none;
   white-space: nowrap !important;
   -ms-overflow-style: none;
@@ -189,4 +233,106 @@ input:focus::placeholder {
 
 textarea:focus::placeholder {
   color: transparent;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type='number'] {
+  -moz-appearance: textfield;
+}
+
+.arrows-lg .swiper-button-prev.swiper-button-disabled,
+.arrows-lg .swiper-button-next.swiper-button-disabled {
+  opacity: 0;
+  transition: 0.3s all;
+}
+.arrows-lg .swiper-button-prev,
+.arrows-lg .swiper-button-next {
+  cursor: pointer;
+  background: #fff;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  width: 56px;
+  height: 56px;
+  box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
+}
+@media (max-width: 767px) {
+  .arrows-lg .swiper-button-prev,
+  .arrows-lg .swiper-button-next {
+    width: 46px;
+    height: 46px;
+  }
+}
+
+.arrows-lg .swiper-button-prev:after {
+  content: '';
+  background: url(/icons/caret-left.svg) no-repeat center center;
+  width: 26px;
+  height: 26px;
+}
+.arrows-lg .swiper-button-next:after {
+  content: '';
+  background: url(/icons/caret-right.svg) no-repeat center center;
+  width: 26px;
+  height: 26px;
+}
+.arrows-sm .swiper-button-prev,
+.arrows-sm .swiper-button-next {
+  display: none;
+  /*display: flex ;*/
+  cursor: pointer;
+  background: #fff;
+  border-radius: 50%;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  width: 24px;
+  height: 24px;
+  box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
+}
+.arrows-sm .swiper-button-prev:after {
+  content: '';
+  background: url(/icons/caret-l.svg) no-repeat center center;
+  width: 7px;
+  height: 9px;
+}
+.arrows-sm .swiper-button-next:after {
+  content: '';
+  background: url(/icons/caret-r.svg) no-repeat center center;
+  width: 7px;
+  height: 9px;
+}
+.css-3w2yfm-ValueContainer {
+  flex-wrap: nowrap !important;
+  -webkit-line-clamp: 1;
+  overflow-x: auto !important;
+  display: -webkit-box !important;
+  padding-top: auto !important;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.css-3w2yfm-ValueContainer::-webkit-scrollbar {
+  height: 0px;
+}
+.arrows-sm .swiper-pagination {
+  display: flex;
+}
+.arrows-sm .swiper-pagination-bullet {
+  width: 100%;
+  background: #fff;
+  opacity: 0.5;
+  border-radius: 0;
+  height: 2px;
+}
+.arrows-sm .swiper-pagination-bullet.swiper-pagination-bullet-active {
+  opacity: 1;
 }

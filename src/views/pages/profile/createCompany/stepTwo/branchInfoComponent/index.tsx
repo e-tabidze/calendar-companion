@@ -1,19 +1,14 @@
-import React from 'react'
+import { useQuery } from '@tanstack/react-query'
+import React, { useEffect } from 'react'
 import { Controller, useWatch } from 'react-hook-form'
+import { days } from 'src/utils/sample-data'
 import { DefaultInput, InputWithComponent } from 'src/views/components/input'
 import RoundedTag from 'src/views/components/roundedTag'
 import SwitchField from 'src/views/components/switchField'
-import TimeRangeComponent from '../timeRangeComponent'
 
-const days = [
-  { label: 'ორშ', value: 'monday' },
-  { label: 'სამ', value: 'tuesday' },
-  { label: 'ოთხ', value: 'wednesday' },
-  { label: 'ხუთ', value: 'thursday' },
-  { label: 'პარ', value: 'friday' },
-  { label: 'შაბ', value: 'saturday' },
-  { label: 'კვი', value: 'sunday' }
-]
+import useCreateCompany from '../../useCreateCompany'
+import LocationSuggestions from './locationSuggestions'
+import TimeRangeComponent from './timeRangeComponent'
 
 interface Props {
   index: number
@@ -21,11 +16,43 @@ interface Props {
   workingHoursObject?: any
   control: any
   errors: any
+  setValue: any
 }
 
-const BranchInfoComponent: React.FC<Props> = ({ index, control, errors }) => {
+const BranchInfoComponent: React.FC<Props> = ({ index, control, errors, setValue }) => {
+  const { getLocationSuggestions } = useCreateCompany()
 
   const formState = useWatch({ control })
+
+  const { data: locationSuggestions, isLoading } = useQuery(
+    ['locationSuggestions', formState?.addresses[index]?.address],
+    () => getLocationSuggestions(formState?.addresses[index]?.address),
+    {
+      enabled: formState?.addresses[index]?.address?.length >= 3
+    }
+  )
+
+  useEffect(() => {
+    if (formState.addresses[index].is_same_time) {
+      const selectedWorkDays = Object.keys(formState.addresses[index].working_hours).filter(
+        day => formState.addresses[index].working_hours[day].is_selected
+      )
+
+      const startTime = formState.addresses[index].start_time
+      const endTime = formState.addresses[index].end_time
+
+      const shouldUpdate =
+        selectedWorkDays.some(day => formState.addresses[index].working_hours[day].start_time !== startTime) ||
+        selectedWorkDays.some(day => formState.addresses[index].working_hours[day].end_time !== endTime)
+
+      if (shouldUpdate) {
+        selectedWorkDays.forEach(day => {
+          setValue(`addresses.${index}.working_hours.${day}.start_time`, startTime)
+          setValue(`addresses.${index}.working_hours.${day}.end_time`, endTime)
+        })
+      }
+    }
+  }, [formState.addresses[index], index, setValue])
 
   const renderDaysSelector = (day: any) => (
     <Controller
@@ -52,43 +79,67 @@ const BranchInfoComponent: React.FC<Props> = ({ index, control, errors }) => {
     />
   )
 
-  const renderTimeRangeComponent = (day: string) => <TimeRangeComponent index={index} control={control} day={day} />
-
   return (
     <div className='mb-6 md:border md:border-raisin-10 rounded-3xl md:py-10 md:px-9 grid grid-cols-1 gap-7'>
-      <div className='w-full grid grid-cols-1 lg:grid-cols-3 gap-4'>
-        <InputWithComponent
-          label='მისამართი'
+      <div className='w-full grid grid-cols-1 lg:grid-cols-3 gap-4 relative'>
+        <Controller
           name={`addresses.${index}.address`}
           control={control}
-          className='lg:col-span-2'
+          render={({ field: { onChange, value } }) => (
+            <>
+              <InputWithComponent
+                label='მისამართი'
+                name={`addresses.${index}.address`}
+                control={control}
+                className='lg:col-span-2'
+                errors={errors}
+              />
+
+              {locationSuggestions?.result?.data && value.length >= 3 && (
+                <LocationSuggestions
+                  options={locationSuggestions.result.data}
+                  isLoading={isLoading}
+                  onClick={(option: any) => {
+                    const locations = option?.locations || []
+                    if (locations.length >= 2) {
+                      console.log(option, 'opt')
+                      const firstValue = locations[0]
+                      onChange(locations.join(', '))
+                      setValue(`addresses.${index}.city`, firstValue)
+                      setValue(`addresses.${index}.lat`, option.lat)
+                      setValue(`addresses.${index}.long`, option.lng)
+                    }
+                  }}
+                />
+              )}
+            </>
+          )}
         />
-        <DefaultInput
-          label='ტელეფონი'
-          name={`addresses.${index}.phone`}
-          control={control}
-          errors={errors}
-        />
+
+        <DefaultInput label='ტელეფონი' name={`addresses.${index}.phone`} control={control} errors={errors} />
       </div>
 
-      <SwitchField
-        name={`addresses.${index}.isSameTime`}
-        label='ერთნაირი დროის მონიშვნა'
-        defaultValue={true}
-        control={control}
-      />
+      <SwitchField name={`addresses.${index}.is_same_time`} label='ერთნაირი დროის მონიშვნა' control={control} />
 
-      {formState.addresses[index]?.isSameTime ? (
+      {formState.addresses[index]?.is_same_time ? (
         <div className='flex flex-col gap-2 lg:items-center lg:flex-row justify-between' key={index}>
           <div className='flex items-center gap-4'>{days.map(day => renderDaysSelector(day))}</div>
-          {renderTimeRangeComponent('monday')}
+          <TimeRangeComponent
+            control={control}
+            startTimeName={`addresses.${index}.start_time`}
+            endTimeName={`addresses.${index}.end_time`}
+          />
         </div>
       ) : (
         <div>
           {days.map(day => (
             <div className='flex items-center gap-6' key={day.value}>
               {renderDaysSelector(day)}
-              {renderTimeRangeComponent(day.value)}
+              <TimeRangeComponent
+                control={control}
+                startTimeName={`addresses.${index}.working_hours.${day.value}.start_time`}
+                endTimeName={`addresses.${index}.working_hours.${day.value}.end_time`}
+              />
             </div>
           ))}
         </div>

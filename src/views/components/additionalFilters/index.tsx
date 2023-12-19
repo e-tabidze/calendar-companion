@@ -1,13 +1,11 @@
-import { Fragment, useRef, useState } from 'react'
+import { Fragment, useEffect } from 'react'
 
 // CustomHooks
 import useWindowDimensions from 'src/hooks/useWindowDimensions'
 
 // Components
 import CategoryCard from '../categoryCard'
-import Checkbox from '../checkbox'
 import Divider from '../divider'
-import Image from '../image'
 import { DefaultInput } from '../input'
 import Tag from '../tag'
 import Typography from '../typography'
@@ -18,136 +16,80 @@ import { Dialog, Transition } from '@headlessui/react'
 // Styles
 import { ListWrapper, SectionWrapper } from './styles'
 import SwitchField from '../switchField'
-import { useForm } from 'react-hook-form'
+import useFilters, { getManufacturerModelFilters } from 'src/hooks/useFilters'
+import SelectField from '../selectField'
+import CheckboxField from '../checkboxField'
+import { IconTextButton } from '../button'
+import { useQuery } from '@tanstack/react-query'
+import useSearch from 'src/hooks/useSearch'
+import { useWatch } from 'react-hook-form'
+import Icon from 'src/views/app/Icon'
+import { generateYearsArray } from 'src/utils/years'
 
 interface Props {
   open: boolean
-  setOpen: () => void
+  toggleModal: () => void
+  control: any
+  appendFuelType: any
+  appendSeatType: any
+  appendLuggageNumber: any
+  appendCategory: any
+  appendDriveTire: any
+  appendDoorType: any
+  appendTransmissionType: any
+  appendAdditionalInformation: any
+  onSubmit: () => void
+  reset: any
 }
 
-const categories = [
-  {
-    id: 1,
-    type: 'ეკონომიური',
-    available: 231
-  },
-  {
-    id: 2,
-    type: 'ეკონომიური',
-    available: 231
-  },
-  {
-    id: 3,
-    type: 'ეკონომიური',
-    available: 231
-  },
-  {
-    id: 4,
-    type: 'ეკონომიური',
-    available: 231
-  },
-  {
-    id: 5,
-    type: 'ეკონომიური',
-    available: 231
-  },
-  {
-    id: 6,
-    type: 'ეკონომიური',
-    available: 231
-  },
-  {
-    id: 7,
-    type: 'ეკონომიური',
-    available: 231
-  },
-  {
-    id: 8,
-    type: 'ეკონომიური',
-    available: 231
-  }
-]
-
-const fuelType = ['ელექტრო', 'ჰიბრიდი', 'დატენვადი ჰიბრიდი', 'ბენზინი', 'დიზელი', 'გაზი']
-
-const doors = ['2/3', '4/5', '5+']
-
-const tires = ['წინა', 'უკანა', '4x4']
-
-const seats = ['ნებისმიერი', '1', '2', '3', '4', '5', '6', '7', '8+']
-
-const additionalParameters = [
-  {
-    id: 1,
-    label: 'შშმპ პირებზე ოპტიმიზირებული'
-  },
-  {
-    id: 2,
-    label: 'Android Auto'
-  },
-  {
-    id: 3,
-    label: 'პარკინგის სენსორი'
-  },
-  {
-    id: 4,
-    label: 'GPS'
-  },
-  {
-    id: 5,
-    label: 'ცხოველების დაშვება'
-  },
-  {
-    id: 6,
-    label: 'USB დამტენი'
-  },
-  {
-    id: 7,
-    label: '4 წამყვანი თვალი'
-  },
-  {
-    id: 8,
-    label: 'Apple CarPlay'
-  },
-  {
-    id: 9,
-    label: 'უკანა კამერა'
-  },
-  {
-    id: 10,
-    label: 'Bluetooth'
-  },
-  {
-    id: 11,
-    label: 'სავარძლის გათბობა'
-  },
-  {
-    id: 12,
-    label: 'ზამთრის საბურავები'
-  },
-  {
-    id: 13,
-    label: 'USB პორტი'
-  }
-]
-
-const AdditionalFilters: React.FC<Props> = ({ open, setOpen }) => {
-  const [selectedCategories, setSelectedCategories] = useState<any[]>([])
-  const cancelButtonRef = useRef(null)
+const AdditionalFilters: React.FC<Props> = ({
+  open,
+  toggleModal,
+  control,
+  appendFuelType,
+  appendSeatType,
+  appendLuggageNumber,
+  appendCategory,
+  appendDriveTire,
+  appendDoorType,
+  appendTransmissionType,
+  appendAdditionalInformation,
+  onSubmit,
+  reset
+}) => {
   const { width } = useWindowDimensions()
-  const { control } = useForm()
+  const {
+    categoriesFilter,
+    fuelTypesFilter,
+    seatTypesFilter,
+    doorTypesFilter,
+    driveTiresFilter,
+    transmisisonTypesFilter,
+    luggageNumbers,
+    additionalInformationFilters,
+    manufacturerFilters
+  } = useFilters()
 
-  const handleSelectCategories = (id: number) => {
-    if (selectedCategories.includes(id)) {
-      setSelectedCategories(selectedCategories.filter(category => category !== id))
-    } else {
-      setSelectedCategories(prevState => [...prevState, id])
+  const { objectToURI } = useSearch()
+
+  const formState = useWatch({ control })
+
+  const { data: manufacturerModelFilters, refetch }: any = useQuery({
+    queryKey: ['manufacturerModelFilters'],
+    queryFn: () => getManufacturerModelFilters(objectToURI({ manufacturer_id: formState.manufacturer_id })),
+    staleTime: Infinity,
+    enabled: formState.manufacturer_id?.length > 0
+  })
+
+  useEffect(() => {
+    if (formState.manufacturer_id?.length > 0) {
+      refetch()
     }
-  }
+  }, [formState.manufacturer_id, refetch])
 
   return (
     <Transition.Root show={open} as={Fragment}>
-      <Dialog as='div' className='relative z-50' initialFocus={cancelButtonRef} onClose={setOpen}>
+      <Dialog as='div' className='relative z-[111]' onClose={toggleModal}>
         <Transition.Child
           as={Fragment}
           enter='ease-out duration-300'
@@ -160,8 +102,8 @@ const AdditionalFilters: React.FC<Props> = ({ open, setOpen }) => {
           <div className='fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity' />
         </Transition.Child>
 
-        <div className='fixed inset-0 z-10 h-screen overflow-y-auto'>
-          <div className='absolute left-1/2 -translate-x-1/2 w-11/12 max-w-[790px] flex min-h-full items-end justify-center p-4 text-center md:items-center md:p-0'>
+        <div className='fixed inset-0 z-10 md:h-screen overflow-y-auto'>
+          <div className='absolute left-1/2 -translate-x-1/2 w-full max-w-[790px] flex min-h-full items-end justify-center text-center md:items-center md:p-0'>
             <Transition.Child
               as={Fragment}
               enter='ease-out duration-300'
@@ -171,170 +113,253 @@ const AdditionalFilters: React.FC<Props> = ({ open, setOpen }) => {
               leaveFrom='opacity-100 translate-y-0 md:scale-100'
               leaveTo='opacity-0 translate-y-4 md:translate-y-0 md:scale-95'
             >
-              <Dialog.Panel className='relative transform overflow-hidden rounded-3xl bg-white text-left shadow-xl transition-all w-full md:my-4 md:max-w-3xl'>
+              <Dialog.Panel className='relative transform overflow-hidden rounded-tl-3xl rounded-tr-3xl md:rounded-bl-3xl md:rounded-br-3xl bg-white text-left shadow-xl transition-all w-full md:my-4 md:max-w-3xl'>
                 <div className='w-full flex justify-between items-center px-4 py-5 sm:py-6 sm:px-10 border-b-1 border-grey-90'>
                   <Dialog.Title as='h3' className='text-2md text-base-100 leading-6'>
                     დამატებითი ფილტრები
                   </Dialog.Title>
-                  <Image src='/icons/close.svg' onClick={setOpen} alt='' height={40} width={40} />
+                  <Icon svgPath='close' onClick={toggleModal} height={40} width={40} className='cursor-pointer' />
                 </div>
                 <div className='overflow-auto h-[70vh] px-4 py-5 sm:py-6 sm:px-10 w-max-full'>
-                  <Typography type='body' color='dark' className='max-w-[30%]'>
+                  <Typography type='body' color='dark' className='md:max-w-[30%]'>
                     ავტომობილები დღიური ფასის მიხედვით
                   </Typography>
-                  <div className='w-full flex items-center mb-20 mt-8'>
+                  <div className='w-full flex flex-col md:flex-row md:items-center mb-10 md:mb-16 mt-8'>
                     <DefaultInput
-                      name=''
+                      name='price_min'
                       control={control}
                       label={width > 641 ? 'მინიმუმ ფასი დღიურად' : 'მინ. ფასი დღიურად'}
                       errors={''}
+                      className='md:w-52 mb-2 md:mb-0'
+                      type='number'
+                      min={0}
                     />
-                    <div className='w-3 h-px bg-base-100 mx-2' />
+                    <div className='hidden md:flex w-3 h-px bg-base-100 mx-2' />
                     <DefaultInput
-                      name=''
+                      name='price_max'
                       control={control}
-                      label={width > 641 ? 'მინიმუმ ფასი დღიურად' : 'მინ. ფასი დღიურად'}
+                      label={width > 641 ? 'მაქსიმუმ ფასი დღიურად' : 'მაქს. ფასი დღიურად'}
                       errors={''}
+                      className='md:w-52'
+                      type='number'
                     />
                   </div>
                   <div className='my-8'>
-                    <Typography type='h5' weight='normal'>
+                    <Typography type='h5' weight='normal' className='text-md md:text-3md'>
                       ავტომობილის კატეგორია
                     </Typography>
                     <Typography type='body' color='light'>
                       შეგიძლია მონიშნო ერთი ან რამდენიმე კატეგორია
                     </Typography>
-                    <div className='flex flex-wrap gap-4 my-6'>
-                      {categories.map(category => (
-                        <CategoryCard
-                          border
-                          category={category.type}
-                          key={category.id}
-                          selected={selectedCategories.includes(category.id)}
-                          handleSelect={() => handleSelectCategories(category.id)}
+                    <>
+                      {width > 779 ? (
+                        <div className='flex flex-wrap gap-2 my-3 md:gap-4 md:my-6'>
+                          <CategoryCard
+                            name='category'
+                            control={control}
+                            options={categoriesFilter}
+                            border
+                            append={appendCategory}
+                          />
+                        </div>
+                      ) : (
+                        <SelectField
+                          isMulti
+                          control={control}
+                          valueKey='id'
+                          labelKey='title'
+                          name='category'
+                          options={categoriesFilter}
+                          placeholder='კატეგორია'
+                          className='my-2'
                         />
-                      ))}
-                    </div>
+                      )}
+                    </>
                   </div>
-                  <div className='my-12'>
-                    <Typography type='h5' weight='normal'>
+                  <div className='my-10 md:my-16'>
+                    <Typography type='h5' weight='normal' className='text-md md:text-3md'>
                       ავტომობილის პარამეტრები
                     </Typography>
-                    {/* <SelectField
-                      name=''
-                      control={control}
-                      options={selectOptions}
-                      placeholder='მწარმოებელი'
-                      disabled={false}
-                      className='my-2'
-                    />
-                    <SelectField
-                      name=''
-                      control={control}
-                      options={selectOptions}
-                      placeholder='მოდელი'
-                      disabled={false}
-                      className='my-2'
-                    />
-                    <SelectField
-                      name=''
-                      control={control}
-                      options={selectOptions}
-                      placeholder='წელი'
-                      disabled={false}
-                      className='my-2'
-                    /> */}
+                    <div className='flex flex-col md:flex-row md:gap-6'>
+                      <SelectField
+                        name='manufacturer_id'
+                        isMulti
+                        control={control}
+                        options={manufacturerFilters}
+                        placeholder='მწარმოებელი'
+                        className='md:w-4/12 my-2'
+                        valueKey='id'
+                        labelKey='title'
+                      />
+                      <SelectField
+                        name='model_id'
+                        isMulti
+                        control={control}
+                        options={manufacturerModelFilters?.result?.data}
+                        placeholder='მოდელი'
+                        disabled={formState.manufacturer_id?.length === 0}
+                        className='md:w-4/12 my-2'
+                        valueKey='id'
+                        labelKey='title'
+                      />
+                      <div className='md:w-4/12 flex gap-1 items-center'>
+                        <SelectField
+                          name='year_from'
+                          control={control}
+                          options={generateYearsArray()}
+                          placeholder='წლიდან'
+                          disabled={false}
+                          className='w-full my-2'
+                          valueKey='value'
+                          labelKey='label'
+                        />
+                        -
+                        <SelectField
+                          name='year_to'
+                          control={control}
+                          options={generateYearsArray()}
+                          placeholder='წლამდე'
+                          disabled={false}
+                          className='w-full my-2'
+                          valueKey='value'
+                          labelKey='label'
+                        />
+                      </div>
+                    </div>
                   </div>
 
-                  <Typography type='h5' weight='normal'>
+                  <Typography type='h5' weight='normal' className='text-md md:text-3md'>
                     საწვავის ტიპი
                   </Typography>
                   <div className='flex flex-wrap gap-3 my-6'>
-                    {fuelType.map((type, idx) => (
-                      <Tag label={type} key={idx} component={<Image src='icons/electric.svg' alt='' />} height='h-12' />
-                    ))}
+                    <Tag
+                      options={fuelTypesFilter}
+                      name='fuel_types'
+                      control={control}
+                      height='h-10'
+                      append={appendFuelType}
+                      outlined
+                    />
                   </div>
-
-                  <Typography type='h5' weight='normal'>
-                    ადგილების რაოდენობა
-                  </Typography>
-                  <div className='flex flex-wrap gap-4 my-6'>
-                    {seats.map((place, idx) => (
-                      <Tag label={place} key={idx} height='h-10' />
-                    ))}
+                  <div className='my-10 md:my-16'>
+                    <Typography type='h5' weight='normal' className='text-md md:text-3md'>
+                      ადგილების რაოდენობა
+                    </Typography>
+                    <div className='flex flex-wrap gap-2 my-3 md:gap-4 md:my-6'>
+                      <Tag
+                        options={seatTypesFilter}
+                        name='seat_types'
+                        control={control}
+                        height='h-10'
+                        append={appendSeatType}
+                      />
+                    </div>
                   </div>
-
-                  <Typography type='h5' weight='normal'>
-                    ჩემოდნების რაოდენობა
-                  </Typography>
-                  <div className='flex flex-wrap gap-4 my-6'>
-                    {seats.map((place, idx) => (
-                      <Tag label={place} key={idx} height='h-10' />
-                    ))}
+                  <div className='my-10 md:my-16'>
+                    <Typography type='h5' weight='normal' className='text-md md:text-3md'>
+                      ჩემოდნების რაოდენობა
+                    </Typography>
+                    <div className='flex flex-wrap gap-2 my-3 md:gap-4 md:my-6'>
+                      <Tag
+                        options={luggageNumbers}
+                        height='h-10'
+                        name='luggage_numbers'
+                        control={control}
+                        append={appendLuggageNumber}
+                      />
+                    </div>
                   </div>
                   <Divider />
-                  <SwitchField label='უფასო მიწოდება' name='' control={control} defaultValue className='my-8' />
+                  <SwitchField label='უფასო მიწოდება' name='free_delivery' control={control} className='my-4 md:my-8' />
                   <Divider />
 
                   <SectionWrapper>
-                    <Typography type='h5' weight='normal'>
+                    <Typography type='h5' weight='normal' className='mb-2 md:mb-0'>
                       კარის რაოდენობა
                     </Typography>
                     <ListWrapper>
-                      {doors.map((type, idx) => (
-                        <Tag label={type} key={idx} component={<Image src='icons/doors.svg' alt='' />} height='h-12' />
-                      ))}
+                      <Tag
+                        options={doorTypesFilter}
+                        name='door_types'
+                        control={control}
+                        height='h-10'
+                        append={appendDoorType}
+                        outlined
+                      />
                     </ListWrapper>
                   </SectionWrapper>
                   <Divider />
 
                   <SectionWrapper>
-                    <Typography type='h5' weight='normal'>
+                    <Typography type='h5' weight='normal' className='mb-2 md:mb-0'>
                       წამყვანი საბურავები
                     </Typography>
                     <ListWrapper>
-                      {tires.map((type, idx) => (
-                        <Tag label={type} key={idx} height='h-10' />
-                      ))}
+                      <Tag
+                        options={driveTiresFilter}
+                        name='drive_tires'
+                        control={control}
+                        height='h-10'
+                        append={appendDriveTire}
+                      />
                     </ListWrapper>
                   </SectionWrapper>
                   <Divider />
 
                   <SectionWrapper>
-                    <Typography type='h5' weight='normal'>
+                    <Typography type='h5' weight='normal' className='mb-2 md:mb-0'>
                       ტრანსმისია
                     </Typography>
                     <ListWrapper>
-                      {tires.map((type, idx) => (
-                        <Tag label={type} key={idx} height={'h-10'} />
-                      ))}
+                      <Tag
+                        options={transmisisonTypesFilter}
+                        name='transmission_types'
+                        control={control}
+                        height='h-10'
+                        append={appendTransmissionType}
+                      />
                     </ListWrapper>
                   </SectionWrapper>
                   <Divider />
 
-                  <Typography type='h5' weight='normal' className='mt-8'>
+                  <Typography type='h5' weight='normal' className='mt-4 md:mt-8'>
                     დამატებითი პარამეტრები
                   </Typography>
-                  <Typography type='body' color='light'>
+                  <Typography type='body' color='light' className='mt-2 mb-8'>
                     შეგიძლია მონიშნო ერთი ან რამდენიმე პარამეტრი
                   </Typography>
-                  <div className='py-9 grid grid-cols-2'>
-                    {additionalParameters.map(parameter => (
-                      <div className='my-2' key={parameter.id}>
-                        <Checkbox label={parameter.label} value={parameter.label} />
-                      </div>
-                    ))}
-                  </div>
+                  <CheckboxField
+                    name='additional_information'
+                    control={control}
+                    options={additionalInformationFilters}
+                    append={() => appendAdditionalInformation()}
+                    className='my-2'
+                  />
                 </div>
-                <div className="w-full flex items-center justify-between py-[16px] px-10 border-t-1 border-grey-90">
-                  <button className="flex items-center text-raisin-50 text-[12px]">
-                    <Image src='/icons/return.svg' alt='' className="flex mr-2" />
-                    გასუფთავება</button>
-                  <div className="flex items-center [text-16px]">
-                    სულ 136 შედეგი
-                    <button className="ml-[24px] px-[24px] h-[56px] bg-orange text-white text-[16px] flex items-center bg-orange-100 rounded-[12px]">
-                      <Image src='/icons/search.svg' alt='' className="flex mr-2" />
-                      ძებნა</button>
+                <div className='w-full flex flex-row items-center justify-between py-4 px-4 md:px-10 border-t-1 border-grey-90 shadow-md'>
+                  <IconTextButton
+                    label='გასუფთავება'
+                    icon='return'
+                    className='fill-transparent'
+                    width={20}
+                    height={22}
+                    onClick={() => reset()}
+                  />
+                  <div className='flex items-center justify-between md:justify-start text-md gap-4'>
+                    {/* სულ 136 შედეგი */}
+                    <IconTextButton
+                      label='ძებნა'
+                      bg='bg-orange-100'
+                      className='text-white pl-[24px] pr-[32px]'
+                      icon='search'
+                      width={20}
+                      height={20}
+                      type='submit'
+                      onClick={() => {
+                        onSubmit()
+                        toggleModal()
+                      }}
+                    />
                   </div>
                 </div>
               </Dialog.Panel>

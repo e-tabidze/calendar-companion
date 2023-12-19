@@ -1,10 +1,15 @@
-import { MaxWidthContainer, NewListingHeaderContainer } from 'src/styled/styles'
+import { MaxWidthContainer } from 'src/styled/styles'
 import { DefaultButton } from 'src/views/components/button'
-import Image from 'next/image'
 import ProgressBar from 'src/views/components/progressBar'
-import NewListingSelect from 'src/views/pages/dashboard/newListing/newListingSelect'
 import { useRouter } from 'next/router'
 import useWindowDimensions from 'src/hooks/useWindowDimensions'
+import NewListingSelect from 'src/views/components/newListingSelect'
+import HeaderWrapper from 'src/views/components/headerWrapper'
+import { InnerContainer } from '../views/components/defaultHeader/styles'
+import Image from '../views/components/image'
+import useProfile from 'src/hooks/useProfile'
+import { useEffect } from 'react'
+import Icon from 'src/views/app/Icon'
 
 interface Props {
   children: any
@@ -15,6 +20,8 @@ interface Props {
   onNextStep: () => void
   onPrevStep: () => void
   onSubmit: any
+  submitLabel: string
+  disabled: boolean
 }
 
 const NewListingLayout: React.FC<Props> = ({
@@ -25,7 +32,9 @@ const NewListingLayout: React.FC<Props> = ({
   onNextStep,
   onPrevStep,
   onClose,
-  onSubmit
+  onSubmit,
+  submitLabel,
+  disabled
 }) => {
   const router = useRouter()
 
@@ -37,26 +46,45 @@ const NewListingLayout: React.FC<Props> = ({
     <NewListingSelect options={options} onChange={onChange} selectedOption={selectedOption} />
   )
 
+  const { isAuthenticated, activeCompany, isLoading } = useProfile()
+
+  useEffect(() => {
+    if (!isLoading) {
+      if (isAuthenticated !== false) {
+        if (!!activeCompany && router?.pathname.includes('profile')) {
+          router.push(`/dashboard/dashboard`)
+        } else if (activeCompany === null && router?.pathname.includes('dashboard')) {
+          router.push('/profile/orders')
+        }
+      } else if (isAuthenticated === false) {
+        if (router?.pathname.includes('profile') || router?.pathname.includes('dashboard')) {
+          router.push('/')
+        }
+      }
+    }
+  }, [!!activeCompany, isAuthenticated])
+
+  if (isLoading) {
+    return <p>Loading...</p>
+  }
+
   return (
     <MaxWidthContainer>
-      <NewListingHeaderContainer style={{ position: 'sticky', maxWidth: "1470px" }}>
-        <div className='flex justify-between items-center py-3 px-2 relative'>
-          <Image src='/images/logo-rent.svg' alt='' onClick={onClickLogo} height={40} width={131} />
+      <HeaderWrapper fullWidth>
+        <InnerContainer>
+          <Image src='/images/logo-rent.svg' alt='' onClick={onClickLogo} className='w-24 md:w-32 cursor-pointer' />
           {width > 781 && renderNewListingSelect()}
-          <Image src='/icons/close.svg' alt='' onClick={onClose} height={40} width={40} />
-        </div>
+          <Icon svgPath='close' onClick={onClose} height={40} width={40} className='cursor-pointer' />
+        </InnerContainer>
         <ProgressBar color='green-100' progress={selectedOption.step / options.length} className='md:mt-2' />
-      </NewListingHeaderContainer>
+      </HeaderWrapper>
       {width < 780 && (
-        <div className='w-full flex justify-center top-20 bg-white z-[111]' style={{ position: 'sticky' }}>
+        <div className='w-full flex justify-center top-20 bg-white z-[11]' style={{ position: 'sticky' }}>
           {renderNewListingSelect()}
         </div>
       )}
 
-      <div
-        className='max-w-[850px] pb-32 m-auto px-4 lg:w-10/12 lg:p-5 lg:px-0 2xl:p-0'
-        style={{ maxWidth: '850px' }}
-      >
+      <div className='max-w-[850px] pb-32 m-auto px-4 lg:w-10/12 lg:p-5 lg:px-0 2xl:p-0' style={{ maxWidth: '850px' }}>
         <div className='mt-20 pb-20 h-full'>{children}</div>
       </div>
       <div className='fixed w-full bottom-0 bg-white py-5 border border-t-raisin-10 z-10'>
@@ -68,9 +96,10 @@ const NewListingLayout: React.FC<Props> = ({
           <DefaultButton
             bg='bg-green-100'
             type={selectedOption.step === options.length ? 'submit' : 'button'}
-            text='შემდეგი'
+            text={selectedOption.step === options.length ? submitLabel : 'შემდეგი'}
             textColor='text-white'
             onClick={selectedOption.step === options.length ? onSubmit : onNextStep}
+            disabled={selectedOption.step === options.length && disabled}
           ></DefaultButton>
         </div>
       </div>

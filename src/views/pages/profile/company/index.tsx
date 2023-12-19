@@ -1,78 +1,215 @@
-import Image from 'next/image'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import Link from 'next/link'
 import { useState } from 'react'
-import { useForm } from 'react-hook-form'
 import { DefaultButton, IconTextButton } from 'src/views/components/button'
 import Divider from 'src/views/components/divider'
 import { DefaultInput } from 'src/views/components/input'
 import Typography from 'src/views/components/typography'
 import AddressAndSchedule from './addressAndSchedule'
+import DeleteAddressConfirmationModal from '../../../components/deleteAddressConfirmationModal'
+import DeleteCompanyConfirmationModal from '../../../components/deleteCompanyConfirmationModal'
+import useCompany from './useCompany'
+import { useRouter } from 'next/router'
+import Image from 'src/views/components/image'
 
-const Company = () => {
-  const [scheduleComponents, setScheduleComponents] = useState<any>([<AddressAndSchedule key={Math.random()} />])
+interface Props {
+  id: number
+  name: string
+  productsCount: number
+  logo: string
+}
 
-  const addComponent = () => {
-    setScheduleComponents([...scheduleComponents, <AddressAndSchedule key={Math.random()} />])
+const Company: React.FC<Props> = ({ id, name, productsCount, logo }) => {
+  const [deleteAddresseModal, setDeleteAddressModal] = useState(false)
+  const [deleteCompanyeModal, setDeleteCompanyModal] = useState(false)
+  const [deleteAddressId, setDeleteAddressId] = useState<number | null>(null)
+  const [index, setIndex] = useState<number>()
+  const {
+    control,
+    errors,
+    addressFields,
+    appendAddress,
+    defaultEmptyAddress,
+    companyValues,
+    remove,
+    handleSubmit,
+    updateCompanyInfo,
+    deleteCompany,
+    deleteCompanyAddress
+  } = useCompany(id)
+
+  const toggleDeleteAddressModal = () => setDeleteAddressModal(!deleteAddresseModal)
+
+  const toggleDeleteCompanyModal = () => setDeleteCompanyModal(!deleteCompanyeModal)
+
+  const queryClient = useQueryClient()
+
+  const router = useRouter()
+
+  const updateCompanyMutation = useMutation(() => updateCompanyInfo(companyValues), {
+    onSuccess: () => {
+      queryClient.invalidateQueries(['companyInfo'])
+    }
+  })
+
+  const deleteCompanyMutation = useMutation(() => deleteCompany(), {
+    onSuccess: () => {
+      queryClient.invalidateQueries(['profileInfo'])
+    }
+  })
+
+  const deleteCompanyAddressMutation = useMutation((id: number) => deleteCompanyAddress(id), {
+    onSuccess: () => {
+      queryClient.invalidateQueries(['companyInfo'])
+      remove(index)
+    }
+  })
+
+  const onSubmit = () => {
+    console.log(companyValues, 'companyValues')
+    updateCompanyMutation.mutate(companyValues)
   }
 
-  const { control } = useForm()
+  const deletCompany = () => {
+    deleteCompanyMutation.mutate()
+    router.push('/profile/orders')
+  }
+
+  const deletCompanyAddress = () => {
+    deleteAddressId && deleteCompanyAddressMutation.mutate(deleteAddressId)
+  }
 
   return (
-    <div>
-      <div className='p-2 md:p-6'>
-        <div className='flex items-center gap-6'>
-          <Image src='/images/avatar.png' alt='' height={96} width={97} className='rounded-3xl' />
-          <div>
-            <Typography type='h3' className='font-bold'>
-              ბენე პლიუსი
-            </Typography>
-            <Link href='/' className='text-blue-100 underline'>
-              სულ 16  განცხადება
-            </Link>
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <div className='md:border border-raisin-10 rounded-3xl mx-4 lg:mx-0'>
+        <div className='p-2 md:p-6'>
+          <div className='flex items-center gap-6 md:mb-10'>
+            <div className='flex items-center justify-center border border-raisin-10 relative overflow-hidden rounded-2xl md:rounded-3xl w-[76px] h-[76px] md:w-24 md:h-24'>
+              <Image src={logo || ''} alt='' height={'100%'} width={'100%'} className='object-cover w-full h-full' />
+            </div>
+            <div>
+              <Typography type='h3' className='font-bold text-3md md:text-2lg'>
+                {name}
+              </Typography>
+              <Link href='/' className='text-blue-80 text-2sm underline'>
+                სულ {productsCount}  განცხადება
+              </Link>
+            </div>
+          </div>
+          <Divider className='hidden md:flex' />
+          <div className='grid grid-cols-2 gap-4 my-10'>
+            <DefaultInput
+              name='identification_number'
+              control={control}
+              errors={errors}
+              label='საიდენტიფიკაციო კოდი'
+              className='col-span-2 sm:col-span-1'
+            />
+            <DefaultInput
+              name='company_information.name'
+              control={control}
+              errors={errors}
+              disabled
+              label='იურიდიული დასახელება'
+              className='col-span-2 sm:col-span-1'
+            />
+            <DefaultInput
+              name='company_information.name'
+              control={control}
+              errors={errors}
+              label='დასახელება'
+              className='col-span-2'
+            />
+            <DefaultInput
+              name='company_information.description'
+              errors={errors}
+              control={control}
+              className='col-span-2'
+              rows={4}
+              label='აღწერა'
+            />
+          </div>
+          <Typography type='h3' className='font-bold text-3md md:text-2lg'>
+            მისამართები და განრიგი
+          </Typography>
+
+          {addressFields.map((address: any, index: number) => (
+            <div key={address.id}>
+              <AddressAndSchedule index={index} control={control} address={address} errors={errors} />
+              <div className='w-full flex justify-end pr-8'>
+                <IconTextButton
+                  icon='clear'
+                  label='წაშლა'
+                  width={24}
+                  height={24}
+                  onClick={() => {
+                    setIndex(index)
+                    toggleDeleteAddressModal()
+                    setDeleteAddressId(address.dummyAddressId)
+                  }}
+                />
+              </div>
+            </div>
+          ))}
+
+          <IconTextButton
+            label='მისამართის დამატება'
+            icon='add'
+            width={20}
+            height={20}
+            className='ml-4'
+            onClick={() => {
+              appendAddress(defaultEmptyAddress)
+            }}
+            type='button'
+          />
+
+          <Typography type='h3' className='font-bold mt-24 text-3md md:text-2lg'>
+            საკონტაქტო
+          </Typography>
+          <div className='grid grid-cols-2 gap-4 my-5'>
+            <DefaultInput
+              name='company_information.email'
+              control={control}
+              errors={errors}
+              label='ელ. ფოსტა'
+              className='col-span-2 md:col-span-1'
+            />
+            <DefaultInput
+              name='company_information.phone_numbers'
+              control={control}
+              errors={errors}
+              label='ტელეფონის ნომერი'
+              className='col-span-2 md:col-span-1'
+            />
           </div>
         </div>
         <Divider />
-        <div className='grid grid-cols-2 gap-4 my-5'>
-          <DefaultInput name='' control={control} errors={''} label='საიდენტიფიკაციო კოდი' value='402461423' />
-          <DefaultInput name='' control={control} errors={''} label='იურიდიული დასახელება' value='შპს ბენე პლიუსი' />
-          <DefaultInput
-            name=''
-            control={control}
-            errors={''}
-            label='დასახელება'
-            value='ბენე პლიუსი'
-            className='col-span-2'
+        <div className='flex justify-between items-center p-2 md:p-6'>
+          <DefaultButton text='შენახვა' bg='bg-orange-100' textColor='text-white' type='submit' />
+          <IconTextButton
+            label='კომპანიის წაშლა'
+            width={20}
+            height={21}
+            icon='trash'
+            className='text-orange-130'
+            onClick={toggleDeleteCompanyModal}
           />
-          <DefaultInput name='' errors={''} control={control} className='col-span-2' rows={4} label='აღწერა' />
-        </div>
-        <Typography type='h3' className='font-bold'>
-          მისამართები და განრიგი
-        </Typography>
-        {scheduleComponents}
-
-        <IconTextButton label='ახალი ფასდაკლების დამატება' icon='/icons/add.svg' onClick={addComponent} />
-
-        <Typography type='h3' className='font-bold'>
-          საკონტაქტო
-        </Typography>
-        <div className='grid grid-cols-2 gap-4 my-5'>
-          <DefaultInput name='' control={control} errors={''} label='ელ. ფოსტა' />
-          <DefaultInput name='' control={control} errors={''} label='ოფისი ნომერი' />
-          <DefaultInput name='' control={control} errors={''} label='ფაქსი' />
-          <DefaultInput name='' control={control} errors={''} label='მობილური' />
         </div>
       </div>
-      <Divider />
-      <div className='flex justify-between items-center p-2 md:p-6'>
-        <DefaultButton text='შენახვა' bg='bg-orange-100' textColor='text-white' />
-        <IconTextButton
-          label='კომპანიის წაშლა'
-          icon='/icons/trash.svg'
-          onClick={addComponent}
-          className='text-orange-130'
-        />
-      </div>
-    </div>
+      <DeleteAddressConfirmationModal
+        open={deleteAddresseModal}
+        toggleModal={toggleDeleteAddressModal}
+        addressId={deleteAddressId}
+        deleteAddress={deletCompanyAddress}
+      />
+      <DeleteCompanyConfirmationModal
+        open={deleteCompanyeModal}
+        toggleModal={toggleDeleteCompanyModal}
+        companyId={id}
+        deleteCompany={deletCompany}
+      />
+    </form>
   )
 }
 

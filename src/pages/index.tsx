@@ -1,116 +1,31 @@
-// ** Interfaces
-import { useEffect } from 'react'
+import { dehydrate } from '@tanstack/react-query'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import useFilters from 'src/hooks/useFilters'
 import { TailwindDiv } from 'src/interfaces/tailwind'
 import DefaultLayout from 'src/layouts/DefaultLayout'
 import { LargeContainer, ContentContainer, ResponsiveContainer } from 'src/styled/styles'
 import Carousel from 'src/views/components/carousel'
-import CategoryCard from 'src/views/components/categoryCard'
+import CategoryItem from 'src/views/components/categoryItem'
 import Divider from 'src/views/components/divider'
 import ProductCard from 'src/views/components/productCard'
 import Typography from 'src/views/components/typography'
-import ActionCard from 'src/views/pages/main/actionCard'
 import Cities from 'src/views/pages/main/cities'
 import Hero from 'src/views/pages/main/hero'
-import Cookie from 'src/helpers/Cookie'
+import useMain from 'src/views/pages/main/useMain'
 
 // ** Tailwind Styled
 import tw from 'tailwind-styled-components'
-import { useDispatch } from 'react-redux'
-import { fetchCompaniesData } from 'src/store/apps/companies'
+import { queryClient } from './_app'
 
 // ** Styled Components
 const MainPageBox = tw.div<TailwindDiv>`flex w-full items-center flex-col`
-const ActionCardsWrapper = tw.div<TailwindDiv>`flex gap-6 flex-col -mt-16 sm:flex-row sm:mt-16`
-
-const productArray = [
-  <ProductCard key={1} />,
-  <ProductCard key={2} />,
-  <ProductCard key={3} />,
-  <ProductCard key={4} />,
-  <ProductCard key={5} />,
-  <ProductCard key={6} />,
-  <ProductCard key={7} />,
-  <ProductCard key={8} />,
-  <ProductCard key={9} />,
-  <ProductCard key={10} />
-]
-
-const categoryArray = [
-  {
-    id: 1,
-    type: 'ეკონომიური',
-    available: 231
-  },
-  {
-    id: 2,
-    type: 'ეკონომიური',
-    available: 231
-  },
-  {
-    id: 3,
-    type: 'ეკონომიური',
-    available: 231
-  },
-  {
-    id: 4,
-    type: 'ეკონომიური',
-    available: 231
-  },
-  {
-    id: 5,
-    type: 'ეკონომიური',
-    available: 231
-  },
-  {
-    id: 6,
-    type: 'ეკონომიური',
-    available: 231
-  },
-  {
-    id: 7,
-    type: 'ეკონომიური',
-    available: 231
-  },
-  {
-    id: 8,
-    type: 'ეკონომიური',
-    available: 231
-  },
-  {
-    id: 8,
-    type: 'ეკონომიური',
-    available: 231
-  },
-  {
-    id: 8,
-    type: 'ეკონომიური',
-    available: 231
-  },
-  {
-    id: 8,
-    type: 'ეკონომიური',
-    available: 231
-  },
-  {
-    id: 8,
-    type: 'ეკონომიური',
-    available: 231
-  }
-]
-
-const categories = categoryArray.map((item, key) => <CategoryCard category={item.type} key={key} />)
 
 const MainPage = () => {
-  // await dispatch(({ AccessToken: Cookie.get('AccessToken') }))
+  const { latestProducts, popularProducts, lastSeenProducts } = useMain()
 
-  const dispatch = useDispatch()
+  console.log(lastSeenProducts, 'lastSeenProducts')
 
-  console.log({ AccessToken: Cookie.get('AccessToken') }, 'accesstoken')
-
-  useEffect(() => {
-    // @ts-ignore
-    dispatch(fetchCompaniesData({ AccessToken: Cookie.get('AccessToken') }))
-  }, [dispatch])
+  const { categoriesFilter } = useFilters()
 
   return (
     <DefaultLayout>
@@ -118,66 +33,132 @@ const MainPage = () => {
         <LargeContainer>
           <Hero />
         </LargeContainer>
+
         <ContentContainer>
-          <Typography type='h3' className='mt-12'>
+          <Typography type='h3' className='text-3md md:text-2lg mt-12'>
             მოძებნე კატეგორიების მიხედვით
           </Typography>
           <Typography type='subtitle' color='light' className='mb-12'>
             იპოვეთ თქვენთვის სასურველი ავტომობილი კონკრეტული საჭიროებისთვის ერთ სივრცეში
           </Typography>
         </ContentContainer>
-        <LargeContainer>
-          <Carousel itemsArray={categories} type='categories' />
-        </LargeContainer>
+        <ContentContainer className='px-0 md:px-5 lg:px-8 mb-12'>
+          <Carousel
+            itemsArray={categoriesFilter
+              ?.filter((product: any) => product?.count_products > 0)
+              ?.map((product: any) => (
+                <CategoryItem
+                  svgPath={product?.icon}
+                  title={product?.title}
+                  count={product?.count_products}
+                  id={product?.id}
+                  key={product?.id}
+                />
+              ))}
+            type='categories'
+          />
+        </ContentContainer>
         <LargeContainer>
           <Divider />
         </LargeContainer>
         <ContentContainer>
-          <Typography type='h3' className='mt-12'>
-            ბოლოს ნანახი
+          <Typography type='h3' className='text-3md md:text-2lg mt-12'>
+            ბოლოს დამატებული
           </Typography>
           <Typography type='subtitle' color='light' className='mb-12'>
             ცნობილი ფაქტია, რომ გვერდის წაკითხვად შიგთავსს შეუძლია მკითხველის ყურადღება მიიზიდოს
           </Typography>
         </ContentContainer>
-        <LargeContainer>
-          <Carousel itemsArray={productArray} type='products' />
-        </LargeContainer>
+        <ContentContainer className='px-0 md:px-5 lg:px-8'>
+          <Carousel
+            itemsArray={latestProducts?.map((product: any) => (
+              <ProductCard
+                key={product?.id}
+                swiperCard={true}
+                productId={product?.id}
+                manufacturer={product?.manufacturer?.title}
+                model={product?.manufacturer_model?.title}
+                prodYear={product?.prod_year}
+                priceGel={product?.price_gel}
+                luggageNumbers={product?.luggage_numbers}
+                seats={product?.seat_type?.title}
+                images={product?.images?.split(',')}
+              />
+            ))}
+            type='products'
+          />
+        </ContentContainer>
         <ContentContainer>
-          <Typography type='h3' className='mt-12'>
+          <Typography type='h3' className='text-3md md:text-2lg mt-12'>
             პოპულარული მანქანები
           </Typography>
           <Typography type='subtitle' color='light' className='mb-12'>
             ცნობილი ფაქტია, რომ გვერდის წაკითხვად შიგთავსს შეუძლია მკითხველის ყურადღება მიიზიდოს
           </Typography>
         </ContentContainer>
-        <LargeContainer>
-          <Carousel itemsArray={productArray} type='products' />
-        </LargeContainer>
-        <ResponsiveContainer className='mt-20'>
+        <ContentContainer className='px-0 md:px-5 lg:px-8'>
+          <Carousel
+            itemsArray={popularProducts?.map((product: any) => (
+              <ProductCard
+                key={product?.id}
+                swiperCard={true}
+                productId={product?.id}
+                manufacturer={product?.manufacturer?.title}
+                model={product?.manufacturer_model?.title}
+                prodYear={product?.prod_year}
+                priceGel={product?.price_gel}
+                luggageNumbers={product?.luggage_numbers}
+                seats={product?.seat_type?.title}
+                images={product?.images?.split(',')}
+              />
+            ))}
+            type='products'
+          />
+        </ContentContainer>
+        <ContentContainer>
+          <Typography type='h3' className='text-3md md:text-2lg mt-12'>
+            ბოლოს ნანახი
+          </Typography>
+          <Typography type='subtitle' color='light' className='mb-12'>
+            ცნობილი ფაქტია, რომ გვერდის წაკითხვად შიგთავსს შეუძლია მკითხველის ყურადღება მიიზიდოს
+          </Typography>
+        </ContentContainer>
+        <ContentContainer className='px-0 md:px-5 lg:px-8'>
+          <Carousel
+            itemsArray={lastSeenProducts?.map((product: any) => (
+                  <ProductCard
+                      key={product?.product?.id}
+                      swiperCard={true}
+                      productId={product?.product?.id}
+                      manufacturer={product?.product?.manufacturer?.title}
+                      model={product?.product?.manufacturer_model?.title}
+                      prodYear={product?.product?.prod_year}
+                      priceGel={product?.product?.price_gel}
+                      luggageNumbers={product?.product?.luggage_numbers}
+                      seats={product?.product?.seat_type?.title}
+                      images={product?.product?.images?.split(',')}
+                  />
+            ))}
+            type='products'
+          />
+        </ContentContainer>
+        <ResponsiveContainer className='mt-16 md:mt-20'>
           <Cities />
         </ResponsiveContainer>
-        <ContentContainer className='z-10'>
-          <ActionCardsWrapper>
-            <ActionCard
-              title='იქირავე'
-              body='ცნობილი ფაქტია, რომ გვერდის წაკითხვად შიგთავსს შეუძლია მკითხველის ყურადღება მიიზიდოს'
-              actioBtnLabel='მოძებნე'
-              actonBtnClick={() => console.log('click')}
-              image='/images/rent.png'
-            />
-            <ActionCard
-              title='გააქირავე'
-              body='ცნობილი ფაქტია, რომ გვერდის წაკითხვად შიგთავსს შეუძლია მკითხველის ყურადღება მიიზიდოს'
-              actioBtnLabel='დაამატე'
-              actonBtnClick={() => console.log('click')}
-              image='/images/rent2.png'
-            />
-          </ActionCardsWrapper>
-        </ContentContainer>
       </MainPageBox>
     </DefaultLayout>
   )
 }
 
 export default MainPage
+
+export async function getStaticProps({ locale }: { locale: string }) {
+  const [translations] = await Promise.all([serverSideTranslations(locale)])
+
+  return {
+    props: {
+      dehydratedState: dehydrate(queryClient),
+      ...translations
+    }
+  }
+}

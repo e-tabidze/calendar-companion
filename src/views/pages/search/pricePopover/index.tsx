@@ -1,23 +1,65 @@
 import { DefaultInput } from 'src/views/components/input'
 import PopoverDropdown from 'src/views/components/popoverDropdown'
-import { DefaultButton, IconButton } from 'src/views/components/button'
+import {DefaultButton, IconTextButton} from 'src/views/components/button'
 import { ActionsWrapper, Divider, TagsWrapper } from './styles'
-import { useForm } from 'react-hook-form'
+import { useRouter } from 'next/router'
 
-const PricePopover = () => {
-  const { control } = useForm()
+interface Props {
+  control: any
+  handleSubmit: () => void
+  reset: any
+}
+
+const PricePopover: React.FC<Props> = ({ control, handleSubmit, reset }) => {
+  const router = useRouter()
+
+  const { price_min, price_max } = router.query
 
   return (
-    <PopoverDropdown label='ფასი' maxWidth='max-w-md'>
+    <PopoverDropdown
+      label='ფასი'
+      maxWidth='max-w-md'
+      className={price_min || price_max ? 'border border-raisin-100' : ''}
+    >
       <TagsWrapper>
-        <DefaultInput label={'მინიმუმ ფასი დღიურად'} name='' control={control} />
+        <DefaultInput
+          label={'მინიმუმ ფასი დღიურად'}
+          name='price_min'
+          control={control}
+          className='w-52'
+          type='number'
+        />
         <Divider />
-        <DefaultInput label={'მინიმუმ ფასი დღიურად'} name='' control={control} />
+        <DefaultInput
+          label={'მაქსიმუმ ფასი დღიურად'}
+          name='price_max'
+          control={control}
+          className='w-52'
+          type='number'
+        />
       </TagsWrapper>
-
       <ActionsWrapper>
-        <IconButton icon='/icons/rotate.svg' text='გასუფთავება' hasBg={false} width={16} height={16} />
-        <DefaultButton text='შენახვა' bg='bg-orange-100' textColor='text-white' />
+        <IconTextButton
+          icon='rotate'
+          label='გასუფთავება'
+          className='fill-transparent'
+          width={20}
+          height={22}
+          onClick={() => {
+            reset('price_min')
+            reset('price_max')
+          }}
+        />
+        <DefaultButton
+          text='შენახვა'
+          bg='bg-orange-100'
+          textColor='text-white'
+          type='submit'
+          onClick={() => {
+            handleSubmit()
+            close()
+          }}
+        />
       </ActionsWrapper>
     </PopoverDropdown>
   )

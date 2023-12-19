@@ -1,16 +1,26 @@
-import Image from 'src/views/components/image'
+import Icon from 'src/views/app/Icon'
 import Typography from 'src/views/components/typography'
 
 interface Props {
   icon: string
   feature: string
+  description?: string
+  price?: string
 }
 
-const ProductFeature = ({ icon, feature }: Props) => {
+const ProductFeature: React.FC<Props> = ({ icon, feature, description, price }) => {
   return (
     <div className='flex items-center gap-4'>
-      <Image src={icon} alt='feature' className='w-5 h-5' />
-      <Typography type='subtitle'>{feature}</Typography>
+      <Icon svgPath={icon} width={24} height={24} />
+      <div className='flex justify-between w-full lg:w-1/2'>
+        <div>
+          <Typography type='subtitle'>{feature}</Typography>
+          <Typography type='body' color='light'>
+            {description}
+          </Typography>
+        </div>
+        <Typography type='subtitle'> {price} </Typography>
+      </div>
     </div>
   )
 }
