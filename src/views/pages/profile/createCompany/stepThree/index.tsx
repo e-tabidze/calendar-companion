@@ -6,7 +6,6 @@ interface Props {
 }
 
 const StepThree: React.FC<Props> = ({ control, errors }) => {
-  console.log(errors, 'errors')
   
   return (
     <div>

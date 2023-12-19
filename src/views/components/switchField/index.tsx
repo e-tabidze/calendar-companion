@@ -7,13 +7,14 @@ interface Props {
   description?: string
   name: string
   control: any
-  defaultValue: boolean
+  defaultValue?: any
+  onChangeCallback?: () => void
 }
-const SwitchField: React.FC<Props> = ({ label, className, description, control, name, defaultValue }) => {
+const SwitchField: React.FC<Props> = ({ label, className, description, control, name, defaultValue, onChangeCallback }) => {
   return (
     <div className={`flex justify-between items-center w-full ${className}`}>
       <div>
-        <Typography type='subtitle' color='dark'>
+        <Typography type='subtitle' color='dark' className="text-md">
           {label}
         </Typography>
         {description && (
@@ -22,7 +23,7 @@ const SwitchField: React.FC<Props> = ({ label, className, description, control, 
           </Typography>
         )}
       </div>
-      <Switcher height='h-8' name={name} control={control} defaultValue={defaultValue} />
+      <Switcher height='h-8' name={name} control={control} defaultValue={defaultValue} onChangeCallback={onChangeCallback}/>
     </div>
   )
 }

@@ -1,7 +1,8 @@
 import React from 'react'
-import Image from 'next/image'
 import { Controller } from 'react-hook-form'
 import Select, { ClearIndicatorProps, components, DropdownIndicatorProps, GroupBase } from 'react-select'
+import _ from 'lodash'
+import Icon from 'src/views/app/Icon'
 
 const customStyles = {
   indicatorSeparator: () => ({
@@ -15,21 +16,28 @@ const customStyles = {
     borderRadius: '8px',
     border: state.isFocused ? '1px solid #272A37' : '1px solid #E9EAEB',
     boxShadow: state.isFocused ? '1px solid #272A37' : '1px solid #E9EAEB',
-    transition: 'border 0.2s'
+    transition: 'border 0.2s',
+    cursor: 'pointer'
   }),
-  valueContainer: (provided: any, state: { hasValue: any }) => ({
-    ...provided,
-    marginTop: state.hasValue ? '10px' : '0px'
+  valueContainer: (provided: any) => ({
+    ...provided
   }),
   menu: (provided: any) => ({
     ...provided,
     maxHeight: '150px',
     overflow: 'auto'
-  })
+  }),
+  placeholder: (defaultStyles: any) => {
+    return {
+      ...defaultStyles,
+      fontSize: '14px',
+      color: '#93959B'
+    }
+  }
 }
+
 interface Option {
-  value: string
-  label: string
+  [key: string]: any
 }
 
 interface Props {
@@ -40,7 +48,10 @@ interface Props {
   icon?: boolean
   control: any
   name: string
-  defaultValue?: string
+  valueKey: string
+  labelKey: string
+  errors?: any
+  isMulti?: boolean
 }
 
 const Control = ({ children, ...props }: any) => {
@@ -55,7 +66,19 @@ const Control = ({ children, ...props }: any) => {
   )
 }
 
-const SelectField: React.FC<Props> = ({ options, disabled = false, className, icon, control, name, defaultValue }) => {
+const SelectField: React.FC<Props> = ({
+  options,
+  disabled = false,
+  className,
+  icon,
+  control,
+  name,
+  valueKey,
+  labelKey,
+  placeholder,
+  errors,
+  isMulti
+}) => {
   const { DropdownIndicator, ClearIndicator } = components
 
   const customDropdownIndicator = (
@@ -83,33 +106,52 @@ const SelectField: React.FC<Props> = ({ options, disabled = false, className, ic
       <Controller
         name={name}
         control={control}
-        defaultValue={defaultValue}
         render={({ field: { onChange, value } }) => (
-          <Select
-            styles={customStyles}
-            options={options}
-            value={options.find(opt => opt.value === value || '')}
-            onChange={(e: any) => {
-              onChange(e?.value || '')
-            }}
-            components={{
-              DropdownIndicator: customDropdownIndicator,
-              ClearIndicator: customClearIndicator,
-              Control
-            }}
-            isClearable
-            placeholder={''}
-            isDisabled={disabled}
-            
-            // @ts-ignore
-            emoji={
-              icon && (
-                <div className='ml-4'>
-                  <Image src='/icons/clock.svg' alt='' height={18} width={18} />
-                </div>
-              )
-            }
-          />
+          <>
+            <Select
+              styles={customStyles}
+              options={options}
+              value={
+                isMulti
+                  ? options?.filter(opt => (valueKey ? value?.includes(opt[valueKey]) : value.includes(opt.value)))
+                  : options?.find(opt => (valueKey ? opt[valueKey] === value : opt.value === value))
+              }
+              onChange={(e: any) => {
+                const selectedValues = isMulti
+                  ? e.map((opt: any) => (valueKey ? opt[valueKey] : opt.value))
+                  : valueKey
+                  ? e?.[valueKey] || []
+                  : e?.value || []
+
+                onChange(selectedValues)
+              }}
+              isMulti={isMulti}
+              getOptionLabel={option => labelKey && option[labelKey]}
+              getOptionValue={option => valueKey && option[valueKey]}
+              components={{
+                DropdownIndicator: customDropdownIndicator,
+                ClearIndicator: customClearIndicator,
+                Control
+              }}
+              isClearable
+              placeholder={placeholder}
+              isDisabled={disabled}
+              
+              // @ts-ignore
+              emoji={
+                icon && (
+                  <div className='ml-4'>
+                    <Icon svgPath='clock' width={18} height={18} />
+                  </div>
+                )
+              }
+            />
+            {errors && (
+              <div id={name} className='text-sm text-red-100 ml-2 absolute -bottom-4'>
+                {_.get(errors, name)?.message}
+              </div>
+            )}
+          </>
         )}
       />
     </div>

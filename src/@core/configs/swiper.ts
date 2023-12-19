@@ -1,92 +1,114 @@
 // ** Swiper Breakpoints
 export const ProductCardSlider = {
   320: {
-    slidesPerView: 1,
+    slidesPerView: 1.3,
     slidesPerGroup: 1,
-    spaceBetween: 0,
+    spaceBetween: 16,
+    slidesOffsetBefore: 16,
+    slidesOffsetAfter: 16
+  },
+  560: {
+    slidesPerView: 2.3,
+    slidesPerGroup: 1,
+    spaceBetween: 16,
+    slidesOffsetBefore: 16,
+    slidesOffsetAfter: 16
+  },
+  768: {
+    slidesPerView: 3,
+    slidesPerGroup: 1,
+    spaceBetween: 16,
     slidesOffsetBefore: 0,
     slidesOffsetAfter: 0
   },
-  530: {
-    slidesPerView: "auto",
-    slidesPerGroup: 1,
-    spaceBetween: 15,
-    slidesOffsetBefore: 10,
-    slidesOffsetAfter: 50
-  },
-  768: {
-    slidesPerView: "auto",
-    slidesPerGroup: 1,
-    spaceBetween: 20,
-    slidesOffsetBefore: 10,
-    slidesOffsetAfter: 70
-  },
   1024: {
-    slidesPerView: "auto",
+    slidesPerView: 3,
     slidesPerGroup: 1,
-    spaceBetween: 20,
-    slidesOffsetBefore: 80,
-    slidesOffsetAfter: 80
-  },
-  1280: {
-    slidesPerView: "auto",
-    slidesPerGroup: 1,
-    spaceBetween: 20,
-    slidesOffsetBefore: 120,
-    slidesOffsetAfter: 100
+    spaceBetween: 24,
+    slidesOffsetBefore: 0,
+    slidesOffsetAfter: 0
   }
 }
 
 export const CategoryCardSlider = {
   320: {
-    slidesPerView: 1,
+    slidesPerView: 2.5,
     slidesPerGroup: 1,
-    spaceBetween: 40,
+    spaceBetween: 8,
+    slidesOffsetBefore: 16,
+    slidesOffsetAfter: 16
+  },
+  480: {
+    slidesPerView: 3,
+    slidesPerGroup: 1,
+    spaceBetween: 8,
+    slidesOffsetBefore: 16,
+    slidesOffsetAfter: 16
+  },
+  640: {
+    slidesPerView: 4,
+    slidesPerGroup: 1,
+    spaceBetween: 8,
+    slidesOffsetBefore: 16,
+    slidesOffsetAfter: 16
+  },
+  768: {
+    slidesPerView: 4,
+    slidesPerGroup: 1,
+    spaceBetween: 8,
     slidesOffsetBefore: 0,
     slidesOffsetAfter: 0
   },
-  640: {
-    slidesPerView: "auto",
-    slidesPerGroup: 1,
-    spaceBetween: 15
-  },
-  768: {
-    slidesPerView: "auto",
-    slidesPerGroup: 1,
-    spaceBetween: 20
-  },
   1024: {
-    slidesPerView: "auto",
+    slidesPerView: 5,
     slidesPerGroup: 1,
-    spaceBetween: 30,
-    slidesOffsetBefore: 50
+    spaceBetween: 8,
+    slidesOffsetBefore: 0,
+    slidesOffsetAfter: 0
   },
   1280: {
-    slidesPerView: "auto",
+    slidesPerView: 6,
     slidesPerGroup: 1,
-    spaceBetween: 80,
-    slidesOffsetBefore: 80,
-    slidesOffsetAfter: 70
+    spaceBetween: 8,
+    slidesOffsetBefore: 0,
+    slidesOffsetAfter: 0
   }
 }
 
 export const ProductDetailsSlider = {
   320: {
-    slidesPerView: "auto"
+    slidesPerView: 1.1,
+    slidesPerGroup: 1,
+    spaceBetween: 12
+
   },
-  640: {
-    slidesPerView: "auto"
-  },
+
   768: {
-    slidesPerView: "auto",
-    spaceBetween: 10
+    slidesPerView: 3,
+    slidesPerGroup: 1,
+    spaceBetween: 12
+  }
+}
+
+
+export const CardSlider = {
+  320: {
+    slidesPerView: 1,
+    slidesPerGroup: 1,
+    spaceBetween: 12
+
   },
-  1024: {
-    slidesPerView: "auto",
-    slidesPerGroup: 1
-  },
-  1280: {
-    slidesPerView: "auto",
+
+  768: {
+    slidesPerView: 1,
+    slidesPerGroup: 1,
+    spaceBetween: 12
+  }
+}
+
+export const GallerySlider = {
+  320: {
+    slidesPerView: 1,
     slidesPerGroup: 1
   }
 }

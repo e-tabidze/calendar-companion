@@ -5,13 +5,32 @@ import { API_URL, ACCESS_TOKEN_NAME, TOKEN_TIME_MINUTES, TOKEN_EXPIRE_TIME_NAME 
 
 import axios from 'axios'
 
+const apiUrl = API_URL
 class HttpService {
-  post(endpoint: any, data = {}, headers: any = null, serverReq = null, responseType = 'json') {
+  post(endpoint: any, data: any = {}, headers: any = null, serverReq = null, responseType = 'json') {
     let dataMerged = {
       ...data
     }
+
     if (typeof FormData !== 'undefined' && data instanceof FormData) {
       dataMerged = data
+    }
+    if (data?.File || data?.Func) {
+      const formData = new FormData()
+      Object.entries(dataMerged).forEach(([key, value]) => {
+        if (typeof value == 'object') {
+
+          // @ts-ignore
+          for (const val of value) {
+            formData.append(key, val)
+          }
+        } else {
+
+          // @ts-ignore
+          formData.append(key, value)
+        }
+      })
+      dataMerged = formData
     }
 
     return new Promise(async (resolve, reject) => {
@@ -128,7 +147,7 @@ class HttpService {
     return Cookie.get(ACCESS_TOKEN_NAME, req)
   }
 
-  request(headers = {}, serverReq = null, responseType:any = 'json') {
+  request(headers = {}, serverReq = null, responseType: any = 'json') {
     if (!headers || (headers && !headers.hasOwnProperty('Authorization'))) {
       headers = {
         ...headers,
@@ -137,7 +156,7 @@ class HttpService {
     }
 
     return axios.create({
-      baseURL: API_URL,
+      baseURL: apiUrl,
       responseType: responseType,
       headers
     })

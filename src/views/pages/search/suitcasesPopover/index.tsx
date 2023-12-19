@@ -1,71 +1,56 @@
-import { useState } from 'react'
-import { IconButton } from 'src/views/components/button'
+import { useWatch } from 'react-hook-form'
+import useFilters from 'src/hooks/useFilters'
+import {DefaultButton, IconTextButton} from 'src/views/components/button'
 import PopoverDropdown from 'src/views/components/popoverDropdown'
 import Tag from 'src/views/components/tag'
 
-const suitcases = [
-  {
-    id: 1,
-    label: 'ნებისმიერი'
-  },
-  {
-    id: 2,
-    label: '1'
-  },
-  {
-    id: 3,
-    label: '2'
-  },
-  {
-    id: 4,
-    label: '3'
-  },
-  {
-    id: 5,
-    label: '4'
-  },
-  {
-    id: 6,
-    label: '5'
-  },
-  {
-    id: 7,
-    label: '6'
-  },
-  {
-    id: 8,
-    label: '7'
-  },
-  {
-    id: 9,
-    label: '8+'
-  }
-]
-const SuitcasesPopover = () => {
-  const [selectedSuitcases, setSelectedSuitcases] = useState<any[]>([1])
+interface Props {
+  control: any
+  appendLuggageNumber: (data: any) => void
+  handleSubmit: () => void
+  reset: any
+}
 
-  const handleSelectedSuitcases = (id: number) => {
-    if (selectedSuitcases.includes(id)) {
-      setSelectedSuitcases(selectedSuitcases.filter(type => type !== id))
-    } else {
-      setSelectedSuitcases(prevState => [...prevState, id])
-    }
-  }
+const SuitcasesPopover: React.FC<Props> = ({ control, appendLuggageNumber, handleSubmit, reset }) => {
+  const { luggageNumbers } = useFilters()
+
+  const formState = useWatch({ control })
 
   return (
-    <PopoverDropdown label='ჩემოდნების რაოდენობა' maxWidth='max-w-xs'>
+    <PopoverDropdown
+      label='ჩემოდნების რაოდენობა'
+      maxWidth='max-w-xs'
+      className={`${formState.luggage_numbers.length > 0 ? 'border border-raisin-100' : ''}`}
+    >
       <div className='flex flex-wrap gap-4 my-6'>
-        {suitcases.map(suitcase => (
-          <Tag
-            label={suitcase.label}
-            key={suitcase.id}
-            height='h-10'
-            handleClick={() => handleSelectedSuitcases(suitcase.id)}
-            selected={selectedSuitcases.includes(suitcase.id)}
-          />
-        ))}
+        <Tag
+          options={luggageNumbers}
+          height='h-10'
+          name='luggage_numbers'
+          control={control}
+          append={appendLuggageNumber}
+        />
       </div>
-      <IconButton icon='/icons/rotate.svg' text='გასუფთავება' width={16} height={16} />
+      <div className='flex items-center justify-between'>
+        <IconTextButton
+          icon='rotate'
+          label='გასუფთავება'
+          className='fill-transparent'
+          width={20}
+          height={22}
+          onClick={() => reset('luggage_numbers')}
+        />
+        <DefaultButton
+          text='შენახვა'
+          bg='bg-orange-100'
+          textColor='text-white'
+          type='submit'
+          onClick={() => {
+            handleSubmit()
+            close()
+          }}
+        />
+      </div>
     </PopoverDropdown>
   )
 }

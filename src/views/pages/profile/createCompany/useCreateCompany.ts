@@ -1,28 +1,26 @@
 import { useFieldArray, useForm, useWatch } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 
-import { useDispatch } from 'react-redux'
 import { CompanySchema } from 'src/@core/validation/companySchema'
-import { AppDispatch } from 'src/store'
-import { Company } from 'src/types/Company'
+import { Company, CompanyAddress, WorkingTime } from 'src/types/Company'
 import CompanyService from 'src/services/CompanyService'
+import MapService from 'src/services/MapService'
+import StaticService from 'src/services/StaticService'
 
 const useCreateCompany = () => {
-  const dispatch = useDispatch<AppDispatch>()
-
-  const defaultWorkDayWorkingTime = {
+  const defaultWorkDayWorkingTime: WorkingTime = {
     start_time: '09:00',
     end_time: '18:00',
     is_selected: true
   }
 
-  const defaultWeekendWorkingTime = {
+  const defaultWeekendWorkingTime: WorkingTime = {
     start_time: '',
     end_time: '',
     is_selected: false
   }
 
-  const defaultAddress = {
+  const defaultAddress: CompanyAddress = {
     address: '',
     phone: '',
     email: '',
@@ -31,7 +29,9 @@ const useCreateCompany = () => {
     postal_code: '',
     lat: '',
     long: '',
-    isSameTime: true,
+    is_same_time: true,
+    start_time: '09:00',
+    end_time: '18:00',
     working_hours: {
       monday: defaultWorkDayWorkingTime,
       tuesday: defaultWorkDayWorkingTime,
@@ -43,8 +43,8 @@ const useCreateCompany = () => {
     }
   }
 
-  const createCompanyDefaultValues = {
-    identification_number: null,
+  const createCompanyDefaultValues: Company = {
+    identification_number: 0,
     company_type_id: '1',
     company_information: {
       name: '',
@@ -59,11 +59,12 @@ const useCreateCompany = () => {
   const {
     control,
     handleSubmit,
-    formState: { errors, dirtyFields },
+    formState: { errors, dirtyFields, isValid },
     resetField,
     setError,
     clearErrors,
-    setValue
+    setValue,
+    trigger
   } = useForm({
     mode: 'onChange',
     reValidateMode: 'onChange',
@@ -73,14 +74,13 @@ const useCreateCompany = () => {
 
   const { fields: addressFields, append: appendAddress } = useFieldArray({
     control,
-    name: 'addresses'
+    name: 'addresses',
+    rules: { minLength: 1 }
   })
 
   const companyValues: any = useWatch({ control })
 
-  const createCompany = async (params: { AccessToken: any; company: Company }) => {
-    const { AccessToken, company } = params
-
+  const createCompany = async (AccessToken = '', company: Company) => {
     try {
       const response: any = await CompanyService.createCompany(AccessToken, company)
 
@@ -91,11 +91,43 @@ const useCreateCompany = () => {
     }
   }
 
+  const getLocationSuggestions = async (address: string) => {
+    try {
+      const response: any = await MapService.getLocationSuggestions(address)
+
+      return response.data
+    } catch (error) {
+      console.error('Error fetching location suggestions:', error)
+      throw error
+    }
+  }
+
+  const uploadCompanyLogo = async (File: any) => {
+    try {
+      const response: any = await StaticService.postUploadCompanyLogo('', File)
+
+      return response.data
+    } catch (error) {
+      console.error('Error fetching location suggestions:', error)
+      throw error
+    }
+  }
+
+  const saveCompanyLogo = async (AccessToken: string, Logo: any, companyId: number | string) => {
+    try {
+      const response: any = await StaticService.postSaveCompanyLogo(AccessToken, Logo, companyId)
+
+      return response.data
+    } catch (error) {
+      console.error('Error fetching location suggestions:', error)
+      throw error
+    }
+  }
+
   return {
     control,
     handleSubmit,
     errors,
-    dispatch,
     companyValues,
     dirtyFields,
     resetField,
@@ -105,7 +137,12 @@ const useCreateCompany = () => {
     addressFields,
     appendAddress,
     defaultAddress,
-    createCompany
+    createCompany,
+    getLocationSuggestions,
+    uploadCompanyLogo,
+    saveCompanyLogo,
+    isValid,
+    trigger
   }
 }
 

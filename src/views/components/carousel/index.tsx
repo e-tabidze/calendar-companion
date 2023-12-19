@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 
 // ** Swiper
 import { Swiper, SwiperSlide } from 'swiper/react'
@@ -8,135 +8,123 @@ import 'swiper/css'
 import 'swiper/css/pagination'
 import 'swiper/css/navigation'
 
-import { IconButton } from '../button'
-import useWindowDimensions from 'src/hooks/useWindowDimensions'
-import { CategoryCardSlider, ProductCardSlider, ProductDetailsSlider } from 'src/@core/configs/swiper'
+import {
+  CategoryCardSlider,
+  ProductCardSlider,
+  ProductDetailsSlider,
+  CardSlider,
+  GallerySlider
+} from 'src/@core/configs/swiper'
+
+// import Icon from 'src/views/app/Icon'
 
 interface Props {
   itemsArray: any[]
-  type: 'products' | 'categories' | 'productDetails'
+  type: 'products' | 'categories' | 'productDetails' | 'card' | 'gallery'
   loop?: boolean
   onClick?: () => void
-  singleSlide?: boolean
   thumbs?: boolean
   pagination?: boolean
 }
 
 SwiperCore.use([Navigation, Pagination, Virtual, Mousewheel, Keyboard, Thumbs, FreeMode, Controller])
 
-const Carousel = ({
-  itemsArray,
-  type,
-  loop = false,
-  onClick,
-  singleSlide = false,
-  thumbs = false,
-}: Props) => {
-  const { width } = useWindowDimensions()
+const Carousel = ({ itemsArray, type, onClick, thumbs = false }: Props) => {
   const [thumbsSwiper, setThumbsSwiper] = useState<any>()
-  const prevRef = useRef<HTMLImageElement>(null)
-  const nextRef = useRef<HTMLImageElement>(null)
+
+  // const prevRef = useRef<HTMLImageElement>(null)
+  // const nextRef = useRef<HTMLImageElement>(null)
   const swiperRef = useRef<any>(null)
 
   const handleBreakpoints = () => {
-    if (singleSlide === false) {
-      if (type === 'categories') return CategoryCardSlider
-      if (type === 'products') return ProductCardSlider
-      if (type === 'productDetails') return ProductDetailsSlider
-    }
+    if (type === 'categories') return CategoryCardSlider
+    if (type === 'products') return ProductCardSlider
+    if (type === 'productDetails') return ProductDetailsSlider
+    if (type === 'card') return CardSlider
+    if (type === 'gallery') return GallerySlider
   }
 
-  const slideRefs = useRef<Array<HTMLDivElement | null>>([])
-
-  useEffect(() => {
-    const options = {
-      root: null,
-      rootMargin: '0px',
-      threshold: type === 'productDetails' || 'products' ? 0.1 : 1
-    }
-
-    const handleIntersection = (entries: IntersectionObserverEntry[]) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          // @ts-ignore
-          entry.target.style.opacity = '1'
-        } else {
-          // @ts-ignore
-          entry.target.style.opacity = '0.3'
-        }
-      })
-    }
-
-    const observer = new IntersectionObserver(handleIntersection, options)
-
-    slideRefs.current.forEach(ref => {
-      if (ref) {
-        observer.observe(ref)
-      }
-    })
-
-    return () => {
-      observer.disconnect()
-    }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [itemsArray])
-
   return (
-    <>
+    <div className='relative'>
       <Swiper
-        className='w-full relative flex justify-between !overflow-visible'
+        className={`${type === 'card' ? 'arrows-sm' : 'arrows-lg'}`}
         watchSlidesProgress
         ref={swiperRef}
-
-        // @ts-ignore
         breakpoints={handleBreakpoints()}
+        modules={[Navigation, Pagination]}
+        navigation={true}
+        pagination={type === 'card'}
         
-        // breakpoints={{
-        //   320: {
-        //     slidesPerView: 'auto'
-        //   }
+        // navigation={{
+        //   prevEl: prevRef.current,
+        //   nextEl: nextRef.current
         // }}
-        navigation={{
-          prevEl: prevRef.current,
-          nextEl: nextRef.current
-        }}
+        // onSwiper={(swiper: any) => {
+        //   swiper.params.navigation.prevEl = prevRef.current
+        //   swiper.params.navigation.nextEl = nextRef.current
+        // }}
 
-        // onSwiper={swiper => handleSlideChange(swiper)}
-        onBeforeInit={(swiper: any) => {
-          swiper.params.navigation.prevEl = prevRef.current
-          swiper.params.navigation.nextEl = nextRef.current
-        }}
         mousewheel={{
           forceToAxis: true
         }}
         controller={{ control: [] }}
         keyboard={true}
-        centeredSlides={type === 'productDetails'}
-        loop={loop}
         thumbs={{ swiper: thumbsSwiper }}
       >
-        <div className='absolute inset-y-0 left-16 sm:left-2 flex items-center rotate-180 z-50' ref={prevRef}>
-          <IconButton
-            icon='/icons/chevronRight.svg'
-            width={width > 779 ? 14 : 12}
-            height={width > 779 ? 14 : 12}
-            bg='white'
-          />
-        </div>
-        {itemsArray.map((item, index) => (
-          <SwiperSlide key={index} className='!w-fit mx-2'>
-            <div ref={element => (slideRefs.current[index] = element)}>{item}</div>
+        {itemsArray?.map((item, index) => (
+          <SwiperSlide key={index} onClick={onClick}>
+            {item}
           </SwiperSlide>
         ))}
-        <div className='absolute inset-y-0 right-16 sm:right-2 flex items-center z-10' ref={nextRef}>
-          <IconButton
-            icon='/icons/chevronRight.svg'
-            width={width > 779 ? 14 : 12}
-            height={width > 779 ? 14 : 12}
-            bg='white'
-          />
-        </div>
       </Swiper>
+
+      {/*<div*/}
+      {/*  onClick={(e: any) => {*/}
+      {/*    e.stopPropagation()*/}
+      {/*    e.preventDefault()*/}
+      {/*  }}*/}
+      {/*  className={`*/}
+      {/*   ${*/}
+      {/*     type === 'categories' || type === 'products'*/}
+      {/*       ? 'w-[46px] h-[46px] lg:w-14 md:h-14 left-4 md:left-0 lg:left-[-28px]'*/}
+      {/*       : ''*/}
+      {/*   }*/}
+      {/*   */}
+      {/*  ${type === 'productDetails' ? 'w-[46px] h-[46px] lg:w-14 md:h-14 left-5' : ''}*/}
+      {/*  ${type === 'card' ? 'hidden md:flex w-6 h-6 left-4' : ''}*/}
+      {/*  cursor-pointer shadow-sm absolute inset-y-0 top-1/2 -translate-y-1/2 bg-white rounded-2xl flex items-center justify-center z-10`}*/}
+      {/*  ref={prevRef}*/}
+      {/*>*/}
+      {/*  {type === 'card' ? (*/}
+      {/*    <Icon svgPath='caret-l' width={7} height={9} className='fill-transparent' />*/}
+      {/*  ) : (*/}
+      {/*    <Icon svgPath='caret-left' width={26} height={26} className='fill-transparent' />*/}
+      {/*  )}*/}
+      {/*</div>*/}
+      {/*<div*/}
+      {/*  onClick={(e: any) => {*/}
+      {/*    e.stopPropagation()*/}
+      {/*    e.preventDefault()*/}
+      {/*  }}*/}
+      {/*  className={`*/}
+      {/*     ${*/}
+      {/*       type === 'categories' || type === 'products'*/}
+      {/*         ? 'w-[46px] h-[46px] lg:w-14 md:h-14 right-4 md:right-0 lg:right-[-28px]'*/}
+      {/*         : ''*/}
+      {/*     }*/}
+      {/*   */}
+      {/*  ${type === 'productDetails' ? 'w-[46px] h-[46px] lg:w-14 md:h-14 right-5' : ''}*/}
+      {/*  ${type === 'card' ? 'hidden md:flex w-6 h-6 right-4' : ''}*/}
+      {/*  cursor-pointer shadow-sm absolute inset-y-0 top-1/2 -translate-y-1/2  bg-white rounded-2xl flex items-center justify-center z-10`}*/}
+      {/*  ref={nextRef}*/}
+      {/*>*/}
+      {/*  {type === 'card' ? (*/}
+      {/*    <Icon svgPath='caret-r' width={7} height={9} className='fill-transparent' />*/}
+      {/*  ) : (*/}
+      {/*    <Icon svgPath='caret-right' width={26} height={26} className='fill-transparent' />*/}
+      {/*  )}*/}
+      {/*</div>*/}
+
       {thumbs && (
         <Swiper
           onSwiper={setThumbsSwiper}
@@ -146,16 +134,16 @@ const Carousel = ({
           freeMode={true}
           watchSlidesProgress={true}
           modules={[FreeMode, Navigation, Thumbs]}
-          className='mySwiper'
+          className='gallery-thumbs mt-6 md:!flex !hidden'
         >
           {itemsArray.map((item, index) => (
-            <SwiperSlide key={index} className='mt-12 snap-start' onClick={onClick}>
+            <SwiperSlide key={index} className={`${type === 'productDetails' && 'h-full'}`}>
               {item}
             </SwiperSlide>
           ))}
         </Swiper>
       )}
-    </>
+    </div>
   )
 }
 

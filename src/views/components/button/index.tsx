@@ -1,22 +1,30 @@
-import Image from 'next/image'
 import React from 'react'
+import Icon from 'src/views/app/Icon'
 
-export const DefaultButton = ({ text, onClick, bg, className, textColor }: any) => {
+export const DefaultButton = ({ text, onClick, bg, className, textColor, type, disabled }: any) => {
   return (
     <button
-      className={`${bg} 'rounded-xl rounded-xl ${bg ? `${textColor}` : 'text-raisin-130'} text-2sm w-max ${
-        bg ? 'border-none' : 'border border-px-raisin-130'
-      } py-3 px-6 font-normal' ${className}`}
+      className={`${bg} rounded-xl ${disabled ? 'opacity-60' : ''}  ${
+        bg ? `${textColor}` : 'text-raisin-100'
+      } text-2sm ${
+        bg ? 'border-none' : 'border border-px-raisin-100'
+      } inline-flex items-center justify-center h-10 min-w-10 px-3 font-normal ${className}`}
       onClick={onClick}
+      type={type}
+      disabled={disabled}
     >
       {text}
     </button>
   )
 }
 
-export const OutlinedButton = ({ label, onClick }: any) => {
+export const OutlinedButton = ({ label, onClick, type = 'button' }: any) => {
   return (
-    <button className='border border-raisin-130 rounded-2xl px-3 py-2 h-max text-sm' onClick={onClick}>
+    <button
+      className='border border-raisin-100 h-10 min-w-10 inline-flex items-center justify-center rounded-xl'
+      onClick={onClick}
+      type={type}
+    >
       {label}
     </button>
   )
@@ -25,35 +33,43 @@ export const OutlinedButton = ({ label, onClick }: any) => {
 export const IconButton = ({
   icon,
   innerRef,
-  hasBg,
-  text,
   bg,
-  responsive,
   className,
   onClick,
   height,
   width,
+  type = 'button',
   ...props
 }: any) => {
   return (
-    <div
+    <button
       {...props}
+      type={type}
       onClick={onClick}
       ref={innerRef}
-      className={`flex group items-center cursor-pointer ${hasBg ? 'p-4 xl:p-5' : ''} rounded-2xl ${
-        text && 'gap-2'
-      } w-fit h-12 max-w-[30%] ${hasBg ? `bg-${bg}` : ''} ${className}`}
+      className={`flex shrink-0 group items-center cursor-pointer ${bg ? 'p-4 xl:p-5' : ''} rounded-2xl ${
+        bg ? `bg-${bg}` : ''
+      } ${className}`}
     >
-      <Image src={icon} height={height} width={width} alt='' className={`group-disabled:opacity-30 !max-w-none `} />
-      <div className={`${responsive && 'md:hidden'} text-sm ${hasBg ? 'text-white' : 'text-base-100'}`}>{text}</div>
-    </div>
+      <Icon
+        svgPath={icon}
+        height={height}
+        width={width}
+        className={`fill-transparent group-disabled:opacity-30 !max-w-none `}
+      />
+    </button>
   )
 }
 
-export const IconTextButton = ({ label, icon, bg, className, onClick, labelClassname }: any) => {
+export const IconTextButton = ({ label, icon, width, height, bg, className, onClick, labelClassname, type }: any) => {
   return (
-    <button className={`flex px-[16px] md:px-0 md:w-[52px] lg:w-[64px] h-[52px] md:h-[52px] lg:h-[64px] rounded-2xl items-center justify-center focus:outline-none ${bg} ${className}`} onClick={onClick} type="button">
-      <img src={icon} className='mr-[12px] md:mr-0 max-w-none' alt='img' /> <span className={`${labelClassname} text-2sm`}>{label}</span>
+    <button
+      className={`flex items-center focus:outline-none rounded-2xl  ${bg} ${bg ? 'p-4' : ''} ${className}`}
+      onClick={onClick}
+      type={type}
+    >
+      <Icon svgPath={icon} width={width} height={height} className='fill-transparent' />
+      <span className={`${labelClassname} text-2sm ml-4`}>{label}</span>
     </button>
   )
 }

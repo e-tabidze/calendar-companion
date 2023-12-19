@@ -1,10 +1,8 @@
 import { useForm, useWatch } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { useDispatch } from 'react-redux'
-import { AppDispatch } from 'src/store'
 import { UserInfo } from 'src/types/User'
 import UserService from 'src/services/UserService'
-import { UserInfoSchema } from 'src/@core/validation/userInfoSchema'
+import { PasswordSchema, UserInfoSchema } from 'src/@core/validation/userInfoSchema'
 
 const usePersonalInfo = (userData: UserInfo) => {
   const defaultValues = {
@@ -20,8 +18,6 @@ const usePersonalInfo = (userData: UserInfo) => {
     phone: userData?.information.phone
   }
 
-  const dispatch = useDispatch<AppDispatch>()
-
   const passwordDefaultValues = {
     current_password: '',
     password: '',
@@ -30,28 +26,29 @@ const usePersonalInfo = (userData: UserInfo) => {
 
   const {
     control: passwordControl,
-    handleSubmit: passwordHandleSubmit,
-    formState: passwordState
+    formState: { errors: passwordErrors }
   } = useForm({
-    defaultValues: passwordDefaultValues
-    
-    // resolver: yupResolver(PasswordSchema)
+    defaultValues: passwordDefaultValues,
+    mode: 'onChange',
+    resolver: yupResolver(PasswordSchema)
   })
 
   const {
-    control,
+    control: userInfoControl,
     handleSubmit,
     formState: { errors, dirtyFields },
     resetField,
     setError,
-    clearErrors
+    clearErrors,
+    reset
   } = useForm({
     defaultValues,
-    mode: 'onSubmit',
+    mode: 'onChange',
     resolver: yupResolver(UserInfoSchema)
   })
 
-  const userInfoValues: any = useWatch({ control })
+  const userInfoValues: any = useWatch({ control: userInfoControl })
+  const passwordValues: any = useWatch({ control: passwordControl })
 
   const updateUserInfo = async (params: { AccessToken: any; userInfo: UserInfo }) => {
     const { AccessToken, userInfo } = params
@@ -66,20 +63,32 @@ const usePersonalInfo = (userData: UserInfo) => {
     }
   }
 
+  const changeUserPassword = async (AccessToken: '', passwordInfo: any) => {
+    try {
+      const response: any = await UserService.changeUserPassword(AccessToken, passwordInfo)
+
+      return response.data
+    } catch (error) {
+      console.error('Error updating user info:', error)
+      throw error
+    }
+  }
+
   return {
-    control,
+    userInfoControl,
     handleSubmit,
     errors,
-    dispatch,
+    reset,
     passwordControl,
-    passwordHandleSubmit,
-    passwordState,
+    passwordErrors,
     userInfoValues,
+    passwordValues,
     dirtyFields,
     resetField,
     setError,
     clearErrors,
-    updateUserInfo
+    updateUserInfo,
+    changeUserPassword
   }
 }
 

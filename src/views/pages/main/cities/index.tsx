@@ -1,6 +1,7 @@
+import { useRouter } from 'next/router'
 import { DefaultButton } from 'src/views/components/button'
-import Image from 'src/views/components/image'
 import Typography from 'src/views/components/typography'
+import useSearchLocations from '../filters/locationDropdown/useSearchLocations'
 import BenefitsCard from './benefitsCard'
 import CityCard from './cityCard'
 import {
@@ -13,42 +14,71 @@ import {
   Divider,
   ViewAllCitiesContainer
 } from './styles'
+import Icon from 'src/views/app/Icon'
 
 const Cities = () => {
+  const { cities } = useSearchLocations()
+
+  const router = useRouter()
+
   return (
     <CitiesContainer>
       <CitiesInnerContainer>
         <CitiesListContainer>
           <ViewAllCitiesContainer>
-            <Image src='/icons/location.svg' className='hidden xl:inline-block' alt='img'/>
+            <Icon svgPath='location' width={28} height={36} className='shrink-0 hidden sm:inline-flex' />
             <Container>
-              <Typography type='h3' className=' text-3xl mb-8'>
+              <Typography type='h3' className='text-3md xl:text-[30px] mb-8'>
                 ავტომობილები ტოპ ქალაქების მიხედვით
               </Typography>
-              <DefaultButton text={'ყველა ნახვა'} className="hidden xl:inline-block" />
+              <DefaultButton
+                text='ყველას ნახვა'
+                className='hidden lg:inline-flex'
+                onClick={() => router?.push('/search')}
+              />
             </Container>
           </ViewAllCitiesContainer>
           <CitiesWrapper>
-            <CityCard src='/images/city.png' city='თბილისი' numberOfCars={345} />
-            <CityCard src='/images/city.png' city='თბილისი' numberOfCars={345} />
-            <CityCard src='/images/city.png' city='თბილისი' numberOfCars={345} />
-            <CityCard src='/images/city.png' city='თბილისი' numberOfCars={345} />
+            {cities
+              ?.filter((city: any) => city?.products > 0)
+              ?.sort((a: { products: number }, b: { products: number }) => b?.products - a?.products)
+              ?.slice(0, 4)
+              ?.map((city: any) => (
+                <CityCard
+                  key={city?.city}
+                  src='/images/city.png'
+                  city={city.city}
+                  numberOfCars={city?.products}
+                  onClick={() => router?.push(`/search/?location=${city.city}`)}
+                />
+              ))}
           </CitiesWrapper>
+          <DefaultButton
+            text={'ყველა ნახვა'}
+            className='inline-flex lg:hidden'
+            onClick={() => router?.push('/search')}
+          />
         </CitiesListContainer>
         <Divider />
         <BenefitsContainer>
           <BenefitsCard
-            src='/icons/timeStart.svg'
+            icon='timeStart'
+            width={64}
+            height={64}
             title='უსაფრთხოება'
             bodyText='ცნობილი ფაქტია, რომ გვერდის წაკითხვად შიგთავსს შეუძლია მკითხველის ყურადღება მიიზიდოს და დიზაინის აღქმაში ხელი შეუშალოს. Lorem Ipsum-ის გამოყენებით ვღებულობთ იმაზე'
           />
           <BenefitsCard
-            src='/icons/timeStart.svg'
+            icon='timeStart'
+            width={64}
+            height={64}
             title='უსაფრთხოება'
             bodyText='ცნობილი ფაქტია, რომ გვერდის წაკითხვად შიგთავსს შეუძლია მკითხველის ყურადღება მიიზიდოს და დიზაინის აღქმაში ხელი შეუშალოს. Lorem Ipsum-ის გამოყენებით ვღებულობთ იმაზე'
           />
           <BenefitsCard
-            src='/icons/timeStart.svg'
+            icon='timeStart'
+            width={64}
+            height={64}
             title='უსაფრთხოება'
             bodyText='ცნობილი ფაქტია, რომ გვერდის წაკითხვად შიგთავსს შეუძლია მკითხველის ყურადღება მიიზიდოს და დიზაინის აღქმაში ხელი შეუშალოს. Lorem Ipsum-ის გამოყენებით ვღებულობთ იმაზე'
           />

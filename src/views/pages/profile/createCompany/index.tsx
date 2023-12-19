@@ -4,9 +4,8 @@ import NewListingLayout from 'src/layouts/NewListingLayout'
 import StepOne from './stepOne'
 import StepThree from './stepThree'
 import StepTwo from './stepTwo'
-import { FormProvider } from 'react-hook-form'
-import Cookie from 'src/helpers/Cookie'
 import useCreateCompany from './useCreateCompany'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 
 const CreateCompany = () => {
   const options = [
@@ -20,6 +19,8 @@ const CreateCompany = () => {
 
   const handleClose = () => router.push('/profile/orders/')
 
+  const selectOption = (option: any) => setStep(option)
+
   const {
     control,
     handleSubmit,
@@ -28,15 +29,53 @@ const CreateCompany = () => {
     clearErrors,
     addressFields,
     appendAddress,
-    createCompany
+    createCompany,
+    setValue,
+    saveCompanyLogo,
+    trigger
   } = useCreateCompany()
 
-  const selectOption = (option: any) => setStep(option)
+  const queryClient = useQueryClient()
 
-  const handleGoNextStep = () => {
+  // const handleGoNextStep = () => {
+  //   const currentIndex = options.findIndex(option => option.value === step.value)
+  //   if (currentIndex < options.length - 1) {
+  //     setStep(options[currentIndex + 1])
+  //   }
+  // }
+  const handleGoNextStep = async () => {
     const currentIndex = options.findIndex(option => option.value === step.value)
-    if (currentIndex < options.length - 1) {
-      setStep(options[currentIndex + 1])
+
+    switch (currentIndex) {
+      case 0:
+        const isValidStep1 = await trigger([
+          'identification_number',
+          'company_information.name',
+          'company_information.description',
+          'company_information.logo'
+        ])
+        if (isValidStep1) {
+          setStep(options[currentIndex + 1])
+        }
+        break
+      case 1:
+        const isValidStep2 = await trigger(['addresses'])
+        if (isValidStep2) {
+          setStep(options[currentIndex + 1])
+        }
+        break
+      case 2:
+        const isValidStep3 = await trigger(['company_information.email', 'company_information.phone_numbers'])
+        if (isValidStep3) {
+          setStep(options[currentIndex + 1])
+        }
+        break
+
+      default:
+        if (currentIndex < options.length - 1) {
+          setStep(options[currentIndex + 1])
+        }
+        break
     }
   }
   const handleGoPrevStep = () => {
@@ -46,50 +85,30 @@ const CreateCompany = () => {
     }
   }
 
-  const onSubmit = async () => {
-    try {
-      companyValues.addresses.forEach(
-        (addr: {
-          isSameTime: boolean
-          working_hours: {
-            [x: string]: {
-              is_selected: boolean
-              end_time: string
-              start_time: string
-            }
-          }
-        }) => {
-          if (addr.isSameTime) {
-            const takeDefaultTime = {
-              start_time: addr.working_hours['monday'].start_time,
-              end_time: addr.working_hours['monday'].end_time
-            }
-
-            for (const day in addr.working_hours) {
-              addr.working_hours[day].start_time = ''
-              addr.working_hours[day].end_time = ''
-              if (addr.working_hours[day].is_selected) {
-                addr.working_hours[day].start_time = takeDefaultTime.start_time
-                addr.working_hours[day].end_time = takeDefaultTime.end_time
-                addr.working_hours[day].is_selected = true
-              } else {
-                addr.working_hours[day].is_selected = false
-              }
-            }
-          }
-        }
-      )
-
-      await createCompany({ AccessToken: Cookie.get('AccessToken'), company: companyValues })
-    } catch (error) {
-      console.error('An error occurred:', error)
+  const createCompanyMutation = useMutation(() => createCompany('', companyValues), {
+    onSuccess: data => {
+      queryClient.invalidateQueries(['profileInfo'])
+      if (data) {
+        saveCompanyLogoMutation.mutate({
+          logo: data?.result?.data?.information?.logo,
+          companyId: data?.result?.data?.id
+        })
+      }
     }
+  })
+
+  const saveCompanyLogoMutation = useMutation((variables: any) =>
+    saveCompanyLogo('', variables.logo, variables.companyId)
+  )
+
+  const onSubmit = () => {
+    createCompanyMutation.mutate(companyValues)
   }
 
+  console.log(errors, 'errors')
+
   return (
-    
-    // @ts-ignore
-    <FormProvider {...control}>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <NewListingLayout
         options={options}
         onChange={selectOption}
@@ -98,16 +117,22 @@ const CreateCompany = () => {
         onPrevStep={handleGoPrevStep}
         onClose={handleClose}
         onSubmit={handleSubmit(onSubmit)}
+        submitLabel='დამატება'
+        disabled={false}
       >
-        <form>
-          {step.step === 1 && <StepOne control={control} errors={errors} clearErrors={clearErrors} />}
-          {step.step === 2 && (
-            <StepTwo control={control} addressFields={addressFields} appendAddress={appendAddress} errors={errors} />
-          )}
-          {step.step === 3 && <StepThree control={control} errors={errors} />}
-        </form>
+        {step.step === 1 && <StepOne control={control} errors={errors} clearErrors={clearErrors} setValue={setValue} />}
+        {step.step === 2 && (
+          <StepTwo
+            control={control}
+            addressFields={addressFields}
+            appendAddress={appendAddress}
+            errors={errors}
+            setValue={saveCompanyLogoMutation.isLoading || saveCompanyLogoMutation.isLoading}
+          />
+        )}
+        {step.step === 3 && <StepThree control={control} errors={errors} />}
       </NewListingLayout>
-    </FormProvider>
+    </form>
   )
 }
 

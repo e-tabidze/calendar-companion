@@ -1,13 +1,48 @@
+import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { useEffect } from 'react'
+import { Controller, useWatch } from 'react-hook-form'
 import FileUpload from 'src/views/components/fileUpload'
 import { DefaultInput } from 'src/views/components/input'
+import useCreateCompany from '../useCreateCompany'
+import _ from 'lodash'
 
 interface Props {
   control: any
   errors: any
   clearErrors: any
+  setValue: any
 }
 
-const StepOne: React.FC<Props> = ({ control, errors, clearErrors }) => {
+const StepOne: React.FC<Props> = ({ control, errors, clearErrors, setValue }) => {
+  const { uploadCompanyLogo } = useCreateCompany()
+
+  const queryClient = useQueryClient()
+
+  const uploadCompanyLogoMutation: any = useMutation(uploadCompanyLogo, {
+    onSettled: () => {
+      queryClient.invalidateQueries(['companyLogo'])
+    }
+  })
+
+  const handleFileUpload = async (file: any) => {
+    console.log(file, 'file')
+    try {
+      await uploadCompanyLogoMutation.mutateAsync(file)
+    } catch (error) {
+      console.error('Error uploading file:', error)
+    }
+  }
+  const formState = useWatch({ control })
+  console.log(formState, 'formState')
+
+  console.log(uploadCompanyLogoMutation.data?.Data?.FilesList[0], 'uploadCompanyLogoMutation.data?.Data?.FilesList[0]')
+
+  useEffect(() => {
+    setValue('company_information.logo', uploadCompanyLogoMutation.data?.Data?.FilesList[0])
+  }, [uploadCompanyLogoMutation.data?.Data?.FilesList[0]])
+
+  const handleRemoveFile = () => setValue('company_information.logo', '')
+
   return (
     <div>
       <div className='grid grid-cols-1 pb-6 md:grid-cols-2 gap-2'>
@@ -19,7 +54,7 @@ const StepOne: React.FC<Props> = ({ control, errors, clearErrors }) => {
           clearErrors={clearErrors}
         />
         <DefaultInput
-          label='შპს ბედინა პლიუსი'
+          label='იურიდიული დასახელება'
           control={control}
           name='company_information.name'
           errors={errors}
@@ -41,7 +76,33 @@ const StepOne: React.FC<Props> = ({ control, errors, clearErrors }) => {
           errors={errors}
         />
       </div>
-      <FileUpload title='კომპანიის ლოგო' description='(მაქს. ზომა 10 მბ, JPG, PNG, SVG)' />
+
+      <Controller
+        name='company_information.logo'
+        control={control}
+        render={({ field: { value, onChange } }) => (
+          <>
+            <FileUpload
+              title='კომპანიის ლოგო'
+              description='(მაქს. ზომა 10 მბ, JPG, PNG, SVG)'
+              handleDelete={handleRemoveFile}
+              value={value}
+              onChange={(e: any) => {
+                console.log(e.target.files, 'e?')
+                onChange()
+                handleFileUpload(Array.from(e.target.files))
+              }}
+            />
+            {errors && (
+              <div className={`text-sm text-red-100 ml-2`}>{_.get(errors, 'company_information.logo')?.message}</div>
+            )}
+          </>
+        )}
+      />
+
+      {uploadCompanyLogoMutation.isLoading && <p>Uploading...</p>}
+
+      {uploadCompanyLogoMutation.isError && <p>Error uploading file: {uploadCompanyLogoMutation.error.message}</p>}
     </div>
   )
 }

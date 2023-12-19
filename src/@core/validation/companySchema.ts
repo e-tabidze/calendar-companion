@@ -2,8 +2,8 @@ import * as Yup from 'yup'
 import { Company, CompanyAddress, CompanyInfo, WorkingHours, WorkingTime } from 'src/types/Company'
 
 const WorkingTimeSchema = Yup.object<WorkingTime>().shape({
-  start_time: Yup.string(),
-  end_time: Yup.string(),
+  start_time: Yup.string().nullable(),
+  end_time: Yup.string().nullable(),
   is_selected: Yup.boolean()
 })
 
@@ -18,33 +18,32 @@ const WorkingHoursSchema = Yup.object<WorkingHours>().shape({
 })
 
 const CompanyAddressSchema = Yup.object<CompanyAddress>().shape({
-  address: Yup.string(),
-  phone: Yup.string(),
-  email: Yup.string().email('მეილის ფორმატი არასწორია'),
-  lat: Yup.string(),
-  long: Yup.string(),
+  address: Yup.string().required('სავალდებულო ველი'),
+  phone: Yup.string().nullable(),
+  email: Yup.string().email('მეილის ფორმატი არასწორია').nullable(),
+  lat: Yup.string().nullable(),
+  long: Yup.string().nullable(),
   working_hours: WorkingHoursSchema
 })
 
 const CompanyInfoSchema = Yup.object<CompanyInfo>().shape({
-  name: Yup.string().required("სავალდებულო ველი"),
-  logo: Yup.string(),
-  description: Yup.string().required("სავალდებულო ველი"),
-  email: Yup.string().email('მეილის ფორმატი არასწორია'),
-  phone_numbers: Yup.string()
+  name: Yup.string().required('სავალდებულო ველი'),
+  logo: Yup.string().min(1, 'გთხოვთ ატვირთოთ კომპანიის ლოგო'),
+  description: Yup.string().required('სავალდებულო ველი'),
+  email: Yup.string().required('სავალდებულო ველი').email('მეილის ფორმატი არასწორია'),
+  phone_numbers: Yup.string().required('სავალდებულო ველი').max(9, 'მაქსიმუმ 9 რიცხვი')
 })
 
 const CompanySchema = Yup.object<Company>().shape({
   identification_number: Yup.number()
-    .required('საინდეთიფიკაციო ნომერი უნდა იყოს რიცხვი')
-    .nullable()
+    .required('სავალდებულო ველი')
     .typeError('საინდეთიფიკაციო ნომერი უნდა იყოს რიცხვი')
     .test('is-11-digit', 'საინდეთიფიკაციო ნომერი უნდა იყოს 11 ნიშნიანი', value => {
       if (value === null || value === undefined) {
         return true
       }
       const numericValue = parseFloat(value.toString())
-      
+
       return !isNaN(numericValue) && numericValue.toString().length === 11
     }),
 
@@ -52,7 +51,9 @@ const CompanySchema = Yup.object<Company>().shape({
 
   company_information: CompanyInfoSchema,
 
-  addresses: Yup.array<CompanyAddress>().of(CompanyAddressSchema)
+  addresses: Yup.array<CompanyAddress>().of(CompanyAddressSchema),
+
+  company_id: Yup.mixed()
 })
 
 export { CompanySchema }

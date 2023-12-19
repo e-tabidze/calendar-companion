@@ -1,65 +1,62 @@
-import { useState } from 'react'
-import Image from 'src/views/components/image'
 import Typography from 'src/views/components/typography'
 import Tag from 'src/views/components/tag'
 import PopoverDropdown from 'src/views/components/popoverDropdown'
-import { DefaultButton, IconButton } from 'src/views/components/button'
+import { DefaultButton, IconTextButton } from 'src/views/components/button'
 import { ActionsWrapper, TagsWrapper } from './styles'
+import useFilters from 'src/hooks/useFilters'
+import { useWatch } from 'react-hook-form'
+import { useEffect, useState } from 'react'
 
-const fuelType = [
-  {
-    id: 1,
-    label: 'ელექტრო'
-  },
-  {
-    id: 2,
-    label: 'ჰიბრიდი'
-  },
-  {
-    id: 3,
-    label: 'დატენვადი ჰიბრიდი'
-  },
-  {
-    id: 4,
-    label: 'დიზელი'
-  },
-  {
-    id: 5,
-    label: 'გაზი'
-  }
-]
+interface Props {
+  control: any
+  appendFuelType: any
+  reset: any
+}
 
-const FuelTypePopover = () => {
-  const [selectedFuelTypes, setSelectedFuelTypes] = useState<any[]>([])
+const FuelTypePopover: React.FC<Props> = ({ control, appendFuelType, reset }) => {
+  const { fuelTypesFilter, isLoading } = useFilters()
 
-  const handleSelectCategories = (id: number) => {
-    if (selectedFuelTypes.includes(id)) {
-      setSelectedFuelTypes(selectedFuelTypes.filter(category => category !== id))
-    } else {
-      setSelectedFuelTypes(prevState => [...prevState, id])
-    }
-  }
+  const [hasFuelTypes, setFuelTypes] = useState(false)
+
+  const formState = useWatch({ control })
+
+  useEffect(() => {
+    setFuelTypes(!!formState?.fuel_types?.length)
+  }, [formState?.fuel_types?.length])
 
   return (
-    <PopoverDropdown label='საწვავის ტიპი' maxWidth='max-w-sm'>
+    <PopoverDropdown
+      label='საწვავის ტიპი'
+      maxWidth='max-w-sm'
+      className={`${hasFuelTypes ? 'border border-raisin-100' : ''}`}
+    >
       <Typography type='body' color='light'>
         შეგიძლიათ მონიშნოთ ერთი ან რამდენიმე
       </Typography>
       <TagsWrapper>
-        {fuelType.map((type, idx) => (
+        {isLoading ? (
+          <>Loading</>
+        ) : (
           <Tag
-            label={type.label}
-            key={idx}
-            component={<Image src='/icons/electric.svg' alt="" />}
-            height='h-12'
-            handleClick={() => handleSelectCategories(type.id)}
-            selected={selectedFuelTypes.includes(type.id)}
+            options={fuelTypesFilter}
+            name='fuel_types'
+            control={control}
+            height='h-10'
+            append={appendFuelType}
+            outlined
           />
-        ))}
+        )}
       </TagsWrapper>
       <ActionsWrapper>
-        <IconButton icon='/icons/rotate.svg' text='გასუფთავება' width={16} height={16} />
-        <DefaultButton text='შენახვა' bg='bg-orange-100' textColor="text-white" />
+        <IconTextButton
+          icon='rotate'
+          label='გასუფთავება'
+          className='fill-transparent'
+          width={20}
+          height={22}
+          onClick={() => reset('fuel_types')}
+        />
+        <DefaultButton text='შენახვა' bg='bg-orange-100' textColor='text-white' />
       </ActionsWrapper>
     </PopoverDropdown>
   )

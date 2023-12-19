@@ -1,6 +1,6 @@
-import Image from 'src/views/components/image'
 import Typography from 'src/views/components/typography'
 import { InsuranceList, InsuranceListItem } from './styles'
+import Icon from "src/views/app/Icon";
 
 interface Props {
   selected?: boolean
@@ -28,37 +28,37 @@ const InsuranceCard = ({ selected, handleClick }: Props) => {
       </Typography>
       <InsuranceList>
         <InsuranceListItem>
-          <Image src='/icons/tick.svg' alt="" />
+          <Icon svgPath='tick' width={11} height={7} />
           <Typography type='body' color='dark'>
             5 მგზავრი
           </Typography>
         </InsuranceListItem>
         <InsuranceListItem>
-          <Image src='/icons/tick.svg' alt="" />
+          <Icon svgPath='tick' width={11} height={7} />
           <Typography type='body' color='dark'>
             2 ჩემოდანი
           </Typography>
         </InsuranceListItem>
         <InsuranceListItem>
-          <Image src='/icons/minus.svg' alt="" />
+          <Icon svgPath='minus' width={10} height={1} className='fill-transparent'/>
           <Typography type='body' color='light'>
             კონდიციონერი
           </Typography>
         </InsuranceListItem>
         <InsuranceListItem>
-          <Image src='/icons/minus.svg' alt="" />
+          <Icon svgPath='minus' width={10} height={1} className='fill-transparent'/>
           <Typography type='body' color='light'>
             ბენზინი
           </Typography>
         </InsuranceListItem>
         <InsuranceListItem>
-          <Image src='/icons/minus.svg' alt="" />
+          <Icon svgPath='minus' width={10} height={1} className='fill-transparent'/>
           <Typography type='body' color='light'>
             5 ლიტრი / 100კმ
           </Typography>
         </InsuranceListItem>
         <div className='flex justify-end mt-4'>
-          <Image src={selected ? '/icons/selected.svg' : '/icons/unselected.svg'} alt="" />
+          <Icon svgPath={selected?'selected':'unselected'} width={32} height={32} className='fill-transparent'/>
         </div>
       </InsuranceList>
     </div>

@@ -9,19 +9,27 @@ interface Props {
   src: string
   city: string
   numberOfCars: number
+  onClick: () => void
 }
 
-const CityCard = ({ src, city, numberOfCars }: Props) => {
+const CityCard: React.FC<Props> = ({ src, city, numberOfCars, onClick }) => {
   return (
-    <Container>
-      <Image src={src} className='rounded-2xl mb-4 max-w-32 xl:w-auto xl:max-w-xs' alt='img' />
-      <Typography type='h4' weight='normal' color='dark' className='text-center xl:text-left'>
-        {city}
-      </Typography>
-      <Typography type='body' color='light' className='text-center xl:text-left'>
-        {numberOfCars} ავტომობილი
-      </Typography>
-    </Container>
+    <div className='mb-8 lg:mb-0 cursor-pointer' onClick={onClick}>
+      <Container>
+        <Image src={src} className='rounded-2xl mb-4 max-w-full' alt='img' />
+        <Typography
+          type='h4'
+          weight='normal'
+          color='dark'
+          className='text-2sm lg:text-md text-center xl:text-left'
+        >
+          {city}
+        </Typography>
+        <Typography type='body' color='light' className='text-sm text-black/50 text-center xl:text-left'>
+          {numberOfCars} ავტომობილი
+        </Typography>
+      </Container>
+    </div>
   )
 }
 

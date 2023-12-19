@@ -2,7 +2,7 @@ import { Controller } from 'react-hook-form'
 import { DefaultInput } from 'src/views/components/input'
 import Radio from 'src/views/components/radio'
 import Typography from 'src/views/components/typography'
-import DateDropdown from '../dateDropdown'
+import DateDropdown from '../../../../components/dateDropdown'
 
 interface Props {
   control: any

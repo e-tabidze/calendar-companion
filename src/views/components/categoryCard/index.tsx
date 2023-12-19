@@ -1,29 +1,70 @@
-import Image from '../image'
+import { Controller } from 'react-hook-form'
+import Icon from 'src/views/app/Icon'
 import Typography from '../typography'
+import _ from 'lodash'
 
 interface Props {
   border?: boolean
-  category: string
-  selected?: boolean
-  handleSelect?: any
+  name: string
+  control?: any
+  options: any[]
+  append?: any
+  errors?: any
 }
 
-const CategoryCard = ({ border, category, selected, handleSelect }: Props) => {
+const CategoryCard: React.FC<Props> = ({ border, name, control, options, append, errors }) => {
   return (
-    <div
-      onClick={handleSelect}
-      className={`flex flex-col items-center justify-center cursor-pointer w-28 h-28 sm:w-36 sm:h-36 ${
-        border && 'border border-gray-20 rounded-2xl'
-      } ${selected ? 'border-2 border-green-100 bg-green-20' : ''} `}
-    >
-      <Image src='/icons/vehicleCategory.svg' className='h-5' alt='img' />
-      <Typography type='body' color='dark' className='mt-4'>
-        {category}
-      </Typography>
-      <Typography type='body' color={selected ? 'dark' : 'light'} className='text-md font-light'>
-        177
-      </Typography>
-    </div>
+    <Controller
+      name={name}
+      control={control}
+      render={({ field: { onChange, value } }) => {
+        const selectedOptions = Array.isArray(value) ? value : [value]
+
+        return (
+          <>
+            {errors && (
+              <div id={name} className='text-sm text-red-100 absolute -m-6 ml-2'>
+                {_.get(errors, name)?.message}
+              </div>
+            )}
+            {options?.map(option => (
+              <div
+                onClick={() => {
+                  if (append) {
+                    if (selectedOptions.includes(option.id)) {
+                      onChange(selectedOptions.filter(val => val !== option.id))
+                    } else {
+                      onChange([...selectedOptions, option.id])
+                    }
+                  } else {
+                    onChange(option.id)
+                  }
+                }}
+                key={option.id}
+                className={`flex flex-col items-center justify-center cursor-pointer w-28 h-28 sm:w-36 sm:h-36 hover:border-raisin-30 ${
+                  border && 'border border-gray-20 rounded-2xl'
+                } ${selectedOptions.includes(option.id) ? 'border-2 border-green-100 bg-green-20' : ''} `}
+              >
+                <Icon
+                  svgPath={option.icon}
+                  width='48'
+                  height='48'
+                  color={selectedOptions.includes(option.id) ? '#549684' : '#000000'}
+                  className='icon-class'
+                />
+                <Typography
+                  type='body'
+                  color={value === option.id ? 'dark' : 'light'}
+                  className='text-2sm text-raisin-100'
+                >
+                  {option.title}
+                </Typography>
+              </div>
+            ))}
+          </>
+        )
+      }}
+    />
   )
 }
 

@@ -1,9 +1,13 @@
-import { User } from '../interfaces'
+import { WeekDay } from "src/interfaces";
 
 /** Dummy user data. */
-export const sampleUserData: User[] = [
-  { id: 101, name: 'Alice' },
-  { id: 102, name: 'Bob' },
-  { id: 103, name: 'Caroline' },
-  { id: 104, name: 'Dave' },
+export const days: WeekDay[] = [
+  { label: 'ორშ', value: 'monday' },
+  { label: 'სამ', value: 'tuesday' },
+  { label: 'ოთხ', value: 'wednesday' },
+  { label: 'ხუთ', value: 'thursday' },
+  { label: 'პარ', value: 'friday' },
+  { label: 'შაბ', value: 'saturday' },
+  { label: 'კვი', value: 'sunday' }
 ]
+

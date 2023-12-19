@@ -1,24 +1,21 @@
 import { Fragment } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
-import Image from 'next/image'
 import Typography from 'src/views/components/typography'
 import Divider from 'src/views/components/divider'
 import { DefaultButton } from 'src/views/components/button'
+import Icon from "src/views/app/Icon";
 
 interface Props {
   open: boolean
   close: () => void
+  handleCancel: any
 }
 
-const CancelOrderDialog: React.FC<Props> = ({ open, close }) => {
+const CancelOrderDialog: React.FC<Props> = ({ open, close, handleCancel }) => {
   return (
     <>
       <Transition show={open} as={Fragment}>
-        <Dialog
-          onClose={close}
-          className='fixed inset-0 z-50 overflow-y-auto '
-          open={open}
-        >
+        <Dialog onClose={close} className='fixed inset-0 z-50 overflow-y-auto ' open={open}>
           <div className='flex items-center justify-center min-h-screen'>
             <Transition.Child
               as={Fragment}
@@ -43,15 +40,15 @@ const CancelOrderDialog: React.FC<Props> = ({ open, close }) => {
             >
               <div className='bg-white rounded-lg max-w-lg mx-auto'>
                 <div className='p-6'>
-                  <Image src='/icons/cancelOrder.svg' width={54} height={54} alt='' className='m-auto pb-6' />
+                  <Icon svgPath='cancelOrder' width={84} height={84} className='fill-transparent m-auto pb-6' />
                   <Typography type='h5'>ნამდვილად გსურთ ჯავშნის გაუქმება?</Typography>
                 </div>
 
                 <Divider />
 
                 <div className='flex justify-end p-4 gap-4'>
-                  <DefaultButton text='უარყოფა' onClick={close} className="border-none" />
-                  <DefaultButton text='გაუქმება' bg='bg-orange-100' onClick={close} />
+                  <DefaultButton text='უარყოფა' onClick={close} className='border-none' />
+                  <DefaultButton text='გაუქმება' bg='bg-orange-100' onClick={handleCancel} textColor="text-white" />
                 </div>
               </div>
             </Transition.Child>
