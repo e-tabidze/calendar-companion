@@ -11,8 +11,8 @@
 
     /* Hide scrollbar for IE, Edge and Firefox */
     .no-scrollbar {
-      -ms-overflow-style: none;  /* IE and Edge */
-      scrollbar-width: none;  /* Firefox */
+      -ms-overflow-style: none; /* IE and Edge */
+      scrollbar-width: none; /* Firefox */
     }
   }
 }
@@ -29,7 +29,7 @@
   outline: none;
 }
 
-@media(max-width: 480px) {
+@media (max-width: 480px) {
   .react-datepicker__month {
     margin: 0 !important;
   }
@@ -39,7 +39,7 @@
   }
 }
 .react-datepicker__tab-loop {
- position: absolute;
+  position: absolute;
 }
 /* Date Picek */
 .react-datepicker {
@@ -53,7 +53,7 @@
 
 .react-datepicker__month-container {
   border: none !important;
-  box-shadow: none !important
+  box-shadow: none !important;
 }
 
 .react-datepicker__year-read-view--down-arrow,
@@ -243,25 +243,24 @@ input::-webkit-inner-spin-button {
 }
 
 /* Firefox */
-input[type=number] {
+input[type='number'] {
   -moz-appearance: textfield;
 }
 
-
 .arrows-lg .swiper-button-prev,
 .arrows-lg .swiper-button-next {
-  cursor:pointer;
+  cursor: pointer;
   background: #fff;
   border-radius: 8px;
-  display: flex ;
-  align-items:center;
+  display: flex;
+  align-items: center;
   justify-content: center;
   z-index: 1;
   width: 56px;
   height: 56px;
   box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
 }
-@media(max-width: 767px) {
+@media (max-width: 767px) {
   .arrows-lg .swiper-button-prev,
   .arrows-lg .swiper-button-next {
     width: 46px;
@@ -270,23 +269,23 @@ input[type=number] {
 }
 .arrows-lg .swiper-button-prev:after {
   content: '';
-  background:url(/icons/caret-left.svg) no-repeat center center ;
+  background: url(/icons/caret-left.svg) no-repeat center center;
   width: 26px;
   height: 26px;
 }
 .arrows-lg .swiper-button-next:after {
   content: '';
-  background:url(/icons/caret-right.svg) no-repeat center center ;
+  background: url(/icons/caret-right.svg) no-repeat center center;
   width: 26px;
   height: 26px;
 }
 .arrows-sm .swiper-button-prev,
 .arrows-sm .swiper-button-next {
-  cursor:pointer;
+  cursor: pointer;
   background: #fff;
   border-radius: 50%;
-  display: flex ;
-  align-items:center;
+  display: flex;
+  align-items: center;
   justify-content: center;
   z-index: 1;
   width: 24px;
@@ -295,13 +294,25 @@ input[type=number] {
 }
 .arrows-sm .swiper-button-prev:after {
   content: '';
-  background:url(/icons/caret-l.svg) no-repeat center center ;
+  background: url(/icons/caret-l.svg) no-repeat center center;
   width: 7px;
   height: 9px;
 }
 .arrows-sm .swiper-button-next:after {
   content: '';
-  background:url(/icons/caret-r.svg) no-repeat center center ;
+  background: url(/icons/caret-r.svg) no-repeat center center;
   width: 7px;
   height: 9px;
+}
+.css-3w2yfm-ValueContainer {
+  flex-wrap: nowrap !important;
+  -webkit-line-clamp: 1;
+  overflow-x: auto !important;
+  display: -webkit-box !important;
+  padding-top: auto !important;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.css-3w2yfm-ValueContainer::-webkit-scrollbar {
+  height: 0px;
 }
