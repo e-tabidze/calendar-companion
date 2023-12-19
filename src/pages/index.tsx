@@ -126,18 +126,18 @@ const MainPage = () => {
         <ContentContainer className='px-0 md:px-5 lg:px-8'>
           <Carousel
             itemsArray={lastSeenProducts?.map((product: any) => (
-              <ProductCard
-                key={product?.id}
-                swiperCard={true}
-                productId={product?.id}
-                manufacturer={product?.manufacturer?.title}
-                model={product?.manufacturer_model?.title}
-                prodYear={product?.prod_year}
-                priceGel={product?.price_gel}
-                luggageNumbers={product?.luggage_numbers}
-                seats={product?.seat_type?.title}
-                images={product?.product?.images?.split(',')}
-              />
+                  <ProductCard
+                      key={product?.product?.id}
+                      swiperCard={true}
+                      productId={product?.product?.id}
+                      manufacturer={product?.product?.manufacturer?.title}
+                      model={product?.product?.manufacturer_model?.title}
+                      prodYear={product?.product?.prod_year}
+                      priceGel={product?.product?.price_gel}
+                      luggageNumbers={product?.product?.luggage_numbers}
+                      seats={product?.product?.seat_type?.title}
+                      images={product?.product?.images?.split(',')}
+                  />
             ))}
             type='products'
           />
