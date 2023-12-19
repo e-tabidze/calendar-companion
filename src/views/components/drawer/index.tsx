@@ -30,7 +30,7 @@ const DrawerBottom = ({ children, isOpen, title, setIsOpen, onBack, showBack }: 
           )}
           <span>{title}</span>
           <Icon
-            className='absolute right-4 top-4 z-40'
+            className='cursor-pointer absolute right-4 top-4 z-40'
             svgPath='close'
             width={40}
             height={40}

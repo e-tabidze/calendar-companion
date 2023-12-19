@@ -3,7 +3,7 @@ import LanguagePicker from "src/views/components/defaultHeader/languagePicker";
 import Tnet from "src/views/components/footer/Tnet";
 import Navigation from "src/views/components/footer/Navigation";
 import Help from "src/views/components/footer/Help";
-import Categories from "src/views/components/footer/Catetgories";
+import Categories from "src/views/components/footer/Categories";
 import Social from "src/views/components/footer/Social";
 import Rules from "src/views/components/footer/Rules";
 

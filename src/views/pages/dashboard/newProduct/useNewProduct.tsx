@@ -17,7 +17,7 @@ const useNewProduct = () => {
     price: service.type_id === 3 ? 0 : null,
     currency: 'GEL',
     quantity: '',
-    isSelected: false
+    is_selected: false
   }))
 
   const discount_item = {

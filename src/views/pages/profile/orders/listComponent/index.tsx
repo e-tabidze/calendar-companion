@@ -32,7 +32,7 @@ const OrderListComponent: React.FC<Props> = ({
   return (
     <div className='border-b-1 border-raisin-10 last:border-none'>
       <div className='flex flex-col py-4 md:w-full gap-4 md:gap-10 md:flex-row md:items-center'>
-        <div className='flex items-center gap-4 2xl:gap-6'>
+        <div className='flex items-center gap-4 2xl:gap-6 md:w-5/12 shrink-0'>
           <div className='w-[64px] shrink-0'>
             <div className='aspect-w-16 aspect-h-9 rounded-lg overflow-hidden'>
               {productDetails?.images && (

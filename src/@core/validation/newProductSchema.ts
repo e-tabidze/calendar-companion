@@ -13,7 +13,7 @@ const CompanyService = Yup.object().shape({
   id: Yup.number().required('აუცილებელი ველი'),
   currency: Yup.string(),
   quantity: Yup.string(),
-  isSelected: Yup.boolean()
+  is_selected: Yup.boolean()
 })
 
 const NewProductSchema = Yup.object().shape({

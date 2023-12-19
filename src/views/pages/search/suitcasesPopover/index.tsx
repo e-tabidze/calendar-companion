@@ -1,6 +1,6 @@
 import { useWatch } from 'react-hook-form'
 import useFilters from 'src/hooks/useFilters'
-import { DefaultButton, IconButton } from 'src/views/components/button'
+import {DefaultButton, IconTextButton} from 'src/views/components/button'
 import PopoverDropdown from 'src/views/components/popoverDropdown'
 import Tag from 'src/views/components/tag'
 
@@ -32,9 +32,9 @@ const SuitcasesPopover: React.FC<Props> = ({ control, appendLuggageNumber, handl
         />
       </div>
       <div className='flex items-center justify-between'>
-        <IconButton
+        <IconTextButton
           icon='rotate'
-          text='გასუფთავება'
+          label='გასუფთავება'
           className='fill-transparent'
           width={20}
           height={22}

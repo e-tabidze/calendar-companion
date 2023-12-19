@@ -79,7 +79,7 @@ const PriceCalcCard: React.FC<Props> = ({
       </div>
 
       {services?.map((service: any) => (
-        <div className='flex gap-2 flex-col justify-between py-2 lg:items-center lg:flex-row'>
+        <div className='flex gap-2 flex-col justify-between py-2 lg:items-center lg:flex-row' key={service.id}>
           <div className='flex gap-2'>
             <Typography type='body' className='text-raisin-100'>
               {service?.title}
@@ -89,13 +89,32 @@ const PriceCalcCard: React.FC<Props> = ({
             </Typography>
           </div>
           <Typography type='h5' weight='normal'>
-            {console.log(service,service?.type_id == 1 ? service?.count * service?.price * 11 : service?.count * service.price,"ddshvc")}
-            {service?.type_id == 1 ? service?.count * service?.price * 11 : service?.count * service.price} ₾
+            {service?.type_id == 1 ? service?.count * service?.price * days! : service?.count * service.price} ₾
           </Typography>
         </div>
       ))}
 
       <div className='w-full h-px bg-raisin-10 my-7' />
+
+      <div className='flex gap-2 flex-col justify-between pb-7 lg:items-center lg:flex-row'>
+        <div className='flex gap-2'>
+          <Typography type='h5' className='text-raisin-100 font-bold'>
+            ჯამი
+          </Typography>
+        </div>
+        <Typography type='h5' weight='normal' className='font-bold'>
+          {services?.reduce((accumulator: number, service: { type_id: number; count: number; price: number }) => {
+            if (service.type_id === 1) {
+              accumulator += service.count * service.price * days!
+            } else {
+              accumulator += service.count * service.price
+            }
+            
+            return accumulator
+          }, 0) +
+            price * days!}
+        </Typography>
+      </div>
 
       {userInfo?.active_profile_id === userInfo?.UserID && (
         <DefaultButton

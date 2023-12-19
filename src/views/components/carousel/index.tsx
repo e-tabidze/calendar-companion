@@ -42,11 +42,12 @@ const Carousel = ({ itemsArray, type, onClick, thumbs = false }: Props) => {
         watchSlidesProgress
         ref={swiperRef}
         breakpoints={handleBreakpoints()}
+        modules={[Navigation]}
         navigation={{
           prevEl: prevRef.current,
           nextEl: nextRef.current
         }}
-        onBeforeInit={(swiper: any) => {
+        onSwiper={(swiper: any) => {
           swiper.params.navigation.prevEl = prevRef.current
           swiper.params.navigation.nextEl = nextRef.current
         }}

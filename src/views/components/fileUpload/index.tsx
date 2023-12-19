@@ -23,7 +23,7 @@ const FileUpload: React.FC<Props> = ({ title, description, onChange, handleDelet
         {value ? (
           <div className='relative w-full h-full border-dashed border-raisin-10 overflow-hidden bg-green-10 rounded-2xl'>
             {value ? <Image src={value} alt='' /> : <Icon svgPath='play' width={20} height={20} />}
-            <IconButton icon='close' className='absolute top-2 right-2' onClick={handleDelete} height={30} width={30} />
+            <IconButton icon='close' className='cursor-pointer absolute top-2 right-2' onClick={handleDelete} height={30} width={30} />
           </div>
         ) : (
           <label className='w-full h-full flex items-center justify-center cursor-pointer'>

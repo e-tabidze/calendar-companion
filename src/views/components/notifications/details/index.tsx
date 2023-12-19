@@ -55,7 +55,7 @@ const Details: React.FC<Props> = ({ id, company, url }) => {
             რომლის გაუქმებაც გსურთ დაწკაპუნებით აირჩიეთ სტუმრობის სხვა გეგმები, შემდეგ კი — დეტალურად დაწკაპუნებით
             აირჩიეთ შეცვლა ან გაუქმება დაწკაპუნებით აირჩიეთ ჯავშნის გაუქმება
           </Typography>
-          <button className='mt-10 flex px-8 h-13 bg-green-100 text-white text-sm md:text-2sm rounded-xl items-center justify-center'>
+          <button className='mt-10 flex px-8 h-14 bg-green-100 text-white text-sm md:text-2sm rounded-xl items-center justify-center'>
             ჯავშნის ნახვა
           </button>
         </div>

@@ -8,9 +8,10 @@ interface Option {
   title: string | number
   icon?: string
   is_selected: boolean
-  type: number
+  type_id: number
   description: string
   price: string
+  max: number
 }
 
 interface Props {
@@ -52,34 +53,27 @@ const CheckServices: React.FC<Props> = ({ control, options }) => {
                     </Typography>
                   </div>
                   <div className='flex items-center gap-16'>
-                    {/* {service.type === 1 || service.type === 2 ? ( */}
-                    <Typography type='body' className='text-md w-max'>
-                      {service.price} ₾
-                    </Typography>
-                    <div
-                      onClick={event => {
-                        event.stopPropagation()
-                      }}
-                    >
-                      {service.is_selected ? (
-                        <Counter name={`additional_services.${index}.count`} control={control} />
-                      ) : (
-                        <Counter name={`additional_services.${index}.count`} control={control} disabled />
-                      )}
-                    </div>
-                    {/* ) : (
+                    {service.type_id === 1 || service.type_id === 2 ? (
+                      <>
+                        <Typography type='body' className='text-md w-max'>
+                          {service.price} ₾
+                        </Typography>
+                        <div
+                          onClick={event => {
+                            event.stopPropagation()
+                          }}
+                        >
+                          <Counter
+                            name={`additional_services.${index}.count`}
+                            control={control}
+                            disabled={!service?.is_selected}
+                            max={service?.max}
+                          />
+                        </div>
+                      </>
+                    ) : (
                       <></>
-                    )} */}
-
-                    <Typography type='subtitle' className='text-md'>
-                      {service.type === 1
-                        ? `${service?.price !== null ? service.price : ``}`
-                        : service.type === 2
-                        ? `${service?.price !== null ? service.price : ``}`
-                        : service.type === 2
-                        ? 'უფასო'
-                        : ''}
-                    </Typography>
+                    )}
                   </div>
                 </div>
               </>
