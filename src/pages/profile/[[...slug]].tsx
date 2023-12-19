@@ -121,24 +121,6 @@ const Profile = () => {
 
 const queryClient = new QueryClient()
 
-// export async function getServerSideProps() {
-//   try {
-//     await queryClient.prefetchQuery({
-//       queryKey: ['userInfo'],
-//       queryFn: () => getUserInfo(),
-//       staleTime: Infinity
-//     })
-
-//     return {
-//       props: {
-//         dehydratedState: dehydrate(queryClient)
-//       }
-//     }
-//   } catch (e) {
-//     return { notFound: true }
-//   }
-// }
-
 export async function getServerSideProps({ locale }: any) {
   try {
     await queryClient.prefetchQuery({

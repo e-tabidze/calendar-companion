@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useEffect } from 'react'
-import { Controller } from 'react-hook-form'
+import { Controller, useWatch } from 'react-hook-form'
 import FileUpload from 'src/views/components/fileUpload'
 import { DefaultInput } from 'src/views/components/input'
 import useCreateCompany from '../useCreateCompany'
@@ -25,12 +25,17 @@ const StepOne: React.FC<Props> = ({ control, errors, clearErrors, setValue }) =>
   })
 
   const handleFileUpload = async (file: any) => {
+    console.log(file, 'file')
     try {
       await uploadCompanyLogoMutation.mutateAsync(file)
     } catch (error) {
       console.error('Error uploading file:', error)
     }
   }
+  const formState = useWatch({ control })
+  console.log(formState, 'formState')
+
+  console.log(uploadCompanyLogoMutation.data?.Data?.FilesList[0], 'uploadCompanyLogoMutation.data?.Data?.FilesList[0]')
 
   useEffect(() => {
     setValue('company_information.logo', uploadCompanyLogoMutation.data?.Data?.FilesList[0])
@@ -83,8 +88,9 @@ const StepOne: React.FC<Props> = ({ control, errors, clearErrors, setValue }) =>
               handleDelete={handleRemoveFile}
               value={value}
               onChange={(e: any) => {
+                console.log(e.target.files, 'e?')
                 onChange()
-                handleFileUpload(e.target.files[0])
+                handleFileUpload(Array.from(e.target.files))
               }}
             />
             {errors && (

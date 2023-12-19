@@ -11,6 +11,7 @@ interface Props {
   handleDateChange?: () => void
   disabled: boolean
   changeDates: boolean
+  services?: any
 }
 
 const PriceCalcCard: React.FC<Props> = ({
@@ -21,11 +22,12 @@ const PriceCalcCard: React.FC<Props> = ({
   onClick,
   handleDateChange,
   disabled,
-  changeDates = true
+  changeDates = true,
+  services
 }) => {
   const { userInfo } = useProfile()
 
-  console.log(dates, 'dates')
+  console.log(services, 'services')
 
   return (
     <div className={`shadow-2xl w-full rounded-3xl pt-5 px-4 lg:px-6 pb-10 ${className}`}>
@@ -47,7 +49,7 @@ const PriceCalcCard: React.FC<Props> = ({
             {dates}
           </Typography>
           <Typography type='body' color='light' className='text-2sm'>
-            | {days} days
+            | {days} დღე
           </Typography>
         </div>
         {changeDates && (
@@ -76,16 +78,44 @@ const PriceCalcCard: React.FC<Props> = ({
         </Typography>
       </div>
 
-      <div className='w-full h-px bg-raisin-10 mt-7' />
+      {services?.map((service: any) => (
+        <div className='flex gap-2 flex-col justify-between py-2 lg:items-center lg:flex-row' key={service.id}>
+          <div className='flex gap-2'>
+            <Typography type='body' className='text-raisin-100'>
+              {service?.title}
+            </Typography>
+            <Typography type='body' color='light'>
+              | რაოდენობა: {service?.count}
+            </Typography>
+          </div>
+          <Typography type='h5' weight='normal'>
+            {service?.type_id == 1 ? service?.count * service?.price * days! : service?.count * service.price} ₾
+          </Typography>
+        </div>
+      ))}
 
-      <div className='flex justify-between py-1 pt-4 pb-7'>
-        <Typography type='h5' weight='medium' className='font-bold'>
-          ჯამი
-        </Typography>
-        <Typography type='h5' weight='normal' className='text-orange-100'>
-          {days && days * price + ' ₾'}
+      <div className='w-full h-px bg-raisin-10 my-7' />
+
+      <div className='flex gap-2 flex-col justify-between pb-7 lg:items-center lg:flex-row'>
+        <div className='flex gap-2'>
+          <Typography type='h5' className='text-raisin-100 font-bold'>
+            ჯამი
+          </Typography>
+        </div>
+        <Typography type='h5' weight='normal' className='font-bold'>
+          {services?.reduce((accumulator: number, service: { type_id: number; count: number; price: number }) => {
+            if (service.type_id === 1) {
+              accumulator += service.count * service.price * days!
+            } else {
+              accumulator += service.count * service.price
+            }
+            
+            return accumulator
+          }, 0) +
+            price * days!}
         </Typography>
       </div>
+
       {userInfo?.active_profile_id === userInfo?.UserID && (
         <DefaultButton
           bg='bg-orange-100'

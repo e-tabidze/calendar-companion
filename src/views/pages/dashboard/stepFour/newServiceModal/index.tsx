@@ -96,6 +96,7 @@ const NewServiceModal: React.FC<Props> = ({ open, onClose }) => {
                       bg='bg-green-100'
                       className='my-4 mr-10'
                       textColor='text-white'
+                      disabled={createNewServiceMutation.isLoading}
                     ></DefaultButton>
                   </div>
                 </form>
