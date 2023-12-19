@@ -110,7 +110,6 @@ const SelectField: React.FC<Props> = ({
           <>
             <Select
               styles={customStyles}
-              className={isMulti ? 'bg-red-100' : ''}
               options={options}
               value={
                 isMulti

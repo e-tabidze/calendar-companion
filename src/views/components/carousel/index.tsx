@@ -53,6 +53,7 @@ const Carousel = ({ itemsArray, type, onClick, thumbs = false }: Props) => {
         breakpoints={handleBreakpoints()}
         modules={[Navigation]}
         navigation={true}
+        
         // navigation={{
         //   prevEl: prevRef.current,
         //   nextEl: nextRef.current

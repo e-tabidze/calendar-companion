@@ -112,6 +112,7 @@ const PriceCalcCard: React.FC<Props> = ({
                     } else {
                       accumulator += service.count * service.price
                     }
+                    
                     return accumulator
                   }, 0)
                 : 0)}

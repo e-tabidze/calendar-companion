@@ -25,6 +25,7 @@ import SkeletonLoading from 'src/views/pages/search/skeletonLoading'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { dehydrate } from '@tanstack/react-query'
 import { queryClient } from '../_app'
+import SortListBox from 'src/views/pages/search/sortListBox'
 
 const Divider = dynamic(() => import('src/views/components/divider'), { ssr: true })
 
@@ -63,7 +64,8 @@ const SearchPage = () => {
     searchProductsMutation,
     totalProductsCount,
     totalPages,
-    objectToURI
+    objectToURI,
+    setValue
   } = useSearch()
   const { width } = useWindowDimensions()
 
@@ -93,10 +95,9 @@ const SearchPage = () => {
 
   const onSubmit = () => {
     const updatedSearchValues = getValues()
+    console.log(updatedSearchValues, 'updatedSearchValues')
     router.push(`/search?${objectToURI(updatedSearchValues)}`)
   }
-
-
 
   return (
     <>
@@ -154,8 +155,7 @@ const SearchPage = () => {
                 type='reset'
                 onClick={(e: { preventDefault: () => void }) => {
                   reset()
-                  e.preventDefault() // Prevent the default form submission behavior
-
+                  e.preventDefault()
                   onSubmit()
                   router.push('/search/?page=1&order_by=desc')
                 }}
@@ -210,12 +210,13 @@ const SearchPage = () => {
                           handleClick={() => toggleFilters(!filters)}
                         />
                       )}
-                      <Tag
+                      {/* <Tag
                         className='mx-4 lg:mx-0'
                         component={<Icon svgPath='sort' width={20} height={12} className='fill-transparent' />}
                         label={width > 779 ? 'სორტირება' : ''}
                         height={width > 1025 ? 'h-12' : 'h-10'}
-                      />
+                      /> */}
+                      <SortListBox control={control} onClick={onSubmit} getValues={getValues} setValue={setValue} />
                     </div>
 
                     {/* {width < 1025 && (

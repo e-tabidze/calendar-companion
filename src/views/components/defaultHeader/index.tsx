@@ -6,7 +6,8 @@ import Tnet from './tnet'
 import NavigationBar from './navigationBar'
 import useProfile from 'src/hooks/useProfile'
 import { IconTextButton } from '../button'
-import LanguagePicker from './languagePicker'
+
+// import LanguagePicker from './languagePicker'
 import { useEffect } from 'react'
 import { TNET_AUTH } from 'src/env'
 
@@ -52,7 +53,8 @@ const DefaultHeader = () => {
         {router?.asPath?.startsWith('/search') && <Filters />}
       </div>
       <div className='flex items-center'>
-        <LanguagePicker responsive className='md:mx-4' />
+
+        {/* <LanguagePicker responsive className='md:mx-4' /> */}
         {isAuthenticated && isLoading ? (
           <>Loading... </>
         ) : isAuthenticated ? (
