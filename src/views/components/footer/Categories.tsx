@@ -22,7 +22,7 @@ const Categories = () => {
                </span>
             </Typography>
             <div className={`${active?'block':'hidden'} lg:block`}>
-                <div className="lg:flex lg:justify-between">
+                <div className="lg:flex lg:justify-between lg:w-11/12 xl:w-10/12 2xl:w-9/12">
                     <ul className="mt-4 lg:mt-6 lg:flex lg:justify-between lg:w-full overflow-hidden">
                             { categoriesFilter
                         ?.filter((product: any) => product?.count_products > 0)

@@ -20,7 +20,7 @@ const ListItem: React.FC<Props> = ({ url, notification }) => {
 
           <div className='flex'>
             <span className='w-10 h-10 bg-grey-100 rounded-xl mr-4 flex items-center justify-center shrink-0'>
-              <Icon svgPath='approved' width={24} height={24} />
+              <Icon svgPath={notification?.data?.icon} width={24} height={24} />
             </span>
             <div className='flex flex-col'>
               <Typography type='h5' className='text-2sm md:text-md font-medium text-raisin-100'>

@@ -79,10 +79,10 @@ const OrderDetails = () => {
           </Typography>
           <Typography type='subtitle'>{userOrderDetails && productData?.company?.information?.name}</Typography>
         </RentalDetailsWrapper>
-        <div className='hidden md:flex items-center border border-green-80 rounded-lg gap-2 p-2'>
+        <a href={`tel:${productData?.company?.information?.phone_numbers}`} className='hidden md:flex items-center border border-green-80 rounded-lg gap-2 p-2'>
           <Icon svgPath='phone' width={20} height={20} className='fill-transparent' />
           <Typography type='subtitle'>{productData?.company?.information?.phone_numbers}</Typography>
-        </div>
+        </a>
       </RentalDetailsContainer>
       <Divider />
       <PriceDetailsContainer>
@@ -216,6 +216,13 @@ const OrderDetails = () => {
           toggleCancelOrderDialog()
         }}
       />
+      <div className="md:hidden flex justify-between items-center fixed w-full bg-white bottom-[75px] left-0 p-4 shadow-sm border-b-1 border-raisin-10">
+        <Typography type='subtitle' className='mr-8'>დარეკვა</Typography>
+        <a href={`tel:${productData?.company?.information?.phone_numbers}`} className='flex items-center border border-green-80 rounded-lg gap-2 p-2'>
+          <Icon svgPath='phone' width={20} height={20} className='fill-transparent' />
+          <Typography type='subtitle'>{productData?.company?.information?.phone_numbers}</Typography>
+        </a>
+      </div>
     </div>
   )
 }
