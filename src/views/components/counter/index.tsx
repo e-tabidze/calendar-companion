@@ -30,12 +30,12 @@ const Counter: React.FC<Props> = ({ name, control, defaultValue, disabled, max }
       defaultValue={defaultValue}
       render={({ field: { onChange } }) => (
         <div
-          className={`flex items-center w-32 justify-between ${
-            disabled ? 'cursor-default pointer-events-none opacity-50' : ''
+          className={`flex items-center justify-between ${
+            disabled ? 'cursor-default pointer-events-none' : ''
           }`}
         >
           <button
-            className={`rounded-full px-4 py-2 ${
+            className={`rounded-full flex w-8 h-8 items-center justify-center ${
               count === 0 ? 'cursor-not-allowed bg-grey-110 opacity-25' : 'bg-white shadow-sm'
             }`}
             onClick={() => {
@@ -47,12 +47,12 @@ const Counter: React.FC<Props> = ({ name, control, defaultValue, disabled, max }
           >
             -
           </button>
-          <Typography type='h5' className='w-9 text-center'>
+          <Typography type='h5' className='mx-3 text-center'>
             {count}
           </Typography>
           <button
-            className={`rounded-full bg-white px-4 py-2 shadow-sm ${
-              max !== undefined && count === max ? 'cursor-not-allowed opacity-25' : ''
+            className={`rounded-full flex w-8 h-8 items-center justify-center bg-white shadow-sm ${
+              max !== undefined && count === max ? 'cursor-not-allowed' : ''
             }`}
             type='button'
             onClick={() => {
