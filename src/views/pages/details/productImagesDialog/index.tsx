@@ -23,10 +23,10 @@ const ProductImagesDialog = ({ open, setOpen, images }: Props) => {
           leaveTo='opacity-0 translate-y-4 md:translate-y-0 md:scale-95'
         >
           <Dialog.Panel className='fixed inset-0 z-10 transform md:p-10 lg:p-0 bg-white text-left shadow-xl transition-all w-screen h-screen overflow-y-auto'>
-            <div className='w-full flex justify-end items-center'>
+            <div className='absolute top-4 right-0'>
               <IconButton icon='close' className='!w-16 !h-16 cursor-pointer' onClick={setOpen} width={48} height={48} />
             </div>
-            <div className='lg:w-9/12 xl:w-8/12 m-auto px-5 lg:px-0 w-max-full'>
+            <div className='lg:w-9/12 xl:w-8/12 m-auto px-5 lg:px-0 w-max-full h-full justify-center flex flex-col'>
               <Carousel itemsArray={images} type='gallery' thumbs />
             </div>
           </Dialog.Panel>

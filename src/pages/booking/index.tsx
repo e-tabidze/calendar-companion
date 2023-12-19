@@ -161,7 +161,7 @@ const Booking = () => {
               მნიშვნელოვანია შემდგომში თქვენსა და გამქირავებელს შორის კომუნიკაციისთვის
             </Typography>
             <Divider />
-            <Typography type='h3' className='my-11'>
+            <Typography type='h3' className='text-3md md:text-2lg my-6 md:my-10'>
               ადგილმდებარეობა *
             </Typography>
 
@@ -172,7 +172,7 @@ const Booking = () => {
                 className='mt-11 flex items-center justify-between mb-8'
                 onClick={() => toggleAdditionalServices(!additionalServices)}
               >
-                <Typography type='h3'>დამატებითი სერვისები</Typography>
+                <Typography type='h3' className='text-3md md:text-2lg'>დამატებითი სერვისები</Typography>
                 <Icon
                   svgPath='chevron'
                   width={8}

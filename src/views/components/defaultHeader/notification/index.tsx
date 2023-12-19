@@ -38,13 +38,7 @@ const Notification = () => {
                 <li key={notification?.id}>
                   <a href='#' className='px-4 flex items-center py-2 relative'>
                     <span
-                      className={`w-1 h-1 rounded-full ${
-                        notification?.data.color === 'yellow'
-                          ? 'bg-yellow-100'
-                          : notification?.data.color === 'red'
-                          ? 'bg-orange-100'
-                          : 'bg-green-100'
-                      }  absolute left-[6px] top-1/2 -translate-y-1/2`}
+                      className='w-1 h-1 rounded-full bg-orange-100 absolute left-[6px] top-1/2 -translate-y-1/2'
                     ></span>
                     <span className='w-10 h-10 bg-grey-100 rounded-xl mr-4 flex items-center justify-center shrink-0'>
                       <Icon
