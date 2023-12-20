@@ -4,7 +4,7 @@ import { Controller } from 'react-hook-form'
 import Typography from 'src/views/components/typography'
 import { FilterContainer, InnerFilterContainer } from './styles'
 import useSearchLocations from './useSearchLocations'
-import Icon from "src/views/app/Icon";
+import Icon from 'src/views/app/Icon'
 
 interface Props {
   control: any
@@ -24,11 +24,11 @@ const LocationDropdown: React.FC<Props> = ({ control }) => {
               <Listbox.Button className='relative w-full cursor-pointer rounded-2xl bg-white py-5 px-4 text-left focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-raisin-5 sm:text-sm'>
                 <FilterContainer>
                   <Typography type='body' color='dark'>
-                    ადგილმდებარეობა
+                    მდებარეობა
                   </Typography>
                   <InnerFilterContainer>
                     <Typography type='subtitle' className='text-raisin-50 whitespace-nowrap'>
-                      {value || 'ქალაქი, აეროპორტი, მისამართი...'}
+                      {value || 'ქალაქი, მისამართი'}
                     </Typography>
                     <Icon svgPath='chevron' width={8} height={6} className='fill-transparent inline fill-white m-2' />
                   </InnerFilterContainer>
@@ -54,7 +54,11 @@ const LocationDropdown: React.FC<Props> = ({ control }) => {
                       {({ selected }) => (
                         <div className='flex items-center cursor-pointer'>
                           <Icon svgPath='city' width={24} height={24} className='fill-transparent mr-3' />
-                          <span className={`text-sm block truncate ${selected ? 'font-medium text-black' : 'font-normal text-black/70'}`}>
+                          <span
+                            className={`text-sm block truncate ${
+                              selected ? 'font-medium text-black' : 'font-normal text-black/70'
+                            }`}
+                          >
                             {city.city}
                           </span>
                         </div>

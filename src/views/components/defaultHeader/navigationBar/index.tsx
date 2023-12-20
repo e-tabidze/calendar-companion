@@ -9,7 +9,7 @@ import { useRouter } from 'next/router'
 
 const NavigationBar = () => {
   const [burger, toggleBurger] = useState(false)
-  const { isAuthenticated, activeCompany, isLoading, userInfo } = useProfile()
+  const { isAuthenticated, activeCompany, isLoading, userInfo, defaultImgUrl } = useProfile()
 
   const router = useRouter()
 
@@ -89,10 +89,10 @@ const NavigationBar = () => {
           ) : (
             <button onClick={() => toggleBurger(!burger)}>
               <div className='flex flex-col items-center text-raisin-70'>
-                <span className='w-6 h-6 relative flex items-center justify-center rounded-full overflow-hidden'>
+                <span className='w-8 h-8 relative flex items-center justify-center rounded-full overflow-hidden'>
                   {isAuthenticated ? (
                     <Image
-                      src={!!activeCompany ? activeCompany.information.logo : userInfo?.information?.profile_pic}
+                      src={!!activeCompany ? activeCompany.information.logo : defaultImgUrl}
                       className='object-cover w-full h-full'
                       alt='avatar'
                     />

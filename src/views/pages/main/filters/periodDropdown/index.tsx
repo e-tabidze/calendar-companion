@@ -24,7 +24,7 @@ const PeriodDropdown: React.FC<Props> = ({ control }) => {
       <Menu.Button className='py-5 px-4 inline-flex w-full justify-center rounded-md bg-raisin bg-opacity-20 text-sm font-medium text-white focus-visible:ring-white focus-visible:ring-opacity-75'>
         <FilterContainer>
           <Typography type='body' color='dark'>
-            ქირაობის პერიოდი
+            დაქირავების პერიოდი
           </Typography>
           <InnerFilterContainer>
             <Typography type='subtitle' className='text-raisin-50'>
@@ -32,7 +32,7 @@ const PeriodDropdown: React.FC<Props> = ({ control }) => {
                 ? `${format(startDate, 'd MMM yyyy', { locale: ka })} - ${format(endDate, 'd MMM yyyy', {
                     locale: ka
                   })}`
-                : 'აირჩიეთ თარიღი და დრო'}
+                : 'თარიღი'}
             </Typography>
             <Icon svgPath='chevron' width={8} height={6} className='inline fill-white m-2' />
           </InnerFilterContainer>

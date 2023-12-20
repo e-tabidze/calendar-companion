@@ -10,9 +10,10 @@ interface Props {
   onChange: (event: ChangeEvent<HTMLInputElement>) => void
   handleDelete: () => void
   value: any
+  isLoading: boolean
 }
 
-const FileUpload: React.FC<Props> = ({ title, description, onChange, handleDelete, value }) => {
+const FileUpload: React.FC<Props> = ({ title, description, onChange, handleDelete, value, isLoading }) => {
   // const supportedFileTypes = ['pdf', 'jpg', 'jpeg', 'png', 'gif']
 
   console.log(value, 'value')
@@ -20,10 +21,23 @@ const FileUpload: React.FC<Props> = ({ title, description, onChange, handleDelet
   return (
     <div className='flex items-center gap-8'>
       <div className='w-24 h-20 flex items-center justify-center overflow-hidden rounded-2xl bg-green-10 border-dashed border-raisin-10'>
-        {value ? (
+        {isLoading ? (
+          <div className='w-100 h-100 flex items-center justify-center rounded-12'>
+            <div className='flex items-center cursor-pointer'>
+              <Icon svgPath='loader' width={30} height={30} />
+              <span className='text-gray-800 text-3 font-medium mt-3'></span>
+            </div>
+          </div>
+        ) : value ? (
           <div className='relative w-full h-full border-dashed border-raisin-10 overflow-hidden bg-green-10 rounded-2xl'>
             {value ? <Image src={value} alt='' /> : <Icon svgPath='play' width={20} height={20} />}
-            <IconButton icon='close' className='cursor-pointer absolute top-2 right-2' onClick={handleDelete} height={30} width={30} />
+            <IconButton
+              icon='closeSm'
+              className='cursor-pointer absolute top-2 right-2'
+              onClick={handleDelete}
+              height={20}
+              width={20}
+            />
           </div>
         ) : (
           <label className='w-full h-full flex items-center justify-center cursor-pointer'>

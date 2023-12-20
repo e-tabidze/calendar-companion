@@ -24,11 +24,11 @@ const LocationDropdown: React.FC<Props> = ({ control }) => {
               <Listbox.Button className='relative w-full cursor-pointer rounded-2xl bg-white py-5 px-4 text-left focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-raisin-5 sm:text-sm'>
                 <FilterContainer>
                   <Typography type='body' color='dark'>
-                    ადგილმდებარეობა
+                    მდებარეობა
                   </Typography>
                   <InnerFilterContainer>
                     <Typography type='subtitle' className='text-raisin-50 whitespace-nowrap'>
-                      {value || 'ქალაქი, აეროპორტი, მისამართი...'}
+                      {value || 'ქალაქი, მისამართი'}
                     </Typography>
                     <Image src='/icons/chevron.svg' className='inline fill-white m-2' alt='img' />
                   </InnerFilterContainer>
