@@ -106,6 +106,7 @@ const CreateCompany = () => {
   }
 
   console.log(errors, 'errors')
+  console.log(companyValues, 'companyValues')
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
