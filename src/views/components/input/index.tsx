@@ -80,7 +80,7 @@ export const DefaultInput: React.FC<Props> = ({
           <>
             <label
               className={`absolute left-3 text-raisin-50 transition-all text-2sm pointer-events-none ${
-                isFocused || value ? 'text-sm top-[3px]' : 'top-[16px] transform'
+                isFocused || value ? 'text-sm top-[3px]' : 'top-[16px] text-raisin-80'
               }`}
             >
               {label}
@@ -169,8 +169,8 @@ export const InputWithComponent: React.FC<Props> = ({
           render={({ field: { onChange, value } }) => (
             <>
               <label
-                className={`absolute left-3 ${
-                  isFocused || value ? 'text-sm text-raisin-50 top-0' : 'text-2sm text-raisin-80 top-4'
+                className={`absolute left-3 transition-all text-2sm pointer-events-none ${
+                  isFocused || value ? 'text-sm text-raisin-50 top-1' : 'text-2sm text-raisin-80 top-4'
                 }`}
               >
                 {label}
@@ -191,12 +191,12 @@ export const InputWithComponent: React.FC<Props> = ({
             </>
           )}
         />
-        <div className='flex items-center gap-3 h-full border-l border-raisin-10 px-5 cursor-pointer'>
+        {/* <div className='flex items-center gap-3 h-full border-l border-raisin-10 px-5 cursor-pointer'>
           <Icon svgPath='map' width={24} height={24} className='fill-transparent' onClick={onComponentClick} />
           <Typography type='subtitle' className='hidden sm:flex'>
             რუკაზე
           </Typography>
-        </div>
+        </div> */}
       </InputContainer>
     </>
   )

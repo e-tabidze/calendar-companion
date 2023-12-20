@@ -172,6 +172,7 @@ const EditScheduleModal: React.FC<Props> = ({ open, onClose, control, address, i
                                 />
                               )}
                             />
+
                             <div className='flex items-center gap-1'>
                               <SelectField
                                 options={generateTimeOptions()}
