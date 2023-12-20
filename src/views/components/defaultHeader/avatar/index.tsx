@@ -14,7 +14,7 @@ const Avatar = () => {
 
   const queryClient = useQueryClient()
 
-  const { userInfo, userCompanies, postSwitchProfile, activeCompany, router, activeCompanyId, handleLogout } =
+  const { userInfo, userCompanies, postSwitchProfile, activeCompany, router, activeCompanyId, handleLogout, defaultImgUrl } =
     useProfile()
 
   const switchProfileMutation = useMutation((active_profile_id: string) => postSwitchProfile('', active_profile_id), {
@@ -36,7 +36,7 @@ const Avatar = () => {
     setActive(!active)
   }
 
-  const defaultImgUrl = `https://static.my.ge/users/profile/${userInfo?.UserID}.jpg?v=1`
+  // const defaultImgUrl = `https://static.my.ge/users/profile/${userInfo?.UserID}.jpg?v=1`
 
   const routeClass = `px-6 flex whitespace-nowrap text-md text-raisin-100 py-2 hover:bg-grey-100 transition-all`
 

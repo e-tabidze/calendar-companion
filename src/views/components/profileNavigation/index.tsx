@@ -30,7 +30,7 @@ const ProfileNavigation: React.FC<Props> = ({
   selectedRoute,
   dividerIndexes
 }) => {
-  const { userInfo, activeCompany, isAuthenticated, handleLogout } = useProfile()
+  const { userInfo, activeCompany, isAuthenticated, handleLogout, defaultImgUrl } = useProfile()
 
   const router = useRouter()
 
@@ -50,7 +50,7 @@ const ProfileNavigation: React.FC<Props> = ({
               src={
                 isAuthenticated && !!activeCompany
                   ? activeCompany?.information.logo
-                  : userInfo?.information?.profile_pic
+                  : defaultImgUrl
               }
               alt='avatar'
               className='object-cover w-full h-full'

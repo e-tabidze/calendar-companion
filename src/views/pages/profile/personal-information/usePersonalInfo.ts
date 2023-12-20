@@ -3,19 +3,21 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { UserInfo } from 'src/types/User'
 import UserService from 'src/services/UserService'
 import { PasswordSchema, UserInfoSchema } from 'src/@core/validation/userInfoSchema'
+import useProfile from 'src/hooks/useProfile'
 
 const usePersonalInfo = (userData: UserInfo) => {
+  const { userInfo } = useProfile()
   const defaultValues = {
     profile_pic: userData?.information?.profile_pic,
-    gender: userData?.information?.gender,
+    gender: userData?.information?.gender || userInfo?.gender_id,
     birth_date: userData?.information?.birth_date,
     identification_number: userData?.information?.identification_number,
     driver_license_expiration: userData?.information?.driver_license_expiration,
-    email: userData?.Email,
-    first_name: userData?.information?.first_name,
-    last_name: userData?.information?.last_name,
+    email: userData?.Email || userInfo?.Email,
+    first_name: userData?.information?.first_name || userInfo?.FirstName,
+    last_name: userData?.information?.last_name || userInfo?.LastName,
     Email: userData?.Email,
-    phone: userData?.information?.phone
+    phone: userData?.information?.phone || userInfo?.phone
   }
 
   const passwordDefaultValues = {
@@ -44,7 +46,7 @@ const usePersonalInfo = (userData: UserInfo) => {
   } = useForm({
     defaultValues,
     mode: 'onChange',
-    resolver: yupResolver(UserInfoSchema)
+    resolver: yupResolver(UserInfoSchema) as any
   })
 
   const userInfoValues: any = useWatch({ control: userInfoControl })

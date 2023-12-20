@@ -38,9 +38,6 @@ const MainPage = () => {
           <Typography type='h3' className='text-3md md:text-2lg mt-12'>
             მოძებნე კატეგორიების მიხედვით
           </Typography>
-          <Typography type='subtitle' color='light' className='mb-12'>
-            იპოვეთ თქვენთვის სასურველი ავტომობილი კონკრეტული საჭიროებისთვის ერთ სივრცეში
-          </Typography>
         </ContentContainer>
         <ContentContainer className='px-0 md:px-5 lg:px-8 mb-12'>
           <Carousel
@@ -65,9 +62,6 @@ const MainPage = () => {
           <Typography type='h3' className='text-3md md:text-2lg mt-12'>
             პოპულარული მანქანები
           </Typography>
-          <Typography type='subtitle' color='light' className='mb-12'>
-            ცნობილი ფაქტია, რომ გვერდის წაკითხვად შიგთავსს შეუძლია მკითხველის ყურადღება მიიზიდოს
-          </Typography>
         </ContentContainer>
         <ContentContainer className='px-0 md:px-5 lg:px-8'>
           <Carousel
@@ -91,9 +85,6 @@ const MainPage = () => {
         <ContentContainer>
           <Typography type='h3' className='text-3md md:text-2lg mt-12'>
             ბოლოს ნანახი
-          </Typography>
-          <Typography type='subtitle' color='light' className='mb-12'>
-            ცნობილი ფაქტია, რომ გვერდის წაკითხვად შიგთავსს შეუძლია მკითხველის ყურადღება მიიზიდოს
           </Typography>
         </ContentContainer>
         <ContentContainer className='px-0 md:px-5 lg:px-8'>
