@@ -21,7 +21,7 @@ import { queryClient } from './_app'
 const MainPageBox = tw.div<TailwindDiv>`flex w-full items-center flex-col`
 
 const MainPage = () => {
-  const { latestProducts, popularProducts, lastSeenProducts } = useMain()
+  const { popularProducts, lastSeenProducts } = useMain()
 
   console.log(lastSeenProducts, 'lastSeenProducts')
 
@@ -63,33 +63,6 @@ const MainPage = () => {
         </LargeContainer>
         <ContentContainer>
           <Typography type='h3' className='text-3md md:text-2lg mt-12'>
-            ბოლოს დამატებული
-          </Typography>
-          <Typography type='subtitle' color='light' className='mb-12'>
-            ცნობილი ფაქტია, რომ გვერდის წაკითხვად შიგთავსს შეუძლია მკითხველის ყურადღება მიიზიდოს
-          </Typography>
-        </ContentContainer>
-        <ContentContainer className='px-0 md:px-5 lg:px-8'>
-          <Carousel
-            itemsArray={latestProducts?.map((product: any) => (
-              <ProductCard
-                key={product?.id}
-                swiperCard={true}
-                productId={product?.id}
-                manufacturer={product?.manufacturer?.title}
-                model={product?.manufacturer_model?.title}
-                prodYear={product?.prod_year}
-                priceGel={product?.price_gel}
-                luggageNumbers={product?.luggage_numbers}
-                seats={product?.seat_type?.title}
-                images={product?.images?.split(',')}
-              />
-            ))}
-            type='products'
-          />
-        </ContentContainer>
-        <ContentContainer>
-          <Typography type='h3' className='text-3md md:text-2lg mt-12'>
             პოპულარული მანქანები
           </Typography>
           <Typography type='subtitle' color='light' className='mb-12'>
@@ -126,18 +99,18 @@ const MainPage = () => {
         <ContentContainer className='px-0 md:px-5 lg:px-8'>
           <Carousel
             itemsArray={lastSeenProducts?.map((product: any) => (
-                  <ProductCard
-                      key={product?.product?.id}
-                      swiperCard={true}
-                      productId={product?.product?.id}
-                      manufacturer={product?.product?.manufacturer?.title}
-                      model={product?.product?.manufacturer_model?.title}
-                      prodYear={product?.product?.prod_year}
-                      priceGel={product?.product?.price_gel}
-                      luggageNumbers={product?.product?.luggage_numbers}
-                      seats={product?.product?.seat_type?.title}
-                      images={product?.product?.images?.split(',')}
-                  />
+              <ProductCard
+                key={product?.product?.id}
+                swiperCard={true}
+                productId={product?.product?.id}
+                manufacturer={product?.product?.manufacturer?.title}
+                model={product?.product?.manufacturer_model?.title}
+                prodYear={product?.product?.prod_year}
+                priceGel={product?.product?.price_gel}
+                luggageNumbers={product?.product?.luggage_numbers}
+                seats={product?.product?.seat_type?.title}
+                images={product?.product?.images?.split(',')}
+              />
             ))}
             type='products'
           />
