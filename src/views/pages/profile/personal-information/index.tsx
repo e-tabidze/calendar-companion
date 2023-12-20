@@ -86,8 +86,8 @@ const PersonalInfo: React.FC<Props> = ({ userData }) => {
           <div className='w-12 h-12 md:w-24 md:h-24 rounded-full md:rounded-3xl'>
             <Image
               src={userData?.information?.profile_pic}
-              height={'100%'}
-              width={'100%'}
+              height='100%'
+              width='100%'
               alt=''
               className='object-cover'
             />

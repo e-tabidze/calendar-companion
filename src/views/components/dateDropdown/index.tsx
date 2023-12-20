@@ -3,7 +3,7 @@ import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import { Controller } from 'react-hook-form'
 import { format } from 'date-fns'
-import Icon from "src/views/app/Icon";
+import Icon from 'src/views/app/Icon'
 
 interface Props {
   name: string
@@ -22,7 +22,7 @@ interface CalendarInputProps {
 const CustomDateInput: React.FC<CalendarInputProps> = ({ value, onClick, isCalendarOpen, label }) => (
   <div className='relative w-full h-14'>
     <div className='absolute inset-y-0 left-0 flex items-center pl-3'>
-        <Icon svgPath='calendar' width={24} height={24} className='fill-transparent' />
+      <Icon svgPath='calendar' width={24} height={24} className='fill-transparent' />
     </div>
     <input
       type='text'
@@ -33,7 +33,12 @@ const CustomDateInput: React.FC<CalendarInputProps> = ({ value, onClick, isCalen
     />
     <label className={`absolute left-12 ${value ? 'text-sm text-raisin-50 top-[3px]' : 'hidden'}`}>{label}</label>
     <div className='absolute inset-y-0 right-0 flex items-center pr-3'>
-        <Icon svgPath='chevron' height={6} width={10} className={`fill-transparent transform ${isCalendarOpen ? 'rotate-0' : 'rotate-180'}`}/>
+      <Icon
+        svgPath='chevron'
+        height={6}
+        width={10}
+        className={`fill-transparent transform ${isCalendarOpen ? 'rotate-0' : 'rotate-180'}`}
+      />
     </div>
   </div>
 )
@@ -48,12 +53,12 @@ const DateDropdown: React.FC<Props> = ({ name, control, defaultValue, label }) =
       defaultValue={defaultValue}
       render={({ field: { onChange, value } }) => (
         <DatePicker
-          selected={new Date(value)}
+          selected={value ? new Date(value) : null}
           onChange={date => onChange(date && format(date, 'yyyy-MM-dd'))}
           dateFormat='yyyy-MM-dd'
           customInput={
             <CustomDateInput
-              value={value}
+              value={value || ''}
               onClick={() => setIsCalendarOpen(!isCalendarOpen)}
               isCalendarOpen
               label={label}

@@ -9,10 +9,9 @@ interface Props {
   control: any
   onClick: () => void
   setValue: any
-  getValues: any
 }
 
-const SortListBox: React.FC<Props> = ({ control, getValues, setValue }) => {
+const SortListBox: React.FC<Props> = ({ control, onClick, setValue }) => {
   const { sortFilters } = useFilters()
 
   return (
@@ -24,24 +23,24 @@ const SortListBox: React.FC<Props> = ({ control, getValues, setValue }) => {
           render={({ field: { onChange, value } }) => (
             <Listbox
               value={sortFilters?.find(opt => opt?.id === value)}
-              
+
               // onChange={selectedFilter => {
+              //   console.log(sortFilters.find(opt => opt.id === value)?.order_by, 'order_by?')
               //   onChange(selectedFilter)
-              //   // onClick()
+              // setValue('order_by', sortFilters.find(opt => opt.id === value)?.order_by)
+              // setValue('order_by', sortFilters?.find(opt => opt?.id === selectedFilter.id)?.order_by)
+              //   onClick()
               // }}
               onChange={selectedFilter => {
+                console.log(sortFilters.find(opt => opt.id === value)?.order_by, 'order_by?')
                 onChange(selectedFilter)
+                setValue('order_by', sortFilters.find(opt => opt.id === value)?.order_by)
 
-                console.log(sortFilters.find(opt => opt.id === value)?.order_by, 'label?')
+                onClick()
 
-                setValue('sort_by', '')
-                setValue('order_by', 'abc')
+                // setValue('order_by', sortFilters.find(opt => opt.id === value)?.order_by)
 
-                const updatedSearchValues = getValues()
-                console.log(updatedSearchValues, 'updatedSearchValues')
-
-                // router.push(`/search?${objectToURI(updatedSearchValues)}`)
-                // onClick()
+                // Use the promise to wait for setValue to complete before calling onClick
               }}
             >
               <div className='relative mt-1 flex text-left w-full'>
@@ -71,12 +70,7 @@ const SortListBox: React.FC<Props> = ({ control, getValues, setValue }) => {
                         {({ selected }) => (
                           <>
                             {console.log(filter, 'filter')}
-                            <span
-                              className={`block truncate ${selected ? 'font-medium' : 'font-normal'}`}
-
-                              //   onClick={() => setValue('order_by', filter.sort_by)}
-                              //   value={filter.sort_by}
-                            >
+                            <span className={`block truncate ${selected ? 'font-medium' : 'font-normal'}`}>
                               {filter.label}
                             </span>
                           </>

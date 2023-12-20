@@ -69,7 +69,7 @@ const ProfileNavigation: React.FC<Props> = ({
               activeCompany?.information.name
             ) : (
               <>
-                {userInfo?.information?.first_name} {userInfo?.information?.last_name}{' '}
+                {userInfo?.information?.first_name} {userInfo?.information?.last_name}
               </>
             )}
           </Typography>

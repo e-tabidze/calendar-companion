@@ -36,6 +36,8 @@ const Avatar = () => {
     setActive(!active)
   }
 
+  const defaultImgUrl = `https://static.my.ge/users/profile/${userInfo?.UserID}.jpg?v=1`
+
   const routeClass = `px-6 flex whitespace-nowrap text-md text-raisin-100 py-2 hover:bg-grey-100 transition-all`
 
   console.log(userInfo, 'userInfo')
@@ -47,10 +49,7 @@ const Avatar = () => {
           <AvatarInnerContainer>
             <Image
               src={
-                !!activeCompany
-                  ? activeCompany.information.logo
-                  : userInfo?.information?.profile_pic ||
-                    `https://static.my.ge/users/profile/${userInfo?.UserID}.jpg?v=1`
+                !!activeCompany ? activeCompany.information.logo : userInfo?.information?.profile_pic || defaultImgUrl
               }
               className='object-cover w-full h-full'
               alt='avatar'
@@ -61,7 +60,7 @@ const Avatar = () => {
               type='subtitle'
               className='max-w-[120px] inline-block overflow-hidden text-ellipsis whitespace-nowrap'
             >
-              {!!activeCompany ? activeCompany.information.name : userInfo?.information?.first_name}
+              {!!activeCompany ? activeCompany?.information?.name : userInfo?.information?.first_name}
             </Typography>
             <Icon svgPath='chevron' width={8} height={6} className='fill-transparent flex ml-2 transition-all' />
           </AvatarResponsiveContainer>
@@ -123,7 +122,7 @@ const Avatar = () => {
                       <div className='flex items-center text-2sm'>
                         <span className='w-10 h-10 mr-4 relative flex items-center justify-center rounded-full overflow-hidden'>
                           <Image
-                            src={userInfo?.information?.profile_pic}
+                            src={userInfo?.information?.profile_pic || defaultImgUrl}
                             className='object-cover w-full h-full'
                             alt='avatar'
                           />
@@ -155,8 +154,7 @@ const Avatar = () => {
                         src={
                           !!activeCompany
                             ? activeCompany.information.logo
-                            : userInfo?.information?.profile_pic ||
-                              `https://static.my.ge/users/profile/${userInfo?.UserID}.jpg?v=1`
+                            : userInfo?.information?.profile_pic || defaultImgUrl
                         }
                         className='h-full w-full object-cover'
                         alt='avatar'
