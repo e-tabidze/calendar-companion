@@ -16,15 +16,12 @@ import useMain from 'src/views/pages/main/useMain'
 // ** Tailwind Styled
 import tw from 'tailwind-styled-components'
 import { queryClient } from './_app'
-import AuthModal from 'src/views/components/authModal'
-import { useState } from 'react'
 
 // ** Styled Components
 const MainPageBox = tw.div<TailwindDiv>`flex w-full items-center flex-col`
 
 const MainPage = () => {
   const { popularProducts, lastSeenProducts } = useMain()
-  const [authModal, setAuthModal] = useState(false)
 
   console.log(lastSeenProducts, 'lastSeenProducts')
 
@@ -43,9 +40,6 @@ const MainPage = () => {
           <Typography type='h3' className='text-3md md:text-2lg mt-12'>
             აირჩიე სასურველი კატეგორია
           </Typography>
-          {/* <Typography type='subtitle' color='light' className='mb-12'>
-            იპოვეთ თქვენთვის სასურველი ავტომობილი კონკრეტული საჭიროებისთვის ერთ სივრცეში
-          </Typography> */}
         </ContentContainer>
         <ContentContainer className='px-0 md:px-5 lg:px-8 mb-12'>
           <Carousel
@@ -70,9 +64,6 @@ const MainPage = () => {
           <Typography type='h3' className='text-3md md:text-2lg mt-12'>
             პოპულარული ავტომობილები
           </Typography>
-          {/* <Typography type='subtitle' color='light' className='mb-12'>
-            ცნობილი ფაქტია, რომ გვერდის წაკითხვად შიგთავსს შეუძლია მკითხველის ყურადღება მიიზიდოს
-          </Typography> */}
         </ContentContainer>
         <ContentContainer className='px-0 md:px-5 lg:px-8'>
           <Carousel
@@ -97,9 +88,6 @@ const MainPage = () => {
           <Typography type='h3' className='text-3md md:text-2lg mt-12'>
             ბოლოს ნანახი
           </Typography>
-          {/* <Typography type='subtitle' color='light' className='mb-12'>
-            ცნობილი ფაქტია, რომ გვერდის წაკითხვად შიგთავსს შეუძლია მკითხველის ყურადღება მიიზიდოს
-          </Typography> */}
         </ContentContainer>
         <ContentContainer className='px-0 md:px-5 lg:px-8'>
           <Carousel

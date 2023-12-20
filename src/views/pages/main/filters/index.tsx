@@ -7,7 +7,8 @@ import { useRouter } from 'next/router'
 import useSearch from 'src/hooks/useSearch'
 import AdditionalFilters from 'src/views/components/additionalFilters'
 
-// import PeriodMob from "src/views/pages/main/filters/periodMob";
+import PeriodMob from "src/views/pages/main/filters/periodMob";
+import LocationMob from "src/views/pages/main/filters/locationMob";
 
 const Filters = () => {
   const [filters, toggleFilters] = useState(false)
@@ -43,12 +44,21 @@ const Filters = () => {
   return (
     <form>
       <FiltersContainer>
-        <LocationDropdown control={control} />
+        <div className="hidden md:flex w-full">
+          <LocationDropdown control={control} />
+        </div>
+        <div className="flex md:hidden w-full">
+          <LocationMob control={control} />
+        </div>
         <Divider />
-        <PeriodDropdown control={control} />
-        {/*<PeriodMob />*/}
+        <div className="hidden md:flex w-full">
+          <PeriodDropdown control={control} />
+        </div>
+        <div className="flex md:hidden w-full">
+          <PeriodMob control={control} />
+        </div>
         <Divider />
-        <ExtraFiltersContainer>
+        <ExtraFiltersContainer className='flex shrink-0'>
           <IconTextButton
             label={'დამატებითი ფილტრი'}
             icon='filters'
@@ -56,7 +66,7 @@ const Filters = () => {
             height={20}
             bg='white'
             labelClassname='text-xs text-base-100 text-left md:hidden'
-            className='mr-4'
+            className='md:mr-4 !px-0 md:!p-4'
             onClick={() => toggleFilters(!filters)}
             type='button'
           />
@@ -65,7 +75,7 @@ const Filters = () => {
             icon='search'
             width={20}
             height={20}
-            bg='bg-red-100'
+            bg='bg-orange-100'
             labelClassname='text-2sm text-white md:hidden'
             onClick={onClickSearch}
             type='button'

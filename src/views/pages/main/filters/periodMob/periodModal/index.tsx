@@ -45,35 +45,44 @@ const PeriodModal: React.FC<Props> = ({open, toggleModal, control}) => {
                         >
                             <Dialog.Panel className='relative transform overflow-hidden rounded-tl-3xl rounded-tr-3xl md:rounded-bl-3xl md:rounded-br-3xl bg-white text-left shadow-xl transition-all w-full md:my-4 md:max-w-3xl'>
                                 <div className='w-full flex justify-between items-center px-4 py-5 sm:py-6 sm:px-10 border-b-1 border-grey-90'>
-                                    <Icon svgPath='close' onClick={toggleModal} height={40} width={40} className='cursor-pointer' />
+                                    <Dialog.Title as='h3' className='w-full flex items-center justify-between'>
+                                        პერიოდი
+                                        <Icon svgPath='close' onClick={toggleModal} height={40} width={40} className='cursor-pointer' />
+                                    </Dialog.Title>
                                 </div>
                                 <Controller
                                     name='booking'
                                     control={control}
                                     render={({ field: { onChange } }) => (
-                                        <DatePicker
-                                            className='text-center border-l-4 border-red-500  w-full p-3 rounded text-sm  outline-none  focus:ring-0 bg-transparent'
-                                            inline
-                                            selectsRange={true}
-                                            startDate={startDate}
-                                            endDate={endDate}
-                                            monthsShown={2}
-                                            onChange={(update: any) => {
-                                                if (update) {
-                                                    const [start, end] = update
-                                                    onChange({ book_from: formatDate(start), book_to: formatDate(end) })
-                                                    setDateRange(update)
-                                                } else {
-                                                    onChange(null)
-                                                    setDateRange([null, null])
-                                                }
-                                            }}
-                                            dateFormat='yyyy-MM-dd'
-                                            onChangeRaw={e => e.preventDefault()}
-                                            minDate={new Date()}
-                                        />
+                                        <div className='flex justify-center py-6'>
+                                            <DatePicker
+                                                className='text-center border-l-4 border-red-500  w-full p-3 rounded text-sm  outline-none  focus:ring-0 bg-transparent'
+                                                inline
+                                                selectsRange={true}
+                                                startDate={startDate}
+                                                endDate={endDate}
+                                                monthsShown={1}
+                                                onChange={(update: any) => {
+                                                    if (update) {
+                                                        const [start, end] = update
+                                                        onChange({ book_from: formatDate(start), book_to: formatDate(end) })
+                                                        setDateRange(update)
+                                                    } else {
+                                                        onChange(null)
+                                                        setDateRange([null, null])
+                                                    }
+                                                }}
+                                                dateFormat='yyyy-MM-dd'
+                                                onChangeRaw={e => e.preventDefault()}
+                                                minDate={new Date()}
+                                            />
+                                        </div>
+
                                     )}
                                 />
+                                <div className="w-full flex flex-row items-center justify-between py-4 px-4 md:px-10 border-t-1 border-grey-90 border-t-1 border-raisin-10">
+                                    <button className='w-full h-12 flex items-center justify-center rounded-2xl bg-orange-100 text-white' onClick={toggleModal}>არჩევა</button>
+                                </div>
                             </Dialog.Panel>
                         </Transition.Child>
                     </div>

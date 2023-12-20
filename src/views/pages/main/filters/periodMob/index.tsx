@@ -1,31 +1,31 @@
 import React, { useState } from 'react'
-import PeriodModal from 'src/views/pages/main/filters/periodModal'
+import PeriodModal from 'src/views/pages/main/filters/periodMob/periodModal'
 import { FilterContainer, InnerFilterContainer } from 'src/views/pages/main/filters/periodDropdown/styles'
 import Typography from 'src/views/components/typography'
-import { format } from 'date-fns'
-import { ka } from 'date-fns/locale'
 import Icon from 'src/views/app/Icon'
-import useSearch from 'src/hooks/useSearch'
+import { useWatch } from 'react-hook-form'
 
-const PeriodMob = () => {
+interface Props {
+  control: any
+}
+
+const PeriodMob: React.FC<Props> = ({ control }) => {
   const [calendar, toggleCalendar] = useState(false)
-  const [dateRange] = useState<[Date, Date] | [null, null]>([null, null])
-  const [startDate, endDate] = dateRange
-  const { control } = useSearch()
+  const formState = useWatch({ control })
+
+  console.log(formState?.booking?.book_from, 'formState?.booking?.book_from')
 
   return (
-    <div>
+    <div className='p-4 w-full'>
       <FilterContainer onClick={() => toggleCalendar(!calendar)}>
         <Typography type='body' color='dark'>
-          დაქირავების პერიოდი
+          ქირაობის პერიოდი
         </Typography>
         <InnerFilterContainer>
           <Typography type='subtitle' className='text-raisin-50'>
-            {startDate && endDate
-              ? `${format(startDate, 'd MMM yyyy', { locale: ka })} - ${format(endDate, 'd MMM yyyy', {
-                  locale: ka
-                })}`
-              : 'თარიღი'}
+            {formState?.booking?.book_from && formState?.booking?.book_to
+              ? `${formState?.booking?.book_from} - ${formState?.booking?.book_to}`
+              : 'აირჩიეთ თარიღი და დრო'}
           </Typography>
           <Icon svgPath='chevron' width={8} height={6} className='inline fill-white m-2' />
         </InnerFilterContainer>
