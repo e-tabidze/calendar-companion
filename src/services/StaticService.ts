@@ -12,7 +12,7 @@ class StaticService extends HttpService {
   postSaveCompanyLogo(AccessToken = '', Logo: string, companyId: string | number) {
     return this.post(
       'https://test.static.my.ge',
-      { Func: 'SaveShopLogo', SiteID: '39', Logo: Logo, SecKey: '$sprt7856^*3423242dmenio4', ShopId: companyId },
+      { Func: 'SaveShopLogo', SiteID: '39', Logo: Logo, SecKey: '', ShopId: companyId },
       AccessToken ? { Authorization: `${AccessToken}` } : {}
     )
   }
