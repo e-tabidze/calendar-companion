@@ -28,19 +28,35 @@ class StaticService extends HttpService {
   reverseAndFormatNumber(dir: number | string) {
     const reversedDigits = String(dir).split('').reverse().map(Number)
     const formattedResult = Array.from({ length: 5 }, (_, i) => reversedDigits[i] || 0).join('/')
-    
+
     return formattedResult
   }
   postSaveProductImages(AccessToken = '', FilesList: string[], productId: string | number) {
-    const mappedPhotos = FilesList?.map(photo => photo )
+    const mappedPhotos = FilesList?.map(photo => photo)
 
     return this.post(
       'save-photos',
       {
         Func: 'AddPhotos',
         'Photos[]': mappedPhotos,
-        PrID: productId,
+        PrID: productId
       },
+      AccessToken ? { Authorization: `${AccessToken}` } : {}
+    )
+  }
+
+  uploadProfileImage(AccessToken = '', File: string) {
+    return this.post(
+      'https://static.my.ge',
+      { Func: 'UploadProfileImage', SiteID: '39', File: File, SecKey: '$sprt7856^*3423242dmenio4' },
+      AccessToken ? { Authorization: `${AccessToken}` } : {}
+    )
+  }
+
+  saveProfileImage(AccessToken = '', Photo: string, UserID: string) {
+    return this.post(
+      'https://static.my.ge',
+      { Func: 'addProfilePicture', SiteID: '39', Photo: `https://static.my.ge/${Photo}`, SecKey: '$sprt7856^*3423242dmenio4', UserID: UserID },
       AccessToken ? { Authorization: `${AccessToken}` } : {}
     )
   }

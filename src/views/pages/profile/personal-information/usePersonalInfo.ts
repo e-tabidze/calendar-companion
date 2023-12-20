@@ -4,6 +4,7 @@ import { UserInfo } from 'src/types/User'
 import UserService from 'src/services/UserService'
 import { PasswordSchema, UserInfoSchema } from 'src/@core/validation/userInfoSchema'
 import useProfile from 'src/hooks/useProfile'
+import StaticService from 'src/services/StaticService'
 
 const usePersonalInfo = (userData: UserInfo) => {
   const { userInfo } = useProfile()
@@ -76,6 +77,28 @@ const usePersonalInfo = (userData: UserInfo) => {
     }
   }
 
+  const uploadProfileImage = async (File: any) => {
+    try {
+      const response: any = await StaticService.uploadProfileImage('', File)
+
+      return response.data
+    } catch (error) {
+      console.error('Error fetching location suggestions:', error)
+      throw error
+    }
+  }
+
+  const saveProfileImage = async (Photo: any) => {
+    try {
+      const response: any = await StaticService.saveProfileImage('', Photo, userInfo?.UserID)
+
+      return response.data
+    } catch (error) {
+      console.error('Error fetching location suggestions:', error)
+      throw error
+    }
+  }
+
   return {
     userInfoControl,
     handleSubmit,
@@ -90,7 +113,9 @@ const usePersonalInfo = (userData: UserInfo) => {
     setError,
     clearErrors,
     updateUserInfo,
-    changeUserPassword
+    changeUserPassword,
+    uploadProfileImage,
+    saveProfileImage
   }
 }
 

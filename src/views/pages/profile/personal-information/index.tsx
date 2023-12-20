@@ -1,5 +1,4 @@
 import Image from 'src/views/components/image'
-import Link from 'next/link'
 import { DefaultButton } from 'src/views/components/button'
 import Divider from 'src/views/components/divider'
 import Typography from 'src/views/components/typography'
@@ -11,6 +10,8 @@ import { UserInfo } from 'src/types/User'
 import usePersonalInfo from './usePersonalInfo'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useState } from 'react'
+import { Controller, useWatch } from 'react-hook-form'
+import useProfile from 'src/hooks/useProfile'
 
 const cat = [
   {
@@ -33,6 +34,7 @@ interface Props {
 
 const PersonalInfo: React.FC<Props> = ({ userData }) => {
   const [activeTab, setActiveTab] = useState<number>(0)
+  const { defaultImgUrl } = useProfile()
   const {
     userInfoControl,
     passwordControl,
@@ -43,7 +45,9 @@ const PersonalInfo: React.FC<Props> = ({ userData }) => {
     changeUserPassword,
     passwordValues,
     passwordErrors,
-    reset
+    reset,
+    uploadProfileImage,
+    saveProfileImage
   } = usePersonalInfo(userData)
 
   const renderTabContent = (id: any) => {
@@ -72,9 +76,33 @@ const PersonalInfo: React.FC<Props> = ({ userData }) => {
     activeTab === 0 ? updateUserMutation.mutate(userInfoValues) : changePasswordMutation.mutate(passwordValues)
   }
 
+  const saveProfileImageMutation = useMutation((variables: any) => saveProfileImage(variables.Photo))
+
   const handleReset = () => {
     activeTab === 0 ? reset() : reset()
   }
+
+  const uploadProfileImageMutation: any = useMutation(uploadProfileImage, {
+    onSettled: data => {
+      if (data) {
+        console.log(data, 'data')
+        saveProfileImageMutation.mutate({
+          Photo: data?.Image
+        })
+        queryClient.invalidateQueries(['profileInfo'])
+      }
+    }
+  })
+
+  const handleFileUpload = async (file: any) => {
+    try {
+      await uploadProfileImageMutation.mutateAsync(file)
+    } catch (error) {
+      console.error('Error uploading file:', error)
+    }
+  }
+
+  console.log(userInfoValues, 'userInfoValues')
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} onReset={handleReset} className='md:border border-raisin-10 rounded-3xl'>
@@ -83,23 +111,33 @@ const PersonalInfo: React.FC<Props> = ({ userData }) => {
           პარამეტრები
         </Typography>
         <div className='border border-raisin-10 p-4 md:border-none md:p-0 rounded-2xl flex items-center gap-6 md:mt-8 '>
-          <div className='w-12 h-12 md:w-24 md:h-24 rounded-full md:rounded-3xl'>
-            <Image
-              src={userData?.information?.profile_pic}
-              height='100%'
-              width='100%'
-              alt=''
-              className='object-cover'
-            />
+          <div className='w-12 h-12 md:w-24 md:h-24 rounded-full overflow-hidden'>
+            <Image src={defaultImgUrl} height='100%' width='100%' alt='' className='w-full h-full object-cover' />
           </div>
 
           <div className='flex flex-col md:gap-2'>
             <Typography type='h3' className='text-md md:text-2lg font-medium md:font-bold'>
               {userData?.information?.first_name} {userData?.information?.last_name}
             </Typography>
-            <Link href='/' className='text-2sm underline text-blue-100 font-normal'>
-              სურათის შეცვლა
-            </Link>
+
+            <Controller
+              name='profile_pic'
+              control={userInfoControl}
+              render={({ field: { value, onChange } }) => (
+                <label className='text-blue-130 text-2sm underline cursor-pointer'>
+                  სურათის შეცვლა
+                  <input
+                    value={value}
+                    className='sr-only'
+                    onChange={(e: any) => {
+                      onChange()
+                      handleFileUpload(Array.from(e.target.files))
+                    }}
+                    type='file'
+                  />
+                </label>
+              )}
+            />
           </div>
         </div>
 

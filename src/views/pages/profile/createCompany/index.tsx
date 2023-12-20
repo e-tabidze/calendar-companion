@@ -37,12 +37,6 @@ const CreateCompany = () => {
 
   const queryClient = useQueryClient()
 
-  // const handleGoNextStep = () => {
-  //   const currentIndex = options.findIndex(option => option.value === step.value)
-  //   if (currentIndex < options.length - 1) {
-  //     setStep(options[currentIndex + 1])
-  //   }
-  // }
   const handleGoNextStep = async () => {
     const currentIndex = options.findIndex(option => option.value === step.value)
 
