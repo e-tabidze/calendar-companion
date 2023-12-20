@@ -1,14 +1,10 @@
 import { useQuery } from '@tanstack/react-query'
+import useProfile from 'src/hooks/useProfile'
 import MainPageService from 'src/services/MainPageService'
 import ProductService from 'src/services/ProductService'
 
 const useMain = (manId?: any, modelId?: any) => {
-  const useLatestProducts: any = useQuery({
-    queryKey: ['latestProducts'],
-    queryFn: () => getLatestProducts(),
-    staleTime: Infinity,
-    enabled: true
-  })
+  const { isAuthenticated } = useProfile()
 
   const usePopularProducts: any = useQuery({
     queryKey: ['popularProducts'],
@@ -27,38 +23,25 @@ const useMain = (manId?: any, modelId?: any) => {
     queryKey: ['lastSeenProducts'],
     queryFn: () => getLastSeenProducts(''),
     staleTime: Infinity,
-    enabled: true
+    enabled: !!isAuthenticated
   })
 
-  const latestProducts = useLatestProducts?.data?.result?.data
+  console.log(isAuthenticated, 'isAuthenticated')
+
   const popularProducts = usePopularProducts?.data?.result?.data
   const similarProducts = useSimilarProducts?.data?.result?.data
   const lastSeenProducts = useLasSeenProducts?.data?.result?.data?.data
 
-
   return {
-    latestProducts,
     popularProducts,
     similarProducts,
     lastSeenProducts,
-    isLatestProductsoading: useLatestProducts.isLoading,
     isPopularProductsoading: usePopularProducts.isLoading,
     isSimilarProductsLoading: useSimilarProducts.isLoading
   }
 }
 
 export default useMain
-
-export const getLatestProducts = async () => {
-  try {
-    const response: any = await MainPageService.getLatestProducts()
-
-    return response.data
-  } catch (error) {
-    console.error(error)
-    throw error
-  }
-}
 
 export const getPopularProducts = async () => {
   try {
