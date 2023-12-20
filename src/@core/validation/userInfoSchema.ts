@@ -15,7 +15,7 @@ const UserInfoSchema = Yup.object().shape({
   phone: Yup.number()
     .typeError('ტელეფონის ნომერი უნდა იყოს რიცხვი')
     .required('აუცილებელი ველი')
-    .min(6, 'მინიმუმ 8 რიცხვი')
+    .min(6, 'მინიმუმ 6 რიცხვი')
 })
 
 const PasswordSchema = Yup.object().shape({

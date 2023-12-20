@@ -83,6 +83,8 @@ const useProfile = () => {
   const activeCompanyId = usePersonalInfo?.data?.result?.data?.active_profile?.id
   const userId = usePersonalInfo.data?.result?.data?.UserID
 
+  const defaultImgUrl = `https://static.my.ge/users/profile/${userInfo?.UserID}.jpg?v=1`
+
   return {
     router,
     userInfo,
@@ -95,7 +97,8 @@ const useProfile = () => {
     isAuthenticated: usePersonalInfo.data || false,
     userId,
     handleLogout,
-    handleLogin
+    handleLogin,
+    defaultImgUrl
   }
 }
 
