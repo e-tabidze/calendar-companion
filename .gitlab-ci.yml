@@ -20,7 +20,8 @@ build-main:
         - echo "${ENV}" > ${WORKDIR}/src/env.js
         - echo "${ECOSYSTEM}" > ${WORKDIR}/ecosystem.config.js
         - cd ${WORKDIR} && yarn
-        - cd ${WORKDIR} && yarn build
+        - cd ${WORKDIR} && yarn add optimize-css-assets-webpack-plugin terser-webpack-plugin --dev
+        - cd ${WORKDIR} && yarn build 
         - ln -sfT ${WORKDIR} ${DIR}
         - cd ${DIR} && (pm2 reload ecosystem.config.js || pm2 start ecosystem.config.js) && pm2 save
         - cd /var/deploy/${CI_COMMIT_BRANCH} && ls -t | tail -n +3 | sudo xargs -I {} rm -r {}

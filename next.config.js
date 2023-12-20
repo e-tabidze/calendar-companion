@@ -1,6 +1,7 @@
 // next.config.js
 const { i18n } = require('./next-i18next.config')
-
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 module.exports = {
   trailingSlash: true,
   reactStrictMode: false,
@@ -11,7 +12,7 @@ module.exports = {
 
   i18n,
 
-  webpack: config => {
+  webpack: (config, { isServer }) => {
     config.resolve.alias = {
       ...config.resolve.alias
     }
@@ -20,6 +21,18 @@ module.exports = {
       test: /\.svg$/,
       use: ['@svgr/webpack']
     })
+
+    // Add TerserPlugin for JavaScript minification
+    if (!isServer) {
+      config.optimization.minimizer.push(new TerserPlugin({
+        terserOptions: {
+          // Your Terser options if needed
+        },
+      }));
+
+      // Add OptimizeCSSAssetsPlugin for CSS optimization
+      config.optimization.minimizer.push(new OptimizeCSSAssetsPlugin({}));
+    }
 
     return config
   }
