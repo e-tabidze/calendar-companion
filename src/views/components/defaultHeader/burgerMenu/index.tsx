@@ -164,6 +164,7 @@ const BurgerMenu: React.FC<Props> = ({ open, setOpen }) => {
                                                 </div>
                                             </div>
                                             <div className='py-8px'>
+                                                {userCompanies.length > 0  && (
                                                 <button
                                                     className='mt-2 px-6 flex w-full flex items-center justify-between whitespace-nowrap text-md text-raisin-100 py-2 active:bg-grey-100 transition-all'
                                                     onClick={handleSetActive}
@@ -171,6 +172,7 @@ const BurgerMenu: React.FC<Props> = ({ open, setOpen }) => {
                                                     ანგარიშის შეცვლა
                                                     <Icon svgPath='chevron-right' width={20} height={20} className="fill-transparent" />
                                                 </button>
+                                                )}
                                                 {activeCompany ? (
                                                     <ul className='mb-2'>
                                                         {dashboardRoutes?.map(route => (

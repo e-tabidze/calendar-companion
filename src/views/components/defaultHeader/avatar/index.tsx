@@ -147,7 +147,7 @@ const Avatar = () => {
               </>
             ) : (
               <>
-                <div className='flex items-center justify-between border-b-[1px] border-raisin-10 px-6 py-4'>
+                <div className='flex items-center justify-between border-b-[1px] border-raisin-10 px-6 py-4 mb-2'>
                   <div className='flex items-center'>
                     <span className='w-10 h-10 mr-3 relative flex items-center justify-center rounded-full overflow-hidden'>
                       <Image
@@ -169,15 +169,17 @@ const Avatar = () => {
                   </div>
                 </div>
                 <div className='py-8px'>
+                {userCompanies.length > 0  && (
                   <button
-                    className='mt-2 px-6 flex w-full flex items-center justify-between whitespace-nowrap text-md text-raisin-100 py-2 hover:bg-grey-100 transition-all'
-                    onClick={handleSetActive}
+                  className='px-6 flex w-full flex items-center justify-between whitespace-nowrap text-md text-raisin-100 py-2 hover:bg-grey-100 transition-all'
+                  onClick={handleSetActive}
                   >
-                    ანგარიშის შეცვლა
-                    <Icon svgPath='chevron-right' width={20} height={20} className='fill-transparent' />
+                  ანგარიშის შეცვლა
+                  <Icon svgPath='chevron-right' width={20} height={20} className='fill-transparent' />
                   </button>
+                )}
                   {activeCompany ? (
-                    <ul className='mb-2'>
+                    <ul>
                       {dashboardRoutes?.map(route => (
                         <li key={route.id}>
                           {route.path ? (
@@ -185,12 +187,15 @@ const Avatar = () => {
                               {route.item}
                             </Link>
                           ) : (
-                            <button
-                              className={`border-t-1 border-raisin-10 w-full mt-2 pt-2 ${routeClass}`}
-                              onClick={handleLogout}
-                            >
-                              {route.item}
-                            </button>
+                              <div className='border-t-1 border-raisin-10 mt-2 py-2'>
+                                <button
+                                    className={`w-full ${routeClass}`}
+                                    onClick={handleLogout}
+                                >
+                                  {route.item}
+                                </button>
+                              </div>
+
                           )}
                         </li>
                       ))}
@@ -204,12 +209,14 @@ const Avatar = () => {
                               {route.item}
                             </Link>
                           ) : (
-                            <button
-                              className={`border-t-1 border-raisin-10 w-full mt-2 pt-2 ${routeClass}`}
-                              onClick={handleLogout}
-                            >
-                              {route.item}
-                            </button>
+                              <div className='border-t-1 border-raisin-10 mt-2 py-2'>
+                                <button
+                                  className={`w-full ${routeClass}`}
+                                  onClick={handleLogout}
+                                >
+                                  {route.item}
+                                </button>
+                              </div>
                           )}
                         </li>
                       ))}
