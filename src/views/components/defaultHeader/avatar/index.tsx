@@ -14,8 +14,16 @@ const Avatar = () => {
 
   const queryClient = useQueryClient()
 
-  const { userInfo, userCompanies, postSwitchProfile, activeCompany, router, activeCompanyId, handleLogout, defaultImgUrl } =
-    useProfile()
+  const {
+    userInfo,
+    userCompanies,
+    postSwitchProfile,
+    activeCompany,
+    router,
+    activeCompanyId,
+    handleLogout,
+    defaultImgUrl
+  } = useProfile()
 
   const switchProfileMutation = useMutation((active_profile_id: string) => postSwitchProfile('', active_profile_id), {
     onSettled: () => {
@@ -35,8 +43,6 @@ const Avatar = () => {
   const handleSetActive = () => {
     setActive(!active)
   }
-
-  // const defaultImgUrl = `https://static.my.ge/users/profile/${userInfo?.UserID}.jpg?v=1`
 
   const routeClass = `px-6 flex whitespace-nowrap text-md text-raisin-100 py-2 hover:bg-grey-100 transition-all`
 
@@ -169,15 +175,15 @@ const Avatar = () => {
                   </div>
                 </div>
                 <div className='py-8px'>
-                {userCompanies.length > 0  && (
-                  <button
-                  className='px-6 flex w-full flex items-center justify-between whitespace-nowrap text-md text-raisin-100 py-2 hover:bg-grey-100 transition-all'
-                  onClick={handleSetActive}
-                  >
-                  ანგარიშის შეცვლა
-                  <Icon svgPath='chevron-right' width={20} height={20} className='fill-transparent' />
-                  </button>
-                )}
+                  {userCompanies.length > 0 && (
+                    <button
+                      className='px-6 flex w-full flex items-center justify-between whitespace-nowrap text-md text-raisin-100 py-2 hover:bg-grey-100 transition-all'
+                      onClick={handleSetActive}
+                    >
+                      ანგარიშის შეცვლა
+                      <Icon svgPath='chevron-right' width={20} height={20} className='fill-transparent' />
+                    </button>
+                  )}
                   {activeCompany ? (
                     <ul>
                       {dashboardRoutes?.map(route => (
@@ -187,15 +193,11 @@ const Avatar = () => {
                               {route.item}
                             </Link>
                           ) : (
-                              <div className='border-t-1 border-raisin-10 mt-2 py-2'>
-                                <button
-                                    className={`w-full ${routeClass}`}
-                                    onClick={handleLogout}
-                                >
-                                  {route.item}
-                                </button>
-                              </div>
-
+                            <div className='border-t-1 border-raisin-10 mt-2 py-2'>
+                              <button className={`w-full ${routeClass}`} onClick={handleLogout}>
+                                {route.item}
+                              </button>
+                            </div>
                           )}
                         </li>
                       ))}
@@ -209,14 +211,11 @@ const Avatar = () => {
                               {route.item}
                             </Link>
                           ) : (
-                              <div className='border-t-1 border-raisin-10 mt-2 py-2'>
-                                <button
-                                  className={`w-full ${routeClass}`}
-                                  onClick={handleLogout}
-                                >
-                                  {route.item}
-                                </button>
-                              </div>
+                            <div className='border-t-1 border-raisin-10 mt-2 py-2'>
+                              <button className={`w-full ${routeClass}`} onClick={handleLogout}>
+                                {route.item}
+                              </button>
+                            </div>
                           )}
                         </li>
                       ))}
