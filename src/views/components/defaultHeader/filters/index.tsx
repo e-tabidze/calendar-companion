@@ -57,7 +57,7 @@ const Filters: React.FC<Props> = ({ className }) => {
           <IconTextButton
             label={'ძებნა'}
             icon={'/icons/search.svg'}
-            bg='bg-red-100'
+            bg='bg-orange-100'
             labelClassname='text-2sm text-white md:hidden'
             onClick={onClickSearch}
             type='button'

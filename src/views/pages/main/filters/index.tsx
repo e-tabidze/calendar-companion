@@ -75,7 +75,7 @@ const Filters = () => {
             icon='search'
             width={20}
             height={20}
-            bg='bg-red-100'
+            bg='bg-orange-100'
             labelClassname='text-2sm text-white md:hidden'
             onClick={onClickSearch}
             type='button'
