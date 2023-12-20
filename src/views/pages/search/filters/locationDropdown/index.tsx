@@ -29,7 +29,7 @@ const LocationDropdown: React.FC<Props> = ({ control, resetField }) => {
                 <FilterContainer>
                   <InnerFilterContainer>
                     <Typography type='body' className='text-raisin-50 whitespace-nowrap'>
-                      {value || 'ადგილმდებარეობა'}
+                      {value || 'მდებარეობა'}
                     </Typography>
                     {value ? (
                       <Icon

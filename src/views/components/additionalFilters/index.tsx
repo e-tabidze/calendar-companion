@@ -124,7 +124,7 @@ const AdditionalFilters: React.FC<Props> = ({
                 </div>
                 <div className='overflow-auto h-[70vh] px-4 py-5 sm:py-6 sm:px-10 w-max-full'>
                   <Typography type='body' color='dark' className='md:max-w-[30%]'>
-                    ავტომობილები დღიური ფასის მიხედვით
+                    მოძებნე ავტომობილი დღიური ფასის მიხედვით
                   </Typography>
                   <div className='w-full flex flex-col md:flex-row md:items-center mb-10 md:mb-16 mt-8'>
                     <DefaultInput

@@ -22,9 +22,9 @@ const options = [
   { value: '3/6 ნაბიჯი', label: 'ფასები და ფასდაკლება', step: 3 },
   { value: '4/6 ნაბიჯი', label: 'სერვისები', step: 4 },
   { value: '5/6 ნაბიჯი', label: 'ჯავშნის მიღების პირობები', step: 5 },
-  { value: '6/6 ნაბიჯი', label: 'ადგილმდებარეობა', step: 6 }
+  { value: '6/6 ნაბიჯი', label: 'მდებარეობა', step: 6 }
 
-  // { value: '7/7 ნაბიჯი', label: 'ადგილმდებარეობა', step: 7 }
+  // { value: '7/7 ნაბიჯი', label: 'მდებარეობა', step: 7 }
 ]
 
 const EditProduct: React.FC = ({}) => {

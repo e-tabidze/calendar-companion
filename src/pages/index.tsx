@@ -29,14 +29,16 @@ const MainPage = () => {
 
   return (
     <DefaultLayout>
+      {/* <AuthModal open={authModal} close={() => setAuthModal(false)} handleCancel={() => setAuthModal(false)} /> */}
+
       <MainPageBox>
         <LargeContainer>
           <Hero />
         </LargeContainer>
-
+        {/* <button onClick={() => setAuthModal(true)}>AUTHMODAL OPEN</button> */}
         <ContentContainer>
           <Typography type='h3' className='text-3md md:text-2lg mt-12'>
-            მოძებნე კატეგორიების მიხედვით
+            აირჩიე სასურველი კატეგორია
           </Typography>
         </ContentContainer>
         <ContentContainer className='px-0 md:px-5 lg:px-8 mb-12'>
@@ -60,7 +62,7 @@ const MainPage = () => {
         </LargeContainer>
         <ContentContainer>
           <Typography type='h3' className='text-3md md:text-2lg mt-12'>
-            პოპულარული მანქანები
+            პოპულარული ავტომობილები
           </Typography>
         </ContentContainer>
         <ContentContainer className='px-0 md:px-5 lg:px-8'>

@@ -162,7 +162,7 @@ const Booking = () => {
             </Typography>
             <Divider />
             <Typography type='h3' className='text-3md md:text-2lg my-6 md:my-10'>
-              ადგილმდებარეობა *
+              მდებარეობა *
             </Typography>
 
             <BookingRadio name='supply' options={options} control={control} color='bg-green-100' />
@@ -172,7 +172,9 @@ const Booking = () => {
                 className='mt-11 flex items-center justify-between mb-8'
                 onClick={() => toggleAdditionalServices(!additionalServices)}
               >
-                <Typography type='h3' className='text-3md md:text-2lg'>დამატებითი სერვისები</Typography>
+                <Typography type='h3' className='text-3md md:text-2lg'>
+                  დამატებითი სერვისები
+                </Typography>
                 <Icon
                   svgPath='chevron'
                   width={8}

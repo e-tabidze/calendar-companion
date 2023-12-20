@@ -91,15 +91,16 @@ const StepOne: React.FC<Props> = ({ control, errors, clearErrors, setValue }) =>
                 onChange()
                 handleFileUpload(Array.from(e.target.files))
               }}
+              isLoading={uploadCompanyLogoMutation.isLoading}
             />
             {errors && (
-              <div className={`text-sm text-red-100 ml-2`}>{_.get(errors, 'company_information.logo')?.message}</div>
+              <div className={`text-sm text-red-100 ml-2 my-2`}>
+                {_.get(errors, 'company_information.logo')?.message}
+              </div>
             )}
           </>
         )}
       />
-
-      {uploadCompanyLogoMutation.isLoading && <p>Uploading...</p>}
 
       {uploadCompanyLogoMutation.isError && <p>Error uploading file: {uploadCompanyLogoMutation.error.message}</p>}
     </div>
