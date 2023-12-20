@@ -55,7 +55,7 @@ export const DefaultInput: React.FC<Props> = ({
   index,
   type = 'text',
   min,
-  max,
+  max
 }) => {
   const [isFocused, setIsFocused] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
@@ -105,7 +105,7 @@ export const DefaultInput: React.FC<Props> = ({
               max={max}
             />
             {errors && (
-              <div id={id} className={`text-sm text-red-100 ml-2 ${rows ? 'absolute' : 'relative'}`}>
+              <div id={id} className='text-sm text-red-100 ml-2 my-2 relative'>
                 {_.get(errors, name)?.message}
               </div>
             )}

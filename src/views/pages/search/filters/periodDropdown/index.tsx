@@ -60,7 +60,7 @@ const PeriodDropwodn: React.FC<Props> = ({ control, resetField, setValue }) => {
                 ? `${format(startDate, 'd MMM yyyy', { locale: ka })} - ${format(endDate, 'd MMM yyyy', {
                     locale: ka
                   })}`
-                : 'ქირაობის პერიოდი'}
+                : 'დაქირავების პერიოდი'}
             </Typography>
 
             {startDate || endDate ? (
