@@ -1,7 +1,9 @@
 import UserService from 'src/services/UserService'
 import { useRouter } from 'next/router'
-import { useQuery, useQueryClient } from '@tanstack/react-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import Cookie from 'src/helpers/Cookie'
+import { TNET_AUTH } from 'src/env'
+import AuthService from 'src/services/AuthService'
 
 const useProfile = () => {
   const router = useRouter()
@@ -23,19 +25,6 @@ const useProfile = () => {
 
   const queryClient = useQueryClient()
 
-  const handleLogout = async () => {
-    Cookie.remove('AccessToken')
-    localStorage.clear()
-    await queryClient.invalidateQueries(['profileInfo'])
-
-    if (router?.pathname.includes('profile') || router?.pathname.includes('dashboard')) {
-      await router.replace('/')
-      await router.reload()
-    } else {
-      await router.reload()
-    }
-  }
-
   const postSwitchProfile = async (accessToken = '', active_profile_id: string) => {
     try {
       const response: any = await UserService.postSwitchProfile(accessToken, active_profile_id)
@@ -45,6 +34,45 @@ const useProfile = () => {
       console.error(error)
       throw error
     }
+  }
+
+  const logout = async (accessToken = '') => {
+    try {
+      const response: any = await AuthService.logout(accessToken)
+
+      return response.data
+    } catch (error) {
+      console.error(error)
+      throw error
+    }
+  }
+
+  const logoutMutation = useMutation(logout, {
+    onSuccess: () => {
+      Cookie.remove('AccessToken')
+      localStorage.clear()
+      queryClient.invalidateQueries(['profileInfo'])
+
+      if (router?.pathname.includes('profile') || router?.pathname.includes('dashboard')) {
+        router.replace('/')
+        router.reload()
+      } else {
+        router.reload()
+      }
+    },
+    onError: error => {
+      console.error(error)
+    }
+  })
+
+  const handleLogout = () => {
+    logoutMutation.mutate('')
+  }
+
+  const handleLogin = () => {
+    const externalPageUrl = TNET_AUTH
+    window.location.href = externalPageUrl
+    router.push('/')
   }
 
   const isLoading = usePersonalInfo.isLoading
@@ -66,7 +94,8 @@ const useProfile = () => {
     activeCompanyId,
     isAuthenticated: usePersonalInfo.data || false,
     userId,
-    handleLogout
+    handleLogout,
+    handleLogin
   }
 }
 

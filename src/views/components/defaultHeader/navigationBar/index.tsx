@@ -13,12 +13,6 @@ const NavigationBar = () => {
 
   const router = useRouter()
 
-  // const handleLogin = () => {
-  //     const externalPageUrl = TNET_AUTH
-  //     window.location.href = externalPageUrl
-  //     router.push('/')
-  // }
-
   return (
     <div className='lg:hidden bg-white py-4 fixed bottom-0 left-0 w-full z-[111] box-shadow-sm'>
       <ul className='flex justify-around'>

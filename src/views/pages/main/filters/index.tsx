@@ -25,15 +25,15 @@ const Filters = () => {
     appendDoorType,
     appendTransmissionType,
     appendAdditionalInformation,
-    objectToURI, 
-    reset
+    objectToURI,
+    reset,
+    setValue
   } = useSearch()
 
   console.log(searchValues, 'searchValues')
   const queryString = objectToURI(searchValues)
 
   console.log(queryString, 'queryString')
-
 
   const onClickSearch = async () => {
     const queryString = objectToURI(searchValues)
@@ -86,6 +86,7 @@ const Filters = () => {
         appendAdditionalInformation={appendAdditionalInformation}
         onSubmit={onClickSearch}
         reset={reset}
+        setValue={setValue}
       />
     </form>
   )

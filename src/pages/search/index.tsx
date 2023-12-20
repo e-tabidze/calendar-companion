@@ -66,6 +66,7 @@ const SearchPage = () => {
     totalProductsCount,
     totalPages,
     objectToURI,
+    setValue
   } = useSearch()
   const { width } = useWindowDimensions()
 
@@ -298,6 +299,7 @@ const SearchPage = () => {
           appendAdditionalInformation={appendAdditionalInformation}
           onSubmit={onSubmit}
           reset={reset}
+          setValue={setValue}
         />
       </form>
     </>

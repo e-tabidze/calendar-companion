@@ -38,13 +38,20 @@ const Avatar = () => {
 
   const routeClass = `px-6 flex whitespace-nowrap text-md text-raisin-100 py-2 hover:bg-grey-100 transition-all`
 
+  console.log(userInfo, 'userInfo')
+
   return (
     <Menu as='div' className='relative text-left hidden md:flex'>
       <Menu.Button>
         <AvatarContainer>
           <AvatarInnerContainer>
             <Image
-              src={!!activeCompany ? activeCompany.information.logo : userInfo?.information?.profile_pic}
+              src={
+                !!activeCompany
+                  ? activeCompany.information.logo
+                  : userInfo?.information?.profile_pic ||
+                    `https://static.my.ge/users/profile/${userInfo?.UserID}.jpg?v=1`
+              }
               className='object-cover w-full h-full'
               alt='avatar'
             />
@@ -145,7 +152,12 @@ const Avatar = () => {
                   <div className='flex items-center'>
                     <span className='w-10 h-10 mr-3 relative flex items-center justify-center rounded-full overflow-hidden'>
                       <Image
-                        src={!!activeCompany ? activeCompany.information.logo : userInfo?.information?.profile_pic}
+                        src={
+                          !!activeCompany
+                            ? activeCompany.information.logo
+                            : userInfo?.information?.profile_pic ||
+                              `https://static.my.ge/users/profile/${userInfo?.UserID}.jpg?v=1`
+                        }
                         className='h-full w-full object-cover'
                         alt='avatar'
                       />
