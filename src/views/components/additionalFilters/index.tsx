@@ -40,6 +40,7 @@ interface Props {
   appendAdditionalInformation: any
   onSubmit: () => void
   reset: any
+  setValue: any
 }
 
 const AdditionalFilters: React.FC<Props> = ({
@@ -55,7 +56,8 @@ const AdditionalFilters: React.FC<Props> = ({
   appendTransmissionType,
   appendAdditionalInformation,
   onSubmit,
-  reset
+  reset,
+  setValue
 }) => {
   const { width } = useWindowDimensions()
   const {
@@ -190,6 +192,9 @@ const AdditionalFilters: React.FC<Props> = ({
                         className='md:w-4/12 my-2'
                         valueKey='id'
                         labelKey='title'
+                        handleChange={() => {
+                          setValue('model_id', [])
+                        }}
                       />
                       <SelectField
                         name='model_id'

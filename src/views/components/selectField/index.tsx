@@ -52,6 +52,7 @@ interface Props {
   labelKey: string
   errors?: any
   isMulti?: boolean
+  handleChange?: () => void
 }
 
 const Control = ({ children, ...props }: any) => {
@@ -77,7 +78,8 @@ const SelectField: React.FC<Props> = ({
   labelKey,
   placeholder,
   errors,
-  isMulti
+  isMulti,
+  handleChange
 }) => {
   const { DropdownIndicator, ClearIndicator } = components
 
@@ -124,6 +126,7 @@ const SelectField: React.FC<Props> = ({
                   : e?.value || []
 
                 onChange(selectedValues)
+                handleChange && handleChange()
               }}
               isMulti={isMulti}
               getOptionLabel={option => labelKey && option[labelKey]}
