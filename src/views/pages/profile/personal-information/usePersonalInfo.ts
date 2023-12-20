@@ -90,7 +90,7 @@ const usePersonalInfo = (userData: UserInfo) => {
 
   const saveProfileImage = async (Photo: any) => {
     try {
-      const response: any = await StaticService.saveProfileImage('', Photo, userInfo?.UserID)
+      const response: any = await StaticService.saveProfileImage('', Photo)
 
       return response.data
     } catch (error) {

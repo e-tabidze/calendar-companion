@@ -10,7 +10,7 @@ import { UserInfo } from 'src/types/User'
 import usePersonalInfo from './usePersonalInfo'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useState } from 'react'
-import { Controller, useWatch } from 'react-hook-form'
+import { Controller } from 'react-hook-form'
 import useProfile from 'src/hooks/useProfile'
 
 const cat = [

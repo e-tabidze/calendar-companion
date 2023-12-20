@@ -45,7 +45,7 @@ const BranchInfoComponent: React.FC<Props> = ({ index, control, errors, setValue
         selectedWorkDays.some(day => formState.addresses[index].working_hours[day].start_time !== startTime) ||
         selectedWorkDays.some(day => formState.addresses[index].working_hours[day].end_time !== endTime)
 
-      if (shouldUpdate) {
+      if (shouldUpdate && setValue) {
         selectedWorkDays.forEach(day => {
           setValue(`addresses.${index}.working_hours.${day}.start_time`, startTime)
           setValue(`addresses.${index}.working_hours.${day}.end_time`, endTime)
