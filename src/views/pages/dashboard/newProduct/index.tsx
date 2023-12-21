@@ -7,8 +7,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { Product } from 'src/types/Product'
 
 import toast from 'react-hot-toast'
-import Link from 'next/link'
-import Typography from 'src/views/components/typography'
+import Toast from 'src/views/components/toast'
 
 const StepOne = dynamic(() => import('../stepOne'), { ssr: false })
 const StepTwo = dynamic(() => import('../stepTwo'), { ssr: false })
@@ -149,10 +148,13 @@ const NewProduct: React.FC = () => {
             })
 
             toast.custom(
-              <div>
-                <Typography type='subtitle'>ავტომობილი წარმატებით დაემატა!</Typography>
-                <Link href='/dashboard/products'>ავტომობილები</Link>
-              </div>
+              <Toast
+                title='წარმატება!'
+                type='success'
+                description='some success text'
+                path={'/dashboard/products'}
+                permalink='ავტომობილები'
+              />
             )
           } else {
             console.error('Error: Images or productId is missing.')
@@ -161,11 +163,6 @@ const NewProduct: React.FC = () => {
 
         queryClient.invalidateQueries(['companyProducts'])
         queryClient.invalidateQueries(['latestProducts'])
-      },
-      onSettled: () => {
-        setTimeout(() => {
-          router.push('/dashboard/products')
-        }, 6000)
       }
     }
   )

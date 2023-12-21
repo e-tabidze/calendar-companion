@@ -38,7 +38,6 @@ interface Props {
   placeholder?: string
   inputValue?: string
   min?: number
-  max?: number
 }
 
 export const DefaultInput: React.FC<Props> = ({
@@ -53,8 +52,7 @@ export const DefaultInput: React.FC<Props> = ({
   className,
   index,
   type = 'text',
-  min,
-  max
+  min
 }) => {
   const [isFocused, setIsFocused] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
@@ -101,7 +99,6 @@ export const DefaultInput: React.FC<Props> = ({
               pattern={pattern}
               rows={rows}
               min={min}
-              maxLength={max}
             />
             {errors && (
               <div id={id} className='text-sm text-red-100 ml-2 my-2 relative'>
