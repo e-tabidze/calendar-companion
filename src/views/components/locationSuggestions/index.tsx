@@ -4,6 +4,7 @@ import { Fragment } from 'react'
 import { Controller, useWatch } from 'react-hook-form'
 import { Combobox, Transition } from '@headlessui/react'
 import useCreateCompany from 'src/views/pages/profile/createCompany/useCreateCompany'
+import Icon from "src/views/app/Icon";
 
 
 
@@ -60,7 +61,7 @@ const LocationSuggestions: React.FC<Props> = ({ index, control, name }) => {
                                         leaveTo="opacity-0"
                                     >
                                         <Combobox.Options className="absolute z-[11] mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm">
-                                            {isLoading ? <><div className='py-2 px-4'>Loading...</div></>:
+                                            {isLoading ? <div className='flex justify-center p-4'> <Icon svgPath='loader' width={30} height={30} /></div>:
                                                 (<>
                                                     {locationSuggestions?.result?.data.map((location:any, index:any) => (
                                                         <Combobox.Option
