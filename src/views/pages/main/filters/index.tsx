@@ -44,19 +44,11 @@ const Filters = () => {
   return (
     <form>
       <FiltersContainer>
-        <div className="hidden md:flex w-full">
-          <LocationDropdown control={control} />
-        </div>
-        <div className="flex md:hidden w-full">
-          <LocationMob control={control} />
-        </div>
+        <LocationDropdown control={control} />
+        <LocationMob control={control} />
         <Divider />
-        <div className="hidden md:flex w-full">
-          <PeriodDropdown control={control} />
-        </div>
-        <div className="flex md:hidden w-full">
-          <PeriodMob control={control} />
-        </div>
+        <PeriodDropdown control={control} />
+        <PeriodMob control={control} />
         <Divider />
         <ExtraFiltersContainer className='flex shrink-0'>
           <IconTextButton

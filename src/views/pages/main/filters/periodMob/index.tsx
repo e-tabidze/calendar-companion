@@ -14,7 +14,7 @@ const PeriodMob: React.FC<Props> = ({ control }) => {
   const formState = useWatch({ control })
 
   return (
-    <div className='p-4 w-full'>
+    <div className='p-4 w-full flex md:hidden'>
       <FilterContainer onClick={() => toggleCalendar(!calendar)}>
         <Typography type='body' color='dark'>
           ქირაობის პერიოდი

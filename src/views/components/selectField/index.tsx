@@ -22,11 +22,12 @@ const customStyles = {
   valueContainer: (provided: any) => ({
     ...provided
   }),
-  menu: (provided: any) => ({
+
+  menuList: (provided: any) => ({
     ...provided,
-    maxHeight: '150px',
-    overflow: 'auto'
+    height: '150px'
   }),
+
   placeholder: (defaultStyles: any) => {
     return {
       ...defaultStyles,
