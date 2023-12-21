@@ -7,6 +7,7 @@ import StepTwo from './stepTwo'
 import useCreateCompany from './useCreateCompany'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import Toast from 'src/views/components/toast'
+import toast from 'react-hot-toast'
 
 const CreateCompany = () => {
   const options = [
@@ -89,15 +90,20 @@ const CreateCompany = () => {
           companyId: data?.result?.data?.id
         })
       }
+      toast.custom(
+        <Toast
+          type={'success'}
+          title={'წარმატება'}
+          description={'წარმატება'}
+          permalink={'შქმნილი კომპანიის ნახვა'}
+          path={`/profile/company/${data?.result?.data?.id}`}
+        />
+      )
     }
   })
 
   const saveCompanyLogoMutation = useMutation((variables: any) =>
-    saveCompanyLogo('', variables.logo, variables.companyId), {
-      onSuccess: (variables) => {
-        <Toast type={'success'} title={'წარმატება'} description={'წარმატება'} permalink={'შქმნილი კომპანიის ნახვა'} path={`/profile/company/${variables.companyId}`}  />
-      }
-    }
+    saveCompanyLogo('', variables.logo, variables.companyId)
   )
 
   const onSubmit = () => {
@@ -105,7 +111,7 @@ const CreateCompany = () => {
   }
 
   console.log(errors, 'errors')
-  console.log(companyValues, 'companyValues')
+  console.log(companyValues.addresses, 'companyValues')
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -118,7 +124,7 @@ const CreateCompany = () => {
         onClose={handleClose}
         onSubmit={handleSubmit(onSubmit)}
         submitLabel='დამატება'
-        disabled={false}
+        disabled={createCompanyMutation.isLoading || saveCompanyLogoMutation.isLoading}
       >
         {step.step === 1 && <StepOne control={control} errors={errors} clearErrors={clearErrors} setValue={setValue} />}
         {step.step === 2 && (

@@ -106,6 +106,9 @@ const Avatar = () => {
                                 src={company?.information?.logo || ''}
                                 className='object-cover w-full h-full'
                                 alt='avatar'
+                                onError={(ev: any) => {
+                                  ev.target.src = `/icons/avatar.svg`
+                                }}
                               />
                             </span>
                             <div className='flex flex-col'>

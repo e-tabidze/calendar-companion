@@ -84,7 +84,7 @@ const Profile = () => {
 
   const companyRoutes =
     userCompanies?.map((company: any) => ({
-      id: company?.id,
+      id: `${company?.information.name}`,
       companyId: company?.id,
       image: company?.information?.logo,
       item: company?.information.name,
