@@ -1,4 +1,4 @@
-import { Fragment } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 import { Listbox, Transition } from '@headlessui/react'
 import { Controller } from 'react-hook-form'
 import useFilters from 'src/hooks/useFilters'
@@ -11,8 +11,23 @@ interface Props {
   setValue: any
 }
 
+interface Filter {
+  id: string
+  label: string
+  order_by: string
+}
+
 const SortListBox: React.FC<Props> = ({ control, onClick, setValue }) => {
   const { sortFilters } = useFilters()
+  const [selectedFilter, setSelectedFilter] = useState<Filter | null>(null)
+
+  useEffect(() => {
+    if (selectedFilter) {
+      setValue('order_by', selectedFilter.order_by)
+      onClick()
+      setSelectedFilter(null)
+    }
+  }, [selectedFilter, onClick, setValue])
 
   return (
     <div className='w-[200px]'>
@@ -22,25 +37,11 @@ const SortListBox: React.FC<Props> = ({ control, onClick, setValue }) => {
           control={control}
           render={({ field: { onChange, value } }) => (
             <Listbox
-              value={sortFilters?.find(opt => opt?.id === value)}
-
-              // onChange={selectedFilter => {
-              //   console.log(sortFilters.find(opt => opt.id === value)?.order_by, 'order_by?')
-              //   onChange(selectedFilter)
-              // setValue('order_by', sortFilters.find(opt => opt.id === value)?.order_by)
-              // setValue('order_by', sortFilters?.find(opt => opt?.id === selectedFilter.id)?.order_by)
-              //   onClick()
-              // }}
-              onChange={selectedFilter => {
-                console.log(sortFilters.find(opt => opt.id === value)?.order_by, 'order_by?')
-                onChange(selectedFilter)
-                setValue('order_by', sortFilters.find(opt => opt.id === value)?.order_by)
-
-                onClick()
-
-                // setValue('order_by', sortFilters.find(opt => opt.id === value)?.order_by)
-
-                // Use the promise to wait for setValue to complete before calling onClick
+              value={sortFilters?.find(opt => opt?.id === value)?.id}
+              onChange={selectedFilterId => {
+                const selectedFilter = sortFilters.find(opt => opt?.id === selectedFilterId) || null
+                setSelectedFilter(selectedFilter)
+                onChange(selectedFilterId)
               }}
             >
               <div className='relative mt-1 flex text-left w-full'>
