@@ -7,8 +7,6 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { Product } from 'src/types/Product'
 
 import toast from 'react-hot-toast'
-import Link from 'next/link'
-import Typography from 'src/views/components/typography'
 import Toast from 'src/views/components/toast'
 
 const StepOne = dynamic(() => import('../stepOne'), { ssr: false })

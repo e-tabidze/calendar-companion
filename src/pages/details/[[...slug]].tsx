@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import DefaultLayout from 'src/layouts/DefaultLayout'
 import dynamic from 'next/dynamic'
+import EventListener from 'react-event-listener'
 
 const Carousel = dynamic(() => import('src/views/components/carousel'), { ssr: false })
 const Image = dynamic(() => import('src/views/components/image'), { ssr: true })
@@ -97,24 +98,16 @@ const ProductDetails = () => {
     }
   }, [book_from, book_to])
 
-  useEffect(() => {
+  const handleScroll = () => {
     const componentPosition = ref.current?.getBoundingClientRect().top - 80
+    const pageScroll = window.pageYOffset
 
-    function handleScroll() {
-      const pageScroll = window.pageYOffset
-      if (pageScroll > componentPosition) {
-        setIsSticky(true)
-      } else {
-        setIsSticky(false)
-      }
+    if (pageScroll > componentPosition) {
+      setIsSticky(true)
+    } else {
+      setIsSticky(false)
     }
-
-    window.addEventListener('scroll', handleScroll)
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll)
-    }
-  }, [])
+  }
 
   const handleClick = (id: string) => {
     const sectionToScroll = document.getElementById(id)
@@ -196,6 +189,7 @@ const ProductDetails = () => {
           <Divider />
         </MaxWidthContainer>
         <MaxWidthContainer className={`${isSticky ? 'md:mt-20' : ''} z-40`}></MaxWidthContainer>
+        <EventListener target='window' onScroll={handleScroll} />
         <ContentContainer>
           <div className='flex gap-11 mt-8'>
             <div className='w-full md:w-7/12 lg:w-8/12'>
