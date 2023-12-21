@@ -89,6 +89,9 @@ const NavigationBar = () => {
                 <span className='w-6 h-6 relative flex items-center justify-center rounded-full overflow-hidden'>
                   {isAuthenticated ? (
                     <Image
+                        onError={(ev:any)=>{
+                          ev.target.src = `icons/avatar.svg`
+                        }}
                       src={!!activeCompany ? activeCompany.information.logo : defaultImgUrl}
                       className='object-cover w-full h-full'
                       alt='avatar'
