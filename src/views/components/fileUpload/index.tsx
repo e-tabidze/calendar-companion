@@ -10,11 +10,12 @@ interface Props {
   onChange: (event: ChangeEvent<HTMLInputElement>) => void
   handleDelete: () => void
   value: any
-  isLoading: boolean
+  isLoading?: boolean
 }
 
 const FileUpload: React.FC<Props> = ({ title, description, onChange, handleDelete, value, isLoading }) => {
-  // const supportedFileTypes = ['pdf', 'jpg', 'jpeg', 'png', 'gif']
+
+    // const supportedFileTypes = ['pdf', 'jpg', 'jpeg', 'png', 'gif']
 
   console.log(value, 'value')
 
