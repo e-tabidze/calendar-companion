@@ -43,8 +43,8 @@ const SortListBox: React.FC<Props> = ({ control, onClick, setValue }) => {
                 onChange(selectedFilter?.id || '')
               }}
             >
-              <div className='relative mt-1 flex text-left w-full'>
-                <Listbox.Button className='relative flex items-center w-full cursor-pointer rounded-2xl bg-white py-2 px-4 text-left border border-raisin-10 text-2sm'>
+              <div className='relative flex text-left w-full ml-2'>
+                <Listbox.Button className='relative flex items-center w-full cursor-pointer rounded-xl bg-white py-2 px-4 text-left border border-raisin-10 text-2sm'>
                     <Icon svgPath='sort' width={20} height={12} className='fill-transparent flex shrink-0 mr-3' />
                     <Typography type='subtitle' className='text-2sm max-w-[140px] inline-block overflow-hidden text-ellipsis whitespace-nowrap'>
                     {sortFilters.find(opt => opt.id === value)?.label || 'სორტირება'}
