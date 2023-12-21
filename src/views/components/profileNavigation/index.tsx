@@ -47,6 +47,9 @@ const ProfileNavigation: React.FC<Props> = ({
         <div className='flex items-center'>
           <div className='flex shrink-0 w-12 h-12 relative rounded-full overflow-hidden'>
             <Image
+                onError={(ev:any)=>{
+                  ev.target.src = `/icons/avatar.svg`
+                }}
               src={
                 isAuthenticated && !!activeCompany
                   ? activeCompany?.information.logo

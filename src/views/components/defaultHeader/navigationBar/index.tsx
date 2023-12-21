@@ -90,7 +90,7 @@ const NavigationBar = () => {
                   {isAuthenticated ? (
                     <Image
                         onError={(ev:any)=>{
-                          ev.target.src = `icons/avatar.svg`
+                          ev.target.src = `/icons/avatar.svg`
                         }}
                       src={!!activeCompany ? activeCompany.information.logo : defaultImgUrl}
                       className='object-cover w-full h-full'

@@ -56,7 +56,7 @@ const Avatar = () => {
 
             <Image
                 onError={(ev:any)=>{
-                  ev.target.src = `icons/avatar.svg`
+                  ev.target.src = `/icons/avatar.svg`
                 }}
               src={
                 !!activeCompany ? activeCompany.information.logo : userInfo?.information?.profile_pic || defaultImgUrl
@@ -161,7 +161,7 @@ const Avatar = () => {
                     <span className='w-10 h-10 mr-3 relative flex items-center justify-center rounded-full overflow-hidden'>
                       <Image
                           onError={(ev:any)=>{
-                            ev.target.src = `icons/avatar.svg`
+                            ev.target.src = `/icons/avatar.svg`
                           }}
                         src={
                           !!activeCompany
