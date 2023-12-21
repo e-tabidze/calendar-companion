@@ -30,7 +30,6 @@ const SortListBox: React.FC<Props> = ({ control, onClick, setValue }) => {
   }, [selectedFilter, onClick, setValue])
 
   return (
-    <div className='w-[200px]'>
       <>
         <Controller
           name='sort_by'
@@ -39,17 +38,18 @@ const SortListBox: React.FC<Props> = ({ control, onClick, setValue }) => {
             <Listbox
               value={sortFilters?.find(opt => opt?.id === value)?.id}
               onChange={selectedFilterId => {
-                const selectedFilter = sortFilters.find(opt => opt?.id === selectedFilterId) || null
+                const selectedFilter = sortFilters.find(opt => opt?.label === selectedFilterId) || null
                 setSelectedFilter(selectedFilter)
-                onChange(selectedFilterId)
+                onChange(selectedFilter?.id || '')
               }}
             >
-              <div className='relative mt-1 flex text-left w-full'>
-                <Listbox.Button className='relative w-full cursor-pointer rounded-2xl bg-white py-5 px-4 text-left focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-raisin-5 sm:text-sm'>
-                  <Typography type='subtitle' className='whitespace-nowrap flex items-center gap-3'>
-                    <Icon svgPath='sort' width={20} height={12} className='fill-transparent' />
+              <div className='relative flex text-left w-full ml-2'>
+                <Listbox.Button className='relative flex items-center w-full cursor-pointer rounded-xl bg-white py-2 px-4 text-left border border-raisin-10 text-2sm'>
+                    <Icon svgPath='sort' width={20} height={12} className='fill-transparent flex shrink-0 mr-3' />
+                    <Typography type='subtitle' className='text-2sm max-w-[140px] inline-block overflow-hidden text-ellipsis whitespace-nowrap'>
                     {sortFilters.find(opt => opt.id === value)?.label || 'სორტირება'}
                   </Typography>
+                    <Icon svgPath='chevron' width={8} height={6} className='fill-transparent flex shrink-0 ml-3 transition-all' />
                 </Listbox.Button>
                 <Transition
                   as={Fragment}
@@ -57,20 +57,19 @@ const SortListBox: React.FC<Props> = ({ control, onClick, setValue }) => {
                   leaveFrom='opacity-100'
                   leaveTo='opacity-0'
                 >
-                  <Listbox.Options className='absolute top-full z-10 mt-4 w-full origin-top-right divide-y divide-gray-100 rounded-2xl bg-white shadow-lg focus:outline-none'>
+                  <Listbox.Options className='absolute top-full mt-2 z-10 w-full origin-top-right divide-y divide-gray-100 rounded-2xl bg-white shadow-lg focus:outline-none'>
                     {sortFilters?.map((filter: any, index: number) => (
                       <Listbox.Option
                         key={index}
                         className={({ active }) =>
-                          `relative cursor-pointer my-2 select-none py-2 pl-10 pr-4 ${
+                          `relative cursor-pointer my-2 select-none py-2 px-6 ${
                             active ? 'bg-raisin-10' : 'text-gray-900'
                           }`
                         }
-                        value={filter.id}
+                        value={filter.label}
                       >
                         {({ selected }) => (
                           <>
-                            {console.log(filter, 'filter')}
                             <span className={`block truncate ${selected ? 'font-medium' : 'font-normal'}`}>
                               {filter.label}
                             </span>
@@ -85,7 +84,7 @@ const SortListBox: React.FC<Props> = ({ control, onClick, setValue }) => {
           )}
         />
       </>
-    </div>
+
   )
 }
 

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import useWindowDimensions from 'src/hooks/useWindowDimensions'
 import { FullContainer } from 'src/styled/styles'
 
@@ -61,7 +61,6 @@ const SearchPage = () => {
     appendAdditionalInformation,
     productsData,
     isLoading,
-    searchProductsMutation,
     totalProductsCount,
     totalPages,
     objectToURI,
@@ -74,20 +73,11 @@ const SearchPage = () => {
 
   const router = useRouter()
 
-  const { asPath } = router
-
   const { book_from, book_to } = router.query
-
-  const startIndex = asPath.indexOf('/search/?') + '/search/?'.length
-  const searchString = asPath.slice(startIndex)
 
   // useEffect(() => {
   //   setMapVisible(width >= 1025)
   // }, [width])
-
-  useEffect(() => {
-    searchProductsMutation.mutateAsync(searchString)
-  }, [searchString])
 
   // const handleToggleMapWidth = () => {
   //   setMapVisible(!mapVisible)
@@ -155,7 +145,6 @@ const SearchPage = () => {
                 onClick={(e: { preventDefault: () => void }) => {
                   reset()
                   e.preventDefault()
-                  onSubmit()
                   router.push('/search/?page=1&order_by=desc')
                 }}
               />

@@ -17,7 +17,6 @@ import { Dialog, Transition } from '@headlessui/react'
 import { ListWrapper, SectionWrapper } from './styles'
 import SwitchField from '../switchField'
 import useFilters, { getManufacturerModelFilters } from 'src/hooks/useFilters'
-import SelectField from '../selectField'
 import CheckboxField from '../checkboxField'
 import { IconTextButton } from '../button'
 import { useQuery } from '@tanstack/react-query'
@@ -25,6 +24,7 @@ import useSearch from 'src/hooks/useSearch'
 import { useWatch } from 'react-hook-form'
 import Icon from 'src/views/app/Icon'
 import { generateYearsArray } from 'src/utils/years'
+import SelectField from '../selectField'
 
 interface Props {
   open: boolean
@@ -134,7 +134,8 @@ const AdditionalFilters: React.FC<Props> = ({
                       errors={''}
                       className='md:w-52 mb-2 md:mb-0'
                       type='number'
-                      min={0}
+                      min={1}
+                      max={100}
                     />
                     <div className='hidden md:flex w-3 h-px bg-base-100 mx-2' />
                     <DefaultInput
@@ -179,60 +180,58 @@ const AdditionalFilters: React.FC<Props> = ({
                     </>
                   </div>
                   <div className='my-10 md:my-16'>
-                    <Typography type='h5' weight='normal' className='text-md md:text-3md'>
+                    <Typography type='h5' weight='normal' className='text-md md:text-3md mb-2'>
                       ავტომობილის პარამეტრები
                     </Typography>
-                    <div className='flex flex-col md:flex-row md:gap-6'>
-                      <SelectField
-                        name='manufacturer_id'
-                        isMulti
-                        control={control}
-                        options={manufacturerFilters}
-                        placeholder='მწარმოებელი'
-                        className='md:w-4/12 my-2'
-                        valueKey='id'
-                        labelKey='title'
-                        handleChange={() => {
-                          setValue('model_id', [])
-                        }}
-                      />
-                      <SelectField
-                        name='model_id'
-                        isMulti
-                        control={control}
-                        options={manufacturerModelFilters?.result?.data}
-                        placeholder='მოდელი'
-                        disabled={formState.manufacturer_id?.length === 0}
-                        className='md:w-4/12 my-2'
-                        valueKey='id'
-                        labelKey='title'
-                      />
-                      <div className='md:w-4/12 flex gap-1 items-center'>
+                      <div className='flex flex-col md:flex-row md:gap-4'>
+                        <SelectField
+                          name='manufacturer_id'
+                          isMulti
+                          control={control}
+                          options={manufacturerFilters}
+                          placeholder='მწარმოებელი'
+                          className='w-full my-1 md:my-2 md:w-1/2'
+                          valueKey='id'
+                          labelKey='title'
+                          handleChange={() => {
+                            setValue('model_id', [])
+                          }}
+                        />
+                        <SelectField
+                          name='model_id'
+                          isMulti
+                          control={control}
+                          options={manufacturerModelFilters?.result?.data}
+                          placeholder='მოდელი'
+                          disabled={formState.manufacturer_id?.length === 0}
+                          className='w-full my-1 md:my-2 md:w-1/2'
+                          valueKey='id'
+                          labelKey='title'
+                        />
+                      </div>
+                      <div className='flex flex-col md:flex-row md:gap-4'>
                         <SelectField
                           name='year_from'
                           control={control}
                           options={generateYearsArray()}
                           placeholder='წლიდან'
                           disabled={false}
-                          className='w-full my-2'
+                          className='w-full my-2 md:w-1/2'
                           valueKey='value'
                           labelKey='label'
                         />
-                        -
                         <SelectField
                           name='year_to'
                           control={control}
                           options={generateYearsArray()}
                           placeholder='წლამდე'
                           disabled={false}
-                          className='w-full my-2'
+                          className='w-full my-2 md:w-1/2'
                           valueKey='value'
                           labelKey='label'
                         />
                       </div>
                     </div>
-                  </div>
-
                   <Typography type='h5' weight='normal' className='text-md md:text-3md'>
                     საწვავის ტიპი
                   </Typography>

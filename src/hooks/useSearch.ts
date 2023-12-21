@@ -31,7 +31,7 @@ const useSearch = () => {
     return []
   }
 
-  console.log(params, 'params')
+  console.log(params.year_from, 'params')
 
   const searchDefaultValues = {
     page: Number(params?.page) || 1,
@@ -47,7 +47,7 @@ const useSearch = () => {
     price_min: params?.price_min || '',
     price_max: params?.price_max || '',
     manufacturer_id: convertToNumberArray(params?.manufacturer_id),
-    model_id: convertToNumberArray(params?.model),
+    model_id: convertToNumberArray(params?.model_id),
     free_delivery: params?.free_delivery == 'false' ? false : true,
     year_from: params?.year_from || '',
     year_to: params?.year_to || '',
@@ -60,27 +60,29 @@ const useSearch = () => {
   }
 
   useEffect(() => {
-    setValue('page', Number(params?.page) || 1)
-    setValue('location', params?.location || '')
-    setValue('fuel_types', convertToNumberArray(params?.fuel_types))
-    setValue('category', convertToNumberArray(params?.category))
-    setValue('seat_types', convertToNumberArray(params?.seat_types))
-    setValue('luggage_numbers', convertToNumberArray(params?.luggage_numbers))
-    setValue('drive_tires', convertToNumberArray(params?.drive_tires))
-    setValue('door_types', convertToNumberArray(params?.door_types))
-    setValue('transmission_types', convertToNumberArray(params?.transmission_types))
-    setValue('additional_information', convertToNumberArray(params?.additional_information))
-    setValue('price_min', params?.price_min || '')
-    setValue('price_max', params?.price_max || '')
-    setValue('manufacturer_id', convertToNumberArray(params?.manufacturer_id))
-    setValue('model_id', convertToNumberArray(params?.model))
-    setValue('free_delivery', params?.free_delivery == 'false' ? false : true)
-    setValue('year_from', params?.year_from || '')
-    setValue('year_to', params?.year_to || '')
-    setValue('sort_by', params?.sort_by || 'id')
-    setValue('order_by', params?.order_by || 'asc')
-    setValue('booking.book_from', params?.book_from || '')
-    setValue('booking.book_to', params?.book_to || '')
+    if (Object.keys(router.query).length > 0) {
+      setValue('page', Number(params?.page) || 1)
+      setValue('location', params?.location || '')
+      setValue('fuel_types', convertToNumberArray(params?.fuel_types))
+      setValue('category', convertToNumberArray(params?.category))
+      setValue('seat_types', convertToNumberArray(params?.seat_types))
+      setValue('luggage_numbers', convertToNumberArray(params?.luggage_numbers))
+      setValue('drive_tires', convertToNumberArray(params?.drive_tires))
+      setValue('door_types', convertToNumberArray(params?.door_types))
+      setValue('transmission_types', convertToNumberArray(params?.transmission_types))
+      setValue('additional_information', convertToNumberArray(params?.additional_information))
+      setValue('price_min', params?.price_min || '')
+      setValue('price_max', params?.price_max || '')
+      setValue('manufacturer_id', convertToNumberArray(params?.manufacturer_id))
+      setValue('model_id', convertToNumberArray(params?.model_id))
+      setValue('free_delivery', params?.free_delivery == 'false' ? false : true)
+      setValue('year_from', Number(params?.year_from) || '')
+      setValue('year_to', Number(params?.year_to) || '')
+      setValue('sort_by', params?.sort_by || 'id')
+      setValue('order_by', params?.order_by || 'asc')
+      setValue('booking.book_from', params?.book_from || '')
+      setValue('booking.book_to', params?.book_to || '')
+    }
   }, [router.query])
 
   const {

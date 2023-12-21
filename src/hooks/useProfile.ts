@@ -2,7 +2,7 @@ import UserService from 'src/services/UserService'
 import { useRouter } from 'next/router'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import Cookie from 'src/helpers/Cookie'
-import { TNET_AUTH } from 'src/env'
+import { TNET_AUTH, TNET_LOGOUT } from 'src/env'
 import AuthService from 'src/services/AuthService'
 
 const useProfile = () => {
@@ -53,12 +53,7 @@ const useProfile = () => {
       localStorage.clear()
       queryClient.invalidateQueries(['profileInfo'])
 
-      if (router?.pathname.includes('profile') || router?.pathname.includes('dashboard')) {
-        router.replace('/')
-        router.reload()
-      } else {
-        router.reload()
-      }
+      window.location.href = TNET_LOGOUT
     },
     onError: error => {
       console.error(error)
