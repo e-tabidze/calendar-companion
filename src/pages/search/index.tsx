@@ -13,15 +13,11 @@ import {
   SearchResultsContainer
 } from '../../views/pages/search/styles'
 
-import SearchLayout from '../../layouts/SearchLayout'
 import useSearch from 'src/hooks/useSearch'
 import { useRouter } from 'next/router'
 import { IconTextButton } from 'src/views/components/button'
 import dynamic from 'next/dynamic'
-import Icon from 'src/views/app/Icon'
-import Pagination from 'src/views/components/pagination'
 import { Controller } from 'react-hook-form'
-import SkeletonLoading from 'src/views/pages/search/skeletonLoading'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { dehydrate } from '@tanstack/react-query'
 import { queryClient } from '../_app'
@@ -31,7 +27,10 @@ import SortListBox from 'src/views/pages/search/sortListBox'
 const Divider = dynamic(() => import('src/views/components/divider'), { ssr: true })
 
 // const MapPicker = dynamic(() => import('src/views/components/mapPicker'), { ssr: true })
-
+const SkeletonLoading = dynamic(() => import('src/views/pages/search/skeletonLoading'), { ssr: false })
+const SearchLayout = dynamic(() => import('../../layouts/SearchLayout'), { ssr: false })
+const Icon = dynamic(() => import('src/views/app/Icon'), { ssr: false })
+const Pagination = dynamic(() => import('src/views/components/pagination'), { ssr: false })
 const ProductCard = dynamic(() => import('src/views/components/productCard'), { ssr: true })
 const Switcher = dynamic(() => import('src/views/components/switcher'), { ssr: true })
 const Tag = dynamic(() => import('src/views/components/tag'), { ssr: true })

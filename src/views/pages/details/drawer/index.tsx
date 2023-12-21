@@ -1,8 +1,10 @@
 import useProfile from 'src/hooks/useProfile'
 import { DefaultButton } from 'src/views/components/button'
-import DrawerBottom from 'src/views/components/drawer'
-import Typography from 'src/views/components/typography'
 import { Divider } from '../insuranceCard/styles'
+import dynamic from 'next/dynamic'
+
+const Typography = dynamic(() => import('src/views/components/typography'), { ssr: false })
+const DrawerBottom = dynamic(() => import('src/views/components/drawer'), { ssr: false })
 
 interface Props {
   isOpenDrawer: boolean

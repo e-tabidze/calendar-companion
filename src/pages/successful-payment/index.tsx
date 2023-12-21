@@ -1,7 +1,3 @@
-import Image from 'src/views/components/image'
-import Divider from 'src/views/components/divider'
-import Typography from 'src/views/components/typography'
-import Icon from 'src/views/app/Icon'
 import {
   PriceDetailsContainer,
   PriceDetailsWrapper,
@@ -13,13 +9,19 @@ import {
 } from '../../views/pages/successful-payment/styles'
 import UseOrders from 'src/views/pages/profile/orders/useOrders'
 import { useRouter } from 'next/router'
-import { DefaultButton } from 'src/views/components/button'
+import dynamic from 'next/dynamic'
 
 import { parseISO, format } from 'date-fns'
 import { ka } from 'date-fns/locale'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { dehydrate } from '@tanstack/react-query'
 import { queryClient } from '../_app'
+import { DefaultButton } from 'src/views/components/button'
+
+const Icon = dynamic(() => import('src/views/app/Icon'), { ssr: false })
+const Typography = dynamic(() => import('src/views/components/typography'), { ssr: false })
+const Divider = dynamic(() => import('src/views/components/divider'), { ssr: false })
+const Image = dynamic(() => import('src/views/components/image'), { ssr: true })
 
 const SuccessfulPayment = () => {
   const router = useRouter()

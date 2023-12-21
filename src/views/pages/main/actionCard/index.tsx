@@ -1,6 +1,8 @@
 import { DefaultButton } from 'src/views/components/button'
-import Image from 'src/views/components/image'
-import Typography from 'src/views/components/typography'
+import dynamic from 'next/dynamic'
+
+const Image = dynamic(() => import('src/views/components/image'), { ssr: true })
+const Typography = dynamic(() => import('src/views/components/typography'), { ssr: false })
 
 interface Props {
   title: string

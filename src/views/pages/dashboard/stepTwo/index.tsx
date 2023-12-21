@@ -1,11 +1,13 @@
 import useWindowDimensions from 'src/hooks/useWindowDimensions'
 import CategoryCard from 'src/views/components/categoryCard'
-import CheckboxField from 'src/views/components/checkboxField'
-import Divider from 'src/views/components/divider'
-import SelectField from 'src/views/components/selectField'
-import Tag from 'src/views/components/tag'
-import Typography from 'src/views/components/typography'
 import useProductInfo from '../useProductInfo'
+import dynamic from 'next/dynamic'
+
+const Typography = dynamic(() => import('src/views/components/typography'), { ssr: false })
+const Divider = dynamic(() => import('src/views/components/divider'), { ssr: false })
+const Tag = dynamic(() => import('src/views/components/tag'), { ssr: false })
+const SelectField = dynamic(() => import('src/views/components/selectField'), { ssr: false })
+const CheckboxField = dynamic(() => import('src/views/components/checkboxField'), { ssr: false })
 
 interface Props {
   control: any

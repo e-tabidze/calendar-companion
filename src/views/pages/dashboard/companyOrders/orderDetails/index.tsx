@@ -1,8 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useState } from 'react'
 import { DefaultButton, IconTextButton } from 'src/views/components/button'
-import Divider from 'src/views/components/divider'
-import Typography from 'src/views/components/typography'
 import CancelOrderDialog from '../cancelOrderDialog'
 import useCompanyOrders from '../useCompanyOrders'
 import {
@@ -15,13 +13,18 @@ import {
   TakeAwayInfoContsiner,
   TakeAwayWrapper
 } from './styles'
-import Icon from 'src/views/app/Icon'
-import Image from 'src/views/components/image'
 
 import { parseISO, format } from 'date-fns'
 import { ka } from 'date-fns/locale'
 import OrderDetailsSkeleton from './skeletonLoading'
 import { useRouter } from 'next/router'
+import dynamic from 'next/dynamic'
+
+const Image = dynamic(() => import('src/views/components/image'), { ssr: true })
+const Icon = dynamic(() => import('src/views/app/Icon'), { ssr: false })
+const Typography = dynamic(() => import('src/views/components/typography'), { ssr: false })
+const Divider = dynamic(() => import('src/views/components/divider'), { ssr: false })
+
 
 const OrderDetails = () => {
   const [cancelOrderDialog, setCancelOrderDialog] = useState(false)
