@@ -1,9 +1,10 @@
 import { useWatch } from 'react-hook-form'
 import { generateTimeOptions } from 'src/utils/timeValues'
-import Icon from 'src/views/app/Icon'
 import SelectField from 'src/views/components/selectField'
-import Typography from 'src/views/components/typography'
+import dynamic from 'next/dynamic'
 
+const Typography = dynamic(() => import('src/views/components/typography'), { ssr: false })
+const Icon = dynamic(() => import('src/views/app/Icon'), { ssr: false })
 interface Props {
   control: any
   toggleEditModal: () => void

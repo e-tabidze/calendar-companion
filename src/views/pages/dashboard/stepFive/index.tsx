@@ -1,10 +1,13 @@
 import { useEffect } from 'react'
 import { useWatch } from 'react-hook-form'
-import Divider from 'src/views/components/divider'
-import NumberInputWithSelect from 'src/views/components/numberInputWithSelect'
-import SwitchField from 'src/views/components/switchField'
-import Tag from 'src/views/components/tag'
-import Typography from 'src/views/components/typography'
+import dynamic from 'next/dynamic'
+
+const Divider = dynamic(() => import('src/views/components/divider'), { ssr: false })
+const NumberInputWithSelect = dynamic(() => import('src/views/components/numberInputWithSelect'), { ssr: false })
+const SwitchField = dynamic(() => import('src/views/components/switchField'), { ssr: false })
+const Tag = dynamic(() => import('src/views/components/tag'), { ssr: false })
+const Typography = dynamic(() => import('src/views/components/typography'), { ssr: false })
+
 
 const options = [
   { value: 'დღე', label: 'დღე', id: '1' },

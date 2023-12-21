@@ -1,9 +1,11 @@
-import Typography from '../../../components/typography'
 import SelectField from '../../../components/selectField'
 import { DefaultInput } from 'src/views/components/input'
 import { generateTimeOptions } from 'src/utils/timeValues'
 import { useWatch } from 'react-hook-form'
-import Icon from "src/views/app/Icon";
+import dynamic from 'next/dynamic'
+
+const Typography = dynamic(() => import('../../../components/typography'), { ssr: false })
+const Icon = dynamic(() => import('src/views/app/Icon'), { ssr: false })
 
 interface Props {
   control?: any

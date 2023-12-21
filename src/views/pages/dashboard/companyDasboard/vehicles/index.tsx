@@ -1,7 +1,9 @@
-import Divider from 'src/views/components/divider'
-import Typography from 'src/views/components/typography'
-import VehicleListComponent from '../../components/vehicleListComponent'
 import useProductInfo from '../../useProductInfo'
+import dynamic from 'next/dynamic'
+
+const Typography = dynamic(() => import('src/views/components/typography'), { ssr: false })
+const Divider = dynamic(() => import('src/views/components/divider'), { ssr: false })
+const VehicleListComponent = dynamic(() => import('../../components/vehicleListComponent'), { ssr: false })
 
 const Vehicles = () => {
   const { dashboardData } = useProductInfo()

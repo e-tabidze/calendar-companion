@@ -8,7 +8,9 @@ import BookingList from './bookingList'
 
 // import BookingMap from './bookingMap'
 
-import Icon from 'src/views/app/Icon'
+import dynamic from 'next/dynamic'
+
+const Icon = dynamic(() => import('src/views/app/Icon'), { ssr: false })
 
 interface Props {
   open: boolean

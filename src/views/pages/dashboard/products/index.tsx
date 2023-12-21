@@ -4,11 +4,11 @@ import { useEffect, useState } from 'react'
 import useWindowDimensions from 'src/hooks/useWindowDimensions'
 import { Products } from 'src/types/Products'
 import { IconTextButton } from 'src/views/components/button'
-import Divider from 'src/views/components/divider'
-import Tag from 'src/views/components/tag'
-import Typography from 'src/views/components/typography'
 import SkeletonLoading from './skeletonLoading'
 
+const Divider = dynamic(() => import('src/views/components/divider'), { ssr: false })
+const Tag = dynamic(() => import('src/views/components/tag'), { ssr: false })
+const Typography = dynamic(() => import('src/views/components/typography'), { ssr: false })
 const Pagination = dynamic(() => import('src/views/components/pagination'), { ssr: false })
 const VehicleListComponent = dynamic(() => import('src/views/pages/dashboard/components/vehicleListComponent'), {
   ssr: true

@@ -1,7 +1,9 @@
 import React, { ChangeEvent } from 'react'
-import Icon from 'src/views/app/Icon'
-import Image from 'src/views/components/image'
-import Typography from 'src/views/components/typography'
+import dynamic from 'next/dynamic'
+
+const Typography = dynamic(() => import('src/views/components/typography'), { ssr: false })
+const Image = dynamic(() => import('src/views/components/image'), { ssr: true })
+const Icon = dynamic(() => import('src/views/app/Icon'), { ssr: false })
 
 interface Props {
   title: string

@@ -1,32 +1,35 @@
 import { useState } from 'react'
-import Divider from 'src/views/components/divider'
-import Image from 'src/views/components/image'
 import { DefaultInput } from 'src/views/components/input'
-import Typography from 'src/views/components/typography'
-import PriceCalcCard from 'src/views/pages/details/priceCalcCard'
 import { LargeContainer, ContentContainer } from 'src/styled/styles'
 import { useRouter } from 'next/router'
 import useWindowDimensions from 'src/hooks/useWindowDimensions'
-import Drawer from 'src/views/pages/details/drawer'
-import ResponsivePriceCalcCard from 'src/views/pages/details/responsivePriceCalcCard'
 import useBooking from 'src/views/pages/booking/useBooking'
-import BookingRadio from '../../views/pages/booking/bookingRadio'
 
-import DateDropdown from 'src/views/components/dateDropdown'
 import { useWatch } from 'react-hook-form'
 import useCompanyInfo from 'src/hooks/useCompanyInfo'
 import useSingleProductDetails from '../../views/pages/details/useSingleProductDetails'
-import TakeAway from 'src/views/pages/booking/takeAway'
-import Delivery from 'src/views/pages/booking/delivery'
-import BookingModal from 'src/views/pages/booking/bookingModal'
-import CheckServices from 'src/views/pages/booking/checkServices'
+
 import { dehydrate, useMutation, useQueryClient } from '@tanstack/react-query'
-import Icon from 'src/views/app/Icon'
 
 import { format } from 'date-fns'
 import { ka } from 'date-fns/locale'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { queryClient } from '../_app'
+import dynamic from 'next/dynamic'
+
+const Divider = dynamic(() => import('src/views/components/divider'), { ssr: false })
+const Image = dynamic(() => import('src/views/components/image'), { ssr: true })
+const Typography = dynamic(() => import('src/views/components/typography'), { ssr: false })
+const PriceCalcCard = dynamic(() => import('src/views/pages/details/priceCalcCard'), { ssr: false })
+const Drawer = dynamic(() => import('src/views/pages/details/drawer'), { ssr: false })
+const ResponsivePriceCalcCard = dynamic(() => import('src/views/pages/details/responsivePriceCalcCard'), { ssr: false })
+const BookingRadio = dynamic(() => import('../../views/pages/booking/bookingRadio'), { ssr: false })
+const DateDropdown = dynamic(() => import('src/views/components/dateDropdown'), { ssr: false })
+const TakeAway = dynamic(() => import('src/views/pages/booking/takeAway'), { ssr: false })
+const Delivery = dynamic(() => import('src/views/pages/booking/delivery'), { ssr: false })
+const BookingModal = dynamic(() => import('src/views/pages/booking/bookingModal'), { ssr: false })
+const Icon = dynamic(() => import('src/views/app/Icon'), { ssr: false })
+const CheckServices = dynamic(() => import('src/views/pages/booking/checkServices'), { ssr: false })
 
 const Booking = () => {
   const [additionalServices, toggleAdditionalServices] = useState(false)

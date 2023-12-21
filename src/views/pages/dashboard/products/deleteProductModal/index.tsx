@@ -1,7 +1,9 @@
 import { Fragment } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { DefaultButton, IconTextButton } from 'src/views/components/button'
-import Icon from 'src/views/app/Icon'
+import dynamic from 'next/dynamic'
+
+const Icon = dynamic(() => import('src/views/app/Icon'), { ssr: false })
 
 interface Props {
   open: boolean

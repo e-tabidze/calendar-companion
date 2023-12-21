@@ -1,6 +1,7 @@
-import Icon from 'src/views/app/Icon'
 import { ActionsWrapper, DetailsHeader } from './styles'
+import dynamic from 'next/dynamic'
 
+const Icon = dynamic(() => import('src/views/app/Icon'), { ssr: false })
 const DetailsPageHeader = () => {
   return (
     <DetailsHeader>

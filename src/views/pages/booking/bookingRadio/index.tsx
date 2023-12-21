@@ -2,7 +2,9 @@ import { useController } from 'react-hook-form'
 import { RadioGroup } from '@headlessui/react'
 import tw from 'tailwind-styled-components'
 import { ReactComponentElement } from 'react'
-import Icon from "src/views/app/Icon";
+import dynamic from 'next/dynamic'
+
+const Icon = dynamic(() => import('src/views/app/Icon'), { ssr: false })
 
 interface Option {
   label: string

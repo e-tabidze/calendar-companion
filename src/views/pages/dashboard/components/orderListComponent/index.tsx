@@ -1,11 +1,13 @@
 import useWindowDimensions from 'src/hooks/useWindowDimensions'
-import Icon from 'src/views/app/Icon'
 import { IconButton } from 'src/views/components/button'
-import Image from 'src/views/components/image'
-import Typography from 'src/views/components/typography'
 import { parseISO, format } from 'date-fns'
 import { ka } from 'date-fns/locale'
 import { useRouter } from 'next/router'
+import dynamic from 'next/dynamic'
+
+const Image = dynamic(() => import('src/views/components/image'), { ssr: true })
+const Icon = dynamic(() => import('src/views/app/Icon'), { ssr: false })
+const Typography = dynamic(() => import('src/views/components/typography'), { ssr: false })
 
 interface Props {
   startAddress: string

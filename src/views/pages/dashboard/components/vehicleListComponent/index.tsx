@@ -2,13 +2,15 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import Link from 'next/link'
 import { useState } from 'react'
 import useWindowDimensions from 'src/hooks/useWindowDimensions'
-import Typography from 'src/views/components/typography'
-import DeleteProductConfirmationModal from '../../products/deleteProductModal'
 import useProducts from '../../products/useProducts'
 import Action from './action'
-import Icon from 'src/views/app/Icon'
-import Carousel from 'src/views/components/carousel'
-import Image from 'src/views/components/image'
+import dynamic from 'next/dynamic'
+
+const Image = dynamic(() => import('src/views/components/image'), { ssr: true })
+const Icon = dynamic(() => import('src/views/app/Icon'), { ssr: false })
+const Carousel = dynamic(() => import('src/views/components/carousel'), { ssr: false })
+const Typography = dynamic(() => import('src/views/components/typography'), { ssr: false })
+const DeleteProductConfirmationModal = dynamic(() => import('../../products/deleteProductModal'), { ssr: false })
 
 interface Props {
   price: number

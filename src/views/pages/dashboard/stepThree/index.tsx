@@ -1,11 +1,7 @@
 import { JSXElementConstructor, ReactElement, useEffect } from 'react'
 import useWindowDimensions from 'src/hooks/useWindowDimensions'
 import { IconTextButton } from 'src/views/components/button'
-import TwoOptionSelector from 'src/views/components/twoOptionSelector'
-import Divider from 'src/views/components/divider'
 import { DefaultInput } from 'src/views/components/input'
-import SwitchField from 'src/views/components/switchField'
-import Typography from 'src/views/components/typography'
 import DiscountComponent from './discountComponent'
 import {
   DiscountComponentWrapper,
@@ -16,6 +12,12 @@ import {
 } from './styles'
 import { useWatch } from 'react-hook-form'
 import useNewProduct from '../newProduct/useNewProduct'
+import dynamic from 'next/dynamic'
+
+const Typography = dynamic(() => import('src/views/components/typography'), { ssr: false })
+const Divider = dynamic(() => import('src/views/components/divider'), { ssr: false })
+const SwitchField = dynamic(() => import('src/views/components/switchField'), { ssr: false })
+const TwoOptionSelector = dynamic(() => import('src/views/components/twoOptionSelector'), { ssr: false })
 
 interface Props {
   control: any

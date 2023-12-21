@@ -1,10 +1,11 @@
-import Typography from '../../../../components/typography'
-import Divider from '../../../../components/divider'
 import tw from 'tailwind-styled-components'
 import { RadioGroup } from '@headlessui/react'
 import { Controller, useWatch } from 'react-hook-form'
-import Icon from "src/views/app/Icon";
+import dynamic from 'next/dynamic'
 
+const Icon = dynamic(() => import('src/views/app/Icon'), { ssr: false })
+const Divider = dynamic(() => import('../../../../components/divider'), { ssr: false })
+const Typography = dynamic(() => import('../../../../components/typography'), { ssr: false })
 interface Props {
   addresses: any
   control: any

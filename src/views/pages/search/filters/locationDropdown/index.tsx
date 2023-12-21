@@ -1,11 +1,12 @@
 import { Listbox, Transition } from '@headlessui/react'
 import { Fragment } from 'react'
 import { Controller } from 'react-hook-form'
-import Icon from 'src/views/app/Icon'
-import Typography from 'src/views/components/typography'
 import { FilterContainer, InnerFilterContainer } from './styles'
 import useSearchLocations from './useSearchLocations'
+import dynamic from 'next/dynamic'
 
+const Icon = dynamic(() => import('src/views/app/Icon'), { ssr: false })
+const Typography = dynamic(() => import('src/views/components/typography'), { ssr: false })
 interface Props {
   control: any
   resetField: any
