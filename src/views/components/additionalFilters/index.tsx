@@ -17,7 +17,6 @@ import { Dialog, Transition } from '@headlessui/react'
 import { ListWrapper, SectionWrapper } from './styles'
 import SwitchField from '../switchField'
 import useFilters, { getManufacturerModelFilters } from 'src/hooks/useFilters'
-import SelectField from '../selectField'
 import CheckboxField from '../checkboxField'
 import { IconTextButton } from '../button'
 import { useQuery } from '@tanstack/react-query'
@@ -25,6 +24,7 @@ import useSearch from 'src/hooks/useSearch'
 import { useWatch } from 'react-hook-form'
 import Icon from 'src/views/app/Icon'
 import { generateYearsArray } from 'src/utils/years'
+import SelectField from '../selectField'
 
 interface Props {
   open: boolean
