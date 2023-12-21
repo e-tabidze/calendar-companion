@@ -13,8 +13,6 @@ const PeriodMob: React.FC<Props> = ({ control }) => {
   const [calendar, toggleCalendar] = useState(false)
   const formState = useWatch({ control })
 
-  console.log(formState?.booking?.book_from, 'formState?.booking?.book_from')
-
   return (
     <div className='p-4 w-full flex md:hidden'>
       <FilterContainer onClick={() => toggleCalendar(!calendar)}>
