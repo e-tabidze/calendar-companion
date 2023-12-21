@@ -15,10 +15,6 @@ interface Props {
 
 const FileUpload: React.FC<Props> = ({ title, description, onChange, handleDelete, value, isLoading }) => {
 
-    // const supportedFileTypes = ['pdf', 'jpg', 'jpeg', 'png', 'gif']
-
-  console.log(value, 'value')
-
   return (
     <div className='flex items-center gap-8'>
       <div className='w-24 h-20 flex items-center justify-center overflow-hidden rounded-2xl bg-green-10 border-dashed border-raisin-10'>
@@ -31,7 +27,7 @@ const FileUpload: React.FC<Props> = ({ title, description, onChange, handleDelet
           </div>
         ) : value ? (
           <div className='relative w-full h-full border-dashed border-raisin-10 overflow-hidden bg-green-10 rounded-2xl'>
-            {value ? <Image src={value} alt='' /> : <Icon svgPath='play' width={20} height={20} />}
+            {value ? <Image src={value} alt='' className='w-full h-full object-cover' /> : <Icon svgPath='play' width={20} height={20} />}
             <IconButton
               icon='closeSm'
               className='cursor-pointer absolute top-2 right-2'
