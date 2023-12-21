@@ -62,7 +62,7 @@ const SortListBox: React.FC<Props> = ({ control, onClick, setValue }) => {
                       <Listbox.Option
                         key={index}
                         className={({ active }) =>
-                          `relative cursor-pointer my-2 select-none py-2 px-6 ${
+                          `relative cursor-pointer select-none py-4 px-6 ${
                             active ? 'bg-raisin-10' : 'text-gray-900'
                           }`
                         }

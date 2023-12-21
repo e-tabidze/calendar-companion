@@ -1,7 +1,8 @@
 import { useForm } from 'react-hook-form'
-import Counter from 'src/views/components/counter'
-import Typography from 'src/views/components/typography'
+import dynamic from 'next/dynamic'
 
+const Typography = dynamic(() => import('src/views/components/typography'), { ssr: false })
+const Counter = dynamic(() => import('src/views/components/counter'), { ssr: false })
 interface Props {
   children?: any
   name?: string

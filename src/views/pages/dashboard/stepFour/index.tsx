@@ -2,12 +2,16 @@ import { useState } from 'react'
 import { useWatch } from 'react-hook-form'
 import { NewService } from 'src/types/Product'
 import { IconTextButton } from 'src/views/components/button'
-import Divider from 'src/views/components/divider'
+
 import SwitchField from 'src/views/components/switchField'
-import Typography from 'src/views/components/typography'
+
 import useProductInfo from '../useProductInfo'
 import NewServiceModal from './newServiceModal'
 import ServiceDetails from './serviceDetails'
+import dynamic from 'next/dynamic'
+
+const Divider = dynamic(() => import('src/views/components/divider'), { ssr: false })
+const Typography = dynamic(() => import('src/views/components/typography'), { ssr: false })
 
 interface Props {
   control: any

@@ -1,7 +1,10 @@
-import Divider from 'src/views/components/divider'
-import Typography from 'src/views/components/typography'
-import OrderListComponent from 'src/views/pages/dashboard/components/orderListComponent'
 import useProductInfo from '../../useProductInfo'
+import dynamic from 'next/dynamic'
+
+const Typography = dynamic(() => import('src/views/components/typography'), { ssr: false })
+const Divider = dynamic(() => import('src/views/components/divider'), { ssr: false })
+const OrderListComponent = dynamic(() => import('src/views/pages/dashboard/components/orderListComponent'), { ssr: false })
+
 
 const IncomingOrders = () => {
   const { dashboardData } = useProductInfo()

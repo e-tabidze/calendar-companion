@@ -1,5 +1,7 @@
 import Carousel from '../../../../components/carousel'
-import BookingCard from '../../../../components/bookingCard'
+import dynamic from 'next/dynamic'
+
+const BookingCard = dynamic(() => import('../../../../components/bookingCard'), { ssr: false })
 
 const bookingsArray = [
   <BookingCard key={1} />,

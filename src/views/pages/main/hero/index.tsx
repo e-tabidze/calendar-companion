@@ -6,7 +6,7 @@ import Image from "src/views/components/image";
 const Hero = () => {
   return (
     <HeroContainer>
-        <Image src='/images/banner.png' alt='' height={'100%'} width={'100%'} className='object-cover absolute w-full h-full top-0 left-0' />
+        <Image src='/images/banner.webp' alt='' height={'100%'} width={'100%'} className='object-cover absolute w-full h-full top-0 left-0' />
       <Copy>
         <div className="lg:w-11/12 relative">
           <Typography

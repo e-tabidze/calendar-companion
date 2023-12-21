@@ -1,8 +1,10 @@
-import Radio from 'src/views/components/radio'
-import Typography from 'src/views/components/typography'
-import Divider from 'src/views/components/divider'
-import FileUpload from 'src/views/components/fileUpload'
 import { ChangeEvent } from 'react'
+import dynamic from 'next/dynamic'
+
+const Typography = dynamic(() => import('src/views/components/typography'), { ssr: false })
+const Divider = dynamic(() => import('src/views/components/divider'), { ssr: false })
+const Radio = dynamic(() => import('src/views/components/radio'), { ssr: false })
+const FileUpload = dynamic(() => import('src/views/components/fileUpload'), { ssr: false })
 
 interface Props {
   control: any
