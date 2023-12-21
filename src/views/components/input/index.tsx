@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import Typography from '../typography'
 import _ from 'lodash'
 
 import { Controller } from 'react-hook-form'
@@ -146,7 +145,8 @@ export const FileInput = ({ type, accept, className, onChange, ...rest }: any) =
 export const InputWithComponent: React.FC<Props> = ({
   label,
   className,
-  onComponentClick,
+
+  // onComponentClick,
   name,
   control,
   errors,

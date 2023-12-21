@@ -9,7 +9,7 @@ import { useRouter } from 'next/router'
 
 const NavigationBar = () => {
   const [burger, toggleBurger] = useState(false)
-  const { isAuthenticated, activeCompany, isLoading, userInfo, defaultImgUrl } = useProfile()
+  const { isAuthenticated, activeCompany, defaultImgUrl } = useProfile()
 
   const router = useRouter()
 
