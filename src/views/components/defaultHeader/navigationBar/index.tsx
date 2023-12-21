@@ -84,12 +84,9 @@ const NavigationBar = () => {
           </Link>
         </li>
         <li>
-          {isLoading ? (
-            <span className='flex w-6 h-6 rounded-full bg-raisin-5'></span>
-          ) : (
             <button onClick={() => toggleBurger(!burger)}>
               <div className='flex flex-col items-center text-raisin-70'>
-                <span className='w-8 h-8 relative flex items-center justify-center rounded-full overflow-hidden'>
+                <span className='w-6 h-6 relative flex items-center justify-center rounded-full overflow-hidden'>
                   {isAuthenticated ? (
                     <Image
                       src={!!activeCompany ? activeCompany.information.logo : defaultImgUrl}
@@ -103,7 +100,6 @@ const NavigationBar = () => {
                 <span className='text-[10px] mt-1'>{isAuthenticated ? ' პროფილი' : 'შესვლა'}</span>
               </div>
             </button>
-          )}
         </li>
       </ul>
       {isAuthenticated && <BurgerMenu open={burger} setOpen={() => toggleBurger(!burger)} />}
