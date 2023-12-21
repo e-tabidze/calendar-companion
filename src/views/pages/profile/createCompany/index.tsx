@@ -6,6 +6,7 @@ import StepThree from './stepThree'
 import StepTwo from './stepTwo'
 import useCreateCompany from './useCreateCompany'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
+import Toast from 'src/views/components/toast'
 
 const CreateCompany = () => {
   const options = [
@@ -92,7 +93,11 @@ const CreateCompany = () => {
   })
 
   const saveCompanyLogoMutation = useMutation((variables: any) =>
-    saveCompanyLogo('', variables.logo, variables.companyId)
+    saveCompanyLogo('', variables.logo, variables.companyId), {
+      onSuccess: (variables) => {
+        <Toast type={'success'} title={'წარმატება'} description={'წარმატება'} permalink={'შქმნილი კომპანიის ნახვა'} path={`/profile/company/${variables.companyId}`}  />
+      }
+    }
   )
 
   const onSubmit = () => {
