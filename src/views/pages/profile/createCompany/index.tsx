@@ -6,6 +6,7 @@ import StepThree from './stepThree'
 import StepTwo from './stepTwo'
 import useCreateCompany from './useCreateCompany'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
+import Toast from 'src/views/components/toast'
 
 const CreateCompany = () => {
   const options = [
@@ -37,12 +38,6 @@ const CreateCompany = () => {
 
   const queryClient = useQueryClient()
 
-  // const handleGoNextStep = () => {
-  //   const currentIndex = options.findIndex(option => option.value === step.value)
-  //   if (currentIndex < options.length - 1) {
-  //     setStep(options[currentIndex + 1])
-  //   }
-  // }
   const handleGoNextStep = async () => {
     const currentIndex = options.findIndex(option => option.value === step.value)
 
@@ -98,7 +93,11 @@ const CreateCompany = () => {
   })
 
   const saveCompanyLogoMutation = useMutation((variables: any) =>
-    saveCompanyLogo('', variables.logo, variables.companyId)
+    saveCompanyLogo('', variables.logo, variables.companyId), {
+      onSuccess: (variables) => {
+        <Toast type={'success'} title={'წარმატება'} description={'წარმატება'} permalink={'შქმნილი კომპანიის ნახვა'} path={`/profile/company/${variables.companyId}`}  />
+      }
+    }
   )
 
   const onSubmit = () => {
@@ -106,6 +105,7 @@ const CreateCompany = () => {
   }
 
   console.log(errors, 'errors')
+  console.log(companyValues, 'companyValues')
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -127,7 +127,7 @@ const CreateCompany = () => {
             addressFields={addressFields}
             appendAddress={appendAddress}
             errors={errors}
-            setValue={saveCompanyLogoMutation.isLoading || saveCompanyLogoMutation.isLoading}
+            setValue={setValue}
           />
         )}
         {step.step === 3 && <StepThree control={control} errors={errors} />}

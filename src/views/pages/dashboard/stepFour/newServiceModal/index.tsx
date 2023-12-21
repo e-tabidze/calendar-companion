@@ -1,12 +1,14 @@
 import { Fragment } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { DefaultButton, IconButton } from 'src/views/components/button'
-import Divider from 'src/views/components/divider'
 import { DefaultInput } from 'src/views/components/input'
 import SelectField from 'src/views/components/selectField'
 import useNewService from './useNewService'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { NewService } from 'src/types/Product'
+import dynamic from 'next/dynamic'
+
+const Divider = dynamic(() => import('src/views/components/divider'), { ssr: false })
 
 interface Props {
   open: boolean

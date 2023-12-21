@@ -20,7 +20,7 @@ const BurgerMenu: React.FC<Props> = ({ open, setOpen }) => {
 
     const queryClient = useQueryClient()
 
-    const { userInfo, userCompanies, postSwitchProfile, activeCompany, router, activeCompanyId, handleLogout } =
+    const { userInfo, userCompanies, postSwitchProfile, activeCompany, router, activeCompanyId, handleLogout, defaultImgUrl } =
         useProfile()
 
     const switchProfileMutation = useMutation((active_profile_id: string) => postSwitchProfile('', active_profile_id), {
@@ -102,13 +102,13 @@ const BurgerMenu: React.FC<Props> = ({ open, setOpen }) => {
                                                                   />
                                                                 </span>
                                                                     <div className='flex flex-col'>
-                              <span className='text-2sm overflow-hidden text-ellipsis whitespace-nowrap max-w-[140px] inline-block'>
-                                {company?.information?.name}
-                              </span>
+                                                                          <span className='text-2sm  max-w-[140px] inline-block'>
+                                                                            {company?.information?.name}
+                                                                          </span>
                                                                         <span className='flex text-sm text-raisin-80'>ID: {company?.id} </span>
                                                                     </div>
                                                                 </div>
-                                                                {/*TODO default: border-2 border-raisin-60, active: border-[7px] border-green-100*/}
+
                                                                 <span
                                                                     className={`flex shrink-0 ml-6 w-6 h-6 rounded-full ${
                                                                         activeCompanyId === company.id
@@ -150,13 +150,20 @@ const BurgerMenu: React.FC<Props> = ({ open, setOpen }) => {
                                         </>
                                     ) : (
                                         <>
-                                            <div className='flex items-center justify-between border-b-[1px] border-raisin-10 px-6 py-4'>
+                                            <div className='flex items-center justify-between border-b-[1px] border-raisin-10 px-6 py-4 mb-2'>
                                                 <div className='flex items-center'>
                                                     <span className='w-10 h-10 mr-3 relative flex items-center justify-center rounded-full overflow-hidden'>
-                                                      <Image src={!!activeCompany ? activeCompany.information.logo : userInfo?.information?.profile_pic} className='w-full h-full object-cover' alt='avatar' />
+                                                      <Image
+                                                          onError={(ev:any)=>{
+                                                              ev.target.src = `/icons/avatar.svg`
+                                                          }}
+                                                          src={
+                                                              !!activeCompany ? activeCompany.information.logo : userInfo?.information?.profile_pic || defaultImgUrl
+                                                          }
+                                                          className='w-full h-full object-cover' alt='avatar' />
                                                     </span>
                                                     <div className='flex flex-col'>
-                                                      <span className='text-2sm text-raisin-100 overflow-hidden text-ellipsis whitespace-nowrap max-w-[150px] inline-block'>
+                                                      <span className='text-2sm text-raisin-100'>
                                                         {userInfo?.Email}
                                                       </span>
                                                         <span className='flex text-2sm text-raisin-100'>ID: {userInfo?.active_profile_id}</span>
@@ -164,6 +171,7 @@ const BurgerMenu: React.FC<Props> = ({ open, setOpen }) => {
                                                 </div>
                                             </div>
                                             <div className='py-8px'>
+                                                {userCompanies.length > 0  && (
                                                 <button
                                                     className='mt-2 px-6 flex w-full flex items-center justify-between whitespace-nowrap text-md text-raisin-100 py-2 active:bg-grey-100 transition-all'
                                                     onClick={handleSetActive}
@@ -171,6 +179,7 @@ const BurgerMenu: React.FC<Props> = ({ open, setOpen }) => {
                                                     ანგარიშის შეცვლა
                                                     <Icon svgPath='chevron-right' width={20} height={20} className="fill-transparent" />
                                                 </button>
+                                                )}
                                                 {activeCompany ? (
                                                     <ul className='mb-2'>
                                                         {dashboardRoutes?.map(route => (

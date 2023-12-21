@@ -22,11 +22,12 @@ const customStyles = {
   valueContainer: (provided: any) => ({
     ...provided
   }),
-  menu: (provided: any) => ({
+
+  menuList: (provided: any) => ({
     ...provided,
-    maxHeight: '150px',
-    overflow: 'auto'
+    height: '150px'
   }),
+
   placeholder: (defaultStyles: any) => {
     return {
       ...defaultStyles,
@@ -52,6 +53,7 @@ interface Props {
   labelKey: string
   errors?: any
   isMulti?: boolean
+  handleChange?: () => void
 }
 
 const Control = ({ children, ...props }: any) => {
@@ -77,7 +79,8 @@ const SelectField: React.FC<Props> = ({
   labelKey,
   placeholder,
   errors,
-  isMulti
+  isMulti,
+  handleChange
 }) => {
   const { DropdownIndicator, ClearIndicator } = components
 
@@ -124,6 +127,7 @@ const SelectField: React.FC<Props> = ({
                   : e?.value || []
 
                 onChange(selectedValues)
+                handleChange && handleChange()
               }}
               isMulti={isMulti}
               getOptionLabel={option => labelKey && option[labelKey]}

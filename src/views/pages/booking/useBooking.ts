@@ -10,6 +10,7 @@ import { useRouter } from 'next/router'
 import { Service } from 'src/types/Product'
 import OrderService from 'src/services/OrderService'
 
+
 const useBooking = (id: number | string | string[]) => {
   const { userInfo } = useProfile()
   const { singleProductDetails } = useSingleProductDetails(id)

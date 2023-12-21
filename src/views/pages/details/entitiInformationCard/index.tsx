@@ -1,8 +1,8 @@
-import Image from '../../../components/image'
-
 // import Review from '../../../components/review'
-import Typography from '../../../components/typography'
+import dynamic from 'next/dynamic'
 
+const Image = dynamic(() => import('../../../components/image'), { ssr: true })
+const Typography = dynamic(() => import('../../../components/typography'), { ssr: false })
 interface Props {
   name: string
   entityProductsCount: number

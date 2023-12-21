@@ -9,15 +9,9 @@ import { useRouter } from 'next/router'
 
 const NavigationBar = () => {
   const [burger, toggleBurger] = useState(false)
-  const { isAuthenticated, activeCompany, isLoading, userInfo } = useProfile()
+  const { isAuthenticated, activeCompany, defaultImgUrl } = useProfile()
 
   const router = useRouter()
-
-  // const handleLogin = () => {
-  //     const externalPageUrl = TNET_AUTH
-  //     window.location.href = externalPageUrl
-  //     router.push('/')
-  // }
 
   return (
     <div className='lg:hidden bg-white py-4 fixed bottom-0 left-0 w-full z-[111] box-shadow-sm'>
@@ -90,15 +84,15 @@ const NavigationBar = () => {
           </Link>
         </li>
         <li>
-          {isLoading ? (
-            <span className='flex w-6 h-6 rounded-full bg-raisin-5'></span>
-          ) : (
             <button onClick={() => toggleBurger(!burger)}>
               <div className='flex flex-col items-center text-raisin-70'>
                 <span className='w-6 h-6 relative flex items-center justify-center rounded-full overflow-hidden'>
                   {isAuthenticated ? (
                     <Image
-                      src={!!activeCompany ? activeCompany.information.logo : userInfo?.information?.profile_pic}
+                        onError={(ev:any)=>{
+                          ev.target.src = `/icons/avatar.svg`
+                        }}
+                      src={!!activeCompany ? activeCompany.information.logo : defaultImgUrl}
                       className='object-cover w-full h-full'
                       alt='avatar'
                     />
@@ -109,7 +103,6 @@ const NavigationBar = () => {
                 <span className='text-[10px] mt-1'>{isAuthenticated ? ' პროფილი' : 'შესვლა'}</span>
               </div>
             </button>
-          )}
         </li>
       </ul>
       {isAuthenticated && <BurgerMenu open={burger} setOpen={() => toggleBurger(!burger)} />}

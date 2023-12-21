@@ -5,7 +5,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        tbcx: ['TBCXLight', 'sans-serif']
+        tbcx: ['TBCXRegular', 'sans-serif']
       },
       fontSize: {
         xs: ['10px'],

@@ -80,7 +80,7 @@ const useFilters = () => {
 
   const sortFilters = [
     {
-      id: 'id',
+      id: 'price',
       label: 'ფასი ზრდადობით',
       order_by: 'asc'
     },

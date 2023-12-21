@@ -1,6 +1,8 @@
 import { DefaultButton } from 'src/views/components/button'
-import Image from 'src/views/components/image'
-import Typography from 'src/views/components/typography'
+import dynamic from 'next/dynamic'
+
+const Image = dynamic(() => import('src/views/components/image'), { ssr: true })
+const Typography = dynamic(() => import('src/views/components/typography'), { ssr: false })
 
 interface Props {
   title: string
@@ -20,7 +22,7 @@ const  ActionCard = ({ title, body, actioBtnLabel, actonBtnClick, image }: Props
         <Typography type='body' color='light' className='mt-7 mb-5 text-center'>
           {body}
         </Typography>
-        <DefaultButton bg='bg-red-100' text={actioBtnLabel} onClick={actonBtnClick} textColor="text-white" />
+        <DefaultButton bg='bg-orange-100' text={actioBtnLabel} onClick={actonBtnClick} textColor="text-white" />
         <Image src={image} className='w-full' alt='img'/>
       </div>
     </div>

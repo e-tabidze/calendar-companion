@@ -1,6 +1,8 @@
-import Radio from 'src/views/components/radio'
-import Typography from 'src/views/components/typography'
 import AdditionalServiceCheckbox from './additionalServiceCheckbox'
+import dynamic from 'next/dynamic'
+
+const Typography = dynamic(() => import('src/views/components/typography'), { ssr: false })
+const Radio = dynamic(() => import('src/views/components/radio'), { ssr: false })
 
 const options = [
   { label: 'წავიყვან ოფისიდან', value: 'წავიყვან ოფისიდან', info: '$0.00' },

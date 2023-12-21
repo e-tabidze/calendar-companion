@@ -1,8 +1,9 @@
 import { Controller } from 'react-hook-form'
-import Icon from 'src/views/app/Icon'
-import Counter from 'src/views/components/counter'
-import Typography from 'src/views/components/typography'
+import dynamic from 'next/dynamic'
 
+const Typography = dynamic(() => import('src/views/components/typography'), { ssr: false })
+const Icon = dynamic(() => import('src/views/app/Icon'), { ssr: false })
+const Counter = dynamic(() => import('src/views/components/counter'), { ssr: false })
 interface Option {
   id: string | number
   title: string | number
