@@ -122,7 +122,7 @@ const CreateCompany = () => {
             addressFields={addressFields}
             appendAddress={appendAddress}
             errors={errors}
-            setValue={saveCompanyLogoMutation.isLoading || saveCompanyLogoMutation.isLoading}
+            setValue={setValue}
           />
         )}
         {step.step === 3 && <StepThree control={control} errors={errors} />}

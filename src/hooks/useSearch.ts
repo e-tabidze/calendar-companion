@@ -47,7 +47,7 @@ const useSearch = () => {
     price_min: params?.price_min || '',
     price_max: params?.price_max || '',
     manufacturer_id: convertToNumberArray(params?.manufacturer_id),
-    model_id: convertToNumberArray(params?.model),
+    model_id: convertToNumberArray(params?.model_id),
     free_delivery: params?.free_delivery == 'false' ? false : true,
     year_from: params?.year_from || '',
     year_to: params?.year_to || '',
@@ -73,7 +73,7 @@ const useSearch = () => {
     setValue('price_min', params?.price_min || '')
     setValue('price_max', params?.price_max || '')
     setValue('manufacturer_id', convertToNumberArray(params?.manufacturer_id))
-    setValue('model_id', convertToNumberArray(params?.model))
+    setValue('model_id', convertToNumberArray(params?.model_id))
     setValue('free_delivery', params?.free_delivery == 'false' ? false : true)
     setValue('year_from', params?.year_from || '')
     setValue('year_to', params?.year_to || '')
