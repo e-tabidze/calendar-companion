@@ -111,7 +111,6 @@ const Avatar = () => {
                               <span className='flex text-sm text-raisin-80'>ID: {company?.id} </span>
                             </div>
                           </div>
-                          {/*TODO default: border-2 border-raisin-60, active: border-[7px] border-green-100*/}
                           <span
                             className={`flex shrink-0 ml-6 w-6 h-6 rounded-full ${
                               activeCompanyId === company.id
