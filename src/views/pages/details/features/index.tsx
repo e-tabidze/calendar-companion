@@ -1,5 +1,7 @@
-import Typography from 'src/views/components/typography'
 import ProductFeature from '../productFeature'
+import dynamic from 'next/dynamic'
+
+const Typography = dynamic(() => import('src/views/components/typography'), { ssr: false })
 
 interface Props {
   id: string

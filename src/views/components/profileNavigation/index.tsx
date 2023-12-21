@@ -30,7 +30,7 @@ const ProfileNavigation: React.FC<Props> = ({
   selectedRoute,
   dividerIndexes
 }) => {
-  const { userInfo, activeCompany, isAuthenticated, handleLogout } = useProfile()
+  const { userInfo, activeCompany, isAuthenticated, handleLogout, defaultImgUrl } = useProfile()
 
   const router = useRouter()
 
@@ -47,10 +47,13 @@ const ProfileNavigation: React.FC<Props> = ({
         <div className='flex items-center'>
           <div className='flex shrink-0 w-12 h-12 relative rounded-full overflow-hidden'>
             <Image
+                onError={(ev:any)=>{
+                  ev.target.src = `/icons/avatar.svg`
+                }}
               src={
                 isAuthenticated && !!activeCompany
                   ? activeCompany?.information.logo
-                  : userInfo?.information?.profile_pic
+                  : defaultImgUrl
               }
               alt='avatar'
               className='object-cover w-full h-full'
@@ -69,7 +72,7 @@ const ProfileNavigation: React.FC<Props> = ({
               activeCompany?.information.name
             ) : (
               <>
-                {userInfo?.information.first_name} {userInfo?.information.last_name}{' '}
+                {userInfo?.information?.first_name} {userInfo?.information?.last_name}
               </>
             )}
           </Typography>

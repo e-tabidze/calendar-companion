@@ -28,7 +28,8 @@ const Filters: React.FC<Props> = ({ className }) => {
     appendTransmissionType,
     appendAdditionalInformation,
     objectToURI,
-    reset
+    reset,
+    setValue
   } = useSearch()
 
   const onClickSearch = async () => {
@@ -56,7 +57,7 @@ const Filters: React.FC<Props> = ({ className }) => {
           <IconTextButton
             label={'ძებნა'}
             icon={'/icons/search.svg'}
-            bg='bg-red-100'
+            bg='bg-orange-100'
             labelClassname='text-2sm text-white md:hidden'
             onClick={onClickSearch}
             type='button'
@@ -77,6 +78,7 @@ const Filters: React.FC<Props> = ({ className }) => {
         appendAdditionalInformation={appendAdditionalInformation}
         onSubmit={onClickSearch}
         reset={reset}
+        setValue={setValue}
       />
     </form>
   )

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import useWindowDimensions from 'src/hooks/useWindowDimensions'
 import { FullContainer } from 'src/styled/styles'
 
@@ -13,25 +13,24 @@ import {
   SearchResultsContainer
 } from '../../views/pages/search/styles'
 
-import SearchLayout from '../../layouts/SearchLayout'
 import useSearch from 'src/hooks/useSearch'
 import { useRouter } from 'next/router'
 import { IconTextButton } from 'src/views/components/button'
 import dynamic from 'next/dynamic'
-import Icon from 'src/views/app/Icon'
-import Pagination from 'src/views/components/pagination'
 import { Controller } from 'react-hook-form'
-import SkeletonLoading from 'src/views/pages/search/skeletonLoading'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { dehydrate } from '@tanstack/react-query'
 import { queryClient } from '../_app'
 
-// import SortListBox from 'src/views/pages/search/sortListBox'
+import SortListBox from 'src/views/pages/search/sortListBox'
 
 const Divider = dynamic(() => import('src/views/components/divider'), { ssr: true })
 
 // const MapPicker = dynamic(() => import('src/views/components/mapPicker'), { ssr: true })
-
+const SkeletonLoading = dynamic(() => import('src/views/pages/search/skeletonLoading'), { ssr: false })
+const SearchLayout = dynamic(() => import('../../layouts/SearchLayout'), { ssr: false })
+const Icon = dynamic(() => import('src/views/app/Icon'), { ssr: false })
+const Pagination = dynamic(() => import('src/views/components/pagination'), { ssr: false })
 const ProductCard = dynamic(() => import('src/views/components/productCard'), { ssr: true })
 const Switcher = dynamic(() => import('src/views/components/switcher'), { ssr: true })
 const Tag = dynamic(() => import('src/views/components/tag'), { ssr: true })
@@ -62,10 +61,10 @@ const SearchPage = () => {
     appendAdditionalInformation,
     productsData,
     isLoading,
-    searchProductsMutation,
     totalProductsCount,
     totalPages,
     objectToURI,
+    setValue
   } = useSearch()
   const { width } = useWindowDimensions()
 
@@ -74,20 +73,11 @@ const SearchPage = () => {
 
   const router = useRouter()
 
-  const { asPath } = router
-
   const { book_from, book_to } = router.query
-
-  const startIndex = asPath.indexOf('/search/?') + '/search/?'.length
-  const searchString = asPath.slice(startIndex)
 
   // useEffect(() => {
   //   setMapVisible(width >= 1025)
   // }, [width])
-
-  useEffect(() => {
-    searchProductsMutation.mutateAsync(searchString)
-  }, [searchString])
 
   // const handleToggleMapWidth = () => {
   //   setMapVisible(!mapVisible)
@@ -155,7 +145,6 @@ const SearchPage = () => {
                 onClick={(e: { preventDefault: () => void }) => {
                   reset()
                   e.preventDefault()
-                  onSubmit()
                   router.push('/search/?page=1&order_by=desc')
                 }}
               />
@@ -216,7 +205,7 @@ const SearchPage = () => {
                         label={width > 779 ? 'სორტირება' : ''}
                         height={width > 1025 ? 'h-12' : 'h-10'}
                       /> */}
-                      {/* <SortListBox control={control} onClick={onSubmit} getValues={getValues} setValue={setValue} /> */}
+                      <SortListBox control={control} onClick={onSubmit} setValue={setValue} />
                     </div>
 
                     {/* {width < 1025 && (
@@ -298,6 +287,7 @@ const SearchPage = () => {
           appendAdditionalInformation={appendAdditionalInformation}
           onSubmit={onSubmit}
           reset={reset}
+          setValue={setValue}
         />
       </form>
     </>

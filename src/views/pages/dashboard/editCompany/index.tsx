@@ -2,16 +2,18 @@ import { useEffect, useState } from 'react'
 import useCompanyInfo from 'src/hooks/useCompanyInfo'
 import useProfile from 'src/hooks/useProfile'
 import { DefaultButton, IconTextButton } from 'src/views/components/button'
-import Divider from 'src/views/components/divider'
 import { DefaultInput } from 'src/views/components/input'
-import Typography from 'src/views/components/typography'
-import AddressAndSchedule from '../../profile/company/addressAndSchedule'
 import { useQueryClient, useMutation } from '@tanstack/react-query'
-import DeleteAddressConfirmationModal from '../../../components/deleteAddressConfirmationModal'
-import DeleteCompanyConfirmationModal from 'src/views/components/deleteCompanyConfirmationModal'
 import useEditCompany from './useEditCompany'
 import { Controller, useWatch } from 'react-hook-form'
-import Image from 'src/views/components/image'
+import dynamic from 'next/dynamic'
+
+const Image = dynamic(() => import('src/views/components/image'), { ssr: true })
+const Typography = dynamic(() => import('src/views/components/typography'), { ssr: false })
+const Divider = dynamic(() => import('src/views/components/divider'), { ssr: false })
+const AddressAndSchedule = dynamic(() => import('../../profile/company/addressAndSchedule'), { ssr: false })
+const DeleteAddressConfirmationModal = dynamic(() => import('../../../components/deleteAddressConfirmationModal'), { ssr: false })
+const DeleteCompanyConfirmationModal = dynamic(() => import('src/views/components/deleteCompanyConfirmationModal'), { ssr: false })
 
 const EditCompany = () => {
   const [deleteAddresseModal, setDeleteAddressModal] = useState(false)

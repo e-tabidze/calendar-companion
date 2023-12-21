@@ -1,5 +1,5 @@
 export const formatDate = (date: Date | null): string => {
-  if (!date) return 'აირჩიეთ თარიღი და დრო'
+  if (!date) return 'თარიღი'
 
   return date
     .toLocaleDateString('en-GB', {
@@ -11,4 +11,3 @@ export const formatDate = (date: Date | null): string => {
     .reverse()
     .join('-')
 }
-

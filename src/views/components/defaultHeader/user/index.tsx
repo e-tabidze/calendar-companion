@@ -11,7 +11,7 @@ const User = () => {
 
   const router = useRouter()
 
-  const handleRouteFavourites = () => router.push('/profile/favourites')
+  const handleRouteFavourites = () => router.push('/profile/favourites',undefined, { shallow: true,locale:"." })
 
   const { isLoading } = useProfile()
 

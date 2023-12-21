@@ -3,7 +3,9 @@ import { Divider, ExtraFiltersContainer, FiltersContainer } from './styles'
 import PeriodDropdown from './periodDropdown'
 import { useRouter } from 'next/router'
 import useSearch from 'src/hooks/useSearch'
-import Icon from 'src/views/app/Icon'
+import dynamic from 'next/dynamic'
+
+const Icon = dynamic(() => import('src/views/app/Icon'), { ssr: false })
 
 const Filters = () => {
   const router = useRouter()

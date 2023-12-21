@@ -9,7 +9,6 @@ import { IconTextButton } from '../button'
 
 // import LanguagePicker from './languagePicker'
 import { useEffect } from 'react'
-import { TNET_AUTH } from 'src/env'
 
 import dynamic from 'next/dynamic'
 
@@ -18,7 +17,7 @@ const Filters = dynamic(() => import('src/views/pages/search/filters'), { ssr: f
 const DefaultHeader = () => {
   const router = useRouter()
 
-  const { isAuthenticated, activeCompany, isLoading } = useProfile()
+  const { isAuthenticated, activeCompany, isLoading, handleLogin } = useProfile()
 
   useEffect(() => {
     if (!isLoading) {
@@ -40,12 +39,6 @@ const DefaultHeader = () => {
     router.push('/')
   }
 
-  const handleLogin = () => {
-    const externalPageUrl = TNET_AUTH
-    window.location.href = externalPageUrl
-    router.push('/')
-  }
-
   return (
     <InnerContainer>
       <div className='flex items-center'>
@@ -53,7 +46,6 @@ const DefaultHeader = () => {
         {router?.asPath?.startsWith('/search') && <Filters />}
       </div>
       <div className='flex items-center'>
-
         {/* <LanguagePicker responsive className='md:mx-4' /> */}
         {isAuthenticated && isLoading ? (
           <>Loading... </>

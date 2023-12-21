@@ -7,7 +7,8 @@ import { useRouter } from 'next/router'
 import useSearch from 'src/hooks/useSearch'
 import AdditionalFilters from 'src/views/components/additionalFilters'
 
-// import PeriodMob from "src/views/pages/main/filters/periodMob";
+import PeriodMob from "src/views/pages/main/filters/periodMob";
+import LocationMob from "src/views/pages/main/filters/locationMob";
 
 const Filters = () => {
   const [filters, toggleFilters] = useState(false)
@@ -25,15 +26,15 @@ const Filters = () => {
     appendDoorType,
     appendTransmissionType,
     appendAdditionalInformation,
-    objectToURI, 
-    reset
+    objectToURI,
+    reset,
+    setValue
   } = useSearch()
 
   console.log(searchValues, 'searchValues')
   const queryString = objectToURI(searchValues)
 
   console.log(queryString, 'queryString')
-
 
   const onClickSearch = async () => {
     const queryString = objectToURI(searchValues)
@@ -44,11 +45,12 @@ const Filters = () => {
     <form>
       <FiltersContainer>
         <LocationDropdown control={control} />
+        <LocationMob control={control} />
         <Divider />
         <PeriodDropdown control={control} />
-        {/*<PeriodMob />*/}
+        <PeriodMob control={control} />
         <Divider />
-        <ExtraFiltersContainer>
+        <ExtraFiltersContainer className='flex shrink-0'>
           <IconTextButton
             label={'დამატებითი ფილტრი'}
             icon='filters'
@@ -56,7 +58,7 @@ const Filters = () => {
             height={20}
             bg='white'
             labelClassname='text-xs text-base-100 text-left md:hidden'
-            className='mr-4'
+            className='md:mr-4 !px-0 md:!p-4'
             onClick={() => toggleFilters(!filters)}
             type='button'
           />
@@ -65,7 +67,7 @@ const Filters = () => {
             icon='search'
             width={20}
             height={20}
-            bg='bg-red-100'
+            bg='bg-orange-100'
             labelClassname='text-2sm text-white md:hidden'
             onClick={onClickSearch}
             type='button'
@@ -86,6 +88,7 @@ const Filters = () => {
         appendAdditionalInformation={appendAdditionalInformation}
         onSubmit={onClickSearch}
         reset={reset}
+        setValue={setValue}
       />
     </form>
   )

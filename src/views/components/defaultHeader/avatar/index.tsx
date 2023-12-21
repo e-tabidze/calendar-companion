@@ -14,8 +14,16 @@ const Avatar = () => {
 
   const queryClient = useQueryClient()
 
-  const { userInfo, userCompanies, postSwitchProfile, activeCompany, router, activeCompanyId, handleLogout } =
-    useProfile()
+  const {
+    userInfo,
+    userCompanies,
+    postSwitchProfile,
+    activeCompany,
+    router,
+    activeCompanyId,
+    handleLogout,
+    defaultImgUrl
+  } = useProfile()
 
   const switchProfileMutation = useMutation((active_profile_id: string) => postSwitchProfile('', active_profile_id), {
     onSettled: () => {
@@ -38,13 +46,21 @@ const Avatar = () => {
 
   const routeClass = `px-6 flex whitespace-nowrap text-md text-raisin-100 py-2 hover:bg-grey-100 transition-all`
 
+
   return (
     <Menu as='div' className='relative text-left hidden md:flex'>
       <Menu.Button>
         <AvatarContainer>
           <AvatarInnerContainer>
+
+
             <Image
-              src={!!activeCompany ? activeCompany.information.logo : userInfo?.information?.profile_pic}
+                onError={(ev:any)=>{
+                  ev.target.src = `/icons/avatar.svg`
+                }}
+              src={
+                !!activeCompany ? activeCompany.information.logo : userInfo?.information?.profile_pic || defaultImgUrl
+              }
               className='object-cover w-full h-full'
               alt='avatar'
             />
@@ -54,7 +70,7 @@ const Avatar = () => {
               type='subtitle'
               className='max-w-[120px] inline-block overflow-hidden text-ellipsis whitespace-nowrap'
             >
-              {!!activeCompany ? activeCompany.information.name : userInfo?.information?.first_name}
+              {!!activeCompany ? activeCompany?.information?.name : userInfo?.information?.first_name}
             </Typography>
             <Icon svgPath='chevron' width={8} height={6} className='fill-transparent flex ml-2 transition-all' />
           </AvatarResponsiveContainer>
@@ -99,7 +115,6 @@ const Avatar = () => {
                               <span className='flex text-sm text-raisin-80'>ID: {company?.id} </span>
                             </div>
                           </div>
-                          {/*TODO default: border-2 border-raisin-60, active: border-[7px] border-green-100*/}
                           <span
                             className={`flex shrink-0 ml-6 w-6 h-6 rounded-full ${
                               activeCompanyId === company.id
@@ -116,7 +131,7 @@ const Avatar = () => {
                       <div className='flex items-center text-2sm'>
                         <span className='w-10 h-10 mr-4 relative flex items-center justify-center rounded-full overflow-hidden'>
                           <Image
-                            src={userInfo?.information?.profile_pic}
+                            src={userInfo?.information?.profile_pic || defaultImgUrl}
                             className='object-cover w-full h-full'
                             alt='avatar'
                           />
@@ -141,11 +156,18 @@ const Avatar = () => {
               </>
             ) : (
               <>
-                <div className='flex items-center justify-between border-b-[1px] border-raisin-10 px-6 py-4'>
+                <div className='flex items-center justify-between border-b-[1px] border-raisin-10 px-6 py-4 mb-2'>
                   <div className='flex items-center'>
                     <span className='w-10 h-10 mr-3 relative flex items-center justify-center rounded-full overflow-hidden'>
                       <Image
-                        src={!!activeCompany ? activeCompany.information.logo : userInfo?.information?.profile_pic}
+                          onError={(ev:any)=>{
+                            ev.target.src = `/icons/avatar.svg`
+                          }}
+                        src={
+                          !!activeCompany
+                            ? activeCompany.information.logo
+                            : userInfo?.information?.profile_pic || defaultImgUrl
+                        }
                         className='h-full w-full object-cover'
                         alt='avatar'
                       />
@@ -159,15 +181,17 @@ const Avatar = () => {
                   </div>
                 </div>
                 <div className='py-8px'>
-                  <button
-                    className='mt-2 px-6 flex w-full flex items-center justify-between whitespace-nowrap text-md text-raisin-100 py-2 hover:bg-grey-100 transition-all'
-                    onClick={handleSetActive}
-                  >
-                    ანგარიშის შეცვლა
-                    <Icon svgPath='chevron-right' width={20} height={20} className='fill-transparent' />
-                  </button>
+                  {userCompanies.length > 0 && (
+                    <button
+                      className='px-6 flex w-full flex items-center justify-between whitespace-nowrap text-md text-raisin-100 py-2 hover:bg-grey-100 transition-all'
+                      onClick={handleSetActive}
+                    >
+                      ანგარიშის შეცვლა
+                      <Icon svgPath='chevron-right' width={20} height={20} className='fill-transparent' />
+                    </button>
+                  )}
                   {activeCompany ? (
-                    <ul className='mb-2'>
+                    <ul>
                       {dashboardRoutes?.map(route => (
                         <li key={route.id}>
                           {route.path ? (
@@ -175,12 +199,11 @@ const Avatar = () => {
                               {route.item}
                             </Link>
                           ) : (
-                            <button
-                              className={`border-t-1 border-raisin-10 w-full mt-2 pt-2 ${routeClass}`}
-                              onClick={handleLogout}
-                            >
-                              {route.item}
-                            </button>
+                            <div className='border-t-1 border-raisin-10 mt-2 py-2'>
+                              <button className={`w-full ${routeClass}`} onClick={handleLogout}>
+                                {route.item}
+                              </button>
+                            </div>
                           )}
                         </li>
                       ))}
@@ -194,12 +217,11 @@ const Avatar = () => {
                               {route.item}
                             </Link>
                           ) : (
-                            <button
-                              className={`border-t-1 border-raisin-10 w-full mt-2 pt-2 ${routeClass}`}
-                              onClick={handleLogout}
-                            >
-                              {route.item}
-                            </button>
+                            <div className='border-t-1 border-raisin-10 mt-2 py-2'>
+                              <button className={`w-full ${routeClass}`} onClick={handleLogout}>
+                                {route.item}
+                              </button>
+                            </div>
                           )}
                         </li>
                       ))}

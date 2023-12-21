@@ -25,13 +25,13 @@ const StepOne: React.FC<Props> = ({ control, errors, clearErrors, setValue }) =>
   })
 
   const handleFileUpload = async (file: any) => {
-    console.log(file, 'file')
     try {
       await uploadCompanyLogoMutation.mutateAsync(file)
     } catch (error) {
       console.error('Error uploading file:', error)
     }
   }
+  
   const formState = useWatch({ control })
   console.log(formState, 'formState')
 
@@ -88,19 +88,19 @@ const StepOne: React.FC<Props> = ({ control, errors, clearErrors, setValue }) =>
               handleDelete={handleRemoveFile}
               value={value}
               onChange={(e: any) => {
-                console.log(e.target.files, 'e?')
                 onChange()
                 handleFileUpload(Array.from(e.target.files))
               }}
+              isLoading={uploadCompanyLogoMutation.isLoading}
             />
             {errors && (
-              <div className={`text-sm text-red-100 ml-2`}>{_.get(errors, 'company_information.logo')?.message}</div>
+              <div className={`text-sm text-red-100 ml-2 my-2`}>
+                {_.get(errors, 'company_information.logo')?.message}
+              </div>
             )}
           </>
         )}
       />
-
-      {uploadCompanyLogoMutation.isLoading && <p>Uploading...</p>}
 
       {uploadCompanyLogoMutation.isError && <p>Error uploading file: {uploadCompanyLogoMutation.error.message}</p>}
     </div>

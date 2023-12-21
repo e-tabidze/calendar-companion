@@ -1,6 +1,7 @@
-import Typography from 'src/views/components/typography'
-import Icon from "src/views/app/Icon";
+import dynamic from 'next/dynamic'
 
+const Typography = dynamic(() => import('src/views/components/typography'), { ssr: false })
+const Icon = dynamic(() => import('src/views/app/Icon'), { ssr: false })
 interface Props {
   border: string
   bg: string
