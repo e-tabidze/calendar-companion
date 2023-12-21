@@ -14,11 +14,11 @@ const Toast: React.FC<Props> = ({ type, title, description, path, permalink }) =
     <div
       className={`${
         type === 'success' ? 'bg-green-100' : type === 'info' ? 'bg-yellow-100' : type === 'error' ? 'bg-red-100' : ''
-      } w-56 h-10`}
+      } px-6 py-4`}
     >
-      <Typography type='subtitle'>{title}</Typography>
-      <Typography type='body'>{description}</Typography>
-      {path && <Link href={path}>{permalink}</Link>}
+      <Typography type='subtitle' className='text-white text-md mb-2'>{title}</Typography>
+      <Typography type='body' className='text-white text-2sm mb-2'>{description}</Typography>
+      {path && <Link href={path} className='text-white text-2sm underline'>{permalink}</Link>}
     </div>
   )
 }
