@@ -26,7 +26,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { dehydrate } from '@tanstack/react-query'
 import { queryClient } from '../_app'
 
-// import SortListBox from 'src/views/pages/search/sortListBox'
+import SortListBox from 'src/views/pages/search/sortListBox'
 
 const Divider = dynamic(() => import('src/views/components/divider'), { ssr: true })
 
@@ -217,7 +217,7 @@ const SearchPage = () => {
                         label={width > 779 ? 'სორტირება' : ''}
                         height={width > 1025 ? 'h-12' : 'h-10'}
                       /> */}
-                      {/* <SortListBox control={control} onClick={onSubmit} setValue={setValue} /> */}
+                      <SortListBox control={control} onClick={onSubmit} setValue={setValue} />
                     </div>
 
                     {/* {width < 1025 && (
