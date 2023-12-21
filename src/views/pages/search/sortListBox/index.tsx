@@ -39,9 +39,9 @@ const SortListBox: React.FC<Props> = ({ control, onClick, setValue }) => {
             <Listbox
               value={sortFilters?.find(opt => opt?.id === value)?.id}
               onChange={selectedFilterId => {
-                const selectedFilter = sortFilters.find(opt => opt?.id === selectedFilterId) || null
+                const selectedFilter = sortFilters.find(opt => opt?.label === selectedFilterId) || null
                 setSelectedFilter(selectedFilter)
-                onChange(selectedFilterId)
+                onChange(selectedFilter?.id || '')
               }}
             >
               <div className='relative mt-1 flex text-left w-full'>
@@ -66,11 +66,10 @@ const SortListBox: React.FC<Props> = ({ control, onClick, setValue }) => {
                             active ? 'bg-raisin-10' : 'text-gray-900'
                           }`
                         }
-                        value={filter.id}
+                        value={filter.label}
                       >
                         {({ selected }) => (
                           <>
-                            {console.log(filter, 'filter')}
                             <span className={`block truncate ${selected ? 'font-medium' : 'font-normal'}`}>
                               {filter.label}
                             </span>
