@@ -135,7 +135,7 @@ const AdditionalFilters: React.FC<Props> = ({
                       className='md:w-52 mb-2 md:mb-0'
                       type='number'
                       min={1}
-                      max={100}
+                      max={6}
                     />
                     <div className='hidden md:flex w-3 h-px bg-base-100 mx-2' />
                     <DefaultInput
@@ -145,6 +145,7 @@ const AdditionalFilters: React.FC<Props> = ({
                       errors={''}
                       className='md:w-52'
                       type='number'
+                      max={6}
                     />
                   </div>
                   <div className='my-8'>

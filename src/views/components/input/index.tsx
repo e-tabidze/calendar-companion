@@ -101,7 +101,7 @@ export const DefaultInput: React.FC<Props> = ({
               pattern={pattern}
               rows={rows}
               min={min}
-              max={max}
+              maxLength={max}
             />
             {errors && (
               <div id={id} className='text-sm text-red-100 ml-2 my-2 relative'>
