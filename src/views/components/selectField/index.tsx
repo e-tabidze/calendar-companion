@@ -17,7 +17,7 @@ const customStyles = {
     border: state.isFocused ? '1px solid #272A37' : '1px solid #E9EAEB',
     boxShadow: state.isFocused ? '1px solid #272A37' : '1px solid #E9EAEB',
     transition: 'border 0.2s',
-    cursor: 'pointer'
+    cursor: 'pointer',
   }),
   valueContainer: (provided: any) => ({
     ...provided
@@ -150,8 +150,8 @@ const SelectField: React.FC<Props> = ({
                 )
               }
             />
-            {errors && (
-              <div id={name} className='text-sm text-red-100 ml-2 absolute -bottom-4'>
+            {_.get(errors, name)?.message && (
+              <div id={name} className='text-sm text-red-100 ml-2 py-2 relative max-h-max'>
                 {_.get(errors, name)?.message}
               </div>
             )}

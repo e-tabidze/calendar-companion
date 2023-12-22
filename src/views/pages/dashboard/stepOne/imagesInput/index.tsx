@@ -12,14 +12,27 @@ interface Props {
   handleRemoveImage: (index: number) => void
   value: any
   handleMoveToFront: (index: any) => void
+  isLoading: boolean
 }
 
-const FileUpload: React.FC<Props> = ({ title, description, onChange, handleRemoveImage, value, handleMoveToFront }) => {
-
+const ImagesInput: React.FC<Props> = ({
+  title,
+  description,
+  onChange,
+  handleRemoveImage,
+  value,
+  handleMoveToFront,
+  isLoading
+}) => {
   return (
-    <div className='flex items-center gap-8'>
-      {value?.length > 0 && (
-        <div className='flex gap-4'>
+    <div className='flex items-center gap-8 flex-wrap'>
+      {isLoading ? <div className='w-100 h-100 flex items-center justify-center rounded-12'>
+            <div className='flex items-center cursor-pointer'>
+              <Icon svgPath='loader' width={30} height={30} />
+              <span className='text-gray-800 text-3 font-medium mt-3'></span>
+            </div>
+          </div> :  value?.length > 0 && (
+        <div className='flex gap-4 flex-wrap'>
           {value?.map((image: string, index: number) => (
             <div className='relative' key={index}>
               <Image src={image} alt='' className='w-24 h-24 rounded-2xl' />
@@ -42,8 +55,9 @@ const FileUpload: React.FC<Props> = ({ title, description, onChange, handleRemov
         </div>
       )}
       <label className=' flex items-center justify-center cursor-pointer'>
-        <div className='flex h-24 px-6 justify-center items-center gap-4 rounded-2xl bg-green-10 border-dashed border-raisin-10'>
+        <div className='flex min-w-[284px] h-24 px-6 justify-center items-center gap-4 rounded-2xl bg-green-10 border-dashed border-raisin-10'>
           <Icon svgPath='fileUpload' width={27} height={26} />
+
           <input type='file' className='sr-only' onChange={onChange} multiple />
 
           <div>
@@ -58,4 +72,4 @@ const FileUpload: React.FC<Props> = ({ title, description, onChange, handleRemov
   )
 }
 
-export default FileUpload
+export default ImagesInput

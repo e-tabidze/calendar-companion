@@ -396,3 +396,10 @@ input[type='number'] {
 .arrows-sm .swiper-pagination-bullet.swiper-pagination-bullet-active {
   opacity: 1;
 }
+.css-1nmdiq5-menu {
+padding-top:8px;
+padding-bottom:8px;
+}
+.css-d32dvm-placeholder {
+  color: #272A37 !important;
+}
