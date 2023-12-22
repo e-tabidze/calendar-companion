@@ -1,7 +1,6 @@
 import { Fragment } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { DefaultButton, IconTextButton } from 'src/views/components/button'
-import Icon from 'src/views/app/Icon'
 
 interface Props {
   open: boolean

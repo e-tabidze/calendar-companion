@@ -11,10 +11,9 @@ interface Props {
   index: number
   control: any
   address: any
-  errors: any
 }
 
-const AddressAndSchedule: React.FC<Props> = ({ index, control, address, errors }) => {
+const AddressAndSchedule: React.FC<Props> = ({ index, control, address }) => {
   const [openEditModal, setOpenEditModal] = useState(false)
 
   const toggleEditModal = () => setOpenEditModal(!openEditModal)
