@@ -31,7 +31,7 @@ const CustomDateInput: React.FC<CalendarInputProps> = ({ value, onClick, isCalen
       onClick={onClick}
       readOnly
     />
-    <label className={`absolute left-12 ${value ? 'text-sm text-raisin-50 top-[3px]' : 'hidden'}`}>{label}</label>
+    <label className={`absolute left-12 transition-all text-2sm pointer-events-none ${value ? 'text-sm text-raisin-50 top-[3px]' : 'top-[16px]'}`}>{label}</label>
     <div className='absolute inset-y-0 right-0 flex items-center pr-3'>
       <Icon
         svgPath='chevron'

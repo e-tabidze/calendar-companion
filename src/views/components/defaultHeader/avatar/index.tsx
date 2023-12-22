@@ -177,7 +177,7 @@ const Avatar = () => {
                     </span>
                     <div className='flex flex-col'>
                       <span className='text-2sm text-raisin-100 overflow-hidden text-ellipsis whitespace-nowrap max-w-[150px] inline-block'>
-                        {userInfo?.Email}
+                        {activeCompany?.information.email}
                       </span>
                       <span className='flex text-2sm text-raisin-100'>ID: {userInfo?.active_profile_id}</span>
                     </div>
