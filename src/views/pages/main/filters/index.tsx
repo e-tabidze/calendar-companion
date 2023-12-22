@@ -2,8 +2,9 @@ import { IconTextButton } from '../../../components/button'
 import LocationDropdown from './locationDropdown'
 import { Divider, ExtraFiltersContainer, FiltersContainer } from './styles'
 import PeriodDropdown from './periodDropdown'
-import { useState } from 'react'
+import {useEffect, useState} from 'react'
 import { useRouter } from 'next/router'
+import {isMobile} from 'react-device-detect';
 import useSearch from 'src/hooks/useSearch'
 import AdditionalFilters from 'src/views/components/additionalFilters'
 
@@ -12,6 +13,7 @@ import LocationMob from "src/views/pages/main/filters/locationMob";
 
 const Filters = () => {
   const [filters, toggleFilters] = useState(false)
+  const [isMobileDevice, setIsMobileDevice] = useState(false)
 
   const router = useRouter()
 
@@ -26,6 +28,7 @@ const Filters = () => {
     appendDoorType,
     appendTransmissionType,
     appendAdditionalInformation,
+    appendSteeringWheel,
     objectToURI,
     reset,
     setValue
@@ -40,15 +43,16 @@ const Filters = () => {
     const queryString = objectToURI(searchValues)
     router.push(`/search?${queryString}`)
   }
-
+  useEffect(() => {
+    setIsMobileDevice(isMobile)
+  }, [])
+  
   return (
     <form>
       <FiltersContainer>
-        <LocationDropdown control={control} />
-        <LocationMob control={control} />
+        {isMobileDevice ? <LocationMob control={control}/>: <LocationDropdown control={control}/>}
         <Divider />
-        <PeriodDropdown control={control} />
-        <PeriodMob control={control} />
+        {isMobileDevice ? <PeriodMob control={control}/>: <PeriodDropdown control={control}/>}
         <Divider />
         <ExtraFiltersContainer className='flex shrink-0'>
           <IconTextButton
@@ -84,6 +88,7 @@ const Filters = () => {
         appendCategory={appendCategory}
         appendDriveTire={appendDriveTire}
         appendDoorType={appendDoorType}
+        appendSteeringWheel={appendSteeringWheel}
         appendTransmissionType={appendTransmissionType}
         appendAdditionalInformation={appendAdditionalInformation}
         onSubmit={onClickSearch}

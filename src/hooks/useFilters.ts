@@ -98,7 +98,6 @@ const useFilters = () => {
       id: 'luggage_numbers',
       label: 'ჩემოდნების რაოდენობა - კლებადობით',
       order_by: 'desc'
-
     },
     {
       id: 'prod_year',
@@ -109,8 +108,26 @@ const useFilters = () => {
       id: 'prod_year',
       label: 'წელი - კლებადობით',
       order_by: 'desc'
-
     }
+  ]
+
+  const steeringWheel = [
+    {
+      id: 1,
+      title: 'მარცხენა'
+    },
+    {
+      id: 2,
+      title: 'მარჯვენა'
+    }
+  ]
+
+  const suitcases = [
+    { title: 1, id: 1 },
+    { title: 2, id: 2 },
+    { title: 3, id: 3 },
+    { title: 4, id: 4 },
+    { title: 5, id: 5 }
   ]
 
   const isLoading = useProductFilters.isLoading
@@ -123,6 +140,8 @@ const useFilters = () => {
     driveTiresFilter,
     transmisisonTypesFilter,
     luggageNumbers,
+    steeringWheel,
+    suitcases,
     sortFilters,
     additionalInformationFilters,
     manufacturerFilters,

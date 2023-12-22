@@ -22,6 +22,7 @@ const Filters: React.FC<Props> = ({ className }) => {
     appendFuelType,
     appendCategory,
     appendSeatType,
+    appendSteeringWheel,
     appendLuggageNumber,
     appendDriveTire,
     appendDoorType,
@@ -79,6 +80,7 @@ const Filters: React.FC<Props> = ({ className }) => {
         onSubmit={onClickSearch}
         reset={reset}
         setValue={setValue}
+        appendSteeringWheel={appendSteeringWheel}
       />
     </form>
   )

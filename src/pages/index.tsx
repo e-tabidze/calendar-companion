@@ -1,5 +1,6 @@
 import { dehydrate } from '@tanstack/react-query'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import dynamic from 'next/dynamic'
 import useFilters from 'src/hooks/useFilters'
 import { TailwindDiv } from 'src/interfaces/tailwind'
 import DefaultLayout from 'src/layouts/DefaultLayout'
@@ -13,9 +14,17 @@ import Cities from 'src/views/pages/main/cities'
 import Hero from 'src/views/pages/main/hero'
 import useMain from 'src/views/pages/main/useMain'
 
+const PageMeta = dynamic(() => import('src/@core/meta/PageMeta'), { ssr: true })
+
 // ** Tailwind Styled
 import tw from 'tailwind-styled-components'
 import { queryClient } from './_app'
+
+const pageMeta = {
+  title: 'Rent.myauto.ge | მანქანის ქირაობის პლატფორმა',
+  desc: '',
+  img: ''
+}
 
 // ** Styled Components
 const MainPageBox = tw.div<TailwindDiv>`flex w-full items-center flex-col`
@@ -30,6 +39,7 @@ const MainPage = () => {
   return (
     <DefaultLayout>
       {/* <AuthModal open={authModal} close={() => setAuthModal(false)} handleCancel={() => setAuthModal(false)} /> */}
+      <PageMeta meta={pageMeta} />
 
       <MainPageBox>
         <LargeContainer>

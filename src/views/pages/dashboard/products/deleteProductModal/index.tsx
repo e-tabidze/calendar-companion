@@ -1,9 +1,6 @@
 import { Fragment } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { DefaultButton, IconTextButton } from 'src/views/components/button'
-import dynamic from 'next/dynamic'
-
-const Icon = dynamic(() => import('src/views/app/Icon'), { ssr: false })
 
 interface Props {
   open: boolean
@@ -41,12 +38,10 @@ const DeleteProductConfirmationModal: React.FC<Props> = ({ open, toggleModal, pr
             >
               <Dialog.Panel className='relative transform overflow-hidden rounded-3xl bg-white text-left shadow-xl transition-all w-full md:my-4 md:max-w-3xl'>
                 <div className='w-full flex justify-end p-3'>
-                  <Icon svgPath='close' onClick={toggleModal} height={40} width={40} className='cursor-pointer' />
+                  <Dialog.Title as='h3' className='text-2md text-base-100 leading-6 px-6 pb-6 pt-1'>
+                    ნამდვილად გსურთ პროდუქტის წაშლა?
+                  </Dialog.Title>
                 </div>
-                <Dialog.Title as='h3' className='text-2md text-base-100 leading-6 px-6 pb-6 pt-1'>
-                  ნამდვილად გსურთ პროდუქტის წაშლა?
-                </Dialog.Title>
-
                 <div className='w-full flex flex-col md:flex-row md:items-center justify-between py-4 px-4 md:px-10 border-t-1 border-grey-90'>
                   <DefaultButton
                     text='უარყოფა'

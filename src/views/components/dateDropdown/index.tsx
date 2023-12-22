@@ -4,12 +4,14 @@ import 'react-datepicker/dist/react-datepicker.css'
 import { Controller } from 'react-hook-form'
 import { format } from 'date-fns'
 import Icon from 'src/views/app/Icon'
+import _ from 'lodash'
 
 interface Props {
   name: string
   control: any
   defaultValue?: string
   label: string
+  errors: any
 }
 
 interface CalendarInputProps {
@@ -43,32 +45,39 @@ const CustomDateInput: React.FC<CalendarInputProps> = ({ value, onClick, isCalen
   </div>
 )
 
-const DateDropdown: React.FC<Props> = ({ name, control, defaultValue, label }) => {
+const DateDropdown: React.FC<Props> = ({ name, control, defaultValue, label, errors }) => {
   const [isCalendarOpen, setIsCalendarOpen] = useState(false)
 
   return (
-    <Controller
-      name={name}
-      control={control}
-      defaultValue={defaultValue}
-      render={({ field: { onChange, value } }) => (
-        <DatePicker
-          selected={value ? new Date(value) : null}
-          onChange={date => onChange(date && format(date, 'yyyy-MM-dd'))}
-          dateFormat='yyyy-MM-dd'
-          customInput={
-            <CustomDateInput
-              value={value || ''}
-              onClick={() => setIsCalendarOpen(!isCalendarOpen)}
-              isCalendarOpen
-              label={label}
-            />
-          }
-          onCalendarOpen={() => setIsCalendarOpen(true)}
-          onCalendarClose={() => setIsCalendarOpen(false)}
-        />
+    <>
+      <Controller
+        name={name}
+        control={control}
+        defaultValue={defaultValue}
+        render={({ field: { onChange, value } }) => (
+          <DatePicker
+            selected={value ? new Date(value) : null}
+            onChange={date => onChange(date && format(date, 'yyyy-MM-dd'))}
+            dateFormat='yyyy-MM-dd'
+            customInput={
+              <CustomDateInput
+                value={value || ''}
+                onClick={() => setIsCalendarOpen(!isCalendarOpen)}
+                isCalendarOpen
+                label={label}
+              />
+            }
+            onCalendarOpen={() => setIsCalendarOpen(true)}
+            onCalendarClose={() => setIsCalendarOpen(false)}
+          />
+        )}
+      />
+      {errors && (
+        <div id={name} className='text-sm text-red-100 ml-2 my-2 relative'>
+          {_.get(errors, name)?.message}
+        </div>
       )}
-    />
+    </>
   )
 }
 

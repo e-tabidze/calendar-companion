@@ -82,6 +82,7 @@ const NewProduct: React.FC = () => {
           'fuel_type_id',
           'seat_type_id',
           'luggage_numbers',
+          'steering_wheel',
           'door_type_id',
           'drive_tires_id',
           'transmission_type_id' as any

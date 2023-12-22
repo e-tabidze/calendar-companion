@@ -36,7 +36,7 @@ const ProfileRouter = ({ userInfo }: { userInfo: UserInfo }) => {
   if (router.query.slug?.includes('company')) {
     companyid = router.query.slug[router.query.slug.length - 1]
 
-    key = `/company/${companyid}`
+    key = `/company/${companyid}/`
   }
   const { companyInfo, isLoading } = useCompanyInfo(Number(companyid))
 
@@ -88,7 +88,7 @@ const Profile = () => {
       companyId: company?.id,
       image: company?.information?.logo,
       item: company?.information.name,
-      path: `/profile/company/${company?.id}`
+      path: `/profile/company/${company?.id}/`
     })) || []
 
   const allRoutes = [

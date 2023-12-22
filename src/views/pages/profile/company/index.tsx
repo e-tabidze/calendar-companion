@@ -135,7 +135,7 @@ const Company: React.FC<Props> = ({ id, name, productsCount, logo }) => {
 
           {addressFields.map((address: any, index: number) => (
             <div key={address.id}>
-              <AddressAndSchedule index={index} control={control} address={address} errors={errors} />
+              <AddressAndSchedule index={index} control={control} address={address} />
               <div className='w-full flex justify-end pr-8'>
                 <IconTextButton
                   icon='clear'
