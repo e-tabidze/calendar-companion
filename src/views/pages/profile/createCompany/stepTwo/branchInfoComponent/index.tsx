@@ -102,6 +102,7 @@ const BranchInfoComponent: React.FC<Props> = ({ index, control, errors, setValue
                 control={control}
                 startTimeName={`addresses.${index}.working_hours.${day.value}.start_time`}
                 endTimeName={`addresses.${index}.working_hours.${day.value}.end_time`}
+                isDisabled={!formState.addresses[index]?.working_hours[day.value]?.is_selected}
               />
             </div>
           ))}

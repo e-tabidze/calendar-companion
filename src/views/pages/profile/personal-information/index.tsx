@@ -85,7 +85,6 @@ const PersonalInfo: React.FC<Props> = ({ userData }) => {
   const uploadProfileImageMutation: any = useMutation(uploadProfileImage, {
     onSettled: data => {
       if (data) {
-        console.log(data, 'data')
         saveProfileImageMutation.mutate({
           Photo: data?.Image
         })

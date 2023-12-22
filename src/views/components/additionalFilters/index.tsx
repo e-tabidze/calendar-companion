@@ -38,6 +38,7 @@ interface Props {
   appendDoorType: any
   appendTransmissionType: any
   appendAdditionalInformation: any
+  appendSteeringWheel: any,
   onSubmit: () => void
   reset: any
   setValue: any
@@ -55,6 +56,7 @@ const AdditionalFilters: React.FC<Props> = ({
   appendDoorType,
   appendTransmissionType,
   appendAdditionalInformation,
+  appendSteeringWheel,
   onSubmit,
   reset,
   setValue
@@ -69,7 +71,8 @@ const AdditionalFilters: React.FC<Props> = ({
     transmisisonTypesFilter,
     luggageNumbers,
     additionalInformationFilters,
-    manufacturerFilters
+    manufacturerFilters,
+    steeringWheel
   } = useFilters()
 
   const { objectToURI } = useSearch()
@@ -274,6 +277,22 @@ const AdditionalFilters: React.FC<Props> = ({
                   </div>
                   <Divider />
                   <SwitchField label='უფასო მიწოდება' name='free_delivery' control={control} className='my-4 md:my-8' />
+                  <Divider />
+
+                  <SectionWrapper>
+                    <Typography type='h5' weight='normal' className='mb-2 md:mb-0'>
+                      საჭე
+                    </Typography>
+                    <ListWrapper>
+                      <Tag
+                        options={steeringWheel}
+                        name='steering_wheel'
+                        control={control}
+                        height='h-10'
+                        append={appendSteeringWheel}
+                      />
+                    </ListWrapper>
+                  </SectionWrapper>
                   <Divider />
 
                   <SectionWrapper>
