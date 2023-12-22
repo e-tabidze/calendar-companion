@@ -36,8 +36,8 @@ const ProfileInfoForm: React.FC<Props> = ({ control, errors }) => {
         <DefaultInput control={control} name='identification_number' errors={errors} label='პირადი ნომერი' />
         <DefaultInput control={control} name='phone' errors={errors} label='მობილურის ნომერი' />
         <DefaultInput control={control} name='Email' errors={errors} label='ელ.ფოსტა' disabled />
-        <DateDropdown label={'აირჩიე დაბადების თარიღი'} name='birth_date' control={control} />
-        <DateDropdown label={'მართვის მოწმობის მოქმედების ვადა'} name='driver_license_expiration' control={control} />
+        <DateDropdown label={'აირჩიე დაბადების თარიღი'} name='birth_date' control={control} errors={errors} />
+        <DateDropdown label={'მართვის მოწმობის მოქმედების ვადა'} name='driver_license_expiration' control={control} errors={errors} />
       </div>
     </div>
   )

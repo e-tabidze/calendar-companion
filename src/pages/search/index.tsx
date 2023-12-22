@@ -58,6 +58,7 @@ const SearchPage = () => {
     appendDriveTire,
     appendDoorType,
     appendTransmissionType,
+    appendSteeringWheel,
     appendAdditionalInformation,
     productsData,
     isLoading,
@@ -288,6 +289,7 @@ const SearchPage = () => {
           onSubmit={onSubmit}
           reset={reset}
           setValue={setValue}
+          appendSteeringWheel={appendSteeringWheel}
         />
       </form>
     </>

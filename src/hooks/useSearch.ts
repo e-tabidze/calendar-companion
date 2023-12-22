@@ -31,7 +31,7 @@ const useSearch = () => {
     return []
   }
 
-  console.log(params.year_from, 'params')
+  console.log(params, 'params')
 
   const searchDefaultValues = {
     page: Number(params?.page) || 1,
@@ -41,6 +41,7 @@ const useSearch = () => {
     seat_types: convertToNumberArray(params?.seat_types),
     luggage_numbers: convertToNumberArray(params?.luggage_numbers),
     drive_tires: convertToNumberArray(params?.drive_tires),
+    steering_wheel: convertToNumberArray(params?.steering_wheel),
     door_types: convertToNumberArray(params?.door_types),
     transmission_types: convertToNumberArray(params?.transmission_types),
     additional_information: convertToNumberArray(params?.additional_information),
@@ -69,6 +70,7 @@ const useSearch = () => {
       setValue('luggage_numbers', convertToNumberArray(params?.luggage_numbers))
       setValue('drive_tires', convertToNumberArray(params?.drive_tires))
       setValue('door_types', convertToNumberArray(params?.door_types))
+      setValue('steering_wheel', convertToNumberArray(params?.steering_wheel))
       setValue('transmission_types', convertToNumberArray(params?.transmission_types))
       setValue('additional_information', convertToNumberArray(params?.additional_information))
       setValue('price_min', params?.price_min || '')
@@ -115,6 +117,11 @@ const useSearch = () => {
   const { fields: seatTypes, append: appendSeatType } = useFieldArray({
     control,
     name: 'seat_types'
+  })
+
+  const { fields: steeringWheel, append: appendSteeringWheel } = useFieldArray({
+    control,
+    name: 'steering_wheel'
   })
 
   const { fields: luggageNumbers, append: appendLuggageNumber } = useFieldArray({
@@ -214,6 +221,8 @@ const useSearch = () => {
     transmissionType,
     appendTransmissionType,
     additionalInformation,
+    appendSteeringWheel,
+    steeringWheel,
     appendAdditionalInformation,
     searchProducts,
     searchProductsMutation,

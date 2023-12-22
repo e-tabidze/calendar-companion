@@ -8,3 +8,9 @@ export type WeekDay = {
   label: string
   value: string
 }
+
+export type Meta = {
+  title?: string
+  desc?: string
+  img?: any
+}

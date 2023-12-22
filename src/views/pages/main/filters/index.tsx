@@ -27,6 +27,7 @@ const Filters = () => {
     appendDoorType,
     appendTransmissionType,
     appendAdditionalInformation,
+    appendSteeringWheel,
     objectToURI,
     reset,
     setValue
@@ -83,6 +84,7 @@ const Filters = () => {
         appendCategory={appendCategory}
         appendDriveTire={appendDriveTire}
         appendDoorType={appendDoorType}
+        appendSteeringWheel={appendSteeringWheel}
         appendTransmissionType={appendTransmissionType}
         appendAdditionalInformation={appendAdditionalInformation}
         onSubmit={onClickSearch}
