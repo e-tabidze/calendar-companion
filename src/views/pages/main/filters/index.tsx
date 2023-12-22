@@ -4,6 +4,7 @@ import { Divider, ExtraFiltersContainer, FiltersContainer } from './styles'
 import PeriodDropdown from './periodDropdown'
 import { useState } from 'react'
 import { useRouter } from 'next/router'
+import {isMobile} from 'react-device-detect';
 import useSearch from 'src/hooks/useSearch'
 import AdditionalFilters from 'src/views/components/additionalFilters'
 
@@ -44,11 +45,9 @@ const Filters = () => {
   return (
     <form>
       <FiltersContainer>
-        <LocationDropdown control={control} />
-        <LocationMob control={control} />
+        {isMobile ? <LocationMob control={control}/>: <LocationDropdown control={control}/>}
         <Divider />
-        <PeriodDropdown control={control} />
-        <PeriodMob control={control} />
+        {isMobile ? <PeriodMob control={control}/>: <PeriodDropdown control={control}/>}
         <Divider />
         <ExtraFiltersContainer className='flex shrink-0'>
           <IconTextButton

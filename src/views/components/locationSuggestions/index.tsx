@@ -10,9 +10,10 @@ interface Props {
   index: number
   control: any
   name: string
+  border?: boolean
 }
 
-const LocationSuggestions: React.FC<Props> = ({ index, control, name }) => {
+const LocationSuggestions: React.FC<Props> = ({ index, control, name, border }) => {
   const { getLocationSuggestions } = useCreateCompany()
 
   const formState = useWatch({ control })
@@ -36,7 +37,7 @@ const LocationSuggestions: React.FC<Props> = ({ index, control, name }) => {
               <div className='relative w-full cursor-default overflow-hidden rounded-lg'>
                 <Combobox.Input
                   placeholder='მისამართი (მინიმუმ 3 სიმბოლო)'
-                  className='h-12 lg:h-14 w-full rounded-xl px-3 text-2sm text-raisin-100 border border-raisin-10'
+                  className={`${border?'border border-raisin-10':''} h-12 lg:h-14 w-full rounded-xl px-3 text-2sm text-raisin-100`}
                   displayValue={value}
                   onChange={
                     onChange
