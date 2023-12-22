@@ -8,13 +8,6 @@ const customStyles = {
   indicatorSeparator: () => ({
     display: 'none'
   }),
-  placeholder: (defaultStyles: any) => {
-    return {
-      ...defaultStyles,
-      fontSize: '14px',
-      color: '#272A37', 
-    };
-  },
   control: (provided: any, state: any) => ({
     ...provided,
     height: 56,
