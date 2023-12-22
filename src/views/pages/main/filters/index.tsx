@@ -2,7 +2,7 @@ import { IconTextButton } from '../../../components/button'
 import LocationDropdown from './locationDropdown'
 import { Divider, ExtraFiltersContainer, FiltersContainer } from './styles'
 import PeriodDropdown from './periodDropdown'
-import { useState } from 'react'
+import {useEffect, useState} from 'react'
 import { useRouter } from 'next/router'
 import {isMobile} from 'react-device-detect';
 import useSearch from 'src/hooks/useSearch'
@@ -13,6 +13,7 @@ import LocationMob from "src/views/pages/main/filters/locationMob";
 
 const Filters = () => {
   const [filters, toggleFilters] = useState(false)
+  const [isMobileDevice, setIsMobileDevice] = useState(false)
 
   const router = useRouter()
 
@@ -42,13 +43,16 @@ const Filters = () => {
     const queryString = objectToURI(searchValues)
     router.push(`/search?${queryString}`)
   }
-
+  useEffect(() => {
+    setIsMobileDevice(isMobile)
+  }, [])
+  
   return (
     <form>
       <FiltersContainer>
-        {isMobile ? <LocationMob control={control}/>: <LocationDropdown control={control}/>}
+        {isMobileDevice ? <LocationMob control={control}/>: <LocationDropdown control={control}/>}
         <Divider />
-        {isMobile ? <PeriodMob control={control}/>: <PeriodDropdown control={control}/>}
+        {isMobileDevice ? <PeriodMob control={control}/>: <PeriodDropdown control={control}/>}
         <Divider />
         <ExtraFiltersContainer className='flex shrink-0'>
           <IconTextButton
