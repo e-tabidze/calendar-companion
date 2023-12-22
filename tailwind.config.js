@@ -6,11 +6,12 @@ module.exports = {
     extend: {
       fontFamily: {
         // tbcx: ['TBCXRegular', 'sans-serif'],
-        light: ['TBCXLight', 'sans-serif'],
-        normal: ['TBCXRegular', 'sans-serif'],
-        medium: ['TBCXMedium', 'sans-serif'],
-        bold: ['TBCXBold', 'sans-serif'],
-        black: ['TBCXBlack', 'sans-serif']
+        'light': ['TBCXLight', 'sans-serif'],
+        'normal': ['TBCXRegular', 'sans-serif'],
+        'medium': ['TBCXMedium', 'sans-serif'],
+        'bold': ['TBCXBold', 'sans-serif'],
+        'black': ['TBCXBlack', 'sans-serif'],
+        sans: ['TBCXRegular', 'sans-serif']
       },
       fontSize: {
         xs: ['10px'],
