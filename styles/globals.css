@@ -2,11 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  html {
-    font-family: 'TBCXRegular';
-  }
-}
+/*@layer base {*/
+/*  html {*/
+/*    font-family: 'TBCXRegular';*/
+/*  }*/
+/*}*/
 
 @layer utilities {
   @variants responsive {
@@ -25,43 +25,61 @@
 
 @font-face {
   font-family: 'TBCXLight';
+  font-style: normal;
   src: url('/fonts/tbc/TBCXLight.eot');
   src: url('/fonts/tbc/TBCXLight.eot') format('embedded-opentype'),
   url('/fonts/tbc/TBCXLight.woff2') format('woff2'),
   url('/fonts/tbc/TBCXLight.woff') format('woff'),
   url('/fonts/tbc/TBCXLight.ttf') format('truetype');
+  font-display: swap;
 }
+
 @font-face {
   font-family: 'TBCXRegular';
+  font-style: normal;
   src: url('/fonts/tbc/TBCXRegular.eot');
-  src: url('/fonts/tbc/TBCXRegular.eot') format('embedded-opentype'),
-  url('/fonts/tbc/TBCXRegular.woff2') format('woff2'),
-  url('/fonts/tbc/TBCXRegular.woff') format('woff'),
-  url('/fonts/tbc/TBCXRegular.ttf') format('truetype');
+  src:
+          url('/fonts/tbc/TBCXRegular.eot') format('embedded-opentype'),
+          url('/fonts/tbc/TBCXRegular.ttf') format('truetype'),
+          url('/fonts/tbc/TBCXRegular.woff') format('woff'),
+          url('/fonts/tbc/TBCXRegular.woff2') format('woff2');
+  font-display: swap;
 }
+
 @font-face {
   font-family: 'TBCXMedium';
+  font-style: normal;
   src: url('/fonts/tbc/TBCXMedium.eot');
-  src: url('/fonts/tbc/TBCXMedium.eot') format('embedded-opentype'),
-  url('/fonts/tbc/TBCXMedium.woff2') format('woff2'),
-  url('/fonts/tbc/TBCXMedium.woff') format('woff'),
-  url('/fonts/tbc/TBCXMedium.ttf') format('truetype');
+  src:
+          url('/fonts/tbc/TBCXMedium.eot') format('embedded-opentype'),
+          url('/fonts/tbc/TBCXMedium.ttf') format('truetype'),
+          url('/fonts/tbc/TBCXMedium.woff') format('woff'),
+          url('/fonts/tbc/TBCXMedium.woff2') format('woff2');
+  font-display: swap;
 }
+
 @font-face {
   font-family: 'TBCXBold';
-  src: url('/fonts/tbc/TBCXBold.eot');
-  src: url('/fonts/tbc/TBCXBold.eot') format('embedded-opentype'),
-  url('/fonts/tbc/TBCXBold.woff2') format('woff2'),
-  url('/fonts/tbc/TBCXBold.woff') format('woff'),
-  url('/fonts/tbc/TBCXBold.ttf') format('truetype');
+  font-style: normal;
+  src:
+          url('/fonts/tbc/TBCXBold.eot') format('embedded-opentype'),
+          url('/fonts/tbc/TBCXBold.ttf') format('truetype'),
+          url('/fonts/tbc/TBCXBold.woff') format('woff'),
+          url('/fonts/tbc/TBCXBold.woff2') format('woff2');
+  font-display: swap;
 }
+
+
+
 @font-face {
   font-family: 'TBCXBlack';
+  font-style: normal;
   src: url('/fonts/tbc/TBCXBlack.eot');
   src: url('/fonts/tbc/TBCXBlack.eot') format('embedded-opentype'),
   url('/fonts/tbc/TBCXBlack.woff2') format('woff2'),
   url('/fonts/tbc/TBCXBlack.woff') format('woff'),
   url('/fonts/tbc/TBCXBlack.ttf') format('truetype');
+  font-display: swap;
 }
 
 * {
