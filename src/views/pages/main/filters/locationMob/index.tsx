@@ -14,7 +14,7 @@ const LocationMob: React.FC<Props> = ({ control }) => {
   const formState = useWatch({ control })
 
   return (
-    <div className='p-4 w-full flex md:hidden'>
+    <div className='p-4 w-full flex'>
       <FilterContainer onClick={() => toggleLocation(!location)}>
         <Typography type='body' color='dark'>
           ადგილდებარეობა

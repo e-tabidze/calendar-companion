@@ -1,10 +1,10 @@
 import HttpService from './HttpService'
 
 class StaticService extends HttpService {
-  postUploadCompanyLogo(AccessToken = '', File: any) {
+  postUploadCompanyLogo(AccessToken = '', File: any, companyId?: string | number) {
     return this.post(
-      'https://test.static.my.ge',
-      { Func: 'UploadCompLogo', UploadedFiles: 1, IP: '0.0.0.0', UserID: 'aquserid', SiteID: '39', File },
+      'https://static.my.ge',
+      { Func: 'UploadCompLogo', UploadedFiles: 1, IP: '0.0.0.0', UserID: companyId, SiteID: '39', File },
       AccessToken ? { Authorization: `${AccessToken}` } : {}
     )
   }

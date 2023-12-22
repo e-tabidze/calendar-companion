@@ -1,7 +1,6 @@
 import { Fragment } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { DefaultButton, IconTextButton } from 'src/views/components/button'
-import Icon from 'src/views/app/Icon'
 
 interface Props {
   open: boolean
@@ -44,7 +43,6 @@ const DeleteCompanyConfirmationModal: React.FC<Props> = ({ open, toggleModal, co
                   <Dialog.Title as='h3' className='text-2md text-base-100 leading-6'>
                     ნამდვილად გსურთ კომპანიის წაშლა?
                   </Dialog.Title>
-                  <Icon svgPath='close' onClick={toggleModal} height={40} width={40} className='cursor-pointer' />
                 </div>
 
                 <div className='w-full flex flex-col md:flex-row md:items-center justify-between py-4 px-4 md:px-10 border-t-1 border-grey-90'>

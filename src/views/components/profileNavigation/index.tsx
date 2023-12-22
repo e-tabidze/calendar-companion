@@ -135,6 +135,7 @@ const ProfileNavigation: React.FC<Props> = ({
                 route.path && selectedRoute?.path?.split('/')[2] === route.path.split('/')[2] ? 'text-orange-100' : ''
               }' ${route.path === router?.asPath && 'text-orange-100'}`}
             >
+              <> {console.log(route.path, 'route.path', router?.asPath, 'router?.asPath')} </>
               {route.item}
             </Typography>
           </div>

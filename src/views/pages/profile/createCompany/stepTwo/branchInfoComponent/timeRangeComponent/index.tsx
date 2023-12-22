@@ -7,9 +7,10 @@ interface Props {
   day?: string
   startTimeName: string
   endTimeName: string
+  isDisabled?: boolean
 }
 
-const TimeRangeComponent: React.FC<Props> = ({ control, startTimeName, endTimeName }) => {
+const TimeRangeComponent: React.FC<Props> = ({ control, startTimeName, endTimeName, isDisabled }) => {
   return (
     <div className='flex items-center gap-1'>
       <SelectField
@@ -20,6 +21,7 @@ const TimeRangeComponent: React.FC<Props> = ({ control, startTimeName, endTimeNa
         control={control}
         valueKey='value'
         labelKey='label'
+        disabled={isDisabled}
       />
       <div className='h-px w-[6px] bg-raisin-130' />
       <SelectField
@@ -30,6 +32,7 @@ const TimeRangeComponent: React.FC<Props> = ({ control, startTimeName, endTimeNa
         name={endTimeName}
         valueKey='value'
         labelKey='label'
+        disabled={isDisabled}
       />
     </div>
   )

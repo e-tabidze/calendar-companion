@@ -14,7 +14,7 @@ const LocationDropdown: React.FC<Props> = ({ control }) => {
   const { cities } = useSearchLocations()
 
   return (
-    <div className='hidden md:flex w-full'>
+    <div className='w-full'>
       <Controller
         name='location'
         control={control}

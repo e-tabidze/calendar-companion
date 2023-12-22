@@ -12,8 +12,12 @@ const Image = dynamic(() => import('src/views/components/image'), { ssr: true })
 const Typography = dynamic(() => import('src/views/components/typography'), { ssr: false })
 const Divider = dynamic(() => import('src/views/components/divider'), { ssr: false })
 const AddressAndSchedule = dynamic(() => import('../../profile/company/addressAndSchedule'), { ssr: false })
-const DeleteAddressConfirmationModal = dynamic(() => import('../../../components/deleteAddressConfirmationModal'), { ssr: false })
-const DeleteCompanyConfirmationModal = dynamic(() => import('src/views/components/deleteCompanyConfirmationModal'), { ssr: false })
+const DeleteAddressConfirmationModal = dynamic(() => import('../../../components/deleteAddressConfirmationModal'), {
+  ssr: false
+})
+const DeleteCompanyConfirmationModal = dynamic(() => import('src/views/components/deleteCompanyConfirmationModal'), {
+  ssr: false
+})
 
 const EditCompany = () => {
   const [deleteAddresseModal, setDeleteAddressModal] = useState(false)
@@ -131,6 +135,9 @@ const EditCompany = () => {
                 height={'100%'}
                 alt={companyInfo?.information?.name}
                 className='object-cover w-full h-full'
+                onError={(ev: any) => {
+                  ev.target.src = `/icons/avatar.svg`
+                }}
               />
             )}
           </div>
@@ -200,7 +207,7 @@ const EditCompany = () => {
 
         {addressFields.map((address: any, index: number) => (
           <div key={address.id}>
-            <AddressAndSchedule index={index} control={control} address={address} errors={errors} />
+            <AddressAndSchedule index={index} control={control} address={address} />
             <div className='w-full flex justify-end pr-8'>
               <IconTextButton
                 icon='clear'
@@ -266,6 +273,7 @@ const EditCompany = () => {
             height={21}
             className='text-orange-130'
             onClick={toggleDeleteCompanyModal}
+            disabled={deleteCompanyMutation.isLoading}
           />
         </div>
 

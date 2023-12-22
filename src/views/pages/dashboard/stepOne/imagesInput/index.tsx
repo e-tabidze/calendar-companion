@@ -15,7 +15,6 @@ interface Props {
 }
 
 const FileUpload: React.FC<Props> = ({ title, description, onChange, handleRemoveImage, value, handleMoveToFront }) => {
-  console.log(value, 'value')
 
   return (
     <div className='flex items-center gap-8'>

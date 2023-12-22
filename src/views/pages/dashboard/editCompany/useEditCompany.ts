@@ -195,7 +195,7 @@ const useCompany = (id: number) => {
 
   const uploadCompanyLogo = async (File: any) => {
     try {
-      const response: any = await StaticService.postUploadCompanyLogo('', File)
+      const response: any = await StaticService.postUploadCompanyLogo('', File, id)
 
       return response.data
     } catch (error) {
