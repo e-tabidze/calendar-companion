@@ -15,7 +15,7 @@ export type WorkingHours = {
 
 export type CompanyAddress = {
   address: string
-  phone?: string
+  phone: number
   email?: string
   city?: string
   state?: string

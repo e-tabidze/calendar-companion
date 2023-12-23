@@ -22,7 +22,7 @@ const useCreateCompany = () => {
 
   const defaultAddress: CompanyAddress = {
     address: '',
-    phone: '',
+    phone: 0,
     email: '',
     city: '',
     state: '',
@@ -66,8 +66,8 @@ const useCreateCompany = () => {
     setValue,
     trigger
   } = useForm({
-    mode: 'onChange',
-    reValidateMode: 'onChange',
+    mode: 'onSubmit',
+    reValidateMode: 'onSubmit',
     defaultValues: createCompanyDefaultValues,
     resolver: yupResolver(CompanySchema)
   })

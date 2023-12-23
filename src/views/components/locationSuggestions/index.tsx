@@ -19,24 +19,26 @@ const LocationSuggestions: React.FC<Props> = ({ index, control, name, border }) 
   const formState = useWatch({ control })
 
   const { data: locationSuggestions, isLoading } = useQuery(
-    ['locationSuggestions', formState?.addresses[index]?.address],
-    () => getLocationSuggestions(formState?.addresses[index]?.address),
+    ['locationSuggestions', formState?.addresses[index]?.city],
+    () => getLocationSuggestions(formState?.addresses[index]?.city),
     {
-      enabled: formState?.addresses[index]?.address?.length >= 3
+      enabled: formState?.addresses[index]?.city?.length >= 3
     }
   )
+
+  console.log(locationSuggestions, 'locationSuggestions')
 
   return (
     <Controller
       name={name}
       control={control}
       render={({ field: { onChange, value } }) => (
-        <div className='lg:col-span-2'>
+        <div className='lg:col-span-1'>
           <Combobox value={value} onChange={onChange}>
             <div className='relative'>
               <div className='relative w-full cursor-default overflow-hidden rounded-lg'>
                 <Combobox.Input
-                  placeholder='მისამართი (მინიმუმ 3 სიმბოლო)'
+                  placeholder='ქალაქი (მინიმუმ 3 სიმბოლო)'
                   className={`${border?'border border-raisin-10':''} h-12 lg:h-14 w-full rounded-xl px-3 text-2sm text-raisin-100`}
                   displayValue={value}
                   onChange={
@@ -48,7 +50,7 @@ const LocationSuggestions: React.FC<Props> = ({ index, control, name, border }) 
                   }
                 />
               </div>
-              {formState?.addresses[index]?.address?.length >= 3 && (
+              {formState?.addresses[index]?.city?.length >= 3 && (
                 <Transition
                   as={Fragment}
                   leave='transition ease-in duration-100'
@@ -56,7 +58,7 @@ const LocationSuggestions: React.FC<Props> = ({ index, control, name, border }) 
                   leaveTo='opacity-0'
                 >
                   <Combobox.Options className='absolute z-[11] mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm'>
-                    {formState?.addresses[index]?.address?.length >= 3 && isLoading ? (
+                    {formState?.addresses[index]?.city?.length >= 3 && isLoading ? (
                       <div className='flex justify-center p-4'>
                         <Icon svgPath='loader' width={30} height={30} />
                       </div>

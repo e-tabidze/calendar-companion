@@ -77,7 +77,7 @@ const useCompany = (id: number) => {
 
   const defaultEmptyAddress: CompanyAddress = {
     address: '',
-    phone: '',
+    phone: 0,
     email: '',
     city: '',
     state: '',

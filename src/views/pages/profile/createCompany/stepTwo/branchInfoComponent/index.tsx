@@ -72,7 +72,9 @@ const BranchInfoComponent: React.FC<Props> = ({ index, control, errors, setValue
   return (
     <div className='mb-6 md:border md:border-raisin-10 rounded-3xl md:py-10 md:px-9 grid grid-cols-1 gap-7'>
       <div className='w-full grid grid-cols-1 lg:grid-cols-3 gap-4 relative'>
-        <LocationSuggestions index={index} control={control} name={`addresses.${index}.address`} border />
+        <LocationSuggestions index={index} control={control} name={`addresses.${index}.city`} border />
+
+        <DefaultInput label='მისამართი' name={`addresses.${index}.address`} control={control} errors={errors} />
 
         <DefaultInput label='ტელეფონი' name={`addresses.${index}.phone`} control={control} errors={errors} />
       </div>

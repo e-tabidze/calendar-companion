@@ -19,7 +19,17 @@ const WorkingHoursSchema = Yup.object<WorkingHours>().shape({
 
 const CompanyAddressSchema = Yup.object<CompanyAddress>().shape({
   address: Yup.string().required('სავალდებულო ველი'),
-  phone: Yup.string().nullable(),
+  phone: Yup.number()
+    .required('სავალდებულო ველი')
+    .typeError('ტელეფონის ნომერი უნდა იყოს რიცხვი')
+    .test('is-9-digit', 'მაქსიმუმ 9 სიმბოლო', value => {
+      if (value === null || value === undefined) {
+        return true
+      }
+      const numericValue = parseFloat(value.toString())
+
+      return !isNaN(numericValue) && numericValue.toString().length <= 9
+    }),
   email: Yup.string().email('მეილის ფორმატი არასწორია').nullable(),
   lat: Yup.string().nullable(),
   long: Yup.string().nullable(),
