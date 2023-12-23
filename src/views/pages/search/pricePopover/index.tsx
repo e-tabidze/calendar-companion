@@ -1,8 +1,9 @@
 import { DefaultInput } from 'src/views/components/input'
 import PopoverDropdown from 'src/views/components/popoverDropdown'
-import {DefaultButton, IconTextButton} from 'src/views/components/button'
+import { DefaultButton, IconTextButton } from 'src/views/components/button'
 import { ActionsWrapper, Divider, TagsWrapper } from './styles'
-import { useRouter } from 'next/router'
+import { useEffect, useState } from 'react'
+import { useWatch } from 'react-hook-form'
 
 interface Props {
   control: any
@@ -11,16 +12,16 @@ interface Props {
 }
 
 const PricePopover: React.FC<Props> = ({ control, handleSubmit, reset }) => {
-  const router = useRouter()
+  const [hasPrice, setPrice] = useState(false)
 
-  const { price_min, price_max } = router.query
+  const formState = useWatch({ control })
+
+  useEffect(() => {
+    setPrice(!!formState?.price_min?.length || !!formState?.price_max?.length)
+  }, [formState?.fuel_types?.length])
 
   return (
-    <PopoverDropdown
-      label='ფასი'
-      maxWidth='max-w-md'
-      className={price_min || price_max ? 'border border-raisin-100' : ''}
-    >
+    <PopoverDropdown label='ფასი' maxWidth='max-w-md' className={hasPrice ? 'border border-raisin-100' : ''}>
       <TagsWrapper>
         <DefaultInput
           label={'მინიმუმ ფასი დღიურად'}

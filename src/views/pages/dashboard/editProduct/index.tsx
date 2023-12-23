@@ -51,7 +51,8 @@ const EditProduct: React.FC = ({}) => {
     setValue,
     errors,
     removeImage,
-    trigger
+    trigger,
+    appendImages
   } = useEditProduct(Number(id))
 
   const { postSaveProductImages } = useNewProduct()
@@ -175,6 +176,7 @@ const EditProduct: React.FC = ({}) => {
             errors={errors}
             setValue={setValue}
             removeImage={removeImage}
+            appendImages={appendImages}
           />
         )
       case 2:

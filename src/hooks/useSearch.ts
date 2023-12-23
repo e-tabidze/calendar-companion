@@ -38,8 +38,8 @@ const useSearch = () => {
     location: params?.location || '',
     fuel_types: convertToNumberArray(params?.fuel_types),
     category: convertToNumberArray(params?.category),
-    seat_types: convertToNumberArray(params?.seat_types),
-    luggage_numbers: convertToNumberArray(params?.luggage_numbers),
+    seat_types: params?.seat_types ? convertToNumberArray(params?.seat_types) : 1,
+    luggage_numbers: params?.luggage_numbers ? convertToNumberArray(params?.luggage_numbers) : 1,
     drive_tires: convertToNumberArray(params?.drive_tires),
     steering_wheel: convertToNumberArray(params?.steering_wheel),
     door_types: convertToNumberArray(params?.door_types),
@@ -66,7 +66,7 @@ const useSearch = () => {
       setValue('location', params?.location || '')
       setValue('fuel_types', convertToNumberArray(params?.fuel_types))
       setValue('category', convertToNumberArray(params?.category))
-      setValue('seat_types', convertToNumberArray(params?.seat_types))
+      setValue('seat_types', convertToNumberArray(params?.seat_types) || 1)
       setValue('luggage_numbers', convertToNumberArray(params?.luggage_numbers))
       setValue('drive_tires', convertToNumberArray(params?.drive_tires))
       setValue('door_types', convertToNumberArray(params?.door_types))

@@ -48,6 +48,7 @@ const NewProduct: React.FC = () => {
     removeDiscountItem,
     createNewProduct,
     setValue,
+    appendImages,
     errors,
     postSaveProductImages,
     trigger,
@@ -186,6 +187,7 @@ const NewProduct: React.FC = () => {
             errors={errors}
             setValue={setValue}
             removeImage={removeImage}
+            appendImages={appendImages}
           />
         )
       case 2:

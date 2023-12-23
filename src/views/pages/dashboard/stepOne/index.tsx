@@ -17,9 +17,10 @@ interface Props {
   errors: any
   setValue: any
   removeImage: any
+  appendImages: any
 }
 
-const StepOne: React.FC<Props> = ({ control, productValues, errors, setValue, removeImage }) => {
+const StepOne: React.FC<Props> = ({ control, productValues, errors, setValue, removeImage, appendImages }) => {
   const { manufacturers } = useProductInfo()
   const { postUploadProductImages } = useNewProduct()
   const { userId } = useProfile()
@@ -42,14 +43,21 @@ const StepOne: React.FC<Props> = ({ control, productValues, errors, setValue, re
   const queryClient = useQueryClient()
 
   const uploadProductImagesMutation: any = useMutation(postUploadProductImages, {
-    onSettled: () => {
+    onSuccess: data => {
+      const uploadedFiles = data?.Data?.FilesList || []
+      uploadedFiles.forEach((file: string) => {
+        appendImages(file)
+      })
       queryClient.invalidateQueries(['productInfo'])
+    },
+    onError: error => {
+      console.error('Error uploading file:', error)
     }
   })
 
   const handleFileUpload = async (files: any, count: number) => {
     try {
-      await uploadProductImagesMutation.mutateAsync({
+      return await uploadProductImagesMutation.mutateAsync({
         Files: Array.from(files),
         count,
         userId
@@ -58,11 +66,6 @@ const StepOne: React.FC<Props> = ({ control, productValues, errors, setValue, re
       console.error('Error uploading file:', error)
     }
   }
-
-  useEffect(() => {
-    const uploadedFiles = uploadProductImagesMutation.data?.Data?.FilesList || []
-    setValue('images', uploadedFiles)
-  }, [uploadProductImagesMutation.data?.Data?.FilesList, setValue])
 
   const formState = useWatch({ control })
 
@@ -145,7 +148,7 @@ const StepOne: React.FC<Props> = ({ control, productValues, errors, setValue, re
         <Controller
           name='images'
           control={control}
-          render={({ field: { onChange, value } }) => (
+          render={({ field: { value } }) => (
             <>
               <ImagesInput
                 title='ავტომობილის ფოტოსურათები'
@@ -155,7 +158,6 @@ const StepOne: React.FC<Props> = ({ control, productValues, errors, setValue, re
                 isLoading={uploadProductImagesMutation.isLoading}
                 value={value}
                 onChange={(e: any) => {
-                  onChange()
                   handleFileUpload(Array.from(e.target.files), e.target.files.length)
                 }}
               />

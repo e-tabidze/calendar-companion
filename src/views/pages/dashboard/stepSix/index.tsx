@@ -13,8 +13,6 @@ const StepSix: React.FC<Props> = ({ control, errors }) => {
 
   const formState = useWatch({ control })
 
-  console.log(companyBranches, 'companyBranches')
-
   const cities = () => companyBranches?.map((branch: any) => ({ label: branch.city, value: branch.city }))
 
   const renderAddresses = (name: string) => {
