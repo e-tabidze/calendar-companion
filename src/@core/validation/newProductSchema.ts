@@ -24,7 +24,7 @@ const NewProductSchema = Yup.object().shape({
   prod_year: Yup.number().required('აუცილებელი ველი').typeError('აუცილებელი ველი'),
   additional_information: Yup.string().required('აუცილებელი ველი').typeError('აუცილებელი ველი'),
   use_instruction: Yup.string().required('აუცილებელი ველი').typeError('აუცილებელი ველი'),
-  images: Yup.array().of(Yup.string()).min(1, 'გთხოვთ, ატვირთოთ ავტომობილის ფოტოები'),
+  images: Yup.array().of(Yup.string()).min(3, 'გთხოვთ, ატვირთოთ ავტომობილის ფოტოები, მინიმუმ 3, მაქსიმუმ 15').max(15, 'ავტომობილის ფოტოების მაქსიმალური რაოდენობა არის 15'),
   category_id: Yup.number().required('აუცილებელი ველი').typeError('აუცილებელი ველი'),
   steering_wheel: Yup.string().required('აუცილებელი ველი').typeError('აუცილებელი ველი'),
   fuel_type_id: Yup.number().required('აუცილებელი ველი').typeError('აუცილებელი ველი'),

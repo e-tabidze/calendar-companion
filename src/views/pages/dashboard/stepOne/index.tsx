@@ -144,7 +144,7 @@ const StepOne: React.FC<Props> = ({ control, productValues, errors, setValue, re
           rows={4}
         />
       </div>
-      <div className='flex flex-wrap gap-2 mt-4'>
+      <div className='flex flex-col flex-wrap gap-2 mt-4'>
         <Controller
           name='images'
           control={control}
@@ -155,6 +155,7 @@ const StepOne: React.FC<Props> = ({ control, productValues, errors, setValue, re
                 description='(მაქს. ზომა 10 მბ, JPG, PNG, SVG)'
                 handleRemoveImage={removeImage}
                 handleMoveToFront={handleMoveToFront}
+                isLoading={uploadProductImagesMutation.isLoading}
                 value={value}
                 onChange={(e: any) => {
                   handleFileUpload(Array.from(e.target.files), e.target.files.length)

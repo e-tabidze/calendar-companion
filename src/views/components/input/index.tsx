@@ -68,7 +68,7 @@ export const DefaultInput: React.FC<Props> = ({
   const handleBlur = () => setIsFocused(false)
 
   return (
-    <InputContainer key={index} className={`${className} ${disabled && styles.disabledInput}`}>
+    <InputContainer key={index} className={` flex flex-col ${className} ${disabled && styles.disabledInput}`}>
       <Controller
         control={control}
         name={name}
@@ -100,8 +100,8 @@ export const DefaultInput: React.FC<Props> = ({
               rows={rows}
               min={min}
             />
-            {errors && (
-              <div id={id} className='text-sm text-red-100 ml-2 my-2 relative'>
+            {_.get(errors, name)?.message && (
+              <div id={id} className='text-sm text-red-100 ml-2 py-2 max-h-max relative'>
                 {_.get(errors, name)?.message}
               </div>
             )}
