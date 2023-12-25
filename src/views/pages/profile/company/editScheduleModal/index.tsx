@@ -88,8 +88,8 @@ const EditScheduleModal: React.FC<Props> = ({ open, onClose, control, address, i
                       name={`addresses.${index}.is_same_time`}
                       control={control}
                     />
-                    {formState.addresses[index].is_same_time === 1 ||
-                    formState.addresses[index].is_same_time === true ? (
+                    {formState.addresses[index]?.is_same_time === 1 ||
+                    formState.addresses[index]?.is_same_time === true ? (
                       <div className='flex items-center gap-4'>
                         {workDayData().map((dayData: any) => (
                           <div key={dayData.day}>

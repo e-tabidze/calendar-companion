@@ -6,7 +6,6 @@ import RoundedTag from 'src/views/components/roundedTag'
 import SwitchField from 'src/views/components/switchField'
 
 import TimeRangeComponent from './timeRangeComponent'
-import LocationSuggestions from 'src/views/components/locationSuggestions'
 import CitiesSuggestions from 'src/views/components/citiesSuggestions'
 
 interface Props {
@@ -15,7 +14,7 @@ interface Props {
   workingHoursObject?: any
   control: any
   errors: any
-  setValue: any
+  setValue?: any
 }
 
 const BranchInfoComponent: React.FC<Props> = ({ index, control, errors, setValue }) => {

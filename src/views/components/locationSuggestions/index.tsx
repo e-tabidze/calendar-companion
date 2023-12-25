@@ -3,7 +3,6 @@ import React from 'react'
 import { Fragment } from 'react'
 import { Controller, useWatch } from 'react-hook-form'
 import { Combobox, Transition } from '@headlessui/react'
-import useCreateCompany from 'src/views/pages/profile/createCompany/useCreateCompany'
 import Icon from 'src/views/app/Icon'
 import useCompanyInfo from 'src/hooks/useCompanyInfo'
 
@@ -26,8 +25,6 @@ const LocationSuggestions: React.FC<Props> = ({ index, control, name, border }) 
       enabled: formState?.addresses[index]?.city?.length >= 3
     }
   )
-
-  console.log(locationSuggestions, 'locationSuggestions')
 
   return (
     <Controller

@@ -47,14 +47,10 @@ const ProfileNavigation: React.FC<Props> = ({
         <div className='flex items-center'>
           <div className='flex shrink-0 w-12 h-12 relative rounded-full overflow-hidden'>
             <Image
-                onError={(ev:any)=>{
-                  ev.target.src = `/icons/avatar.svg`
-                }}
-              src={
-                isAuthenticated && !!activeCompany
-                  ? activeCompany?.information.logo
-                  : defaultImgUrl
-              }
+              onError={(ev: any) => {
+                ev.target.src = `/icons/avatar.svg`
+              }}
+              src={isAuthenticated && !!activeCompany ? activeCompany?.information.logo : defaultImgUrl}
               alt='avatar'
               className='object-cover w-full h-full'
               width={48}
@@ -135,7 +131,6 @@ const ProfileNavigation: React.FC<Props> = ({
                 route.path && selectedRoute?.path?.split('/')[2] === route.path.split('/')[2] ? 'text-orange-100' : ''
               }' ${route.path === router?.asPath && 'text-orange-100'}`}
             >
-              <> {console.log(route.path, 'route.path', router?.asPath, 'router?.asPath')} </>
               {route.item}
             </Typography>
           </div>
