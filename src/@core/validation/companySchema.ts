@@ -18,7 +18,10 @@ const WorkingHoursSchema = Yup.object<WorkingHours>().shape({
 })
 
 const CompanyAddressSchema = Yup.object<CompanyAddress>().shape({
+  city: Yup.string().required('სავალდებულო ველი'),
+
   address: Yup.string().required('სავალდებულო ველი'),
+
   phone: Yup.number()
     .required('სავალდებულო ველი')
     .typeError('ტელეფონის ნომერი უნდა იყოს რიცხვი')

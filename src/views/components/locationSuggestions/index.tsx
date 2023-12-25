@@ -5,6 +5,7 @@ import { Controller, useWatch } from 'react-hook-form'
 import { Combobox, Transition } from '@headlessui/react'
 import useCreateCompany from 'src/views/pages/profile/createCompany/useCreateCompany'
 import Icon from 'src/views/app/Icon'
+import useCompanyInfo from 'src/hooks/useCompanyInfo'
 
 interface Props {
   index: number
@@ -14,7 +15,7 @@ interface Props {
 }
 
 const LocationSuggestions: React.FC<Props> = ({ index, control, name, border }) => {
-  const { getLocationSuggestions } = useCreateCompany()
+  const { getLocationSuggestions } = useCompanyInfo()
 
   const formState = useWatch({ control })
 
@@ -39,7 +40,9 @@ const LocationSuggestions: React.FC<Props> = ({ index, control, name, border }) 
               <div className='relative w-full cursor-default overflow-hidden rounded-lg'>
                 <Combobox.Input
                   placeholder='ქალაქი (მინიმუმ 3 სიმბოლო)'
-                  className={`${border?'border border-raisin-10':''} h-12 lg:h-14 w-full rounded-xl px-3 text-2sm text-raisin-100`}
+                  className={`${
+                    border ? 'border border-raisin-10' : ''
+                  } h-12 lg:h-14 w-full rounded-xl px-3 text-2sm text-raisin-100`}
                   displayValue={value}
                   onChange={
                     onChange
