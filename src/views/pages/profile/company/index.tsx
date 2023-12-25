@@ -61,8 +61,9 @@ const Company: React.FC<Props> = ({ id, name, productsCount, logo }) => {
 
   const deleteCompanyAddressMutation = useMutation((id: number) => deleteCompanyAddress(id), {
     onSuccess: () => {
+      queryClient.invalidateQueries(['singleCompanyBranches'])
       queryClient.invalidateQueries(['companyInfo'])
-      remove(index)
+      queryClient.invalidateQueries([id])
     }
   })
 
@@ -76,8 +77,12 @@ const Company: React.FC<Props> = ({ id, name, productsCount, logo }) => {
   }
 
   const deletCompanyAddress = () => {
-    deleteAddressId && deleteCompanyAddressMutation.mutate(deleteAddressId)
+    deleteAddressId ? deleteCompanyAddressMutation.mutate(deleteAddressId) : remove(index)
   }
+
+  console.log(companyValues, 'companyValues edit')
+
+  console.log(addressFields, 'addressFields')
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -135,20 +140,23 @@ const Company: React.FC<Props> = ({ id, name, productsCount, logo }) => {
 
           {addressFields.map((address: any, index: number) => (
             <div key={address.id}>
-              <AddressAndSchedule index={index} control={control} address={address} />
-              <div className='w-full flex justify-end pr-8'>
-                <IconTextButton
-                  icon='clear'
-                  label='წაშლა'
-                  width={24}
-                  height={24}
-                  onClick={() => {
-                    setIndex(index)
-                    toggleDeleteAddressModal()
-                    setDeleteAddressId(address.dummyAddressId)
-                  }}
-                />
-              </div>
+              <AddressAndSchedule index={index} control={control} address={address} errors={errors} />
+
+              {addressFields.length > 1 && index > 0 && (
+                <div className='w-full flex justify-end pr-8'>
+                  <IconTextButton
+                    icon='clear'
+                    label='წაშლა'
+                    width={24}
+                    height={24}
+                    onClick={() => {
+                      setIndex(index)
+                      toggleDeleteAddressModal()
+                      setDeleteAddressId(address.dummyAddressId)
+                    }}
+                  />
+                </div>
+              )}
             </div>
           ))}
 
@@ -187,7 +195,7 @@ const Company: React.FC<Props> = ({ id, name, productsCount, logo }) => {
         <Divider />
         <div className='flex justify-between items-center p-2 md:p-6'>
           {updateCompanyMutation.isLoading ? (
-            <Icon svgPath="loader" width={20} height={20} />
+            <Icon svgPath='loader' width={20} height={20} />
           ) : (
             <DefaultButton
               text='შენახვა'

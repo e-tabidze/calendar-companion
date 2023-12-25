@@ -4,7 +4,6 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { CompanySchema } from 'src/@core/validation/companySchema'
 import { Company, CompanyAddress, WorkingTime } from 'src/types/Company'
 import CompanyService from 'src/services/CompanyService'
-import MapService from 'src/services/MapService'
 import StaticService from 'src/services/StaticService'
 
 const useCreateCompany = () => {
@@ -91,16 +90,7 @@ const useCreateCompany = () => {
     }
   }
 
-  const getLocationSuggestions = async (address: string) => {
-    try {
-      const response: any = await MapService.getLocationSuggestions(address)
 
-      return response.data
-    } catch (error) {
-      console.error('Error fetching location suggestions:', error)
-      throw error
-    }
-  }
 
   const uploadCompanyLogo = async (File: any) => {
     try {
@@ -138,7 +128,6 @@ const useCreateCompany = () => {
     appendAddress,
     defaultAddress,
     createCompany,
-    getLocationSuggestions,
     uploadCompanyLogo,
     saveCompanyLogo,
     isValid,

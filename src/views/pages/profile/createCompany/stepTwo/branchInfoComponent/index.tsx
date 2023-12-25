@@ -6,7 +6,7 @@ import RoundedTag from 'src/views/components/roundedTag'
 import SwitchField from 'src/views/components/switchField'
 
 import TimeRangeComponent from './timeRangeComponent'
-import LocationSuggestions from 'src/views/components/locationSuggestions'
+import CitiesSuggestions from 'src/views/components/citiesSuggestions'
 
 interface Props {
   index: number
@@ -14,7 +14,7 @@ interface Props {
   workingHoursObject?: any
   control: any
   errors: any
-  setValue: any
+  setValue?: any
 }
 
 const BranchInfoComponent: React.FC<Props> = ({ index, control, errors, setValue }) => {
@@ -72,9 +72,9 @@ const BranchInfoComponent: React.FC<Props> = ({ index, control, errors, setValue
   return (
     <div className='mb-6 md:border md:border-raisin-10 rounded-3xl md:py-10 md:px-9 grid grid-cols-1 gap-7'>
       <div className='w-full grid grid-cols-1 lg:grid-cols-3 gap-4 relative'>
-        <LocationSuggestions index={index} control={control} name={`addresses.${index}.city`} border />
+        <CitiesSuggestions index={index} control={control} name={`addresses.${index}.city`} border errors={errors} />
 
-        <DefaultInput label='მისამართი' name={`addresses.${index}.address`} control={control} errors={errors} />
+        <DefaultInput label='მისამართი' name={`addresses.${index}.address`} control={control} errors={errors} disabled={!!`addresses.${index}.city`} />
 
         <DefaultInput label='ტელეფონი' name={`addresses.${index}.phone`} control={control} errors={errors} />
       </div>

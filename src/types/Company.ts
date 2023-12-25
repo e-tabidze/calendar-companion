@@ -17,7 +17,7 @@ export type CompanyAddress = {
   address: string
   phone: number
   email?: string
-  city?: string
+  city: string
   state?: string
   postal_code?: string
   lat: string

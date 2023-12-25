@@ -10,7 +10,6 @@ interface Props {
 }
 
 const DeleteCompanyConfirmationModal: React.FC<Props> = ({ open, toggleModal, companyId, deleteCompany }) => {
-  console.log(companyId, 'companyId')
 
   return (
     <Transition.Root show={open} as={Fragment}>

@@ -7,7 +7,7 @@ import CompanyService from 'src/services/CompanyService'
 import { useEffect } from 'react'
 
 const useCompany = (id: number) => {
-  const { companyInfo } = useCompanyInfo(id)
+  const { companyInfo, singleCompanyBranches } = useCompanyInfo(id)
 
   const defaultAddress: CompanyAddress[] = companyInfo?.addresses?.map((address: any) => ({
     id: address.id,
@@ -135,7 +135,7 @@ const useCompany = (id: number) => {
     setValue('company_information.logo', companyInfo?.information?.name)
     setValue('company_id', id)
     setValue('addresses', defaultAddress)
-  }, [setValue, id])
+  }, [setValue, id, singleCompanyBranches])
 
   const {
     fields: addressFields,

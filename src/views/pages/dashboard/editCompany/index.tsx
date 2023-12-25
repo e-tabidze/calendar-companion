@@ -207,7 +207,7 @@ const EditCompany = () => {
 
         {addressFields.map((address: any, index: number) => (
           <div key={address.id}>
-            <AddressAndSchedule index={index} control={control} address={address} />
+            <AddressAndSchedule index={index} control={control} address={address} errors={errors} />
             <div className='w-full flex justify-end pr-8'>
               <IconTextButton
                 icon='clear'
