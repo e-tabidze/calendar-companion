@@ -47,8 +47,9 @@ const CreateCompany = () => {
         const isValidStep1 = await trigger([
           'identification_number',
           'company_information.name',
+          'company_information.legal_name',
           'company_information.description',
-          'company_information.logo'
+          'company_information.logo',
         ])
         if (isValidStep1) {
           setStep(options[currentIndex + 1])
@@ -111,7 +112,7 @@ const CreateCompany = () => {
   }
 
   console.log(errors, 'errors')
-  console.log(companyValues.addresses, 'companyValues')
+  console.log(companyValues, 'companyValues')
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>

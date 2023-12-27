@@ -51,9 +51,8 @@ const StepOne: React.FC<Props> = ({ control, errors, clearErrors, setValue }) =>
         <DefaultInput
           label='იურიდიული დასახელება'
           control={control}
-          name='company_information.name'
+          name='company_information.legal_name'
           errors={errors}
-          disabled
         />
         <DefaultInput
           label='კომპანიის დასახელება'

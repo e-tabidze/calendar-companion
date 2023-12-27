@@ -32,6 +32,7 @@ export type CompanyAddress = {
 
 export type CompanyInfo = {
   name: string
+  legal_name: string
   logo: string
   description: string
   email: string
