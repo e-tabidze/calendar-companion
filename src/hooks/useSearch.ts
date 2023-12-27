@@ -1,4 +1,4 @@
-import { QueryClient, useMutation } from '@tanstack/react-query'
+import { useMutation } from '@tanstack/react-query'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 import { useFieldArray, useForm, useWatch } from 'react-hook-form'
@@ -7,7 +7,6 @@ import SearchService from 'src/services/SearchService'
 const useSearch = () => {
   const urlSearchParams = typeof window !== 'undefined' ? new URLSearchParams(window?.location.search) : null
   const params: any = {}
-  const queryClient = new QueryClient()
 
   const router = useRouter()
 
