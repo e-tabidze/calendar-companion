@@ -185,7 +185,7 @@ const EditCompany = () => {
             disabled
           />
           <DefaultInput
-            name='company_information.name'
+            name='company_information.legal_name'
             control={control}
             errors={''}
             label='იურიდიული დასახელება'

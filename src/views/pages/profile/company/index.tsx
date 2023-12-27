@@ -90,7 +90,16 @@ const Company: React.FC<Props> = ({ id, name, productsCount, logo }) => {
         <div className='p-2 md:p-6'>
           <div className='flex items-center gap-6 md:mb-10'>
             <div className='flex items-center justify-center border border-raisin-10 relative overflow-hidden rounded-2xl md:rounded-3xl w-[76px] h-[76px] md:w-24 md:h-24'>
-              <Image src={logo || ''} alt='' height='100%' width='100%' className='object-cover w-full h-full' />
+              <Image
+                src={logo || ''}
+                onError={(ev: any) => {
+                  ev.target.src = `/icons/avatar.svg`
+                }}
+                alt=''
+                height='100%'
+                width='100%'
+                className='object-cover w-full h-full'
+              />
             </div>
             <div>
               <Typography type='h3' className='font-bold text-3md md:text-2lg'>
@@ -111,7 +120,7 @@ const Company: React.FC<Props> = ({ id, name, productsCount, logo }) => {
               className='col-span-2 sm:col-span-1'
             />
             <DefaultInput
-              name='company_information.name'
+              name='company_information.legal_name'
               control={control}
               errors={errors}
               disabled
