@@ -2,12 +2,12 @@ import { useMutation } from '@tanstack/react-query'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 import { useFieldArray, useForm, useWatch } from 'react-hook-form'
+import { queryClient } from 'src/pages/_app'
 import SearchService from 'src/services/SearchService'
 
 const useSearch = () => {
   const urlSearchParams = typeof window !== 'undefined' ? new URLSearchParams(window?.location.search) : null
   const params: any = {}
-
   const router = useRouter()
 
   if (urlSearchParams) {
@@ -79,6 +79,8 @@ const useSearch = () => {
       setValue('order_by', params?.order_by || 'asc')
       setValue('booking.book_from', params?.book_from || '')
       setValue('booking.book_to', params?.book_to || '')
+      searchProductsMutation.mutate(objectToURI(searchDefaultValues))
+
     }
   }, [router.query])
 
@@ -145,13 +147,8 @@ const useSearch = () => {
   })
 
   const searchProductsMutation = useMutation((querystring: string) => searchProducts(querystring), {
-    onMutate: variables => {
-      // Perform any actions before the mutation starts
-      console.log('Mutation is about to start:', variables)
-    },
-    onSuccess: data => {
-      // queryClient.invalidateQueries(['searchProducts'])
-      console.log(data, 'searchdata')
+    onSuccess: () => {
+      queryClient.invalidateQueries(['searchProducts'])
     },
     onError: error => {
       console.error('Mutation Error:', error)
@@ -163,7 +160,7 @@ const useSearch = () => {
   const totalProductsCount = searchProductsMutation?.data?.result?.total
   const totalPages = searchProductsMutation?.data?.result?.last_page
 
-  console.log(searchProductsMutation?.data, ' searchProductsMutation?.data')
+  console.log(searchProductsMutation, ' searchProductsMutation?.data')
 
   const searchProducts = async (querystring: string) => {
     try {

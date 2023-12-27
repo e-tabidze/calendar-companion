@@ -115,7 +115,7 @@ const EditCompany = () => {
 
   useEffect(() => {
     setValue('company_information.logo', uploadCompanyLogoMutation.data?.Data?.FilesList[0])
-  }, [uploadCompanyLogoMutation.data?.Data?.FilesList[0]])
+  }, [uploadCompanyLogoMutation.data?.Data?.FilesList, setValue])
 
   if (isLoading) {
     return <>Loading...</>

@@ -5,6 +5,7 @@ import PeriodDropdown from './periodDropdown'
 import { useState } from 'react'
 import useSearch from 'src/hooks/useSearch'
 import AdditionalFilters from 'src/views/components/additionalFilters'
+import { useRouter } from 'next/router'
 
 interface Props {
   className?: string
@@ -13,6 +14,7 @@ interface Props {
 const Filters: React.FC<Props> = ({ className }) => {
   const [filters, toggleFilters] = useState(false)
 
+  const router = useRouter()
 
   const {
     control,
@@ -27,13 +29,16 @@ const Filters: React.FC<Props> = ({ className }) => {
     appendAdditionalInformation,
     reset,
     setValue,
+    objectToURI,
+    searchValues,
+    searchProductsMutation,
   } = useSearch()
 
   const onClickSearch = async () => {
-    // const queryString = objectToURI(searchValues)
-    // searchProductsMutation.mutate('?page=1&free_delivery=false&sort_by=id&order_by=asc')
-    // searchProductsMutation.mutate(queryString)
-    // router.push(`/search?${queryString}`)
+    console.log('here?')
+    const queryString = objectToURI(searchValues)
+    searchProductsMutation.mutate(queryString)
+    router.push(`/search?${queryString}`)
   }
 
   return (
@@ -59,7 +64,7 @@ const Filters: React.FC<Props> = ({ className }) => {
             bg='bg-orange-100'
             labelClassname='text-2sm text-white md:hidden'
             onClick={onClickSearch}
-            type='button'
+            type='submit'
           />
         </ExtraFiltersContainer>
       </FiltersContainer>
