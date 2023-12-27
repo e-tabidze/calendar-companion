@@ -10,7 +10,6 @@ import dynamic from 'next/dynamic'
 
 import Typography from '../typography'
 
-
 import {
   Details,
   DetailsContainer,
@@ -68,17 +67,13 @@ const ProductCard: React.FC<Props> = ({
 
   const isProductInFavorites = userFavourites?.some((fav: any) => fav.product_id === productId)
 
-  console.log(isProductInFavorites, 'isProductInFavorites')
-
-  console.log(activeCompanyId, 'activeCompanyId')
-
   const handleFavorites = async (e: any) => {
     e.stopPropagation()
     e.nativeEvent.preventDefault()
     try {
       toggleUserFavourites.mutate()
     } catch (error) {
-      console.log(error)
+      console.log(error, 'error')
     }
   }
 
@@ -88,16 +83,15 @@ const ProductCard: React.FC<Props> = ({
         <div className='w-full h-6'>
           <Carousel
             itemsArray={images?.map((imgUrl, index) => (
-                <div className='aspect-w-16 aspect-h-9 rounded-tl-3xl rounded-tr-3xl overflow-hidden' key={index}>
-                  <Image
-                      src={imgUrl || ''}
-                      alt={`${manufacturer} ${model} ${prodYear}`}
-                      height={'100%'}
-                      width={'10%'}
-                      className='object-cover'
-                  />
-                </div>
-
+              <div className='aspect-w-16 aspect-h-9 rounded-tl-3xl rounded-tr-3xl overflow-hidden' key={index}>
+                <Image
+                  src={imgUrl || ''}
+                  alt={`${manufacturer} ${model} ${prodYear}`}
+                  height={'100%'}
+                  width={'10%'}
+                  className='object-cover'
+                />
+              </div>
             ))}
             type='card'
             key={Math.random()}

@@ -40,8 +40,6 @@ const OrderListComponent: React.FC<Props> = ({
 }) => {
   const { width } = useWindowDimensions()
 
-  console.log(productDetails, 'productDetails')
-
   const router = useRouter()
 
   return (

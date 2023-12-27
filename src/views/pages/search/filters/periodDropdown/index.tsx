@@ -48,8 +48,6 @@ const PeriodDropwodn: React.FC<Props> = ({ control, resetField, setValue }) => {
     }
   }, [book_from, book_to])
 
-  console.log(book_from, book_to)
-
   return (
     <Menu as='div' className='flex text-left mx-2 w-full'>
       <Menu.Button className='px-4 w-52 inline-flex justify-center rounded-md bg-raisin bg-opacity-20 text-sm font-medium text-white focus-visible:ring-white focus-visible:ring-opacity-75'>

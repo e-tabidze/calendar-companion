@@ -11,7 +11,7 @@ const Tag = dynamic(() => import('src/views/components/tag'), { ssr: false })
 const Typography = dynamic(() => import('src/views/components/typography'), { ssr: false })
 const Pagination = dynamic(() => import('src/views/components/pagination'), { ssr: false })
 const VehicleListComponent = dynamic(() => import('src/views/pages/dashboard/components/vehicleListComponent'), {
-  ssr: true
+  ssr: false
 })
 
 import useProducts from './useProducts'

@@ -38,7 +38,7 @@ interface Props {
   appendDoorType: any
   appendTransmissionType: any
   appendAdditionalInformation: any
-  appendSteeringWheel: any,
+  appendSteeringWheel: any
   onSubmit: () => void
   reset: any
   setValue: any
@@ -126,16 +126,16 @@ const AdditionalFilters: React.FC<Props> = ({
                   <Icon svgPath='close' onClick={toggleModal} height={40} width={40} className='cursor-pointer' />
                 </div>
                 <div className='overflow-auto h-[70vh] px-4 py-5 sm:py-6 sm:px-10 w-max-full'>
-                  <Typography type='body' color='dark' className='md:max-w-[30%]'>
+                  <Typography type='body' color='dark'>
                     მოძებნე ავტომობილი დღიური ფასის მიხედვით
                   </Typography>
                   <div className='w-full flex flex-col md:flex-row md:items-center mb-10 md:mb-16 mt-8'>
                     <DefaultInput
                       name='price_min'
                       control={control}
-                      label={width > 641 ? 'ჩაწერე დღიური მინიმალური ფასი' : 'მინ. ფასი დღიურად'}
+                      label={'ჩაწერე დღიური მინიმალური ფასი'}
                       errors={''}
-                      className='md:w-52 mb-2 md:mb-0'
+                      className='md:w-72 mb-2 md:mb-0'
                       type='number'
                       min={1}
                     />
@@ -143,9 +143,9 @@ const AdditionalFilters: React.FC<Props> = ({
                     <DefaultInput
                       name='price_max'
                       control={control}
-                      label={width > 641 ? 'ჩაწერე დღიური მაქსიმალური ფასი' : 'მაქს. ფასი დღიურად'}
+                      label={'ჩაწერე დღიური მაქსიმალური ფასი'}
                       errors={''}
-                      className='md:w-52'
+                      className='md:w-72'
                       type='number'
                     />
                   </div>

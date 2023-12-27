@@ -49,7 +49,7 @@ const CreateCompany = () => {
           'company_information.name',
           'company_information.legal_name',
           'company_information.description',
-          'company_information.logo',
+          'company_information.logo'
         ])
         if (isValidStep1) {
           setStep(options[currentIndex + 1])
@@ -129,13 +129,7 @@ const CreateCompany = () => {
       >
         {step.step === 1 && <StepOne control={control} errors={errors} clearErrors={clearErrors} setValue={setValue} />}
         {step.step === 2 && (
-          <StepTwo
-            control={control}
-            addressFields={addressFields}
-            appendAddress={appendAddress}
-            errors={errors}
-            setValue={setValue}
-          />
+          <StepTwo control={control} addressFields={addressFields} appendAddress={appendAddress} errors={errors} />
         )}
         {step.step === 3 && <StepThree control={control} errors={errors} />}
       </NewListingLayout>

@@ -13,7 +13,6 @@ interface Props {
 
 const Details: React.FC<Props> = ({ id, company, url }) => {
   const { notifictionDetails } = useNotifications(String(id), String(company))
-  console.log(notifictionDetails, 'notifictionDetails')
 
   return (
     <div className='border border-raisin-10 rounded-2xl md:rounded-3xl p-6 md:py-10 md:px-8'>

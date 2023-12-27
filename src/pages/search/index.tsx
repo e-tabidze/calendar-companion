@@ -89,6 +89,8 @@ const SearchPage = () => {
     router.push(`/search?${objectToURI(updatedSearchValues)}`)
   }
 
+  console.log(productsData, 'productsData')
+
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -292,13 +294,24 @@ const SearchPage = () => {
 
 export default SearchPage
 
-export async function getStaticProps({ locale }: { locale: string }) {
-  const [translations] = await Promise.all([serverSideTranslations(locale)])
+// export async function getServerSideProps({ locale }: { locale: string }) {
+//   const [translations] = await Promise.all([serverSideTranslations(locale)])
+
+//   return {
+//     props: {
+//       dehydratedState: dehydrate(queryClient),
+//       ...translations
+//     }
+//   }
+// }
+
+export async function getServerSideProps({ locale }: { locale: string }) {
+  const [translations] = await Promise.all([serverSideTranslations(locale)]);
 
   return {
     props: {
       dehydratedState: dehydrate(queryClient),
-      ...translations
-    }
-  }
+      ...translations,
+    },
+  };
 }

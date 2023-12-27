@@ -34,10 +34,9 @@ const Filters = () => {
     setValue
   } = useSearch()
 
-  console.log(searchValues, 'searchValues')
-  const queryString = objectToURI(searchValues)
+  // const queryString = objectToURI(searchValues)
 
-  console.log(queryString, 'queryString')
+  // console.log(queryString, 'queryString')
 
   const onClickSearch = async () => {
     const queryString = objectToURI(searchValues)

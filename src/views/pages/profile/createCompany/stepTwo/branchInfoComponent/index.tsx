@@ -14,10 +14,9 @@ interface Props {
   workingHoursObject?: any
   control: any
   errors: any
-  setValue?: any
 }
 
-const BranchInfoComponent: React.FC<Props> = ({ index, control, errors, setValue }) => {
+const BranchInfoComponent: React.FC<Props> = ({ index, control, errors }) => {
   const formState = useWatch({ control })
 
   // useEffect(() => {
@@ -41,8 +40,6 @@ const BranchInfoComponent: React.FC<Props> = ({ index, control, errors, setValue
   //     }
   //   }
   // }, [formState.addresses[index], index, setValue])
-
-  console.log(setValue)
 
   const renderDaysSelector = (day: any) => (
     <Controller

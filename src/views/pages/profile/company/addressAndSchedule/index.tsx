@@ -30,8 +30,6 @@ const AddressAndSchedule: React.FC<Props> = ({ index, control, address, errors }
     />
   )
 
-  console.log(formState.addresses[0].is_same_time, 'is same?')
-
   return (
     <>
       <div className='border border-raisin-10 rounded-3xl p-8 mt-8 mb-3'>

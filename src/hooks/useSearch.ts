@@ -31,15 +31,12 @@ const useSearch = () => {
     return []
   }
 
-  console.log(params, 'params')
-
   const searchDefaultValues = {
     page: Number(params?.page) || 1,
     location: params?.location || '',
     fuel_types: convertToNumberArray(params?.fuel_types),
     category: convertToNumberArray(params?.category),
     seat_types: params?.seat_types ? convertToNumberArray(params?.seat_types) : 1,
-    luggage_numbers: params?.luggage_numbers ? convertToNumberArray(params?.luggage_numbers) : 1,
     drive_tires: convertToNumberArray(params?.drive_tires),
     steering_wheel: convertToNumberArray(params?.steering_wheel),
     door_types: convertToNumberArray(params?.door_types),
@@ -67,7 +64,6 @@ const useSearch = () => {
       setValue('fuel_types', convertToNumberArray(params?.fuel_types))
       setValue('category', convertToNumberArray(params?.category))
       setValue('seat_types', convertToNumberArray(params?.seat_types) || 1)
-      setValue('luggage_numbers', convertToNumberArray(params?.luggage_numbers))
       setValue('drive_tires', convertToNumberArray(params?.drive_tires))
       setValue('door_types', convertToNumberArray(params?.door_types))
       setValue('steering_wheel', convertToNumberArray(params?.steering_wheel))
@@ -162,6 +158,8 @@ const useSearch = () => {
   const isLoading = searchProductsMutation?.isLoading
   const totalProductsCount = searchProductsMutation?.data?.result?.total
   const totalPages = searchProductsMutation?.data?.result?.last_page
+
+  console.log(searchProductsMutation?.data, ' searchProductsMutation?.data')
 
   const searchProducts = async (querystring: string) => {
     try {

@@ -80,6 +80,9 @@ const VehicleListComponent: React.FC<Props> = ({
                       height={'100%'}
                       width={'100%'}
                       className='object-cover'
+                      onError={(ev: any) => {
+                        ev.target.src = `/icons/avatar.svg`
+                      }}
                     />
                   </div>
                 ))}

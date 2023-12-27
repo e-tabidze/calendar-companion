@@ -12,16 +12,18 @@ const Favourites = () => {
     <div className='md:p-8 lg:p-10 md:border border-raisin-10 rounded-3xl'>
       <Typography type='h3' className='text-md md:text-2lg mb-6'>ფავორიტები</Typography>
       <Divider/>
-      {userFavourites?.map((favProduct: any) => (
+      {userFavourites?.map((product: any) => (
         <ListComponent
-          key={favProduct?.product_id}
-          productId={favProduct?.product_id}
-          manufacturer={favProduct?.manufacturer}
-          year={favProduct?.year}
-          model={favProduct?.model}
-          city={favProduct?.start_city}
-          price={favProduct?.price}
-          isDeleted={favProduct?.product === null}
+          key={product?.product_id}
+          id={product?.product.id}
+          productId={product?.product_id}
+          manufacturer={product?.manufacturer}
+          year={product?.year}
+          model={product?.model}
+          city={product?.start_city}
+          price={product?.price}
+          isDeleted={product?.product === null}
+          images={product?.product.images.split(',')}
         />
       ))}
     </div>

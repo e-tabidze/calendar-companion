@@ -93,8 +93,6 @@ const Company: React.FC<Props> = ({ id, name, productsCount, logo }) => {
 
   console.log(companyValues, 'companyValues edit')
 
-  console.log(addressFields, 'addressFields')
-
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className='md:border border-raisin-10 rounded-3xl mx-4 lg:mx-0'>

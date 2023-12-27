@@ -21,8 +21,6 @@ const Filters = () => {
     setValue('booking', { book_from: '', book_to: '' })
   }
 
-  console.log(searchValues, 'searchValues')
-
   return (
     <div className='hidden xl:flex border border-raisin-10 ml-14 rounded-3xl h-12 flex items-center'>
       <FiltersContainer>

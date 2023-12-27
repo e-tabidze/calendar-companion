@@ -34,7 +34,7 @@ const BurgerMenu: React.FC<Props> = ({ open, setOpen }) => {
         try {
             switchProfileMutation.mutate(id)
         } catch (error) {
-            console.log(error)
+            console.log(error, 'error')
         }
     }
 
