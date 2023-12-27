@@ -30,12 +30,16 @@ const Filters: React.FC<Props> = ({ className }) => {
     appendAdditionalInformation,
     objectToURI,
     reset,
-    setValue
+    setValue,
+    searchProductsMutation
   } = useSearch()
 
   const onClickSearch = async () => {
-    const queryString = objectToURI(searchValues)
-    router.push(`/search?${queryString}`)
+    // const queryString = objectToURI(searchValues)
+    console.log('HERE?')
+    // searchProductsMutation.mutate('?page=1&free_delivery=false&sort_by=id&order_by=asc')
+    // searchProductsMutation.mutate(queryString)
+    // router.push(`/search?${queryString}`)
   }
 
   return (

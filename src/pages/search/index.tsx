@@ -65,7 +65,8 @@ const SearchPage = () => {
     totalProductsCount,
     totalPages,
     objectToURI,
-    setValue
+    setValue,
+    searchProductsMutation
   } = useSearch()
   const { width } = useWindowDimensions()
 
@@ -86,6 +87,9 @@ const SearchPage = () => {
 
   const onSubmit = () => {
     const updatedSearchValues = getValues()
+    console.log("LOGGED?")
+    console.log(updatedSearchValues, 'updatedSearchValues')
+    searchProductsMutation.mutate('?page=1&free_delivery=false&sort_by=id&order_by=asc')
     router.push(`/search?${objectToURI(updatedSearchValues)}`)
   }
 
@@ -305,13 +309,13 @@ export default SearchPage
 //   }
 // }
 
-export async function getServerSideProps({ locale }: { locale: string }) {
-  const [translations] = await Promise.all([serverSideTranslations(locale)]);
+// export async function getServerSideProps({ locale }: { locale: string }) {
+//   const [translations] = await Promise.all([serverSideTranslations(locale)])
 
-  return {
-    props: {
-      dehydratedState: dehydrate(queryClient),
-      ...translations,
-    },
-  };
-}
+//   return {
+//     props: {
+//       dehydratedState: dehydrate(queryClient),
+//       ...translations
+//     }
+//   }
+// }

@@ -102,7 +102,7 @@ const useEditProduct = (id: number) => {
       setValue('luggage_numbers', productDetailsData?.luggage_numbers)
       setValue('door_type_id', productDetailsData?.door_type_id)
       setValue('drive_tires_id', productDetailsData?.drive_tires_id)
-      // setValue('steering_wheel', productDetailsData?.steering_wheel === '1' ? 1 : 2)
+      setValue('steering_wheel', productDetailsData?.steering_wheel === '1' ? 1 : 2)
       setValue('transmission_type_id', productDetailsData?.transmission_type_id)
       setValue(
         'additional_options',

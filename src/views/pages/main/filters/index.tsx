@@ -2,14 +2,14 @@ import { IconTextButton } from '../../../components/button'
 import LocationDropdown from './locationDropdown'
 import { Divider, ExtraFiltersContainer, FiltersContainer } from './styles'
 import PeriodDropdown from './periodDropdown'
-import {useEffect, useState} from 'react'
+import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
-import {isMobile} from 'react-device-detect';
+import { isMobile } from 'react-device-detect'
 import useSearch from 'src/hooks/useSearch'
 import AdditionalFilters from 'src/views/components/additionalFilters'
 
-import PeriodMob from "src/views/pages/main/filters/periodMob";
-import LocationMob from "src/views/pages/main/filters/locationMob";
+import PeriodMob from 'src/views/pages/main/filters/periodMob'
+import LocationMob from 'src/views/pages/main/filters/locationMob'
 
 const Filters = () => {
   const [filters, toggleFilters] = useState(false)
@@ -31,27 +31,26 @@ const Filters = () => {
     appendSteeringWheel,
     objectToURI,
     reset,
-    setValue
+    setValue,
+    handleSubmit,
+    searchProductsMutation
   } = useSearch()
-
-  // const queryString = objectToURI(searchValues)
-
-  // console.log(queryString, 'queryString')
 
   const onClickSearch = async () => {
     const queryString = objectToURI(searchValues)
+    searchProductsMutation.mutate(queryString)
     router.push(`/search?${queryString}`)
   }
   useEffect(() => {
     setIsMobileDevice(isMobile)
   }, [])
-  
+
   return (
-    <form>
+    <form onSubmit={handleSubmit(onClickSearch)}>
       <FiltersContainer>
-        {isMobileDevice ? <LocationMob control={control}/>: <LocationDropdown control={control}/>}
+        {isMobileDevice ? <LocationMob control={control} /> : <LocationDropdown control={control} />}
         <Divider />
-        {isMobileDevice ? <PeriodMob control={control}/>: <PeriodDropdown control={control}/>}
+        {isMobileDevice ? <PeriodMob control={control} /> : <PeriodDropdown control={control} />}
         <Divider />
         <ExtraFiltersContainer className='flex shrink-0'>
           <IconTextButton

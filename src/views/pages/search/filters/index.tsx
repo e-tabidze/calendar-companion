@@ -10,7 +10,7 @@ const Icon = dynamic(() => import('src/views/app/Icon'), { ssr: false })
 const Filters = () => {
   const router = useRouter()
 
-  const { control, objectToURI, getValues, resetField, setValue, searchValues } = useSearch()
+  const { control, objectToURI, getValues, resetField, setValue } = useSearch()
 
   const onSubmit = () => {
     const updatedSearchValues = getValues()
