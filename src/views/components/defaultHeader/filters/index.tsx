@@ -3,7 +3,6 @@ import LocationDropdown from './locationDropdown'
 import { Divider, ExtraFiltersContainer, FiltersContainer } from './styles'
 import PeriodDropdown from './periodDropdown'
 import { useState } from 'react'
-import { useRouter } from 'next/router'
 import useSearch from 'src/hooks/useSearch'
 import AdditionalFilters from 'src/views/components/additionalFilters'
 
@@ -14,10 +13,8 @@ interface Props {
 const Filters: React.FC<Props> = ({ className }) => {
   const [filters, toggleFilters] = useState(false)
 
-  const router = useRouter()
 
   const {
-    searchValues,
     control,
     appendFuelType,
     appendCategory,
@@ -28,15 +25,12 @@ const Filters: React.FC<Props> = ({ className }) => {
     appendDoorType,
     appendTransmissionType,
     appendAdditionalInformation,
-    objectToURI,
     reset,
     setValue,
-    searchProductsMutation
   } = useSearch()
 
   const onClickSearch = async () => {
     // const queryString = objectToURI(searchValues)
-    console.log('HERE?')
     // searchProductsMutation.mutate('?page=1&free_delivery=false&sort_by=id&order_by=asc')
     // searchProductsMutation.mutate(queryString)
     // router.push(`/search?${queryString}`)

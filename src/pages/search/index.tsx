@@ -18,9 +18,6 @@ import { useRouter } from 'next/router'
 import { IconTextButton } from 'src/views/components/button'
 import dynamic from 'next/dynamic'
 import { Controller } from 'react-hook-form'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { dehydrate } from '@tanstack/react-query'
-import { queryClient } from '../_app'
 
 import SortListBox from 'src/views/pages/search/sortListBox'
 

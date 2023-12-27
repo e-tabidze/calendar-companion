@@ -1,5 +1,3 @@
-import { dehydrate } from '@tanstack/react-query'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import dynamic from 'next/dynamic'
 import useFilters from 'src/hooks/useFilters'
 import { TailwindDiv } from 'src/interfaces/tailwind'
@@ -18,7 +16,6 @@ const PageMeta = dynamic(() => import('src/@core/meta/PageMeta'), { ssr: true })
 
 // ** Tailwind Styled
 import tw from 'tailwind-styled-components'
-import { queryClient } from './_app'
 
 const pageMeta = {
   title: 'Rent.myauto.ge | მანქანის ქირაობის პლატფორმა',
