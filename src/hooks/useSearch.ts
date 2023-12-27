@@ -31,17 +31,14 @@ const useSearch = () => {
     return []
   }
 
-  console.log(params, 'params')
-
   const searchDefaultValues = {
     page: Number(params?.page) || 1,
     location: params?.location || '',
     fuel_types: convertToNumberArray(params?.fuel_types),
     category: convertToNumberArray(params?.category),
-    seat_types: params?.seat_types ? convertToNumberArray(params?.seat_types) : 1,
-    luggage_numbers: params?.luggage_numbers ? convertToNumberArray(params?.luggage_numbers) : 1,
+    seat_types: convertToNumberArray(params?.seat_types),
     drive_tires: convertToNumberArray(params?.drive_tires),
-    steering_wheel: convertToNumberArray(params?.steering_wheel),
+    steering_wheel: convertToNumberArray(params?.steering_wheel || 1),
     door_types: convertToNumberArray(params?.door_types),
     transmission_types: convertToNumberArray(params?.transmission_types),
     additional_information: convertToNumberArray(params?.additional_information),
@@ -66,11 +63,10 @@ const useSearch = () => {
       setValue('location', params?.location || '')
       setValue('fuel_types', convertToNumberArray(params?.fuel_types))
       setValue('category', convertToNumberArray(params?.category))
-      setValue('seat_types', convertToNumberArray(params?.seat_types) || 1)
-      setValue('luggage_numbers', convertToNumberArray(params?.luggage_numbers))
+      setValue('seat_types', convertToNumberArray(params?.seat_types))
       setValue('drive_tires', convertToNumberArray(params?.drive_tires))
       setValue('door_types', convertToNumberArray(params?.door_types))
-      setValue('steering_wheel', convertToNumberArray(params?.steering_wheel))
+      setValue('steering_wheel', convertToNumberArray(params?.steering_wheel || 1))
       setValue('transmission_types', convertToNumberArray(params?.transmission_types))
       setValue('additional_information', convertToNumberArray(params?.additional_information))
       setValue('price_min', params?.price_min || '')
@@ -150,8 +146,13 @@ const useSearch = () => {
   })
 
   const searchProductsMutation = useMutation((querystring: string) => searchProducts(querystring), {
-    onSettled: () => {
-      queryClient.invalidateQueries(['searchProducts'])
+    onMutate: variables => {
+      // Perform any actions before the mutation starts
+      console.log('Mutation is about to start:', variables)
+    },
+    onSuccess: data => {
+      // queryClient.invalidateQueries(['searchProducts'])
+      console.log(data, 'searchdata')
     },
     onError: error => {
       console.error('Mutation Error:', error)
@@ -162,6 +163,8 @@ const useSearch = () => {
   const isLoading = searchProductsMutation?.isLoading
   const totalProductsCount = searchProductsMutation?.data?.result?.total
   const totalPages = searchProductsMutation?.data?.result?.last_page
+
+  console.log(searchProductsMutation?.data, ' searchProductsMutation?.data')
 
   const searchProducts = async (querystring: string) => {
     try {

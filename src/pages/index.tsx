@@ -38,14 +38,12 @@ const MainPage = () => {
 
   return (
     <DefaultLayout>
-      {/* <AuthModal open={authModal} close={() => setAuthModal(false)} handleCancel={() => setAuthModal(false)} /> */}
       <PageMeta meta={pageMeta} />
 
       <MainPageBox>
         <LargeContainer>
           <Hero />
         </LargeContainer>
-        {/* <button onClick={() => setAuthModal(true)}>AUTHMODAL OPEN</button> */}
         <ContentContainer>
           <Typography type='h3' className='text-3md md:text-2lg mt-12'>
             აირჩიე სასურველი კატეგორია
@@ -128,13 +126,13 @@ const MainPage = () => {
 
 export default MainPage
 
-export async function getStaticProps({ locale }: { locale: string }) {
-  const [translations] = await Promise.all([serverSideTranslations(locale)])
+// export async function getStaticProps({ locale }: { locale: string }) {
+//   const [translations] = await Promise.all([serverSideTranslations(locale)])
 
-  return {
-    props: {
-      dehydratedState: dehydrate(queryClient),
-      ...translations
-    }
-  }
-}
+//   return {
+//     props: {
+//       dehydratedState: dehydrate(queryClient),
+//       ...translations
+//     }
+//   }
+// }

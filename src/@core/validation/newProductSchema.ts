@@ -26,7 +26,7 @@ const NewProductSchema = Yup.object().shape({
   use_instruction: Yup.string().required('აუცილებელი ველი').typeError('აუცილებელი ველი'),
   images: Yup.array().of(Yup.string()).min(3, 'გთხოვთ, ატვირთოთ ავტომობილის ფოტოები, მინიმუმ 3, მაქსიმუმ 15').max(15, 'ავტომობილის ფოტოების მაქსიმალური რაოდენობა არის 15'),
   category_id: Yup.number().required('აუცილებელი ველი').typeError('აუცილებელი ველი'),
-  steering_wheel: Yup.string().required('აუცილებელი ველი').typeError('აუცილებელი ველი'),
+  steering_wheel: Yup.number().required('აუცილებელი ველი').typeError('აუცილებელი ველი'),
   fuel_type_id: Yup.number().required('აუცილებელი ველი').typeError('აუცილებელი ველი'),
   seat_type_id: Yup.number().required('აუცილებელი ველი').typeError('აუცილებელი ველი'),
   luggage_numbers: Yup.number().required('აუცილებელი ველი').typeError('აუცილებელი ველი'),

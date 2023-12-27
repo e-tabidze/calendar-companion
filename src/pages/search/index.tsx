@@ -65,7 +65,8 @@ const SearchPage = () => {
     totalProductsCount,
     totalPages,
     objectToURI,
-    setValue
+    setValue,
+    searchProductsMutation
   } = useSearch()
   const { width } = useWindowDimensions()
 
@@ -86,8 +87,13 @@ const SearchPage = () => {
 
   const onSubmit = () => {
     const updatedSearchValues = getValues()
+    console.log("LOGGED?")
+    console.log(updatedSearchValues, 'updatedSearchValues')
+    searchProductsMutation.mutate('?page=1&free_delivery=false&sort_by=id&order_by=asc')
     router.push(`/search?${objectToURI(updatedSearchValues)}`)
   }
+
+  console.log(productsData, 'productsData')
 
   return (
     <>
@@ -200,12 +206,6 @@ const SearchPage = () => {
                         />
                       )}
 
-                      {/* <Tag
-                        className='mx-4 lg:mx-0'
-                        component={<Icon svgPath='sort' width={20} height={12} className='fill-transparent' />}
-                        label={width > 779 ? 'სორტირება' : ''}
-                        height={width > 1025 ? 'h-12' : 'h-10'}
-                      /> */}
                       <SortListBox control={control} onClick={onSubmit} setValue={setValue} />
                     </div>
 
@@ -298,13 +298,24 @@ const SearchPage = () => {
 
 export default SearchPage
 
-export async function getStaticProps({ locale }: { locale: string }) {
-  const [translations] = await Promise.all([serverSideTranslations(locale)])
+// export async function getServerSideProps({ locale }: { locale: string }) {
+//   const [translations] = await Promise.all([serverSideTranslations(locale)])
 
-  return {
-    props: {
-      dehydratedState: dehydrate(queryClient),
-      ...translations
-    }
-  }
-}
+//   return {
+//     props: {
+//       dehydratedState: dehydrate(queryClient),
+//       ...translations
+//     }
+//   }
+// }
+
+// export async function getServerSideProps({ locale }: { locale: string }) {
+//   const [translations] = await Promise.all([serverSideTranslations(locale)])
+
+//   return {
+//     props: {
+//       dehydratedState: dehydrate(queryClient),
+//       ...translations
+//     }
+//   }
+// }

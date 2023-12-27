@@ -12,6 +12,8 @@ import useCompany from './useCompany'
 import { useRouter } from 'next/router'
 import Image from 'src/views/components/image'
 import Icon from 'src/views/app/Icon'
+import toast from 'react-hot-toast'
+import Toast from 'src/views/components/toast'
 
 interface Props {
   id: number
@@ -50,6 +52,15 @@ const Company: React.FC<Props> = ({ id, name, productsCount, logo }) => {
   const updateCompanyMutation = useMutation(() => updateCompanyInfo(companyValues), {
     onSuccess: () => {
       queryClient.invalidateQueries(['companyInfo'])
+      toast.custom(
+        <Toast
+          title='წარმატება!'
+          type='success'
+          description='some success text'
+          path={'/dashboard/products'}
+          permalink='ავტომობილები'
+        />
+      )
     }
   })
 
@@ -82,15 +93,22 @@ const Company: React.FC<Props> = ({ id, name, productsCount, logo }) => {
 
   console.log(companyValues, 'companyValues edit')
 
-  console.log(addressFields, 'addressFields')
-
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className='md:border border-raisin-10 rounded-3xl mx-4 lg:mx-0'>
         <div className='p-2 md:p-6'>
           <div className='flex items-center gap-6 md:mb-10'>
             <div className='flex items-center justify-center border border-raisin-10 relative overflow-hidden rounded-2xl md:rounded-3xl w-[76px] h-[76px] md:w-24 md:h-24'>
-              <Image src={logo || ''} alt='' height='100%' width='100%' className='object-cover w-full h-full' />
+              <Image
+                src={logo || ''}
+                onError={(ev: any) => {
+                  ev.target.src = `/icons/avatar.svg`
+                }}
+                alt=''
+                height='100%'
+                width='100%'
+                className='object-cover w-full h-full'
+              />
             </div>
             <div>
               <Typography type='h3' className='font-bold text-3md md:text-2lg'>
@@ -111,7 +129,7 @@ const Company: React.FC<Props> = ({ id, name, productsCount, logo }) => {
               className='col-span-2 sm:col-span-1'
             />
             <DefaultInput
-              name='company_information.name'
+              name='company_information.legal_name'
               control={control}
               errors={errors}
               disabled

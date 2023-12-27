@@ -112,7 +112,14 @@ const ProfileNavigation: React.FC<Props> = ({
               } `}
             >
               {route.image ? (
-                <Image src={route.image || ''} alt='' className='object-cover w-full h-full' />
+                <Image
+                  src={route.image || ''}
+                  alt=''
+                  className='object-cover w-full h-full'
+                  onError={(ev: any) => {
+                    ev.target.src = `/icons/avatar.svg`
+                  }}
+                />
               ) : (
                 <Icon
                   svgPath={route.icon}

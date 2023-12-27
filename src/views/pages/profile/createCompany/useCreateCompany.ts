@@ -47,6 +47,7 @@ const useCreateCompany = () => {
     company_type_id: '1',
     company_information: {
       name: '',
+      legal_name: '',
       logo: '',
       description: '',
       email: '',

@@ -10,7 +10,7 @@ const Icon = dynamic(() => import('src/views/app/Icon'), { ssr: false })
 const Filters = () => {
   const router = useRouter()
 
-  const { control, objectToURI, getValues, resetField, setValue, searchValues } = useSearch()
+  const { control, objectToURI, getValues, resetField, setValue } = useSearch()
 
   const onSubmit = () => {
     const updatedSearchValues = getValues()
@@ -20,8 +20,6 @@ const Filters = () => {
   const handleResetBooking = () => {
     setValue('booking', { book_from: '', book_to: '' })
   }
-
-  console.log(searchValues, 'searchValues')
 
   return (
     <div className='hidden xl:flex border border-raisin-10 ml-14 rounded-3xl h-12 flex items-center'>

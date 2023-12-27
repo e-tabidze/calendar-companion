@@ -39,9 +39,6 @@ const PriceCalcCard: React.FC<Props> = ({
           / დღე
         </Typography>
       </div>
-      <Typography type='body' className='text-green-100 mb-8'>
-        Free cancellation
-      </Typography>
 
       <div className='flex gap-3 lg:items-center mb-6 flex-col lg:flex-row'>
         <div className='flex gap-2'>
@@ -112,7 +109,7 @@ const PriceCalcCard: React.FC<Props> = ({
                     } else {
                       accumulator += service.count * service.price
                     }
-                    
+
                     return accumulator
                   }, 0)
                 : 0)}

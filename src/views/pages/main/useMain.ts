@@ -26,8 +26,6 @@ const useMain = (manId?: any, modelId?: any) => {
     enabled: !!isAuthenticated
   })
 
-  console.log(isAuthenticated, 'isAuthenticated')
-
   const popularProducts = usePopularProducts?.data?.result?.data
   const similarProducts = useSimilarProducts?.data?.result?.data
   const lastSeenProducts = useLasSeenProducts?.data?.result?.data?.data

@@ -105,6 +105,7 @@ const useCompany = (id: number) => {
     company_type_id: companyInfo?.company_type_id,
     company_information: {
       name: companyInfo?.information?.name || '',
+      legal_name: companyInfo?.information?.legal_name || '',
       logo: companyInfo?.information?.logo || '',
       description: companyInfo?.information?.description,
       email: companyInfo?.information?.email,
@@ -146,6 +147,7 @@ const useCompany = (id: number) => {
         company_type_id: companyInfo.company_type_id,
         company_information: {
           name: companyInfo.information.name,
+          legal_name: companyInfo.information.legal_name,
           logo: companyInfo.information?.logo || '',
           description: companyInfo.information.description,
           email: companyInfo.information.email,

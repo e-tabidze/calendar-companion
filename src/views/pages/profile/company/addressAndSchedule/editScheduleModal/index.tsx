@@ -98,28 +98,21 @@ const EditScheduleModal: React.FC<Props> = ({ open, onClose, control, index, dat
                                 name={`addresses.${index}.working_hours.${day.day}.${day.is_selected}`}
                                 control={control}
                                 render={({ field: { value, onChange } }) => (
-                                  <>
-                                    {console.log(
-                                      `addresses.${index}.working_hours.${day.day}.${day.is_selected}`,
-                                      'name?'
-                                    )}
-
-                                    <RoundedTag
-                                      label={day.label}
-                                      handleSelect={() => {
-                                        const updatedValue = {
-                                          ...value,
-                                          is_selected: !value.is_selected
-                                        }
-                                        if (!updatedValue.is_selected) {
-                                          updatedValue.start_time = ''
-                                          updatedValue.end_time = ''
-                                        }
-                                        onChange(updatedValue)
-                                      }}
-                                      selected={day?.is_selected}
-                                    />
-                                  </>
+                                  <RoundedTag
+                                    label={day.label}
+                                    handleSelect={() => {
+                                      const updatedValue = {
+                                        ...value,
+                                        is_selected: !value.is_selected
+                                      }
+                                      if (!updatedValue.is_selected) {
+                                        updatedValue.start_time = ''
+                                        updatedValue.end_time = ''
+                                      }
+                                      onChange(updatedValue)
+                                    }}
+                                    selected={day?.is_selected}
+                                  />
                                 )}
                               />
                             </div>

@@ -18,7 +18,6 @@ const useBooking = (id: number | string | string[]) => {
   const router = useRouter()
   const { book_from, book_to } = router.query
 
-  console.log(singleProductDetails?.product_services, 'singleProductDetails?.product_services')
 
   const additionalService = singleProductDetails?.product_services.map((service: Service) => ({
     id: service.id | 0,

@@ -37,8 +37,6 @@ const OrderDetails = () => {
 
   const queryClient = useQueryClient()
 
-  console.log(companyOrderproductData, 'DATA')
-
   const toggleCancelOrderDialog = () => setCancelOrderDialog(!cancelOrderDialog)
 
   const activeOrderStatusMutation = useMutation(() => postOrderStatus('', String(id)!, 1), {

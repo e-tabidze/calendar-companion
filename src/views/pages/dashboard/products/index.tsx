@@ -11,7 +11,7 @@ const Tag = dynamic(() => import('src/views/components/tag'), { ssr: false })
 const Typography = dynamic(() => import('src/views/components/typography'), { ssr: false })
 const Pagination = dynamic(() => import('src/views/components/pagination'), { ssr: false })
 const VehicleListComponent = dynamic(() => import('src/views/pages/dashboard/components/vehicleListComponent'), {
-  ssr: true
+  ssr: false
 })
 
 import useProducts from './useProducts'
@@ -84,7 +84,7 @@ const Products = () => {
           </Typography>
           <div className='flex md:hidden gap-4 md:gap-8'>
             <IconTextButton label={width > 779 ? 'ფილტრი' : ''} icon='filters' width={22} height={20} />
-            <IconTextButton label={width > 779 ? 'სორტირება' : ''} icon='sort' width={20} height={12} />
+            <IconTextButton label={width > 779 ? 'დაჯგუფება' : ''} icon='sort' width={20} height={12} />
           </div>
         </div>
         <Divider />

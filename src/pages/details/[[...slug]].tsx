@@ -195,7 +195,7 @@ const ProductDetails = () => {
             <div className='w-full md:w-7/12 lg:w-8/12'>
               <div id='details'>
                 <Typography type='h3' className='text-3md md:text-2lg font-bold'>
-                  {singleProductDetails?.manufacturer?.title} {singleProductDetails?.manufacturer_model?.title}
+                  {singleProductDetails?.manufacturer?.title} {singleProductDetails?.manufacturer_model?.title}{' '}
                   {singleProductDetails?.prod_year}
                 </Typography>
                 <div className='flex items-center gap-4 mb-12'>
@@ -250,7 +250,7 @@ const ProductDetails = () => {
                   პერიოდი
                 </Typography>
                 <div className='flex justify-between mb-16 mt-2'>
-                  <div className='flex gap-4'>
+                  <div className='flex gap-2'>
                     <Typography type='subtitle' className='text-green-100'>
                       {startDate && endDate
                         ? `${format(startDate, 'd MMM yyyy', { locale: ka })} - ${format(endDate, 'd MMM yyyy', {
@@ -264,7 +264,7 @@ const ProductDetails = () => {
                         {startDate &&
                           endDate &&
                           Math.round((endDate.getTime() - startDate.getTime()) / (24 * 60 * 60 * 1000))}
-                        დღე
+                        {'    '} დღე
                       </Typography>
                     )}
                   </div>
@@ -380,27 +380,30 @@ const ProductDetails = () => {
             count={singleProductDetails?.company_user?.company?.count_company_poduct}
           />
           <Divider className='my-10 md:my-20' />
-          <Typography type='h3' className='text-3md md:text-2lg mb-8'>
-            მსგავსი შეთავაზებები
-          </Typography>
+
           {similarProducts?.length > 1 && (
-            <Carousel
-              itemsArray={similarProducts?.map((product: any) => (
-                <ProductCard
-                  key={product?.id}
-                  swiperCard={true}
-                  productId={product?.id}
-                  manufacturer={product?.manufacturer?.title}
-                  model={product?.manufacturer_model?.title}
-                  prodYear={product?.prod_year}
-                  priceGel={product?.price_gel}
-                  luggageNumbers={product?.luggage_numbers}
-                  seats={product?.seat_type?.title}
-                  images={product?.images?.split(',')}
-                />
-              ))}
-              type='products'
-            />
+            <div>
+              <Typography type='h3' className='text-3md md:text-2lg mb-8'>
+                მსგავსი შეთავაზებები
+              </Typography>
+              <Carousel
+                itemsArray={similarProducts?.map((product: any) => (
+                  <ProductCard
+                    key={product?.id}
+                    swiperCard={true}
+                    productId={product?.id}
+                    manufacturer={product?.manufacturer?.title}
+                    model={product?.manufacturer_model?.title}
+                    prodYear={product?.prod_year}
+                    priceGel={product?.price_gel}
+                    luggageNumbers={product?.luggage_numbers}
+                    seats={product?.seat_type?.title}
+                    images={product?.images?.split(',')}
+                  />
+                ))}
+                type='products'
+              />
+            </div>
           )}
         </ContentContainer>
         {isOpenDrawer && width < 779 ? (

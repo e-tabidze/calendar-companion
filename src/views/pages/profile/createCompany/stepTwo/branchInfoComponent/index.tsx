@@ -14,10 +14,9 @@ interface Props {
   workingHoursObject?: any
   control: any
   errors: any
-  setValue?: any
 }
 
-const BranchInfoComponent: React.FC<Props> = ({ index, control, errors, setValue }) => {
+const BranchInfoComponent: React.FC<Props> = ({ index, control, errors }) => {
   const formState = useWatch({ control })
 
   // useEffect(() => {
@@ -41,8 +40,6 @@ const BranchInfoComponent: React.FC<Props> = ({ index, control, errors, setValue
   //     }
   //   }
   // }, [formState.addresses[index], index, setValue])
-
-  console.log(setValue)
 
   const renderDaysSelector = (day: any) => (
     <Controller
@@ -74,7 +71,7 @@ const BranchInfoComponent: React.FC<Props> = ({ index, control, errors, setValue
       <div className='w-full grid grid-cols-1 lg:grid-cols-3 gap-4 relative'>
         <CitiesSuggestions index={index} control={control} name={`addresses.${index}.city`} border errors={errors} />
 
-        <DefaultInput label='მისამართი' name={`addresses.${index}.address`} control={control} errors={errors} disabled={!!`addresses.${index}.city`} />
+        <DefaultInput label='მისამართი' name={`addresses.${index}.address`} control={control} errors={errors} disabled={formState.addresses[index].city.length < 3} />
 
         <DefaultInput label='ტელეფონი' name={`addresses.${index}.phone`} control={control} errors={errors} />
       </div>
