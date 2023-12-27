@@ -200,12 +200,6 @@ const SearchPage = () => {
                         />
                       )}
 
-                      {/* <Tag
-                        className='mx-4 lg:mx-0'
-                        component={<Icon svgPath='sort' width={20} height={12} className='fill-transparent' />}
-                        label={width > 779 ? 'სორტირება' : ''}
-                        height={width > 1025 ? 'h-12' : 'h-10'}
-                      /> */}
                       <SortListBox control={control} onClick={onSubmit} setValue={setValue} />
                     </div>
 

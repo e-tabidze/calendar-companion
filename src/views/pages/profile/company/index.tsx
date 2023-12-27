@@ -12,6 +12,8 @@ import useCompany from './useCompany'
 import { useRouter } from 'next/router'
 import Image from 'src/views/components/image'
 import Icon from 'src/views/app/Icon'
+import toast from 'react-hot-toast'
+import Toast from 'src/views/components/toast'
 
 interface Props {
   id: number
@@ -50,6 +52,15 @@ const Company: React.FC<Props> = ({ id, name, productsCount, logo }) => {
   const updateCompanyMutation = useMutation(() => updateCompanyInfo(companyValues), {
     onSuccess: () => {
       queryClient.invalidateQueries(['companyInfo'])
+      toast.custom(
+        <Toast
+          title='წარმატება!'
+          type='success'
+          description='some success text'
+          path={'/dashboard/products'}
+          permalink='ავტომობილები'
+        />
+      )
     }
   })
 

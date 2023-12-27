@@ -133,7 +133,7 @@ const AdditionalFilters: React.FC<Props> = ({
                     <DefaultInput
                       name='price_min'
                       control={control}
-                      label={width > 641 ? 'მინიმუმ ფასი დღიურად' : 'მინ. ფასი დღიურად'}
+                      label={width > 641 ? 'ჩაწერე დღიური მინიმალური ფასი' : 'მინ. ფასი დღიურად'}
                       errors={''}
                       className='md:w-52 mb-2 md:mb-0'
                       type='number'
@@ -143,7 +143,7 @@ const AdditionalFilters: React.FC<Props> = ({
                     <DefaultInput
                       name='price_max'
                       control={control}
-                      label={width > 641 ? 'მაქსიმუმ ფასი დღიურად' : 'მაქს. ფასი დღიურად'}
+                      label={width > 641 ? 'ჩაწერე დღიური მაქსიმალური ფასი' : 'მაქს. ფასი დღიურად'}
                       errors={''}
                       className='md:w-52'
                       type='number'
@@ -276,7 +276,7 @@ const AdditionalFilters: React.FC<Props> = ({
                     </div>
                   </div>
                   <Divider />
-                  <SwitchField label='უფასო მიწოდება' name='free_delivery' control={control} className='my-4 md:my-8' />
+                  <SwitchField label='უფასო მიყვანა' name='free_delivery' control={control} className='my-4 md:my-8' />
                   <Divider />
 
                   <SectionWrapper>
