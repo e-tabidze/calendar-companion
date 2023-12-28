@@ -43,7 +43,7 @@ const ListComponent: React.FC<Props> = ({
   return (
     <div className='w-full sm:border-b-1 sm:border-raisin-10 my-3 sm:my-2 last:border-none'>
       <div className='w-full sm:gap-6 flex flex-col sm:flex-row sm:my-5 border border-raisin-10 sm:border-none overflow-hidden rounded-xl sm:rounded-0'>
-        <div className='w-full sm:w-[200px] relative'>
+        <div className='flex relative'>
           {/* <div className='aspect-w-16 aspect-h-9 sm:rounded-2xl overflow-hidden'>
               <Image
                   src='/images/car.png'
@@ -53,7 +53,7 @@ const ListComponent: React.FC<Props> = ({
                   className='object-cover'
               />
             </div> */}
-          <div className='w-[64px] md:w-[150px] lg:w-[200px] xl:w-[250px]'>
+          <div className='w-full sm:w-[200px] md:w-[150px] lg:w-[220px] xl:w-[250px]'>
             <Carousel
               itemsArray={images?.map((imgUrl, index) => (
                 <div className='aspect-w-16 aspect-h-9 rounded-lg overflow-hidden' key={index}>
@@ -76,7 +76,7 @@ const ListComponent: React.FC<Props> = ({
             icon='favIconActive'
             height={13}
             width={14}
-            className='flex sm:hidden absolute right-5 top-5 bg-red-10 w-8 !h-8 justify-center'
+            className='flex sm:hidden absolute right-5 z-[1] top-5 bg-red-10 w-8 !h-8 justify-center'
             onClick={handleFavorites}
             type='button'
           />
@@ -95,10 +95,10 @@ const ListComponent: React.FC<Props> = ({
               <div className='h-[5px] w-px bg-raisin-10' />
             </div>
           </div>
-          <div className='flex justify-between w-full mt-3 sm:mt-none'>
+          <div className='flex justify-between w-full mt-3 sm:mt-none items-center'>
             <div className='flex items-center gap-6'>
               <Typography type='h4' weight='medium' color='dark'>
-                <PriceContainer>{price} ₾ / დღე</PriceContainer>
+                <PriceContainer className='text-[20px]'>{price} ₾ /დღე </PriceContainer>
               </Typography>
               {isDeleted && (
                 <Typography type='subtitle'>
