@@ -2,12 +2,12 @@ import { useMutation } from '@tanstack/react-query'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 import { useFieldArray, useForm, useWatch } from 'react-hook-form'
+import { queryClient } from 'src/pages/_app'
 import SearchService from 'src/services/SearchService'
 
 const useSearch = () => {
   const urlSearchParams = typeof window !== 'undefined' ? new URLSearchParams(window?.location.search) : null
   const params: any = {}
-
   const router = useRouter()
 
   if (urlSearchParams) {
@@ -146,13 +146,8 @@ const useSearch = () => {
   })
 
   const searchProductsMutation = useMutation((querystring: string) => searchProducts(querystring), {
-    onMutate: variables => {
-      // Perform any actions before the mutation starts
-      console.log('Mutation is about to start:', variables)
-    },
-    onSuccess: data => {
-      // queryClient.invalidateQueries(['searchProducts'])
-      console.log(data, 'searchdata')
+    onSuccess: () => {
+      queryClient.invalidateQueries(['searchProducts'])
     },
     onError: error => {
       console.error('Mutation Error:', error)
@@ -163,8 +158,6 @@ const useSearch = () => {
   const isLoading = searchProductsMutation?.isLoading
   const totalProductsCount = searchProductsMutation?.data?.result?.total
   const totalPages = searchProductsMutation?.data?.result?.last_page
-
-  console.log(searchProductsMutation?.data, ' searchProductsMutation?.data')
 
   const searchProducts = async (querystring: string) => {
     try {

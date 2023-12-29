@@ -32,8 +32,7 @@ const Filters = () => {
     objectToURI,
     reset,
     setValue,
-    handleSubmit,
-    searchProductsMutation
+    searchProductsMutation,
   } = useSearch()
 
   const onClickSearch = async () => {
@@ -46,7 +45,7 @@ const Filters = () => {
   }, [])
 
   return (
-    <form onSubmit={handleSubmit(onClickSearch)}>
+    <form>
       <FiltersContainer>
         {isMobileDevice ? <LocationMob control={control} /> : <LocationDropdown control={control} />}
         <Divider />
@@ -54,7 +53,7 @@ const Filters = () => {
         <Divider />
         <ExtraFiltersContainer className='flex shrink-0'>
           <IconTextButton
-            label={'დამატებითი ფილტრი'}
+            label='დამატებითი ფილტრი'
             icon='filters'
             width={22}
             height={20}
@@ -65,7 +64,7 @@ const Filters = () => {
             type='button'
           />
           <IconTextButton
-            label={'ძებნა'}
+            label='ძებნა'
             icon='search'
             width={20}
             height={20}

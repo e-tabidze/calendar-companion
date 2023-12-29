@@ -36,7 +36,7 @@ const Payment: React.FC<Props> = ({ firstName, lastName, date, id, price, status
             {status === 0 ? 'მოლოდინში' : status === 1 ? 'დადასტურებული' : status === 2 ? 'გაუქმებული' : ''}
           </Typography>
         </div>
-        <Typography type='h5'>{price}₾</Typography>
+        <Typography type='h5'>{price} ₾</Typography>
       </div>
       <Divider />
     </div>

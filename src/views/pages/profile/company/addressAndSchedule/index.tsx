@@ -46,7 +46,7 @@ const AddressAndSchedule: React.FC<Props> = ({ index, control, address, errors }
             disabled={`addresses.${index}.city`.length === 0}
           />
 
-          <DefaultInput label='ტელეფონი' name={`addresses.${index}?.phone`} control={control} errors={errors} />
+          <DefaultInput label='ტელეფონი' name={`addresses.${index}.phone`} control={control} errors={errors} />
         </div>
 
         <div

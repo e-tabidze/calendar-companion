@@ -1,14 +1,12 @@
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
-import useWindowDimensions from 'src/hooks/useWindowDimensions'
-import { Products } from 'src/types/Products'
-import { IconTextButton } from 'src/views/components/button'
+import { Product } from 'src/types/Products'
 import SkeletonLoading from './skeletonLoading'
 
 const Divider = dynamic(() => import('src/views/components/divider'), { ssr: false })
 const Tag = dynamic(() => import('src/views/components/tag'), { ssr: false })
-const Typography = dynamic(() => import('src/views/components/typography'), { ssr: false })
+const Typography = dynamic(() => import('src/views/components/typography'), { ssr: true })
 const Pagination = dynamic(() => import('src/views/components/pagination'), { ssr: false })
 const VehicleListComponent = dynamic(() => import('src/views/pages/dashboard/components/vehicleListComponent'), {
   ssr: false
@@ -38,9 +36,9 @@ const filters = [
     filterOption: '2'
   }
 ]
+
 const Products = () => {
   const router = useRouter()
-  const { width } = useWindowDimensions()
   const { is_active, page } = router.query
 
   const [filterQuery, setFilterQuery] = useState<'' | '0' | '1' | '2'>('')
@@ -82,10 +80,11 @@ const Products = () => {
           <Typography type='h3' className='text-md md:text-2lg'>
             ავტომობილები
           </Typography>
-          <div className='flex md:hidden gap-4 md:gap-8'>
+
+          {/* <div className='flex md:hidden gap-4 md:gap-8'>
             <IconTextButton label={width > 779 ? 'ფილტრი' : ''} icon='filters' width={22} height={20} />
             <IconTextButton label={width > 779 ? 'დაჯგუფება' : ''} icon='sort' width={20} height={12} />
-          </div>
+          </div> */}
         </div>
         <Divider />
         <div className='hidden lg:flex gap-3 py-8'>
@@ -100,7 +99,7 @@ const Products = () => {
           ))}
         </div>
         <div>
-          {companyProducts?.data?.map((product: Products) => (
+          {companyProducts?.data?.map((product: Product) => (
             <VehicleListComponent
               key={product.id}
               id={product.id}

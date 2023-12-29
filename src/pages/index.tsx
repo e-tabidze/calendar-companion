@@ -41,11 +41,13 @@ const MainPage = () => {
         <LargeContainer>
           <Hero />
         </LargeContainer>
-        <ContentContainer>
-          <Typography type='h3' className='text-3md md:text-2lg mt-12'>
-            აირჩიე სასურველი კატეგორია
-          </Typography>
-        </ContentContainer>
+        {categoriesFilter?.filter((product: any) => product?.count_products > 0) && (
+          <ContentContainer>
+            <Typography type='h3' className='text-3md md:text-2lg mt-12 mb-8'>
+              აირჩიე სასურველი კატეგორია
+            </Typography>
+          </ContentContainer>
+        )}
         <ContentContainer className='px-0 md:px-5 lg:px-8 mb-12'>
           <Carousel
             itemsArray={categoriesFilter
@@ -65,11 +67,13 @@ const MainPage = () => {
         <LargeContainer>
           <Divider />
         </LargeContainer>
-        <ContentContainer>
-          <Typography type='h3' className='text-3md md:text-2lg mt-12'>
-            პოპულარული ავტომობილები
-          </Typography>
-        </ContentContainer>
+        {popularProducts?.length > 0 && (
+          <ContentContainer>
+            <Typography type='h3' className='text-3md md:text-2lg mt-12 mb-8'>
+              პოპულარული ავტომობილები
+            </Typography>
+          </ContentContainer>
+        )}
         <ContentContainer className='px-0 md:px-5 lg:px-8'>
           <Carousel
             itemsArray={popularProducts?.map((product: any) => (
@@ -89,11 +93,14 @@ const MainPage = () => {
             type='products'
           />
         </ContentContainer>
-        <ContentContainer>
-          <Typography type='h3' className='text-3md md:text-2lg mt-12'>
-            ბოლოს ნანახი
-          </Typography>
-        </ContentContainer>
+        {lastSeenProducts?.length > 0 && (
+          <ContentContainer>
+            <Typography type='h3' className='text-3md md:text-2lg mt-12 mb-8'>
+              ბოლოს ნანახი
+            </Typography>
+          </ContentContainer>
+        )}
+
         <ContentContainer className='px-0 md:px-5 lg:px-8'>
           <Carousel
             itemsArray={lastSeenProducts?.map((product: any) => (
