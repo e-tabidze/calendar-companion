@@ -54,7 +54,6 @@ const StepThree: React.FC<Props> = ({ control, errors }) => {
       <StepThreePriceContainer>
         <DefaultInput
           label='დღიური ღირებულება*'
-          className='w-[200px]'
           control={control}
           name='daily_price.amount'
           errors={errors}

@@ -1,4 +1,6 @@
+import { useWatch } from 'react-hook-form'
 import useProfile from 'src/hooks/useProfile'
+import Icon from 'src/views/app/Icon'
 import { DefaultButton } from 'src/views/components/button'
 import Divider from 'src/views/components/divider'
 import Image from 'src/views/components/image'
@@ -19,6 +21,7 @@ interface Props {
   manufacturer?: string
   model?: string
   companyId: number
+  control?: any
 }
 
 const PriceCalcCard: React.FC<Props> = ({
@@ -35,7 +38,8 @@ const PriceCalcCard: React.FC<Props> = ({
   year,
   manufacturer,
   model,
-  companyId
+  companyId,
+  control
 }) => {
   const { userInfo, activeCompanyId } = useProfile()
 
@@ -47,18 +51,67 @@ const PriceCalcCard: React.FC<Props> = ({
 
   console.log(companyId, 'companyId')
 
+  const formState = useWatch({ control })
+
   return (
     <div className={`shadow-2xl w-full rounded-3xl pt-5 px-4 lg:px-6 pb-10 ${className}`}>
-      {image && (
-        <div className='flex items-center gap-4 mb-8'>
-          <Typography type='h3' className='font-bold'>
-            {manufacturer} <br /> {model} {year}
-          </Typography>
+      {control && (
+        <div className='flex items-center gap-8 mb-6 justify-between'>
+          <div className='min-w-[45%]'>
+            <Typography type='h3' className='font-bold'>
+              {manufacturer} {model} {year}
+            </Typography>
+            <Typography type='body' className='text-2sm'>
+              ან მსგავსი
+            </Typography>
+          </div>
           {image && (
             <div className='rounded-lg overflow-hidden'>
               <Image src={image} alt='' height={'100%'} width={'100%'} className='object-cover' />
             </div>
           )}
+        </div>
+      )}
+
+      {control && (
+        <div>
+          <div className='flex items-center mt-4'>
+            <Icon svgPath='booking-start' height={24} width={24} className='fill-transparent flex shrink-0' />
+            <Typography type='body' className='text-2sm ml-2 mb-3 lg:mb-0'>
+              {formState.booking.book_from}
+            </Typography>
+
+            <Typography type='body' className='text-2sm ml-2 mb-3 lg:mb-0'>
+              {formState?.start_time}
+            </Typography>
+            <Typography type='body' className='text-2sm ml-2 mb-3 lg:mb-0'>
+              -
+            </Typography>
+            <Typography type='body' className='text-2sm ml-2 mb-3 lg:mb-0'>
+              {formState?.start_address}
+            </Typography>
+            <span className='flex lg:hidden text-sm text-black/60 mr-3'>{formState.booking.book_from}</span>
+          </div>
+
+          <div className='flex items-center my-3'>
+            <Icon svgPath='booking-stop' height={24} width={24} className='fill-transparent flex shrink-0' />
+            <Typography type='body' className='text-2sm ml-2 mb-3 lg:mb-0'>
+              {formState.booking.book_to}
+            </Typography>
+
+            <Typography type='body' className='text-2sm ml-2 mb-3 lg:mb-0'>
+              {formState?.end_time}
+            </Typography>
+            <Typography type='body' className='text-2sm ml-2 mb-3 lg:mb-0'>
+              -
+            </Typography>
+            <Typography type='body' className='text-2sm ml-2 mb-3 lg:mb-0'>
+              {formState?.end_address}
+            </Typography>
+            <span className='flex lg:hidden text-sm text-black/60 mr-3'>{formState.booking.book_to}</span>
+          </div>
+
+          <Divider className='my-7' />
         </div>
       )}
 
@@ -143,22 +196,23 @@ const PriceCalcCard: React.FC<Props> = ({
 
                     return accumulator
                   }, 0)
-                : 0)}
+                : 0)}{' '}
+            ₾
           </Typography>
         )}
       </div>
 
-      {activeCompanyId === companyId || userInfo?.active_profile_id === userInfo?.UserID ? 
-          <DefaultButton
-            bg='bg-orange-100'
-            text='ჯავშნის დაწყება'
-            className='w-full'
-            textColor='text-white'
-            type='submit'
-            onClick={onClick}
-            disabled={days === null || disabled}
-          /> : null
-        }
+      {activeCompanyId === companyId || userInfo?.active_profile_id === userInfo?.UserID ? (
+        <DefaultButton
+          bg='bg-orange-100'
+          text='ჯავშნის დაწყება'
+          className='w-full'
+          textColor='text-white'
+          type='submit'
+          onClick={onClick}
+          disabled={days === null || disabled}
+        />
+      ) : null}
     </div>
   )
 }

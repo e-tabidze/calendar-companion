@@ -76,6 +76,8 @@ const SearchPage = () => {
 
   const { book_from, book_to } = router.query
 
+  const page = router.query.page ? Number(router.query.page) : 1
+
   // useEffect(() => {
   //   setMapVisible(width >= 1025)
   // }, [width])
@@ -86,7 +88,6 @@ const SearchPage = () => {
 
   const onSubmit = () => {
     const updatedSearchValues: any = getValues()
-    console.log(updatedSearchValues, 'updatedSearchValues')
     searchProductsMutation.mutate(objectToURI(updatedSearchValues))
     router.push(`/search?${objectToURI(updatedSearchValues)}`)
   }
@@ -248,8 +249,15 @@ const SearchPage = () => {
                 <Controller
                   name='page'
                   control={control}
-                  render={({ field: { value, onChange } }) => (
-                    <Pagination totalPages={totalPages} currentPage={value} onPageChange={onChange} />
+                  render={({ field: { onChange } }) => (
+                    <Pagination
+                      totalPages={totalPages}
+                      currentPage={Number(page)}
+                      onPageChange={newPage => {
+                        onChange(newPage)
+                        onSubmit()
+                      }}
+                    />
                   )}
                 />
               )}
@@ -306,14 +314,3 @@ export async function getServerSideProps({ locale }: { locale: string }) {
     }
   }
 }
-
-// export async function getServerSideProps({ locale }: { locale: string }) {
-//   const [translations] = await Promise.all([serverSideTranslations(locale)])
-
-//   return {
-//     props: {
-//       dehydratedState: dehydrate(queryClient),
-//       ...translations
-//     }
-//   }
-// }

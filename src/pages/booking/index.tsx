@@ -250,6 +250,7 @@ const Booking = () => {
               model={singleProductDetails?.manufacturer_model?.title}
               year={singleProductDetails?.prod_year}
               price={singleProductDetails?.price}
+              control={control}
               dates={
                 book_from && book_to
                   ? `${format(new Date(String(book_from)), 'd MMM yyyy', { locale: ka })} - ${format(
@@ -316,7 +317,7 @@ const Booking = () => {
 
       <form method='POST' action='https://ecommerce.ufc.ge/ecomm2/ClientHandler' id='secondForm'>
         <input name='trans_id' type='hidden' />
-        <button type='submit'>PAY</button>
+        <button type='submit' className='hidden'>PAY</button>
       </form>
     </>
   )

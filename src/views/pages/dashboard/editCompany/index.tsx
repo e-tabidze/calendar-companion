@@ -11,8 +11,8 @@ import Toast from 'src/views/components/toast'
 
 import toast from 'react-hot-toast'
 
-const Image = dynamic(() => import('src/views/components/image'), { ssr: true })
-const Typography = dynamic(() => import('src/views/components/typography'), { ssr: false })
+const Image = dynamic(() => import('src/views/components/image'), { ssr: false })
+const Typography = dynamic(() => import('src/views/components/typography'), { ssr: true })
 const Divider = dynamic(() => import('src/views/components/divider'), { ssr: false })
 const AddressAndSchedule = dynamic(() => import('../../profile/company/addressAndSchedule'), { ssr: false })
 const DeleteAddressConfirmationModal = dynamic(() => import('../../../components/deleteAddressConfirmationModal'), {
@@ -216,7 +216,7 @@ const EditCompany = () => {
 
         {addressFields.map((address: any, index: number) => (
           <div key={address.id}>
-            <AddressAndSchedule index={index} control={control} address={address} errors={errors} />
+            <AddressAndSchedule index={index} control={control} address={address} errors={errors} setValue={setValue} />
             <div className='w-full flex justify-end pr-8'>
               <IconTextButton
                 icon='clear'

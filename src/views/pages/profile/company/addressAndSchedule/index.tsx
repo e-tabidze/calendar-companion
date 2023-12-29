@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Controller, useWatch } from 'react-hook-form'
 import { days } from 'src/utils/sample-data'
 import RoundedTag from 'src/views/components/roundedTag'
@@ -12,14 +12,37 @@ interface Props {
   control: any
   address: any
   errors: object
+  setValue?: any
 }
 
-const AddressAndSchedule: React.FC<Props> = ({ index, control, address, errors }) => {
+const AddressAndSchedule: React.FC<Props> = ({ index, control, address, errors, setValue }) => {
   const [openEditModal, setOpenEditModal] = useState(false)
 
   const toggleEditModal = () => setOpenEditModal(!openEditModal)
 
   const formState = useWatch({ control })
+
+  useEffect(() => {
+    if (formState.addresses[index].is_same_time) {
+      const selectedWorkDays = Object.keys(formState.addresses[index].working_hours).filter(
+        day => formState.addresses[index].working_hours[day].is_selected
+      )
+
+      const startTime = formState.addresses[index].start_time
+      const endTime = formState.addresses[index].end_time
+
+      const shouldUpdate =
+        selectedWorkDays.some(day => formState.addresses[index].working_hours[day].start_time !== startTime) ||
+        selectedWorkDays.some(day => formState.addresses[index].working_hours[day].end_time !== endTime)
+
+      if (shouldUpdate) {
+        selectedWorkDays.forEach(day => {
+          setValue(`addresses.${index}.working_hours.${day}.start_time`, startTime)
+          setValue(`addresses.${index}.working_hours.${day}.end_time`, endTime)
+        })
+      }
+    }
+  }, [formState.addresses[index], index, setValue])
 
   const renderDaysSelector = (day: any) => (
     <Controller
@@ -51,7 +74,9 @@ const AddressAndSchedule: React.FC<Props> = ({ index, control, address, errors }
 
         <div
           className={`w-full flex flex-col justify-between py-4 lg:flex-row  ${
-            formState?.addresses[index]?.is_same_time === 1 ? 'lg:items-center' : 'lg:items-start'
+            formState?.addresses[index]?.is_same_time === 1 || formState?.addresses[index]?.is_same_time === true
+              ? 'lg:items-center'
+              : 'lg:items-start'
           } gap-4 sm:gap-12`}
         >
           <div className='flex items-center gap-4 w-full'>

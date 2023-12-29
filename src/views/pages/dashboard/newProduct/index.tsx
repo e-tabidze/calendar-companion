@@ -151,9 +151,8 @@ const NewProduct: React.FC = () => {
 
             toast.custom(
               <Toast
-                title='წარმატება!'
                 type='success'
-                description='some success text'
+                title='განცხადება წარმატებით აიტვირთა'
                 path={'/dashboard/products'}
                 permalink='ავტომობილები'
               />

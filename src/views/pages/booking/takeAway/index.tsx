@@ -12,7 +12,9 @@ interface Props {
 }
 
 const TakeAway: React.FC<Props> = ({ control, toggleEditModal, errors }) => {
-  const formsState = useWatch({ control })
+  const formState = useWatch({ control })
+
+  console.log(formState, 'formState')
 
   return (
     <div className='pl-13 mt-4'>
@@ -26,10 +28,10 @@ const TakeAway: React.FC<Props> = ({ control, toggleEditModal, errors }) => {
         </div>
         <div className='lg:w-8/12 flex flex-col lg:flex-row lg:items-center lg:justify-between'>
           <Typography type='body' className='text-2sm ml-10 mb-3 lg:mb-0'>
-            {formsState?.start_address}
+            {formState?.start_address}
           </Typography>
           <div className='flex shrink-0 items-center pl-9 lg:pl-0'>
-            <span className='flex lg:hidden text-sm text-black/60 mr-3'>15 ივნ</span>
+            <span className='flex lg:hidden text-sm text-black/60 mr-3'>{formState.booking.book_from}</span>
             <SelectField
               control={control}
               valueKey='value'
@@ -56,15 +58,15 @@ const TakeAway: React.FC<Props> = ({ control, toggleEditModal, errors }) => {
           <Icon svgPath='booking-stop' height={24} width={24} className='fill-transparent flex shrink-0' />
           <div className='flex flex-col ml-3'>
             <span className='text-sm'>დაბრუნება</span>
-            <span className='hidden lg:flex text-sm text-black/60'>20 ივნ</span>
+            <span className='hidden lg:flex text-sm text-black/60'>{formState.booking.book_from}</span>
           </div>
         </div>
         <div className='lg:w-8/12 flex flex-col lg:flex-row lg:items-center lg:justify-between'>
           <Typography type='body' className='text-2sm ml-10 mb-3 lg:mb-0'>
-            {formsState?.end_address}
+            {formState?.end_address}
           </Typography>
           <div className='flex shrink-0 items-center pl-9 lg:pl-0'>
-            <span className='flex lg:hidden text-sm text-black/60 mr-3'>20 ივნ</span>
+            <span className='flex lg:hidden text-sm text-black/60 mr-3'>{formState.booking.book_from}</span>
             <SelectField
               control={control}
               valueKey='value'
