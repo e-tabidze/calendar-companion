@@ -43,20 +43,11 @@ const ListComponent: React.FC<Props> = ({
   return (
     <div className='w-full sm:border-b-1 sm:border-raisin-10 my-3 sm:my-2 last:border-none'>
       <div className='w-full sm:gap-6 flex flex-col sm:flex-row sm:my-5 border border-raisin-10 sm:border-none overflow-hidden rounded-xl sm:rounded-0'>
-        <div className='flex relative'>
-          {/* <div className='aspect-w-16 aspect-h-9 sm:rounded-2xl overflow-hidden'>
-              <Image
-                  src='/images/car.png'
-                  width={'100%'}
-                  height={'100%'}
-                  alt=''
-                  className='object-cover'
-              />
-            </div> */}
-          <div className='w-full sm:w-[200px] md:w-[150px] lg:w-[220px] xl:w-[250px]'>
+        <div className='relative'>
+          <div className='w-full sm:w-[150px] lg:w-[200px] xl:w-[250px]'>
             <Carousel
               itemsArray={images?.map((imgUrl, index) => (
-                <div className='aspect-w-16 aspect-h-9 rounded-lg overflow-hidden' key={index}>
+                <div className='aspect-w-16 aspect-h-9 sm:rounded-lg overflow-hidden' key={index}>
                   <Image
                     src={imgUrl || ''}
                     alt={`${manufacturer} ${model} ${year}`}

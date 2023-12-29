@@ -79,6 +79,7 @@ const useSearch = () => {
       setValue('order_by', params?.order_by || 'asc')
       setValue('booking.book_from', params?.book_from || '')
       setValue('booking.book_to', params?.book_to || '')
+      searchProductsMutation.mutate(objectToURI(searchDefaultValues))
     }
   }, [router.query])
 
