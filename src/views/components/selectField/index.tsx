@@ -151,7 +151,7 @@ const SelectField: React.FC<Props> = ({
               }
             />
             {_.get(errors, name)?.message && (
-              <div id={name} className='text-sm text-red-100 ml-2 py-2 relative max-h-max'>
+              <div id={name} className='text-sm text-red-100 py-2 relative max-h-max'>
                 {_.get(errors, name)?.message}
               </div>
             )}

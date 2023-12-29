@@ -161,7 +161,7 @@ const StepOne: React.FC<Props> = ({ control, productValues, errors, setValue, re
                   handleFileUpload(Array.from(e.target.files), e.target.files.length)
                 }}
               />
-              {errors && <div className={`text-sm text-red-100 ml-2`}>{_.get(errors, 'images')?.message}</div>}
+              {errors && <div className={`text-sm text-red-100 whitespace-normal`}>{_.get(errors, 'images')?.message}</div>}
             </>
           )}
         />

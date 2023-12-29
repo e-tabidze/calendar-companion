@@ -67,7 +67,7 @@ const ListComponent: React.FC<Props> = ({
             icon='favIconActive'
             height={13}
             width={14}
-            className='flex sm:hidden absolute right-5 top-5 bg-red-10 w-8 !h-8 justify-center z-[1]'
+            className='flex sm:hidden absolute right-5 z-[1] top-5 bg-red-10 w-8 !h-8 justify-center'
             onClick={handleFavorites}
             type='button'
           />
@@ -86,10 +86,10 @@ const ListComponent: React.FC<Props> = ({
               <div className='h-[5px] w-px bg-raisin-10' />
             </div>
           </div>
-          <div className='flex justify-between w-full mt-3 sm:mt-none'>
+          <div className='flex justify-between w-full mt-3 sm:mt-none items-center'>
             <div className='flex items-center gap-6'>
               <Typography type='h4' weight='medium' color='dark'>
-                <PriceContainer>{price} ₾ / დღე</PriceContainer>
+                <PriceContainer className='text-[20px]'>{price} ₾ /დღე </PriceContainer>
               </Typography>
               {isDeleted && (
                 <Typography type='subtitle'>

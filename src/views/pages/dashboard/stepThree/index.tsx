@@ -59,6 +59,7 @@ const StepThree: React.FC<Props> = ({ control, errors }) => {
           name='daily_price.amount'
           errors={errors}
           type='number'
+          className='min-w-[200px]'
         />
         <TwoOptionSelector
           control={control}

@@ -101,7 +101,7 @@ export const DefaultInput: React.FC<Props> = ({
               min={min}
             />
             {_.get(errors, name)?.message && (
-              <div id={id} className='text-sm text-red-100 ml-2 py-2 max-h-max relative'>
+              <div id={id} className='text-sm text-red-100 py-2 max-h-max relative'>
                 {_.get(errors, name)?.message}
               </div>
             )}
