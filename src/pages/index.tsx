@@ -42,7 +42,7 @@ const MainPage = () => {
           <Hero />
         </LargeContainer>
         <ContentContainer>
-          <Typography type='h3' className='text-3md md:text-2lg mt-12'>
+          <Typography type='h3' className='text-3md md:text-2lg mt-12 mb-4'>
             აირჩიე სასურველი კატეგორია
           </Typography>
         </ContentContainer>
@@ -66,7 +66,7 @@ const MainPage = () => {
           <Divider />
         </LargeContainer>
         <ContentContainer>
-          <Typography type='h3' className='text-3md md:text-2lg mt-12'>
+          <Typography type='h3' className='text-3md md:text-2lg mt-12 mb-4'>
             პოპულარული ავტომობილები
           </Typography>
         </ContentContainer>
@@ -90,7 +90,7 @@ const MainPage = () => {
           />
         </ContentContainer>
         <ContentContainer>
-          <Typography type='h3' className='text-3md md:text-2lg mt-12'>
+          <Typography type='h3' className='text-3md md:text-2lg mt-12 mb-4'>
             ბოლოს ნანახი
           </Typography>
         </ContentContainer>

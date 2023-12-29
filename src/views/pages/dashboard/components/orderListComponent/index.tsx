@@ -44,7 +44,7 @@ const OrderListComponent: React.FC<Props> = ({
 
   return (
     <div className='border-b-1 border-raisin-10 last:border-none' onClick={() => router.push('/dashboard/orders/')}>
-      <div className='flex flex-col px-2 py-4 md:w-full gap-4 xl:gap-10 md:px-0 md:flex-row md:items-center'>
+      <div className='flex flex-col px-2 py-4 md:w-full gap-4 xl:gap-4 md:px-0 md:flex-row md:items-center md:flex-wrap'>
         <div className='flex items-center gap-4 2xl:gap-6 md:w-5/12 shrink-0'>
           <div className='w-[64px] shrink-0'>
             <div className='aspect-w-16 aspect-h-9 rounded-lg overflow-hidden'>

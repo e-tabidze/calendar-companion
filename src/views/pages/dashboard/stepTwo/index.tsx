@@ -42,6 +42,7 @@ const StepTwo: React.FC<Props> = ({ control, appendAdditionalParam, step, errors
               />
             </div>
           ) : (
+            <div className='my-6'>
             <SelectField
               control={control}
               name='category_id'
@@ -50,6 +51,7 @@ const StepTwo: React.FC<Props> = ({ control, appendAdditionalParam, step, errors
               valueKey='id'
               labelKey='title'
             />
+            </div>
           )}
         </>
       )}

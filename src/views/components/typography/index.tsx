@@ -103,7 +103,7 @@ const H2Typography = tw.h2<TextComponent>`${(props: any) =>
   props.className ? props.className : ''} whitespace-normal font-bold text-2lg text-secondary-title-100`
 
 const H3Typography = tw.h3<TextComponent>`${(props: any) =>
-  props.className ? props.className : ''} whitespace-normal font-normal text-2lg text-base-100`
+  props.className ? props.className : ''} whitespace-normal font-normal text-lg md:text-2lg text-base-100`
 
 const H4Typography = tw.h4<TextComponent>`
 ${(props: any) => (props.className ? props.className : '')}

@@ -48,11 +48,8 @@ const Tag: React.FC<Props> = ({
 
             return (
               <>
-                {errors && (
-                  <div id={name} className='text-sm text-red-100 absolute -m-6 ml-2'>
-                    {_.get(errors, name)?.message}
-                  </div>
-                )}
+              <div className='flex flex-col'>          
+                <div className='flex flex-wrap items-center gap-4'> 
                 {options?.map(option => (
                   <div
                     key={option.id}
@@ -89,6 +86,14 @@ const Tag: React.FC<Props> = ({
                     </Typography>
                   </div>
                 ))}
+                </div>
+                {errors && (
+                  <div id={name} className='text-sm text-red-100 my-2 ml-2'>
+                    {_.get(errors, name)?.message}
+                  </div>
+                )}
+                </div>
+                
               </>
             )
           }}
