@@ -6,15 +6,15 @@ import Typography from 'src/views/components/typography'
 import Icon from 'src/views/app/Icon'
 
 interface Props {
-  control: any
-  onClick: () => void
-  setValue: any
+    control: any;
+    onClick: () => void;
+    setValue: any;
 }
 
 interface Filter {
-  id: string
-  label: string
-  order_by: string
+    id: string;
+    label: string;
+    order_by: string;
 }
 
 const SortListBox: React.FC<Props> = ({ control, onClick, setValue }) => {
@@ -110,4 +110,5 @@ const SortListBox: React.FC<Props> = ({ control, onClick, setValue }) => {
   )
 }
 
-export default SortListBox
+
+export default SortListBox;
