@@ -72,7 +72,7 @@ export const dashboardRoutes = [
     id: 5,
     icon: 'payments',
     item: 'გადახდები',
-    path: '/dashboard/payments/'
+    path: '/dashboard/payments?page=1'
   },
   {
     id: 6,
