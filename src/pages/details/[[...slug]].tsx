@@ -365,6 +365,7 @@ const ProductDetails = () => {
                 handleDateChange={() => handleClick('calendar')}
                 onClick={onSubmit}
                 disabled={days === null}
+                companyId={singleProductDetails?.company_id}
                 changeDates
               />
             </div>

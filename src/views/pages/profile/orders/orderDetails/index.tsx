@@ -40,6 +40,8 @@ const OrderDetails = () => {
     }
   })
 
+  console.log(userOrderDetails, 'userOrderDetails')
+
   return (
     <div className='border border-raisin-10 rounded-2xl'>
       <div className='flex items-center md:w-full gap-6 p-4 md:p-8'>
@@ -147,6 +149,11 @@ const OrderDetails = () => {
                 </Typography>
               </PriceDetailsWrapper>
             ))}
+
+            <PriceDetailsWrapper>
+              <Typography type='subtitle'>მომსახურების საკომისიო - {userOrderDetails?.fee} %</Typography>
+              <Typography type='subtitle'>{productData?.price * userOrderDetails?.days / 100 * userOrderDetails?.fee} </Typography>
+            </PriceDetailsWrapper>
 
             <Divider />
             <PriceDetailsWrapper>

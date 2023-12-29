@@ -10,6 +10,9 @@ import StaticService from 'src/services/StaticService'
 const useCompany = (id: number) => {
   const { companyInfo } = useCompanyInfo(id)
 
+
+  console.log(companyInfo?.addresses, 'addresses')
+
   const defaultAddress: CompanyAddress[] = companyInfo?.addresses?.map((address: any) => ({
     id: address.id,
     dummyAddressId: address.id,
@@ -63,6 +66,8 @@ const useCompany = (id: number) => {
     }
   }))
 
+  console.log(defaultAddress, 'defaultAddress')
+
   const defaultWorkDayWorkingTime: WorkingTime = {
     start_time: '09:00',
     end_time: '18:00',
@@ -77,7 +82,7 @@ const useCompany = (id: number) => {
 
   const defaultEmptyAddress: CompanyAddress = {
     address: '',
-    phone: 0,
+    phone: '' as any,
     email: '',
     city: '',
     state: '',

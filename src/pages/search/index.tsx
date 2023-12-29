@@ -20,6 +20,9 @@ import dynamic from 'next/dynamic'
 import { Controller } from 'react-hook-form'
 
 import SortListBox from 'src/views/pages/search/sortListBox'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { dehydrate } from '@tanstack/query-core'
+import { queryClient } from '../_app'
 
 const Divider = dynamic(() => import('src/views/components/divider'), { ssr: true })
 
@@ -47,7 +50,6 @@ const SearchPage = () => {
     reset,
     getValues,
     resetField,
-    handleSubmit,
     appendFuelType,
     appendCategory,
     appendSeatType,
@@ -83,10 +85,9 @@ const SearchPage = () => {
   // }
 
   const onSubmit = () => {
-    const updatedSearchValues = getValues()
-    console.log("LOGGED?")
+    const updatedSearchValues: any = getValues()
     console.log(updatedSearchValues, 'updatedSearchValues')
-    searchProductsMutation.mutate('?page=1&free_delivery=false&sort_by=id&order_by=asc')
+    searchProductsMutation.mutate(objectToURI(updatedSearchValues))
     router.push(`/search?${objectToURI(updatedSearchValues)}`)
   }
 
@@ -94,7 +95,7 @@ const SearchPage = () => {
 
   return (
     <>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form>
         <SearchLayout>
           <Divider />
           <FiltersWrapper>
@@ -108,7 +109,7 @@ const SearchPage = () => {
                 reset={resetField}
               />
               <Tag
-                label='უფასო მიწოდება'
+                label='უფასო მიყვანა'
                 component={<Switcher height='h-5' name='free_delivery' control={control} onChangeCallback={onSubmit} />}
                 height='h-10'
                 control={control}
@@ -295,16 +296,16 @@ const SearchPage = () => {
 
 export default SearchPage
 
-// export async function getServerSideProps({ locale }: { locale: string }) {
-//   const [translations] = await Promise.all([serverSideTranslations(locale)])
+export async function getServerSideProps({ locale }: { locale: string }) {
+  const [translations] = await Promise.all([serverSideTranslations(locale)])
 
-//   return {
-//     props: {
-//       dehydratedState: dehydrate(queryClient),
-//       ...translations
-//     }
-//   }
-// }
+  return {
+    props: {
+      dehydratedState: dehydrate(queryClient),
+      ...translations
+    }
+  }
+}
 
 // export async function getServerSideProps({ locale }: { locale: string }) {
 //   const [translations] = await Promise.all([serverSideTranslations(locale)])

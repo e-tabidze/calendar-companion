@@ -1,22 +1,27 @@
-import { JSXElementConstructor, ReactElement, useEffect } from 'react'
-import useWindowDimensions from 'src/hooks/useWindowDimensions'
-import { IconTextButton } from 'src/views/components/button'
+// import { JSXElementConstructor, ReactElement, useEffect } from 'react'
+// import useWindowDimensions from 'src/hooks/useWindowDimensions'
+// import { IconTextButton } from 'src/views/components/button'
+
 import { DefaultInput } from 'src/views/components/input'
-import DiscountComponent from './discountComponent'
+
+// import DiscountComponent from './discountComponent'
 import {
-  DiscountComponentWrapper,
-  DiscountContainer,
-  DiscountInputsWrapper,
+
+  // DiscountComponentWrapper,
+  // DiscountContainer,
+  // DiscountInputsWrapper,
   StepThreeContainer,
   StepThreePriceContainer
 } from './styles'
-import { useWatch } from 'react-hook-form'
-import useNewProduct from '../newProduct/useNewProduct'
+
+// import { useWatch } from 'react-hook-form'
+// import useNewProduct from '../newProduct/useNewProduct'
 import dynamic from 'next/dynamic'
 
 const Typography = dynamic(() => import('src/views/components/typography'), { ssr: false })
-const Divider = dynamic(() => import('src/views/components/divider'), { ssr: false })
-const SwitchField = dynamic(() => import('src/views/components/switchField'), { ssr: false })
+
+// const Divider = dynamic(() => import('src/views/components/divider'), { ssr: false })
+// const SwitchField = dynamic(() => import('src/views/components/switchField'), { ssr: false })
 const TwoOptionSelector = dynamic(() => import('src/views/components/twoOptionSelector'), { ssr: false })
 
 interface Props {
@@ -27,27 +32,29 @@ interface Props {
   errors: any
 }
 
-const options = [
-  { value: 'დღე', label: 'დღე', id: '1' },
-  { value: 'კვირა', label: 'კვირა', id: '2' }
-]
+// const options = [
+//   { value: 'დღე', label: 'დღე', id: '1' },
+//   { value: 'კვირა', label: 'კვირა', id: '2' }
+// ]
 
-const StepThree: React.FC<Props> = ({ control, discountItems, appendDiscountItem, remove, errors }) => {
-  const { discount_item, setValue } = useNewProduct()
-  const { width } = useWindowDimensions()
-  const formState = useWatch({ control })
+const StepThree: React.FC<Props> = ({ control, errors }) => {
 
-  useEffect(() => {
-    if (discountItems.length === 0) {
-      setValue('apply_discount', false)
-    }
-  }, [setValue, discountItems])
+  // const { discount_item, setValue } = useNewProduct()
+  // const { width } = useWindowDimensions()
+  // const formState = useWatch({ control })
+
+  // useEffect(() => {
+  //   if (discountItems.length === 0) {
+  //     setValue('apply_discount', false)
+  //   }
+  // }, [setValue, discountItems])
 
   return (
     <StepThreeContainer>
       <StepThreePriceContainer>
         <DefaultInput
           label='დღიური ღირებულება*'
+          className='w-[200px]'
           control={control}
           name='daily_price.amount'
           errors={errors}
@@ -67,7 +74,8 @@ const StepThree: React.FC<Props> = ({ control, discountItems, appendDiscountItem
         მითითებული ფასი განსაზღვრავს ავტომობილის 1 დღის ქირაობის ფასს, რომლის ცვლილებაც დამოკიდებული იქნება დაქირავებული
         დღეების რაოდენობასა და დინამიური ფასების პოლიტიკაზე
       </Typography>
-      <Typography type='h5' weight='normal' className='text-3md my-6'>
+
+      {/* <Typography type='h5' weight='normal' className='text-3md my-6'>
         ფასდაკლება
       </Typography>
       <Divider />
@@ -120,7 +128,7 @@ const StepThree: React.FC<Props> = ({ control, discountItems, appendDiscountItem
       ) : (
         <></>
       )}
-      <Divider />
+      <Divider /> */}
     </StepThreeContainer>
   )
 }

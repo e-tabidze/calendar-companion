@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 import useProfile from 'src/hooks/useProfile'
 import OrderService from 'src/services/OrderService'
 
-const UseOrders = (orderId?: string | number | undefined) => {
+const useOrders = (orderId?: string | number | undefined) => {
   const { isAuthenticated } = useProfile()
 
   const useUserOrders: any = useQuery({
@@ -31,7 +31,7 @@ const UseOrders = (orderId?: string | number | undefined) => {
   }
 }
 
-export default UseOrders
+export default useOrders
 
 export const getUserOrders = async () => {
   try {
