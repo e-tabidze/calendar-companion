@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { DefaultInput } from 'src/views/components/input'
 import { LargeContainer, ContentContainer } from 'src/styled/styles'
 import { useRouter } from 'next/router'
@@ -40,15 +40,23 @@ const Booking = () => {
   const [isOpenDrawer, setIsOpenDrawer] = useState(false)
   const [openEditModal, setOpenEditModal] = useState(false)
 
+  const [loading, setLoading] = useState(true)
+
+  const router = useRouter()
+
+  const { book_from, book_to, price_day, company_id, id } = router.query
+
+  useEffect(() => {
+    if (book_from && book_to && price_day) {
+      setLoading(false)
+    }
+  }, [book_from, book_to, price_day])
+
   const toggleEditModal = () => setOpenEditModal(!openEditModal)
 
   const { width } = useWindowDimensions()
 
   const toggleDrawer = () => setIsOpenDrawer(!isOpenDrawer)
-
-  const router = useRouter()
-
-  const { book_from, book_to, price_day, company_id, id } = router.query
 
   const { activeCompanyId } = useProfile()
 
@@ -146,6 +154,11 @@ const Booking = () => {
   }
 
   const formsState = useWatch({ control })
+
+  if (loading) {
+    // Display a loading indicator or return null
+    return <div>Loading...</div>
+  }
 
   return (
     <>
@@ -317,7 +330,9 @@ const Booking = () => {
 
       <form method='POST' action='https://ecommerce.ufc.ge/ecomm2/ClientHandler' id='secondForm'>
         <input name='trans_id' type='hidden' />
-        <button type='submit' className='hidden'>PAY</button>
+        <button type='submit' className='hidden'>
+          PAY
+        </button>
       </form>
     </>
   )
