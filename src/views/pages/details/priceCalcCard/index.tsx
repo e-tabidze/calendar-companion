@@ -21,7 +21,7 @@ interface Props {
   manufacturer?: string
   model?: string
   companyId: number
-  control?: any
+  control: any
 }
 
 const PriceCalcCard: React.FC<Props> = ({
@@ -55,7 +55,7 @@ const PriceCalcCard: React.FC<Props> = ({
 
   return (
     <div className={`shadow-2xl w-full rounded-3xl pt-5 px-4 lg:px-6 pb-10 ${className}`}>
-      {control && (
+      {image && (
         <div className='flex items-center gap-8 mb-6 justify-between'>
           <div className='min-w-[45%]'>
             <Typography type='h3' className='font-bold'>
@@ -73,7 +73,7 @@ const PriceCalcCard: React.FC<Props> = ({
         </div>
       )}
 
-      {control && (
+      {image && (
         <div>
           <div className='flex items-center mt-4'>
             <Icon svgPath='booking-start' height={24} width={24} className='fill-transparent flex shrink-0' />

@@ -367,6 +367,7 @@ const ProductDetails = () => {
                 disabled={days === null}
                 companyId={singleProductDetails?.company_id}
                 changeDates
+                control={control}
               />
             </div>
           </div>
