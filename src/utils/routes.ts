@@ -60,7 +60,7 @@ export const dashboardRoutes = [
     id: 3,
     icon: 'incomingOrders',
     item: 'შემოსული ჯავშნები',
-    path: '/dashboard/orders/'
+    path: '/dashboard/orders?status_id=&page=1'
   },
   {
     id: 4,

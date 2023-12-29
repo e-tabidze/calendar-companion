@@ -1,42 +1,48 @@
 import { useQuery } from '@tanstack/react-query'
-import useProfile from 'src/hooks/useProfile'
+import { useRouter } from 'next/router'
 import OrderService from 'src/services/OrderService'
 
-const useCompanyOrders = (orderId?: string | number | undefined) => {
-  const { activeCompanyId } = useProfile()
+const useCompanyOrders = (statusId: '' | '0' | '1' | '2' | '5' | string | string[], page?: number) => {
+  const router = useRouter()
+  const { id } = router.query
+
   const useOrders: any = useQuery({
-    queryKey: ['companyOrders'],
-    queryFn: () => getCompanyOrders(),
+    queryKey: ['companyOrders', statusId, page],
+    queryFn: () => getCompanyOrders(statusId, page || 1),
     staleTime: Infinity,
-    enabled: !!activeCompanyId
+    enabled: router.asPath.includes('/dashboard/orders/?status_id=') || router.asPath.includes('dashboard/payments/')
   })
 
   const useOrder: any = useQuery({
-    queryKey: ['companyOrder', orderId],
-    queryFn: () => getCompanyOrder('', orderId),
+    queryKey: ['companyOrder', id],
+    queryFn: () => id && getCompanyOrder('', Number(id)),
     staleTime: Infinity,
-    enabled: !!activeCompanyId && !!orderId
+    enabled: !!id
   })
 
-  const companyOrders = useOrders?.data?.result?.data
+  const orders = useOrders?.data?.result
   const companyOrder = useOrder?.data?.result?.data
   const companyOrderproductData = useOrder?.data && JSON.parse(useOrder?.data?.result?.data?.product_data)
+  const fetchOrderDetails = useOrder.refetch
+  const fetchOrderFilters = useOrders.refetch
 
   return {
-    companyOrders,
+    orders,
     companyOrdersLoading: useOrders.isLoading,
     companyOrder,
     companyOrderLoading: useOrder.isLoading,
     postOrderStatus,
-    companyOrderproductData
+    companyOrderproductData,
+    fetchOrderDetails,
+    fetchOrderFilters
   }
 }
 
 export default useCompanyOrders
 
-export const getCompanyOrders = async () => {
+export const getCompanyOrders = async (statusId: '' | '0' | '1' | '2' | '5' | string | string[], page: number) => {
   try {
-    const response: any = await OrderService.getCompanyOrders('')
+    const response: any = await OrderService.getCompanyOrders('', statusId, page)
 
     return response.data
   } catch (error) {

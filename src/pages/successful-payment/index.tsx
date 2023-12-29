@@ -7,7 +7,6 @@ import {
   TakeAwayInfoContsiner,
   TakeAwayWrapper
 } from '../../views/pages/successful-payment/styles'
-import UseOrders from 'src/views/pages/profile/orders/useOrders'
 import { useRouter } from 'next/router'
 import dynamic from 'next/dynamic'
 
@@ -17,20 +16,23 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { dehydrate } from '@tanstack/react-query'
 import { queryClient } from '../_app'
 import { DefaultButton } from 'src/views/components/button'
+import useOrders from 'src/views/pages/profile/orders/useOrders'
 
 const Icon = dynamic(() => import('src/views/app/Icon'), { ssr: false })
-const Typography = dynamic(() => import('src/views/components/typography'), { ssr: false })
+const Typography = dynamic(() => import('src/views/components/typography'), { ssr: true })
 const Divider = dynamic(() => import('src/views/components/divider'), { ssr: false })
-const Image = dynamic(() => import('src/views/components/image'), { ssr: true })
+const Image = dynamic(() => import('src/views/components/image'), { ssr: false })
 
 const SuccessfulPayment = () => {
   const router = useRouter()
 
   const { carOrderID } = router.query
 
-  const { userOrderDetails, productData } = UseOrders(Number(carOrderID))
+  const { userOrderDetails, productData } = useOrders(Number(carOrderID))
 
   console.log(userOrderDetails, 'userOrderDetails')
+
+  console.log(productData, 'productData')
 
   return (
     <div className='bg-white'>
@@ -80,7 +82,7 @@ const SuccessfulPayment = () => {
           <div className='flex flex-col'>
             <div className='w-[260px] shrink-0'>
               <div className='aspect-w-16 aspect-h-9 rounded-lg overflow-hidden'>
-                <Image src='/images/car.png' alt='' height={'100%'} width={'100%'} className='object-cover' />
+                <Image src={productData?.images?.split(',')[0]} alt='' height={'100%'} width={'100%'} className='object-cover' />
               </div>
             </div>
 
@@ -111,7 +113,7 @@ const SuccessfulPayment = () => {
                   <Typography type='body' color='light'>
                     {format(parseISO(userOrderDetails?.start_date), 'd MMM yyyy', { locale: ka })}
                     {' - '}
-                    {format(parseISO(`${userOrderDetails?.start_time}`), 'HH:mm')}
+                    {format(parseISO(`1970-01-01T${userOrderDetails?.start_time}`), 'HH:mm')}
                   </Typography>
                 )}
               </div>
@@ -144,28 +146,28 @@ const SuccessfulPayment = () => {
             <PriceDetailsWrapper>
               <Typography type='subtitle'>ქირაობის ღირებულება x {userOrderDetails?.days} დღე</Typography>
               <Typography type='subtitle' className='whitespace-nowrap flex shrink-0'>
-                520 ₾
+                {productData?.price} ₾
               </Typography>
             </PriceDetailsWrapper>
 
-            <PriceDetailsWrapper>
-              <Typography type='subtitle'>დაზღვევა - საბაზისო</Typography>
-              <Typography type='subtitle' className='whitespace-nowrap flex shrink-0'>
-                120 ₾
-              </Typography>
-            </PriceDetailsWrapper>
+            {productData?.user_selected_product_services.map((service: any, index: number) => (
+              <PriceDetailsWrapper key={index}>
+                <Typography type='subtitle'>
+                  {service?.title} {service?.quantity && 'x'} {service?.quantity}
+                </Typography>
+                <Typography type='subtitle'>
+                  {service?.company_service_type_id == 1
+                    ? service?.price * service?.count * userOrderDetails?.days
+                    : service?.price * service?.count}
+                  ₾
+                </Typography>
+              </PriceDetailsWrapper>
+            ))}
 
             <PriceDetailsWrapper>
-              <Typography type='subtitle'>გადასახადები და საკომისიოები</Typography>
-              <Typography type='subtitle' className='whitespace-nowrap flex shrink-0'>
-                20 ₾
-              </Typography>
-            </PriceDetailsWrapper>
-
-            <PriceDetailsWrapper>
-              <Typography type='subtitle'>ბავშვის სავარძელი</Typography>
-              <Typography type='subtitle' className='whitespace-nowrap flex shrink-0'>
-                20 ₾
+              <Typography type='subtitle'>მომსახურების საკომისიო  {userOrderDetails?.fee} %</Typography>
+              <Typography type='subtitle'>
+                {((productData?.price * userOrderDetails?.days) / 100) * userOrderDetails?.fee}{' '}
               </Typography>
             </PriceDetailsWrapper>
 

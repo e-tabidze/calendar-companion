@@ -7,6 +7,9 @@ import { useQueryClient, useMutation } from '@tanstack/react-query'
 import useEditCompany from './useEditCompany'
 import { Controller, useWatch } from 'react-hook-form'
 import dynamic from 'next/dynamic'
+import Toast from 'src/views/components/toast'
+
+import toast from 'react-hot-toast'
 
 const Image = dynamic(() => import('src/views/components/image'), { ssr: true })
 const Typography = dynamic(() => import('src/views/components/typography'), { ssr: false })
@@ -65,6 +68,12 @@ const EditCompany = () => {
           companyId: data?.result?.data?.id
         })
       }
+
+      toast.custom(<Toast type='success' title='კომპანია წარმატებით განახლდა' />)
+    },
+
+    onError: () => {
+      toast.custom(<Toast type='error' title='მოხდა შეცდომა' description='გთხოვთ ხელახლა სცადოთ' />)
     }
   })
 

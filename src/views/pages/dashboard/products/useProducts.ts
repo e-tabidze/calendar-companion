@@ -5,7 +5,7 @@ import ProductService from 'src/services/ProductService'
 const useProducts = (filter: '0' | '1' | '2' | '' | string | string[], page?: number) => {
   const useCompanyProducts: any = useQuery({
     queryKey: ['companyProducts', filter, page],
-    queryFn: () => getCompanyProducts('', filter, page ? page : 1),
+    queryFn: () => getCompanyProducts('', filter, page || 1),
     staleTime: Infinity,
     enabled: !!page
   })
@@ -25,7 +25,11 @@ const useProducts = (filter: '0' | '1' | '2' | '' | string | string[], page?: nu
 
 export default useProducts
 
-const getCompanyProducts = async (accessToken = '', activeStatus: '0' | '1' | '2' | ''| string | string[], page: number) => {
+const getCompanyProducts = async (
+  accessToken = '',
+  activeStatus: '0' | '1' | '2' | '' | string | string[],
+  page: number
+) => {
   try {
     const response: any = await CompanyService.getCompanyProducts(accessToken, activeStatus, page)
 

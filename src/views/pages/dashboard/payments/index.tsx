@@ -6,7 +6,9 @@ const Divider = dynamic(() => import('src/views/components/divider'), { ssr: fal
 const Typography = dynamic(() => import('src/views/components/typography'), { ssr: false })
 
 const Payments = () => {
-  const { companyOrders } = useCompanyOrders()
+  const { orders } = useCompanyOrders('')
+
+  console.log(orders, 'companyOrders')
 
   return (
     <div className='md:p-10 md:border border-raisin-10 rounded-3xl'>
@@ -14,7 +16,7 @@ const Payments = () => {
         ბარათები და ტრანზაქციები
       </Typography>
       <Divider />
-      {companyOrders?.map((order: any) => (
+      {orders?.data?.map((order: any) => (
         <Payment
           key={order?.id}
           firstName={order?.first_name}

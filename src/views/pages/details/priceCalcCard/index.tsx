@@ -1,5 +1,6 @@
 import useProfile from 'src/hooks/useProfile'
 import { DefaultButton } from 'src/views/components/button'
+import Divider from 'src/views/components/divider'
 import Image from 'src/views/components/image'
 import Typography from 'src/views/components/typography'
 
@@ -17,6 +18,7 @@ interface Props {
   year?: number
   manufacturer?: string
   model?: string
+  companyId: number
 }
 
 const PriceCalcCard: React.FC<Props> = ({
@@ -33,10 +35,17 @@ const PriceCalcCard: React.FC<Props> = ({
   year,
   manufacturer,
   model,
+  companyId
 }) => {
-  const { userInfo } = useProfile()
+  const { userInfo, activeCompanyId } = useProfile()
 
   console.log(services, 'services')
+
+  console.log(userInfo, 'userInfo')
+
+  console.log(activeCompanyId, 'activeCompanyId')
+
+  console.log(companyId, 'companyId')
 
   return (
     <div className={`shadow-2xl w-full rounded-3xl pt-5 px-4 lg:px-6 pb-10 ${className}`}>
@@ -113,7 +122,7 @@ const PriceCalcCard: React.FC<Props> = ({
         </div>
       ))}
 
-      <div className='w-full h-px bg-raisin-10 my-7' />
+      <Divider className='my-7' />
 
       <div className='flex gap-2 flex-col justify-between pb-7 lg:items-center lg:flex-row'>
         <div className='flex gap-2'>
@@ -139,17 +148,17 @@ const PriceCalcCard: React.FC<Props> = ({
         )}
       </div>
 
-      {userInfo?.active_profile_id === userInfo?.UserID && (
-        <DefaultButton
-          bg='bg-orange-100'
-          text='ჯავშნის დაწყება'
-          className='w-full'
-          textColor='text-white'
-          type='submit'
-          onClick={onClick}
-          disabled={days === null || disabled}
-        />
-      )}
+      {activeCompanyId === companyId || userInfo?.active_profile_id === userInfo?.UserID ? 
+          <DefaultButton
+            bg='bg-orange-100'
+            text='ჯავშნის დაწყება'
+            className='w-full'
+            textColor='text-white'
+            type='submit'
+            onClick={onClick}
+            disabled={days === null || disabled}
+          /> : null
+        }
     </div>
   )
 }

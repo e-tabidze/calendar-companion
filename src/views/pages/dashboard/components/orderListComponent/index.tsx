@@ -34,7 +34,8 @@ const OrderListComponent: React.FC<Props> = ({
   lastName,
   days,
   productDetails,
-  discount,
+
+  // discount,
   price,
   status
 }) => {
@@ -42,8 +43,13 @@ const OrderListComponent: React.FC<Props> = ({
 
   const router = useRouter()
 
+  console.log(productDetails, 'productDetails')
+
   return (
-    <div className='border-b-1 border-raisin-10 last:border-none' onClick={() => router.push('/dashboard/orders/')}>
+    <div
+      className='border-b-1 border-raisin-10 last:border-none'
+      onClick={() => router.push('/dashboard/orders?status_id=&page=1')}
+    >
       <div className='flex flex-col px-2 py-4 md:w-full gap-4 xl:gap-10 md:px-0 md:flex-row md:items-center'>
         <div className='flex items-center gap-4 2xl:gap-6 md:w-5/12 shrink-0'>
           <div className='w-[64px] shrink-0'>
@@ -59,7 +65,7 @@ const OrderListComponent: React.FC<Props> = ({
           </div>
           <div>
             <Typography type='subtitle' className='text-md'>
-              {productDetails?.manufacturer.title} {productDetails?.manufacturer_model?.title}
+              {productDetails?.manufacturer.title} {productDetails?.manufacturer_model?.title} {' '}
               {productDetails?.prod_year}
             </Typography>
             <Typography type='body' className='hidden md:flex text-sm xl:text-2sm'>
@@ -82,9 +88,10 @@ const OrderListComponent: React.FC<Props> = ({
             <Typography type='subtitle' className='hidden lg:inline-flex text-sm xl:text-2sm'>
               {firstName} {lastName}
             </Typography>
-            <Typography type='subtitle' className='hidden lg:inline-flex text-sm xl:text-2sm'>
+
+            {/* <Typography type='subtitle' className='hidden lg:inline-flex text-sm xl:text-2sm'>
               ფასდაკლება {discount} %
-            </Typography>
+            </Typography> */}
             <Typography type='subtitle' className='hidden lg:inline-flex text-sm xl:text-2sm'>
               {days} დღე
             </Typography>

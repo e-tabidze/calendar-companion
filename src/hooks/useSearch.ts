@@ -159,8 +159,6 @@ const useSearch = () => {
   const totalProductsCount = searchProductsMutation?.data?.result?.total
   const totalPages = searchProductsMutation?.data?.result?.last_page
 
-  console.log(searchProductsMutation, ' searchProductsMutation?.data')
-
   const searchProducts = async (querystring: string) => {
     try {
       const response: any = await SearchService.getSearchProducts(querystring)

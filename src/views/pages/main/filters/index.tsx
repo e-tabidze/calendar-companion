@@ -36,11 +36,8 @@ const Filters = () => {
   } = useSearch()
 
   const onClickSearch = async () => {
-    console.log('HERE?')
     const queryString = objectToURI(searchValues)
-    console.log(queryString, 'queryString')
     searchProductsMutation.mutate(queryString)
-    console.log(searchProductsMutation.status, 'status')
     router.push(`/search?${queryString}`)
   }
   useEffect(() => {

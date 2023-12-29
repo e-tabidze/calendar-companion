@@ -16,6 +16,7 @@ import { ka } from 'date-fns/locale'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { queryClient } from '../_app'
 import dynamic from 'next/dynamic'
+import useProfile from 'src/hooks/useProfile'
 
 const Divider = dynamic(() => import('src/views/components/divider'), { ssr: false })
 const Image = dynamic(() => import('src/views/components/image'), { ssr: true })
@@ -30,6 +31,9 @@ const Delivery = dynamic(() => import('src/views/pages/booking/delivery'), { ssr
 const BookingModal = dynamic(() => import('src/views/pages/booking/bookingModal'), { ssr: false })
 const Icon = dynamic(() => import('src/views/app/Icon'), { ssr: false })
 const CheckServices = dynamic(() => import('src/views/pages/booking/checkServices'), { ssr: false })
+import Toast from 'src/views/components/toast'
+
+import toast from 'react-hot-toast'
 
 const Booking = () => {
   const [additionalServices, toggleAdditionalServices] = useState(false)
@@ -46,6 +50,8 @@ const Booking = () => {
 
   const { book_from, book_to, price_day, company_id, id } = router.query
 
+  const { activeCompanyId } = useProfile()
+
   const { singleProductDetails } = useSingleProductDetails(id)
 
   console.log(singleProductDetails, 'singleProductDetails booking')
@@ -54,7 +60,7 @@ const Booking = () => {
 
   const { singleCompanyBranches } = useCompanyInfo(company_id && company_id)
 
-  const { control, bookingValues, errors, handleSubmit, postOrder } = useBooking(id)
+  const { control, bookingValues, errors, handleSubmit, postOrder, selfBookProduct } = useBooking(id)
 
   console.log(bookingValues, 'bookingValues')
 
@@ -102,11 +108,41 @@ const Booking = () => {
           secondForm.submit()
         }
       }
+    },
+
+    onError: (ex: any) => {
+      ex.response.status === 400
+      toast.custom(
+        <Toast
+          type='error'
+          title='ავტომობილი მოცემულ თარიღებში უკვე დაჯავშნილია'
+          description='გთხოვთ სცადეთ სხვა თარიღი'
+        />
+      )
+
+      ex.response.status === toast.custom(<Toast type='error' title='მოხდა შეცდომა, გთხოვთ ხელახლა სცადოთ' />)
+    }
+  })
+
+  const selfBookMutation = useMutation(() => selfBookProduct('', bookingValues), {
+    onSuccess: () => {
+      queryClient.invalidateQueries(['profileInfo'])
+      router.push('/dashboard/orders/')
+    },
+    onError: (ex: any) => {
+      ex.response.status === 400
+      toast.custom(
+        <Toast
+          type='error'
+          title='ავტომობილი მოცემულ თარიღებში უკვე დაჯავშნილია'
+          description='გთხოვთ სცადეთ სხვა თარიღი'
+        />
+      )
     }
   })
 
   const onSubmit = () => {
-    createOrderMutation.mutate()
+    singleProductDetails.company_id === activeCompanyId ? selfBookMutation.mutate() : createOrderMutation.mutate()
   }
 
   const formsState = useWatch({ control })
@@ -234,6 +270,7 @@ const Booking = () => {
               disabled={createOrderMutation?.isLoading}
               changeDates={false}
               services={formState?.additional_services?.filter(service => service?.is_selected)}
+              companyId={singleProductDetails?.company_id}
             />
           </div>
         </ContentContainer>
