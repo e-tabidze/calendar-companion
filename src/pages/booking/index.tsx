@@ -209,6 +209,10 @@ const Booking = () => {
           </div>
           <div className='hidden md:flex w-[300px] lg:w-[400px] shrink-0 h-fit'>
             <PriceCalcCard
+              image={singleProductDetails?.images.split(',')[0]}
+              manufacturer={singleProductDetails?.manufacturer?.title}
+              model={singleProductDetails?.manufacturer_model?.title}
+              year={singleProductDetails?.prod_year}
               price={singleProductDetails?.price}
               dates={
                 book_from && book_to

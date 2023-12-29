@@ -1,5 +1,6 @@
 import useProfile from 'src/hooks/useProfile'
 import { DefaultButton } from 'src/views/components/button'
+import Image from 'src/views/components/image'
 import Typography from 'src/views/components/typography'
 
 interface Props {
@@ -12,6 +13,10 @@ interface Props {
   disabled: boolean
   changeDates: boolean
   services?: any
+  image?: string
+  year?: number
+  manufacturer?: string
+  model?: string
 }
 
 const PriceCalcCard: React.FC<Props> = ({
@@ -23,7 +28,11 @@ const PriceCalcCard: React.FC<Props> = ({
   handleDateChange,
   disabled,
   changeDates = true,
-  services
+  services,
+  image,
+  year,
+  manufacturer,
+  model,
 }) => {
   const { userInfo } = useProfile()
 
@@ -31,6 +40,19 @@ const PriceCalcCard: React.FC<Props> = ({
 
   return (
     <div className={`shadow-2xl w-full rounded-3xl pt-5 px-4 lg:px-6 pb-10 ${className}`}>
+      {image && (
+        <div className='flex items-center gap-4 mb-8'>
+          <Typography type='h3' className='font-bold'>
+            {manufacturer} <br /> {model} {year}
+          </Typography>
+          {image && (
+            <div className='rounded-lg overflow-hidden'>
+              <Image src={image} alt='' height={'100%'} width={'100%'} className='object-cover' />
+            </div>
+          )}
+        </div>
+      )}
+
       <div className='flex items-center gap-2'>
         <Typography type='h3' className='font-bold'>
           {price} ₾
