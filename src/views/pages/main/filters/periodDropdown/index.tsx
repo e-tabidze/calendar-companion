@@ -32,7 +32,7 @@ const PeriodDropdown: React.FC<Props> = ({ control }) => {
                 ? `${format(startDate, 'd MMM yyyy', { locale: ka })} - ${format(endDate, 'd MMM yyyy', {
                     locale: ka
                   })}`
-                : 'თარიღი'}
+                : 'თარიღი და საათი'}
             </Typography>
             <Icon svgPath='chevron' width={8} height={6} className='inline fill-white m-2' />
           </InnerFilterContainer>

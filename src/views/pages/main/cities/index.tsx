@@ -29,7 +29,7 @@ const Cities = () => {
             <Icon svgPath='location' width={40} height={40} className='shrink-0 hidden sm:inline-flex mt-1' />
             <Container>
               <Typography type='h3' className='text-3md xl:text-[30px] mb-8'>
-                ავტომობილები ყველაზე აქტიურ ქალაქებში
+                ნახე ავტომობილები ყველაზე აქტიურ ქალაქებში
               </Typography>
               <DefaultButton
                 text='ყველას ნახვა'

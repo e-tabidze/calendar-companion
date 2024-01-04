@@ -220,7 +220,7 @@ const Booking = () => {
 
             <BookingRadio name='supply' options={options} control={control} color='bg-green-100' />
 
-            <div className='mb-24'>
+            {formsState?.additional_services && formsState?.additional_services?.length > 0 && <div className='mb-24'>
               <div
                 className='mt-11 flex items-center justify-between mb-8'
                 onClick={() => toggleAdditionalServices(!additionalServices)}
@@ -240,7 +240,7 @@ const Booking = () => {
               {additionalServices && (
                 <CheckServices control={control} options={formsState?.additional_services as any} />
               )}
-            </div>
+            </div>}
 
             {/* <div>
               <div className='mt-11 flex items-center justify-between mb-8' onClick={() => toggleInsurance(!insurance)}>

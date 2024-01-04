@@ -1,15 +1,18 @@
 import { useQuery } from '@tanstack/react-query'
+import { useRouter } from 'next/router'
 import useProfile from 'src/hooks/useProfile'
 import MainPageService from 'src/services/MainPageService'
 import ProductService from 'src/services/ProductService'
 
 const useMain = (manId?: any, modelId?: any) => {
   const { isAuthenticated } = useProfile()
+  const router = useRouter()
 
   const usePopularProducts: any = useQuery({
     queryKey: ['popularProducts'],
     queryFn: () => getPopularProducts(),
-    staleTime: Infinity
+    staleTime: Infinity,
+    enabled: router.pathname === '/'
   })
 
   const useSimilarProducts: any = useQuery({

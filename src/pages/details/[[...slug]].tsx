@@ -220,30 +220,34 @@ const ProductDetails = () => {
               <Divider />
               <Features id='features' singleProductDetails={singleProductDetails} />
 
-              <Divider />
-              <div className='my-8' id='pricing'>
-                <Typography type='h3' className='text-3md md:text-2lg'>
-                  ღირებულება
-                </Typography>
+              {singleProductDetails?.product_services.length > 0 && (
+                <>
+                  <Divider />
+                  <div className='my-8' id='pricing'>
+                    <Typography type='h3' className='text-3md md:text-2lg'>
+                      ღირებულება
+                    </Typography>
 
-                <div className='mt-8 mb-11 grid grid-cols-1 gap-4'>
-                  {singleProductDetails?.product_services?.map((feature: any) => (
-                    <ProductFeature
-                      feature={feature?.title}
-                      icon='feature'
-                      key={feature.id}
-                      description={feature.description}
-                      price={
-                        feature.company_service_type_id === 3
-                          ? 'უფასო'
-                          : feature.company_service_type_id === 1
-                          ? `${feature.price}₾/დღე`
-                          : `${feature.price}₾/ერთჯერადად`
-                      }
-                    />
-                  ))}
-                </div>
-              </div>
+                    <div className='mt-8 mb-11 grid grid-cols-1 gap-4'>
+                      {singleProductDetails?.product_services?.map((feature: any) => (
+                        <ProductFeature
+                          feature={feature?.title}
+                          icon='feature'
+                          key={feature.id}
+                          description={feature.description}
+                          price={
+                            feature.company_service_type_id === 3
+                              ? 'უფასო'
+                              : feature.company_service_type_id === 1
+                              ? `${feature.price}₾/დღე`
+                              : `${feature.price}₾/ერთჯერადად`
+                          }
+                        />
+                      ))}
+                    </div>
+                  </div>
+                </>
+              )}
               <Divider />
               <div className='my-8' id='calendar'>
                 <Typography type='h3' className='text-3md md:text-2lg'>
@@ -307,6 +311,7 @@ const ProductDetails = () => {
                       dateFormat='yyyy-MM-dd'
                       onChangeRaw={e => e.preventDefault()}
                       minDate={new Date()}
+                      filterDate={date => date.getDate() % 2 === 0}
                     />
                   )}
                 />

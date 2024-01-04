@@ -90,7 +90,6 @@ const PriceCalcCard: React.FC<Props> = ({
             <Typography type='body' className='text-2sm ml-2 mb-3 lg:mb-0'>
               {formState?.start_address}
             </Typography>
-            <span className='flex lg:hidden text-sm text-black/60 mr-3'>{formState.booking.book_from}</span>
           </div>
 
           <div className='flex items-center my-3'>
@@ -108,7 +107,6 @@ const PriceCalcCard: React.FC<Props> = ({
             <Typography type='body' className='text-2sm ml-2 mb-3 lg:mb-0'>
               {formState?.end_address}
             </Typography>
-            <span className='flex lg:hidden text-sm text-black/60 mr-3'>{formState.booking.book_to}</span>
           </div>
 
           <Divider className='my-7' />

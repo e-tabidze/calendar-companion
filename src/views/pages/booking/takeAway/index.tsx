@@ -2,6 +2,8 @@ import { useWatch } from 'react-hook-form'
 import { generateTimeOptions } from 'src/utils/timeValues'
 import SelectField from 'src/views/components/selectField'
 import dynamic from 'next/dynamic'
+import { format } from 'date-fns'
+import { ka } from 'date-fns/locale'
 
 const Typography = dynamic(() => import('src/views/components/typography'), { ssr: false })
 const Icon = dynamic(() => import('src/views/app/Icon'), { ssr: false })
@@ -23,7 +25,10 @@ const TakeAway: React.FC<Props> = ({ control, toggleEditModal, errors }) => {
           <Icon svgPath='booking-start' height={24} width={24} className='fill-transparent flex shrink-0' />
           <div className='flex flex-col ml-3'>
             <span className='text-sm'>წაყვანა</span>
-            <span className='hidden lg:flex text-sm text-black/60'>15 ივნ</span>
+            <span className='hidden lg:flex text-sm text-black/60'>
+              {formState.booking.book_to &&
+                format(new Date(String(formState.booking.book_to)), 'd MMM yyyy', { locale: ka })}
+            </span>
           </div>
         </div>
         <div className='lg:w-8/12 flex flex-col lg:flex-row lg:items-center lg:justify-between'>
@@ -31,7 +36,10 @@ const TakeAway: React.FC<Props> = ({ control, toggleEditModal, errors }) => {
             {formState?.start_address}
           </Typography>
           <div className='flex shrink-0 items-center pl-9 lg:pl-0'>
-            <span className='flex lg:hidden text-sm text-black/60 mr-3'>{formState.booking.book_from}</span>
+            <span className='flex lg:hidden text-sm text-black/60 mr-3'>
+              {formState.booking.book_to &&
+                format(new Date(String(formState.booking.book_to)), 'd MMM yyyy', { locale: ka })}
+            </span>
             <SelectField
               control={control}
               valueKey='value'
@@ -58,7 +66,10 @@ const TakeAway: React.FC<Props> = ({ control, toggleEditModal, errors }) => {
           <Icon svgPath='booking-stop' height={24} width={24} className='fill-transparent flex shrink-0' />
           <div className='flex flex-col ml-3'>
             <span className='text-sm'>დაბრუნება</span>
-            <span className='hidden lg:flex text-sm text-black/60'>{formState.booking.book_from}</span>
+            <span className='hidden lg:flex text-sm text-black/60'>
+              {formState.booking.book_to &&
+                format(new Date(String(formState.booking.book_to)), 'd MMM yyyy', { locale: ka })}
+            </span>
           </div>
         </div>
         <div className='lg:w-8/12 flex flex-col lg:flex-row lg:items-center lg:justify-between'>
@@ -66,7 +77,10 @@ const TakeAway: React.FC<Props> = ({ control, toggleEditModal, errors }) => {
             {formState?.end_address}
           </Typography>
           <div className='flex shrink-0 items-center pl-9 lg:pl-0'>
-            <span className='flex lg:hidden text-sm text-black/60 mr-3'>{formState.booking.book_from}</span>
+            <span className='flex lg:hidden text-sm text-black/60 mr-3'>
+              {formState.booking.book_from &&
+                format(new Date(String(formState.booking.book_from)), 'd MMM yyyy', { locale: ka })}
+            </span>
             <SelectField
               control={control}
               valueKey='value'
@@ -81,13 +95,12 @@ const TakeAway: React.FC<Props> = ({ control, toggleEditModal, errors }) => {
         </div>
         <div className='lg:w-2/12'></div>
       </div>
-        <button
-            onClick={toggleEditModal}
-            className='flex lg:hidden mt-5 ml-auto border border-black items-center justify-center h-6 rounded-lg text-sm px-2'
-        >
-          შეცვლა
-        </button>
-
+      <button
+        onClick={toggleEditModal}
+        className='flex lg:hidden mt-5 ml-auto border border-black items-center justify-center h-6 rounded-lg text-sm px-2'
+      >
+        შეცვლა
+      </button>
     </div>
   )
 }
