@@ -46,8 +46,10 @@ const Delivery: React.FC<Props> = ({ control, toggleEditModal, errors }) => {
             name='start_time'
             options={generateTimeOptions()}
             placeholder='დრო*'
-            className='bg-transparent border-green-100 flex shrink-0 w-full'
+            className='bg-transparent border-green-100 shrink-0 w-full'
             errors={errors}
+            errorAbsolute
+            errorRight
           />
         </div>
       </div>
@@ -80,13 +82,14 @@ const Delivery: React.FC<Props> = ({ control, toggleEditModal, errors }) => {
               placeholder='დრო*'
               className='bg-transparent border-green-100'
               errors={errors}
+              errorAbsolute
             />
           </div>
         </div>
         <div className='lg:w-2/12 flex items-center lg:justify-between pl-9 lg:pl-4'>
           <button
             onClick={toggleEditModal}
-            className='hidden lg:flex border border-black items-center justify-center h-12 rounded-xl text-sm px-6'
+            className='hidden lg:flex border border-black items-center justify-center h-14 rounded-xl text-sm px-6'
           >
             შეცვლა
           </button>

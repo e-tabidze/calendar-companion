@@ -222,19 +222,19 @@ const Booking = () => {
 
             {formsState?.additional_services && formsState?.additional_services?.length > 0 && <div className='mb-24'>
               <div
-                className='mt-11 flex items-center justify-between mb-8'
+                className='mt-11 flex items-center justify-between mb-8 cursor-pointer'
                 onClick={() => toggleAdditionalServices(!additionalServices)}
               >
                 <Typography type='h3' className='text-3md md:text-2lg'>
                   დამატებითი სერვისები
                 </Typography>
                 <Icon
-                  svgPath='chevron'
-                  width={8}
-                  height={6}
+                  svgPath='chevron-md'
+                  width={16}
+                  height={10}
                   className={`${
                     additionalServices ? 'rotate-180' : ''
-                  } fill-transparent  w-auto h-4 transition duration-300 mr-6`}
+                  } fill-transparent w-auto h-4 transition duration-300 mr-6`}
                 />
               </div>
               {additionalServices && (

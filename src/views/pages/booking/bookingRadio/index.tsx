@@ -39,7 +39,7 @@ const BookingRadio: React.FC<Props> = ({ options, control, color, horizontal, na
             {({ checked }) => (
               <div className='my-2'>
                 <div
-                  className={`rounded-xl border py-5 xl:py-8 xl:pl-10 xl:pr-6 px-4 lg:px-5 ${
+                  className={`rounded-xl border py-5 xl:py-8 xl:pl-10 xl:pr-6 px-4 lg:px-5 cursor-pointer ${
                     checked ? ' border-green-100 bg-green-10' : 'border-raisin-10'
                   }`}
                 >

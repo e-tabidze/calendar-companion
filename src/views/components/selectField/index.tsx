@@ -54,6 +54,8 @@ interface Props {
   errors?: any
   isMulti?: boolean
   handleChange?: () => void
+  errorAbsolute?:boolean
+  errorRight?:boolean
 }
 
 const Control = ({ children, ...props }: any) => {
@@ -79,8 +81,10 @@ const SelectField: React.FC<Props> = ({
   labelKey,
   placeholder,
   errors,
+  errorAbsolute,
+  errorRight,
   isMulti,
-  handleChange
+  handleChange,
 }) => {
   const { DropdownIndicator, ClearIndicator } = components
 
@@ -151,7 +155,7 @@ const SelectField: React.FC<Props> = ({
               }
             />
             {_.get(errors, name)?.message && (
-              <div id={name} className='text-sm text-red-100 py-2 relative max-h-max'>
+              <div id={name} className={`${errorAbsolute?'absolute top-full':'relative py-2'} ${errorRight?'right-0':''} text-sm text-red-100 max-h-max`}>
                 {_.get(errors, name)?.message}
               </div>
             )}
