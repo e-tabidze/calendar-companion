@@ -1,4 +1,5 @@
 import { useRef, useState } from 'react'
+import { isMobile } from 'react-device-detect'
 
 // ** Swiper
 import { Swiper, SwiperSlide } from 'swiper/react'
@@ -43,9 +44,29 @@ const Carousel = ({ itemsArray, type, onClick, thumbs = false }: Props) => {
     if (type === 'card') return CardSlider
     if (type === 'gallery') return GallerySlider
   }
+  const [swiper, setSwiper] = useState<any>(null)
+
+  const pagination = {
+    clickable: true,
+
+    // clickableClass: `flex justify-center items-center gap-2 !bottom-3 !z-[30] px-4`,
+    bulletClass: `bullet rounded-2xl w-2 h-2 lg:w-1/5 lg:h-1 flex border-0 bg-white opacity-0 group-hover:opacity-90 transition-all duration-200`,
+    bulletActiveClass: `!lg:w-1/5 !lg:h-1 !bg-orange-100`,
+
+    renderBullet: function (index: number, className: string) {
+      return '<span class="' + className + '"></span>'
+    }
+  }
+
 
   return (
-    <div className='relative'>
+    <div className='relative group'
+         onMouseLeave={() => {
+      if (!isMobile) {
+        swiper.slideTo(0, 100)
+      }
+    }}
+    >
       <Swiper
         className={`${type === 'card' ? 'arrows-sm' : 'arrows-lg'}`}
         watchSlidesProgress
@@ -53,8 +74,11 @@ const Carousel = ({ itemsArray, type, onClick, thumbs = false }: Props) => {
         breakpoints={handleBreakpoints()}
         modules={[Navigation, Pagination]}
         navigation={true}
-        pagination={type === 'card'}
-        
+        pagination = {type === 'card' && pagination}
+        onInit={swiper => {
+          setSwiper(swiper)
+        }}
+
         // navigation={{
         //   prevEl: prevRef.current,
         //   nextEl: nextRef.current
@@ -76,6 +100,23 @@ const Carousel = ({ itemsArray, type, onClick, thumbs = false }: Props) => {
             {item}
           </SwiperSlide>
         ))}
+        {/* hidden pillars */}
+        {type === 'card' &&
+        <div className='absolute left-0 top-0 z-[1] hidden h-full w-full cursor-pointer md:flex'>
+          {itemsArray?.map((_, index) => {
+            return (
+                <div
+                    key={index}
+                    className='left-0 top-0 z-10 h-full flex-1 flex'
+                    onMouseEnter={() => {
+                      swiper.slideTo(index, 150)
+                    }}
+                ></div>
+            )
+          })}
+        </div>
+        }
+
       </Swiper>
 
       {/*<div*/}

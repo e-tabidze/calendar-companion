@@ -215,6 +215,16 @@
   opacity: 0;
   transition: 0.3s all;
 }
+.swiper-pagination {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  bottom:20px;
+  gap:4px;
+  padding-left: 4px;
+  padding-right: 4px;
+}
 
 /* .swiper-pagination-custom { */
 /* position: absolute !important;
