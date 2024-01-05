@@ -199,14 +199,14 @@
   background: transparent; /* make scrollbar transparent */
 }
 /*swiper full view */
-.swiper {
+.main-swiper.swiper {
   overflow: visible !important;
 }
-.swiper-slide {
+.main-swiper .swiper-slide {
   opacity: 0.2;
   pointer-events: none;
 }
-.swiper-slide-visible {
+.main-swiper .swiper-slide-visible {
   opacity: 1;
   pointer-events: visible;
 }
