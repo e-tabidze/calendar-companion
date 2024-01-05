@@ -31,6 +31,8 @@ const MainPage = () => {
 
   const { categoriesFilter } = useFilters()
 
+  console.log(categoriesFilter, 'categoriesFilter')
+
   return (
     <DefaultLayout>
       <PageMeta meta={pageMeta} />

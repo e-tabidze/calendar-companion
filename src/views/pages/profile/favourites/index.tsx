@@ -24,6 +24,8 @@ const Favourites = () => {
           price={product?.price}
           isDeleted={product?.product === null}
           images={product?.product.images.split(',')}
+          luggage={product?.product?.luggage_numbers}
+          
         />
       ))}
     </div>

@@ -7,6 +7,7 @@ import SwitchField from 'src/views/components/switchField'
 
 import TimeRangeComponent from './timeRangeComponent'
 import CitiesSuggestions from 'src/views/components/citiesSuggestions'
+import { IconTextButton } from 'src/views/components/button'
 
 interface Props {
   index: number
@@ -15,9 +16,10 @@ interface Props {
   control: any
   errors: any
   setValue: any
+  removeAddress: any
 }
 
-const BranchInfoComponent: React.FC<Props> = ({ index, control, errors, setValue }) => {
+const BranchInfoComponent: React.FC<Props> = ({ index, control, errors, setValue, removeAddress }) => {
   const formState = useWatch({ control })
 
   useEffect(() => {
@@ -68,19 +70,21 @@ const BranchInfoComponent: React.FC<Props> = ({ index, control, errors, setValue
   )
 
   return (
-    <div className='mb-6 md:border md:border-raisin-10 rounded-3xl md:py-10 md:px-9 grid grid-cols-1 gap-7'>
-      <div className='w-full grid grid-cols-1 lg:grid-cols-3 gap-4 relative'>
-        <CitiesSuggestions index={index} control={control} name={`addresses.${index}.city`} border errors={errors} />
+    <div className='flex flex-col'>
+      <div className='mb-6 md:border md:border-raisin-10 rounded-3xl md:py-10 md:px-9 grid grid-cols-1 gap-7'>
+        <div className='w-full grid grid-cols-1 lg:grid-cols-3 gap-4 relative'>
+          <CitiesSuggestions index={index} control={control} name={`addresses.${index}.city`} border errors={errors} />
 
-        <DefaultInput
-          label='მისამართი'
-          name={`addresses.${index}.address`}
-          control={control}
-          errors={errors}
-          disabled={formState.addresses[index].city.length < 3}
-        />
+          <DefaultInput
+            label='მისამართი'
+            name={`addresses.${index}.address`}
+            control={control}
+            errors={errors}
+            disabled={formState.addresses[index].city.length < 3}
+          />
 
-        <DefaultInput label='ტელეფონი' name={`addresses.${index}.phone`} control={control} errors={errors} />
+          <DefaultInput label='ტელეფონი' name={`addresses.${index}.phone`} control={control} errors={errors} />
+        </div>
       </div>
 
       <SwitchField
@@ -92,17 +96,19 @@ const BranchInfoComponent: React.FC<Props> = ({ index, control, errors, setValue
 
       {formState.addresses[index]?.is_same_time ? (
         <div className='flex flex-col gap-2 lg:items-center lg:flex-row justify-between' key={index}>
-          <div className='flex items-center gap-4'>{days.map(day => renderDaysSelector(day))}</div>
+          {/* <div className='flex items-center gap-4'>{days.map(day => renderDaysSelector(day))}</div>
           <TimeRangeComponent
             control={control}
-            startTimeName={`addresses.${index}.start_time`}
-            endTimeName={`addresses.${index}.end_time`}
+            errors={errors}
+            disabled={formState.addresses[index].city.length < 3}
           />
+
+          <DefaultInput label='ტელეფონი' name={`addresses.${index}.phone`} control={control} errors={errors} /> */}
         </div>
       ) : (
         <div className='grid md:grid-cols-12'>
           <div className='md:col-span-6'>
-            {days.slice(0,5).map(day => (
+            {days.slice(0, 5).map(day => (
               <div className='flex items-center gap-6 ' key={day.value}>
                 {renderDaysSelector(day)}
                 <TimeRangeComponent
@@ -128,6 +134,18 @@ const BranchInfoComponent: React.FC<Props> = ({ index, control, errors, setValue
             ))}
           </div>
         </div>
+      )}
+
+      {index > 0 && (
+        <IconTextButton
+          label='წაშლა'
+          icon='clear'
+          width={20}
+          height={20}
+          onClick={() => removeAddress(index)}
+          type='button'
+          className='self-end mb-8'
+        />
       )}
     </div>
   )

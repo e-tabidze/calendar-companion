@@ -42,6 +42,7 @@ const SeatsPopover: React.FC<Props> = ({ control, appendSeatType, handleSubmit, 
           height={22}
           onClick={() => reset('seat_types')}
           labelClassname="text-sm text-raisin-50 border-b"
+          type="button"
         />
         <DefaultButton
           text='შენახვა'

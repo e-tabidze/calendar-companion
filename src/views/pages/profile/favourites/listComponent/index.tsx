@@ -17,6 +17,7 @@ interface Props {
   isDeleted: boolean
   images: string[]
   id: string
+  luggage: number
 }
 
 const ListComponent: React.FC<Props> = ({
@@ -28,7 +29,8 @@ const ListComponent: React.FC<Props> = ({
   price,
   isDeleted,
   images,
-  id
+  id,
+  luggage
 }) => {
   const { toggleUserFavourites } = useFavourites(productId)
 
@@ -72,7 +74,7 @@ const ListComponent: React.FC<Props> = ({
             type='button'
           />
         </div>
-        <div className='relative w-full flex flex-col justify-between p-6 sm:p-0'>
+        <div className='relative w-full flex flex-col justify-between p-6 sm:p-0 my-3'>
           <div className=''>
             <Link href={`/details/${id}`}>
               <Typography type='h4' weight='normal' color='dark' className='text-md md:text-3md'>
@@ -103,7 +105,7 @@ const ListComponent: React.FC<Props> = ({
                   <Icon svgPath='views' width={20} height={20} className='fill-transparent' /> <span></span>
                 </Details>
                 <Details>
-                  <Icon svgPath='briefcase' width={20} height={20} className='fill-transparent' /> <span></span>
+                  <Icon svgPath='briefcase' width={20} height={20} className='fill-transparent' /> <span>{luggage}</span>
                 </Details>
               </DetailsWrapper>
             </InnerDetailsContainer>

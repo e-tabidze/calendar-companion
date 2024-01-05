@@ -6,15 +6,15 @@ import Typography from 'src/views/components/typography'
 import Icon from 'src/views/app/Icon'
 
 interface Props {
-    control: any;
-    onClick: () => void;
-    setValue: any;
+  control: any
+  onClick: () => void
+  setValue: any
 }
 
 interface Filter {
-    id: string;
-    label: string;
-    order_by: string;
+  id: string
+  label: string
+  order_by: string
 }
 
 const SortListBox: React.FC<Props> = ({ control, onClick, setValue }) => {
@@ -35,7 +35,7 @@ const SortListBox: React.FC<Props> = ({ control, onClick, setValue }) => {
       window.history.replaceState(null, '', newUrl)
 
       if (updateOrderRef.current) {
-        setValue('order_by', selectedFilter?.order_by || '') // Use optional chaining to avoid errors
+        setValue('order_by', selectedFilter?.order_by || '')
         onClick()
         setSelectedFilter(null)
         updateOrderRef.current = false
@@ -91,13 +91,7 @@ const SortListBox: React.FC<Props> = ({ control, onClick, setValue }) => {
                       }
                       value={filter.label}
                     >
-                      {({ selected }) => (
-                        <>
-                          <span className={`block truncate ${selected ? 'font-medium' : 'font-normal'}`}>
-                            {filter.label}
-                          </span>
-                        </>
-                      )}
+                      <span className={`block truncate text-2sm`}>{filter.label}</span>
                     </Listbox.Option>
                   ))}
                 </Listbox.Options>
@@ -110,5 +104,4 @@ const SortListBox: React.FC<Props> = ({ control, onClick, setValue }) => {
   )
 }
 
-
-export default SortListBox;
+export default SortListBox

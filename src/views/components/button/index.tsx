@@ -8,7 +8,7 @@ export const DefaultButton = ({ text, onClick, bg, className, textColor, type, d
         bg ? `${textColor}` : 'text-raisin-100'
       } text-2sm ${
         bg ? 'border-none' : 'border border-px-raisin-100'
-      } inline-flex items-center justify-center h-10 min-w-10 px-3 font-normal ${className}`}
+      } inline-flex items-center justify-center h-12 min-w-10 px-6 font-normal ${className}`}
       onClick={onClick}
       type={type}
       disabled={disabled}

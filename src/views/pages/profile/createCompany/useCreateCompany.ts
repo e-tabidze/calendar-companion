@@ -72,7 +72,7 @@ const useCreateCompany = () => {
     resolver: yupResolver(CompanySchema)
   })
 
-  const { fields: addressFields, append: appendAddress } = useFieldArray({
+  const { fields: addressFields, append: appendAddress, remove: removeAddress } = useFieldArray({
     control,
     name: 'addresses',
     rules: { minLength: 1 }
@@ -127,6 +127,7 @@ const useCreateCompany = () => {
     setValue,
     addressFields,
     appendAddress,
+    removeAddress,
     defaultAddress,
     createCompany,
     uploadCompanyLogo,

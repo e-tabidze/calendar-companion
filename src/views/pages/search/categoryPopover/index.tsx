@@ -47,12 +47,13 @@ const CategoryPopover: React.FC<Props> = ({ control, appendCategory, handleSubmi
           height={22}
           onClick={() => reset('category')}
           labelClassname="text-sm text-raisin-50 border-b"
+          type="button"
         />
         <DefaultButton
           text='შენახვა'
           bg='bg-orange-100'
           textColor='text-white'
-          type='submit'
+          type='button'
           onClick={() => {
             handleSubmit()
             close()

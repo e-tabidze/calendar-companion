@@ -40,6 +40,7 @@ const SuitcasesPopover: React.FC<Props> = ({ control, appendLuggageNumber, handl
           height={22}
           onClick={() => reset('luggage_numbers')}
           labelClassname="text-sm text-raisin-50 border-b"
+          type="button"
         />
         <DefaultButton
           text='შენახვა'
