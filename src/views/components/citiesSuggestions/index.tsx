@@ -24,7 +24,7 @@ const CitiesSuggestions: React.FC<Props> = ({ index, control, name, border, erro
     ['citiesSuggestions', formState?.addresses[index]?.city],
     () => getCitiesSuggestions(formState?.addresses[index]?.city),
     {
-      enabled: formState?.addresses[index]?.city?.length >= 3
+      enabled: formState?.addresses[index]?.city?.length > 0
     }
   )
 
@@ -45,7 +45,7 @@ const CitiesSuggestions: React.FC<Props> = ({ index, control, name, border, erro
                     className={`${
                       border ? 'border border-raisin-10' : ''
                     } h-12 lg:h-14 w-full rounded-xl px-3 text-2sm text-raisin-100  ${
-                      _.get(errors, name)?.message ? 'border „border-red-100' : ''
+                      _.get(errors, name)?.message ? 'border border-red-100' : ''
                     } `}
                     displayValue={value}
                     onChange={
@@ -57,7 +57,7 @@ const CitiesSuggestions: React.FC<Props> = ({ index, control, name, border, erro
                     }
                   />
                 </div>
-                {formState?.addresses[index]?.city?.length >= 3 && (
+                {formState?.addresses[index]?.city?.length > 0 && (
                   <Transition
                     as={Fragment}
                     leave='transition ease-in duration-100'

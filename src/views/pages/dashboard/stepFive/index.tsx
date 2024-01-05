@@ -88,7 +88,7 @@ const StepFive: React.FC<Props> = ({ control, setValue }) => {
         მონიშნული პერიოდი ავტომატურად დაიბლოკება ყოველ მომდევნო ჯავშნამდე
       </Typography>
       <div className='flex flex-wrap gap-2 mt-14 '>
-        <Tag height={'h-10'} options={preparationPeriod} name='preparation_period' control={control} />
+        <Tag height={'h-10'} options={preparationPeriod} name='preparation_period_type_id' control={control} />
       </div>
     </div>
   )

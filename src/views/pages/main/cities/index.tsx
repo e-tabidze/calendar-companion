@@ -34,7 +34,7 @@ const Cities = () => {
               <DefaultButton
                 text='ყველას ნახვა'
                 className='hidden lg:inline-flex'
-                onClick={() => router?.push('/search')}
+                onClick={() => router?.push('/search/?page=1&free_delivery=false&sort_by=id&order_by=asc')}
               />
             </Container>
           </ViewAllCitiesContainer>
@@ -49,14 +49,14 @@ const Cities = () => {
                   src='/images/city.png'
                   city={city.city}
                   numberOfCars={city?.products}
-                  onClick={() => router?.push(`/search/?location=${city.city}`)}
+                  onClick={() => router?.push(`/search/?location=${city.city}&page=1&free_delivery=false&sort_by=id&order_by=asc`)}
                 />
               ))}
           </CitiesWrapper>
           <DefaultButton
-            text={'ყველა ნახვა'}
+            text='ყველა ნახვა'
             className='inline-flex lg:hidden'
-            onClick={() => router?.push('/search')}
+            onClick={() => router?.push('/search/?page=1&free_delivery=false&sort_by=id&order_by=asc')}
           />
         </CitiesListContainer>
         <Divider />

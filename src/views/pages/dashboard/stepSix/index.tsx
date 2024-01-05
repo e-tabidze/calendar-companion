@@ -1,5 +1,6 @@
 import { useWatch } from 'react-hook-form'
-import MapPicker from 'src/views/components/mapPicker'
+
+// import MapPicker from 'src/views/components/mapPicker'
 import SelectField from 'src/views/components/selectField'
 import Typography from 'src/views/components/typography'
 import useProductInfo from '../useProductInfo'
@@ -76,10 +77,8 @@ const StepSix: React.FC<Props> = ({ control, errors }) => {
           errors={errors}
         />
       </div>
-      <MapPicker height='275px' borderRadius='16px' />
-      <Typography type='subtitle' className='mt-2'>
-        მონიშვნის შემდეგ მომხმარებელთან ავტომობილები გამოჩნდება რუკაზე მდებარეობის მიხედვით
-      </Typography>
+
+      {/* <MapPicker height='275px' borderRadius='16px' /> */}
     </div>
   )
 }

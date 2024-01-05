@@ -74,7 +74,7 @@ const useEditProduct = (id: number) => {
       time_interval: 'კვირა',
       time_span: 1
     },
-    preparation_period: '',
+    preparation_period_type_id: '',
 
     start_city: '',
     start_address: '',
@@ -126,7 +126,7 @@ const useEditProduct = (id: number) => {
       setValue('min_period.time_span', productDetailsData?.min_time_span)
       setValue('min_period.time_interval', productDetailsData?.min_time_interval)
       setValue('any_period', productDetailsData?.any_period)
-      setValue('preparation_period', productDetailsData?.preparation_period)
+      setValue('preparation_period_type_id', productDetailsData?.preparation_period_type_id)
 
       setValue('start_city', productDetailsData?.start_city)
       setValue('start_address', productDetailsData?.start_address)

@@ -1,12 +1,11 @@
-import { useEffect, useRef, useState } from 'react'
+import { memo, useCallback, useEffect, useRef, useState } from 'react'
 import DefaultLayout from 'src/layouts/DefaultLayout'
 import dynamic from 'next/dynamic'
 import EventListener from 'react-event-listener'
 
 const Carousel = dynamic(() => import('src/views/components/carousel'), { ssr: false })
-const Image = dynamic(() => import('src/views/components/image'), { ssr: true })
+const Image = dynamic(() => import('src/views/components/image'), { ssr: false })
 const Typography = dynamic(() => import('src/views/components/typography'), { ssr: false })
-
 const ProductFeature = dynamic(() => import('src/views/pages/details/productFeature'), { ssr: false })
 const DatePicker = dynamic(() => import('react-datepicker'), { ssr: false })
 
@@ -47,7 +46,7 @@ import { format } from 'date-fns'
 import { ka } from 'date-fns/locale'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-const ProductDetails = () => {
+const ProductDetails = memo(() => {
   const router = useRouter()
   const { slug, book_from, book_to } = router.query
 
@@ -102,7 +101,7 @@ const ProductDetails = () => {
     const componentPosition = ref.current?.getBoundingClientRect().top - 80
     const pageScroll = window.pageYOffset
 
-    if (pageScroll > componentPosition) {
+    if (pageScroll > window?.innerHeight / 4) {
       setIsSticky(true)
     } else {
       setIsSticky(false)
@@ -206,7 +205,9 @@ const ProductDetails = () => {
                   <div className='flex shrink-0'>
                     <Icon svgPath='locationOutline' width={24} height={24} className='fill-transparent' />
                   </div>
-                  <Typography type='subtitle'>{singleProductDetails?.start_address}</Typography>
+                  <Typography type='subtitle'>
+                    {singleProductDetails?.start_city}, {singleProductDetails?.start_address}
+                  </Typography>
                 </div>
                 <Typography type='subtitle'>{singleProductDetails?.additional_information}</Typography>
                 <Typography type='subtitle' className='mt-8'>
@@ -311,7 +312,8 @@ const ProductDetails = () => {
                       dateFormat='yyyy-MM-dd'
                       onChangeRaw={e => e.preventDefault()}
                       minDate={new Date()}
-                      filterDate={date => date.getDate() % 2 === 0}
+
+                      // filterDate={date => date.getDate() % 2 === 0}
                     />
                   )}
                 />
@@ -444,7 +446,7 @@ const ProductDetails = () => {
       </DefaultLayout>
     </form>
   )
-}
+})
 
 export default ProductDetails
 

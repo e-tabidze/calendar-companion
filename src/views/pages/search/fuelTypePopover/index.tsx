@@ -11,9 +11,10 @@ interface Props {
   control: any
   appendFuelType: any
   reset: any
+  handleSubmit: () => void
 }
 
-const FuelTypePopover: React.FC<Props> = ({ control, appendFuelType, reset }) => {
+const FuelTypePopover: React.FC<Props> = ({ control, appendFuelType, reset, handleSubmit }) => {
   const { fuelTypesFilter, isLoading } = useFilters()
 
   const [hasFuelTypes, setFuelTypes] = useState(false)
@@ -56,7 +57,16 @@ const FuelTypePopover: React.FC<Props> = ({ control, appendFuelType, reset }) =>
           height={22}
           onClick={() => reset('fuel_types')}
         />
-        <DefaultButton text='შენახვა' bg='bg-orange-100' textColor='text-white' />
+        <DefaultButton
+          text='შენახვა'
+          bg='bg-orange-100'
+          textColor='text-white'
+          type='button'
+          onClick={() => {
+            handleSubmit()
+            close()
+          }}
+        />
       </ActionsWrapper>
     </PopoverDropdown>
   )

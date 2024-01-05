@@ -7,6 +7,7 @@ interface Props {
   description?: string
   path?: string
   permalink?: string
+  onClose?: () => void
 }
 
 const Toast: React.FC<Props> = ({ type, title, description, path, permalink }) => {

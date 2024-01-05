@@ -157,6 +157,11 @@ const NewProduct: React.FC = () => {
                 permalink='ავტომობილები'
               />
             )
+
+            setTimeout(() => {
+              router.push(`/dashboard/products/?is_active=1&page=1`)
+            }, 5000)
+            
           } else {
             console.error('Error: Images or productId is missing.')
           }

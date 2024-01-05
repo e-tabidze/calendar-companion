@@ -55,7 +55,7 @@ const PricePopover: React.FC<Props> = ({ control, handleSubmit, reset }) => {
           text='შენახვა'
           bg='bg-orange-100'
           textColor='text-white'
-          type='submit'
+          type='button'
           onClick={() => {
             handleSubmit()
             close()

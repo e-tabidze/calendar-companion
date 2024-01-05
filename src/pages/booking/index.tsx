@@ -119,16 +119,15 @@ const Booking = () => {
     },
 
     onError: (ex: any) => {
-      ex.response.status === 400
-      toast.custom(
-        <Toast
-          type='error'
-          title='ავტომობილი მოცემულ თარიღებში უკვე დაჯავშნილია'
-          description='გთხოვთ სცადეთ სხვა თარიღი'
-        />
-      )
-
-      ex.response.status === toast.custom(<Toast type='error' title='მოხდა შეცდომა, გთხოვთ ხელახლა სცადოთ' />)
+      if (ex.response.status === 400) {
+        toast.custom(
+          <Toast
+            type='error'
+            title='ავტომობილი მოცემულ თარიღებში უკვე დაჯავშნილია'
+            description='გთხოვთ სცადეთ სხვა თარიღი'
+          />
+        )
+      }
     }
   })
 
@@ -220,27 +219,29 @@ const Booking = () => {
 
             <BookingRadio name='supply' options={options} control={control} color='bg-green-100' />
 
-            {formsState?.additional_services && formsState?.additional_services?.length > 0 && <div className='mb-24'>
-              <div
-                className='mt-11 flex items-center justify-between mb-8'
-                onClick={() => toggleAdditionalServices(!additionalServices)}
-              >
-                <Typography type='h3' className='text-3md md:text-2lg'>
-                  დამატებითი სერვისები
-                </Typography>
-                <Icon
-                  svgPath='chevron'
-                  width={8}
-                  height={6}
-                  className={`${
-                    additionalServices ? 'rotate-180' : ''
-                  } fill-transparent  w-auto h-4 transition duration-300 mr-6`}
-                />
+            {formsState?.additional_services && formsState?.additional_services?.length > 0 && (
+              <div className='mb-24'>
+                <div
+                  className='mt-11 flex items-center justify-between mb-8'
+                  onClick={() => toggleAdditionalServices(!additionalServices)}
+                >
+                  <Typography type='h3' className='text-3md md:text-2lg'>
+                    დამატებითი სერვისები
+                  </Typography>
+                  <Icon
+                    svgPath='chevron'
+                    width={8}
+                    height={6}
+                    className={`${
+                      additionalServices ? 'rotate-180' : ''
+                    } fill-transparent  w-auto h-4 transition duration-300 mr-6`}
+                  />
+                </div>
+                {additionalServices && (
+                  <CheckServices control={control} options={formsState?.additional_services as any} />
+                )}
               </div>
-              {additionalServices && (
-                <CheckServices control={control} options={formsState?.additional_services as any} />
-              )}
-            </div>}
+            )}
 
             {/* <div>
               <div className='mt-11 flex items-center justify-between mb-8' onClick={() => toggleInsurance(!insurance)}>

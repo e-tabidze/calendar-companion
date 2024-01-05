@@ -88,6 +88,7 @@ const SearchPage = () => {
 
   const onSubmit = () => {
     const updatedSearchValues: any = getValues()
+    console.log(updatedSearchValues, 'updatedSearchValues')
     searchProductsMutation.mutate(objectToURI(updatedSearchValues))
     router.push(`/search?${objectToURI(updatedSearchValues)}`)
   }
@@ -102,7 +103,12 @@ const SearchPage = () => {
           <FiltersWrapper>
             <MainFilters>
               <PricePopover control={control} handleSubmit={onSubmit} reset={resetField} />
-              <FuelTypePopover control={control} appendFuelType={appendFuelType} reset={resetField} />
+              <FuelTypePopover
+                control={control}
+                appendFuelType={appendFuelType}
+                reset={resetField}
+                handleSubmit={onSubmit}
+              />
               <CategoryPopover
                 control={control}
                 appendCategory={appendCategory}
@@ -151,7 +157,7 @@ const SearchPage = () => {
                 onClick={(e: { preventDefault: () => void }) => {
                   reset()
                   e.preventDefault()
-                  router.push('/search/?page=1&order_by=desc')
+                  router.push('/search/?free_delivery=false&page=1&order_by=desc')
                 }}
               />
             </ClearFiltersWrapper>

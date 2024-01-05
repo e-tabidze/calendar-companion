@@ -38,7 +38,8 @@ const Company: React.FC<Props> = ({ id, name, productsCount, logo }) => {
     handleSubmit,
     updateCompanyInfo,
     deleteCompany,
-    deleteCompanyAddress
+    deleteCompanyAddress,
+    setValue
   } = useCompany(id)
 
   const toggleDeleteAddressModal = () => setDeleteAddressModal(!deleteAddresseModal)
@@ -54,11 +55,8 @@ const Company: React.FC<Props> = ({ id, name, productsCount, logo }) => {
       queryClient.invalidateQueries(['companyInfo'])
       toast.custom(
         <Toast
-          title='წარმატება!'
+          title='კომპანია წარმატებით განახლდა!'
           type='success'
-          description='some success text'
-          path={'/dashboard/products'}
-          permalink='ავტომობილები'
         />
       )
     }
@@ -158,7 +156,7 @@ const Company: React.FC<Props> = ({ id, name, productsCount, logo }) => {
 
           {addressFields.map((address: any, index: number) => (
             <div key={address.id}>
-              <AddressAndSchedule index={index} control={control} address={address} errors={errors} />
+              <AddressAndSchedule index={index} control={control} address={address} errors={errors} setValue={setValue} />
 
               {addressFields.length > 1 && index > 0 && (
                 <div className='w-full flex justify-end pr-8'>
@@ -231,6 +229,7 @@ const Company: React.FC<Props> = ({ id, name, productsCount, logo }) => {
             icon='trash'
             className='text-orange-130'
             onClick={toggleDeleteCompanyModal}
+            type="button"
           />
         </div>
       </div>

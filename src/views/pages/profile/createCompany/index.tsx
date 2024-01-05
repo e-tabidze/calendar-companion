@@ -91,15 +91,11 @@ const CreateCompany = () => {
           companyId: data?.result?.data?.id
         })
       }
-      toast.custom(
-        <Toast
-          type={'success'}
-          title={'წარმატება'}
-          description={'წარმატება'}
-          permalink={'შქმნილი კომპანიის ნახვა'}
-          path={`/profile/company/${data?.result?.data?.id}`}
-        />
-      )
+      toast.custom(<Toast type='success' title='კომპანია წარმატებით დაემატა' />)
+
+      setTimeout(() => {
+        router.push(`/profile/company/${data?.result?.data?.id}`)
+      }, 5000)
     }
   })
 
@@ -129,7 +125,13 @@ const CreateCompany = () => {
       >
         {step.step === 1 && <StepOne control={control} errors={errors} clearErrors={clearErrors} setValue={setValue} />}
         {step.step === 2 && (
-          <StepTwo control={control} addressFields={addressFields} appendAddress={appendAddress} errors={errors} />
+          <StepTwo
+            control={control}
+            addressFields={addressFields}
+            appendAddress={appendAddress}
+            errors={errors}
+            setValue={setValue}
+          />
         )}
         {step.step === 3 && <StepThree control={control} errors={errors} />}
       </NewListingLayout>

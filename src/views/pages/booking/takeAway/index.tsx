@@ -26,8 +26,8 @@ const TakeAway: React.FC<Props> = ({ control, toggleEditModal, errors }) => {
           <div className='flex flex-col ml-3'>
             <span className='text-sm'>წაყვანა</span>
             <span className='hidden lg:flex text-sm text-black/60'>
-              {formState.booking.book_to &&
-                format(new Date(String(formState.booking.book_to)), 'd MMM yyyy', { locale: ka })}
+              {formState.booking.book_from &&
+                format(new Date(String(formState.booking.book_from)), 'd MMM yyyy', { locale: ka })}
             </span>
           </div>
         </div>
@@ -37,8 +37,8 @@ const TakeAway: React.FC<Props> = ({ control, toggleEditModal, errors }) => {
           </Typography>
           <div className='flex shrink-0 items-center pl-9 lg:pl-0'>
             <span className='flex lg:hidden text-sm text-black/60 mr-3'>
-              {formState.booking.book_to &&
-                format(new Date(String(formState.booking.book_to)), 'd MMM yyyy', { locale: ka })}
+              {formState.booking.book_from &&
+                format(new Date(String(formState.booking.book_from)), 'd MMM yyyy', { locale: ka })}
             </span>
             <SelectField
               control={control}
@@ -78,8 +78,8 @@ const TakeAway: React.FC<Props> = ({ control, toggleEditModal, errors }) => {
           </Typography>
           <div className='flex shrink-0 items-center pl-9 lg:pl-0'>
             <span className='flex lg:hidden text-sm text-black/60 mr-3'>
-              {formState.booking.book_from &&
-                format(new Date(String(formState.booking.book_from)), 'd MMM yyyy', { locale: ka })}
+              {formState.booking.book_to &&
+                format(new Date(String(formState.booking.book_to)), 'd MMM yyyy', { locale: ka })}
             </span>
             <SelectField
               control={control}

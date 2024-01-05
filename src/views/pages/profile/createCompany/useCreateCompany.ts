@@ -66,8 +66,8 @@ const useCreateCompany = () => {
     setValue,
     trigger
   } = useForm({
-    mode: 'onSubmit',
-    reValidateMode: 'onSubmit',
+    mode: 'onChange',
+    reValidateMode: 'onChange',
     defaultValues: createCompanyDefaultValues,
     resolver: yupResolver(CompanySchema)
   })

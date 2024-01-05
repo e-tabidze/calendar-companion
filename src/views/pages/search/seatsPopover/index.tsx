@@ -46,7 +46,7 @@ const SeatsPopover: React.FC<Props> = ({ control, appendSeatType, handleSubmit, 
           text='შენახვა'
           bg='bg-orange-100'
           textColor='text-white'
-          type='submit'
+          type='button'
           onClick={() => {
             handleSubmit()
             close()

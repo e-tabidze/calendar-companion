@@ -1,6 +1,6 @@
 import { useWatch } from 'react-hook-form'
 import useFilters from 'src/hooks/useFilters'
-import {DefaultButton, IconTextButton} from 'src/views/components/button'
+import { DefaultButton, IconTextButton } from 'src/views/components/button'
 import PopoverDropdown from 'src/views/components/popoverDropdown'
 import Tag from 'src/views/components/tag'
 
@@ -44,7 +44,7 @@ const SuitcasesPopover: React.FC<Props> = ({ control, appendLuggageNumber, handl
           text='შენახვა'
           bg='bg-orange-100'
           textColor='text-white'
-          type='submit'
+          type='button'
           onClick={() => {
             handleSubmit()
             close()

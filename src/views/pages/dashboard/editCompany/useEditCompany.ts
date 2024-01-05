@@ -66,8 +66,6 @@ const useCompany = (id: number) => {
     }
   }))
 
-  console.log(defaultAddress, 'defaultAddress')
-
   const defaultWorkDayWorkingTime: WorkingTime = {
     start_time: '09:00',
     end_time: '18:00',

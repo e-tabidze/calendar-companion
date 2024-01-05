@@ -26,7 +26,7 @@ const BookingList: React.FC<Props> = ({ addresses, control }) => {
       {formState?.supply === '0' && (
         <>
           <div className='flex items-center my-4 ml-5 md:ml-0'>
-              <Icon svgPath='booking-start' height={24} width={24} className='fill-transparent flex mr-4'/>
+            <Icon svgPath='booking-start' height={24} width={24} className='fill-transparent flex mr-4' />
             <Typography type='body' className='text-md md:text-2lg font-normal'>
               წაყვანა
             </Typography>
@@ -51,7 +51,7 @@ const BookingList: React.FC<Props> = ({ addresses, control }) => {
                                 <RadioGroup.Label className='flex items-center' style={{ margin: '0px' }}>
                                   <Circle checked={value === address.address}>
                                     {value === address.address && (
-                                        <Icon svgPath='check' width={14} height={10} className='fill-transparent'/>
+                                      <Icon svgPath='check' width={14} height={10} className='fill-transparent' />
                                     )}
                                   </Circle>
                                   <Typography type='subtitle' className='text-sm ml-3'>
@@ -74,7 +74,7 @@ const BookingList: React.FC<Props> = ({ addresses, control }) => {
       )}
 
       <div className='flex items-center mb-4 ml-5 md:ml-0'>
-          <Icon svgPath='booking-stop' width={24} height={24} className='fill-transparent flex mr-4' />
+        <Icon svgPath='booking-stop' width={24} height={24} className='fill-transparent flex mr-4' />
         <Typography type='body' className='text-md md:text-2lg font-normal'>
           დაბრუნება
         </Typography>
@@ -99,7 +99,7 @@ const BookingList: React.FC<Props> = ({ addresses, control }) => {
                             <RadioGroup.Label className='flex items-center' style={{ margin: '0px' }}>
                               <Circle checked={value === address.address}>
                                 {value === address.address && (
-                                    <Icon svgPath='check' width={14} height={10} className='fill-transparent'/>
+                                  <Icon svgPath='check' width={14} height={10} className='fill-transparent' />
                                 )}
                               </Circle>
                               <Typography type='subtitle' className='ml-3'>

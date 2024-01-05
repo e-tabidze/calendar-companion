@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Controller, useWatch } from 'react-hook-form'
 import { days } from 'src/utils/sample-data'
 import { DefaultInput } from 'src/views/components/input'
@@ -14,32 +14,33 @@ interface Props {
   workingHoursObject?: any
   control: any
   errors: any
+  setValue: any
 }
 
-const BranchInfoComponent: React.FC<Props> = ({ index, control, errors }) => {
+const BranchInfoComponent: React.FC<Props> = ({ index, control, errors, setValue }) => {
   const formState = useWatch({ control })
 
-  // useEffect(() => {
-  //   if (formState.addresses[index].is_same_time) {
-  //     const selectedWorkDays = Object.keys(formState.addresses[index].working_hours).filter(
-  //       day => formState.addresses[index].working_hours[day].is_selected
-  //     )
+  useEffect(() => {
+    if (formState.addresses[index].is_same_time) {
+      const selectedWorkDays = Object.keys(formState.addresses[index].working_hours).filter(
+        day => formState.addresses[index].working_hours[day].is_selected
+      )
 
-  //     const startTime = formState.addresses[index].start_time
-  //     const endTime = formState.addresses[index].end_time
+      const startTime = formState.addresses[index].start_time
+      const endTime = formState.addresses[index].end_time
 
-  //     const shouldUpdate =
-  //       selectedWorkDays.some(day => formState.addresses[index].working_hours[day].start_time !== startTime) ||
-  //       selectedWorkDays.some(day => formState.addresses[index].working_hours[day].end_time !== endTime)
+      const shouldUpdate =
+        selectedWorkDays.some(day => formState.addresses[index].working_hours[day].start_time !== startTime) ||
+        selectedWorkDays.some(day => formState.addresses[index].working_hours[day].end_time !== endTime)
 
-  //     if (shouldUpdate) {
-  //       selectedWorkDays.forEach(day => {
-  //         setValue(`addresses.${index}.working_hours.${day}.start_time`, startTime)
-  //         setValue(`addresses.${index}.working_hours.${day}.end_time`, endTime)
-  //       })
-  //     }
-  //   }
-  // }, [formState.addresses[index], index, setValue])
+      if (shouldUpdate) {
+        selectedWorkDays.forEach(day => {
+          setValue(`addresses.${index}.working_hours.${day}.start_time`, startTime)
+          setValue(`addresses.${index}.working_hours.${day}.end_time`, endTime)
+        })
+      }
+    }
+  }, [formState.addresses[index], index, setValue])
 
   const renderDaysSelector = (day: any) => (
     <Controller
