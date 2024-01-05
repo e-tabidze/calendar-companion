@@ -22,12 +22,12 @@ const Categories = () => {
                </span>
             </Typography>
             <div className={`${active?'block':'hidden'} lg:block`}>
-                <div className="lg:flex lg:justify-between lg:w-11/12 xl:w-10/12 2xl:w-9/12">
-                    <ul className="mt-4 lg:mt-6 lg:flex lg:justify-between lg:w-full overflow-hidden">
+                <div className="lg:flex lg:justify-between">
+                    <ul className="mt-4 lg:mt-6 lg:flex lg:w-full overflow-hidden flex-wrap">
                             { categoriesFilter
                         ?.filter((product: any) => product?.count_products > 0)
                         ?.map((product: any) => (
-                            <li className='mb-2' key={product?.id}>
+                            <li className='w-1/3 mb-2' key={product?.id}>
                                 <CategoryLink
                                     title={product?.title}
                                     id={product?.id}

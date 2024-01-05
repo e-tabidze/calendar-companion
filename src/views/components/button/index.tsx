@@ -69,7 +69,7 @@ export const IconTextButton = ({ label, icon, width, height, bg, className, onCl
       type={type}
     >
       <Icon svgPath={icon} width={width} height={height} className='fill-transparent' />
-      <span className={`${labelClassname} text-2sm ml-4`}>{label}</span>
+      <span className={`text-2sm ml-4 ${labelClassname} `}>{label}</span>
     </button>
   )
 }

@@ -21,7 +21,7 @@ const PricePopover: React.FC<Props> = ({ control, handleSubmit, reset }) => {
   }, [formState?.fuel_types?.length])
 
   return (
-    <PopoverDropdown label='ფასი' maxWidth='max-w-md' className={hasPrice ? 'border border-raisin-100' : ''}>
+    <PopoverDropdown label='ფასი' maxWidth='max-w-md' className={hasPrice ? 'border border-raisin-100' : 'hover:border hover:border-raisin-30'}>
       <TagsWrapper>
         <DefaultInput
           label={'მინიმუმ ფასი დღიურად'}
@@ -44,6 +44,7 @@ const PricePopover: React.FC<Props> = ({ control, handleSubmit, reset }) => {
           icon='rotate'
           label='გასუფთავება'
           className='fill-transparent'
+          labelClassname="text-sm text-raisin-50 border-b"
           width={20}
           height={22}
           onClick={() => {

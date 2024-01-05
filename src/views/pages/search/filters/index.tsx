@@ -22,7 +22,7 @@ const Filters = () => {
   }
 
   return (
-    <div className='hidden xl:flex border border-raisin-10 ml-14 rounded-3xl h-12 flex items-center'>
+    <div className='hidden xl:flex border border-raisin-10 ml-14 rounded-3xl h-12 items-center'>
       <FiltersContainer>
         <LocationDropdown control={control} resetField={() => resetField('location')} />
         <Divider />

@@ -1,5 +1,4 @@
 import { useRef, useState } from 'react'
-import { isMobile } from 'react-device-detect'
 
 // ** Swiper
 import { Swiper, SwiperSlide } from 'swiper/react'
@@ -62,13 +61,13 @@ const Carousel = ({ itemsArray, type, onClick, thumbs = false }: Props) => {
   return (
     <div className='relative'
          onMouseLeave={() => {
-      if (!isMobile) {
+      if (type==='card') {
         swiper.slideTo(0, 100)
       }
     }}
     >
       <Swiper
-        className={`${type === 'card' ? 'arrows-sm' : 'arrows-lg'}`}
+        className={`${type === 'card' ? 'arrows-sm' : 'arrows-lg'} ${(type === 'products') || (type ==='categories') ? 'main-swiper' : ''}`}
         watchSlidesProgress
         ref={swiperRef}
         breakpoints={handleBreakpoints()}
