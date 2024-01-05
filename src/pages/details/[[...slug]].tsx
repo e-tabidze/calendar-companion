@@ -98,7 +98,9 @@ const ProductDetails = memo(() => {
   }, [book_from, book_to])
 
   const handleScroll = () => {
+
     // const componentPosition = ref.current?.getBoundingClientRect().top - 80
+
     const pageScroll = window.pageYOffset
 
     if (pageScroll > window?.innerHeight / 4) {
