@@ -31,6 +31,7 @@ const CreateCompany = () => {
     clearErrors,
     addressFields,
     appendAddress,
+    removeAddress,
     createCompany,
     setValue,
     saveCompanyLogo,
@@ -123,12 +124,20 @@ const CreateCompany = () => {
         submitLabel='დამატება'
         disabled={createCompanyMutation.isLoading || saveCompanyLogoMutation.isLoading}
       >
-        {step.step === 1 && <StepOne control={control} errors={errors} clearErrors={clearErrors} setValue={setValue} />}
+        {step.step === 1 && (
+          <StepOne
+            control={control}
+            errors={errors}
+            clearErrors={clearErrors}
+            setValue={setValue}
+          />
+        )}
         {step.step === 2 && (
           <StepTwo
             control={control}
             addressFields={addressFields}
             appendAddress={appendAddress}
+            removeAddress={removeAddress}
             errors={errors}
             setValue={setValue}
           />
