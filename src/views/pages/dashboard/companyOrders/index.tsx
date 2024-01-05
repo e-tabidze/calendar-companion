@@ -128,6 +128,7 @@ const CompanyOrders = () => {
                     discount={order?.discount_percent}
                     status={order?.status_id}
                   />
+                  <Divider />
                 </Link>
               ))}
             </div>

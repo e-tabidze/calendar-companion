@@ -132,7 +132,7 @@ const AdditionalFilters: React.FC<Props> = ({
                     <DefaultInput
                       name='price_min'
                       control={control}
-                      label={'ჩაწერე დღიური მინიმალური ფასი'}
+                      label={'დღიური მინიმალური ფასი'}
                       errors={''}
                       className='md:w-72 mb-2 md:mb-0'
                       type='number'
@@ -142,7 +142,7 @@ const AdditionalFilters: React.FC<Props> = ({
                     <DefaultInput
                       name='price_max'
                       control={control}
-                      label={'ჩაწერე დღიური მაქსიმალური ფასი'}
+                      label={'დღიური მაქსიმალური ფასი'}
                       errors={''}
                       className='md:w-72'
                       type='number'

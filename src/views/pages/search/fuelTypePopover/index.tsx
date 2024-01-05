@@ -57,6 +57,7 @@ const FuelTypePopover: React.FC<Props> = ({ control, appendFuelType, reset, hand
           height={22}
           onClick={() => reset('fuel_types')}
           labelClassname="text-sm text-raisin-50 border-b"
+          type="button"
         />
         <DefaultButton
           text='შენახვა'
