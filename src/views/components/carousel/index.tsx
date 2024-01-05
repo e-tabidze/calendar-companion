@@ -60,7 +60,7 @@ const Carousel = ({ itemsArray, type, onClick, thumbs = false }: Props) => {
 
 
   return (
-    <div className='relative group'
+    <div className='relative'
          onMouseLeave={() => {
       if (!isMobile) {
         swiper.slideTo(0, 100)
@@ -96,7 +96,7 @@ const Carousel = ({ itemsArray, type, onClick, thumbs = false }: Props) => {
         thumbs={{ swiper: thumbsSwiper }}
       >
         {itemsArray?.map((item, index) => (
-          <SwiperSlide key={index} onClick={onClick}>
+          <SwiperSlide key={index} onClick={onClick} className='group relative'>
             {item}
           </SwiperSlide>
         ))}
