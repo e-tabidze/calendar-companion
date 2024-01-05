@@ -32,7 +32,6 @@ const SearchLayout = dynamic(() => import('../../layouts/SearchLayout'), { ssr: 
 const Icon = dynamic(() => import('src/views/app/Icon'), { ssr: false })
 const Pagination = dynamic(() => import('src/views/components/pagination'), { ssr: false })
 const ProductCard = dynamic(() => import('src/views/components/productCard'), { ssr: true })
-const Switcher = dynamic(() => import('src/views/components/switcher'), { ssr: false })
 const Tag = dynamic(() => import('src/views/components/tag'), { ssr: false })
 const Typography = dynamic(() => import('src/views/components/typography'), { ssr: true })
 const CategoryPopover = dynamic(() => import('src/views/pages/search/categoryPopover'), { ssr: false })
@@ -115,21 +114,20 @@ const SearchPage = () => {
                 handleSubmit={onSubmit}
                 reset={resetField}
               />
-              <Tag
+
+              {/* <Tag
                 label='უფასო მიყვანა'
                 component={<Switcher height='h-5' name='free_delivery' control={control} onChangeCallback={onSubmit} />}
                 height='h-10'
                 control={control}
+              /> */}
+              <SeatsPopover
+                control={control}
+                appendSeatType={appendSeatType}
+                handleSubmit={onSubmit}
+                reset={resetField}
               />
               <div className='hidden xl:flex'>
-                <SeatsPopover
-                  control={control}
-                  appendSeatType={appendSeatType}
-                  handleSubmit={onSubmit}
-                  reset={resetField}
-                />
-              </div>
-              <div className='hidden 2xl:flex'>
                 <SuitcasesPopover
                   control={control}
                   appendLuggageNumber={appendLuggageNumber}
@@ -151,7 +149,7 @@ const SearchPage = () => {
                 width={20}
                 height={22}
                 className='fill-transparent'
-                label='ფილტრის გასუფთავება'
+                label='გასუფთავება'
                 labelClassname='text-orange-120'
                 type='reset'
                 onClick={(e: { preventDefault: () => void }) => {
@@ -163,7 +161,7 @@ const SearchPage = () => {
             </ClearFiltersWrapper>
           </FiltersWrapper>
           <ResponsiveDivider />
-          <FullContainer className='lg:flex pt-20 lg:pt-[185px]'>
+          <FullContainer className='lg:flex pt-20 lg:pt-[160px]'>
             <SearchContentsContainer className='w-full px-5 md:px-10 transition-all duration-300 lg:w-[calc(100%-40px)] lg:pr-0'>
               {/*  className={`w-full px-5 md:px-10 transition-all duration-300 ${*/}
               {/*    mapVisible ? 'lg:w-1/2 pr-8' : 'lg:w-[calc(100%-40px)] lg:pr-0'*/}
@@ -246,6 +244,7 @@ const SearchPage = () => {
                       luggageNumbers={product?.luggage_numbers}
                       seats={product?.seat_type?.title}
                       images={product?.images?.split(',')}
+                      city={product?.start_city}
                     />
                   ))}
                 </div>

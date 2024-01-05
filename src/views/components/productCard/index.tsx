@@ -31,6 +31,7 @@ interface Props {
   bookTo?: string | undefined
   seats: string | number
   images: string[]
+  city: string
 }
 
 const ProductCard: React.FC<Props> = ({
@@ -44,7 +45,8 @@ const ProductCard: React.FC<Props> = ({
   bookFrom,
   bookTo,
   seats,
-  images
+  images,
+  city
 }) => {
   const router = useRouter()
 
@@ -121,9 +123,11 @@ const ProductCard: React.FC<Props> = ({
       <DetailsContainer>
         <Typography type='h5' className='flex items-center'>
           <span className='overflow-hidden text-ellipsis whitespace-nowrap inline-block'>
-            {manufacturer} {model}{' '}
+            {manufacturer} {model} {prodYear}
           </span>
-          <span className='ml-1'>{prodYear}</span>
+        </Typography>
+        <Typography type='body' color='light'>
+          {city}
         </Typography>
         <InnerDetailsContainer>
           <PriceContainer>
@@ -134,7 +138,7 @@ const ProductCard: React.FC<Props> = ({
               <Icon svgPath='views' width={20} height={20} className='fill-transparent' /> <span>{seats}</span>
             </Details>
             <Details>
-              <Icon svgPath='briefcase' width={20} height={20} className='fill-transparent' />{' '}
+              <Icon svgPath='briefcase' width={20} height={20} className='fill-transparent' />
               <span>{luggageNumbers}</span>
             </Details>
           </DetailsWrapper>

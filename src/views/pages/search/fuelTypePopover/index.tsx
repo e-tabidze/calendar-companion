@@ -29,7 +29,7 @@ const FuelTypePopover: React.FC<Props> = ({ control, appendFuelType, reset, hand
     <PopoverDropdown
       label='საწვავის ტიპი'
       maxWidth='max-w-sm'
-      className={`${hasFuelTypes ? 'border border-raisin-100' : ''}`}
+      className={`${hasFuelTypes ? 'border border-raisin-100' : 'hover:border hover:border-raisin-30'}`}
     >
       <Typography type='body' color='light'>
         შეგიძლიათ მონიშნოთ ერთი ან რამდენიმე
@@ -56,6 +56,7 @@ const FuelTypePopover: React.FC<Props> = ({ control, appendFuelType, reset, hand
           width={20}
           height={22}
           onClick={() => reset('fuel_types')}
+          labelClassname="text-sm text-raisin-50 border-b"
         />
         <DefaultButton
           text='შენახვა'

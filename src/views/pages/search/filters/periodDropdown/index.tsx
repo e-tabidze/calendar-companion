@@ -87,7 +87,7 @@ const PeriodDropwodn: React.FC<Props> = ({ control, resetField, setValue }) => {
         leaveFrom='transform opacity-100 scale-100'
         leaveTo='transform opacity-0 scale-95'
       >
-        <Menu.Items className='absolute top-full z-[11] p-4 right-0 mt-4 w-full flex justify-center origin-top-right divide-y divide-gray-100 rounded-2xl bg-white shadow-lg focus:outline-none'>
+        <Menu.Items className='absolute w-max left-0 top-full z-[11] p-4 right-0 mt-4 flex justify-center origin-top-right divide-y divide-gray-100 rounded-2xl bg-white shadow-lg focus:outline-none'>
           <Controller
             name='booking'
             control={control}
@@ -98,7 +98,7 @@ const PeriodDropwodn: React.FC<Props> = ({ control, resetField, setValue }) => {
                 selectsRange={true}
                 startDate={startDate}
                 endDate={endDate}
-                monthsShown={1}
+                monthsShown={2}
                 onChange={(update: any) => {
                   if (update) {
                     const [start, end] = update

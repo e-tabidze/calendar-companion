@@ -14,7 +14,7 @@ const CategoryItem: React.FC<Props> = ({ svgPath, title, count, id }) => {
   
   return (
     <div className='flex flex-col items-center cursor-pointer' onClick={() => router?.push(`/search/?category[]=${id}`)}>
-      <Icon svgPath={svgPath} width={48} height={48} />
+      <Icon svgPath={svgPath} width={48} height={48} className="scale-[1.9]" />
       <Typography className='text-center' type='subtitle'>
         {title}
       </Typography>

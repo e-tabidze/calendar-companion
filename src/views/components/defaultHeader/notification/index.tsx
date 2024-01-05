@@ -5,18 +5,22 @@ import Icon from '../../../app/Icon'
 import useNotifications from 'src/hooks/useNotifications'
 import Link from 'next/link'
 import useProfile from 'src/hooks/useProfile'
+import { format, parseISO } from 'date-fns'
+import { ka } from 'date-fns/locale'
 
 const Notification = () => {
   const { notifictions } = useNotifications()
   const { activeCompany } = useProfile()
+
+  console.log(notifictions, 'notifictions')
 
   return (
     <Menu as='div' className='hidden md:flex relative'>
       <Menu.Button>
         <div className='relative flex items-center justify-center w-10 h-10 rounded-full hover:bg-grey-100 transition-all'>
           <Icon svgPath='bell' width={25} height={24} className='rounded-full' />
-          <span className='absolute right-0 top-0 mt-1 mr-1 w-3 h-3 flex items-center justify-center orange-100 rounded-full text-white text-[10px] font-medium'>
-            3
+          <span className='absolute right-0 top-0 mt-1 mr-1 w-4 h-4 flex items-center justify-center bg-orange-100 rounded-full text-white text-[9px] font-medium'>
+            {notifictions?.filter((notification: { read_at: null }) => notification?.read_at === null)?.length}
           </span>
         </div>
       </Menu.Button>
@@ -37,9 +41,7 @@ const Notification = () => {
               ?.map((notification: any) => (
                 <li key={notification?.id}>
                   <a href='#' className='px-4 flex items-center py-2 relative'>
-                    <span
-                      className='w-1 h-1 rounded-full bg-orange-100 absolute left-[6px] top-1/2 -translate-y-1/2'
-                    ></span>
+                    <span className='w-1 h-1 rounded-full bg-orange-100 absolute left-[6px] top-1/2 -translate-y-1/2'></span>
                     <span className='w-10 h-10 bg-grey-100 rounded-xl mr-4 flex items-center justify-center shrink-0'>
                       <Icon
                         svgPath={`${
@@ -62,10 +64,10 @@ const Notification = () => {
                     </span>
                     <div className='flex flex-col'>
                       <Typography type='h5' className='text-2sm font-medium text-raisin-100'>
-                        {notification?.data?.text}
+                        <Link href={`/${!!activeCompany ? '/dashboard' : '/profile'}/notifications/?id=${notification?.id}&company=${notification?.data?.company_id}`}>{notification?.data?.text}</Link>
                       </Typography>
                       <Typography type='subtitle' className='text-sm font-normal text-raisin-30'>
-                        2 დღის წინ
+                        {format(parseISO(notification?.created_at), 'd MMM yyyy', { locale: ka })}
                       </Typography>
                     </div>
                   </a>

@@ -20,7 +20,7 @@ const LocationDropdown: React.FC<Props> = ({ control }) => {
         control={control}
         render={({ field: { onChange, value } }) => (
           <Listbox value={cities?.find((opt: { city: any }) => opt?.city === value?.city)} onChange={onChange}>
-            <div className='relative mt-1 flex text-left w-full'>
+            <div className='relative flex text-left w-full'>
               <Listbox.Button className='relative w-full cursor-pointer rounded-2xl bg-white py-5 px-4 text-left focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-raisin-5 sm:text-sm'>
                 <FilterContainer>
                   <Typography type='body' color='dark'>
@@ -30,7 +30,7 @@ const LocationDropdown: React.FC<Props> = ({ control }) => {
                     <Typography type='subtitle' className='text-raisin-50 whitespace-nowrap'>
                       {value || 'ქალაქი, მისამართი'}
                     </Typography>
-                    <Icon svgPath='chevron' width={8} height={6} className='fill-transparent inline fill-white m-2' />
+                    <Icon svgPath='chevron' width={8} height={6} className='inline fill-white m-2' />
                   </InnerFilterContainer>
                 </FilterContainer>
               </Listbox.Button>

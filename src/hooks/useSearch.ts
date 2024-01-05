@@ -45,7 +45,8 @@ const useSearch = () => {
     price_max: params?.price_max || '',
     manufacturer_id: convertToNumberArray(params?.manufacturer_id),
     model_id: convertToNumberArray(params?.model_id),
-    free_delivery: params?.free_delivery == 'true' ? true : false,
+
+    // free_delivery: params?.free_delivery == 'true' ? true : false,
     year_from: params?.year_from || '',
     year_to: params?.year_to || '',
     sort_by: params?.sort_by || 'id',
@@ -72,7 +73,8 @@ const useSearch = () => {
       setValue('price_max', params?.price_max || '')
       setValue('manufacturer_id', convertToNumberArray(params?.manufacturer_id))
       setValue('model_id', convertToNumberArray(params?.model_id))
-      setValue('free_delivery', params?.free_delivery == 'false' ? false : true)
+      
+      // setValue('free_delivery', params?.free_delivery == 'false' ? false : true)
       setValue('year_from', Number(params?.year_from) || '')
       setValue('year_to', Number(params?.year_to) || '')
       setValue('sort_by', params?.sort_by || 'id')

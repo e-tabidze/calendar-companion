@@ -29,8 +29,6 @@ const MainPageBox = tw.div<TailwindDiv>`flex w-full items-center flex-col`
 const MainPage = () => {
   const { popularProducts, lastSeenProducts } = useMain()
 
-  console.log(lastSeenProducts, 'lastSeenProducts')
-
   const { categoriesFilter } = useFilters()
 
   return (
@@ -50,17 +48,15 @@ const MainPage = () => {
         )}
         <ContentContainer className='px-0 md:px-5 lg:px-8 mb-12'>
           <Carousel
-            itemsArray={categoriesFilter
-              ?.filter((product: any) => product?.count_products > 0)
-              ?.map((product: any) => (
-                <CategoryItem
-                  svgPath={product?.icon}
-                  title={product?.title}
-                  count={product?.count_products}
-                  id={product?.id}
-                  key={product?.id}
-                />
-              ))}
+            itemsArray={categoriesFilter?.map((product: any) => (
+              <CategoryItem
+                svgPath={product?.icon}
+                title={product?.title}
+                count={product?.count_products}
+                id={product?.id}
+                key={product?.id}
+              />
+            ))}
             type='categories'
           />
         </ContentContainer>
@@ -88,6 +84,7 @@ const MainPage = () => {
                 luggageNumbers={product?.luggage_numbers}
                 seats={product?.seat_type?.title}
                 images={product?.images?.split(',')}
+                city={product?.start_city}
               />
             ))}
             type='products'
@@ -115,6 +112,7 @@ const MainPage = () => {
                 luggageNumbers={product?.product?.luggage_numbers}
                 seats={product?.product?.seat_type?.title}
                 images={product?.product?.images?.split(',')}
+                city={product?.product?.start_city}
               />
             ))}
             type='products'

@@ -32,7 +32,7 @@ const Filters = () => {
     objectToURI,
     reset,
     setValue,
-    searchProductsMutation,
+    searchProductsMutation
   } = useSearch()
 
   const onClickSearch = async () => {

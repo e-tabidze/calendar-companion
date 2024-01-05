@@ -15,7 +15,6 @@ import { Dialog, Transition } from '@headlessui/react'
 
 // Styles
 import { ListWrapper, SectionWrapper } from './styles'
-import SwitchField from '../switchField'
 import useFilters, { getManufacturerModelFilters } from 'src/hooks/useFilters'
 import CheckboxField from '../checkboxField'
 import { IconTextButton } from '../button'
@@ -275,8 +274,8 @@ const AdditionalFilters: React.FC<Props> = ({
                       />
                     </div>
                   </div>
-                  <Divider />
-                  <SwitchField label='უფასო მიყვანა' name='free_delivery' control={control} className='my-4 md:my-8' />
+                  
+                  {/* <SwitchField label='უფასო მიყვანა' name='free_delivery' control={control} className='my-4 md:my-8' /> */}
                   <Divider />
 
                   <SectionWrapper>
