@@ -1,10 +1,12 @@
 import { useState } from 'react'
-import DatePicker from 'react-datepicker'
+import DatePicker, { registerLocale } from 'react-datepicker';
+import ka from 'date-fns/locale/ka';
 import 'react-datepicker/dist/react-datepicker.css'
 import { Controller } from 'react-hook-form'
 import { format } from 'date-fns'
 import Icon from 'src/views/app/Icon'
 import _ from 'lodash'
+
 
 interface Props {
   name: string
@@ -20,6 +22,7 @@ interface CalendarInputProps {
   isCalendarOpen: boolean
   label: string
 }
+registerLocale("ka", ka);
 
 const CustomDateInput: React.FC<CalendarInputProps> = ({ value, onClick, isCalendarOpen, label }) => (
   <div className='relative w-full h-14'>
@@ -56,6 +59,7 @@ const DateDropdown: React.FC<Props> = ({ name, control, defaultValue, label, err
         defaultValue={defaultValue}
         render={({ field: { onChange, value } }) => (
           <DatePicker
+            locale="ka"
             selected={value ? new Date(value) : null}
             onChange={date => onChange(date && format(date, 'yyyy-MM-dd'))}
             dateFormat='yyyy-MM-dd'

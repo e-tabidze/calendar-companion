@@ -113,7 +113,7 @@ const BookingModal: React.FC<Props> = ({ open, onClose, addresses, control }) =>
                 {/*    </Tab.Panels>*/}
                 {/*  </Tab.Group>*/}
                 {/*</div>*/}
-                <div className='w-full flex items-center justify-end py-4 px-4 md:px-10 border-t-1 border-grey-90'>
+                <div className='w-full flex items-center justify-end py-4 px-4 md:px-10 border-t-1 border-grey-90 mt-10'>
                   <DefaultButton
                     text='შენახვა'
                     onClick={onClose}

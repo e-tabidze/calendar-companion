@@ -18,7 +18,7 @@ const Notification = () => {
     <Menu as='div' className='hidden md:flex relative'>
       <Menu.Button>
         <div className='relative flex items-center justify-center w-10 h-10 rounded-full hover:bg-grey-100 transition-all'>
-          <Icon svgPath='bell' width={25} height={24} className='rounded-full' />
+          <Icon svgPath='bell' width={24} height={24} className='rounded-full' />
           <span className='absolute right-0 top-0 mt-1 mr-1 w-4 h-4 flex items-center justify-center bg-orange-100 rounded-full text-white text-[9px] font-medium'>
             {notifictions?.filter((notification: { read_at: null }) => notification?.read_at === null)?.length}
           </span>

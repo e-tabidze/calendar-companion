@@ -72,7 +72,13 @@ const BranchInfoComponent: React.FC<Props> = ({ index, control, errors, setValue
       <div className='w-full grid grid-cols-1 lg:grid-cols-3 gap-4 relative'>
         <CitiesSuggestions index={index} control={control} name={`addresses.${index}.city`} border errors={errors} />
 
-        <DefaultInput label='მისამართი' name={`addresses.${index}.address`} control={control} errors={errors} disabled={formState.addresses[index].city.length < 3} />
+        <DefaultInput
+          label='მისამართი'
+          name={`addresses.${index}.address`}
+          control={control}
+          errors={errors}
+          disabled={formState.addresses[index].city.length < 3}
+        />
 
         <DefaultInput label='ტელეფონი' name={`addresses.${index}.phone`} control={control} errors={errors} />
       </div>
@@ -94,18 +100,33 @@ const BranchInfoComponent: React.FC<Props> = ({ index, control, errors, setValue
           />
         </div>
       ) : (
-        <div>
-          {days.map(day => (
-            <div className='flex items-center gap-6' key={day.value}>
-              {renderDaysSelector(day)}
-              <TimeRangeComponent
-                control={control}
-                startTimeName={`addresses.${index}.working_hours.${day.value}.start_time`}
-                endTimeName={`addresses.${index}.working_hours.${day.value}.end_time`}
-                isDisabled={!formState.addresses[index]?.working_hours[day.value]?.is_selected}
-              />
-            </div>
-          ))}
+        <div className='grid md:grid-cols-12'>
+          <div className='md:col-span-6'>
+            {days.slice(0,5).map(day => (
+              <div className='flex items-center gap-6 ' key={day.value}>
+                {renderDaysSelector(day)}
+                <TimeRangeComponent
+                  control={control}
+                  startTimeName={`addresses.${index}.working_hours.${day.value}.start_time`}
+                  endTimeName={`addresses.${index}.working_hours.${day.value}.end_time`}
+                  isDisabled={!formState.addresses[index]?.working_hours[day.value]?.is_selected}
+                />
+              </div>
+            ))}
+          </div>
+          <div className='md:col-span-6'>
+            {days.slice(5).map(day => (
+              <div className='flex items-center gap-6 ' key={day.value}>
+                {renderDaysSelector(day)}
+                <TimeRangeComponent
+                  control={control}
+                  startTimeName={`addresses.${index}.working_hours.${day.value}.start_time`}
+                  endTimeName={`addresses.${index}.working_hours.${day.value}.end_time`}
+                  isDisabled={!formState.addresses[index]?.working_hours[day.value]?.is_selected}
+                />
+              </div>
+            ))}
+          </div>
         </div>
       )}
     </div>

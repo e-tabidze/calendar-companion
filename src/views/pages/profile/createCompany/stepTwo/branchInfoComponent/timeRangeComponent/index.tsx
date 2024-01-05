@@ -15,8 +15,9 @@ const TimeRangeComponent: React.FC<Props> = ({ control, startTimeName, endTimeNa
     <div className='flex items-center gap-1'>
       <SelectField
         options={generateTimeOptions()}
-        className='my-2'
+        className='my-2 min-w-[136px]'
         icon
+        placeholder='დან'
         name={startTimeName}
         control={control}
         valueKey='value'
@@ -26,8 +27,9 @@ const TimeRangeComponent: React.FC<Props> = ({ control, startTimeName, endTimeNa
       <div className='h-px w-[6px] bg-raisin-130' />
       <SelectField
         options={generateTimeOptions()}
-        className='my-2'
+        className='my-2 min-w-[136px]'
         icon
+        placeholder='მდე'
         control={control}
         name={endTimeName}
         valueKey='value'
