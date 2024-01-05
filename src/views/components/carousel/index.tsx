@@ -79,7 +79,7 @@ const Carousel = ({ itemsArray, type, onClick, thumbs = false }: Props) => {
           forceToAxis: true
         }}
         controller={{ control: [] }}
-        keyboard={true}
+        keyboard={type === 'categories' || type === "products"}
         thumbs={{ swiper: thumbsSwiper }}
         speed={1000}
       >
