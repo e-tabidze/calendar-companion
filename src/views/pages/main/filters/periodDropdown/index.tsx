@@ -57,7 +57,7 @@ const PeriodDropdown: React.FC<Props> = ({ control }) => {
             render={({ field: { onChange } }) => (
               <DatePicker
                 locale="ka"
-                className='text-center border-l-4 border-red-500  w-full p-3 rounded text-sm  outline-none  focus:ring-0 bg-transparent'
+                className='text-center border-l-4 border-red-500 w-full p-3 rounded text-sm  outline-none focus:ring-0 bg-transparent'
                 inline
                 selectsRange={true}
                 startDate={startDate}

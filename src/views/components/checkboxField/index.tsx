@@ -46,11 +46,11 @@ const CheckboxField: React.FC<Props> = ({
             const selectedOptions = Array.isArray(value) ? value : [value]
 
             return (
-              <>
+              <div className='grid grid-cols-2'>
                 {options?.map(option => (
                   <div key={option.id}>
                     <div
-                      className='flex items-center gap-4 cursor-pointer'
+                      className='flex items-center gap-4 cursor-pointer mb-4'
                       onClick={() => {
                         if (append) {
                           if (selectedOptions.includes(option.id)) {
@@ -95,7 +95,7 @@ const CheckboxField: React.FC<Props> = ({
                     {divider && <Divider />}
                   </div>
                 ))}
-              </>
+              </div>
             )
           }}
         />

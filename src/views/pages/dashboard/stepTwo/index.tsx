@@ -184,7 +184,7 @@ const StepTwo: React.FC<Props> = ({ control, appendAdditionalParam, step, errors
       <Typography type='body' color='light'>
         შეგიძლია მონიშნო ერთი ან რამდენიმე პარამეტრი
       </Typography>
-      <div className='py-9 grid grid-cols-1 md:grid-cols-2'>
+      <div className='py-9 grid grid-cols-1'>
         {isAdditionalParamsLoading ? (
           <>Loading</>
         ) : (
