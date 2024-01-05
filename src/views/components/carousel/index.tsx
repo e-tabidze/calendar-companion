@@ -1,5 +1,4 @@
 import { useRef, useState } from 'react'
-import { isMobile } from 'react-device-detect'
 
 // ** Swiper
 import { Swiper, SwiperSlide } from 'swiper/react'
