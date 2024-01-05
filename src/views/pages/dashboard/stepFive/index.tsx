@@ -87,7 +87,7 @@ const StepFive: React.FC<Props> = ({ control, setValue }) => {
         რა დრო გჭირდებათ იმისთვის, რომ მოამზადოთ ავტომობილი გასაქირავებლად ან მოახდინოთ რეაგირება შემოსულ შეკვეთაზე.
         მონიშნული პერიოდი ავტომატურად დაიბლოკება ყოველ მომდევნო ჯავშნამდე
       </Typography>
-      <div className='flex flex-wrap gap-2 mt-14 '>
+      <div className='flex flex-wrap gap-2 mt-14 mb-4'>
         <Tag height={'h-10'} options={preparationPeriod} name='preparation_period_type_id' control={control} />
       </div>
     </div>

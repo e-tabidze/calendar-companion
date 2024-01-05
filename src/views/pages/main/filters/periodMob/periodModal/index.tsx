@@ -4,7 +4,8 @@ import { Dialog, Transition } from '@headlessui/react'
 
 import Icon from 'src/views/app/Icon'
 import {Controller} from "react-hook-form";
-import DatePicker from "react-datepicker";
+import DatePicker, { registerLocale } from 'react-datepicker';
+import ka from 'date-fns/locale/ka';
 import {formatDate} from "src/utils/formatDate";
 
 interface Props {
@@ -12,12 +13,13 @@ interface Props {
     toggleModal: () => void
     control: any
 }
+registerLocale("ka", ka);
 
 const PeriodModal: React.FC<Props> = ({open, toggleModal, control}) => {
     const [dateRange, setDateRange] = useState<[Date, Date] | [null, null]>([null, null])
     const [startDate, endDate] = dateRange
-
-    return (
+    
+return (
         <Transition.Root show={open} as={Fragment}>
             <Dialog as='div' className='relative z-[111]' onClose={toggleModal}>
                 <Transition.Child
@@ -56,6 +58,7 @@ const PeriodModal: React.FC<Props> = ({open, toggleModal, control}) => {
                                     render={({ field: { onChange } }) => (
                                         <div className='flex justify-center py-6'>
                                             <DatePicker
+                                                locale="ka"
                                                 className='text-center border-l-4 border-red-500  w-full p-3 rounded text-sm  outline-none  focus:ring-0 bg-transparent'
                                                 inline
                                                 selectsRange={true}

@@ -413,3 +413,6 @@ padding-bottom:8px;
 .css-d32dvm-placeholder {
   color: #272A37 !important;
 }
+.focus-visible\:ring-2:focus-visible {
+  --tw-ring-offset-shadow: none !important;
+}

@@ -2,20 +2,21 @@ import { Menu, Transition } from '@headlessui/react'
 import { Fragment, useEffect, useState } from 'react'
 import Typography from 'src/views/components/typography'
 import { FilterContainer, InnerFilterContainer } from './styles'
-import DatePicker from 'react-datepicker'
+import DatePicker, { registerLocale } from 'react-datepicker';
+import  ka  from 'date-fns/locale/ka';
 import 'react-datepicker/dist/react-datepicker.css'
 import { Controller } from 'react-hook-form'
 import { formatDate } from 'src/utils/formatDate'
 import Icon from 'src/views/app/Icon'
 import { useRouter } from 'next/router'
 import { format } from 'date-fns'
-import { ka } from 'date-fns/locale'
 
 interface Props {
   control: any
   resetField: any
   setValue: any
 }
+registerLocale("ka", ka);
 
 const PeriodDropwodn: React.FC<Props> = ({ control, resetField, setValue }) => {
   const router = useRouter()
@@ -93,6 +94,7 @@ const PeriodDropwodn: React.FC<Props> = ({ control, resetField, setValue }) => {
             control={control}
             render={({ field: { onChange } }) => (
               <DatePicker
+                locale="ka"
                 className='text-center border-l-4 border-red-500  w-full p-3 rounded text-sm  outline-none  focus:ring-0 bg-transparent'
                 inline
                 selectsRange={true}
