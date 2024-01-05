@@ -2,6 +2,8 @@ import { memo, useEffect, useRef, useState } from 'react'
 import DefaultLayout from 'src/layouts/DefaultLayout'
 import dynamic from 'next/dynamic'
 import EventListener from 'react-event-listener'
+import  { registerLocale } from 'react-datepicker';
+import  ka  from 'date-fns/locale/ka';
 
 const Carousel = dynamic(() => import('src/views/components/carousel'), { ssr: false })
 const Image = dynamic(() => import('src/views/components/image'), { ssr: false })
@@ -43,8 +45,9 @@ import ProductCard from 'src/views/components/productCard'
 const Features = dynamic(() => import('src/views/pages/details/features'), { ssr: true })
 
 import { format } from 'date-fns'
-import { ka } from 'date-fns/locale'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+
+registerLocale("ka", ka);
 
 const ProductDetails = memo(() => {
   const router = useRouter()
@@ -295,6 +298,7 @@ const ProductDetails = memo(() => {
                   control={control}
                   render={({ field: { onChange } }) => (
                     <DatePicker
+                      locale="ka"
                       className='text-center border-l-4 border-red-500  w-full p-3 rounded text-sm  outline-none  focus:ring-0 bg-transparent'
                       inline
                       selectsRange={true}

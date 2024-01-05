@@ -9,7 +9,7 @@ type SvgProps = {
   onClick?: (event: React.MouseEvent<SVGSVGElement, MouseEvent>) => void
 }
 
-function Icon({ svgPath, width = 'auto', height = 'auto', className, color, onClick }: SvgProps) {
+function Icon({ svgPath, width = 'auto', height = 'auto', className = "fill-transparent", color, onClick }: SvgProps) {
   const [svgContent, setSvgContent] = useState(null)
 
   useEffect(() => {

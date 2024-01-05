@@ -8,7 +8,7 @@ interface Props {
 const StepThree: React.FC<Props> = ({ control, errors }) => {
   
   return (
-    <div>
+    <div className='md:w-100'>
       <div className='grid grid-cols-1 gap-2'>
         <DefaultInput label='ელ. ფოსტა' control={control} errors={errors} name='company_information.email' />
         <DefaultInput

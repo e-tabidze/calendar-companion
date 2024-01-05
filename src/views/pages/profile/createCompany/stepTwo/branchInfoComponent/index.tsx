@@ -85,27 +85,31 @@ const BranchInfoComponent: React.FC<Props> = ({ index, control, errors, setValue
 
           <DefaultInput label='ტელეფონი' name={`addresses.${index}.phone`} control={control} errors={errors} />
         </div>
+      </div>
 
-        <SwitchField
-          name={`addresses.${index}.is_same_time`}
-          label='ერთნაირი დროის მონიშვნა'
-          control={control}
-          reversed
-        />
+      <SwitchField
+        name={`addresses.${index}.is_same_time`}
+        label='ერთნაირი დროის მონიშვნა'
+        control={control}
+        reversed
+      />
 
-        {formState.addresses[index]?.is_same_time ? (
-          <div className='flex flex-col gap-2 lg:items-center lg:flex-row justify-between' key={index}>
-            <div className='flex items-center gap-4'>{days.map(day => renderDaysSelector(day))}</div>
-            <TimeRangeComponent
-              control={control}
-              startTimeName={`addresses.${index}.start_time`}
-              endTimeName={`addresses.${index}.end_time`}
-            />
-          </div>
-        ) : (
-          <div>
-            {days.map(day => (
-              <div className='flex items-center gap-6' key={day.value}>
+      {formState.addresses[index]?.is_same_time ? (
+        <div className='flex flex-col gap-2 lg:items-center lg:flex-row justify-between' key={index}>
+          {/* <div className='flex items-center gap-4'>{days.map(day => renderDaysSelector(day))}</div>
+          <TimeRangeComponent
+            control={control}
+            errors={errors}
+            disabled={formState.addresses[index].city.length < 3}
+          />
+
+          <DefaultInput label='ტელეფონი' name={`addresses.${index}.phone`} control={control} errors={errors} /> */}
+        </div>
+      ) : (
+        <div className='grid md:grid-cols-12'>
+          <div className='md:col-span-6'>
+            {days.slice(0, 5).map(day => (
+              <div className='flex items-center gap-6 ' key={day.value}>
                 {renderDaysSelector(day)}
                 <TimeRangeComponent
                   control={control}
@@ -116,8 +120,22 @@ const BranchInfoComponent: React.FC<Props> = ({ index, control, errors, setValue
               </div>
             ))}
           </div>
-        )}
-      </div>
+          <div className='md:col-span-6'>
+            {days.slice(5).map(day => (
+              <div className='flex items-center gap-6 ' key={day.value}>
+                {renderDaysSelector(day)}
+                <TimeRangeComponent
+                  control={control}
+                  startTimeName={`addresses.${index}.working_hours.${day.value}.start_time`}
+                  endTimeName={`addresses.${index}.working_hours.${day.value}.end_time`}
+                  isDisabled={!formState.addresses[index]?.working_hours[day.value]?.is_selected}
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
       {index > 0 && (
         <IconTextButton
           label='წაშლა'
@@ -126,7 +144,7 @@ const BranchInfoComponent: React.FC<Props> = ({ index, control, errors, setValue
           height={20}
           onClick={() => removeAddress(index)}
           type='button'
-          className="self-end mb-8"
+          className='self-end mb-8'
         />
       )}
     </div>

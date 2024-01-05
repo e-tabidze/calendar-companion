@@ -24,6 +24,7 @@ const StepTwo: React.FC<Props> = ({ control, addressFields, appendAddress, error
         label='სხვა  მისამართის დამატება'
         icon='add'
         width={20}
+        className ='my-6'
         height={20}
         onClick={() => appendAddress(defaultAddress)}
         type='button'

@@ -32,7 +32,7 @@ const User = () => {
       )}
       {!activeCompany && (
         <FavoriteBtn className='hidden md:flex'>
-          <Icon svgPath='favorite' width={22} height={25} className='fill-raisin-100' onClick={handleRouteFavourites} />
+          <Icon svgPath='favorite' width={24} height={24} className='fill-raisin-100' onClick={handleRouteFavourites} />
         </FavoriteBtn>
       )}
       <Notification />
