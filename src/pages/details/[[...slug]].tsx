@@ -1,4 +1,4 @@
-import { memo, useCallback, useEffect, useRef, useState } from 'react'
+import { memo, useEffect, useRef, useState } from 'react'
 import DefaultLayout from 'src/layouts/DefaultLayout'
 import dynamic from 'next/dynamic'
 import EventListener from 'react-event-listener'
@@ -98,7 +98,9 @@ const ProductDetails = memo(() => {
   }, [book_from, book_to])
 
   const handleScroll = () => {
-    const componentPosition = ref.current?.getBoundingClientRect().top - 80
+
+    // const componentPosition = ref.current?.getBoundingClientRect().top - 80
+
     const pageScroll = window.pageYOffset
 
     if (pageScroll > window?.innerHeight / 4) {
