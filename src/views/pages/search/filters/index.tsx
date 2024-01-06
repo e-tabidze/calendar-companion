@@ -26,12 +26,12 @@ const Filters = () => {
   }
 
   return (
-    <div className='hidden xl:flex border border-raisin-10 ml-14 rounded-3xl h-12 items-center'>
+    <div className='justify-center flex border border-raisin-10 mx-auto sm:ml-14 rounded-3xl h-12 items-center mt-2'>
       <FiltersContainer>
         <LocationDropdown control={control} resetField={handleResetLocation} />
-        <Divider />
+        <Divider className='hidden md:flex' />
         <PeriodDropdown control={control} resetField={handleResetBooking} setValue={setValue} />
-        <Divider />
+        <Divider className='hidden md:flex' />
         <ExtraFiltersContainer>
           <button
             onClick={onSubmit}

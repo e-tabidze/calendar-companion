@@ -19,7 +19,7 @@ const LocationDropdown: React.FC<Props> = ({ control }) => {
   const [startDate, endDate] = dateRange
 
   return (
-    <Menu as='div' className='flex text-left mx-2 w-full'>
+    <Menu as='div' className='flex text-left mx-0 sm:mx-2 w-full'>
       <Menu.Button className='py-5 px-4 inline-flex w-full justify-center rounded-md bg-raisin bg-opacity-20 text-sm font-medium text-white focus-visible:ring-white focus-visible:ring-opacity-75'>
         <FilterContainer>
           <Typography type='body' color='dark'>

@@ -6,9 +6,10 @@ import Tnet from './tnet'
 import NavigationBar from './navigationBar'
 import useProfile from 'src/hooks/useProfile'
 import { IconTextButton } from '../button'
+import { isMobile } from 'react-device-detect'
 
 // import LanguagePicker from './languagePicker'
-import { useEffect } from 'react'
+import { useEffect,useState } from 'react'
 
 import dynamic from 'next/dynamic'
 
@@ -38,13 +39,20 @@ const DefaultHeader = () => {
   const onClickLogo = () => {
     router.push('/')
   }
-
-  return (
+  useEffect(() => {
+    setIsMobileDevice(isMobile)
+  }, [])
+  
+  const [isMobileDevice, setIsMobileDevice] = useState(false)
+  
+return (
     <InnerContainer>
-      <div className='flex items-center'>
-        <Image src='/images/logo-rent.svg' onClick={onClickLogo} alt='logo' className='w-24 md:w-32 cursor-pointer' />
-        {router?.asPath?.startsWith('/search') && <Filters />}
+      <div className='flex items-center flex-wrap md:flex-nowrap'>
+        <Image src='/images/logo-rent.svg' onClick={onClickLogo} alt='logo' className='w-24 md:w-32 cursor-pointer mr-14 md:mr-0' />
+
+        {router?.asPath?.startsWith('/search') && !isMobileDevice && <Filters />}
       </div>
+      {router?.asPath?.startsWith('/search') && isMobileDevice && <Filters />}
       <div className='flex items-center'>
         {/* <LanguagePicker responsive className='md:mx-4' /> */}
         {isAuthenticated && isLoading ? (

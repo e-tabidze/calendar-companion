@@ -219,7 +219,7 @@ const Booking = () => {
             <BookingRadio name='supply' options={options} control={control} color='bg-green-100' />
 
             {formsState?.additional_services && formsState?.additional_services?.length > 0 && (
-              <div>
+              <div className='mb-20'>
                 <div
                   className='mt-11 flex items-center justify-between mb-8 cursor-pointer'
                   onClick={() => toggleAdditionalServices(!additionalServices)}
