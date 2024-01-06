@@ -9,13 +9,26 @@ interface Props {
   control: any
   defaultValue?: any
   onChangeCallback?: () => void
-  reversed?:boolean
+  reversed?: boolean
 }
-const SwitchField: React.FC<Props> = ({ reversed, label, className, description, control, name, defaultValue, onChangeCallback }) => {
+const SwitchField: React.FC<Props> = ({
+  reversed,
+  label,
+  className,
+  description,
+  control,
+  name,
+  defaultValue,
+  onChangeCallback
+}) => {
   return (
-    <div className={`flex items-center  ${className} ${reversed?'flex-row-reverse gap-4 justify-self-start':'w-full justify-between'}`}>
+    <div
+      className={`flex items-center mb-4 ${className} ${
+        reversed ? 'flex-row-reverse gap-4 justify-end' : 'w-full justify-between'
+      }`}
+    >
       <div>
-        <Typography type='subtitle' color='dark' className="text-md">
+        <Typography type='subtitle' color='dark' className='text-md'>
           {label}
         </Typography>
         {description && (
@@ -24,7 +37,13 @@ const SwitchField: React.FC<Props> = ({ reversed, label, className, description,
           </Typography>
         )}
       </div>
-      <Switcher height='h-8' name={name} control={control} defaultValue={defaultValue} onChangeCallback={onChangeCallback}/>
+      <Switcher
+        height='h-8'
+        name={name}
+        control={control}
+        defaultValue={defaultValue}
+        onChangeCallback={onChangeCallback}
+      />
     </div>
   )
 }
