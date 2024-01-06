@@ -106,7 +106,7 @@ const BranchInfoComponent: React.FC<Props> = ({ index, control, errors, setValue
           <DefaultInput label='ტელეფონი' name={`addresses.${index}.phone`} control={control} errors={errors} /> */}
         </div>
       ) : (
-        <div className='grid md:grid-cols-12'>
+        <div className='grid md:grid-cols-12 mt-4'>
           <div className='md:col-span-6'>
             {days.slice(0, 5).map(day => (
               <div className='flex items-center gap-6 ' key={day.value}>

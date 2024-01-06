@@ -245,8 +245,8 @@ const ProductDetails = memo(() => {
                             feature.company_service_type_id === 3
                               ? 'უფასო'
                               : feature.company_service_type_id === 1
-                              ? `${feature.price}₾/დღე`
-                              : `${feature.price}₾/ერთჯერადად`
+                              ? `${feature.price}₾ / დღე`
+                              : `${feature.price}₾ / ერთჯერადად`
                           }
                         />
                       ))}

@@ -179,6 +179,12 @@
 .react-datepicker__triangle {
   display: none !important;
 }
+@media only screen and (max-width: 1024px) {
+  .react-datepicker {
+    display:flex !important;
+    justify-content: space-around;
+  }
+}
 
 /* @media only screen and (max-width: 1024px) {
   .react-datepicker__day-name,

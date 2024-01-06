@@ -86,7 +86,7 @@ const CompanyOrders = () => {
         <OrderDetails />
       ) : (
         <div>
-          <div className='border border-raisin-10 rounded-3xl'>
+          <div className='md:border border-raisin-10 rounded-3xl'>
             <div className='flex justify-between items-center my-4 px-2 md:px-6 2xl:px-8'>
               <Typography type='h3' className='text-md md:text-2lg'>
                 შემოსული ჯავშნები
@@ -128,7 +128,10 @@ const CompanyOrders = () => {
                     discount={order?.discount_percent}
                     status={order?.status_id}
                   />
-                  <Divider />
+               
+                  <Divider/>
+                 
+                 
                 </Link>
               ))}
             </div>
