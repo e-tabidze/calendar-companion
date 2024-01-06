@@ -179,6 +179,12 @@
 .react-datepicker__triangle {
   display: none !important;
 }
+@media only screen and (max-width: 1024px) {
+  .react-datepicker {
+    display:flex !important;
+    justify-content: space-around;
+  }
+}
 
 /* @media only screen and (max-width: 1024px) {
   .react-datepicker__day-name,
@@ -443,4 +449,11 @@ padding-bottom:8px;
 }
 .focus-visible\:ring-2:focus-visible {
   --tw-ring-offset-shadow: none !important;
+}
+.my-slide-element {
+  transition: transform 0.5s ease-in-out; /* Adjust properties as needed */
+}
+
+.my-slide-element.slide-in {
+  transform: translateX(100px); /* Adjust the transformation as needed */
 }
