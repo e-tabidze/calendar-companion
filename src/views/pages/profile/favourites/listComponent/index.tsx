@@ -18,6 +18,7 @@ interface Props {
   images: string[]
   id: string
   luggage: number
+  seatTypes: string
 }
 
 const ListComponent: React.FC<Props> = ({
@@ -30,7 +31,8 @@ const ListComponent: React.FC<Props> = ({
   isDeleted,
   images,
   id,
-  luggage
+  luggage,
+  seatTypes
 }) => {
   const { toggleUserFavourites } = useFavourites(productId)
 
@@ -102,7 +104,7 @@ const ListComponent: React.FC<Props> = ({
             <InnerDetailsContainer>
               <DetailsWrapper>
                 <Details>
-                  <Icon svgPath='views' width={20} height={20} className='fill-transparent' /> <span></span>
+                  <Icon svgPath='views' width={20} height={20} className='fill-transparent' /> <span>{seatTypes}</span>
                 </Details>
                 <Details>
                   <Icon svgPath='briefcase' width={20} height={20} className='fill-transparent' /> <span>{luggage}</span>

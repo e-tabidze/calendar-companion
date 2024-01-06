@@ -1,7 +1,7 @@
 import useFavourites from 'src/hooks/useFavourites'
 import Typography from 'src/views/components/typography'
 import ListComponent from './listComponent'
-import Divider from "src/views/components/divider";
+import Divider from 'src/views/components/divider'
 
 const Favourites = () => {
   const { userFavourites } = useFavourites()
@@ -10,8 +10,10 @@ const Favourites = () => {
 
   return (
     <div className='md:p-8 lg:p-10 md:border border-raisin-10 rounded-3xl'>
-      <Typography type='h3' className='text-md md:text-2lg mb-6'>ფავორიტები</Typography>
-      <Divider/>
+      <Typography type='h3' className='text-md md:text-2lg mb-6'>
+        ფავორიტები
+      </Typography>
+      <Divider />
       {userFavourites?.map((product: any) => (
         <ListComponent
           key={product?.product_id}
@@ -25,7 +27,7 @@ const Favourites = () => {
           isDeleted={product?.product === null}
           images={product?.product.images.split(',')}
           luggage={product?.product?.luggage_numbers}
-          
+          seatTypes={product?.product?.seat_type?.title}
         />
       ))}
     </div>
