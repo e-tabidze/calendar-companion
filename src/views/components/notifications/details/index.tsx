@@ -14,6 +14,8 @@ interface Props {
 const Details: React.FC<Props> = ({ id, company, url }) => {
   const { notifictionDetails } = useNotifications(String(id), String(company))
 
+  console.log(notifictionDetails, 'notifictionDetails')
+
   return (
     <div className='border border-raisin-10 rounded-2xl md:rounded-3xl p-6 md:py-10 md:px-8'>
       <div className='flex items-center mb-12'>
@@ -27,7 +29,7 @@ const Details: React.FC<Props> = ({ id, company, url }) => {
       <div className=''>
         <div className='flex items-center'>
           <span className='w-14 h-14 bg-grey-100 rounded-xl mr-6 flex items-center justify-center shrink-0'>
-            <Icon svgPath={notifictionDetails?.icon} width={24} height={24} />
+            <Icon svgPath={notifictionDetails?.data?.icon} width={24} height={24} />
           </span>
           <div className='flex flex-col'>
             <Typography type='subtitle' className='text-sm font-normal text-raisin-30'>
@@ -35,7 +37,7 @@ const Details: React.FC<Props> = ({ id, company, url }) => {
                 format(parseISO(notifictionDetails?.created_at), 'd MMM yyyy HH:mm', { locale: ka })}
             </Typography>
             <Typography type='h5' className='text-2sm md:text-md font-medium text-raisin-100'>
-              შემოსულია ახალი ჯავშანი - Jeep Wrangler
+              {notifictionDetails?.data?.text}
             </Typography>
           </div>
         </div>
