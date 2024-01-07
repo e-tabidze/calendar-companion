@@ -7,7 +7,7 @@ export const InnerDetailsContainer = tw.div<TailwindComponent>`flex justify-betw
 export const DetailsWrapper = tw.div<TailwindComponent>`flex sm:pl-0 gap-5 items-center h-fit`
 export const ReviewContainer = tw.div<TailwindComponent>`flex items-center gap-2`
 export const Details = tw.div<TailwindComponent>`flex gap-2 items-center`
-export const PriceContainer = tw.div<TailwindComponent>`text-3md flex gap-2 mr-5`
+export const PriceContainer = tw.div<TailwindComponent>`font-medium text-3md flex flex-col md:flex-row md:items-center gap-1 md:gap-3 mr-5`
 export const PreviousPrice = tw.span<TailwindComponent>`line-through text-raisin opacity-20`
 
 export const Divider = tw.div`w-full h-pxxl:w-pxxl:h-8 bg-gray-90 opacity-70`

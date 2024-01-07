@@ -161,16 +161,16 @@ const SearchPage = () => {
             </ClearFiltersWrapper>
           </FiltersWrapper>
           <ResponsiveDivider />
-          <FullContainer className='lg:flex pt-20 lg:pt-[160px]'>
+          <FullContainer className='lg:flex'>
             <SearchContentsContainer className='w-full px-5 md:px-10 transition-all duration-300 lg:w-[calc(100%-40px)] lg:pr-0'>
               {/*  className={`w-full px-5 md:px-10 transition-all duration-300 ${*/}
               {/*    mapVisible ? 'lg:w-1/2 pr-8' : 'lg:w-[calc(100%-40px)] lg:pr-0'*/}
               {/*}`}*/}
               <SearchResultsContainer>
-                <Typography type='h5' weight='normal' className='mr-2 mb-5 md:mb-0'>
+                <Typography type='body' className='text-md mr-2 mt-4 md:mt-0'>
                   სულ ნაპოვნია {totalProductsCount} განცხადება
                 </Typography>
-                <div className='w-full md:w-auto flex items-center my-4'>
+                <div className='w-full md:w-auto flex items-center'>
                   {/*<span*/}
                   {/*  onClick={handleToggleMapWidth}*/}
                   {/*  className={`cursor-pointer group hover:bg-green-10 ml-3 hidden lg:flex items-center justify-center w-8 h-8 rounded-full ${*/}

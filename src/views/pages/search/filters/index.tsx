@@ -10,7 +10,7 @@ const Icon = dynamic(() => import('src/views/app/Icon'), { ssr: false })
 const Filters = () => {
   const router = useRouter()
 
-  const { control, objectToURI, getValues, resetField, setValue } = useSearch()
+  const { control, objectToURI, getValues, setValue } = useSearch()
 
   const onSubmit = () => {
     const updatedSearchValues = getValues()
@@ -26,7 +26,7 @@ const Filters = () => {
   }
 
   return (
-    <div className='justify-center flex border border-raisin-10 mx-auto sm:ml-14 rounded-3xl h-12 items-center mt-2'>
+    <div className='mt-4 md:mt-0 justify-center flex border border-raisin-10 mx-auto sm:ml-14 rounded-3xl h-12 items-center'>
       <FiltersContainer>
         <LocationDropdown control={control} resetField={handleResetLocation} />
         <Divider className='hidden md:flex' />

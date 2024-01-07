@@ -29,11 +29,11 @@ const HeaderWrapper = ({ fixedHeader, fullWidth, children }: Props) => {
 
   return (
     <HeaderContainer
-      className={`${fixedHeader ? 'fixed z-[111]' : 'sticky'} ${
+      className={`${fixedHeader ? 'sticky z-[111]' : 'sticky'} ${
         fullWidth ? 'px-5 md:px-10' : 'px-5 lg:px-8 2xl:px-0'
       } ${isScrolled && router.asPath === '/'  ? 'shadow-sm' : ''}`}
     >
-      <div className={`${fullWidth ? 'w-full' : 'max-w-[1470px] mx-auto'}`}>{children}</div>
+      <div className={`${fullWidth ? 'w-full' : 'max-w-[1240px] 2xl:max-w-[1470px] mx-auto'}`}>{children}</div>
     </HeaderContainer>
   )
 }
