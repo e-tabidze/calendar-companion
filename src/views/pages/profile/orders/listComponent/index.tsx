@@ -1,4 +1,3 @@
-import useWindowDimensions from 'src/hooks/useWindowDimensions'
 import Icon from 'src/views/app/Icon'
 import { IconButton } from 'src/views/components/button'
 import Image from 'src/views/components/image'
@@ -28,7 +27,6 @@ const OrderListComponent: React.FC<Props> = ({
   price,
   status
 }) => {
-  const { width } = useWindowDimensions()
 
   return (
     <div>
@@ -40,14 +38,14 @@ const OrderListComponent: React.FC<Props> = ({
                 <Image
                   src={productDetails?.images.split(',')[0]}
                   alt='orders'
-                  height={'100%'}
-                  width={'100%'}
+                  height='100%'
+                  width='100%'
                   className='object-cover'
                 />
               )}
             </div>
           </div>
-          <div className=''>
+          <div>
             <Typography type='subtitle' className='text-md'>
               {productDetails?.manufacturer.title} {productDetails?.manufacturer_model?.title}
               {productDetails?.prod_year}
@@ -85,7 +83,7 @@ const OrderListComponent: React.FC<Props> = ({
               {status === 0 ? 'მოლოდინში' : status === 1 ? 'დადასტურებული' : status === 2 ? 'გაუქმებული' : ''}
             </Typography>
           </div>
-          {width > 779 && <IconButton icon='chevronWithBg' height={38} width={38} />}
+          <IconButton icon='chevronWithBg' height={38} width={38} />
         </div>
       </div>
       <Divider />

@@ -104,9 +104,13 @@ const PersonalInfo: React.FC<Props> = ({ userData }) => {
   console.log(userInfoValues, 'userInfoValues')
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} onReset={handleReset} className='md:border border-raisin-10 rounded-3xl'>
-      <div className='p-2 md:p-10'>
-        <Typography type='h3' className='hidden md:inline-block'>
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      onReset={handleReset}
+      className='md:p-8 lg:p-10 md:border border-raisin-10 rounded-3xl'
+    >
+      <div>
+        <Typography type='h3' className='mb-6'>
           პარამეტრები
         </Typography>
         <div className='border border-raisin-10 p-4 md:border-none md:p-0 rounded-2xl flex items-center gap-6 md:mt-8 '>

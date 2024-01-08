@@ -8,7 +8,7 @@ const CardsAndTransactions = () => {
 
   return (
     <div className='md:p-10 md:border border-raisin-10 rounded-3xl'>
-      <Typography type='h3' className='text-md md:text-2lg mb-6'>
+      <Typography type='h3' className='mb-6'>
         ბარათები და ტრანზაქციები
       </Typography>
       <Divider />

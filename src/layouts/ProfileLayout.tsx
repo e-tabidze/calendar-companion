@@ -1,10 +1,12 @@
 import { useRouter } from 'next/router'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import useWindowDimensions from 'src/hooks/useWindowDimensions'
 import DefaultHeader from 'src/views/components/defaultHeader'
 import ProfileNavigation from 'src/views/components/profileNavigation'
 import HeaderWrapper from '../views/components/headerWrapper'
 import Footer from 'src/views/components/footer'
+import Typography from 'src/views/components/typography'
+import Icon from 'src/views/app/Icon'
 
 interface Route {
   id: number
@@ -33,7 +35,7 @@ const ProfileLayout: React.FC<Props> = ({ routes, dividerIndexes, children }) =>
       router.push(route.path)
     }
     setSelectedRoute(route)
-    width < 1024 && setIsSidebarVisible(!isSidebarVisible)
+    width < 769 && setIsSidebarVisible(false)
   }
 
   console.log(isSidebarVisible, 'isSidebarVisible')
@@ -42,12 +44,18 @@ const ProfileLayout: React.FC<Props> = ({ routes, dividerIndexes, children }) =>
 
   console.log(width, 'width')
 
+  useEffect(() => {
+    setSidebarCollapsed(width > 768 && width < 1024)
+  }, [width])
+
+  console.log(isSidebarVisible, 'isSidebarVisible')
+
   return (
     <main>
       <HeaderWrapper fullWidth>
         <DefaultHeader />
       </HeaderWrapper>
-      <div className={'w-full m-auto 2xl:max-w-[1470px] lg:px-8 2xl:px-0 flex gap-none lg:gap-4 lg:mt-10'}>
+      <div className='w-full m-auto 2xl:max-w-[1470px] lg:px-8 2xl:px-0 flex gap-none lg:gap-4 lg:mt-10'>
         <ProfileNavigation
           routes={routes}
           sidebarCollapsed={sidebarCollapsed}
@@ -55,9 +63,18 @@ const ProfileLayout: React.FC<Props> = ({ routes, dividerIndexes, children }) =>
           toggleSidebarCollapse={toggleSidebarCollapse}
           selectedRoute={selectedRoute}
           dividerIndexes={dividerIndexes}
+          isSidebarVisible={isSidebarVisible}
         />
-        <div className={'transition-all duration-300 w-full z-[11] p-4 lg:p-0'}>
-          <div onClick={() => setIsSidebarVisible(false)}>back</div>
+        <div
+          className={
+            isSidebarVisible && width < 769 ? 'hidden' : 'transition-all duration-300 w-full z-[11] p-4 lg:p-0'
+          }
+        >
+          <div onClick={() => setIsSidebarVisible(true)} className="flex items-center gap-3 md:hidden">
+            <Icon svgPath='chevron-l' width={8} height={12} className='fill-transparent' />
+            <Typography type='body'>ჩემი გვერდი</Typography>
+          </div>
+
           {children}
         </div>
       </div>
