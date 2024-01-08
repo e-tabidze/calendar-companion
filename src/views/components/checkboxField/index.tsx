@@ -22,6 +22,7 @@ interface Props {
   width?: string
   height?: string
   divider?: boolean
+  cols?: boolean
 }
 
 const CheckboxField: React.FC<Props> = ({
@@ -34,7 +35,8 @@ const CheckboxField: React.FC<Props> = ({
   append,
   width,
   height,
-  divider
+  divider,
+  cols
 }) => {
   return (
     <>
@@ -46,7 +48,7 @@ const CheckboxField: React.FC<Props> = ({
             const selectedOptions = Array.isArray(value) ? value : [value]
 
             return (
-              <div className='grid grid-cols-2'>
+              <div className={cols ? 'grid grid-cols-2' : ''}>
                 {options?.map(option => (
                   <div key={option.id}>
                     <div
