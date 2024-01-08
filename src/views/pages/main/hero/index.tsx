@@ -18,7 +18,7 @@ const Hero = () => {
           />
 
       <Copy>
-        <div className='lg:w-10/12 relative'>
+        <div className='lg:w-11/12 relative'>
           <Typography
             type='h1'
             className='mt-[120px] md:mt-0 text-white font-bold text-3md md:text-2xl lg:text-[42px] xl:text-[54px]'

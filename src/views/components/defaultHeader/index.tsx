@@ -5,7 +5,7 @@ import User from './user'
 import Tnet from './tnet'
 import NavigationBar from './navigationBar'
 import useProfile from 'src/hooks/useProfile'
-import { IconButton, IconTextButton } from '../button'
+import { IconTextButton } from '../button'
 import { isMobile } from 'react-device-detect'
 
 // import LanguagePicker from './languagePicker'
@@ -55,7 +55,7 @@ const DefaultHeader = () => {
             alt='logo'
             className='w-24 md:w-32 cursor-pointer mr-14 md:mr-0'
           />
-          {router?.asPath?.startsWith('/search') && !isMobileDevice && <Filters />}
+          {router?.asPath?.startsWith('/search') && <Filters />}
         </div>
         <div className='flex items-center'>
           {/* <LanguagePicker responsive className='md:mx-4' /> */}
@@ -73,13 +73,11 @@ const DefaultHeader = () => {
                 className='hidden md:flex fill-transparent border border-raisin-10 rounded-xl px-3 h-10 items-center text-raisin-100 text-2sm transition-all hover:bg-grey-100 hover:border-raisin-30'
                 onClick={handleLogin}
               />
-              <IconButton icon='auth' className='flex md:hidden' onClick={handleLogin} width={25} height={24} />
             </>
           )}
-          <Tnet />
+          {!isMobileDevice && <Tnet />}
         </div>
       </div>
-      {router?.asPath?.startsWith('/search') && isMobileDevice && <Filters />}
       {isMobileDevice && <NavigationBar />}
     </InnerContainer>
   )
