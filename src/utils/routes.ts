@@ -14,7 +14,7 @@ export const profileRoutes = [
   {
     id: 3,
     icon: 'card',
-    item: 'ბარათები და ტრანზაქციები',
+    item: 'ტრანზაქციები',
     path: '/profile/transactions/'
   },
   {

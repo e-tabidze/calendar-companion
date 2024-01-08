@@ -76,7 +76,7 @@ const DateDropdown: React.FC<Props> = ({ name, control, defaultValue, label, err
           />
         )}
       />
-      {errors && (
+      {_.get(errors, name)?.message && (
         <div id={name} className='text-sm text-red-100 ml-2 my-2 relative'>
           {_.get(errors, name)?.message}
         </div>

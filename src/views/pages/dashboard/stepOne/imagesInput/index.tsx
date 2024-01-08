@@ -56,7 +56,7 @@ const ImagesInput: React.FC<Props> = ({
       )}
       <label className=' flex items-center justify-center cursor-pointer'>
         <div className='flex min-w-[284px] h-24 px-6 justify-center items-center gap-4 rounded-2xl bg-green-10 border-dashed border-raisin-10'>
-          <Icon svgPath='fileUpload' width={27} height={26} />
+          <Icon className='fill-transparent' svgPath='fileUpload' width={27} height={26} />
 
           <input type='file' className='sr-only' onChange={onChange} multiple />
 
