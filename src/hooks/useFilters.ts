@@ -39,45 +39,6 @@ const useFilters = () => {
 
   const manufacturerFilters = useManufacturerFilters?.data?.result?.data
 
-  const luggageNumbers = [
-    {
-      id: 1,
-      title: 'ნებისმიერი'
-    },
-    {
-      id: 2,
-      title: '1'
-    },
-    {
-      id: 3,
-      title: '2'
-    },
-    {
-      id: 4,
-      title: '3'
-    },
-    {
-      id: 5,
-      title: '4'
-    },
-    {
-      id: 6,
-      title: '5'
-    },
-    {
-      id: 7,
-      title: '6'
-    },
-    {
-      id: 8,
-      title: '7'
-    },
-    {
-      id: 9,
-      title: '8+'
-    }
-  ]
-
   const sortFilters = [
     {
       id: 'price',
@@ -113,11 +74,16 @@ const useFilters = () => {
   ]
 
   const suitcases = [
-    { title: 1, id: 1 },
-    { title: 2, id: 2 },
-    { title: 3, id: 3 },
-    { title: 4, id: 4 },
-    { title: 5, id: 5 }
+    { title: 'ნებისმიერი', id: 1 },
+    { title: 1, id: 2 },
+    { title: 2, id: 3 },
+    { title: 3, id: 4 },
+    { title: 4, id: 5 },
+    { title: 5, id: 6 },
+    { title: 6, id: 7 },
+    { title: 7, id: 8 },
+    { title: 8, id: 9 },
+    { title: '8+', id: 10 }
   ]
 
   const isLoading = useProductFilters.isLoading
@@ -129,7 +95,6 @@ const useFilters = () => {
     doorTypesFilter,
     driveTiresFilter,
     transmisisonTypesFilter,
-    luggageNumbers,
     steeringWheel,
     suitcases,
     sortFilters,

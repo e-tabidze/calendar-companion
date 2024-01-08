@@ -16,7 +16,6 @@ interface Route {
 interface Props {
   routes: Route[]
   sidebarCollapsed: boolean
-  isSidebarVisible: boolean
   handleRouteChange: (route: Route) => void
   toggleSidebarCollapse: () => void
   selectedRoute: Route
@@ -34,9 +33,12 @@ const ProfileNavigation: React.FC<Props> = ({
 
   const router = useRouter()
 
+  console.log(sidebarCollapsed, 'sidebarCollapsed')
+
+
   return (
     <div
-      className={`hidden lg:flex h-fit mx-3 border border-raisin-10 rounded-3xl py-8 shrink-0  flex-col transition-all duration-300
+      className={`lg:flex h-fit mx-3 border border-raisin-10 rounded-3xl py-8 shrink-0  flex-col transition-all duration-300
        ${sidebarCollapsed ? 'w-[103px] px-3' : 'lg:w-[103px] lg:px-3 xl:w-[300px] 2xl:w-[350px] xl:px-6'}`}
     >
       <div
@@ -138,7 +140,6 @@ const ProfileNavigation: React.FC<Props> = ({
                 route.path && selectedRoute?.path?.split('/')[2] === route.path.split('/')[2] ? 'text-orange-100' : ''
               }' ${route.path === router?.asPath && 'text-orange-100'}`}
             >
-              <> {console.log(route?.path, router?.asPath, '?')}</>
               {route.item}
             </Typography>
           </div>
