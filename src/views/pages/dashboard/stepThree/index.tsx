@@ -65,7 +65,8 @@ const StepThree: React.FC<Props> = ({ control, errors }) => {
           name='daily_price.currency'
           options={[
             { value: 'GEL', icon: 'gel', width: '11', height: '12' },
-            { value: 'USD', icon: 'usd', width: '7', height: '12' }
+            
+            // { value: 'USD', icon: 'usd', width: '7', height: '12' }
           ]}
         />
       </StepThreePriceContainer>

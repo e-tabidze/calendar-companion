@@ -38,7 +38,7 @@ const FileUpload: React.FC<Props> = ({ title, description, onChange, handleDelet
           </div>
         ) : (
           <label className='w-full h-full flex items-center justify-center cursor-pointer'>
-            <Icon svgPath='fileUpload' width={27} height={26} />
+            <Icon svgPath='fileUpload' width={27} height={26} className='fill-transparent' />
             <input type='file' className='sr-only' onChange={onChange} value={value} />
           </label>
         )}

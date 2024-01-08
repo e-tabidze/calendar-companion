@@ -90,7 +90,7 @@ const CompanyOrders = () => {
             <Typography type='h3' className='mb-6'>
               შემოსული ჯავშნები
             </Typography>
-            <div className='hidden lg:flex gap-3 py-8 pr-8'>
+            <div className='hidden lg:flex gap-3 pb-8 pr-8'>
               {filters.map(filter => (
                 <Tag
                   label={filter.label}
@@ -106,7 +106,7 @@ const CompanyOrders = () => {
             </div>
             <Divider />
             <div className=''>
-              {orders?.data?.map((order: any) => (
+              {orders?.data?.map((order: any, index: number) => (
                 <Link
                   href={`/dashboard/orders/?id=${order?.id}`}
                   as={`/dashboard/orders/?id=${order?.id}`}
@@ -127,7 +127,7 @@ const CompanyOrders = () => {
                     status={order?.status_id}
                   />
 
-                  <Divider />
+                  {index !== orders?.data?.length - 1 && <Divider />}
                 </Link>
               ))}
             </div>

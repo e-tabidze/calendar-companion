@@ -8,7 +8,7 @@ interface Props {
 const PasswordForm: React.FC<Props> = ({ control, passwordErrors }) => {
 
   return (
-    <div className='grid grid-cols-1 gap-2 mt-10'>
+    <div className='grid grid-cols-1 gap-2 my-10 max-w-[400px]'>
       <DefaultInput
         type='password'
         label='არსებული პაროლი'

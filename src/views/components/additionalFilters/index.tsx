@@ -71,7 +71,7 @@ const AdditionalFilters: React.FC<Props> = ({
     suitcases,
     additionalInformationFilters,
     manufacturerFilters,
-    steeringWheel
+    steeringWheel,
   } = useFilters()
 
   const { objectToURI } = useSearch()
