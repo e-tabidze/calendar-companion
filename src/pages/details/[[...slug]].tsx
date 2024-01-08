@@ -304,7 +304,7 @@ const ProductDetails = memo(() => {
                       selectsRange={true}
                       startDate={startDate}
                       endDate={endDate}
-                      monthsShown={width > 1399 ? 2 : 1}
+                      monthsShown={width > 1279 ? 2 : 1}
                       onChange={(update: any) => {
                         if (update) {
                           const [start, end] = update
