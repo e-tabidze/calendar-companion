@@ -2,11 +2,12 @@ import { useRef, useState } from 'react'
 
 // ** Swiper
 import { Swiper, SwiperSlide } from 'swiper/react'
-import SwiperCore, { Virtual, Navigation, Pagination, Mousewheel, Keyboard, Thumbs, FreeMode, Controller } from 'swiper'
+import SwiperCore, { EffectFade, Virtual, Navigation, Pagination, Mousewheel, Keyboard, Thumbs, FreeMode, Controller } from 'swiper'
 
 import 'swiper/css'
 import 'swiper/css/pagination'
 import 'swiper/css/navigation'
+import 'swiper/css/effect-fade'
 
 import {
   CategoryCardSlider,
@@ -57,7 +58,6 @@ const Carousel = ({ itemsArray, type, onClick, thumbs = false }: Props) => {
     }
   }
 
-
   return (
     <div className='relative'
          onMouseLeave={() => {
@@ -71,8 +71,9 @@ const Carousel = ({ itemsArray, type, onClick, thumbs = false }: Props) => {
         watchSlidesProgress
         ref={swiperRef}
         breakpoints={handleBreakpoints()}
-        modules={[Navigation, Pagination]}
+        modules={[Navigation, Pagination, EffectFade]}
         navigation={true}
+        effect = {type === 'card' ? 'fade' : '' }
         pagination = {type === 'card' && pagination}
         onInit={swiper => {
           setSwiper(swiper)
