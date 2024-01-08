@@ -24,7 +24,7 @@ const pageMeta = {
 }
 
 // ** Styled Components
-const MainPageBox = tw.div<TailwindDiv>`flex w-full items-center flex-col overflow-hidden md:overflow-auto`
+const MainPageBox = tw.div<TailwindDiv>`flex w-full items-center flex-col overflow-hidden`
 
 const MainPage = () => {
   const { popularProducts, lastSeenProducts } = useMain()
