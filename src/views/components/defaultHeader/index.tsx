@@ -5,7 +5,7 @@ import User from './user'
 import Tnet from './tnet'
 import NavigationBar from './navigationBar'
 import useProfile from 'src/hooks/useProfile'
-import {IconButton, IconTextButton} from '../button'
+import {IconTextButton} from '../button'
 import { isMobile } from 'react-device-detect'
 
 // import LanguagePicker from './languagePicker'
