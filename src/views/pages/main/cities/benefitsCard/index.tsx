@@ -14,7 +14,7 @@ const BenefitsCard = ({ icon, width, height, title, bodyText }: Props) => {
   return (
     <BenefitsCardContainer>
         <Icon svgPath={icon} width={width} height={height} className="fill-transparent"/>
-      <Typography type='h5' weight='medium' className='text-md xl:text-lg text-green-100'>
+      <Typography type='h5' weight='medium' className='font-bold text-md xl:text-lg text-green-100'>
         {title}
       </Typography>
       <Typography type='body' color='light' className='text-sm text-center'>

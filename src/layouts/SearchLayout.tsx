@@ -10,7 +10,7 @@ interface Props {
 const SearchLayout = ({ children}: Props) => {
     return (
         <main>
-            <HeaderWrapper fixedHeader fullWidth>
+            <HeaderWrapper fullWidth>
                 <DefaultHeader />
             </HeaderWrapper>
             <div>{children}</div>
