@@ -194,6 +194,7 @@ const StepTwo: React.FC<Props> = ({ control, appendAdditionalParam, step, errors
             options={additionalParams}
             append={() => appendAdditionalParam(appendAdditionalParam)}
             className='my-2'
+            cols
           />
         )}
       </div>

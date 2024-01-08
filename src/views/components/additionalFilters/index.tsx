@@ -357,6 +357,7 @@ const AdditionalFilters: React.FC<Props> = ({
                     options={additionalInformationFilters}
                     append={() => appendAdditionalInformation()}
                     className='my-2'
+                    cols
                   />
                 </div>
                 <div className='w-full flex flex-row items-center justify-between py-4 px-4 md:px-10 border-t-1 border-grey-90 shadow-md'>

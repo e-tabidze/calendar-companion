@@ -72,9 +72,10 @@ const PeriodDropwodn: React.FC<Props> = ({ control, resetField, setValue }) => {
                   setDateRange([null, null])
                   resetField(), e.stopPropagation()
                 }}
+                className="fill-transparent"
               />
             ) : (
-              <Icon svgPath='chevron' width={10} height={10} />
+              <Icon svgPath='chevron' width={10} height={10} className="fill-transparent" />
             )}
           </InnerFilterContainer>
         </FilterContainer>

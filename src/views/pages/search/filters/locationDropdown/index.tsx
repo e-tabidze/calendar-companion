@@ -41,9 +41,10 @@ const LocationDropdown: React.FC<Props> = ({ control, resetField }) => {
                         onClick={e => {
                           resetField(), e.stopPropagation()
                         }}
+                        className="fill-transparent"
                       />
                     ) : (
-                      <Icon svgPath='chevron' width={10} height={10} />
+                      <Icon svgPath='chevron' width={10} height={10} className="fill-transparent" />
                     )}
                   </InnerFilterContainer>
                 </FilterContainer>
