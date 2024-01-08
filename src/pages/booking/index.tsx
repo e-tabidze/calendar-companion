@@ -131,10 +131,10 @@ const Booking = () => {
     }
   })
 
-  const selfBookMutation = useMutation(() => selfBookProduct('', bookingValues), {
+  const selfBookMutation = useMutation(() => selfBookProduct(bookingValues), {
     onSuccess: () => {
       queryClient.invalidateQueries(['profileInfo'])
-      router.push('/dashboard/orders/')
+      router.push('/dashboard/orders/?status_id=5&page=1')
     },
     onError: (ex: any) => {
       ex.response.status === 400
