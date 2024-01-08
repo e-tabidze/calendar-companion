@@ -84,25 +84,31 @@ const NavigationBar = () => {
           </Link>
         </li>
         <li>
-            <button onClick={() => toggleBurger(!burger)}>
-              <div className='flex flex-col items-center text-raisin-70'>
+          {isAuthenticated ?
+              <button onClick={() => toggleBurger(!burger)}>
+                <div className='flex flex-col items-center text-raisin-70'>
                 <span className='w-6 h-6 relative flex items-center justify-center rounded-full overflow-hidden'>
-                  {isAuthenticated ? (
                     <Image
-                        onError={(ev:any)=>{
+                        onError={(ev: any) => {
                           ev.target.src = `/icons/avatar.svg`
                         }}
-                      src={!!activeCompany ? activeCompany.information.logo : defaultImgUrl}
-                      className='object-cover w-full h-full'
-                      alt='avatar'
+                        src={!!activeCompany ? activeCompany.information.logo : defaultImgUrl}
+                        className='object-cover w-full h-full'
+                        alt='avatar'
                     />
-                  ) : (
-                    <Icon svgPath='auth' width={25} height={24} />
-                  )}
                 </span>
-                <span className='text-[10px] mt-1'>{isAuthenticated ? ' პროფილი' : 'შესვლა'}</span>
-              </div>
-            </button>
+                  <span className='text-[10px] mt-1'>პროფილი</span>
+                </div>
+              </button> :
+              <Link href={TNET_AUTH}>
+                <div className='flex flex-col items-center text-raisin-70'>
+                <span className='w-6 h-6 relative flex items-center justify-center rounded-full overflow-hidden'>
+                  <Icon svgPath='auth' width={25} height={24} />
+                </span>
+                  <span className='text-[10px] mt-1'>შესვლა</span>
+                </div>
+              </Link>
+          }
         </li>
       </ul>
       {isAuthenticated && <BurgerMenu open={burger} setOpen={() => toggleBurger(!burger)} />}
