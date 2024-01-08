@@ -50,7 +50,7 @@ return (
       <div className="flex justify-between items-center w-full">
         <div className='flex items-center flex-wrap md:flex-nowrap'>
           <Image src='/images/logo-rent.svg' onClick={onClickLogo} alt='logo' className='w-24 md:w-32 cursor-pointer mr-14 md:mr-0' />
-          {router?.asPath?.startsWith('/search') && !isMobileDevice && <Filters />}
+          {router?.asPath?.startsWith('/search') && <Filters />}
         </div>
         <div className='flex items-center'>
           {/* <LanguagePicker responsive className='md:mx-4' /> */}
@@ -70,10 +70,9 @@ return (
                 />
               </>
           )}
-          <Tnet />
+          {!isMobileDevice && <Tnet /> }
         </div>
       </div>
-      {router?.asPath?.startsWith('/search') && isMobileDevice && <Filters /> }
       {isMobileDevice && <NavigationBar /> }
 
     </InnerContainer>
