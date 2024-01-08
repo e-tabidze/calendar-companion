@@ -19,6 +19,7 @@ import { ka } from 'date-fns/locale'
 import OrderDetailsSkeleton from './skeletonLoading'
 import { useRouter } from 'next/router'
 import dynamic from 'next/dynamic'
+import Link from 'next/link'
 
 const Image = dynamic(() => import('src/views/components/image'), { ssr: true })
 const Icon = dynamic(() => import('src/views/app/Icon'), { ssr: false })
@@ -44,6 +45,8 @@ const OrderDetails = () => {
       queryClient.invalidateQueries(['companyOrders'])
     }
   })
+
+  console.log(companyOrderproductData, 'companyOrderproductData')
 
   const cancelOrderStatusMutation = useMutation(() => postOrderStatus('', String(id)!, 2), {
     onSuccess: () => {
@@ -232,11 +235,12 @@ const OrderDetails = () => {
               </div>
             </div>
             <div>
-              <Typography type='h5' className='font-bold mt-6'>
-                {companyOrderproductData?.manufacturer?.title} {' '}
-                {companyOrderproductData?.manufacturer_model?.title} {' '}
-                {companyOrderproductData?.prod_year}
-              </Typography>
+              <Link href={`/details/${companyOrderproductData.id}`}>
+                <Typography type='h5' className='font-bold mt-6 hover:text-green-100'>
+                  {companyOrderproductData?.manufacturer?.title} {companyOrderproductData?.manufacturer_model?.title}{' '}
+                  {companyOrderproductData?.prod_year}
+                </Typography>
+              </Link>
               <Typography
                 type='subtitle'
                 className={`text-bold ${
