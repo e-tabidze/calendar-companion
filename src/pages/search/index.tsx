@@ -161,7 +161,7 @@ const SearchPage = () => {
             </ClearFiltersWrapper>
           </FiltersWrapper>
           <ResponsiveDivider />
-          <FullContainer className='lg:flex pt-20 lg:pt-[160px]'>
+          <FullContainer className='lg:flex pt-28 lg:pt-[160px]'>
             <SearchContentsContainer className='w-full px-5 md:px-10 transition-all duration-300 lg:w-[calc(100%-40px)] lg:pr-0'>
               {/*  className={`w-full px-5 md:px-10 transition-all duration-300 ${*/}
               {/*    mapVisible ? 'lg:w-1/2 pr-8' : 'lg:w-[calc(100%-40px)] lg:pr-0'*/}

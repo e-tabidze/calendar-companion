@@ -48,7 +48,7 @@ const DefaultHeader = () => {
 return (
     <InnerContainer>
       <div className='flex items-center flex-wrap md:flex-nowrap'>
-        <Image src='/images/logo-rent.svg' onClick={onClickLogo} alt='logo' className='w-24 md:w-32 cursor-pointer mr-14 md:mr-0' />
+        <Image src='/images/logo-rent.svg' onClick={onClickLogo} alt='logo' className='w-24 md:w-32 cursor-pointer mr-14 md:mr-0 pt-4 md:pt-0' />
 
         {router?.asPath?.startsWith('/search') && !isMobileDevice && <Filters />}
       </div>

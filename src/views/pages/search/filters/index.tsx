@@ -26,7 +26,7 @@ const Filters = () => {
   }
 
   return (
-    <div className='justify-center flex border border-raisin-10 mx-auto sm:ml-14 rounded-3xl h-12 items-center mt-2'>
+    <div className='justify-center flex border border-raisin-10 mx-auto sm:ml-14 rounded-3xl h-12 items-center py-4'>
       <FiltersContainer>
         <LocationDropdown control={control} resetField={handleResetLocation} />
         <Divider className='hidden md:flex' />
