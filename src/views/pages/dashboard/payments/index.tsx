@@ -24,7 +24,7 @@ const Payments = () => {
   }
 
   return (
-    <div className='md:p-10 md:border border-raisin-10 rounded-3xl'>
+    <div className='md:p-10 md:border border-raisin-10 rounded-3xl mt-8 lg:mt-0'>
       <Typography type='h3' className='text-md md:text-2lg mb-6'>
         ბარათები და ტრანზაქციები
       </Typography>

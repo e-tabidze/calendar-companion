@@ -85,14 +85,12 @@ const CompanyOrders = () => {
       {router.query.id ? (
         <OrderDetails />
       ) : (
-        <div>
-          <div className='md:border border-raisin-10 rounded-3xl'>
-            <div className='flex justify-between items-center my-4 px-2 md:px-6 2xl:px-8'>
-              <Typography type='h3' className='text-md md:text-2lg'>
-                შემოსული ჯავშნები
-              </Typography>
-            </div>
-            <div className='hidden lg:flex gap-3 p-2 md:p-8'>
+        <div className='mt-8 lg:mt-0'>
+          <div className='md:p-8 lg:p-10 md:border border-raisin-10 rounded-3xl'>
+            <Typography type='h3' className='mb-6'>
+              შემოსული ჯავშნები
+            </Typography>
+            <div className='hidden lg:flex gap-3 py-8 pr-8'>
               {filters.map(filter => (
                 <Tag
                   label={filter.label}
@@ -107,7 +105,7 @@ const CompanyOrders = () => {
               ))}
             </div>
             <Divider />
-            <div className='px-none md:px-6 2xl:px-8'>
+            <div className=''>
               {orders?.data?.map((order: any) => (
                 <Link
                   href={`/dashboard/orders/?id=${order?.id}`}
@@ -128,10 +126,8 @@ const CompanyOrders = () => {
                     discount={order?.discount_percent}
                     status={order?.status_id}
                   />
-               
-                  <Divider/>
-                 
-                 
+
+                  <Divider />
                 </Link>
               ))}
             </div>
