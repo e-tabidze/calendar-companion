@@ -1,8 +1,6 @@
-import { Popover, Transition } from '@headlessui/react'
+import { Popover } from '@headlessui/react'
 import Link from 'next/link'
-import { Fragment } from 'react'
 import Icon from 'src/views/app/Icon'
-import PopoverDropdown from 'src/views/components/popoverDropdown'
 import Action from '../action'
 
 interface Props {

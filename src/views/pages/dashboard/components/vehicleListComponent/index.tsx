@@ -1,7 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import Link from 'next/link'
 import { useState } from 'react'
-import useWindowDimensions from 'src/hooks/useWindowDimensions'
 import useProducts from '../../products/useProducts'
 import Action from './action'
 import dynamic from 'next/dynamic'
@@ -36,8 +35,6 @@ const VehicleListComponent: React.FC<Props> = ({
   images
 }) => {
   const [deleteProductModal, setDeleteProductModal] = useState(false)
-
-  const { width } = useWindowDimensions()
 
   const { deleteProduct, activeProducts } = useProducts(filter)
 

@@ -16,7 +16,6 @@ const Hero = () => {
             width={'100%'}
             className='object-cover absolute w-full h-full top-0 left-0 rounded-2xl'
           />
-
       <Copy>
         <div className='lg:w-11/12 relative'>
           <Typography

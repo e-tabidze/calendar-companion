@@ -166,7 +166,7 @@ const ProductDetails = memo(() => {
             pagination={true}
           />
         </MaxWidthContainer>
-        <MaxWidthContainer className={`${isSticky ? 'sticky top-20' : ''} bg-white z-[30]`} ref={ref} id='head'>
+        <MaxWidthContainer className={`${isSticky ? 'sticky top-[72px] md:top-20' : ''} bg-white z-[30]`} ref={ref} id='head'>
           <ContentContainer className='overflow-x-auto no-scrollbar bg-white z-30'>
             <div className='flex gap-8 my-6 w-max'>
               <SubNavItem section='details' activeSection={section} handleClick={handleClick}>
@@ -192,7 +192,7 @@ const ProductDetails = memo(() => {
           </ContentContainer>
           <Divider />
         </MaxWidthContainer>
-        <MaxWidthContainer className={`${isSticky ? 'md:mt-20' : ''} z-40`}></MaxWidthContainer>
+        <MaxWidthContainer className={`${isSticky ? 'mt-[72px] md:mt-20' : ''} z-40`}></MaxWidthContainer>
         <EventListener target='window' onScroll={handleScroll} />
         <ContentContainer>
           <div className='flex gap-11 mt-8'>

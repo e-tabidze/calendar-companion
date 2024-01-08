@@ -1,6 +1,6 @@
 const SkeletonLoading = () => {
   return (
-    <div className='grid sm:grid-cols-2 gap-6 lg:grid-cols-4 2xl:grid-cols-4'>
+    <div className='grid sm:grid-cols-2 gap-6 lg:grid-cols-4 2xl:grid-cols-4 sm:gap-4 xl:gap-6'>
       {Array.from({ length: 12 }, (_, index) => (
         <div key={index} className='animate-pulse relative last:border-none'>
           <div className='flex flex-col px-2 py-4 md:w-full justify-between gap-6 md:px-0 md:py-0 md:flex-row md:items-center'>
