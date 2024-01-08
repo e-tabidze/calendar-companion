@@ -24,7 +24,7 @@ const Pagination: React.FC<Props> = ({ totalPages, onPageChange, currentPage }) 
           text={i}
           key={i}
           onClick={() => onPageChange(i)}
-          className={`w-10 h-10 px-0 py-0 mx-1 ${
+          className={`!w-10 !h-10 !px-0 !py-0 mx-1 !font-medium ${
             i == currentPage
               ? 'bg-white border border-raisin-130'
               : currentPage == undefined
@@ -51,17 +51,17 @@ const Pagination: React.FC<Props> = ({ totalPages, onPageChange, currentPage }) 
   }
 
   return (
-    <div className='flex items-center justify-between my-4'>
+    <div className='flex items-center justify-between my-10'>
       <DefaultButton
         text='უკან'
         onClick={handlePreviousPage}
-        className={`${currentPage == 1 ? 'opacity-50 cursor-not-allowed' : ''}`}
+        className={`bg-raisin-10 h-14 px-8 !font-medium ${currentPage == 1 ? 'opacity-50 cursor-not-allowed' : ''}`}
       />
       <div>{renderPageNumbers()}</div>
       <DefaultButton
         text='შემდეგი'
         onClick={handleNextPage}
-        className={`${currentPage === totalPages ? 'opacity-50 cursor-not-allowed' : ''}`}
+        className={`bg-raisin-10 h-14 px-8 !font-medium ${currentPage === totalPages ? 'opacity-50 cursor-not-allowed' : ''}`}
       />
     </div>
   )
