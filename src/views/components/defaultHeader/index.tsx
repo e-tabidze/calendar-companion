@@ -9,7 +9,7 @@ import { IconTextButton } from '../button'
 import { isMobile } from 'react-device-detect'
 
 // import LanguagePicker from './languagePicker'
-import { useEffect,useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import dynamic from 'next/dynamic'
 
@@ -42,36 +42,43 @@ const DefaultHeader = () => {
   useEffect(() => {
     setIsMobileDevice(isMobile)
   }, [])
-  
-  const [isMobileDevice, setIsMobileDevice] = useState(false)
-  
-return (
-    <InnerContainer>
-      <div className='flex items-center flex-wrap md:flex-nowrap'>
-        <Image src='/images/logo-rent.svg' onClick={onClickLogo} alt='logo' className='w-24 md:w-32 cursor-pointer mr-14 md:mr-0 pt-4 md:pt-0' />
 
-        {router?.asPath?.startsWith('/search') && !isMobileDevice && <Filters />}
-      </div>
-      {router?.asPath?.startsWith('/search') && isMobileDevice && <Filters />}
-      <div className='flex items-center'>
-        {/* <LanguagePicker responsive className='md:mx-4' /> */}
-        {isAuthenticated && isLoading ? (
-          <>Loading... </>
-        ) : isAuthenticated ? (
-          <User />
-        ) : (
-          <IconTextButton
-            icon='auth'
-            width={25}
-            height={24}
-            label='შესვლა'
-            className='fill-transparent border border-raisin-10 rounded-xl px-3 h-10 items-center text-raisin-100 text-2sm transition-all hover:bg-grey-100 hover:border-raisin-30'
-            onClick={handleLogin}
+  const [isMobileDevice, setIsMobileDevice] = useState(false)
+
+  return (
+    <InnerContainer>
+      <div className='flex justify-between items-center w-full'>
+        <div className='flex items-center flex-wrap md:flex-nowrap'>
+          <Image
+            src='/images/logo-rent.svg'
+            onClick={onClickLogo}
+            alt='logo'
+            className='w-24 md:w-32 cursor-pointer mr-14 md:mr-0'
           />
-        )}
-        <Tnet />
+          {router?.asPath?.startsWith('/search') && <Filters />}
+        </div>
+        <div className='flex items-center'>
+          {/* <LanguagePicker responsive className='md:mx-4' /> */}
+          {isAuthenticated && isLoading ? (
+            <>Loading... </>
+          ) : isAuthenticated ? (
+            <User />
+          ) : (
+            <>
+              <IconTextButton
+                icon='auth'
+                width={25}
+                height={24}
+                label='შესვლა'
+                className='hidden md:flex fill-transparent border border-raisin-10 rounded-xl px-3 h-10 items-center text-raisin-100 text-2sm transition-all hover:bg-grey-100 hover:border-raisin-30'
+                onClick={handleLogin}
+              />
+            </>
+          )}
+          {!isMobileDevice && <Tnet />}
+        </div>
       </div>
-      <NavigationBar />
+      {isMobileDevice && <NavigationBar />}
     </InnerContainer>
   )
 }

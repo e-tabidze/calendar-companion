@@ -24,7 +24,7 @@ const pageMeta = {
 }
 
 // ** Styled Components
-const MainPageBox = tw.div<TailwindDiv>`flex w-full items-center flex-col overflow-hidden md:overflow-auto`
+const MainPageBox = tw.div<TailwindDiv>`flex w-full items-center flex-col overflow-hidden`
 
 const MainPage = () => {
   const { popularProducts, lastSeenProducts } = useMain()
@@ -50,15 +50,19 @@ const MainPage = () => {
         )}
         <ContentContainer className='px-0 md:px-5 lg:px-8 mb-12'>
           <Carousel
-            itemsArray={categoriesFilter?.map((product: any) => (
-              <CategoryItem
-                svgPath={product?.icon}
-                title={product?.title}
-                count={product?.count_products}
-                id={product?.id}
-                key={product?.id}
-              />
-            ))}
+            itemsArray={categoriesFilter
+              ?.sort(
+                (a: { count_products: number }, b: { count_products: number }) => b.count_products - a.count_products
+              )
+              ?.map((product: any) => (
+                <CategoryItem
+                  svgPath={product?.icon}
+                  title={product?.title}
+                  count={product?.count_products}
+                  id={product?.id}
+                  key={product?.id}
+                />
+              ))}
             type='categories'
           />
         </ContentContainer>

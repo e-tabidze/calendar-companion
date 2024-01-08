@@ -128,23 +128,25 @@ const AdditionalFilters: React.FC<Props> = ({
                   <Typography type='body' color='dark'>
                     მოძებნე ავტომობილი დღიური ფასის მიხედვით
                   </Typography>
-                  <div className='w-full flex flex-col md:flex-row md:items-center mb-10 md:mb-16 mt-8'>
+                  <div className='w-full flex items-center mb-10 md:mb-16 mt-8'>
                     <DefaultInput
                       name='price_min'
                       control={control}
                       label={'დღიური მინიმალური ფასი'}
+                      labelMobile={'მინ. ფასი დღიურად'}
                       errors={''}
-                      className='md:w-72 mb-2 md:mb-0'
+                      className='w-full mb-2 md:mb-0'
                       type='number'
                       min={1}
                     />
-                    <div className='hidden md:flex w-3 h-px bg-base-100 mx-2' />
+                    <div className='flex shrink-0 w-3 h-px bg-base-100 mx-2' />
                     <DefaultInput
                       name='price_max'
                       control={control}
                       label={'დღიური მაქსიმალური ფასი'}
+                      labelMobile={'მაქს. ფასი დღიურად'}
                       errors={''}
-                      className='md:w-72'
+                      className='w-full'
                       type='number'
                     />
                   </div>
@@ -210,7 +212,7 @@ const AdditionalFilters: React.FC<Props> = ({
                         labelKey='title'
                       />
                     </div>
-                    <div className='flex flex-col md:flex-row md:gap-4'>
+                    <div className='flex gap-4'>
                       <SelectField
                         name='year_from'
                         control={control}
@@ -355,6 +357,7 @@ const AdditionalFilters: React.FC<Props> = ({
                     options={additionalInformationFilters}
                     append={() => appendAdditionalInformation()}
                     className='my-2'
+                    cols
                   />
                 </div>
                 <div className='w-full flex flex-row items-center justify-between py-4 px-4 md:px-10 border-t-1 border-grey-90 shadow-md'>

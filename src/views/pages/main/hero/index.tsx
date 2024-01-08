@@ -25,7 +25,7 @@ const Hero = () => {
           >
             ავტომობილის დაქირავება მარტივად
           </Typography>
-          <Typography type='h3' className='text-white text-md mt-3 hidden md:block'>
+          <Typography type='body' className='text-white text-md mt-3 hidden md:block'>
             შეარჩიეთ სასურველი ავტომობილი ონლაინ და გაიმარტივეთ ქირაობის პროცესი. ისარგებლეთ დამატებითი სერვისებით და
             შეიქმენით მაქსიმალური კომფორტი.
           </Typography>

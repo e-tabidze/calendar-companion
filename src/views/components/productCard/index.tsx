@@ -132,8 +132,9 @@ const ProductCard: React.FC<Props> = ({
         <InnerDetailsContainer>
           <PriceContainer>
             {priceGel} ₾{/*<PreviousPrice>47₾</PreviousPrice>*/}
+            <Typography type='body' className='text-sm'>დღე</Typography>
           </PriceContainer>
-          <DetailsWrapper>
+          <DetailsWrapper className='flex-col md:flex-row pl-4 md:pl-0 border-l-1 border-raisin-10 md:border-none'>
             <Details>
               <Icon svgPath='views' width={20} height={20} className='fill-transparent' /> <span>{seats}</span>
             </Details>
