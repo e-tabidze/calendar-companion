@@ -2,11 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  html {
-    font-family: 'TBCXRegular';
-  }
-}
+/*@layer base {*/
+/*  html {*/
+/*    font-family: 'TBCXRegular';*/
+/*  }*/
+/*}*/
 
 @layer utilities {
   @variants responsive {
@@ -25,43 +25,61 @@
 
 @font-face {
   font-family: 'TBCXLight';
+  font-style: normal;
   src: url('/fonts/tbc/TBCXLight.eot');
   src: url('/fonts/tbc/TBCXLight.eot') format('embedded-opentype'),
   url('/fonts/tbc/TBCXLight.woff2') format('woff2'),
   url('/fonts/tbc/TBCXLight.woff') format('woff'),
   url('/fonts/tbc/TBCXLight.ttf') format('truetype');
+  font-display: swap;
 }
+
 @font-face {
   font-family: 'TBCXRegular';
+  font-style: normal;
   src: url('/fonts/tbc/TBCXRegular.eot');
-  src: url('/fonts/tbc/TBCXRegular.eot') format('embedded-opentype'),
-  url('/fonts/tbc/TBCXRegular.woff2') format('woff2'),
-  url('/fonts/tbc/TBCXRegular.woff') format('woff'),
-  url('/fonts/tbc/TBCXRegular.ttf') format('truetype');
+  src:
+          url('/fonts/tbc/TBCXRegular.eot') format('embedded-opentype'),
+          url('/fonts/tbc/TBCXRegular.ttf') format('truetype'),
+          url('/fonts/tbc/TBCXRegular.woff') format('woff'),
+          url('/fonts/tbc/TBCXRegular.woff2') format('woff2');
+  font-display: swap;
 }
+
 @font-face {
   font-family: 'TBCXMedium';
+  font-style: normal;
   src: url('/fonts/tbc/TBCXMedium.eot');
-  src: url('/fonts/tbc/TBCXMedium.eot') format('embedded-opentype'),
-  url('/fonts/tbc/TBCXMedium.woff2') format('woff2'),
-  url('/fonts/tbc/TBCXMedium.woff') format('woff'),
-  url('/fonts/tbc/TBCXMedium.ttf') format('truetype');
+  src:
+          url('/fonts/tbc/TBCXMedium.eot') format('embedded-opentype'),
+          url('/fonts/tbc/TBCXMedium.ttf') format('truetype'),
+          url('/fonts/tbc/TBCXMedium.woff') format('woff'),
+          url('/fonts/tbc/TBCXMedium.woff2') format('woff2');
+  font-display: swap;
 }
+
 @font-face {
   font-family: 'TBCXBold';
-  src: url('/fonts/tbc/TBCXBold.eot');
-  src: url('/fonts/tbc/TBCXBold.eot') format('embedded-opentype'),
-  url('/fonts/tbc/TBCXBold.woff2') format('woff2'),
-  url('/fonts/tbc/TBCXBold.woff') format('woff'),
-  url('/fonts/tbc/TBCXBold.ttf') format('truetype');
+  font-style: normal;
+  src:
+          url('/fonts/tbc/TBCXBold.eot') format('embedded-opentype'),
+          url('/fonts/tbc/TBCXBold.ttf') format('truetype'),
+          url('/fonts/tbc/TBCXBold.woff') format('woff'),
+          url('/fonts/tbc/TBCXBold.woff2') format('woff2');
+  font-display: swap;
 }
+
+
+
 @font-face {
   font-family: 'TBCXBlack';
+  font-style: normal;
   src: url('/fonts/tbc/TBCXBlack.eot');
   src: url('/fonts/tbc/TBCXBlack.eot') format('embedded-opentype'),
   url('/fonts/tbc/TBCXBlack.woff2') format('woff2'),
   url('/fonts/tbc/TBCXBlack.woff') format('woff'),
   url('/fonts/tbc/TBCXBlack.ttf') format('truetype');
+  font-display: swap;
 }
 
 * {
@@ -93,6 +111,21 @@
 .react-datepicker__month-container {
   border: none !important;
   box-shadow: none !important;
+}
+@media(min-width: 1200px) {
+  .react-datepicker__month-container {
+    padding-left:16px !important;
+  }
+}
+.react-datepicker-popper {
+  box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
+  padding-top:0px !important;
+  background-color:#fff;
+  border-radius:16px;
+  padding-top:16px;
+}
+.react-datepicker-popper > div {
+  
 }
 
 .react-datepicker__year-read-view--down-arrow,
@@ -138,13 +171,19 @@
 .react-datepicker__day-name,
 .react-datepicker__day,
 .react-datepicker__time-name {
-  width: 46px !important;
-  line-height: 46px !important;
+  width: 44px !important;
+  line-height: 44px !important;
   border-radius: 14px !important;
 }
 
 .react-datepicker__triangle {
   display: none !important;
+}
+@media only screen and (max-width: 1024px) {
+  .react-datepicker {
+    display:flex !important;
+    justify-content: space-around;
+  }
 }
 
 /* @media only screen and (max-width: 1024px) {
@@ -180,15 +219,28 @@
   width: 0px;
   background: transparent; /* make scrollbar transparent */
 }
-/*.swiper {*/
-/*  overflow: visible !important;*/
-/*}*/
-/*.swiper-slide {*/
-/*  opacity: 0.2;*/
-/*}*/
-/*.swiper-slide-visible {*/
-/*  opacity: 1;*/
-/*}*/
+/*swiper full view */
+.main-swiper.swiper {
+  overflow: visible !important;
+}
+.main-swiper .swiper-slide {
+  opacity: 0.2;
+  pointer-events: none;
+}
+.main-swiper .swiper-slide-visible {
+  opacity: 1;
+  pointer-events: visible;
+}
+@media(min-width: 1400px) {
+  .main-swiper .swiper-button-prev {
+    left: -110px !important;
+  }
+  .main-swiper .swiper-button-next {
+    right: -110px !important;
+  }
+}
+
+/****/
 
 .swiper-slide-active {
   position: relative !important;
@@ -196,6 +248,16 @@
 .swiper-button-disabled {
   opacity: 0;
   transition: 0.3s all;
+}
+.swiper-pagination {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  bottom:20px;
+  gap:4px;
+  padding-left: 4px;
+  padding-right: 4px;
 }
 
 /* .swiper-pagination-custom { */
@@ -258,13 +320,13 @@ html {
   -ms-overflow-style: none;
 }
 
-body {
+/*body {*/
   /*overflow-x: hidden;*/
   /*max-width: 4000px;*/
-  scrollbar-width: none;
-  white-space: nowrap !important;
-  -ms-overflow-style: none;
-}
+  /*scrollbar-width: none;*/
+  /*white-space: nowrap !important;*/
+  /*-ms-overflow-style: none;*/
+/*}*/
 
 input:focus::placeholder {
   color: transparent;
@@ -377,4 +439,21 @@ input[type='number'] {
 }
 .arrows-sm .swiper-pagination-bullet.swiper-pagination-bullet-active {
   opacity: 1;
+}
+.css-1nmdiq5-menu {
+padding-top:8px;
+padding-bottom:8px;
+}
+.css-d32dvm-placeholder {
+  color: #272A37 !important;
+}
+.focus-visible\:ring-2:focus-visible {
+  --tw-ring-offset-shadow: none !important;
+}
+.my-slide-element {
+  transition: transform 0.5s ease-in-out; /* Adjust properties as needed */
+}
+
+.my-slide-element.slide-in {
+  transform: translateX(100px); /* Adjust the transformation as needed */
 }

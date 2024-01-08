@@ -39,9 +39,7 @@ const Drawer: React.FC<Props> = ({
           / დღე
         </Typography>
       </div>
-      <Typography type='body' className='text-green-100 mb-4'>
-        Free cancellation
-      </Typography>
+
       <div className='flex gap-3 items-center mb-4'>
         <div className='flex gap-2'>
           <Typography type='body' className='text-2sm'>

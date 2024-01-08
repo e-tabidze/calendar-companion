@@ -10,7 +10,7 @@ const Icon = dynamic(() => import('src/views/app/Icon'), { ssr: false })
 const Filters = () => {
   const router = useRouter()
 
-  const { control, objectToURI, getValues, resetField, setValue, searchValues } = useSearch()
+  const { control, objectToURI, getValues, setValue } = useSearch()
 
   const onSubmit = () => {
     const updatedSearchValues = getValues()
@@ -21,15 +21,17 @@ const Filters = () => {
     setValue('booking', { book_from: '', book_to: '' })
   }
 
-  console.log(searchValues, 'searchValues')
+  const handleResetLocation = () => {
+    setValue('location', '')
+  }
 
   return (
-    <div className='hidden xl:flex border border-raisin-10 ml-14 rounded-3xl h-12 flex items-center'>
+    <div className='mt-4 md:mt-0 justify-center flex border border-raisin-10 mx-auto sm:ml-14 rounded-3xl h-12 items-center'>
       <FiltersContainer>
-        <LocationDropdown control={control} resetField={() => resetField('location')} />
-        <Divider />
+        <LocationDropdown control={control} resetField={handleResetLocation} />
+        <Divider className='hidden md:flex' />
         <PeriodDropdown control={control} resetField={handleResetBooking} setValue={setValue} />
-        <Divider />
+        <Divider className='hidden md:flex' />
         <ExtraFiltersContainer>
           <button
             onClick={onSubmit}

@@ -3,7 +3,8 @@ import { Fragment, useState } from 'react'
 import Image from 'src/views/components/image'
 import Typography from 'src/views/components/typography'
 import { FilterContainer, InnerFilterContainer } from './styles'
-import DatePicker from 'react-datepicker'
+import DatePicker, { registerLocale } from 'react-datepicker';
+import  ka  from 'date-fns/locale/ka';
 import 'react-datepicker/dist/react-datepicker.css'
 import { Controller } from 'react-hook-form'
 import { formatDate } from 'src/utils/formatDate'
@@ -11,13 +12,14 @@ import { formatDate } from 'src/utils/formatDate'
 interface Props {
   control: any
 }
+registerLocale("ka", ka);
 
 const LocationDropdown: React.FC<Props> = ({ control }) => {
   const [dateRange, setDateRange] = useState<[Date, Date] | [null, null]>([null, null])
   const [startDate, endDate] = dateRange
 
   return (
-    <Menu as='div' className='flex text-left mx-2 w-full'>
+    <Menu as='div' className='flex text-left mx-0 sm:mx-2 w-full'>
       <Menu.Button className='py-5 px-4 inline-flex w-full justify-center rounded-md bg-raisin bg-opacity-20 text-sm font-medium text-white focus-visible:ring-white focus-visible:ring-opacity-75'>
         <FilterContainer>
           <Typography type='body' color='dark'>
@@ -46,6 +48,7 @@ const LocationDropdown: React.FC<Props> = ({ control }) => {
             control={control}
             render={({ field: { onChange } }) => (
               <DatePicker
+                locale="ka"
                 className='text-center border-l-4 border-red-500  w-full p-3 rounded text-sm  outline-none  focus:ring-0 bg-transparent'
                 inline
                 selectsRange={true}

@@ -8,8 +8,8 @@ interface Props {
 const StepThree: React.FC<Props> = ({ control, errors }) => {
   
   return (
-    <div>
-      <div className='grid grid-cols-1 gap-2'>
+    <div className='grid place-content-center'>
+      <div className='grid grid-cols-1 gap-2 md:min-w-[400px] min-w-[320px]'>
         <DefaultInput label='ელ. ფოსტა' control={control} errors={errors} name='company_information.email' />
         <DefaultInput
           label='ოფისის ნომერი'

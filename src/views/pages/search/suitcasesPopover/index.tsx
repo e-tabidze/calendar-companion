@@ -1,6 +1,6 @@
 import { useWatch } from 'react-hook-form'
 import useFilters from 'src/hooks/useFilters'
-import {DefaultButton, IconTextButton} from 'src/views/components/button'
+import { DefaultButton, IconTextButton } from 'src/views/components/button'
 import PopoverDropdown from 'src/views/components/popoverDropdown'
 import Tag from 'src/views/components/tag'
 
@@ -20,7 +20,7 @@ const SuitcasesPopover: React.FC<Props> = ({ control, appendLuggageNumber, handl
     <PopoverDropdown
       label='ჩემოდნების რაოდენობა'
       maxWidth='max-w-xs'
-      className={`${formState.luggage_numbers.length > 0 ? 'border border-raisin-100' : ''}`}
+      className={`${formState?.luggage_numbers?.length > 0 ? 'border border-raisin-100' : 'hover:border hover:border-raisin-30'}`}
     >
       <div className='flex flex-wrap gap-4 my-6'>
         <Tag
@@ -39,12 +39,14 @@ const SuitcasesPopover: React.FC<Props> = ({ control, appendLuggageNumber, handl
           width={20}
           height={22}
           onClick={() => reset('luggage_numbers')}
+          labelClassname="text-sm text-raisin-50 border-b"
+          type="button"
         />
         <DefaultButton
           text='შენახვა'
           bg='bg-orange-100'
           textColor='text-white'
-          type='submit'
+          type='button'
           onClick={() => {
             handleSubmit()
             close()

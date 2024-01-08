@@ -1,52 +1,84 @@
+import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import Divider from 'src/views/components/divider'
-import Pagination from 'src/views/components/pagination'
-import Tag from 'src/views/components/tag'
-import Typography from 'src/views/components/typography'
-
-import ListComponent from '../components/orderListComponent'
-import OrderDetails from './orderDetails'
-import SkeletonLoading from './skeletorLoading'
+import { useEffect, useState } from 'react'
 import useCompanyOrders from './useCompanyOrders'
+
+const Pagination = dynamic(() => import('src/views/components/pagination'), { ssr: false })
+const Typography = dynamic(() => import('src/views/components/typography'), { ssr: true })
+const Tag = dynamic(() => import('src/views/components/tag'), { ssr: false })
+const Divider = dynamic(() => import('src/views/components/divider'), { ssr: false })
+const OrderListComponent = dynamic(() => import('src/views/pages/dashboard/components/orderListComponent'), {
+  ssr: false
+})
+const OrderDetails = dynamic(() => import('./orderDetails'), { ssr: false })
 
 const filters = [
   {
     label: 'ყველა',
-    id: '1'
-  },
-  {
-    label: 'დასრულებული',
-    id: '2'
+    id: '1',
+    filterOption: ''
   },
   {
     label: 'მოლოდინში',
-    id: '3'
+    id: '3',
+    filterOption: '0'
   },
   {
     label: 'გაუქმებული',
-    id: '4'
+    id: '4',
+    filterOption: '2'
   },
   {
     label: 'დადასტურებული',
-    id: '5'
+    id: '5',
+    filterOption: '1'
   },
   {
-    label: 'უარყოფილი',
-    id: '6'
+    label: 'თვითდაჯავშნილი',
+    id: '7',
+    filterOption: '5'
   }
 ]
 
 const CompanyOrders = () => {
-  const { companyOrders, companyOrdersLoading } = useCompanyOrders()
-
-  console.log(companyOrders, 'companyOrders')
-
   const router = useRouter()
+  const { status_id, page } = router.query
 
-  if (companyOrdersLoading) {
-    return <SkeletonLoading filters={filters} />
+  const [filterQuery, setFilterQuery] = useState<'' | '0' | '1' | '2' | '5'>('')
+
+  useEffect(() => {
+    if (status_id !== undefined) {
+      const activeValue = Array.isArray(status_id) ? status_id[0] : status_id
+      setFilterQuery(activeValue as '' | '0' | '1' | '2' | '5')
+    }
+  }, [status_id])
+
+  const { orders, fetchOrderFilters } = useCompanyOrders(status_id, Number(page))
+
+  const handlePageChange = (newPage: number) => {
+    router.push({
+      pathname: router.pathname,
+      query: { ...router.query, page: newPage }
+    })
   }
+
+  const handleFilterChange = (newFilter: '' | '0' | '1' | '2' | '5') => {
+    setFilterQuery(newFilter)
+    fetchOrderFilters
+    router.push({
+      pathname: router.pathname,
+      query: { ...router.query, page: 1, status_id: newFilter }
+    })
+  }
+
+  const handleClickFilter = () => {
+    fetchOrderFilters()
+  }
+
+  // if (companyOrdersLoading) {
+  //   return <SkeletonLoading filters={filters} />
+  // }
 
   return (
     <>
@@ -54,7 +86,7 @@ const CompanyOrders = () => {
         <OrderDetails />
       ) : (
         <div>
-          <div className='border border-raisin-10 rounded-3xl'>
+          <div className='md:border border-raisin-10 rounded-3xl'>
             <div className='flex justify-between items-center my-4 px-2 md:px-6 2xl:px-8'>
               <Typography type='h3' className='text-md md:text-2lg'>
                 შემოსული ჯავშნები
@@ -62,18 +94,27 @@ const CompanyOrders = () => {
             </div>
             <div className='hidden lg:flex gap-3 p-2 md:p-8'>
               {filters.map(filter => (
-                <Tag label={filter.label} height='h-10' key={filter.id} className='rounded-xl' />
+                <Tag
+                  label={filter.label}
+                  height='h-10'
+                  key={filter.id}
+                  className={`${filter.filterOption == filterQuery ? 'border !border-orange-100' : ''} rounded-xl`}
+                  handleClick={() => {
+                    handleFilterChange(filter.filterOption as '' | '0' | '1' | '2' | '5')
+                    handleClickFilter()
+                  }}
+                />
               ))}
             </div>
             <Divider />
             <div className='px-none md:px-6 2xl:px-8'>
-              {companyOrders?.map((order: any) => (
+              {orders?.data?.map((order: any) => (
                 <Link
                   href={`/dashboard/orders/?id=${order?.id}`}
                   as={`/dashboard/orders/?id=${order?.id}`}
                   key={order?.id}
                 >
-                  <ListComponent
+                  <OrderListComponent
                     startAddress={order?.start_address}
                     startDate={order?.start_date}
                     startTime={order?.start_time}
@@ -87,11 +128,18 @@ const CompanyOrders = () => {
                     discount={order?.discount_percent}
                     status={order?.status_id}
                   />
+               
+                  <Divider/>
+                 
+                 
                 </Link>
               ))}
             </div>
           </div>
-          <Pagination totalPages={20} onPageChange={() => console.log('change Page')} currentPage={0} />
+
+          {orders?.last_page > 1 && (
+            <Pagination totalPages={orders?.last_page} onPageChange={handlePageChange} currentPage={Number(page)} />
+          )}
         </div>
       )}
     </>

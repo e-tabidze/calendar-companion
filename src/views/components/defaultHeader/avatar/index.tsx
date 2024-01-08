@@ -36,7 +36,7 @@ const Avatar = () => {
     try {
       switchProfileMutation.mutate(id)
     } catch (error) {
-      console.log(error)
+      console.log(error, 'error')
     }
   }
 
@@ -46,18 +46,15 @@ const Avatar = () => {
 
   const routeClass = `px-6 flex whitespace-nowrap text-md text-raisin-100 py-2 hover:bg-grey-100 transition-all`
 
-
   return (
     <Menu as='div' className='relative text-left hidden md:flex'>
       <Menu.Button>
         <AvatarContainer>
           <AvatarInnerContainer>
-
-
             <Image
-                onError={(ev:any)=>{
-                  ev.target.src = `/icons/avatar.svg`
-                }}
+              onError={(ev: any) => {
+                ev.target.src = `/icons/avatar.svg`
+              }}
               src={
                 !!activeCompany ? activeCompany.information.logo : userInfo?.information?.profile_pic || defaultImgUrl
               }
@@ -163,9 +160,9 @@ const Avatar = () => {
                   <div className='flex items-center'>
                     <span className='w-10 h-10 mr-3 relative flex items-center justify-center rounded-full overflow-hidden'>
                       <Image
-                          onError={(ev:any)=>{
-                            ev.target.src = `/icons/avatar.svg`
-                          }}
+                        onError={(ev: any) => {
+                          ev.target.src = `/icons/avatar.svg`
+                        }}
                         src={
                           !!activeCompany
                             ? activeCompany.information.logo
@@ -177,7 +174,7 @@ const Avatar = () => {
                     </span>
                     <div className='flex flex-col'>
                       <span className='text-2sm text-raisin-100 overflow-hidden text-ellipsis whitespace-nowrap max-w-[150px] inline-block'>
-                        {userInfo?.Email}
+                        {activeCompany?.information.email}
                       </span>
                       <span className='flex text-2sm text-raisin-100'>ID: {userInfo?.active_profile_id}</span>
                     </div>

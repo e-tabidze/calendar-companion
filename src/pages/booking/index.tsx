@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { DefaultInput } from 'src/views/components/input'
 import { LargeContainer, ContentContainer } from 'src/styled/styles'
 import { useRouter } from 'next/router'
@@ -16,6 +16,7 @@ import { ka } from 'date-fns/locale'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { queryClient } from '../_app'
 import dynamic from 'next/dynamic'
+import useProfile from 'src/hooks/useProfile'
 
 const Divider = dynamic(() => import('src/views/components/divider'), { ssr: false })
 const Image = dynamic(() => import('src/views/components/image'), { ssr: true })
@@ -30,11 +31,26 @@ const Delivery = dynamic(() => import('src/views/pages/booking/delivery'), { ssr
 const BookingModal = dynamic(() => import('src/views/pages/booking/bookingModal'), { ssr: false })
 const Icon = dynamic(() => import('src/views/app/Icon'), { ssr: false })
 const CheckServices = dynamic(() => import('src/views/pages/booking/checkServices'), { ssr: false })
+import Toast from 'src/views/components/toast'
+
+import toast from 'react-hot-toast'
 
 const Booking = () => {
   const [additionalServices, toggleAdditionalServices] = useState(false)
   const [isOpenDrawer, setIsOpenDrawer] = useState(false)
   const [openEditModal, setOpenEditModal] = useState(false)
+
+  const [loading, setLoading] = useState(true)
+
+  const router = useRouter()
+
+  const { book_from, book_to, price_day, company_id, id } = router.query
+
+  useEffect(() => {
+    if (book_from && book_to && price_day) {
+      setLoading(false)
+    }
+  }, [book_from, book_to, price_day])
 
   const toggleEditModal = () => setOpenEditModal(!openEditModal)
 
@@ -42,9 +58,7 @@ const Booking = () => {
 
   const toggleDrawer = () => setIsOpenDrawer(!isOpenDrawer)
 
-  const router = useRouter()
-
-  const { book_from, book_to, price_day, company_id, id } = router.query
+  const { activeCompanyId } = useProfile()
 
   const { singleProductDetails } = useSingleProductDetails(id)
 
@@ -54,7 +68,7 @@ const Booking = () => {
 
   const { singleCompanyBranches } = useCompanyInfo(company_id && company_id)
 
-  const { control, bookingValues, errors, handleSubmit, postOrder } = useBooking(id)
+  const { control, bookingValues, errors, handleSubmit, postOrder, selfBookProduct } = useBooking(id)
 
   console.log(bookingValues, 'bookingValues')
 
@@ -102,14 +116,47 @@ const Booking = () => {
           secondForm.submit()
         }
       }
+    },
+
+    onError: (ex: any) => {
+      if (ex.response.status === 400) {
+        toast.custom(
+          <Toast
+            type='error'
+            title='ავტომობილი მოცემულ თარიღებში უკვე დაჯავშნილია'
+            description='გთხოვთ სცადეთ სხვა თარიღი'
+          />
+        )
+      }
+    }
+  })
+
+  const selfBookMutation = useMutation(() => selfBookProduct('', bookingValues), {
+    onSuccess: () => {
+      queryClient.invalidateQueries(['profileInfo'])
+      router.push('/dashboard/orders/')
+    },
+    onError: (ex: any) => {
+      ex.response.status === 400
+      toast.custom(
+        <Toast
+          type='error'
+          title='ავტომობილი მოცემულ თარიღებში უკვე დაჯავშნილია'
+          description='გთხოვთ სცადეთ სხვა თარიღი'
+        />
+      )
     }
   })
 
   const onSubmit = () => {
-    createOrderMutation.mutate()
+    singleProductDetails.company_id === activeCompanyId ? selfBookMutation.mutate() : createOrderMutation.mutate()
   }
 
   const formsState = useWatch({ control })
+
+  if (loading) {
+    return <div>Loading...</div>
+  }
 
   return (
     <>
@@ -171,27 +218,29 @@ const Booking = () => {
 
             <BookingRadio name='supply' options={options} control={control} color='bg-green-100' />
 
-            <div className='mb-24'>
-              <div
-                className='mt-11 flex items-center justify-between mb-8'
-                onClick={() => toggleAdditionalServices(!additionalServices)}
-              >
-                <Typography type='h3' className='text-3md md:text-2lg'>
-                  დამატებითი სერვისები
-                </Typography>
-                <Icon
-                  svgPath='chevron'
-                  width={8}
-                  height={6}
-                  className={`${
-                    additionalServices ? 'rotate-180' : ''
-                  } fill-transparent  w-auto h-4 transition duration-300 mr-6`}
-                />
+            {formsState?.additional_services && formsState?.additional_services?.length > 0 && (
+              <div className='mb-20'>
+                <div
+                  className='mt-11 flex items-center justify-between mb-8 cursor-pointer'
+                  onClick={() => toggleAdditionalServices(!additionalServices)}
+                >
+                  <Typography type='h3' className='text-3md md:text-2lg'>
+                    დამატებითი სერვისები
+                  </Typography>
+                  <Icon
+                    svgPath='chevron-md'
+                    width={16}
+                    height={10}
+                    className={`${
+                      additionalServices ? 'rotate-180' : ''
+                    } fill-transparent w-auto h-4 transition duration-300 mr-6`}
+                  />
+                </div>
+                {additionalServices && (
+                  <CheckServices control={control} options={formsState?.additional_services as any} />
+                )}
               </div>
-              {additionalServices && (
-                <CheckServices control={control} options={formsState?.additional_services as any} />
-              )}
-            </div>
+            )}
 
             {/* <div>
               <div className='mt-11 flex items-center justify-between mb-8' onClick={() => toggleInsurance(!insurance)}>
@@ -209,7 +258,12 @@ const Booking = () => {
           </div>
           <div className='hidden md:flex w-[300px] lg:w-[400px] shrink-0 h-fit'>
             <PriceCalcCard
+              image={singleProductDetails?.images.split(',')[0]}
+              manufacturer={singleProductDetails?.manufacturer?.title}
+              model={singleProductDetails?.manufacturer_model?.title}
+              year={singleProductDetails?.prod_year}
               price={singleProductDetails?.price}
+              control={control}
               dates={
                 book_from && book_to
                   ? `${format(new Date(String(book_from)), 'd MMM yyyy', { locale: ka })} - ${format(
@@ -230,6 +284,7 @@ const Booking = () => {
               disabled={createOrderMutation?.isLoading}
               changeDates={false}
               services={formState?.additional_services?.filter(service => service?.is_selected)}
+              companyId={singleProductDetails?.company_id}
             />
           </div>
         </ContentContainer>
@@ -275,7 +330,9 @@ const Booking = () => {
 
       <form method='POST' action='https://ecommerce.ufc.ge/ecomm2/ClientHandler' id='secondForm'>
         <input name='trans_id' type='hidden' />
-        <button type='submit'>PAY</button>
+        <button type='submit' className='hidden'>
+          PAY
+        </button>
       </form>
     </>
   )

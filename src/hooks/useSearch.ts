@@ -1,14 +1,13 @@
-import { QueryClient, useMutation } from '@tanstack/react-query'
+import { useMutation } from '@tanstack/react-query'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 import { useFieldArray, useForm, useWatch } from 'react-hook-form'
+import { queryClient } from 'src/pages/_app'
 import SearchService from 'src/services/SearchService'
 
 const useSearch = () => {
   const urlSearchParams = typeof window !== 'undefined' ? new URLSearchParams(window?.location.search) : null
   const params: any = {}
-  const queryClient = new QueryClient()
-
   const router = useRouter()
 
   if (urlSearchParams) {
@@ -31,17 +30,15 @@ const useSearch = () => {
     return []
   }
 
-  console.log(params, 'params')
-
   const searchDefaultValues = {
     page: Number(params?.page) || 1,
     location: params?.location || '',
     fuel_types: convertToNumberArray(params?.fuel_types),
     category: convertToNumberArray(params?.category),
-    seat_types: convertToNumberArray(params?.seat_types),
-    luggage_numbers: convertToNumberArray(params?.luggage_numbers),
+    seat_types: convertToNumberArray([1]),
+    luggage_numbers: convertToNumberArray([1]),
     drive_tires: convertToNumberArray(params?.drive_tires),
-    steering_wheel: convertToNumberArray(params?.steering_wheel),
+    steering_wheel: convertToNumberArray([1]),
     door_types: convertToNumberArray(params?.door_types),
     transmission_types: convertToNumberArray(params?.transmission_types),
     additional_information: convertToNumberArray(params?.additional_information),
@@ -49,7 +46,8 @@ const useSearch = () => {
     price_max: params?.price_max || '',
     manufacturer_id: convertToNumberArray(params?.manufacturer_id),
     model_id: convertToNumberArray(params?.model_id),
-    free_delivery: params?.free_delivery == 'false' ? false : true,
+
+    // free_delivery: params?.free_delivery == 'true' ? true : false,
     year_from: params?.year_from || '',
     year_to: params?.year_to || '',
     sort_by: params?.sort_by || 'id',
@@ -70,20 +68,22 @@ const useSearch = () => {
       setValue('luggage_numbers', convertToNumberArray(params?.luggage_numbers))
       setValue('drive_tires', convertToNumberArray(params?.drive_tires))
       setValue('door_types', convertToNumberArray(params?.door_types))
-      setValue('steering_wheel', convertToNumberArray(params?.steering_wheel))
+      setValue('steering_wheel', convertToNumberArray(params?.steering_wheel || 1))
       setValue('transmission_types', convertToNumberArray(params?.transmission_types))
       setValue('additional_information', convertToNumberArray(params?.additional_information))
       setValue('price_min', params?.price_min || '')
       setValue('price_max', params?.price_max || '')
       setValue('manufacturer_id', convertToNumberArray(params?.manufacturer_id))
       setValue('model_id', convertToNumberArray(params?.model_id))
-      setValue('free_delivery', params?.free_delivery == 'false' ? false : true)
+
+      // setValue('free_delivery', params?.free_delivery == 'false' ? false : true)
       setValue('year_from', Number(params?.year_from) || '')
       setValue('year_to', Number(params?.year_to) || '')
       setValue('sort_by', params?.sort_by || 'id')
       setValue('order_by', params?.order_by || 'asc')
       setValue('booking.book_from', params?.book_from || '')
       setValue('booking.book_to', params?.book_to || '')
+      searchProductsMutation.mutate(objectToURI(searchDefaultValues))
     }
   }, [router.query])
 
@@ -150,7 +150,7 @@ const useSearch = () => {
   })
 
   const searchProductsMutation = useMutation((querystring: string) => searchProducts(querystring), {
-    onSettled: () => {
+    onSuccess: () => {
       queryClient.invalidateQueries(['searchProducts'])
     },
     onError: error => {

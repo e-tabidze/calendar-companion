@@ -42,6 +42,7 @@ const StepTwo: React.FC<Props> = ({ control, appendAdditionalParam, step, errors
               />
             </div>
           ) : (
+            <div className='my-6'>
             <SelectField
               control={control}
               name='category_id'
@@ -50,6 +51,7 @@ const StepTwo: React.FC<Props> = ({ control, appendAdditionalParam, step, errors
               valueKey='id'
               labelKey='title'
             />
+            </div>
           )}
         </>
       )}
@@ -182,7 +184,7 @@ const StepTwo: React.FC<Props> = ({ control, appendAdditionalParam, step, errors
       <Typography type='body' color='light'>
         შეგიძლია მონიშნო ერთი ან რამდენიმე პარამეტრი
       </Typography>
-      <div className='py-9 grid grid-cols-1 md:grid-cols-2'>
+      <div className='py-9 grid grid-cols-1'>
         {isAdditionalParamsLoading ? (
           <>Loading</>
         ) : (
@@ -192,6 +194,7 @@ const StepTwo: React.FC<Props> = ({ control, appendAdditionalParam, step, errors
             options={additionalParams}
             append={() => appendAdditionalParam(appendAdditionalParam)}
             className='my-2'
+            cols
           />
         )}
       </div>

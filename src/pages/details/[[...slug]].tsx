@@ -1,12 +1,13 @@
-import { useEffect, useRef, useState } from 'react'
+import { memo, useEffect, useRef, useState } from 'react'
 import DefaultLayout from 'src/layouts/DefaultLayout'
 import dynamic from 'next/dynamic'
 import EventListener from 'react-event-listener'
+import  { registerLocale } from 'react-datepicker';
+import  ka  from 'date-fns/locale/ka';
 
 const Carousel = dynamic(() => import('src/views/components/carousel'), { ssr: false })
-const Image = dynamic(() => import('src/views/components/image'), { ssr: true })
+const Image = dynamic(() => import('src/views/components/image'), { ssr: false })
 const Typography = dynamic(() => import('src/views/components/typography'), { ssr: false })
-
 const ProductFeature = dynamic(() => import('src/views/pages/details/productFeature'), { ssr: false })
 const DatePicker = dynamic(() => import('react-datepicker'), { ssr: false })
 
@@ -44,10 +45,11 @@ import ProductCard from 'src/views/components/productCard'
 const Features = dynamic(() => import('src/views/pages/details/features'), { ssr: true })
 
 import { format } from 'date-fns'
-import { ka } from 'date-fns/locale'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-const ProductDetails = () => {
+registerLocale("ka", ka);
+
+const ProductDetails = memo(() => {
   const router = useRouter()
   const { slug, book_from, book_to } = router.query
 
@@ -99,10 +101,12 @@ const ProductDetails = () => {
   }, [book_from, book_to])
 
   const handleScroll = () => {
-    const componentPosition = ref.current?.getBoundingClientRect().top - 80
+
+    // const componentPosition = ref.current?.getBoundingClientRect().top - 80
+
     const pageScroll = window.pageYOffset
 
-    if (pageScroll > componentPosition) {
+    if (pageScroll > window?.innerHeight / 4) {
       setIsSticky(true)
     } else {
       setIsSticky(false)
@@ -195,7 +199,7 @@ const ProductDetails = () => {
             <div className='w-full md:w-7/12 lg:w-8/12'>
               <div id='details'>
                 <Typography type='h3' className='text-3md md:text-2lg font-bold'>
-                  {singleProductDetails?.manufacturer?.title} {singleProductDetails?.manufacturer_model?.title}
+                  {singleProductDetails?.manufacturer?.title} {singleProductDetails?.manufacturer_model?.title}{' '}
                   {singleProductDetails?.prod_year}
                 </Typography>
                 <div className='flex items-center gap-4 mb-12'>
@@ -206,7 +210,9 @@ const ProductDetails = () => {
                   <div className='flex shrink-0'>
                     <Icon svgPath='locationOutline' width={24} height={24} className='fill-transparent' />
                   </div>
-                  <Typography type='subtitle'>{singleProductDetails?.start_address}</Typography>
+                  <Typography type='subtitle'>
+                    {singleProductDetails?.start_city}, {singleProductDetails?.start_address}
+                  </Typography>
                 </div>
                 <Typography type='subtitle'>{singleProductDetails?.additional_information}</Typography>
                 <Typography type='subtitle' className='mt-8'>
@@ -220,37 +226,41 @@ const ProductDetails = () => {
               <Divider />
               <Features id='features' singleProductDetails={singleProductDetails} />
 
-              <Divider />
-              <div className='my-8' id='pricing'>
-                <Typography type='h3' className='text-3md md:text-2lg'>
-                  ღირებულება
-                </Typography>
+              {singleProductDetails?.product_services.length > 0 && (
+                <>
+                  <Divider />
+                  <div className='my-8' id='pricing'>
+                    <Typography type='h3' className='text-3md md:text-2lg'>
+                      ღირებულება
+                    </Typography>
 
-                <div className='mt-8 mb-11 grid grid-cols-1 gap-4'>
-                  {singleProductDetails?.product_services?.map((feature: any) => (
-                    <ProductFeature
-                      feature={feature?.title}
-                      icon='feature'
-                      key={feature.id}
-                      description={feature.description}
-                      price={
-                        feature.company_service_type_id === 3
-                          ? 'უფასო'
-                          : feature.company_service_type_id === 1
-                          ? `${feature.price}₾/დღე`
-                          : `${feature.price}₾/ერთჯერადად`
-                      }
-                    />
-                  ))}
-                </div>
-              </div>
+                    <div className='mt-8 mb-11 grid grid-cols-1 gap-4'>
+                      {singleProductDetails?.product_services?.map((feature: any) => (
+                        <ProductFeature
+                          feature={feature?.title}
+                          icon='feature'
+                          key={feature.id}
+                          description={feature.description}
+                          price={
+                            feature.company_service_type_id === 3
+                              ? 'უფასო'
+                              : feature.company_service_type_id === 1
+                              ? `${feature.price}₾ / დღე`
+                              : `${feature.price}₾ / ერთჯერადად`
+                          }
+                        />
+                      ))}
+                    </div>
+                  </div>
+                </>
+              )}
               <Divider />
               <div className='my-8' id='calendar'>
                 <Typography type='h3' className='text-3md md:text-2lg'>
                   პერიოდი
                 </Typography>
                 <div className='flex justify-between mb-16 mt-2'>
-                  <div className='flex gap-4'>
+                  <div className='flex gap-2'>
                     <Typography type='subtitle' className='text-green-100'>
                       {startDate && endDate
                         ? `${format(startDate, 'd MMM yyyy', { locale: ka })} - ${format(endDate, 'd MMM yyyy', {
@@ -264,7 +274,7 @@ const ProductDetails = () => {
                         {startDate &&
                           endDate &&
                           Math.round((endDate.getTime() - startDate.getTime()) / (24 * 60 * 60 * 1000))}
-                        დღე
+                        {'    '} დღე
                       </Typography>
                     )}
                   </div>
@@ -288,6 +298,7 @@ const ProductDetails = () => {
                   control={control}
                   render={({ field: { onChange } }) => (
                     <DatePicker
+                      locale="ka"
                       className='text-center border-l-4 border-red-500  w-full p-3 rounded text-sm  outline-none  focus:ring-0 bg-transparent'
                       inline
                       selectsRange={true}
@@ -307,6 +318,8 @@ const ProductDetails = () => {
                       dateFormat='yyyy-MM-dd'
                       onChangeRaw={e => e.preventDefault()}
                       minDate={new Date()}
+
+                      // filterDate={date => date.getDate() % 2 === 0}
                     />
                   )}
                 />
@@ -365,7 +378,9 @@ const ProductDetails = () => {
                 handleDateChange={() => handleClick('calendar')}
                 onClick={onSubmit}
                 disabled={days === null}
+                companyId={singleProductDetails?.company_id}
                 changeDates
+                control={control}
               />
             </div>
           </div>
@@ -380,27 +395,31 @@ const ProductDetails = () => {
             count={singleProductDetails?.company_user?.company?.count_company_poduct}
           />
           <Divider className='my-10 md:my-20' />
-          <Typography type='h3' className='text-3md md:text-2lg mb-8'>
-            მსგავსი შეთავაზებები
-          </Typography>
+
           {similarProducts?.length > 1 && (
-            <Carousel
-              itemsArray={similarProducts?.map((product: any) => (
-                <ProductCard
-                  key={product?.id}
-                  swiperCard={true}
-                  productId={product?.id}
-                  manufacturer={product?.manufacturer?.title}
-                  model={product?.manufacturer_model?.title}
-                  prodYear={product?.prod_year}
-                  priceGel={product?.price_gel}
-                  luggageNumbers={product?.luggage_numbers}
-                  seats={product?.seat_type?.title}
-                  images={product?.images?.split(',')}
-                />
-              ))}
-              type='products'
-            />
+            <div>
+              <Typography type='h3' className='text-3md md:text-2lg mb-8'>
+                მსგავსი შეთავაზებები
+              </Typography>
+              <Carousel
+                itemsArray={similarProducts?.map((product: any) => (
+                  <ProductCard
+                    key={product?.id}
+                    swiperCard={true}
+                    productId={product?.id}
+                    manufacturer={product?.manufacturer?.title}
+                    model={product?.manufacturer_model?.title}
+                    prodYear={product?.prod_year}
+                    priceGel={product?.price_gel}
+                    luggageNumbers={product?.luggage_numbers}
+                    seats={product?.seat_type?.title}
+                    images={product?.images?.split(',')}
+                    city={product?.start_city}
+                  />
+                ))}
+                type='products'
+              />
+            </div>
           )}
         </ContentContainer>
         {isOpenDrawer && width < 779 ? (
@@ -434,7 +453,7 @@ const ProductDetails = () => {
       </DefaultLayout>
     </form>
   )
-}
+})
 
 export default ProductDetails
 

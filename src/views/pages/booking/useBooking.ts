@@ -18,11 +18,10 @@ const useBooking = (id: number | string | string[]) => {
   const router = useRouter()
   const { book_from, book_to } = router.query
 
-  console.log(singleProductDetails?.product_services, 'singleProductDetails?.product_services')
 
   const additionalService = singleProductDetails?.product_services.map((service: Service) => ({
     id: service.id | 0,
-    count: 0,
+    count: 1,
     is_selected: false,
     description: service.description,
     title: service?.title,
@@ -106,6 +105,17 @@ const useBooking = (id: number | string | string[]) => {
     }
   }
 
+  const selfBookProduct = async (AccessToken = '', company: Order) => {
+    try {
+      const response: any = await OrderService.selfBookProduct(AccessToken, company)
+
+      return response.data
+    } catch (error) {
+      console.error('Error creating order:', error)
+      throw error
+    }
+  }
+
   return {
     control,
     handleSubmit,
@@ -116,7 +126,8 @@ const useBooking = (id: number | string | string[]) => {
     setError,
     clearErrors,
     setValue,
-    postOrder
+    postOrder,
+    selfBookProduct
   }
 }
 

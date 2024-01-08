@@ -8,7 +8,7 @@ export const DefaultButton = ({ text, onClick, bg, className, textColor, type, d
         bg ? `${textColor}` : 'text-raisin-100'
       } text-2sm ${
         bg ? 'border-none' : 'border border-px-raisin-100'
-      } inline-flex items-center justify-center h-10 min-w-10 px-3 font-normal ${className}`}
+      } inline-flex items-center justify-center h-12 min-w-10 px-6 font-normal ${className}`}
       onClick={onClick}
       type={type}
       disabled={disabled}
@@ -69,7 +69,7 @@ export const IconTextButton = ({ label, icon, width, height, bg, className, onCl
       type={type}
     >
       <Icon svgPath={icon} width={width} height={height} className='fill-transparent' />
-      <span className={`${labelClassname} text-2sm ml-4`}>{label}</span>
+      <span className={`text-2sm ml-4 ${labelClassname} `}>{label}</span>
     </button>
   )
 }

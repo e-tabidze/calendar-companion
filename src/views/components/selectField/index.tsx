@@ -17,7 +17,7 @@ const customStyles = {
     border: state.isFocused ? '1px solid #272A37' : '1px solid #E9EAEB',
     boxShadow: state.isFocused ? '1px solid #272A37' : '1px solid #E9EAEB',
     transition: 'border 0.2s',
-    cursor: 'pointer'
+    cursor: 'pointer',
   }),
   valueContainer: (provided: any) => ({
     ...provided
@@ -54,6 +54,8 @@ interface Props {
   errors?: any
   isMulti?: boolean
   handleChange?: () => void
+  errorAbsolute?:boolean
+  errorRight?:boolean
 }
 
 const Control = ({ children, ...props }: any) => {
@@ -79,8 +81,10 @@ const SelectField: React.FC<Props> = ({
   labelKey,
   placeholder,
   errors,
+  errorAbsolute,
+  errorRight,
   isMulti,
-  handleChange
+  handleChange,
 }) => {
   const { DropdownIndicator, ClearIndicator } = components
 
@@ -129,6 +133,7 @@ const SelectField: React.FC<Props> = ({
                 onChange(selectedValues)
                 handleChange && handleChange()
               }}
+              className={_.get(errors, name)?.message ? `border border-red-100 rounded-lg` : ''}
               isMulti={isMulti}
               getOptionLabel={option => labelKey && option[labelKey]}
               getOptionValue={option => valueKey && option[valueKey]}
@@ -150,8 +155,8 @@ const SelectField: React.FC<Props> = ({
                 )
               }
             />
-            {errors && (
-              <div id={name} className='text-sm text-red-100 ml-2 absolute -bottom-4'>
+            {_.get(errors, name)?.message && (
+              <div id={name} className={`${errorAbsolute?'absolute top-full':'relative py-2'} ${errorRight?'right-0':''} text-sm text-red-100 max-h-max`}>
                 {_.get(errors, name)?.message}
               </div>
             )}

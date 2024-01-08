@@ -16,6 +16,7 @@ interface Props {
   control?: any
   name: string
   label?: string
+  labelMobile?:string
   id?: any
   prefix?: string
   errors?: any
@@ -44,6 +45,7 @@ export const DefaultInput: React.FC<Props> = ({
   control,
   name = '',
   label,
+  labelMobile,
   id,
   errors,
   pattern,
@@ -68,7 +70,7 @@ export const DefaultInput: React.FC<Props> = ({
   const handleBlur = () => setIsFocused(false)
 
   return (
-    <InputContainer key={index} className={`${className} ${disabled && styles.disabledInput}`}>
+    <InputContainer key={index} className={` flex flex-col ${className} ${disabled && styles.disabledInput}`}>
       <Controller
         control={control}
         name={name}
@@ -76,18 +78,26 @@ export const DefaultInput: React.FC<Props> = ({
         render={({ field: { onChange, value } }) => (
           <>
             <label
-              className={`absolute left-3 text-raisin-50 transition-all text-2sm pointer-events-none ${
+              className={`${labelMobile && 'hidden md:flex'} absolute left-3 text-raisin-50 transition-all text-2sm pointer-events-none ${
                 isFocused || value ? 'text-sm top-[3px]' : 'top-[16px] text-raisin-80'
               }`}
             >
               {label}
+            </label>
+
+            <label
+                className={`md:hidden absolute left-3 text-raisin-50 transition-all text-2sm pointer-events-none ${
+                    isFocused || value ? 'text-sm top-[3px]' : 'top-[16px] text-raisin-80'
+                }`}
+            >
+              {labelMobile}
             </label>
             <InputComponent
               onFocus={handleFocus}
               onBlur={handleBlur}
               disabled={disabled}
               value={value || ''}
-              className={`placeholder:text-[13px] ${rows ? 'pt-4' : 'h-12 lg:h-14'} ${styles.input} ${
+              className={`placeholder:text-[13px] ${rows ? 'pt-4 min-h-[80px]' : 'h-12 lg:h-14'} ${styles.input} ${
                 value || isFocused ? 'pb-1 pt-3' : 'pt-2 pb-2'
               } ${!disabled ? 'hover:border-raisin-30' : ''} ${
                 _.get(errors, name)?.ref.name === name ? 'border border-red-100' : ''
@@ -100,8 +110,8 @@ export const DefaultInput: React.FC<Props> = ({
               rows={rows}
               min={min}
             />
-            {errors && (
-              <div id={id} className='text-sm text-red-100 ml-2 my-2 relative'>
+            {_.get(errors, name)?.message && (
+              <div id={id} className='text-sm text-red-100 py-2 max-h-max relative'>
                 {_.get(errors, name)?.message}
               </div>
             )}

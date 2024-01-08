@@ -18,11 +18,11 @@ import { useRouter } from 'next/router'
 import { IconTextButton } from 'src/views/components/button'
 import dynamic from 'next/dynamic'
 import { Controller } from 'react-hook-form'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { dehydrate } from '@tanstack/react-query'
-import { queryClient } from '../_app'
 
 import SortListBox from 'src/views/pages/search/sortListBox'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { dehydrate } from '@tanstack/query-core'
+import { queryClient } from '../_app'
 
 const Divider = dynamic(() => import('src/views/components/divider'), { ssr: true })
 
@@ -32,15 +32,14 @@ const SearchLayout = dynamic(() => import('../../layouts/SearchLayout'), { ssr: 
 const Icon = dynamic(() => import('src/views/app/Icon'), { ssr: false })
 const Pagination = dynamic(() => import('src/views/components/pagination'), { ssr: false })
 const ProductCard = dynamic(() => import('src/views/components/productCard'), { ssr: true })
-const Switcher = dynamic(() => import('src/views/components/switcher'), { ssr: true })
-const Tag = dynamic(() => import('src/views/components/tag'), { ssr: true })
+const Tag = dynamic(() => import('src/views/components/tag'), { ssr: false })
 const Typography = dynamic(() => import('src/views/components/typography'), { ssr: true })
-const CategoryPopover = dynamic(() => import('src/views/pages/search/categoryPopover'), { ssr: true })
-const FuelTypePopover = dynamic(() => import('src/views/pages/search/fuelTypePopover'), { ssr: true })
-const PricePopover = dynamic(() => import('src/views/pages/search/pricePopover'), { ssr: true })
-const SeatsPopover = dynamic(() => import('src/views/pages/search/seatsPopover'), { ssr: true })
-const SuitcasesPopover = dynamic(() => import('src/views/pages/search/suitcasesPopover'), { ssr: true })
-const AdditionalFilters = dynamic(() => import('src/views/components/additionalFilters'), { ssr: true })
+const CategoryPopover = dynamic(() => import('src/views/pages/search/categoryPopover'), { ssr: false })
+const FuelTypePopover = dynamic(() => import('src/views/pages/search/fuelTypePopover'), { ssr: false })
+const PricePopover = dynamic(() => import('src/views/pages/search/pricePopover'), { ssr: false })
+const SeatsPopover = dynamic(() => import('src/views/pages/search/seatsPopover'), { ssr: false })
+const SuitcasesPopover = dynamic(() => import('src/views/pages/search/suitcasesPopover'), { ssr: false })
+const AdditionalFilters = dynamic(() => import('src/views/components/additionalFilters'), { ssr: false })
 
 // const ToggleMapButton = dynamic(() => import('../../views/pages/search/toggleMapButton'), { ssr: true })
 
@@ -50,7 +49,6 @@ const SearchPage = () => {
     reset,
     getValues,
     resetField,
-    handleSubmit,
     appendFuelType,
     appendCategory,
     appendSeatType,
@@ -65,7 +63,8 @@ const SearchPage = () => {
     totalProductsCount,
     totalPages,
     objectToURI,
-    setValue
+    setValue,
+    searchProductsMutation
   } = useSearch()
   const { width } = useWindowDimensions()
 
@@ -76,6 +75,8 @@ const SearchPage = () => {
 
   const { book_from, book_to } = router.query
 
+  const page = router.query.page ? Number(router.query.page) : 1
+
   // useEffect(() => {
   //   setMapVisible(width >= 1025)
   // }, [width])
@@ -85,40 +86,48 @@ const SearchPage = () => {
   // }
 
   const onSubmit = () => {
-    const updatedSearchValues = getValues()
+    const updatedSearchValues: any = getValues()
+    console.log(updatedSearchValues, 'updatedSearchValues')
+    searchProductsMutation.mutate(objectToURI(updatedSearchValues))
     router.push(`/search?${objectToURI(updatedSearchValues)}`)
   }
 
+  console.log(productsData, 'productsData')
+
   return (
     <>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form>
         <SearchLayout>
           <Divider />
           <FiltersWrapper>
             <MainFilters>
               <PricePopover control={control} handleSubmit={onSubmit} reset={resetField} />
-              <FuelTypePopover control={control} appendFuelType={appendFuelType} reset={resetField} />
+              <FuelTypePopover
+                control={control}
+                appendFuelType={appendFuelType}
+                reset={resetField}
+                handleSubmit={onSubmit}
+              />
               <CategoryPopover
                 control={control}
                 appendCategory={appendCategory}
                 handleSubmit={onSubmit}
                 reset={resetField}
               />
-              <Tag
-                label='უფასო მიწოდება'
+
+              {/* <Tag
+                label='უფასო მიყვანა'
                 component={<Switcher height='h-5' name='free_delivery' control={control} onChangeCallback={onSubmit} />}
                 height='h-10'
                 control={control}
+              /> */}
+              <SeatsPopover
+                control={control}
+                appendSeatType={appendSeatType}
+                handleSubmit={onSubmit}
+                reset={resetField}
               />
               <div className='hidden xl:flex'>
-                <SeatsPopover
-                  control={control}
-                  appendSeatType={appendSeatType}
-                  handleSubmit={onSubmit}
-                  reset={resetField}
-                />
-              </div>
-              <div className='hidden 2xl:flex'>
                 <SuitcasesPopover
                   control={control}
                   appendLuggageNumber={appendLuggageNumber}
@@ -140,28 +149,28 @@ const SearchPage = () => {
                 width={20}
                 height={22}
                 className='fill-transparent'
-                label='ფილტრის გასუფთავება'
+                label='გასუფთავება'
                 labelClassname='text-orange-120'
                 type='reset'
                 onClick={(e: { preventDefault: () => void }) => {
                   reset()
                   e.preventDefault()
-                  router.push('/search/?page=1&order_by=desc')
+                  router.push('/search/?free_delivery=false&page=1&order_by=desc')
                 }}
               />
             </ClearFiltersWrapper>
           </FiltersWrapper>
           <ResponsiveDivider />
-          <FullContainer className='lg:flex pt-20 lg:pt-[185px]'>
+          <FullContainer className='lg:flex'>
             <SearchContentsContainer className='w-full px-5 md:px-10 transition-all duration-300 lg:w-[calc(100%-40px)] lg:pr-0'>
               {/*  className={`w-full px-5 md:px-10 transition-all duration-300 ${*/}
               {/*    mapVisible ? 'lg:w-1/2 pr-8' : 'lg:w-[calc(100%-40px)] lg:pr-0'*/}
               {/*}`}*/}
               <SearchResultsContainer>
-                <Typography type='h5' weight='normal' className='mr-2 mb-5 md:mb-0'>
+                <Typography type='body' className='text-md mr-2 mt-4 md:mt-0'>
                   სულ ნაპოვნია {totalProductsCount} განცხადება
                 </Typography>
-                <div className='w-full md:w-auto flex items-center my-4'>
+                <div className='w-full md:w-auto flex items-center'>
                   {/*<span*/}
                   {/*  onClick={handleToggleMapWidth}*/}
                   {/*  className={`cursor-pointer group hover:bg-green-10 ml-3 hidden lg:flex items-center justify-center w-8 h-8 rounded-full ${*/}
@@ -200,12 +209,6 @@ const SearchPage = () => {
                         />
                       )}
 
-                      {/* <Tag
-                        className='mx-4 lg:mx-0'
-                        component={<Icon svgPath='sort' width={20} height={12} className='fill-transparent' />}
-                        label={width > 779 ? 'სორტირება' : ''}
-                        height={width > 1025 ? 'h-12' : 'h-10'}
-                      /> */}
                       <SortListBox control={control} onClick={onSubmit} setValue={setValue} />
                     </div>
 
@@ -241,6 +244,7 @@ const SearchPage = () => {
                       luggageNumbers={product?.luggage_numbers}
                       seats={product?.seat_type?.title}
                       images={product?.images?.split(',')}
+                      city={product?.start_city}
                     />
                   ))}
                 </div>
@@ -250,8 +254,15 @@ const SearchPage = () => {
                 <Controller
                   name='page'
                   control={control}
-                  render={({ field: { value, onChange } }) => (
-                    <Pagination totalPages={totalPages} currentPage={value} onPageChange={onChange} />
+                  render={({ field: { onChange } }) => (
+                    <Pagination
+                      totalPages={totalPages}
+                      currentPage={Number(page)}
+                      onPageChange={newPage => {
+                        onChange(newPage)
+                        onSubmit()
+                      }}
+                    />
                   )}
                 />
               )}
@@ -298,7 +309,7 @@ const SearchPage = () => {
 
 export default SearchPage
 
-export async function getStaticProps({ locale }: { locale: string }) {
+export async function getServerSideProps({ locale }: { locale: string }) {
   const [translations] = await Promise.all([serverSideTranslations(locale)])
 
   return {

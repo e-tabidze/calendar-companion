@@ -2,20 +2,21 @@ import { Menu, Transition } from '@headlessui/react'
 import { Fragment, useEffect, useState } from 'react'
 import Typography from 'src/views/components/typography'
 import { FilterContainer, InnerFilterContainer } from './styles'
-import DatePicker from 'react-datepicker'
+import DatePicker, { registerLocale } from 'react-datepicker';
+import  ka  from 'date-fns/locale/ka';
 import 'react-datepicker/dist/react-datepicker.css'
 import { Controller } from 'react-hook-form'
 import { formatDate } from 'src/utils/formatDate'
 import Icon from 'src/views/app/Icon'
 import { useRouter } from 'next/router'
 import { format } from 'date-fns'
-import { ka } from 'date-fns/locale'
 
 interface Props {
   control: any
   resetField: any
   setValue: any
 }
+registerLocale("ka", ka);
 
 const PeriodDropwodn: React.FC<Props> = ({ control, resetField, setValue }) => {
   const router = useRouter()
@@ -48,14 +49,12 @@ const PeriodDropwodn: React.FC<Props> = ({ control, resetField, setValue }) => {
     }
   }, [book_from, book_to])
 
-  console.log(book_from, book_to)
-
   return (
     <Menu as='div' className='flex text-left mx-2 w-full'>
-      <Menu.Button className='px-4 w-52 inline-flex justify-center rounded-md bg-raisin bg-opacity-20 text-sm font-medium text-white focus-visible:ring-white focus-visible:ring-opacity-75'>
+      <Menu.Button className='px-4 w-40 lg:w-52 inline-flex justify-center rounded-md bg-raisin bg-opacity-20 text-sm font-medium text-white focus-visible:ring-white focus-visible:ring-opacity-75'>
         <FilterContainer>
           <InnerFilterContainer>
-            <Typography type='body' className='text-raisin-50'>
+            <Typography type='body' className='text-raisin-50 whitespace-nowrap'>
               {startDate && endDate && book_from && book_to
                 ? `${format(startDate, 'd MMM yyyy', { locale: ka })} - ${format(endDate, 'd MMM yyyy', {
                     locale: ka
@@ -73,9 +72,10 @@ const PeriodDropwodn: React.FC<Props> = ({ control, resetField, setValue }) => {
                   setDateRange([null, null])
                   resetField(), e.stopPropagation()
                 }}
+                className="fill-transparent"
               />
             ) : (
-              <Icon svgPath='chevron' width={10} height={10} />
+              <Icon svgPath='chevron' width={10} height={10} className="fill-transparent" />
             )}
           </InnerFilterContainer>
         </FilterContainer>
@@ -89,18 +89,19 @@ const PeriodDropwodn: React.FC<Props> = ({ control, resetField, setValue }) => {
         leaveFrom='transform opacity-100 scale-100'
         leaveTo='transform opacity-0 scale-95'
       >
-        <Menu.Items className='absolute top-full z-[11] p-4 right-0 mt-4 w-full flex justify-center origin-top-right divide-y divide-gray-100 rounded-2xl bg-white shadow-lg focus:outline-none'>
+        <Menu.Items className='absolute w-max left-0 top-full z-[11] p-4 right-0 mt-4 flex justify-center origin-top-right divide-y divide-gray-100 rounded-2xl bg-white shadow-lg focus:outline-none'>
           <Controller
             name='booking'
             control={control}
             render={({ field: { onChange } }) => (
               <DatePicker
+                locale="ka"
                 className='text-center border-l-4 border-red-500  w-full p-3 rounded text-sm  outline-none  focus:ring-0 bg-transparent'
                 inline
                 selectsRange={true}
                 startDate={startDate}
                 endDate={endDate}
-                monthsShown={1}
+                monthsShown={2}
                 onChange={(update: any) => {
                   if (update) {
                     const [start, end] = update

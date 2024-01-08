@@ -15,9 +15,9 @@ export type WorkingHours = {
 
 export type CompanyAddress = {
   address: string
-  phone?: string
+  phone: number
   email?: string
-  city?: string
+  city: string
   state?: string
   postal_code?: string
   lat: string
@@ -32,6 +32,7 @@ export type CompanyAddress = {
 
 export type CompanyInfo = {
   name: string
+  legal_name: string
   logo: string
   description: string
   email: string

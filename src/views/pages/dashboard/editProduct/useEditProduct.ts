@@ -27,7 +27,7 @@ const useEditProduct = (id: number) => {
     price: service?.price || '',
     currency: service?.currency || 'GEL',
     quantity: service?.quantity || '',
-    isSelected: true,
+    isSelected: true
   }))
 
   const discount_item = {
@@ -56,6 +56,7 @@ const useEditProduct = (id: number) => {
     luggage_numbers: '',
     door_type_id: '',
     drive_tires_id: '',
+    steering_wheel: 0,
     transmission_type_id: '',
     additional_options: [] as any[],
     daily_price: {
@@ -73,7 +74,7 @@ const useEditProduct = (id: number) => {
       time_interval: 'კვირა',
       time_span: 1
     },
-    preparation_period: '',
+    preparation_period_type_id: '',
 
     start_city: '',
     start_address: '',
@@ -101,6 +102,7 @@ const useEditProduct = (id: number) => {
       setValue('luggage_numbers', productDetailsData?.luggage_numbers)
       setValue('door_type_id', productDetailsData?.door_type_id)
       setValue('drive_tires_id', productDetailsData?.drive_tires_id)
+      setValue('steering_wheel', productDetailsData?.steering_wheel === '1' ? 1 : 2)
       setValue('transmission_type_id', productDetailsData?.transmission_type_id)
       setValue(
         'additional_options',
@@ -124,7 +126,7 @@ const useEditProduct = (id: number) => {
       setValue('min_period.time_span', productDetailsData?.min_time_span)
       setValue('min_period.time_interval', productDetailsData?.min_time_interval)
       setValue('any_period', productDetailsData?.any_period)
-      setValue('preparation_period', productDetailsData?.preparation_period)
+      setValue('preparation_period_type_id', productDetailsData?.preparation_period_type_id)
 
       setValue('start_city', productDetailsData?.start_city)
       setValue('start_address', productDetailsData?.start_address)

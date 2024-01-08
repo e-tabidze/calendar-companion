@@ -41,7 +41,6 @@ const TwoOptionSelector: React.FC<Props> = ({ options, name, control }) => {
                   width={option.width}
                   height={option.height}
                   color={value === option.value ? '#272A37' : '#8C929B'}
-                  className='icon-class'
                 />
               ) : (
                 <Typography type='body'>{option.label}</Typography>

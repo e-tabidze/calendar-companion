@@ -45,7 +45,7 @@ export type Product = {
   company_services: Service[]
   has_min_period: boolean
   min_period: any
-  preparation_period: string
+  preparation_period_type_id: string
 }
 
 export type NewService = {

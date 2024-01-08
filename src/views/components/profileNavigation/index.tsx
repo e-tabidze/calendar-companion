@@ -47,14 +47,10 @@ const ProfileNavigation: React.FC<Props> = ({
         <div className='flex items-center'>
           <div className='flex shrink-0 w-12 h-12 relative rounded-full overflow-hidden'>
             <Image
-                onError={(ev:any)=>{
-                  ev.target.src = `/icons/avatar.svg`
-                }}
-              src={
-                isAuthenticated && !!activeCompany
-                  ? activeCompany?.information.logo
-                  : defaultImgUrl
-              }
+              onError={(ev: any) => {
+                ev.target.src = `/icons/avatar.svg`
+              }}
+              src={isAuthenticated && !!activeCompany ? activeCompany?.information.logo : defaultImgUrl}
               alt='avatar'
               className='object-cover w-full h-full'
               width={48}
@@ -107,7 +103,7 @@ const ProfileNavigation: React.FC<Props> = ({
               sidebarCollapsed ? 'px-5' : 'lg:px-5 xl:px-0 2xl:px-4'
             }`}
           >
-            <span className="transition-all duration-300 opacity-0 group-hover:opacity-100 xl:group-hover:opacity-0 z-[111] after:content[''] after:absolute after:left-[-6px] after:w-0 after:h-0 after:border-t-[6px] after:border-b-[6px] after:border-r-[6px] after:border-t-transparent  after:border-b-transparent after:border-r-raisin-100 absolute flex items-center bg-raisin-100 left-full ml-[-10px] top-1/2 -translate-y-1/2 text-white text-sm h-8 px-3 rounded-lg">
+            <span className="transition-all duration-300 opacity-0 hidden group-hover:flex group-hover:opacity-100 xl:group-hover:opacity-0 z-[111] after:content[''] after:absolute after:left-[-6px] after:w-0 after:h-0 after:border-t-[6px] after:border-b-[6px] after:border-r-[6px] after:border-t-transparent  after:border-b-transparent after:border-r-raisin-100 absolute items-center bg-raisin-100 left-full ml-[-10px] top-1/2 -translate-y-1/2 text-white text-sm h-8 px-3 rounded-lg">
               {route.item}
             </span>
             <div
@@ -116,7 +112,14 @@ const ProfileNavigation: React.FC<Props> = ({
               } `}
             >
               {route.image ? (
-                <Image src={route.image || ''} alt='' className='object-cover w-full h-full' />
+                <Image
+                  src={route.image || ''}
+                  alt=''
+                  className='object-cover w-full h-full'
+                  onError={(ev: any) => {
+                    ev.target.src = `/icons/avatar.svg`
+                  }}
+                />
               ) : (
                 <Icon
                   svgPath={route.icon}
@@ -135,7 +138,7 @@ const ProfileNavigation: React.FC<Props> = ({
                 route.path && selectedRoute?.path?.split('/')[2] === route.path.split('/')[2] ? 'text-orange-100' : ''
               }' ${route.path === router?.asPath && 'text-orange-100'}`}
             >
-              <> {console.log(route.path, 'route.path', router?.asPath, 'router?.asPath')} </>
+              <> {console.log(route?.path, router?.asPath, '?')}</>
               {route.item}
             </Typography>
           </div>

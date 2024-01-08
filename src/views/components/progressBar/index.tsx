@@ -4,7 +4,6 @@ interface Props {
   className?: string
 }
 const ProgressBar: React.FC<Props> = ({ color, className, progress }) => {
-  console.log(Math.floor(progress * 100))
 
   return (
     <div className={`h-[3px] bg-transparent -ml-5 md:-ml-10 w-[calc(100%_+_40px)] md:w-[calc(100%_+_80px)] ${className}`}>

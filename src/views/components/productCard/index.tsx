@@ -10,7 +10,6 @@ import dynamic from 'next/dynamic'
 
 import Typography from '../typography'
 
-
 import {
   Details,
   DetailsContainer,
@@ -32,6 +31,7 @@ interface Props {
   bookTo?: string | undefined
   seats: string | number
   images: string[]
+  city: string
 }
 
 const ProductCard: React.FC<Props> = ({
@@ -45,7 +45,8 @@ const ProductCard: React.FC<Props> = ({
   bookFrom,
   bookTo,
   seats,
-  images
+  images,
+  city
 }) => {
   const router = useRouter()
 
@@ -68,17 +69,13 @@ const ProductCard: React.FC<Props> = ({
 
   const isProductInFavorites = userFavourites?.some((fav: any) => fav.product_id === productId)
 
-  console.log(isProductInFavorites, 'isProductInFavorites')
-
-  console.log(activeCompanyId, 'activeCompanyId')
-
   const handleFavorites = async (e: any) => {
     e.stopPropagation()
     e.nativeEvent.preventDefault()
     try {
       toggleUserFavourites.mutate()
     } catch (error) {
-      console.log(error)
+      console.log(error, 'error')
     }
   }
 
@@ -88,16 +85,15 @@ const ProductCard: React.FC<Props> = ({
         <div className='w-full h-6'>
           <Carousel
             itemsArray={images?.map((imgUrl, index) => (
-                <div className='aspect-w-16 aspect-h-9 rounded-tl-3xl rounded-tr-3xl overflow-hidden' key={index}>
-                  <Image
-                      src={imgUrl || ''}
-                      alt={`${manufacturer} ${model} ${prodYear}`}
-                      height={'100%'}
-                      width={'10%'}
-                      className='object-cover'
-                  />
-                </div>
-
+              <div className='aspect-w-16 aspect-h-9 rounded-tl-3xl rounded-tr-3xl overflow-hidden' key={index}>
+                <Image
+                  src={imgUrl || ''}
+                  alt={`${manufacturer} ${model} ${prodYear}`}
+                  height={'100%'}
+                  width={'10%'}
+                  className='object-cover'
+                />
+              </div>
             ))}
             type='card'
             key={Math.random()}
@@ -127,20 +123,23 @@ const ProductCard: React.FC<Props> = ({
       <DetailsContainer>
         <Typography type='h5' className='flex items-center'>
           <span className='overflow-hidden text-ellipsis whitespace-nowrap inline-block'>
-            {manufacturer} {model}{' '}
+            {manufacturer} {model} {prodYear}
           </span>
-          <span className='ml-1'>{prodYear}</span>
+        </Typography>
+        <Typography type='body' color='light'>
+          {city}
         </Typography>
         <InnerDetailsContainer>
           <PriceContainer>
             {priceGel} ₾{/*<PreviousPrice>47₾</PreviousPrice>*/}
+            <Typography type='body' className='text-sm'>დღე</Typography>
           </PriceContainer>
-          <DetailsWrapper>
+          <DetailsWrapper className='flex-col md:flex-row pl-4 md:pl-0 border-l-1 border-raisin-10 md:border-none'>
             <Details>
               <Icon svgPath='views' width={20} height={20} className='fill-transparent' /> <span>{seats}</span>
             </Details>
             <Details>
-              <Icon svgPath='briefcase' width={20} height={20} className='fill-transparent' />{' '}
+              <Icon svgPath='briefcase' width={20} height={20} className='fill-transparent' />
               <span>{luggageNumbers}</span>
             </Details>
           </DetailsWrapper>
