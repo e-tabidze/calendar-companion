@@ -38,7 +38,7 @@ const MainPage = () => {
       <PageMeta meta={pageMeta} />
 
       <MainPageBox>
-        <LargeContainer>
+        <LargeContainer className='xl:px-0'>
           <Hero />
         </LargeContainer>
         {categoriesFilter?.filter((product: any) => product?.count_products > 0) && (
