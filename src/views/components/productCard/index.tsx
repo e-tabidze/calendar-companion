@@ -82,8 +82,7 @@ const ProductCard: React.FC<Props> = ({
 
   return (
     <ProductCardContainer onClick={handleCardClick}>
-      <div className={`overflow-hidden aspect-w-16 aspect-h-9 cursor-pointer ${swiperCard ? 'w-full' : 'sticky'} `}>
-        <div className='w-full h-6'>
+      <div className={`overflow-hidden cursor-pointer ${swiperCard ? 'w-full' : 'sticky'} `}>
           {isMobile && !router?.asPath?.startsWith('/search') ?
                 <div className='aspect-w-16 aspect-h-9 rounded-tl-3xl rounded-tr-3xl overflow-hidden'>
                   <Image
@@ -111,7 +110,6 @@ const ProductCard: React.FC<Props> = ({
               key={Math.random()}
           />
           }
-        </div>
       </div>
 
       {activeCompanyId === undefined && isAuthenticated && (
