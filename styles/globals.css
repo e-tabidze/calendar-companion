@@ -105,6 +105,10 @@
     right: -110px !important;
   }
 }
+.details-swiper .swiper-slide-prev,
+.details-swiper .swiper-slide-next {
+  opacity: 0.3;
+}
 
 .swiper-slide-active {
   position: relative !important;

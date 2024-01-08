@@ -84,7 +84,7 @@ export const ProductDetailsSlider = {
   },
 
   768: {
-    slidesPerView: 3,
+    slidesPerView: 1.8,
     slidesPerGroup: 1,
     spaceBetween: 12
   }
