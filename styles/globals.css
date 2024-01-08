@@ -86,6 +86,79 @@
   outline: none;
 }
 
+.main-swiper.swiper {
+  overflow: visible !important;
+}
+.main-swiper .swiper-slide {
+  opacity: 0.2;
+  pointer-events: none;
+}
+.main-swiper .swiper-slide-visible {
+  opacity: 1;
+  pointer-events: visible;
+}
+@media(min-width: 1400px) {
+  .main-swiper .swiper-button-prev {
+    left: -110px !important;
+  }
+  .main-swiper .swiper-button-next {
+    right: -110px !important;
+  }
+}
+
+.swiper-slide-active {
+  position: relative !important;
+}
+.swiper-button-disabled {
+  opacity: 0;
+  transition: 0.3s all;
+}
+.swiper-pagination {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  bottom:20px;
+  gap:4px;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+
+.swiper-button-prev.swiper-button-disabled,
+.swiper-button-next.swiper-button-disabled {
+  opacity: 0!important;
+  transition: 0.3s all;
+}
+.swiper-button-prev,
+.swiper-button-next {
+  background: #fff;
+  border-radius: 8px;
+  width: 56px !important;
+  height: 56px !important;
+  box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
+}
+@media (max-width: 767px) {
+  .swiper-button-prev,
+  .swiper-button-next {
+    width: 46px !important;
+    height: 46px !important;
+  }
+}
+
+.swiper-button-prev:after {
+  content: '' !important;
+  background: url(/icons/caret-left.svg) no-repeat center center;
+  width: 26px;
+  height: 26px;
+}
+.swiper-button-next:after {
+  content: '' !important;
+  background: url(/icons/caret-right.svg) no-repeat center center;
+  width: 26px;
+  height: 26px;
+}
+
 @media (max-width: 480px) {
   .react-datepicker__month {
     margin: 0 !important;
@@ -205,9 +278,6 @@
   }
 } */
 
-/* .swiper-slide-prev, .swiper-slide-next {*/
-/*  opacity: 0.3 !important;*/
-/*}*/
 
 .css-17db9ma-control {
   height: 56px !important;
@@ -219,99 +289,10 @@
   width: 0px;
   background: transparent; /* make scrollbar transparent */
 }
-/*swiper full view */
-.main-swiper.swiper {
-  overflow: visible !important;
-}
-.main-swiper .swiper-slide {
-  opacity: 0.2;
-  pointer-events: none;
-}
-.main-swiper .swiper-slide-visible {
-  opacity: 1;
-  pointer-events: visible;
-}
-@media(min-width: 1400px) {
-  .main-swiper .swiper-button-prev {
-    left: -110px !important;
-  }
-  .main-swiper .swiper-button-next {
-    right: -110px !important;
-  }
-}
-
-/****/
-
-.swiper-slide-active {
-  position: relative !important;
-}
-.swiper-button-disabled {
-  opacity: 0;
-  transition: 0.3s all;
-}
-.swiper-pagination {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  bottom:20px;
-  gap:4px;
-  padding-left: 4px;
-  padding-right: 4px;
-}
-
-/* .swiper-pagination-custom { */
-/* position: absolute !important;
-  display: flex !important;
-  justify-content: end !important;
-  padding-right: 20px !important;
-  background: #FFFFFF !important;
-  padding: 16px !important;
-  border-radius: 8px !important;
-  width: fit-content !important;
-  right: 0 !important;
-  left: unset !important; */
-/* position: relative !important; */
-/* } */
-
-.custom-pagination {
-  position: absolute !important;
-  display: flex !important;
-  justify-content: end !important;
-  padding-right: 20px !important;
-  background: #ffffff !important;
-  padding: 16px !important;
-  border-radius: 8px !important;
-  width: fit-content !important;
-  right: 25% !important;
-  bottom: 20px !important;
-}
-/* .swiper,
-.swiper-container {
-  position: unset !important
-} */
-
-/*  */
 
 .css-24zbih-ValueContainer {
   margin-top: 0px !important;
 }
-
-/* html {
-  overflow-x: hidden;
-}
-
-body {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-main {
-  display: flex;
-  flex-direction: column;
-} */
 
 html {
   overflow-x: hidden;
@@ -320,13 +301,6 @@ html {
   -ms-overflow-style: none;
 }
 
-/*body {*/
-  /*overflow-x: hidden;*/
-  /*max-width: 4000px;*/
-  /*scrollbar-width: none;*/
-  /*white-space: nowrap !important;*/
-  /*-ms-overflow-style: none;*/
-/*}*/
 
 input:focus::placeholder {
   color: transparent;
@@ -348,70 +322,6 @@ input[type='number'] {
   -moz-appearance: textfield;
 }
 
-.arrows-lg .swiper-button-prev.swiper-button-disabled,
-.arrows-lg .swiper-button-next.swiper-button-disabled {
-  opacity: 0;
-  transition: 0.3s all;
-}
-.arrows-lg .swiper-button-prev,
-.arrows-lg .swiper-button-next {
-  cursor: pointer;
-  background: #fff;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1;
-  width: 56px;
-  height: 56px;
-  box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
-}
-@media (max-width: 767px) {
-  .arrows-lg .swiper-button-prev,
-  .arrows-lg .swiper-button-next {
-    width: 46px;
-    height: 46px;
-  }
-}
-
-.arrows-lg .swiper-button-prev:after {
-  content: '';
-  background: url(/icons/caret-left.svg) no-repeat center center;
-  width: 26px;
-  height: 26px;
-}
-.arrows-lg .swiper-button-next:after {
-  content: '';
-  background: url(/icons/caret-right.svg) no-repeat center center;
-  width: 26px;
-  height: 26px;
-}
-.arrows-sm .swiper-button-prev,
-.arrows-sm .swiper-button-next {
-  display: none;
-  /*display: flex ;*/
-  cursor: pointer;
-  background: #fff;
-  border-radius: 50%;
-  align-items: center;
-  justify-content: center;
-  z-index: 1;
-  width: 24px;
-  height: 24px;
-  box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
-}
-.arrows-sm .swiper-button-prev:after {
-  content: '';
-  background: url(/icons/caret-l.svg) no-repeat center center;
-  width: 7px;
-  height: 9px;
-}
-.arrows-sm .swiper-button-next:after {
-  content: '';
-  background: url(/icons/caret-r.svg) no-repeat center center;
-  width: 7px;
-  height: 9px;
-}
 .css-3w2yfm-ValueContainer, .css-1dyz3mf {
   flex-wrap: nowrap !important;
   -webkit-line-clamp: 1;
@@ -427,19 +337,7 @@ input[type='number'] {
 .css-1dyz3mf::-webkit-scrollbar {
   height: 0px;
 }
-.arrows-sm .swiper-pagination {
-  display: flex;
-}
-.arrows-sm .swiper-pagination-bullet {
-  width: 100%;
-  background: #fff;
-  opacity: 0.5;
-  border-radius: 0;
-  height: 2px;
-}
-.arrows-sm .swiper-pagination-bullet.swiper-pagination-bullet-active {
-  opacity: 1;
-}
+
 .css-1nmdiq5-menu {
 padding-top:8px;
 padding-bottom:8px;

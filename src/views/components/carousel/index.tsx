@@ -67,12 +67,12 @@ const Carousel = ({ itemsArray, type, onClick, thumbs = false }: Props) => {
     }}
     >
       <Swiper
-        className={`${type === 'card' ? 'arrows-sm' : 'arrows-lg'} ${(type === 'products') || (type ==='categories') ? 'main-swiper' : ''}`}
+        className={`${(type === 'products') || (type ==='categories') ? 'main-swiper' : ''}`}
         watchSlidesProgress
         ref={swiperRef}
         breakpoints={handleBreakpoints()}
         modules={[Navigation, Pagination, EffectFade]}
-        navigation={true}
+        navigation= {type === 'card' ? false: true}
         effect = {type === 'card' ? 'fade' : '' }
         pagination = {type === 'card' && pagination}
         onInit={swiper => {
@@ -118,7 +118,6 @@ const Carousel = ({ itemsArray, type, onClick, thumbs = false }: Props) => {
           })}
         </div>
         }
-
       </Swiper>
 
       {/*<div*/}
