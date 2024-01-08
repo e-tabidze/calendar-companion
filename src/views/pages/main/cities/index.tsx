@@ -46,7 +46,7 @@ const Cities = () => {
               ?.map((city: any) => (
                 <CityCard
                   key={city?.city}
-                  src='/images/city.png'
+                  src={`/images/cities/${city?.image}`}
                   city={city.city}
                   numberOfCars={city?.products}
                   onClick={() =>
@@ -64,21 +64,21 @@ const Cities = () => {
         <Divider />
         <BenefitsContainer>
           <BenefitsCard
-            icon='timeStart'
+            icon='speed'
             width={64}
             height={64}
             title='სწრაფი'
             bodyText='დაზოგე დრო —  ნახე ყველა გამქირავებელი კომპანია ერთ ვებსაიტზე, შეადარე და დაუკავშირდი საუკეთესოს. ასევე, ჩაიბარე და ჩააბარე ავტომობილი მარტივად, ვებსაიტის მეშვეობით.'
           />
           <BenefitsCard
-            icon='timeStart'
+            icon='comfort'
             width={64}
             height={64}
             title='კომფორტული'
             bodyText='აირჩიე, დაჯავშნე, გადაიხადე — მოძებნე და დაჯავშნე ავტომობილი სასურველ თარიღებში. გადაიხადე ვებსაიტზე და მიიღე ყველა საჭირო მომსახურება ერთ სივრცეში.'
           />
           <BenefitsCard
-            icon='timeStart'
+            icon='safe'
             width={64}
             height={64}
             title='უსაფრთხო'

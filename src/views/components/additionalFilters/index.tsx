@@ -68,7 +68,7 @@ const AdditionalFilters: React.FC<Props> = ({
     doorTypesFilter,
     driveTiresFilter,
     transmisisonTypesFilter,
-    luggageNumbers,
+    suitcases,
     additionalInformationFilters,
     manufacturerFilters,
     steeringWheel
@@ -268,7 +268,7 @@ const AdditionalFilters: React.FC<Props> = ({
                     </Typography>
                     <div className='flex flex-wrap gap-2 my-3 md:gap-4 md:my-6'>
                       <Tag
-                        options={luggageNumbers}
+                        options={suitcases}
                         height='h-10'
                         name='luggage_numbers'
                         control={control}

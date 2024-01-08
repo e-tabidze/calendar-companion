@@ -10,14 +10,12 @@ import { useRouter } from 'next/router'
 import { Service } from 'src/types/Product'
 import OrderService from 'src/services/OrderService'
 
-
 const useBooking = (id: number | string | string[]) => {
   const { userInfo } = useProfile()
   const { singleProductDetails } = useSingleProductDetails(id)
 
   const router = useRouter()
   const { book_from, book_to } = router.query
-
 
   const additionalService = singleProductDetails?.product_services.map((service: Service) => ({
     id: service.id | 0,
@@ -105,9 +103,9 @@ const useBooking = (id: number | string | string[]) => {
     }
   }
 
-  const selfBookProduct = async (AccessToken = '', company: Order) => {
+  const selfBookProduct = async (company: Order) => {
     try {
-      const response: any = await OrderService.selfBookProduct(AccessToken, company)
+      const response: any = await OrderService.selfBookProduct('', company)
 
       return response.data
     } catch (error) {

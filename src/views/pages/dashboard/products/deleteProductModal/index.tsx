@@ -1,6 +1,8 @@
 import { Fragment } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { DefaultButton, IconTextButton } from 'src/views/components/button'
+import Icon from 'src/views/app/Icon'
+import Divider from 'src/views/components/divider'
 
 interface Props {
   open: boolean
@@ -37,15 +39,17 @@ const DeleteProductConfirmationModal: React.FC<Props> = ({ open, toggleModal, pr
               leaveTo='opacity-0 translate-y-4 md:translate-y-0 md:scale-95'
             >
               <Dialog.Panel className='relative transform overflow-hidden rounded-3xl bg-white text-left shadow-xl transition-all w-full md:my-4 md:max-w-3xl'>
-                <div className='w-full flex justify-end p-3'>
-                  <Dialog.Title as='h3' className='text-2md text-base-100 leading-6 px-6 pb-6 pt-1'>
+                <div className='w-full px-8 pt-5 pb-8 md:px-16 md:pt-10 md:pb-16 flex items-center flex-col'>
+                  <Icon svgPath='trash-red' width={64} height={64} />
+                  <Dialog.Title as='h3' className='text-sm md:text-2md text-base-100 leading-6 pt-4'>
                     ნამდვილად გსურთ პროდუქტის წაშლა?
                   </Dialog.Title>
                 </div>
-                <div className='w-full flex flex-col md:flex-row md:items-center justify-between py-4 px-4 md:px-10 border-t-1 border-grey-90'>
+                <Divider />
+                <div className='w-full flex md:items-center justify-between py-2 md:py-4 px-4 md:px-10'>
                   <DefaultButton
                     text='უარყოფა'
-                    className='border-none'
+                    className='border-none text-sm md:text-md'
                     type='submit'
                     onClick={() => {
                       toggleModal()
@@ -53,7 +57,7 @@ const DeleteProductConfirmationModal: React.FC<Props> = ({ open, toggleModal, pr
                   />
                   <IconTextButton
                     label='წაშლა'
-                    className='text-red-120'
+                    className='text-red-120 text-sm md:text-md'
                     icon='clear'
                     width={24}
                     height={24}

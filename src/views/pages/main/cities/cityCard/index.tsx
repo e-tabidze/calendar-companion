@@ -16,7 +16,12 @@ const CityCard: React.FC<Props> = ({ src, city, numberOfCars, onClick }) => {
   return (
     <div className='mb-8 lg:mb-0 cursor-pointer' onClick={onClick}>
       <Container>
-        <Image src={src} className='rounded-2xl mb-4 max-w-full' alt='img' />
+        <Image
+            onError={(ev: any) => {
+              ev.target.src = `/images/cities/default.png`
+            }}
+            src={src}
+            className='rounded-2xl mb-4 max-w-full' alt='img' />
         <Typography
           type='h4'
           weight='normal'

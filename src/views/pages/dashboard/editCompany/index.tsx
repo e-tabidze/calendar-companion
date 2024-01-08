@@ -132,7 +132,7 @@ const EditCompany = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <div className='md:border md:border-raisin-10 md:rounded-3xl md:p-8'>
+      <div className='md:border md:border-raisin-10 md:rounded-3xl md:p-8 mt-8 lg:mt-0'>
         <div className='flex gap-6 items-center mb-10'>
           <div className='flex shrink-0 w-[76px] h-[76px] md:w-24 md:h-24 border border-raisin-10 rounded-3xl relative overflow-hidden'>
             {updateCompanyMutation?.isLoading ? (
