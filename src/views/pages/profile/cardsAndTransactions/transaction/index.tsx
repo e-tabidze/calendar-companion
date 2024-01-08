@@ -15,10 +15,10 @@ const Transaction: React.FC<Props> = ({ date, id, price, status }) => {
     <div>
       <div className='flex items-center justify-between my-3'>
         <div className='flex flex-col md:gap-10 md:items-center md:flex-row'>
-          <Typography type='body' color='light'>
+          <Typography className='min-w-[80px]' type='body' color='light'>
             {format(parseISO(date), 'd MMM yyyy', { locale: ka })}
           </Typography>
-          <Typography type='subtitle'>ორდერის ID: #{id} </Typography>
+          <Typography className='min-w-[180px]' type='subtitle'>ორდერის ID: #{id} </Typography>
           <Typography
             type='subtitle'
             className={`text-sm xl:text-2sm ${

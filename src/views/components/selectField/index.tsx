@@ -91,7 +91,7 @@ const SelectField: React.FC<Props> = ({
   const customDropdownIndicator = (
     props: JSX.IntrinsicAttributes & DropdownIndicatorProps<unknown, boolean, GroupBase<unknown>>
   ) => {
-    if (!props.selectProps.value) {
+    if (!props.selectProps.value || props.selectProps.value?.length===0) {
       return <DropdownIndicator {...props} />
     }
 

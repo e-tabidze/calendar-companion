@@ -127,7 +127,7 @@ const EditScheduleModal: React.FC<Props> = ({ open, onClose, control, address, i
                         <div className='flex items-center gap-1'>
                           <SelectField
                             options={generateTimeOptions()}
-                            className='my-2'
+                            className='my-2 fill-transparent'
                             icon
                             name={`addresses.${index}.start_time`}
                             control={control}
@@ -137,7 +137,7 @@ const EditScheduleModal: React.FC<Props> = ({ open, onClose, control, address, i
                           <div className='h-px w-[6px] bg-raisin-130' />
                           <SelectField
                             options={generateTimeOptions()}
-                            className='my-2'
+                            className='my-2 fill-transparent'
                             icon
                             control={control}
                             name={`addresses.${index}.end_time`}

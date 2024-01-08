@@ -77,19 +77,19 @@ const SuccessfulPayment = () => {
         </PriceDetailsContainer>
       </RentalDetailsContainer>
       <Divider />
-      <PriceDetailsContainer className='md:py-10 lg:py-16 p-4 md:px-10 lg:px-0'>
-        <div className='lg:w-4/12 xl:w-5/12 flex flex-col xl:items-center shrink-0'>
+      <PriceDetailsContainer className='md:py-10 lg:py-16 p-4 md:px-10 lg:px-0 justify-center'>
+        <div className='lg:w-4/12 xl:w-5/12 flex flex-col xl:items-start shrink-0'>
           <div className='flex flex-col'>
-            <div className='w-[260px] shrink-0'>
+            <div className='xl:w-[400px] w-[320px] shrink-0'>
               <div className='aspect-w-16 aspect-h-9 rounded-lg overflow-hidden'>
                 <Image src={productData?.images?.split(',')[0]} alt='' height={'100%'} width={'100%'} className='object-cover' />
               </div>
             </div>
 
-            <Typography type='h5' className='font-bold my-4'>
+            <Typography type='h5' className='font-bold my-4 text-[24px]'>
               {productData?.manufacturer?.title} {productData?.manufacturer_model?.title} {productData?.prod_year}
             </Typography>
-            <Typography type='subtitle' className='text-bold text-green-100'>
+            <Typography type='subtitle' className='font-bold text-[#3EB75E] text-[24px]'>
               აქტიური
             </Typography>
           </div>
@@ -181,11 +181,12 @@ const SuccessfulPayment = () => {
               </Typography>
             </PriceDetailsWrapper>
             <DefaultButton
-              text='შეკვეთების ისტორია'
+              text='ნახე შეკვეთები'
               onClick={() => router.push('/profile/orders')}
               textColor='text-white'
+              icon
               bg='bg-raisin-100'
-              className='text-sm md:text-md px-6 h-10 md:h-12'
+              className='text-[14px] font-normal px-6 h-10 md:h-12'
             />
           </div>
         </div>
