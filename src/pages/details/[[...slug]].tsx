@@ -2,12 +2,12 @@ import { memo, useEffect, useRef, useState } from 'react'
 import DefaultLayout from 'src/layouts/DefaultLayout'
 import dynamic from 'next/dynamic'
 import EventListener from 'react-event-listener'
-import  { registerLocale } from 'react-datepicker';
-import  ka  from 'date-fns/locale/ka';
+import { registerLocale } from 'react-datepicker'
+import ka from 'date-fns/locale/ka'
 
 const Carousel = dynamic(() => import('src/views/components/carousel'), { ssr: false })
 const Image = dynamic(() => import('src/views/components/image'), { ssr: false })
-const Typography = dynamic(() => import('src/views/components/typography'), { ssr: false })
+const Typography = dynamic(() => import('src/views/components/typography'), { ssr: true })
 const ProductFeature = dynamic(() => import('src/views/pages/details/productFeature'), { ssr: false })
 const DatePicker = dynamic(() => import('react-datepicker'), { ssr: false })
 
@@ -18,17 +18,17 @@ const PriceCalcCard = dynamic(() => import('src/views/pages/details/priceCalcCar
 // const InsuranceCard = dynamic(() => import('src/views/pages/details/insuranceCard'), { ssr: false })
 // const MapPicker = dynamic(() => import('src/views/components/mapPicker'), { ssr: true })
 
-const LessorInformationCard = dynamic(() => import('src/views/pages/details/lessorInformationCard'), { ssr: true })
+const LessorInformationCard = dynamic(() => import('src/views/pages/details/lessorInformationCard'), { ssr: false })
 const Divider = dynamic(() => import('src/views/components/divider'), { ssr: false })
 
-const EntityInformationCard = dynamic(() => import('src/views/pages/details/entitiInformationCard'), { ssr: true })
+const EntityInformationCard = dynamic(() => import('src/views/pages/details/entitiInformationCard'), { ssr: false })
 const Drawer = dynamic(() => import('src/views/pages/details/drawer'), { ssr: false })
 const ResponsivePriceCalcCard = dynamic(() => import('src/views/pages/details/responsivePriceCalcCard'), { ssr: false })
 const ProductImagesDialog = dynamic(() => import('src/views/pages/details/productImagesDialog'), { ssr: false })
 
 import { ContentContainer, MaxWidthContainer } from 'src/styled/styles'
 
-const SubNavItem = dynamic(() => import('src/views/pages/details/subNavItem'), { ssr: true })
+const SubNavItem = dynamic(() => import('src/views/pages/details/subNavItem'), { ssr: false })
 
 import { useRouter } from 'next/router'
 import useWindowDimensions from 'src/hooks/useWindowDimensions'
@@ -47,7 +47,7 @@ const Features = dynamic(() => import('src/views/pages/details/features'), { ssr
 import { format } from 'date-fns'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-registerLocale("ka", ka);
+registerLocale('ka', ka)
 
 const ProductDetails = memo(() => {
   const router = useRouter()
@@ -75,13 +75,15 @@ const ProductDetails = memo(() => {
   const [startDate, endDate] = dateRange
   const [productImageDialogOpen, setProductImageDialogOpen] = useState<boolean>(false)
 
-  const { singleProductDetails } = useSingleProductDetails(slug)
+  const { singleProductDetails, orderDatesData } = useSingleProductDetails(slug)
 
   const { similarProducts } = useMain(singleProductDetails?.man_id, singleProductDetails?.model_id)
 
   console.log(similarProducts, 'similarProducts')
 
   console.log(singleProductDetails, 'singleProductDetails')
+
+  console.log(orderDatesData, 'orderDatesData')
 
   const ref = useRef<any>()
 
@@ -149,6 +151,7 @@ const ProductDetails = memo(() => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <DefaultLayout>
+
         {/* <ContentContainer>
           <DetailsPageHeader />
         </ContentContainer> */}
@@ -166,7 +169,11 @@ const ProductDetails = memo(() => {
             pagination={true}
           />
         </MaxWidthContainer>
-        <MaxWidthContainer className={`${isSticky ? 'sticky top-[72px] md:top-20' : ''} bg-white z-[30]`} ref={ref} id='head'>
+        <MaxWidthContainer
+          className={`${isSticky ? 'sticky top-[72px] md:top-20' : ''} bg-white z-[30]`}
+          ref={ref}
+          id='head'
+        >
           <ContentContainer className='overflow-x-auto no-scrollbar bg-white z-30'>
             <div className='flex gap-8 my-6 w-max'>
               <SubNavItem section='details' activeSection={section} handleClick={handleClick}>
@@ -298,7 +305,7 @@ const ProductDetails = memo(() => {
                   control={control}
                   render={({ field: { onChange } }) => (
                     <DatePicker
-                      locale="ka"
+                      locale='ka'
                       className='text-center border-l-4 border-red-500  w-full p-3 rounded text-sm  outline-none  focus:ring-0 bg-transparent'
                       inline
                       selectsRange={true}
@@ -318,8 +325,21 @@ const ProductDetails = memo(() => {
                       dateFormat='yyyy-MM-dd'
                       onChangeRaw={e => e.preventDefault()}
                       minDate={new Date()}
+                      excludeDates={orderDatesData?.flatMap(({ start_date, end_date }: any) => {
+                        const start = new Date(start_date)
+                        const end = new Date(end_date)
+                        const excludedDates = []
 
-                      // filterDate={date => date.getDate() % 2 === 0}
+                        for (
+                          let currentDate = start;
+                          currentDate <= end;
+                          currentDate.setDate(currentDate.getDate() + 1)
+                        ) {
+                          excludedDates.push(new Date(currentDate))
+                        }
+
+                        return excludedDates
+                      })}
                     />
                   )}
                 />

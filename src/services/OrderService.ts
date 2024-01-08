@@ -7,7 +7,10 @@ class OrderService extends HttpService {
   }
 
   getCompanyOrders(AccessToken = '', statusId: string | string[], page: number) {
-    return this.get(`/orders?status_id=${statusId}&page=${page}`, AccessToken ? { Authorization: `${AccessToken}` } : {})
+    return this.get(
+      `/orders?status_id=${statusId}&page=${page}`,
+      AccessToken ? { Authorization: `${AccessToken}` } : {}
+    )
   }
 
   getCompanyOrder(AccessToken = '', orderId: string | number) {
@@ -40,6 +43,10 @@ class OrderService extends HttpService {
 
   selfBookProduct(AccessToken = '', order: Order) {
     return this.post('/self-book', order, AccessToken ? { Authorization: `${AccessToken}` } : {})
+  }
+
+  orderDates(AccessToken = '', productId: number) {
+    return this.get(`/order-dates/${productId}`, {}, AccessToken ? { Authorization: `${AccessToken}` } : {})
   }
 }
 
