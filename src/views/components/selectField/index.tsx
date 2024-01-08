@@ -89,14 +89,16 @@ const SelectField: React.FC<Props> = ({
   const { DropdownIndicator, ClearIndicator } = components
 
   const customDropdownIndicator = (
-    props: JSX.IntrinsicAttributes & DropdownIndicatorProps<unknown, boolean, GroupBase<unknown>>
+    props: JSX.IntrinsicAttributes & DropdownIndicatorProps<any, boolean, GroupBase<unknown>>
   ) => {
+
     if (!props.selectProps.value || props.selectProps.value?.length===0) {
       return <DropdownIndicator {...props} />
     }
 
     return null
   }
+
 
   const customClearIndicator = (
     props: JSX.IntrinsicAttributes & ClearIndicatorProps<unknown, boolean, GroupBase<unknown>>

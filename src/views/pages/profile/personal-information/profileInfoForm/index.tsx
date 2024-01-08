@@ -22,7 +22,7 @@ const ProfileInfoForm: React.FC<Props> = ({ control, errors }) => {
         შემდგომში თქვენსა და გამქირავებელს შორის კომუნიკაციისთვის
       </Typography>
       <Typography type='body'>აირჩიე სქესი</Typography>
-      <div className='grid gap-4 grid-cols-1 md:grid-cols-2'>
+      <div className='grid gap-4 grid-cols-1 md:grid-cols-2 mb-10'>
         <Controller
           name='gender'
           control={control}

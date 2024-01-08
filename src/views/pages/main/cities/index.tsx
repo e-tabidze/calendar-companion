@@ -46,7 +46,7 @@ const Cities = () => {
               ?.map((city: any) => (
                 <CityCard
                   key={city?.city}
-                  src='/images/city.png'
+                  src={`/images/cities/${city?.image}`}
                   city={city.city}
                   numberOfCars={city?.products}
                   onClick={() =>

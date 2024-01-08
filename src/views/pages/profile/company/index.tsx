@@ -92,9 +92,9 @@ const Company: React.FC<Props> = ({ id, name, productsCount, logo }) => {
   console.log(companyValues, 'companyValues edit')
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <div className='md:border border-raisin-10 rounded-3xl mx-4 lg:mx-0'>
-        <div className='p-2 md:p-6'>
+    <form onSubmit={handleSubmit(onSubmit)} className="mt-6 lg:mt-0">
+      <div className='md:p-8 lg:p-10 md:border border-raisin-10 rounded-3xl'>
+        <div>
           <div className='flex items-center gap-6 md:mb-10'>
             <div className='flex items-center justify-center border border-raisin-10 relative overflow-hidden rounded-2xl md:rounded-3xl w-[76px] h-[76px] md:w-24 md:h-24'>
               <Image

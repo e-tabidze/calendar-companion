@@ -17,15 +17,15 @@ const Details: React.FC<Props> = ({ id, company, url }) => {
   console.log(notifictionDetails, 'notifictionDetails')
 
   return (
-    <div className='border border-raisin-10 rounded-2xl md:rounded-3xl p-6 md:py-10 md:px-8'>
-      <div className='flex items-center mb-12'>
-        <Link href={url} className='flex w-10 h-10 bg-grey-100 rounded-full mr-4 items-center justify-center shrink-0'>
+    <div className='border mt-6 border-raisin-10 rounded-2xl md:rounded-3xl p-6 md:py-10 md:px-8'>
+      <Link href={url} className='flex items-center mb-12'>
+        <div className='flex w-10 h-10 bg-grey-100 rounded-full mr-4 items-center justify-center shrink-0'>
           <Icon svgPath='chevron-left' width={20} height={20} className='fill-transparent' />
-        </Link>
+        </div>
         <Typography type='h3' className='font-bold md:font-normal text-sm md:text-2sm'>
           შეტყობინებები
         </Typography>
-      </div>
+      </Link>
       <div className=''>
         <div className='flex items-center'>
           <span className='w-14 h-14 bg-grey-100 rounded-xl mr-6 flex items-center justify-center shrink-0'>

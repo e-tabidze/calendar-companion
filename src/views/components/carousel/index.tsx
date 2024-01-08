@@ -67,14 +67,16 @@ const Carousel = ({ itemsArray, type, onClick, thumbs = false }: Props) => {
     }}
     >
       <Swiper
-        className={`${type === 'card' ? 'arrows-sm' : 'arrows-lg'} ${(type === 'products') || (type ==='categories') ? 'main-swiper' : ''}`}
+        className={`${(type === 'products') || (type ==='categories') ? 'main-swiper' : ''} ${type === 'productDetails' ? 'details-swiper':''}`}
         watchSlidesProgress
         ref={swiperRef}
         breakpoints={handleBreakpoints()}
         modules={[Navigation, Pagination, EffectFade]}
-        navigation={true}
+        navigation= {type === 'card' ? false: true}
         effect = {type === 'card' ? 'fade' : '' }
         pagination = {type === 'card' && pagination}
+        centeredSlides={type==='productDetails'}
+        loop={type==='productDetails'}
         onInit={swiper => {
           setSwiper(swiper)
         }}
@@ -118,55 +120,7 @@ const Carousel = ({ itemsArray, type, onClick, thumbs = false }: Props) => {
           })}
         </div>
         }
-
       </Swiper>
-
-      {/*<div*/}
-      {/*  onClick={(e: any) => {*/}
-      {/*    e.stopPropagation()*/}
-      {/*    e.preventDefault()*/}
-      {/*  }}*/}
-      {/*  className={`*/}
-      {/*   ${*/}
-      {/*     type === 'categories' || type === 'products'*/}
-      {/*       ? 'w-[46px] h-[46px] lg:w-14 md:h-14 left-4 md:left-0 lg:left-[-28px]'*/}
-      {/*       : ''*/}
-      {/*   }*/}
-      {/*   */}
-      {/*  ${type === 'productDetails' ? 'w-[46px] h-[46px] lg:w-14 md:h-14 left-5' : ''}*/}
-      {/*  ${type === 'card' ? 'hidden md:flex w-6 h-6 left-4' : ''}*/}
-      {/*  cursor-pointer shadow-sm absolute inset-y-0 top-1/2 -translate-y-1/2 bg-white rounded-2xl flex items-center justify-center z-10`}*/}
-      {/*  ref={prevRef}*/}
-      {/*>*/}
-      {/*  {type === 'card' ? (*/}
-      {/*    <Icon svgPath='caret-l' width={7} height={9} className='fill-transparent' />*/}
-      {/*  ) : (*/}
-      {/*    <Icon svgPath='caret-left' width={26} height={26} className='fill-transparent' />*/}
-      {/*  )}*/}
-      {/*</div>*/}
-      {/*<div*/}
-      {/*  onClick={(e: any) => {*/}
-      {/*    e.stopPropagation()*/}
-      {/*    e.preventDefault()*/}
-      {/*  }}*/}
-      {/*  className={`*/}
-      {/*     ${*/}
-      {/*       type === 'categories' || type === 'products'*/}
-      {/*         ? 'w-[46px] h-[46px] lg:w-14 md:h-14 right-4 md:right-0 lg:right-[-28px]'*/}
-      {/*         : ''*/}
-      {/*     }*/}
-      {/*   */}
-      {/*  ${type === 'productDetails' ? 'w-[46px] h-[46px] lg:w-14 md:h-14 right-5' : ''}*/}
-      {/*  ${type === 'card' ? 'hidden md:flex w-6 h-6 right-4' : ''}*/}
-      {/*  cursor-pointer shadow-sm absolute inset-y-0 top-1/2 -translate-y-1/2  bg-white rounded-2xl flex items-center justify-center z-10`}*/}
-      {/*  ref={nextRef}*/}
-      {/*>*/}
-      {/*  {type === 'card' ? (*/}
-      {/*    <Icon svgPath='caret-r' width={7} height={9} className='fill-transparent' />*/}
-      {/*  ) : (*/}
-      {/*    <Icon svgPath='caret-right' width={26} height={26} className='fill-transparent' />*/}
-      {/*  )}*/}
-      {/*</div>*/}
 
       {thumbs && (
         <Swiper

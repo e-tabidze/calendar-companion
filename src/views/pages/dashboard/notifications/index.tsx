@@ -1,9 +1,9 @@
 import useNotifications from 'src/hooks/useNotifications'
 import { useRouter } from 'next/router'
-import Header from 'src/views/components/notifications/header'
 import ListItem from 'src/views/components/notifications/listItem'
 import Details from 'src/views/components/notifications/details'
 import { useEffect } from 'react'
+import Typography from 'src/views/components/typography'
 
 const Notifications = () => {
   const { notifictions, refetchNotifications } = useNotifications()
@@ -20,8 +20,10 @@ const Notifications = () => {
       {router.query.id ? (
         <Details url='/dashboard/notifications' id={String(id)} company={String(company)} />
       ) : (
-        <div className='border border-raisin-10 rounded-2xl md:rounded-3xl p-6 md:py-10 md:px-8'>
-          <Header />
+        <div className='md:p-8 lg:p-10 md:border border-raisin-10 rounded-3xl mt-8 lg:mt-0'>
+          <Typography type='h3' className='mb-6'>
+            შეტყობინებები
+          </Typography>
           <ul>
             {notifictions?.map((notification: any) => (
               <ListItem

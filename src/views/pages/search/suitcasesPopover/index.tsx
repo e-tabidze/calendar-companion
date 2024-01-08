@@ -12,7 +12,7 @@ interface Props {
 }
 
 const SuitcasesPopover: React.FC<Props> = ({ control, appendLuggageNumber, handleSubmit, reset }) => {
-  const { luggageNumbers } = useFilters()
+  const { suitcases } = useFilters()
 
   const formState = useWatch({ control })
 
@@ -24,7 +24,7 @@ const SuitcasesPopover: React.FC<Props> = ({ control, appendLuggageNumber, handl
     >
       <div className='flex flex-wrap gap-4 my-6'>
         <Tag
-          options={luggageNumbers}
+          options={suitcases}
           height='h-10'
           name='luggage_numbers'
           control={control}

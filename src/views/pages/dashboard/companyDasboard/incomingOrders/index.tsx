@@ -11,8 +11,8 @@ const IncomingOrders = () => {
   const { dashboardData } = useProductInfo()
 
   return (
-    <div className='md:p-8 lg:p-10 md:border border-raisin-10 rounded-3xl mt-8'>
-      <Typography type='h3' className='text-md md:text-2lg mb-6'>
+    <div className='md:p-8 lg:p-10 md:border border-raisin-10 rounded-3xl'>
+      <Typography type='h3' className='mb-6'>
         შემოსული ჯავშნები
       </Typography>
       <Divider />

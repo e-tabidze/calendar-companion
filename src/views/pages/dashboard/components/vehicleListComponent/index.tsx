@@ -1,13 +1,12 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import Link from 'next/link'
 import { useState } from 'react'
-import useWindowDimensions from 'src/hooks/useWindowDimensions'
 import useProducts from '../../products/useProducts'
 import Action from './action'
 import dynamic from 'next/dynamic'
+import ActionsPopover from './actionsPopover'
 
 const Image = dynamic(() => import('src/views/components/image'), { ssr: true })
-const Icon = dynamic(() => import('src/views/app/Icon'), { ssr: false })
 const Carousel = dynamic(() => import('src/views/components/carousel'), { ssr: false })
 const Typography = dynamic(() => import('src/views/components/typography'), { ssr: false })
 const DeleteProductConfirmationModal = dynamic(() => import('../../products/deleteProductModal'), { ssr: false })
@@ -36,8 +35,6 @@ const VehicleListComponent: React.FC<Props> = ({
   images
 }) => {
   const [deleteProductModal, setDeleteProductModal] = useState(false)
-
-  const { width } = useWindowDimensions()
 
   const { deleteProduct, activeProducts } = useProducts(filter)
 
@@ -70,7 +67,7 @@ const VehicleListComponent: React.FC<Props> = ({
       <div className='relative border-b-1 border-raisin-10 last:border-none'>
         <div className='flex flex-col px-2 py-4 md:w-full justify-between gap-6 md:px-0 md:flex-row md:items-center'>
           <div className='flex gap-6 2xl:gap-6'>
-            <div className='w-[64px] md:w-[150px] lg:w-[200px] xl:w-[250px]'>
+            <div className='w-[80px] sm:w-[140px] md:w-[150px] lg:w-[200px] xl:w-[250px]'>
               <Carousel
                 itemsArray={images?.split(',')?.map((imgUrl, index) => (
                   <div className='aspect-w-16 aspect-h-9 rounded-lg overflow-hidden' key={index}>
@@ -94,15 +91,15 @@ const VehicleListComponent: React.FC<Props> = ({
                 {startCity}
               </Typography>
               <Link href={`/details/${id}`}>
-                <Typography type='subtitle'>
+                <Typography type='subtitle' className='text-sm md:text-2sm'>
                   {manufacturer} {model} {prodYear}
                 </Typography>
-                <div className='flex items-center gap-4 md:gap-10 md:mt-10 flex-wrap'>
+                <div className='flex items-center gap-10 mt-4 md:mt-10'>
                   <Typography
                     type='h4'
-                    weight={width > 779 ? 'medium' : 'normal'}
+                    weight='medium'
                     color='dark'
-                    className='text-md md:text-3md flex items-center min-w-[120px]'
+                    className='text-2sm md:text-3md'
                   >
                     {price}₾  
                     <span className='text-[14px] pl-3 font-normal text-center'>
@@ -141,7 +138,12 @@ const VehicleListComponent: React.FC<Props> = ({
             />
           </div>
         </div>
-        <Icon svgPath='more' width={4} height={14} className='absolute right-5 top-5 md:hidden' />
+        <ActionsPopover
+          toggleDeleteProductModal={toggleDeleteProductModal}
+          toggleActivateProduct={toggleActivateProduct}
+          active={active}
+          id={id}
+        />
       </div>
       <DeleteProductConfirmationModal
         open={deleteProductModal}
