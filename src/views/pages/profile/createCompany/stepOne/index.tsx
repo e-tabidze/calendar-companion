@@ -40,7 +40,7 @@ const StepOne: React.FC<Props> = ({ control, errors, clearErrors, setValue }) =>
 
   return (
     <div>
-      <div className='grid grid-cols-1 pb-6 md:grid-cols-2 gap-2'>
+      <div className='grid grid-cols-1 pb-6 md:grid-cols-2 gap-4'>
         <DefaultInput
           label='საიდენტიფიკაციო კოდი'
           control={control}

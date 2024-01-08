@@ -120,7 +120,7 @@ export const DefaultInput: React.FC<Props> = ({
               <button
                 type='button'
                 onClick={togglePasswordVisibility}
-                className='absolute top-1/2 right-3 transform -translate-y-1/2'
+                className='absolute right-3 transform top-4'
               >
                 {showPassword ? (
                   <Icon svgPath='eye' width={24} height={24} />

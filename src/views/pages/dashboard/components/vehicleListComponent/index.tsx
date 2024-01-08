@@ -101,11 +101,14 @@ const VehicleListComponent: React.FC<Props> = ({
                     color='dark'
                     className='text-2sm md:text-3md'
                   >
-                    {price} ₾ დღე
+                    {price}₾  
+                    <span className='text-[14px] pl-3 font-normal text-center'>
+                    დღე
+                    </span>
                   </Typography>
                   <Typography
                     type='subtitle'
-                    className={`cursor-default py-1 px-2 rounded-lg text-sm md:text-2sm ${
+                    className={`cursor-default py-1 px-2 rounded-lg text-sm md:text-2sm min-w-[120px] text-center ${
                       active ? 'text-white bg-green-100' : 'text-raisin-100 bg-grey-100'
                     }`}
                   >
