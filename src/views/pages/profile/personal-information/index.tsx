@@ -107,7 +107,7 @@ const PersonalInfo: React.FC<Props> = ({ userData }) => {
     <form
       onSubmit={handleSubmit(onSubmit)}
       onReset={handleReset}
-      className='md:p-8 lg:p-10 md:border border-raisin-10 rounded-3xl'
+      className='md:p-8 lg:p-10 md:border border-raisin-10 rounded-3xl mt-8 lg:mt-0'
     >
       <div>
         <Typography type='h3' className='mb-6'>

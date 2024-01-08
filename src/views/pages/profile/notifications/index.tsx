@@ -20,7 +20,7 @@ const Notifications = () => {
       {router.query.id ? (
         <Details url='/profile/notifications' id={String(id)} company={String(company)} />
       ) : (
-        <div className='md:p-8 lg:p-10 md:border border-raisin-10 rounded-3xl'>
+        <div className='md:p-8 lg:p-10 md:border border-raisin-10 rounded-3xl mt-8 lg:mt-0'>
           <Typography type='h3' className='mb-6'>
             შეტყობინებები
           </Typography>

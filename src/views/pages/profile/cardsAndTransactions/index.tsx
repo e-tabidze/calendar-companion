@@ -7,7 +7,7 @@ const CardsAndTransactions = () => {
   const { userOrders } = UseOrders()
 
   return (
-    <div className='md:p-10 md:border border-raisin-10 rounded-3xl'>
+    <div className='md:p-10 md:border border-raisin-10 rounded-3xl mt-8 lg:mt-0'>
       <Typography type='h3' className='mb-6'>
         ბარათები და ტრანზაქციები
       </Typography>
