@@ -22,10 +22,10 @@ const SortListBox: React.FC<Props> = ({ control, onClick, setValue }) => {
   const [selectedFilter, setSelectedFilter] = useState<Filter | null>(null)
   const isFirstRender = useRef(true)
   const updateOrderRef = useRef(false)
-
+  const urlSearchParams = new URLSearchParams(window.location.search)
   useEffect(() => {
     if (!isFirstRender.current) {
-      const urlSearchParams = new URLSearchParams(window.location.search)
+
       if (selectedFilter) {
         urlSearchParams.set('selectedFilterId', selectedFilter.id)
       } else {
@@ -67,7 +67,7 @@ const SortListBox: React.FC<Props> = ({ control, onClick, setValue }) => {
                   type='subtitle'
                   className='text-2sm max-w-[110px] md:max-w-[140px] inline-block overflow-hidden text-ellipsis whitespace-nowrap line-clamp-1'
                 >
-                  {sortFilters.find(opt => opt.id === value)?.label || 'დაჯგუფება'}
+                  {sortFilters.find(opt => opt.id === value && opt.order_by === urlSearchParams.get('order_by'))?.label || 'დაჯგუფება'}
                 </Typography>
                 <Icon
                   svgPath='chevron'
