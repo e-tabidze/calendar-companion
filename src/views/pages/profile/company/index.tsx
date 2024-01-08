@@ -12,6 +12,8 @@ import useCompany from './useCompany'
 import { useRouter } from 'next/router'
 import Image from 'src/views/components/image'
 import Icon from 'src/views/app/Icon'
+import toast from 'react-hot-toast'
+import Toast from 'src/views/components/toast'
 
 interface Props {
   id: number
@@ -36,7 +38,8 @@ const Company: React.FC<Props> = ({ id, name, productsCount, logo }) => {
     handleSubmit,
     updateCompanyInfo,
     deleteCompany,
-    deleteCompanyAddress
+    deleteCompanyAddress,
+    setValue
   } = useCompany(id)
 
   const toggleDeleteAddressModal = () => setDeleteAddressModal(!deleteAddresseModal)
@@ -50,6 +53,12 @@ const Company: React.FC<Props> = ({ id, name, productsCount, logo }) => {
   const updateCompanyMutation = useMutation(() => updateCompanyInfo(companyValues), {
     onSuccess: () => {
       queryClient.invalidateQueries(['companyInfo'])
+      toast.custom(
+        <Toast
+          title='კომპანია წარმატებით განახლდა!'
+          type='success'
+        />
+      )
     }
   })
 
@@ -61,8 +70,9 @@ const Company: React.FC<Props> = ({ id, name, productsCount, logo }) => {
 
   const deleteCompanyAddressMutation = useMutation((id: number) => deleteCompanyAddress(id), {
     onSuccess: () => {
+      queryClient.invalidateQueries(['singleCompanyBranches'])
       queryClient.invalidateQueries(['companyInfo'])
-      remove(index)
+      queryClient.invalidateQueries([id])
     }
   })
 
@@ -76,8 +86,10 @@ const Company: React.FC<Props> = ({ id, name, productsCount, logo }) => {
   }
 
   const deletCompanyAddress = () => {
-    deleteAddressId && deleteCompanyAddressMutation.mutate(deleteAddressId)
+    deleteAddressId ? deleteCompanyAddressMutation.mutate(deleteAddressId) : remove(index)
   }
+
+  console.log(companyValues, 'companyValues edit')
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -85,7 +97,16 @@ const Company: React.FC<Props> = ({ id, name, productsCount, logo }) => {
         <div className='p-2 md:p-6'>
           <div className='flex items-center gap-6 md:mb-10'>
             <div className='flex items-center justify-center border border-raisin-10 relative overflow-hidden rounded-2xl md:rounded-3xl w-[76px] h-[76px] md:w-24 md:h-24'>
-              <Image src={logo || ''} alt='' height='100%' width='100%' className='object-cover w-full h-full' />
+              <Image
+                src={logo || ''}
+                onError={(ev: any) => {
+                  ev.target.src = `/icons/avatar.svg`
+                }}
+                alt=''
+                height='100%'
+                width='100%'
+                className='object-cover w-full h-full'
+              />
             </div>
             <div>
               <Typography type='h3' className='font-bold text-3md md:text-2lg'>
@@ -106,7 +127,7 @@ const Company: React.FC<Props> = ({ id, name, productsCount, logo }) => {
               className='col-span-2 sm:col-span-1'
             />
             <DefaultInput
-              name='company_information.name'
+              name='company_information.legal_name'
               control={control}
               errors={errors}
               disabled
@@ -135,20 +156,23 @@ const Company: React.FC<Props> = ({ id, name, productsCount, logo }) => {
 
           {addressFields.map((address: any, index: number) => (
             <div key={address.id}>
-              <AddressAndSchedule index={index} control={control} address={address} />
-              <div className='w-full flex justify-end pr-8'>
-                <IconTextButton
-                  icon='clear'
-                  label='წაშლა'
-                  width={24}
-                  height={24}
-                  onClick={() => {
-                    setIndex(index)
-                    toggleDeleteAddressModal()
-                    setDeleteAddressId(address.dummyAddressId)
-                  }}
-                />
-              </div>
+              <AddressAndSchedule index={index} control={control} address={address} errors={errors} setValue={setValue} />
+
+              {addressFields.length > 1 && index > 0 && (
+                <div className='w-full flex justify-end pr-8'>
+                  <IconTextButton
+                    icon='clear'
+                    label='წაშლა'
+                    width={24}
+                    height={24}
+                    onClick={() => {
+                      setIndex(index)
+                      toggleDeleteAddressModal()
+                      setDeleteAddressId(address.dummyAddressId)
+                    }}
+                  />
+                </div>
+              )}
             </div>
           ))}
 
@@ -187,7 +211,7 @@ const Company: React.FC<Props> = ({ id, name, productsCount, logo }) => {
         <Divider />
         <div className='flex justify-between items-center p-2 md:p-6'>
           {updateCompanyMutation.isLoading ? (
-            <Icon svgPath="loader" width={20} height={20} />
+            <Icon svgPath='loader' width={20} height={20} />
           ) : (
             <DefaultButton
               text='შენახვა'
@@ -205,6 +229,7 @@ const Company: React.FC<Props> = ({ id, name, productsCount, logo }) => {
             icon='trash'
             className='text-orange-130'
             onClick={toggleDeleteCompanyModal}
+            type="button"
           />
         </div>
       </div>

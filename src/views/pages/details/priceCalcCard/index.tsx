@@ -1,5 +1,9 @@
+import { useWatch } from 'react-hook-form'
 import useProfile from 'src/hooks/useProfile'
+import Icon from 'src/views/app/Icon'
 import { DefaultButton } from 'src/views/components/button'
+import Divider from 'src/views/components/divider'
+import Image from 'src/views/components/image'
 import Typography from 'src/views/components/typography'
 
 interface Props {
@@ -12,6 +16,12 @@ interface Props {
   disabled: boolean
   changeDates: boolean
   services?: any
+  image?: string
+  year?: number
+  manufacturer?: string
+  model?: string
+  companyId: number
+  control: any
 }
 
 const PriceCalcCard: React.FC<Props> = ({
@@ -23,14 +33,86 @@ const PriceCalcCard: React.FC<Props> = ({
   handleDateChange,
   disabled,
   changeDates = true,
-  services
+  services,
+  image,
+  year,
+  manufacturer,
+  model,
+  companyId,
+  control
 }) => {
-  const { userInfo } = useProfile()
+  const { userInfo, activeCompanyId } = useProfile()
 
   console.log(services, 'services')
 
+  console.log(userInfo, 'userInfo')
+
+  console.log(activeCompanyId, 'activeCompanyId')
+
+  console.log(companyId, 'companyId')
+
+  const formState = useWatch({ control })
+
   return (
     <div className={`shadow-2xl w-full rounded-3xl pt-5 px-4 lg:px-6 pb-10 ${className}`}>
+      {image && (
+        <div className='flex items-center gap-8 mb-6 justify-between'>
+          <div className='min-w-[45%]'>
+            <Typography type='h3' className='font-bold'>
+              {manufacturer} {model} {year}
+            </Typography>
+            <Typography type='body' className='text-2sm'>
+              ან მსგავსი
+            </Typography>
+          </div>
+          {image && (
+            <div className='rounded-lg overflow-hidden'>
+              <Image src={image} alt='' height={'100%'} width={'100%'} className='object-cover' />
+            </div>
+          )}
+        </div>
+      )}
+
+      {image && (
+        <div>
+          <div className='flex items-center mt-4'>
+            <Icon svgPath='booking-start' height={24} width={24} className='fill-transparent flex shrink-0' />
+            <Typography type='body' className='text-2sm ml-2 mb-3 lg:mb-0'>
+              {formState.booking.book_from}
+            </Typography>
+
+            <Typography type='body' className='text-2sm ml-2 mb-3 lg:mb-0'>
+              {formState?.start_time}
+            </Typography>
+            <Typography type='body' className='text-2sm ml-2 mb-3 lg:mb-0'>
+              -
+            </Typography>
+            <Typography type='body' className='text-2sm ml-2 mb-3 lg:mb-0'>
+              {formState?.start_address}
+            </Typography>
+          </div>
+
+          <div className='flex items-center my-3'>
+            <Icon svgPath='booking-stop' height={24} width={24} className='fill-transparent flex shrink-0' />
+            <Typography type='body' className='text-2sm ml-2 mb-3 lg:mb-0'>
+              {formState.booking.book_to}
+            </Typography>
+
+            <Typography type='body' className='text-2sm ml-2 mb-3 lg:mb-0'>
+              {formState?.end_time}
+            </Typography>
+            <Typography type='body' className='text-2sm ml-2 mb-3 lg:mb-0'>
+              -
+            </Typography>
+            <Typography type='body' className='text-2sm ml-2 mb-3 lg:mb-0'>
+              {formState?.end_address}
+            </Typography>
+          </div>
+
+          <Divider className='my-7' />
+        </div>
+      )}
+
       <div className='flex items-center gap-2'>
         <Typography type='h3' className='font-bold'>
           {price} ₾
@@ -39,9 +121,6 @@ const PriceCalcCard: React.FC<Props> = ({
           / დღე
         </Typography>
       </div>
-      <Typography type='body' className='text-green-100 mb-8'>
-        Free cancellation
-      </Typography>
 
       <div className='flex gap-3 lg:items-center mb-6 flex-col lg:flex-row'>
         <div className='flex gap-2'>
@@ -94,7 +173,7 @@ const PriceCalcCard: React.FC<Props> = ({
         </div>
       ))}
 
-      <div className='w-full h-px bg-raisin-10 my-7' />
+      <Divider className='my-7' />
 
       <div className='flex gap-2 flex-col justify-between pb-7 lg:items-center lg:flex-row'>
         <div className='flex gap-2'>
@@ -112,15 +191,16 @@ const PriceCalcCard: React.FC<Props> = ({
                     } else {
                       accumulator += service.count * service.price
                     }
-                    
+
                     return accumulator
                   }, 0)
-                : 0)}
+                : 0)}{' '}
+            ₾
           </Typography>
         )}
       </div>
 
-      {userInfo?.active_profile_id === userInfo?.UserID && (
+      {activeCompanyId === companyId || userInfo?.active_profile_id === userInfo?.UserID ? (
         <DefaultButton
           bg='bg-orange-100'
           text='ჯავშნის დაწყება'
@@ -130,7 +210,7 @@ const PriceCalcCard: React.FC<Props> = ({
           onClick={onClick}
           disabled={days === null || disabled}
         />
-      )}
+      ) : null}
     </div>
   )
 }

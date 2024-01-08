@@ -33,6 +33,7 @@ const useNewProduct = () => {
     },
     apply_discount: false,
     is_active: true,
+    images: [],
     discount: [discount_item],
     company_services: [services],
     any_period: true,

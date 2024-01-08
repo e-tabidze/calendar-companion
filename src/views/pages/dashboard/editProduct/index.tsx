@@ -6,6 +6,8 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { Product } from 'src/types/Product'
 import useEditProduct from './useEditProduct'
 import useNewProduct from '../newProduct/useNewProduct'
+import toast from 'react-hot-toast'
+import Toast from 'src/views/components/toast'
 
 const StepOne = dynamic(() => import('../stepOne'), { ssr: false })
 const StepTwo = dynamic(() => import('../stepTwo'), { ssr: false })
@@ -51,7 +53,8 @@ const EditProduct: React.FC = ({}) => {
     setValue,
     errors,
     removeImage,
-    trigger
+    trigger,
+    appendImages
   } = useEditProduct(Number(id))
 
   const { postSaveProductImages } = useNewProduct()
@@ -132,13 +135,13 @@ const EditProduct: React.FC = ({}) => {
     postSaveProductImages(variables.FilesList, variables.productId)
   )
 
-  const createNewProducteMutation = useMutation(
+  const editProductMutation = useMutation(
     (product: Product) => {
       return editProduct('', product)
     },
     {
       onSuccess: data => {
-        console.log(data?.result?.data, 'data?')
+  
         if (data) {
           const images = data?.result?.data?.images
           const productId = data?.result?.data?.id
@@ -152,13 +155,25 @@ const EditProduct: React.FC = ({}) => {
             console.error('Error: Images or productId is missing.')
           }
         }
+
         queryClient.invalidateQueries(['companyProducts'])
+
+
+        toast.custom(
+          <Toast
+            title='წარმატება!'
+            type='success'
+            description='some success text'
+            path={'/dashboard/products'}
+            permalink='ავტომობილები'
+          />
+        )
       }
     }
   )
 
   const onSubmit = () => {
-    createNewProducteMutation.mutate(productValues)
+    editProductMutation.mutate(productValues)
   }
 
   console.log(productValues, 'productValues')
@@ -175,6 +190,7 @@ const EditProduct: React.FC = ({}) => {
             errors={errors}
             setValue={setValue}
             removeImage={removeImage}
+            appendImages={appendImages}
           />
         )
       case 2:
@@ -215,7 +231,7 @@ const EditProduct: React.FC = ({}) => {
       onClose={handleClose}
       onSubmit={handleSubmit(onSubmit)}
       submitLabel='დამატება'
-      disabled={createNewProducteMutation.isLoading}
+      disabled={editProductMutation.isLoading}
     >
       <form>{renderStepComponent()}</form>
     </NewListingLayout>

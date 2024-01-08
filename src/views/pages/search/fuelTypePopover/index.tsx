@@ -11,9 +11,10 @@ interface Props {
   control: any
   appendFuelType: any
   reset: any
+  handleSubmit: () => void
 }
 
-const FuelTypePopover: React.FC<Props> = ({ control, appendFuelType, reset }) => {
+const FuelTypePopover: React.FC<Props> = ({ control, appendFuelType, reset, handleSubmit }) => {
   const { fuelTypesFilter, isLoading } = useFilters()
 
   const [hasFuelTypes, setFuelTypes] = useState(false)
@@ -28,7 +29,7 @@ const FuelTypePopover: React.FC<Props> = ({ control, appendFuelType, reset }) =>
     <PopoverDropdown
       label='საწვავის ტიპი'
       maxWidth='max-w-sm'
-      className={`${hasFuelTypes ? 'border border-raisin-100' : ''}`}
+      className={`${hasFuelTypes ? 'border border-raisin-100' : 'hover:border hover:border-raisin-30'}`}
     >
       <Typography type='body' color='light'>
         შეგიძლიათ მონიშნოთ ერთი ან რამდენიმე
@@ -55,8 +56,19 @@ const FuelTypePopover: React.FC<Props> = ({ control, appendFuelType, reset }) =>
           width={20}
           height={22}
           onClick={() => reset('fuel_types')}
+          labelClassname="text-sm text-raisin-50 border-b"
+          type="button"
         />
-        <DefaultButton text='შენახვა' bg='bg-orange-100' textColor='text-white' />
+        <DefaultButton
+          text='შენახვა'
+          bg='bg-orange-100'
+          textColor='text-white'
+          type='button'
+          onClick={() => {
+            handleSubmit()
+            close()
+          }}
+        />
       </ActionsWrapper>
     </PopoverDropdown>
   )

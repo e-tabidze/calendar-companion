@@ -1,5 +1,6 @@
 import { useWatch } from 'react-hook-form'
-import MapPicker from 'src/views/components/mapPicker'
+
+// import MapPicker from 'src/views/components/mapPicker'
 import SelectField from 'src/views/components/selectField'
 import Typography from 'src/views/components/typography'
 import useProductInfo from '../useProductInfo'
@@ -12,8 +13,6 @@ const StepSix: React.FC<Props> = ({ control, errors }) => {
   const { companyBranches } = useProductInfo()
 
   const formState = useWatch({ control })
-
-  console.log(companyBranches, 'companyBranches')
 
   const cities = () => companyBranches?.map((branch: any) => ({ label: branch.city, value: branch.city }))
 
@@ -28,7 +27,7 @@ const StepSix: React.FC<Props> = ({ control, errors }) => {
 
   return (
     <div>
-      <Typography type='h4' weight='normal' color='dark' className='mb-4'>
+      <Typography type='h4' weight='normal' color='dark' className='mb-4 whitespace-normal'>
         საიდან წაიყვანს მომხმარებელი მანქანას*
       </Typography>
       <div className='grid gap-6 mb-10 mt-4 grid-cols-1 md:grid-cols-2'>
@@ -53,7 +52,7 @@ const StepSix: React.FC<Props> = ({ control, errors }) => {
           errors={errors}
         />
       </div>
-      <Typography type='h4' weight='normal' color='dark' className='mb-4'>
+      <Typography type='h4' weight='normal' color='dark' className='mb-4 whitespace-normal'>
         სად დააბრუნებს მომხმარებელი მანქანას*
       </Typography>
       <div className='grid gap-6 mb-10 mt-4 grid-cols-1 md:grid-cols-2'>
@@ -78,10 +77,8 @@ const StepSix: React.FC<Props> = ({ control, errors }) => {
           errors={errors}
         />
       </div>
-      <MapPicker height='275px' borderRadius='16px' />
-      <Typography type='subtitle' className='mt-2'>
-        მონიშვნის შემდეგ მომხმარებელთან ავტომობილები გამოჩნდება რუკაზე მდებარეობის მიხედვით
-      </Typography>
+
+      {/* <MapPicker height='275px' borderRadius='16px' /> */}
     </div>
   )
 }

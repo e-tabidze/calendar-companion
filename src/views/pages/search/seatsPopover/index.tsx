@@ -28,7 +28,7 @@ const SeatsPopover: React.FC<Props> = ({ control, appendSeatType, handleSubmit, 
     <PopoverDropdown
       label='ადგილების რაოდენობა'
       maxWidth='max-w-xs'
-      className={`${hasSeatTypes ? 'border border-raisin-100' : ''}`}
+      className={`${hasSeatTypes ? 'border border-raisin-100' : 'hover:border hover:border-raisin-30'}`}
     >
       <TagsWrapper>
         <Tag options={seatTypesFilter} name='seat_types' control={control} height='h-10' append={appendSeatType} />
@@ -41,12 +41,14 @@ const SeatsPopover: React.FC<Props> = ({ control, appendSeatType, handleSubmit, 
           width={20}
           height={22}
           onClick={() => reset('seat_types')}
+          labelClassname="text-sm text-raisin-50 border-b"
+          type="button"
         />
         <DefaultButton
           text='შენახვა'
           bg='bg-orange-100'
           textColor='text-white'
-          type='submit'
+          type='button'
           onClick={() => {
             handleSubmit()
             close()

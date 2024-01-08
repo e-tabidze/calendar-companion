@@ -11,10 +11,10 @@ interface Props {
 
 const CategoryItem: React.FC<Props> = ({ svgPath, title, count, id }) => {
   const router = useRouter()
-  
+
   return (
-    <div className='flex flex-col items-center cursor-pointer' onClick={() => router?.push(`/search/?category[]=${id}`)}>
-      <Icon svgPath={svgPath} width={48} height={48} />
+    <div className='flex group flex-col items-center cursor-pointer' onClick={() => router?.push(`/search/?category[]=${id}`)}>
+      <Icon svgPath={svgPath} width={48} height={48} className='transition-all duration-200 group-hover:fill-green-100 scale-[1.9]'/>
       <Typography className='text-center' type='subtitle'>
         {title}
       </Typography>

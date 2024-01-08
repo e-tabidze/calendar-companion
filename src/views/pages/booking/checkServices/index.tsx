@@ -46,7 +46,7 @@ const CheckServices: React.FC<Props> = ({ control, options }) => {
                       <Icon svgPath='check' height={10} width={14} className='fill-transparent' />
                     </span>
                     <input type='checkbox' value={value} className='absolute opacity-0 w-0 h-0' onChange={onChange} />
-                    <div className="flex flex-col md:flex-row md:items-center md:gap-4">
+                    <div className='flex flex-col md:flex-row md:items-center md:gap-4'>
                       <Typography type='body' className='text-2sm md:text-md'>
                         {service.title}
                       </Typography>
@@ -54,10 +54,9 @@ const CheckServices: React.FC<Props> = ({ control, options }) => {
                         {service.description}
                       </Typography>
                     </div>
-
                   </div>
                   <div className='flex items-center gap-16'>
-                    {service.type_id === 1 || service.type_id === 2 && (
+                    {service.type_id === 1 || service.type_id === 2 ? (
                       <>
                         <div
                           onClick={event => {
@@ -75,6 +74,10 @@ const CheckServices: React.FC<Props> = ({ control, options }) => {
                           {service.price} ₾
                         </Typography>
                       </>
+                    ) : (
+                      <Typography type='body' className='text-2sm md:text-md w-max text-green-100 font-bold'>
+                        უფასო
+                      </Typography>
                     )}
                   </div>
                 </div>

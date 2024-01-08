@@ -3,9 +3,9 @@ import LocationDropdown from './locationDropdown'
 import { Divider, ExtraFiltersContainer, FiltersContainer } from './styles'
 import PeriodDropdown from './periodDropdown'
 import { useState } from 'react'
-import { useRouter } from 'next/router'
 import useSearch from 'src/hooks/useSearch'
 import AdditionalFilters from 'src/views/components/additionalFilters'
+import { useRouter } from 'next/router'
 
 interface Props {
   className?: string
@@ -17,7 +17,6 @@ const Filters: React.FC<Props> = ({ className }) => {
   const router = useRouter()
 
   const {
-    searchValues,
     control,
     appendFuelType,
     appendCategory,
@@ -28,13 +27,17 @@ const Filters: React.FC<Props> = ({ className }) => {
     appendDoorType,
     appendTransmissionType,
     appendAdditionalInformation,
-    objectToURI,
     reset,
-    setValue
+    setValue,
+    objectToURI,
+    searchValues,
+    searchProductsMutation,
   } = useSearch()
 
   const onClickSearch = async () => {
+    console.log('here?')
     const queryString = objectToURI(searchValues)
+    searchProductsMutation.mutate(queryString)
     router.push(`/search?${queryString}`)
   }
 
@@ -61,7 +64,7 @@ const Filters: React.FC<Props> = ({ className }) => {
             bg='bg-orange-100'
             labelClassname='text-2sm text-white md:hidden'
             onClick={onClickSearch}
-            type='button'
+            type='submit'
           />
         </ExtraFiltersContainer>
       </FiltersContainer>

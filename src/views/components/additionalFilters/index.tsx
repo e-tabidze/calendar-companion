@@ -15,7 +15,6 @@ import { Dialog, Transition } from '@headlessui/react'
 
 // Styles
 import { ListWrapper, SectionWrapper } from './styles'
-import SwitchField from '../switchField'
 import useFilters, { getManufacturerModelFilters } from 'src/hooks/useFilters'
 import CheckboxField from '../checkboxField'
 import { IconTextButton } from '../button'
@@ -38,7 +37,7 @@ interface Props {
   appendDoorType: any
   appendTransmissionType: any
   appendAdditionalInformation: any
-  appendSteeringWheel: any,
+  appendSteeringWheel: any
   onSubmit: () => void
   reset: any
   setValue: any
@@ -126,26 +125,28 @@ const AdditionalFilters: React.FC<Props> = ({
                   <Icon svgPath='close' onClick={toggleModal} height={40} width={40} className='cursor-pointer' />
                 </div>
                 <div className='overflow-auto h-[70vh] px-4 py-5 sm:py-6 sm:px-10 w-max-full'>
-                  <Typography type='body' color='dark' className='md:max-w-[30%]'>
+                  <Typography type='body' color='dark'>
                     მოძებნე ავტომობილი დღიური ფასის მიხედვით
                   </Typography>
-                  <div className='w-full flex flex-col md:flex-row md:items-center mb-10 md:mb-16 mt-8'>
+                  <div className='w-full flex items-center mb-10 md:mb-16 mt-8'>
                     <DefaultInput
                       name='price_min'
                       control={control}
-                      label={width > 641 ? 'მინიმუმ ფასი დღიურად' : 'მინ. ფასი დღიურად'}
+                      label={'დღიური მინიმალური ფასი'}
+                      labelMobile={'მინ. ფასი დღიურად'}
                       errors={''}
-                      className='md:w-52 mb-2 md:mb-0'
+                      className='w-full mb-2 md:mb-0'
                       type='number'
                       min={1}
                     />
-                    <div className='hidden md:flex w-3 h-px bg-base-100 mx-2' />
+                    <div className='flex shrink-0 w-3 h-px bg-base-100 mx-2' />
                     <DefaultInput
                       name='price_max'
                       control={control}
-                      label={width > 641 ? 'მაქსიმუმ ფასი დღიურად' : 'მაქს. ფასი დღიურად'}
+                      label={'დღიური მაქსიმალური ფასი'}
+                      labelMobile={'მაქს. ფასი დღიურად'}
                       errors={''}
-                      className='md:w-52'
+                      className='w-full'
                       type='number'
                     />
                   </div>
@@ -211,7 +212,7 @@ const AdditionalFilters: React.FC<Props> = ({
                         labelKey='title'
                       />
                     </div>
-                    <div className='flex flex-col md:flex-row md:gap-4'>
+                    <div className='flex gap-4'>
                       <SelectField
                         name='year_from'
                         control={control}
@@ -275,8 +276,8 @@ const AdditionalFilters: React.FC<Props> = ({
                       />
                     </div>
                   </div>
-                  <Divider />
-                  <SwitchField label='უფასო მიწოდება' name='free_delivery' control={control} className='my-4 md:my-8' />
+                  
+                  {/* <SwitchField label='უფასო მიყვანა' name='free_delivery' control={control} className='my-4 md:my-8' /> */}
                   <Divider />
 
                   <SectionWrapper>
@@ -356,6 +357,7 @@ const AdditionalFilters: React.FC<Props> = ({
                     options={additionalInformationFilters}
                     append={() => appendAdditionalInformation()}
                     className='my-2'
+                    cols
                   />
                 </div>
                 <div className='w-full flex flex-row items-center justify-between py-4 px-4 md:px-10 border-t-1 border-grey-90 shadow-md'>

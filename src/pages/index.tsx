@@ -1,5 +1,3 @@
-import { dehydrate } from '@tanstack/react-query'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import dynamic from 'next/dynamic'
 import useFilters from 'src/hooks/useFilters'
 import { TailwindDiv } from 'src/interfaces/tailwind'
@@ -18,7 +16,6 @@ const PageMeta = dynamic(() => import('src/@core/meta/PageMeta'), { ssr: true })
 
 // ** Tailwind Styled
 import tw from 'tailwind-styled-components'
-import { queryClient } from './_app'
 
 const pageMeta = {
   title: 'Rent.myauto.ge | მანქანის ქირაობის პლატფორმა',
@@ -27,34 +24,36 @@ const pageMeta = {
 }
 
 // ** Styled Components
-const MainPageBox = tw.div<TailwindDiv>`flex w-full items-center flex-col`
+const MainPageBox = tw.div<TailwindDiv>`flex w-full items-center flex-col overflow-hidden`
 
 const MainPage = () => {
   const { popularProducts, lastSeenProducts } = useMain()
 
-  console.log(lastSeenProducts, 'lastSeenProducts')
-
   const { categoriesFilter } = useFilters()
+
+  console.log(categoriesFilter, 'categoriesFilter')
 
   return (
     <DefaultLayout>
-      {/* <AuthModal open={authModal} close={() => setAuthModal(false)} handleCancel={() => setAuthModal(false)} /> */}
       <PageMeta meta={pageMeta} />
 
       <MainPageBox>
         <LargeContainer>
           <Hero />
         </LargeContainer>
-        {/* <button onClick={() => setAuthModal(true)}>AUTHMODAL OPEN</button> */}
-        <ContentContainer>
-          <Typography type='h3' className='text-3md md:text-2lg mt-12'>
-            აირჩიე სასურველი კატეგორია
-          </Typography>
-        </ContentContainer>
+        {categoriesFilter?.filter((product: any) => product?.count_products > 0) && (
+          <ContentContainer>
+            <Typography type='h3' className='text-3md md:text-2lg mt-12 mb-8'>
+              აირჩიე სასურველი კატეგორია
+            </Typography>
+          </ContentContainer>
+        )}
         <ContentContainer className='px-0 md:px-5 lg:px-8 mb-12'>
           <Carousel
             itemsArray={categoriesFilter
-              ?.filter((product: any) => product?.count_products > 0)
+              ?.sort(
+                (a: { count_products: number }, b: { count_products: number }) => b.count_products - a.count_products
+              )
               ?.map((product: any) => (
                 <CategoryItem
                   svgPath={product?.icon}
@@ -70,11 +69,13 @@ const MainPage = () => {
         <LargeContainer>
           <Divider />
         </LargeContainer>
-        <ContentContainer>
-          <Typography type='h3' className='text-3md md:text-2lg mt-12'>
-            პოპულარული ავტომობილები
-          </Typography>
-        </ContentContainer>
+        {popularProducts?.length > 0 && (
+          <ContentContainer>
+            <Typography type='h3' className='text-3md md:text-2lg mt-12 mb-8'>
+              პოპულარული ავტომობილები
+            </Typography>
+          </ContentContainer>
+        )}
         <ContentContainer className='px-0 md:px-5 lg:px-8'>
           <Carousel
             itemsArray={popularProducts?.map((product: any) => (
@@ -89,16 +90,20 @@ const MainPage = () => {
                 luggageNumbers={product?.luggage_numbers}
                 seats={product?.seat_type?.title}
                 images={product?.images?.split(',')}
+                city={product?.start_city}
               />
             ))}
             type='products'
           />
         </ContentContainer>
-        <ContentContainer>
-          <Typography type='h3' className='text-3md md:text-2lg mt-12'>
-            ბოლოს ნანახი
-          </Typography>
-        </ContentContainer>
+        {lastSeenProducts?.length > 0 && (
+          <ContentContainer>
+            <Typography type='h3' className='text-3md md:text-2lg mt-12 mb-8'>
+              ბოლოს ნანახი
+            </Typography>
+          </ContentContainer>
+        )}
+
         <ContentContainer className='px-0 md:px-5 lg:px-8'>
           <Carousel
             itemsArray={lastSeenProducts?.map((product: any) => (
@@ -113,6 +118,7 @@ const MainPage = () => {
                 luggageNumbers={product?.product?.luggage_numbers}
                 seats={product?.product?.seat_type?.title}
                 images={product?.product?.images?.split(',')}
+                city={product?.product?.start_city}
               />
             ))}
             type='products'
@@ -128,13 +134,13 @@ const MainPage = () => {
 
 export default MainPage
 
-export async function getStaticProps({ locale }: { locale: string }) {
-  const [translations] = await Promise.all([serverSideTranslations(locale)])
+// export async function getStaticProps({ locale }: { locale: string }) {
+//   const [translations] = await Promise.all([serverSideTranslations(locale)])
 
-  return {
-    props: {
-      dehydratedState: dehydrate(queryClient),
-      ...translations
-    }
-  }
-}
+//   return {
+//     props: {
+//       dehydratedState: dehydrate(queryClient),
+//       ...translations
+//     }
+//   }
+// }

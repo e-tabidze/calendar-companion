@@ -31,6 +31,7 @@ const CreateCompany = () => {
     clearErrors,
     addressFields,
     appendAddress,
+    removeAddress,
     createCompany,
     setValue,
     saveCompanyLogo,
@@ -47,6 +48,7 @@ const CreateCompany = () => {
         const isValidStep1 = await trigger([
           'identification_number',
           'company_information.name',
+          'company_information.legal_name',
           'company_information.description',
           'company_information.logo'
         ])
@@ -90,15 +92,11 @@ const CreateCompany = () => {
           companyId: data?.result?.data?.id
         })
       }
-      toast.custom(
-        <Toast
-          type={'success'}
-          title={'წარმატება'}
-          description={'წარმატება'}
-          permalink={'შქმნილი კომპანიის ნახვა'}
-          path={`/profile/company/${data?.result?.data?.id}`}
-        />
-      )
+      toast.custom(<Toast type='success' title='კომპანია წარმატებით დაემატა' />)
+
+      setTimeout(() => {
+        router.push(`/profile/company/${data?.result?.data?.id}`)
+      }, 5000)
     }
   })
 
@@ -111,7 +109,7 @@ const CreateCompany = () => {
   }
 
   console.log(errors, 'errors')
-  console.log(companyValues.addresses, 'companyValues')
+  console.log(companyValues, 'companyValues')
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -126,12 +124,20 @@ const CreateCompany = () => {
         submitLabel='დამატება'
         disabled={createCompanyMutation.isLoading || saveCompanyLogoMutation.isLoading}
       >
-        {step.step === 1 && <StepOne control={control} errors={errors} clearErrors={clearErrors} setValue={setValue} />}
+        {step.step === 1 && (
+          <StepOne
+            control={control}
+            errors={errors}
+            clearErrors={clearErrors}
+            setValue={setValue}
+          />
+        )}
         {step.step === 2 && (
           <StepTwo
             control={control}
             addressFields={addressFields}
             appendAddress={appendAddress}
+            removeAddress={removeAddress}
             errors={errors}
             setValue={setValue}
           />

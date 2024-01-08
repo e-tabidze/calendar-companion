@@ -10,6 +10,9 @@ import StaticService from 'src/services/StaticService'
 const useCompany = (id: number) => {
   const { companyInfo } = useCompanyInfo(id)
 
+
+  console.log(companyInfo?.addresses, 'addresses')
+
   const defaultAddress: CompanyAddress[] = companyInfo?.addresses?.map((address: any) => ({
     id: address.id,
     dummyAddressId: address.id,
@@ -77,7 +80,7 @@ const useCompany = (id: number) => {
 
   const defaultEmptyAddress: CompanyAddress = {
     address: '',
-    phone: '',
+    phone: '' as any,
     email: '',
     city: '',
     state: '',
@@ -105,6 +108,7 @@ const useCompany = (id: number) => {
     company_type_id: companyInfo?.company_type_id,
     company_information: {
       name: companyInfo?.information?.name || '',
+      legal_name: companyInfo?.information?.legal_name || '',
       logo: companyInfo?.information?.logo || '',
       description: companyInfo?.information?.description,
       email: companyInfo?.information?.email,
@@ -146,6 +150,7 @@ const useCompany = (id: number) => {
         company_type_id: companyInfo.company_type_id,
         company_information: {
           name: companyInfo.information.name,
+          legal_name: companyInfo.information.legal_name,
           logo: companyInfo.information?.logo || '',
           description: companyInfo.information.description,
           email: companyInfo.information.email,

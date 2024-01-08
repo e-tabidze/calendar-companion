@@ -25,7 +25,6 @@ const Icon = dynamic(() => import('src/views/app/Icon'), { ssr: false })
 const Typography = dynamic(() => import('src/views/components/typography'), { ssr: false })
 const Divider = dynamic(() => import('src/views/components/divider'), { ssr: false })
 
-
 const OrderDetails = () => {
   const [cancelOrderDialog, setCancelOrderDialog] = useState(false)
 
@@ -36,8 +35,6 @@ const OrderDetails = () => {
   const { companyOrder, postOrderStatus, companyOrderproductData, companyOrderLoading } = useCompanyOrders(String(id)!)
 
   const queryClient = useQueryClient()
-
-  console.log(companyOrderproductData, 'DATA')
 
   const toggleCancelOrderDialog = () => setCancelOrderDialog(!cancelOrderDialog)
 
@@ -68,7 +65,7 @@ const OrderDetails = () => {
             width={38}
             height={38}
             label='შემოსული ჯავშნები'
-            onClick={() => router.push('/dashboard/orders')}
+            onClick={() => router.push('dashboard/orders/?status_id=&page=1')}
           />
         </div>
         <Divider />
@@ -205,6 +202,13 @@ const OrderDetails = () => {
                   </Typography>
                 </PriceDetailsWrapper>
               ))}
+
+              <PriceDetailsWrapper>
+                <Typography type='subtitle'>მომსახურების საკომისიო - {companyOrder?.fee} %</Typography>
+                <Typography type='subtitle'>
+                  {((companyOrderproductData?.price * companyOrder?.days) / 100) * companyOrder?.fee}{' '}
+                </Typography>
+              </PriceDetailsWrapper>
               <PriceDetailsWrapper>
                 <Typography type='subtitle' className='font-bold'>
                   ჯამი
@@ -229,8 +233,8 @@ const OrderDetails = () => {
             </div>
             <div>
               <Typography type='h5' className='font-bold mt-6'>
-                {companyOrderproductData?.manufacturer?.title}
-                {companyOrderproductData?.manufacturer_model?.title}
+                {companyOrderproductData?.manufacturer?.title} {' '}
+                {companyOrderproductData?.manufacturer_model?.title} {' '}
                 {companyOrderproductData?.prod_year}
               </Typography>
               <Typography

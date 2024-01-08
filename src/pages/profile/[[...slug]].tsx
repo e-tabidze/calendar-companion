@@ -9,14 +9,14 @@ import { QueryClient, useQueryClient } from '@tanstack/react-query'
 import { profileRoutes } from 'src/utils/routes'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-const Orders = dynamic(() => import('src/views/pages/profile/orders'), { ssr: true })
-const Favourites = dynamic(() => import('src/views/pages/profile/favourites'), { ssr: true })
-const Notifications = dynamic(() => import('src/views/pages/profile/notifications'), { ssr: true })
-const PersonalInfo = dynamic(() => import('src/views/pages/profile/personal-information'), { ssr: true })
-const CreateCompany = dynamic(() => import('src/views/pages/profile/createCompany'), { ssr: true })
-const CardsAndTransactions = dynamic(() => import('src/views/pages/profile/cardsAndTransactions'), { ssr: true })
-const Company = dynamic(() => import('src/views/pages/profile/company'), { ssr: true })
-const ProfileLayout = dynamic(() => import('src/layouts/ProfileLayout'), { ssr: true })
+const Orders = dynamic(() => import('src/views/pages/profile/orders'), { ssr: false })
+const Favourites = dynamic(() => import('src/views/pages/profile/favourites'), { ssr: false })
+const Notifications = dynamic(() => import('src/views/pages/profile/notifications'), { ssr: false })
+const PersonalInfo = dynamic(() => import('src/views/pages/profile/personal-information'), { ssr: false })
+const CreateCompany = dynamic(() => import('src/views/pages/profile/createCompany'), { ssr: false })
+const CardsAndTransactions = dynamic(() => import('src/views/pages/profile/cardsAndTransactions'), { ssr: false })
+const Company = dynamic(() => import('src/views/pages/profile/company'), { ssr: false })
+const ProfileLayout = dynamic(() => import('src/layouts/ProfileLayout'), { ssr: false })
 
 const ProfileRouter = ({ userInfo }: { userInfo: UserInfo }) => {
   const router = useRouter()

@@ -4,7 +4,6 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { CompanySchema } from 'src/@core/validation/companySchema'
 import { Company, CompanyAddress, WorkingTime } from 'src/types/Company'
 import CompanyService from 'src/services/CompanyService'
-import MapService from 'src/services/MapService'
 import StaticService from 'src/services/StaticService'
 
 const useCreateCompany = () => {
@@ -22,7 +21,7 @@ const useCreateCompany = () => {
 
   const defaultAddress: CompanyAddress = {
     address: '',
-    phone: '',
+    phone: 0,
     email: '',
     city: '',
     state: '',
@@ -48,6 +47,7 @@ const useCreateCompany = () => {
     company_type_id: '1',
     company_information: {
       name: '',
+      legal_name: '',
       logo: '',
       description: '',
       email: '',
@@ -72,7 +72,7 @@ const useCreateCompany = () => {
     resolver: yupResolver(CompanySchema)
   })
 
-  const { fields: addressFields, append: appendAddress } = useFieldArray({
+  const { fields: addressFields, append: appendAddress, remove: removeAddress } = useFieldArray({
     control,
     name: 'addresses',
     rules: { minLength: 1 }
@@ -91,16 +91,7 @@ const useCreateCompany = () => {
     }
   }
 
-  const getLocationSuggestions = async (address: string) => {
-    try {
-      const response: any = await MapService.getLocationSuggestions(address)
 
-      return response.data
-    } catch (error) {
-      console.error('Error fetching location suggestions:', error)
-      throw error
-    }
-  }
 
   const uploadCompanyLogo = async (File: any) => {
     try {
@@ -136,9 +127,9 @@ const useCreateCompany = () => {
     setValue,
     addressFields,
     appendAddress,
+    removeAddress,
     defaultAddress,
     createCompany,
-    getLocationSuggestions,
     uploadCompanyLogo,
     saveCompanyLogo,
     isValid,

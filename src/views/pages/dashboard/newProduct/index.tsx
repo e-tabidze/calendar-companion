@@ -48,6 +48,7 @@ const NewProduct: React.FC = () => {
     removeDiscountItem,
     createNewProduct,
     setValue,
+    appendImages,
     errors,
     postSaveProductImages,
     trigger,
@@ -150,13 +151,17 @@ const NewProduct: React.FC = () => {
 
             toast.custom(
               <Toast
-                title='წარმატება!'
                 type='success'
-                description='some success text'
+                title='განცხადება წარმატებით აიტვირთა'
                 path={'/dashboard/products'}
                 permalink='ავტომობილები'
               />
             )
+
+            setTimeout(() => {
+              router.push(`/dashboard/products/?is_active=1&page=1`)
+            }, 5000)
+            
           } else {
             console.error('Error: Images or productId is missing.')
           }
@@ -186,6 +191,7 @@ const NewProduct: React.FC = () => {
             errors={errors}
             setValue={setValue}
             removeImage={removeImage}
+            appendImages={appendImages}
           />
         )
       case 2:

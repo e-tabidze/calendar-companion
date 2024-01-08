@@ -5,6 +5,7 @@ import Image from 'src/views/components/image'
 import Typography from 'src/views/components/typography'
 import { parseISO, format } from 'date-fns'
 import { ka } from 'date-fns/locale'
+import Divider from 'src/views/components/divider'
 
 interface Props {
   startAddress: string
@@ -30,7 +31,7 @@ const OrderListComponent: React.FC<Props> = ({
   const { width } = useWindowDimensions()
 
   return (
-    <div className='border-b-1 border-raisin-10 last:border-none'>
+    <div>
       <div className='flex flex-col py-4 md:w-full gap-4 md:gap-10 md:flex-row md:items-center'>
         <div className='flex items-center gap-4 2xl:gap-6 md:w-5/12 shrink-0'>
           <div className='w-[64px] shrink-0'>
@@ -87,6 +88,7 @@ const OrderListComponent: React.FC<Props> = ({
           {width > 779 && <IconButton icon='chevronWithBg' height={38} width={38} />}
         </div>
       </div>
+      <Divider />
     </div>
   )
 }

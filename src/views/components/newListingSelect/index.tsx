@@ -38,7 +38,7 @@ const NewListingSelect: React.FC<Props> = ({ options, onChange, selectedOption }
         leaveFrom='transform opacity-100 scale-100'
         leaveTo='transform opacity-0 scale-95'
       >
-        <Menu.Items className='absolute left-0 w-full flex justify-between top-[-14px] md:top-20 h-[75px] bg-white shadow-lg overflow-x-auto whitespace-nowrap md:overflow-hidden'>
+        <Menu.Items className='absolute left-0 w-full flex justify-between top-[-14px] md:top-20 h-[75px] bg-white shadow-lg overflow-x-auto whitespace-nowrap md:overflow-hidden px-5 md:px-10'>
           {options.map((option, index) => (
             <Menu.Item key={option.value}>
               <button

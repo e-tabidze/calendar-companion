@@ -7,9 +7,12 @@ import { useQueryClient, useMutation } from '@tanstack/react-query'
 import useEditCompany from './useEditCompany'
 import { Controller, useWatch } from 'react-hook-form'
 import dynamic from 'next/dynamic'
+import Toast from 'src/views/components/toast'
 
-const Image = dynamic(() => import('src/views/components/image'), { ssr: true })
-const Typography = dynamic(() => import('src/views/components/typography'), { ssr: false })
+import toast from 'react-hot-toast'
+
+const Image = dynamic(() => import('src/views/components/image'), { ssr: false })
+const Typography = dynamic(() => import('src/views/components/typography'), { ssr: true })
 const Divider = dynamic(() => import('src/views/components/divider'), { ssr: false })
 const AddressAndSchedule = dynamic(() => import('../../profile/company/addressAndSchedule'), { ssr: false })
 const DeleteAddressConfirmationModal = dynamic(() => import('../../../components/deleteAddressConfirmationModal'), {
@@ -65,6 +68,12 @@ const EditCompany = () => {
           companyId: data?.result?.data?.id
         })
       }
+
+      toast.custom(<Toast type='success' title='კომპანია წარმატებით განახლდა' />)
+    },
+
+    onError: () => {
+      toast.custom(<Toast type='error' title='მოხდა შეცდომა' description='გთხოვთ ხელახლა სცადოთ' />)
     }
   })
 
@@ -115,7 +124,7 @@ const EditCompany = () => {
 
   useEffect(() => {
     setValue('company_information.logo', uploadCompanyLogoMutation.data?.Data?.FilesList[0])
-  }, [uploadCompanyLogoMutation.data?.Data?.FilesList[0]])
+  }, [uploadCompanyLogoMutation.data?.Data?.FilesList, setValue])
 
   if (isLoading) {
     return <>Loading...</>
@@ -185,7 +194,7 @@ const EditCompany = () => {
             disabled
           />
           <DefaultInput
-            name='company_information.name'
+            name='company_information.legal_name'
             control={control}
             errors={''}
             label='იურიდიული დასახელება'
@@ -207,7 +216,7 @@ const EditCompany = () => {
 
         {addressFields.map((address: any, index: number) => (
           <div key={address.id}>
-            <AddressAndSchedule index={index} control={control} address={address} />
+            <AddressAndSchedule index={index} control={control} address={address} errors={errors} setValue={setValue} />
             <div className='w-full flex justify-end pr-8'>
               <IconTextButton
                 icon='clear'

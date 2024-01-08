@@ -14,14 +14,14 @@ const CompanyDashboard = () => {
           border='border-blue-100'
           sum={dashboardData?.today_income}
           description='დღევანდელი შემოსავალი'
-          icon='gel'
+          icon='gel2x'
         />
         <SumUp
           bg='bg-green-10'
           border='border-green-100'
           sum={dashboardData?.last_month}
           description='ბოლო თვის შემოსავალი'
-          icon='gel'
+          icon='gel2x'
         />
         <SumUp
           bg='bg-yellow-10'

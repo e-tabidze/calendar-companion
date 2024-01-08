@@ -90,23 +90,13 @@ const useFilters = () => {
       order_by: 'desc'
     },
     {
-      id: 'luggage_numbers',
-      label: 'ჩემოდნების რაოდენობა - ზრდადობით',
+      id: 'id',
+      label: 'თარიღი - ზრდადობით',
       order_by: 'asc'
     },
     {
-      id: 'luggage_numbers',
-      label: 'ჩემოდნების რაოდენობა - კლებადობით',
-      order_by: 'desc'
-    },
-    {
-      id: 'prod_year',
-      label: 'წელი - ზრდადობით',
-      order_by: 'asc'
-    },
-    {
-      id: 'prod_year',
-      label: 'წელი - კლებადობით',
+      id: 'id',
+      label: 'თარიღი - კლებადობით',
       order_by: 'desc'
     }
   ]

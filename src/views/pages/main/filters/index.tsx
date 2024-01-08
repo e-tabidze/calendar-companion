@@ -2,14 +2,14 @@ import { IconTextButton } from '../../../components/button'
 import LocationDropdown from './locationDropdown'
 import { Divider, ExtraFiltersContainer, FiltersContainer } from './styles'
 import PeriodDropdown from './periodDropdown'
-import {useEffect, useState} from 'react'
+import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
-import {isMobile} from 'react-device-detect';
+import { isMobile } from 'react-device-detect'
 import useSearch from 'src/hooks/useSearch'
 import AdditionalFilters from 'src/views/components/additionalFilters'
 
-import PeriodMob from "src/views/pages/main/filters/periodMob";
-import LocationMob from "src/views/pages/main/filters/locationMob";
+import PeriodMob from 'src/views/pages/main/filters/periodMob'
+import LocationMob from 'src/views/pages/main/filters/locationMob'
 
 const Filters = () => {
   const [filters, toggleFilters] = useState(false)
@@ -31,32 +31,29 @@ const Filters = () => {
     appendSteeringWheel,
     objectToURI,
     reset,
-    setValue
+    setValue,
+    searchProductsMutation
   } = useSearch()
-
-  console.log(searchValues, 'searchValues')
-  const queryString = objectToURI(searchValues)
-
-  console.log(queryString, 'queryString')
 
   const onClickSearch = async () => {
     const queryString = objectToURI(searchValues)
+    searchProductsMutation.mutate(queryString)
     router.push(`/search?${queryString}`)
   }
   useEffect(() => {
     setIsMobileDevice(isMobile)
   }, [])
-  
+
   return (
     <form>
       <FiltersContainer>
-        {isMobileDevice ? <LocationMob control={control}/>: <LocationDropdown control={control}/>}
+        {isMobileDevice ? <LocationMob control={control} /> : <LocationDropdown control={control} />}
         <Divider />
-        {isMobileDevice ? <PeriodMob control={control}/>: <PeriodDropdown control={control}/>}
+        {isMobileDevice ? <PeriodMob control={control} /> : <PeriodDropdown control={control} />}
         <Divider />
         <ExtraFiltersContainer className='flex shrink-0'>
           <IconTextButton
-            label={'დამატებითი ფილტრი'}
+            label='დამატებითი ფილტრი'
             icon='filters'
             width={22}
             height={20}
@@ -67,7 +64,7 @@ const Filters = () => {
             type='button'
           />
           <IconTextButton
-            label={'ძებნა'}
+            label='ძებნა'
             icon='search'
             width={20}
             height={20}

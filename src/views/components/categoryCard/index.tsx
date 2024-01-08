@@ -49,8 +49,8 @@ const CategoryCard: React.FC<Props> = ({ border, name, control, options, append,
                   svgPath={option.icon}
                   width='48'
                   height='48'
-                  color={selectedOptions.includes(option.id) ? '#549684' : '#000000'}
-                  className='icon-class'
+                  className='scale-[1.2]'
+                  color={selectedOptions.includes(option.id) ? '#549684' : '#000'}
                 />
                 <Typography
                   type='body'

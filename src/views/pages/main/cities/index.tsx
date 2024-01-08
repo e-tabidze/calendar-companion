@@ -26,15 +26,15 @@ const Cities = () => {
       <CitiesInnerContainer>
         <CitiesListContainer>
           <ViewAllCitiesContainer>
-            <Icon svgPath='location' width={28} height={36} className='shrink-0 hidden sm:inline-flex' />
+            <Icon svgPath='location' width={40} height={40} className='shrink-0 hidden sm:inline-flex mt-1' />
             <Container>
-              <Typography type='h3' className='text-3md xl:text-[30px] mb-8'>
+              <Typography type='h3' className='text-3md xl:text-[24px] 2xl:text-[30px] mb-8'>
                 ავტომობილები ყველაზე აქტიურ ქალაქებში
               </Typography>
               <DefaultButton
                 text='ყველას ნახვა'
                 className='hidden lg:inline-flex'
-                onClick={() => router?.push('/search')}
+                onClick={() => router?.push('/search/?page=1&free_delivery=false&sort_by=id&order_by=asc')}
               />
             </Container>
           </ViewAllCitiesContainer>
@@ -49,14 +49,16 @@ const Cities = () => {
                   src='/images/city.png'
                   city={city.city}
                   numberOfCars={city?.products}
-                  onClick={() => router?.push(`/search/?location=${city.city}`)}
+                  onClick={() =>
+                    router?.push(`/search/?location=${city.city}&page=1&free_delivery=false&sort_by=id&order_by=asc`)
+                  }
                 />
               ))}
           </CitiesWrapper>
           <DefaultButton
-            text={'ყველა ნახვა'}
+            text='ყველა ნახვა'
             className='inline-flex lg:hidden'
-            onClick={() => router?.push('/search')}
+            onClick={() => router?.push('/search/?page=1&free_delivery=false&sort_by=id&order_by=asc')}
           />
         </CitiesListContainer>
         <Divider />
@@ -65,22 +67,22 @@ const Cities = () => {
             icon='timeStart'
             width={64}
             height={64}
-            title='უსაფრთხოება'
-            bodyText='ცნობილი ფაქტია, რომ გვერდის წაკითხვად შიგთავსს შეუძლია მკითხველის ყურადღება მიიზიდოს და დიზაინის აღქმაში ხელი შეუშალოს. Lorem Ipsum-ის გამოყენებით ვღებულობთ იმაზე'
+            title='სწრაფი'
+            bodyText='დაზოგე დრო —  ნახე ყველა გამქირავებელი კომპანია ერთ ვებსაიტზე, შეადარე და დაუკავშირდი საუკეთესოს. ასევე, ჩაიბარე და ჩააბარე ავტომობილი მარტივად, ვებსაიტის მეშვეობით.'
           />
           <BenefitsCard
             icon='timeStart'
             width={64}
             height={64}
-            title='უსაფრთხოება'
-            bodyText='ცნობილი ფაქტია, რომ გვერდის წაკითხვად შიგთავსს შეუძლია მკითხველის ყურადღება მიიზიდოს და დიზაინის აღქმაში ხელი შეუშალოს. Lorem Ipsum-ის გამოყენებით ვღებულობთ იმაზე'
+            title='კომფორტული'
+            bodyText='აირჩიე, დაჯავშნე, გადაიხადე — მოძებნე და დაჯავშნე ავტომობილი სასურველ თარიღებში. გადაიხადე ვებსაიტზე და მიიღე ყველა საჭირო მომსახურება ერთ სივრცეში.'
           />
           <BenefitsCard
             icon='timeStart'
             width={64}
             height={64}
-            title='უსაფრთხოება'
-            bodyText='ცნობილი ფაქტია, რომ გვერდის წაკითხვად შიგთავსს შეუძლია მკითხველის ყურადღება მიიზიდოს და დიზაინის აღქმაში ხელი შეუშალოს. Lorem Ipsum-ის გამოყენებით ვღებულობთ იმაზე'
+            title='უსაფრთხო'
+            bodyText='გადაიხადე სანდო პლატფორმაზე — აირჩიე გადახდის მოსახერხებელი მეთოდი. დამატებით ისარგებლე დაზღვევით, არ იფიქრო შესაძლო სირთულეებზე და ისიამოვნე მომენტით.'
           />
         </BenefitsContainer>
       </CitiesInnerContainer>
