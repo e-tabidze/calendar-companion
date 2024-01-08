@@ -11,7 +11,7 @@ interface Props {
 
 const PopoverDropdown: React.FC<Props> = ({ label, children, maxWidth, className }) => {
   return (
-    <div className='block'>
+    <div className='block '>
       <Popover className='relative'>
         <Popover.Button
           className={`flex items-center w-max h-10 border border-gray-90 rounded-xl gap-3 px-4 cursor-pointer ${className}`}
@@ -22,7 +22,7 @@ const PopoverDropdown: React.FC<Props> = ({ label, children, maxWidth, className
         </Popover.Button>
 
         <Popover.Panel
-          className={`min-w-[340px] absolute z-50 w-max mt-4 p-5 h-fit rounded-2xl shadow-2xl bg-white header-shadow text-xs top-100 left-0 right-0 ${maxWidth}`}
+          className={`max-h-56 overflow-y-auto min-w-[340px] absolute z-50 w-max mt-4 p-5 h-fit rounded-2xl shadow-2xl bg-white header-shadow text-xs top-100 left-0 right-0 ${maxWidth}`}
         >
           {children}
         </Popover.Panel>

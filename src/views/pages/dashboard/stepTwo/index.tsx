@@ -83,7 +83,7 @@ const StepTwo: React.FC<Props> = ({ control, appendAdditionalParam, step, errors
           <Tag
             name='seat_type_id'
             control={control}
-            options={productDetails?.seat_types}
+            options={productDetails?.seat_types?.slice(1)}
             height='h-10'
             errors={errors}
           />
@@ -93,7 +93,7 @@ const StepTwo: React.FC<Props> = ({ control, appendAdditionalParam, step, errors
         ჩემოდნების რაოდენობა*
       </Typography>
       <div className='flex flex-wrap gap-4 my-6'>
-        <Tag name='luggage_numbers' control={control} options={suitcases} height='h-10' errors={errors} />
+        <Tag name='luggage_numbers' control={control} options={suitcases?.slice(1)} height='h-10' errors={errors} />
       </div>
       <Divider />
       <div className='flex justify-between my-10 flex-col items-baseline md:items-center md:flex-row'>

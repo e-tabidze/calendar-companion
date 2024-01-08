@@ -14,8 +14,6 @@ const Payments = () => {
 
   const { orders } = useCompanyOrders('', Number(page))
 
-  console.log(orders, 'companyOrders')
-
   const handlePageChange = (newPage: number) => {
     router.push({
       pathname: router.pathname,
@@ -24,23 +22,24 @@ const Payments = () => {
   }
 
   return (
-    <div className='md:p-10 md:border border-raisin-10 rounded-3xl mt-8 lg:mt-0'>
-      <Typography type='h3' className='text-md md:text-2lg mb-6'>
-        ბარათები და ტრანზაქციები
-      </Typography>
-      <Divider />
-      {orders?.data?.map((order: any) => (
-        <Payment
-          key={order?.id}
-          firstName={order?.first_name}
-          lastName={order.last_name}
-          date={order?.created_at}
-          id={order?.payment_order_id}
-          price={order?.price}
-          status={order?.status_id}
-        />
-      ))}
-
+    <div>
+      <div className='md:p-10 md:border border-raisin-10 rounded-3xl mt-8 lg:mt-0'>
+        <Typography type='h3' className='text-md md:text-2lg mb-6'>
+          ბარათები და ტრანზაქციები
+        </Typography>
+        <Divider />
+        {orders?.data?.map((order: any) => (
+          <Payment
+            key={order?.id}
+            firstName={order?.first_name}
+            lastName={order.last_name}
+            date={order?.created_at}
+            id={order?.payment_order_id}
+            price={order?.price}
+            status={order?.status_id}
+          />
+        ))}
+      </div>
       {orders?.last_page > 1 && (
         <Pagination totalPages={orders?.last_page} onPageChange={handlePageChange} currentPage={Number(page)} />
       )}
