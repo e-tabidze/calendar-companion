@@ -9,13 +9,14 @@ interface Props {
   bg: 'bg-green-10' | 'bg-raisin-10'
   onClick?: () => void
   disabled?: boolean
+  className?: string
 }
 
-const Action: React.FC<Props> = ({ icon, label, bg, onClick, disabled }) => {
+const Action: React.FC<Props> = ({ icon, label, bg, onClick, disabled, className }) => {
 
   return (
-    <div className={`flex flex-col items-center ${disabled ? 'cursor-not-allowed opacity-60 pointer-events-none' : 'cursor-pointer '} cursor-pointer`} onClick={onClick}>
-      <div className={`w-8 h-8 flex items-center justify-center rounded-lg ${bg} mb-2`}>
+    <div className={`flex gap-4 md:flex-col md:gap-0 items-center ${disabled ? 'cursor-not-allowed opacity-60 pointer-events-none' : 'cursor-pointer '} cursor-pointer ${className}`} onClick={onClick}>
+      <div className={`w-7 h-7 md:w-8 md:h-8 flex items-center justify-center rounded-lg ${bg} md:mb-2`}>
         <Icon svgPath={icon} height={20} width={20} />
       </div>
       <Typography type='body' className="text-2sm">{label}</Typography>

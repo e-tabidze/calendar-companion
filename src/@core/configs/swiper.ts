@@ -77,14 +77,14 @@ export const CategoryCardSlider = {
 
 export const ProductDetailsSlider = {
   320: {
-    slidesPerView: 1.1,
+    slidesPerView: 1.2,
     slidesPerGroup: 1,
     spaceBetween: 12
 
   },
 
   768: {
-    slidesPerView: 3,
+    slidesPerView: 1.8,
     slidesPerGroup: 1,
     spaceBetween: 12
   }

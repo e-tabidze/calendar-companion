@@ -54,9 +54,7 @@ export const CardInnerSlider: React.FC<InnerSliderProps> = props => {
     <div
       className='relative z-10 h-full w-full'
       onMouseLeave={() => {
-        if (!isMobile) {
           swiper.slideTo(0, 100)
-        }
       }}
     >
       <Swiper

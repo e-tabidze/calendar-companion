@@ -18,6 +18,8 @@ import {
   PriceContainer,
   ProductCardContainer
 } from './styles'
+import {isMobile} from "react-device-detect";
+import {useEffect, useState} from "react";
 
 interface Props {
   swiperCard?: boolean
@@ -78,27 +80,42 @@ const ProductCard: React.FC<Props> = ({
       console.log(error, 'error')
     }
   }
+  const [isMobileDevice, setIsMobileDevice] = useState(false)
+  useEffect(() => {
+    setIsMobileDevice(isMobile)
+  }, [])
+
 
   return (
     <ProductCardContainer onClick={handleCardClick}>
-      <div className={`overflow-hidden aspect-w-16 aspect-h-9 cursor-pointer ${swiperCard ? 'w-full' : 'sticky'} `}>
-        <div className='w-full h-6'>
-          <Carousel
-            itemsArray={images?.map((imgUrl, index) => (
-              <div className='aspect-w-16 aspect-h-9 rounded-tl-3xl rounded-tr-3xl overflow-hidden' key={index}>
-                <Image
-                  src={imgUrl || ''}
-                  alt={`${manufacturer} ${model} ${prodYear}`}
-                  height={'100%'}
-                  width={'10%'}
-                  className='object-cover'
-                />
-              </div>
-            ))}
-            type='card'
-            key={Math.random()}
-          />
-        </div>
+      <div className={`overflow-hidden cursor-pointer ${swiperCard ? 'w-full' : 'sticky'} `}>
+          {isMobileDevice && !router?.asPath?.startsWith('/search') ?
+                <div className='aspect-w-16 aspect-h-9 rounded-tl-3xl rounded-tr-3xl overflow-hidden'>
+                  <Image
+                      src={images[0] || ''}
+                      alt={`${manufacturer} ${model} ${prodYear}`}
+                      height={'100%'}
+                      width={'100%'}
+                      className='object-cover'
+                  />
+                </div>
+               :
+            <Carousel
+                itemsArray={images?.map((imgUrl, index) => (
+                    <div className='aspect-w-16 aspect-h-9 rounded-tl-3xl rounded-tr-3xl overflow-hidden' key={index}>
+                      <Image
+                          src={imgUrl || ''}
+                          alt={`${manufacturer} ${model} ${prodYear}`}
+                          height={'100%'}
+                          width={'100%'}
+                          className='object-cover'
+                      />
+                    </div>
+                ))}
+                type='card'
+                key={Math.random()}
+            />
+          }
       </div>
 
       {activeCompanyId === undefined && isAuthenticated && (
@@ -134,7 +151,7 @@ const ProductCard: React.FC<Props> = ({
             {priceGel} ₾{/*<PreviousPrice>47₾</PreviousPrice>*/}
             <Typography type='body' className='text-sm'>დღე</Typography>
           </PriceContainer>
-          <DetailsWrapper className='flex-col md:flex-row pl-4 md:pl-0 border-l-1 border-raisin-10 md:border-none'>
+          <DetailsWrapper className='flex-col sm:flex-row pl-4 sm:pl-0 border-l-1 border-raisin-10 sm:border-none'>
             <Details>
               <Icon svgPath='views' width={20} height={20} className='fill-transparent' /> <span>{seats}</span>
             </Details>

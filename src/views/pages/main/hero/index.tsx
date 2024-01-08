@@ -3,20 +3,24 @@ import Typography from 'src/views/components/typography'
 import { HeroContainer, Copy } from './styles'
 import Image from 'src/views/components/image'
 import { isMobile } from 'react-device-detect'
+import {useEffect, useState} from "react";
 
 
 const Hero = () => {
+  const [isMobileDevice, setIsMobileDevice] = useState(false)
+  useEffect(() => {
+    setIsMobileDevice(isMobile)
+  }, [])
 
   return (
     <HeroContainer>
         <Image
-            src={isMobile ?'/images/banner-mob.png' : '/images/banner.png'}
+            src={isMobileDevice ?'/images/banner-mob.png' : '/images/banner.png'}
             alt=''
             height={'100%'}
             width={'100%'}
             className='object-cover absolute w-full h-full top-0 left-0 rounded-2xl'
           />
-
       <Copy>
         <div className='lg:w-11/12 relative'>
           <Typography

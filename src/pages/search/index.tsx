@@ -8,7 +8,6 @@ import {
   MainFilters,
 
   // MapContainer,
-  ResponsiveDivider,
   SearchContentsContainer,
   SearchResultsContainer
 } from '../../views/pages/search/styles'
@@ -24,7 +23,6 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { dehydrate } from '@tanstack/query-core'
 import { queryClient } from '../_app'
 
-const Divider = dynamic(() => import('src/views/components/divider'), { ssr: true })
 
 // const MapPicker = dynamic(() => import('src/views/components/mapPicker'), { ssr: true })
 const SkeletonLoading = dynamic(() => import('src/views/pages/search/skeletonLoading'), { ssr: false })
@@ -98,8 +96,7 @@ const SearchPage = () => {
     <>
       <form>
         <SearchLayout>
-          <Divider />
-          <FiltersWrapper>
+          <FiltersWrapper className='border-t-1 border-b-1 border-raisin-10'>
             <MainFilters>
               <PricePopover control={control} handleSubmit={onSubmit} reset={resetField} />
               <FuelTypePopover
@@ -160,8 +157,7 @@ const SearchPage = () => {
               />
             </ClearFiltersWrapper>
           </FiltersWrapper>
-          <ResponsiveDivider />
-          <FullContainer className='lg:flex'>
+          <FullContainer className='lg:flex border-t-1 md:border-none border-raisin-10'>
             <SearchContentsContainer className='w-full px-5 md:px-10 transition-all duration-300 lg:w-[calc(100%-40px)] lg:pr-0'>
               {/*  className={`w-full px-5 md:px-10 transition-all duration-300 ${*/}
               {/*    mapVisible ? 'lg:w-1/2 pr-8' : 'lg:w-[calc(100%-40px)] lg:pr-0'*/}
@@ -227,7 +223,7 @@ const SearchPage = () => {
               {isLoading ? (
                 <SkeletonLoading />
               ) : (
-                <div className='grid sm:grid-cols-2 gap-6 lg:grid-cols-4 2xl:grid-cols-4'>
+                <div className='flex flex-col gap-4 sm:grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 lg:gap-6'>
                   {/*  className={`grid sm:grid-cols-2 gap-6 ${*/}
                   {/*    mapVisible ? 'grid-cols-2 2xl:grid-cols-3' : 'lg:grid-cols-4 2xl:grid-cols-5'*/}
                   {/*}`}*/}
