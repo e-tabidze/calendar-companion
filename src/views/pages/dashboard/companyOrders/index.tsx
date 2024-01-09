@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import Icon from 'src/views/app/Icon'
+import SkeletonLoading from './skeletorLoading'
 import useCompanyOrders from './useCompanyOrders'
 
 const Pagination = dynamic(() => import('src/views/components/pagination'), { ssr: false })
@@ -55,7 +56,7 @@ const CompanyOrders = () => {
     }
   }, [status_id])
 
-  const { orders, fetchOrderFilters } = useCompanyOrders(status_id, Number(page))
+  const { orders, fetchOrderFilters, companyOrdersLoading } = useCompanyOrders(status_id, Number(page))
 
   const handlePageChange = (newPage: number) => {
     router.push({
@@ -77,9 +78,9 @@ const CompanyOrders = () => {
     fetchOrderFilters()
   }
 
-  // if (companyOrdersLoading) {
-  //   return <SkeletonLoading filters={filters} />
-  // }
+  if (companyOrdersLoading) {
+    return <SkeletonLoading filters={filters} />
+  }
 
   console.log(orders?.data, 'orders?.data')
 
@@ -93,22 +94,20 @@ const CompanyOrders = () => {
             <Typography type='h3' className='mb-6'>
               შემოსული ჯავშნები
             </Typography>
-            {orders?.data.length > 0 && (
-              <div className='hidden lg:flex gap-3 pb-8 pr-8'>
-                {filters.map(filter => (
-                  <Tag
-                    label={filter.label}
-                    height='h-10'
-                    key={filter.id}
-                    className={`${filter.filterOption == filterQuery ? 'border !border-orange-100' : ''} rounded-xl`}
-                    handleClick={() => {
-                      handleFilterChange(filter.filterOption as '' | '0' | '1' | '2' | '5')
-                      handleClickFilter()
-                    }}
-                  />
-                ))}
-              </div>
-            )}
+            <div className='hidden lg:flex gap-3 pb-8 pr-8'>
+              {filters.map(filter => (
+                <Tag
+                  label={filter.label}
+                  height='h-10'
+                  key={filter.id}
+                  className={`${filter.filterOption == filterQuery ? 'border !border-orange-100' : ''} rounded-xl`}
+                  handleClick={() => {
+                    handleFilterChange(filter.filterOption as '' | '0' | '1' | '2' | '5')
+                    handleClickFilter()
+                  }}
+                />
+              ))}
+            </div>
 
             <Divider />
             <div className=''>
