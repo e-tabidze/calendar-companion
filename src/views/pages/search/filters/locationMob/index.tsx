@@ -16,10 +16,10 @@ const LocationMob: React.FC<Props> = ({ control, resetField }) => {
     const formState = useWatch({ control })
 
     return (
-        <div className="px-2">
+        <>
             <FilterContainer onClick={() => toggleLocation(!location)}>
-                <InnerFilterContainer>
-                    <Typography type='subtitle' className='text-sm text-raisin-50'>
+                <InnerFilterContainer className='px-3 sm:px-4'>
+                    <Typography type='subtitle' className='text-sm'>
                         {formState.location || 'მდებარეობა'}
                     </Typography>
                     {formState.location ? (
@@ -31,15 +31,15 @@ const LocationMob: React.FC<Props> = ({ control, resetField }) => {
                             onClick={e => {
                                 resetField(), e.stopPropagation()
                             }}
-                            className="fill-transparent ml-2"
+                            className="flex shrink-0 fill-transparent ml-2"
                         />
                     ) : (
-                        <Icon svgPath='chevron' width={8} height={6} className="inline fill-white m-2" />
+                        <Icon svgPath='chevron' width={8} height={6} className="flex shrink-0 fill-white ml-2" />
                     )}
                 </InnerFilterContainer>
             </FilterContainer>
             <LocationModal open={location} toggleModal={() => toggleLocation(!location)} control={control} />
-        </div>
+        </>
     )
 }
 

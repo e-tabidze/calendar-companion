@@ -39,9 +39,8 @@ const Filters = () => {
     <div className='w-full mt-4 md:mt-0 justify-center flex border border-raisin-10 mx-auto md:ml-8 xl:ml-14 rounded-3xl h-12 items-center'>
       <FiltersContainer className='w-full flex justify-between'>
         {isMobileDevice ? <LocationMob control={control} resetField={handleResetLocation} /> : <LocationDropdown control={control} resetField={handleResetLocation} />}
-        <Divider className='hidden md:flex' />
+        <Divider />
         {isMobileDevice ? <PeriodMob control={control} resetField={handleResetBooking} /> : <PeriodDropdown control={control} resetField={handleResetBooking} setValue={setValue} />}
-        <Divider className='hidden md:flex' />
         <ExtraFiltersContainer>
           <button
             onClick={onSubmit}

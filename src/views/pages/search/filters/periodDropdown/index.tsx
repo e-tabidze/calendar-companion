@@ -54,7 +54,7 @@ const PeriodDropwodn: React.FC<Props> = ({ control, resetField, setValue }) => {
       <Menu.Button className='px-4 w-40 lg:w-52 inline-flex justify-center rounded-md bg-raisin bg-opacity-20 text-sm font-medium text-white focus-visible:ring-white focus-visible:ring-opacity-75'>
         <FilterContainer>
           <InnerFilterContainer>
-            <Typography type='body' className='text-raisin-50 whitespace-nowrap'>
+            <Typography type='body' className='whitespace-nowrap'>
               {startDate && endDate && book_from && book_to
                 ? `${format(startDate, 'd MMM yyyy', { locale: ka })} - ${format(endDate, 'd MMM yyyy', {
                     locale: ka
