@@ -26,7 +26,7 @@ const PeriodDropdown: React.FC<Props> = ({ control }) => {
         <>
           <Menu.Button
             className={`py-5 px-4 inline-flex w-full justify-center rounded-2xl bg-raisin bg-opacity-20 text-sm font-medium text-white focus-visible:ring-white focus-visible:ring-opacity-75 ${
-              open ? 'shadow-lg' : ''
+              open ? '' : ''
             }`}
           >
             <FilterContainer>

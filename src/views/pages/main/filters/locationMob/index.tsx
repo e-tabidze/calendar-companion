@@ -17,11 +17,11 @@ const LocationMob: React.FC<Props> = ({ control }) => {
     <div className='p-4 w-full flex'>
       <FilterContainer onClick={() => toggleLocation(!location)}>
         <Typography type='body' color='dark'>
-          ადგილდებარეობა
+          მდებარეობა
         </Typography>
         <InnerFilterContainer>
           <Typography type='subtitle' className='text-raisin-50'>
-            {formState.location || 'ქალაქი, აეროპორტი, მისამართი...'}
+            {formState.location || 'ქალაქი, მისამართი...'}
           </Typography>
           <Icon svgPath='chevron' width={8} height={6} className='inline fill-white m-2' />
         </InnerFilterContainer>

@@ -124,7 +124,7 @@ const AdditionalFilters: React.FC<Props> = ({
                   </Dialog.Title>
                   <Icon svgPath='close' onClick={toggleModal} height={40} width={40} className='cursor-pointer' />
                 </div>
-                <div className='overflow-auto h-[70vh] px-4 py-5 sm:py-6 sm:px-10 w-max-full'>
+                <div className='overflow-auto h-[60vh] px-4 py-5 sm:py-6 sm:px-10 w-max-full'>
                   <Typography type='body' color='dark'>
                     მოძებნე ავტომობილი დღიური ფასის მიხედვით
                   </Typography>

@@ -73,7 +73,7 @@ const Tnet = () => {
                 </div>
             </div>
             <div className="flex justify-center pt-6 pb-8">
-                <Typography type='body' className="font-normal text-raisin-70 text-sm text-center">
+                <Typography type='body' className="font-normal text-raisin-70 text-sm lg:text-2sm text-center">
                     © 2023 ყველა უფლება დაცულია
                 </Typography>
             </div>
