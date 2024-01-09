@@ -18,7 +18,7 @@ const Navigation = () => {
       <Typography
         type='h5'
         weight='medium'
-        className='flex items-center justify-between font-medium text-md text-raisin-100'
+        className='flex items-center justify-between font-medium text-md lg:text-3md text-raisin-100'
         onClick={handleSetActive}
       >
         ნავიგაცია
@@ -36,7 +36,7 @@ const Navigation = () => {
                     {route.path && (
                       <Link
                         href={route.path}
-                        className='font-normal text-raisin-70 hover:text-raisin-100 transition-all text-sm hover:underline'
+                        className='font-normal text-raisin-70 hover:text-raisin-100 transition-all text-sm lg:text-2sm hover:underline'
                       >
                         {route.item}
                       </Link>
@@ -51,7 +51,7 @@ const Navigation = () => {
                     {route.path && (
                       <Link
                         href={route.path}
-                        className='font-normal text-raisin-70 hover:text-raisin-100 transition-all text-sm hover:underline'
+                        className='font-normal text-raisin-70 hover:text-raisin-100 transition-all text-sm lg:text-2sm hover:underline'
                       >
                         {route.item}
                       </Link>
@@ -65,7 +65,7 @@ const Navigation = () => {
           <>
             <li className='mb-2'>
               <button
-                className='font-normal text-raisin-70 hover:text-raisin-100 transition-all text-sm hover:underline'
+                className='font-normal text-raisin-70 hover:text-raisin-100 transition-all text-sm lg:text-2sm hover:underline'
                 onClick={handleLogin}
               >
                 შესვლა
@@ -73,7 +73,7 @@ const Navigation = () => {
             </li>
             <li className='mb-2'>
               <button
-                className='font-normal text-raisin-70 hover:text-raisin-100 transition-all text-sm hover:underline'
+                className='font-normal text-raisin-70 hover:text-raisin-100 transition-all text-sm lg:text-2sm hover:underline'
                 onClick={handleLogin}
               >
                 რეგისტრაცია
