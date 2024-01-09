@@ -1,5 +1,5 @@
 import React from 'react'
-import { DefaultButton } from '../button'
+import {DefaultButton, IconButton} from '../button'
 
 interface Props {
   totalPages: number
@@ -24,7 +24,7 @@ const Pagination: React.FC<Props> = ({ totalPages, onPageChange, currentPage }) 
           text={i}
           key={i}
           onClick={() => onPageChange(i)}
-          className={`!w-10 !h-10 !px-0 !py-0 mx-1 !font-medium ${
+          className={`!w-8 !h-8 md:!w-10 md:!h-10 !px-0 !py-0 mx-1 !font-medium ${
             i == currentPage
               ? 'bg-white border border-raisin-130'
               : currentPage == undefined
@@ -52,16 +52,32 @@ const Pagination: React.FC<Props> = ({ totalPages, onPageChange, currentPage }) 
 
   return (
     <div className='flex items-center justify-between my-10'>
+      <IconButton
+          icon='pagination-prev'
+          height={24}
+          width={24}
+          className={`md:hidden bg-raisin-10 h-8 px-2 rounded-lg ${currentPage == 1 ? 'opacity-50 cursor-not-allowed' : ''}`}
+          onClick={handlePreviousPage}
+          type='button'
+      />
       <DefaultButton
         text='უკან'
         onClick={handlePreviousPage}
-        className={`bg-raisin-10 h-14 px-8 !font-medium ${currentPage == 1 ? 'opacity-50 cursor-not-allowed' : ''}`}
+        className={`hidden md:flex bg-raisin-10 !h-14 !px-8 !font-medium ${currentPage == 1 ? 'opacity-50 cursor-not-allowed' : ''}`}
       />
       <div>{renderPageNumbers()}</div>
+        <IconButton
+            icon='pagination-next'
+            height={24}
+            width={24}
+            className={`md:hidden bg-raisin-10 h-8 px-2 rounded-lg ${currentPage === totalPages ? 'opacity-50 cursor-not-allowed' : ''}`}
+            onClick={handlePreviousPage}
+            type='button'
+        />
       <DefaultButton
         text='შემდეგი'
         onClick={handleNextPage}
-        className={`bg-raisin-10 h-14 px-8 !font-medium ${currentPage === totalPages ? 'opacity-50 cursor-not-allowed' : ''}`}
+        className={`hidden md:flex bg-raisin-10 !h-14 !px-8 !font-medium ${currentPage === totalPages ? 'opacity-50 cursor-not-allowed' : ''}`}
       />
     </div>
   )

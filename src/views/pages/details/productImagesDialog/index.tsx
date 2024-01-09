@@ -12,7 +12,7 @@ interface Props {
 const ProductImagesDialog = ({ open, setOpen, images }: Props) => {
   return (
     <Transition.Root show={open} as={Fragment}>
-      <Dialog as='div' className='relative z-50 w-screen h-screen' onClose={setOpen} open={open}>
+      <Dialog as='div' className='relative z-[111] w-screen h-screen' onClose={setOpen} open={open}>
         <Transition.Child
           as={Fragment}
           enter='ease-out duration-300'

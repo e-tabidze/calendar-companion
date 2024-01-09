@@ -109,6 +109,12 @@
 .details-swiper .swiper-slide-next {
   opacity: 0.3;
 }
+.swiper-thumbs .swiper-slide-thumb-active {
+  opacity: 1 !important;
+}
+.swiper-thumbs .swiper-slide {
+  opacity: 0.4;
+}
 
 .swiper-slide-active {
   position: relative !important;
@@ -126,6 +132,14 @@
   gap:4px;
   padding-left: 4px;
   padding-right: 4px;
+}
+.swiper-pagination-fraction {
+  background: #fff;
+  width: auto !important;
+  border-radius: 8px;
+  padding: 4px 12px;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
 }
 
 

@@ -31,7 +31,8 @@ const HeaderWrapper = ({ fullWidth, children }: Props) => {
     <HeaderContainer
       className={`sticky z-[111] ${
         fullWidth ? 'px-5 md:px-10' : 'px-5 lg:px-8 2xl:px-0'
-      } ${isScrolled && router.asPath === '/'  ? 'shadow-sm' : ''}`}
+      } ${(isScrolled && router.asPath === '/') || (isScrolled && router.asPath.startsWith('/details')) ? 'shadow-sm' : ''}
+      ${isScrolled && router.asPath.startsWith('/search') ? 'shadow-sm md:shadow-none': ''}`}
     >
       <div className={`${fullWidth ? 'w-full' : 'max-w-[1240px] 2xl:max-w-[1470px] mx-auto'}`}>{children}</div>
     </HeaderContainer>
