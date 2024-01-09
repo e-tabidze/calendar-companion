@@ -425,7 +425,6 @@ const ProductDetails = memo(() => {
                 itemsArray={similarProducts?.map((product: any) => (
                   <ProductCard
                     key={product?.id}
-                    swiperCard={true}
                     productId={product?.id}
                     manufacturer={product?.manufacturer?.title}
                     model={product?.manufacturer_model?.title}

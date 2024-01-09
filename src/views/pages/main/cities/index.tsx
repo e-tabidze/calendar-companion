@@ -56,7 +56,7 @@ const Cities = () => {
               ))}
           </CitiesWrapper>
           <DefaultButton
-            text='ყველა ნახვა'
+            text='ყველას ნახვა'
             className='inline-flex lg:hidden'
             onClick={() => router?.push('/search/?page=1&free_delivery=false&sort_by=id&order_by=asc')}
           />

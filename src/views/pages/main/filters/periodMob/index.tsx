@@ -17,13 +17,13 @@ const PeriodMob: React.FC<Props> = ({ control }) => {
     <div className='p-4 w-full'>
       <FilterContainer onClick={() => toggleCalendar(!calendar)}>
         <Typography type='body' color='dark'>
-          ქირაობის პერიოდი
+          დაქირავების პერიოდი
         </Typography>
         <InnerFilterContainer>
           <Typography type='subtitle' className='text-raisin-50'>
             {formState?.booking?.book_from && formState?.booking?.book_to
               ? `${formState?.booking?.book_from} - ${formState?.booking?.book_to}`
-              : 'აირჩიეთ თარიღი და დრო'}
+              : 'თარიღი'}
           </Typography>
           <Icon svgPath='chevron' width={8} height={6} className='inline fill-white m-2' />
         </InnerFilterContainer>
