@@ -2,6 +2,8 @@ import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
+import Icon from 'src/views/app/Icon'
+import SkeletonLoading from './skeletorLoading'
 import useCompanyOrders from './useCompanyOrders'
 
 const Pagination = dynamic(() => import('src/views/components/pagination'), { ssr: false })
@@ -54,7 +56,7 @@ const CompanyOrders = () => {
     }
   }, [status_id])
 
-  const { orders, fetchOrderFilters } = useCompanyOrders(status_id, Number(page))
+  const { orders, fetchOrderFilters, companyOrdersLoading } = useCompanyOrders(status_id, Number(page))
 
   const handlePageChange = (newPage: number) => {
     router.push({
@@ -76,9 +78,11 @@ const CompanyOrders = () => {
     fetchOrderFilters()
   }
 
-  // if (companyOrdersLoading) {
-  //   return <SkeletonLoading filters={filters} />
-  // }
+  if (companyOrdersLoading) {
+    return <SkeletonLoading filters={filters} />
+  }
+
+  console.log(orders?.data, 'orders?.data')
 
   return (
     <>
@@ -104,32 +108,40 @@ const CompanyOrders = () => {
                 />
               ))}
             </div>
+
             <Divider />
             <div className=''>
-              {orders?.data?.map((order: any, index: number) => (
-                <Link
-                  href={`/dashboard/orders/?id=${order?.id}`}
-                  as={`/dashboard/orders/?id=${order?.id}`}
-                  key={order?.id}
-                >
-                  <OrderListComponent
-                    startAddress={order?.start_address}
-                    startDate={order?.start_date}
-                    startTime={order?.start_time}
-                    endDate={order?.end_date}
-                    endTime={order?.end_time}
-                    firstName={order?.first_name}
-                    lastName={order?.last_name}
-                    days={order?.days}
-                    productDetails={JSON.parse(order?.product_data)}
-                    price={order?.price}
-                    discount={order?.discount_percent}
-                    status={order?.status_id}
-                  />
+              {orders?.data.length > 0 ? (
+                orders?.data?.map((order: any, index: number) => (
+                  <Link
+                    href={`/dashboard/orders/?id=${order?.id}`}
+                    as={`/dashboard/orders/?id=${order?.id}`}
+                    key={order?.id}
+                  >
+                    <OrderListComponent
+                      startAddress={order?.start_address}
+                      startDate={order?.start_date}
+                      startTime={order?.start_time}
+                      endDate={order?.end_date}
+                      endTime={order?.end_time}
+                      firstName={order?.first_name}
+                      lastName={order?.last_name}
+                      days={order?.days}
+                      productDetails={JSON.parse(order?.product_data)}
+                      price={order?.price}
+                      discount={order?.discount_percent}
+                      status={order?.status_id}
+                    />
 
-                  {index !== orders?.data?.length - 1 && <Divider />}
-                </Link>
-              ))}
+                    {index !== orders?.data?.length - 1 && <Divider />}
+                  </Link>
+                ))
+              ) : (
+                <div className='flex flex-col justify-center my-6 items-center gap-5'>
+                  <Icon svgPath='noOrders' width={207} height={156} />
+                  <Typography type='h5'>შეკვეთები ჯერ არ გაქვს</Typography>
+                </div>
+              )}
             </div>
           </div>
 
