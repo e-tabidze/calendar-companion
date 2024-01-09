@@ -81,7 +81,6 @@ const MainPage = () => {
             itemsArray={popularProducts?.map((product: any) => (
               <ProductCard
                 key={product?.id}
-                swiperCard={true}
                 productId={product?.id}
                 manufacturer={product?.manufacturer?.title}
                 model={product?.manufacturer_model?.title}
@@ -109,7 +108,6 @@ const MainPage = () => {
             itemsArray={lastSeenProducts?.map((product: any) => (
               <ProductCard
                 key={product?.product?.id}
-                swiperCard={true}
                 productId={product?.product?.id}
                 manufacturer={product?.product?.manufacturer?.title}
                 model={product?.product?.manufacturer_model?.title}

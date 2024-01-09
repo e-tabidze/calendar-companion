@@ -22,7 +22,6 @@ import {isMobile} from "react-device-detect";
 import {useEffect, useState} from "react";
 
 interface Props {
-  swiperCard?: boolean
   productId: number
   manufacturer: string
   model: string
@@ -37,7 +36,6 @@ interface Props {
 }
 
 const ProductCard: React.FC<Props> = ({
-  swiperCard,
   productId,
   manufacturer,
   model,
@@ -88,7 +86,7 @@ const ProductCard: React.FC<Props> = ({
 
   return (
     <ProductCardContainer onClick={handleCardClick}>
-      <div className={`overflow-hidden cursor-pointer ${swiperCard ? 'w-full' : 'sticky'} `}>
+      <div className='overflow-hidden cursor-pointer w-full'>
           {isMobileDevice && !router?.asPath?.startsWith('/search') ?
                 <div className='aspect-w-16 aspect-h-9 rounded-tl-3xl rounded-tr-3xl overflow-hidden'>
                   <Image

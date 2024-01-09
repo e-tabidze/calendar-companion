@@ -59,7 +59,7 @@ const Carousel = ({ itemsArray, type, onClick, thumbs = false }: Props) => {
   }
 
   return (
-    <div className='relative'
+    <div className={`${type==='card' ? 'group':''} relative`}
          onMouseLeave={() => {
       if (type==='card') {
         swiper.slideTo(0, 100)
@@ -98,7 +98,7 @@ const Carousel = ({ itemsArray, type, onClick, thumbs = false }: Props) => {
         thumbs={{ swiper: thumbsSwiper }}
       >
         {itemsArray?.map((item, index) => (
-          <SwiperSlide key={index} onClick={onClick} className='group relative'>
+          <SwiperSlide key={index} onClick={onClick} className='relative'>
             {item}
           </SwiperSlide>
         ))}
