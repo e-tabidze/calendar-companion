@@ -78,8 +78,6 @@ const Carousel = ({ itemsArray, type, onClick, thumbs = false }: Props) => {
         }
     }}
     >
-
-
       <Swiper
         className={`${(type === 'products') || (type ==='categories') ? 'main-swiper' : ''} ${type === 'productDetails' ? 'details-swiper':''}`}
         watchSlidesProgress
@@ -97,18 +95,12 @@ const Carousel = ({ itemsArray, type, onClick, thumbs = false }: Props) => {
         onSlideChange={() => {
           if (type==='card') {
 
-            if (swiper.activeIndex + 1 && itemsArray.length > 4) {
+            if (swiper.activeIndex == 3 && itemsArray.length > 4) {
               setReachedLimit(true)
             } else {
               setReachedLimit(false)
             }
           }
-
-          // if (swiper.activeIndex > 0) {
-          //   setIsStart(false)
-          // } else {
-          //   setIsStart(true)
-          // }
         }}
 
 
@@ -128,7 +120,7 @@ const Carousel = ({ itemsArray, type, onClick, thumbs = false }: Props) => {
         keyboard={true}
         thumbs={{ swiper: thumbsSwiper }}
       >
-        {data?.slice(0, 4).map((item, index) => (
+        {data?.map((item, index) => (
 
           <SwiperSlide key={index} onClick={onClick} className='relative'>
             {item}
