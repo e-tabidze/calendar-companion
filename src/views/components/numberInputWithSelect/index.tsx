@@ -63,7 +63,7 @@ const NumberInputWithSelect: React.FC<Props> = ({ options, control, inputName, s
               leaveTo='opacity-0 scale-95'
               className='absolute top-11 w-28 shadow-lg right-px rounded-l bg-white z-50'
             >
-              <div className=''>
+              <div className='border rounded-md'>
                 {options.map(option => (
                   <button
                     key={option.value}

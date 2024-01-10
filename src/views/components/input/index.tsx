@@ -79,7 +79,7 @@ export const DefaultInput: React.FC<Props> = ({
           <>
             <label
               className={`${labelMobile && 'hidden md:flex'} absolute left-3 text-raisin-50 transition-all text-2sm pointer-events-none ${
-                isFocused || value ? 'text-sm top-[3px]' : 'top-[16px] text-raisin-80'
+                isFocused || value ? 'text-sm top-[3px]' : 'top-[18px] text-raisin-80'
               }`}
             >
               {label}
@@ -87,7 +87,7 @@ export const DefaultInput: React.FC<Props> = ({
 
             <label
                 className={`md:hidden absolute left-3 text-raisin-50 transition-all text-2sm pointer-events-none ${
-                    isFocused || value ? 'text-sm top-[3px]' : 'top-[16px] text-raisin-80'
+                    isFocused || value ? 'text-sm top-[3px]' : 'top-[18px] text-raisin-80'
                 }`}
             >
               {labelMobile}
@@ -97,7 +97,7 @@ export const DefaultInput: React.FC<Props> = ({
               onBlur={handleBlur}
               disabled={disabled}
               value={value || ''}
-              className={`placeholder:text-[13px] ${rows ? 'pt-5 min-h-[80px]' : 'h-12 lg:h-14'} ${styles.input} ${
+              className={`placeholder:text-[13px] ${rows ? 'pt-5 min-h-[80px]' : 'h-14'} ${styles.input} ${
                 value || isFocused ? 'pb-1 pt-3' : 'pt-2 pb-2'
               } ${!disabled ? 'hover:border-raisin-30' : ''} ${
                 _.get(errors, name)?.ref.name === name ? 'border border-red-100' : ''
