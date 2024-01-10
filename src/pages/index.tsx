@@ -120,7 +120,7 @@ const MainPage = () => {
             type='products'
           />
         </ContentContainer>
-        <ResponsiveContainer className='mt-16 md:mt-20'>
+        <ResponsiveContainer className='mt-16 md:mt-24'>
           <Cities />
         </ResponsiveContainer>
       </MainPageBox>

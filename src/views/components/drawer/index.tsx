@@ -13,7 +13,7 @@ const DrawerBottom = ({ children, isOpen, title, setIsOpen, onBack, showBack }: 
       <section
         className={
           'rounded-t-3xl w-screen h-max max-h-4/5 overflow-auto absolute rounded-t-large bg-white  shadow-xl delay-200 duration-300 ease-in-out transition-all transform  ' +
-          (isOpen ? ' bottom-0 translate-y-0 ' : ' bottom-[74px] translate-y-full ')
+          (isOpen ? ' bottom-0 translate-y-0 ' : ' bottom-[75px] translate-y-full ')
         }
       >
         <header className='flex items-center justify-center p-4 font-bold text-3md text-center'>
