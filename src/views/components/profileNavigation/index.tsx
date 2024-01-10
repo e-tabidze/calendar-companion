@@ -113,7 +113,7 @@ const ProfileNavigation: React.FC<Props> = ({
           <div className={`group relative flex items-center my-2  cursor-pointer transition-all duration-300`}>
             <div
               className={`flex items-center justify-center shrink-0 relative overflow-hidden h-8 w-8 rounded-lg ${
-                route.path === router?.asPath ? 'bg-orange-10' : 'bg-raisin-10'
+                route.path?.split('?')[0] === router.asPath.split('?')[0].replace(/\/$/, '') || route.path === router.asPath ? 'bg-orange-10' : 'bg-raisin-10'
               } `}
             >
               {route.image ? (
@@ -131,7 +131,7 @@ const ProfileNavigation: React.FC<Props> = ({
                   width={20}
                   height={20}
                   color='#fff'
-                  className={`${route.path === router?.asPath ? 'fill-orange-100' : 'fill-raisin-70'}`}
+                  className={`${route.path?.split('?')[0] === router.asPath.split('?')[0].replace(/\/$/, '') || route.path === router.asPath ? 'fill-orange-100' : 'fill-raisin-70'}`}
                 />
               )}
             </div>
@@ -141,8 +141,9 @@ const ProfileNavigation: React.FC<Props> = ({
                 sidebarCollapsed ? 'opacity-0 w-0' : 'opacity-100 ml-4 2xl:ml-6'
               } ${
                 route.path && selectedRoute?.path?.split('/')[2] === route.path.split('/')[2] ? 'text-orange-100' : ''
-              }' ${route.path === router?.asPath && 'text-orange-100'}`}
+              }' ${route.path?.split('?')[0] === router.asPath.split('?')[0].replace(/\/$/, '') || route.path === router.asPath ? 'text-orange-100' : ''}`}
             >
+              {console.log(route.path?.split('?')[0], 'route', router.asPath.split('?')[0].replace(/\/$/, ''), "router")}
               {route.item}
             </Typography>
           </div>
