@@ -25,7 +25,7 @@ const LocationDropdown: React.FC<Props> = ({ control, resetField }) => {
             <div className='relative flex text-left w-full'>
               <Listbox.Button
                 onClick={resetField}
-                className='relative w-32 lg:w-52 cursor-pointer rounded-2xl bg-white px-4 text-left focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-raisin-5 sm:text-sm'
+                className='relative cursor-pointer rounded-2xl bg-white px-3 lg:px-4 text-left focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-raisin-5 sm:text-sm'
               >
                 <FilterContainer>
                   <InnerFilterContainer>
@@ -41,10 +41,10 @@ const LocationDropdown: React.FC<Props> = ({ control, resetField }) => {
                         onClick={e => {
                           resetField(), e.stopPropagation()
                         }}
-                        className="fill-transparent"
+                        className="fill-transparent ml-2"
                       />
                     ) : (
-                      <Icon svgPath='chevron' width={10} height={10} className="fill-transparent" />
+                      <Icon svgPath='chevron' width={10} height={10} className="fill-transparent ml-2" />
                     )}
                   </InnerFilterContainer>
                 </FilterContainer>

@@ -65,7 +65,7 @@ const SortListBox: React.FC<Props> = ({ control, onClick, setValue }) => {
                 <Icon svgPath='sort' width={20} height={12} className='fill-transparent flex shrink-0 mr-3' />
                 <Typography
                   type='subtitle'
-                  className='text-2sm max-w-[110px] md:max-w-[140px] inline-block overflow-hidden text-ellipsis whitespace-nowrap line-clamp-1'
+                  className='text-sm lg:text-2sm max-w-[110px] md:max-w-[140px] inline-block overflow-hidden text-ellipsis whitespace-nowrap line-clamp-1'
                 >
                   {sortFilters.find(opt => opt.id === value && opt.order_by === urlSearchParams.get('order_by'))?.label || 'დაჯგუფება'}
                 </Typography>
