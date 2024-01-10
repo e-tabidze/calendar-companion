@@ -30,11 +30,10 @@ const useFavourites = (productId?: string | number) => {
     enabled: !!isAuthenticated && activeCompanyId === undefined
   })
 
-  const toggleFavouritesLoading = toggleUserFavourites.isLoading
   const userFavourites = useFavourites?.data?.result?.data
   const isLoading = useFavourites?.isLoading
 
-  return { toggleUserFavourites, userFavourites, isLoading, toggleFavouritesLoading }
+  return { toggleUserFavourites, userFavourites, isLoading }
 }
 
 export default useFavourites

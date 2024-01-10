@@ -5,7 +5,6 @@ import { DefaultButton, IconTextButton } from 'src/views/components/button'
 import { ActionsWrapper, TagsWrapper } from './styles'
 import useFilters from 'src/hooks/useFilters'
 import { useWatch } from 'react-hook-form'
-import { useEffect, useState } from 'react'
 
 interface Props {
   control: any
@@ -17,19 +16,15 @@ interface Props {
 const FuelTypePopover: React.FC<Props> = ({ control, appendFuelType, reset, handleSubmit }) => {
   const { fuelTypesFilter, isLoading } = useFilters()
 
-  const [hasFuelTypes, setFuelTypes] = useState(false)
-
   const formState = useWatch({ control })
-
-  useEffect(() => {
-    setFuelTypes(!!formState?.fuel_types?.length)
-  }, [formState?.fuel_types?.length])
 
   return (
     <PopoverDropdown
       label='საწვავის ტიპი'
       maxWidth='max-w-sm'
-      className={` ${hasFuelTypes ? 'border border-raisin-100' : 'hover:border hover:border-raisin-30'}`}
+      className={` ${
+        formState?.fuel_types?.length ? 'border border-raisin-100' : 'hover:border hover:border-raisin-30'
+      }`}
     >
       <Typography type='body' color='light' className='pt-5'>
         შეგიძლიათ მონიშნოთ ერთი ან რამდენიმე
@@ -56,8 +51,11 @@ const FuelTypePopover: React.FC<Props> = ({ control, appendFuelType, reset, hand
           width={20}
           height={22}
           onClick={() => reset('fuel_types')}
-          labelClassname="text-sm text-raisin-50 border-b"
-          type="button"
+          disabled={!formState?.fuel_types?.length}
+          labelClassname={
+            formState?.fuel_types?.length ? 'text-sm text-red-100 border-b' : 'text-sm text-raisin-50 border-b'
+          }
+          type='button'
         />
         <DefaultButton
           text='შენახვა'

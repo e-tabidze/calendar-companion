@@ -77,11 +77,11 @@ const Products = () => {
   return (
     <div>
       <div className='md:p-8 lg:p-10 md:border border-raisin-10 rounded-3xl'>
-        <Typography type='h3' className='mb-6'>
+        <Typography type='h3' className='mb-6 mt-8 lg:mt-0'>
           ავტომობილები
         </Typography>
         <Divider />
-        <div className='hidden lg:flex gap-3 py-8'>
+        <div className='flex gap-3 py-8 overflow-x-auto'>
           {filters.map(filter => (
             <Tag
               label={filter.label}
