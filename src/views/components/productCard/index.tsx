@@ -125,8 +125,8 @@ const ProductCard: React.FC<Props> = ({
           <Icon
             svgPath={isProductInFavorites ? 'favIconActive' : 'favIconOutline'}
             className='cursor-pointer'
-            width={isProductInFavorites ? 14 : 16}
-            height={isProductInFavorites ? 14 : 17}
+            width={20}
+            height={20}
             onClick={e => handleFavorites(e)}
           />
         </div>

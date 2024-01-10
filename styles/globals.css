@@ -169,6 +169,7 @@
   .swiper-button-next {
     width: 46px !important;
     height: 46px !important;
+    display: none !important;
   }
 }
 
