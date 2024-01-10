@@ -38,17 +38,11 @@ const ProfileLayout: React.FC<Props> = ({ routes, dividerIndexes, children }) =>
     width < 769 && setIsSidebarVisible(false)
   }
 
-  console.log(isSidebarVisible, 'isSidebarVisible')
-
   const toggleSidebarCollapse = () => setSidebarCollapsed(!sidebarCollapsed)
-
-  console.log(width, 'width')
 
   useEffect(() => {
     setSidebarCollapsed(width > 768 && width < 1024)
   }, [width])
-
-  console.log(isSidebarVisible, 'isSidebarVisible')
 
   return (
     <main>
@@ -70,7 +64,7 @@ const ProfileLayout: React.FC<Props> = ({ routes, dividerIndexes, children }) =>
             isSidebarVisible && width < 769 ? 'hidden' : 'transition-all duration-300 w-full z-[11] p-0 md:p-4 lg:p-0'
           }
         >
-          <div onClick={() => setIsSidebarVisible(true)} className="flex items-center gap-3 md:hidden">
+          <div onClick={() => setIsSidebarVisible(true)} className='flex items-center gap-3 md:hidden'>
             <Icon svgPath='chevron-l' width={8} height={12} className='fill-transparent' />
             <Typography type='body'>ჩემი გვერდი</Typography>
           </div>

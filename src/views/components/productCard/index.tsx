@@ -118,8 +118,8 @@ const ProductCard: React.FC<Props> = ({
 
       {activeCompanyId === undefined && isAuthenticated && (
         <div
-          className={`absolute cursor-pointer z-[10] top-3 right-3 w-8 h-8 flex items-center justify-center rounded-full ${
-            isProductInFavorites ? 'bg-orange-20 hover:bg-orange-30' : ' bg-raisin-20 hover:bg-raisin-60'
+          className={`absolute cursor-pointer z-[10] top-3 right-3 w-8 h-8 flex items-center justify-center rounded-full bg-raisin-20 ${
+            isProductInFavorites ? '' : 'hover:bg-raisin-40'
           }`}
         >
           {toggleFavouritesLoading ? (
@@ -128,8 +128,8 @@ const ProductCard: React.FC<Props> = ({
             <Icon
               svgPath={isProductInFavorites ? 'favIconActive' : 'favIconOutline'}
               className='cursor-pointer'
-              width={isProductInFavorites ? 14 : 16}
-              height={isProductInFavorites ? 14 : 17}
+              width={20}
+              height={20}
               onClick={e => handleFavorites(e)}
             />
           )}

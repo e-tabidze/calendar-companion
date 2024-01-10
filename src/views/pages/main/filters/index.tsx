@@ -69,6 +69,7 @@ const Filters = () => {
             width={20}
             height={20}
             bg='bg-orange-100'
+            className='md:h-16 px-4 md:px-6'
             labelClassname='text-2sm text-white md:hidden'
             onClick={onClickSearch}
             type='button'
