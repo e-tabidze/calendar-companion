@@ -1,9 +1,8 @@
 import PopoverDropdown from 'src/views/components/popoverDropdown'
 import useFilters from 'src/hooks/useFilters'
 import CheckboxField from 'src/views/components/checkboxField'
-import {DefaultButton, IconTextButton} from 'src/views/components/button'
+import { DefaultButton, IconTextButton } from 'src/views/components/button'
 import { useWatch } from 'react-hook-form'
-import { useState, useEffect } from 'react'
 
 interface Props {
   control: any
@@ -17,19 +16,12 @@ const CategoryPopover: React.FC<Props> = ({ control, appendCategory, handleSubmi
 
   const formState = useWatch({ control })
 
-  const [hasCategory, setHasCategory] = useState(false)
-
-  useEffect(() => {
-    setHasCategory(!!formState?.category?.length)
-  }, [formState?.category?.length])
-
   return (
     <PopoverDropdown
       label='კატეგორია'
       maxWidth='max-w-md'
-      className={`${hasCategory ? 'border border-raisin-100' : 'hover:border hover:border-raisin-30'}`}
+      className={`${formState?.category?.length ? 'border border-raisin-100' : 'hover:border hover:border-raisin-30'}`}
     >
-      
       <CheckboxField
         options={categoriesFilter}
         name='category'
@@ -40,8 +32,7 @@ const CategoryPopover: React.FC<Props> = ({ control, appendCategory, handleSubmi
         className='py-4'
         divider
       />
-     
-      
+
       <div className='flex items-center justify-between sticky bottom-0 bg-white py-5 mt-4'>
         <IconTextButton
           icon='rotate'
@@ -50,8 +41,11 @@ const CategoryPopover: React.FC<Props> = ({ control, appendCategory, handleSubmi
           width={20}
           height={22}
           onClick={() => reset('category')}
-          labelClassname="text-sm text-raisin-50 border-b"
-          type="button"
+          disabled={!formState?.category?.length}
+          labelClassname={
+            formState?.category?.length ? 'text-sm text-red-100 border-b' : 'text-sm text-raisin-50 border-b'
+          }
+          type='button'
         />
         <DefaultButton
           text='შენახვა'

@@ -87,6 +87,8 @@ const ProductDetails = memo(() => {
 
   const ref = useRef<any>()
 
+  console.log(section, 'section')
+
   useEffect(() => {
     if (book_from && book_to) {
       const fromDate = Array.isArray(book_from)
@@ -103,7 +105,6 @@ const ProductDetails = memo(() => {
   }, [book_from, book_to])
 
   const handleScroll = () => {
-
     // const componentPosition = ref.current?.getBoundingClientRect().top - 80
 
     const pageScroll = window.pageYOffset
@@ -151,7 +152,6 @@ const ProductDetails = memo(() => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <DefaultLayout>
-
         {/* <ContentContainer>
           <DetailsPageHeader />
         </ContentContainer> */}
@@ -177,23 +177,13 @@ const ProductDetails = memo(() => {
           <ContentContainer className='overflow-x-auto no-scrollbar bg-white z-30'>
             <div className='flex gap-8 my-6 w-max'>
               <SubNavItem section='details' activeSection={section} handleClick={handleClick}>
-                დეტალური ინფორმაცია
+                ავტომობილის შესახებ
               </SubNavItem>
               <SubNavItem section='features' activeSection={section} handleClick={handleClick}>
                 მახასიათებლები
               </SubNavItem>
-              <SubNavItem section='pricing' activeSection={section} handleClick={handleClick}>
-                ღირებულება
-              </SubNavItem>
-
-              {/* <SubNavItem section='insurance' activeSection={section} handleClick={handleClick}>
-                დაზღვევა
-              </SubNavItem> */}
-              {/*<SubNavItem section='reviews' activeSection={section} handleClick={handleClick}>*/}
-              {/*  შეფასება*/}
-              {/*</SubNavItem>*/}
-              <SubNavItem section='informationcard' activeSection={section} handleClick={handleClick}>
-                განმცხადებელი
+              <SubNavItem section='lessor' activeSection={section} handleClick={handleClick}>
+                გამქირავებლის შესახებ
               </SubNavItem>
             </div>
           </ContentContainer>
@@ -204,7 +194,7 @@ const ProductDetails = memo(() => {
         <ContentContainer>
           <div className='flex gap-11 mt-8'>
             <div className='w-full md:w-7/12 lg:w-8/12'>
-              <div id='details'>
+              <div id='details' data-section>
                 <Typography type='h3' className='text-3md md:text-2lg font-bold'>
                   {singleProductDetails?.manufacturer?.title} {singleProductDetails?.manufacturer_model?.title}{' '}
                   {singleProductDetails?.prod_year}
@@ -231,12 +221,12 @@ const ProductDetails = memo(() => {
                 />
               </div>
               <Divider />
-              <Features id='features' singleProductDetails={singleProductDetails} />
+              <Features id='features' data-section singleProductDetails={singleProductDetails} />
 
               {singleProductDetails?.product_services.length > 0 && (
                 <>
                   <Divider />
-                  <div className='my-8' id='pricing'>
+                  <div className='my-8'>
                     <Typography type='h3' className='text-3md md:text-2lg'>
                       ღირებულება
                     </Typography>
@@ -262,7 +252,7 @@ const ProductDetails = memo(() => {
                 </>
               )}
               <Divider />
-              <div className='my-8' id='calendar'>
+              <div className='my-8' id='calendar' data-section>
                 <Typography type='h3' className='text-3md md:text-2lg'>
                   პერიოდი
                 </Typography>
@@ -404,12 +394,13 @@ const ProductDetails = memo(() => {
               />
             </div>
           </div>
-          <div id='priceCard'></div>
+          <div id='priceCard' data-section></div>
           <Typography type='h3' className='text-3md md:text-2lg block my-6 lg:hidden'>
             ფასი მოიცავს
           </Typography>
           <LessorInformationCard
-            id='informationcard'
+            id='lessor'
+            data-section
             lessor={singleProductDetails?.company_user?.company?.information?.name}
             description={singleProductDetails?.company_user?.company?.information?.description}
             count={singleProductDetails?.company_user?.company?.count_company_poduct}

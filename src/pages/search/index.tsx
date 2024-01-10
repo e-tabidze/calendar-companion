@@ -23,7 +23,6 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { dehydrate } from '@tanstack/query-core'
 import { queryClient } from '../_app'
 
-
 // const MapPicker = dynamic(() => import('src/views/components/mapPicker'), { ssr: true })
 const SkeletonLoading = dynamic(() => import('src/views/pages/search/skeletonLoading'), { ssr: false })
 const SearchLayout = dynamic(() => import('../../layouts/SearchLayout'), { ssr: false })
@@ -98,7 +97,14 @@ const SearchPage = () => {
         <SearchLayout>
           <FiltersWrapper className='border-t-1 border-b-1 border-raisin-10'>
             <MainFilters>
-              <PricePopover control={control} handleSubmit={onSubmit} reset={resetField} />
+              <PricePopover
+                control={control}
+                handleSubmit={onSubmit}
+                reset={() => {
+                  setValue('price_max', '')
+                  setValue('price_min', '')
+                }}
+              />
               <FuelTypePopover
                 control={control}
                 appendFuelType={appendFuelType}
@@ -147,7 +153,7 @@ const SearchPage = () => {
                 height={22}
                 className='fill-transparent'
                 label='გასუფთავება'
-                labelClassname='text-orange-120'
+                labelClassname='text-red-100'
                 type='reset'
                 onClick={(e: { preventDefault: () => void }) => {
                   reset()
