@@ -143,7 +143,6 @@ const ProfileNavigation: React.FC<Props> = ({
                 route.path && selectedRoute?.path?.split('/')[2] === route.path.split('/')[2] ? 'text-orange-100' : ''
               }' ${route.path?.split('?')[0] === router.asPath.split('?')[0].replace(/\/$/, '') || route.path === router.asPath ? 'text-orange-100' : ''}`}
             >
-              {console.log(route.path?.split('?')[0], 'route', router.asPath.split('?')[0].replace(/\/$/, ''), "router")}
               {route.item}
             </Typography>
           </div>

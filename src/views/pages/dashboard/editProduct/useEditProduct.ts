@@ -27,7 +27,7 @@ const useEditProduct = (id: number) => {
     price: service?.price || '',
     currency: service?.currency || 'GEL',
     quantity: service?.quantity || '',
-    isSelected: true
+    is_selected: true
   }))
 
   const discount_item = {
@@ -84,6 +84,7 @@ const useEditProduct = (id: number) => {
 
   useEffect(() => {
     if (productDetailsData) {
+      setValue('company_id', activeCompanyId)
       setValue('is_active', productDetailsData?.is_active)
       setValue('identification_number', productDetailsData?.company.identification_number)
       setValue('vin', productDetailsData?.vin)
@@ -118,7 +119,7 @@ const useEditProduct = (id: number) => {
           price: service?.price || '',
           currency: service?.currency || 'GEL',
           quantity: service?.quantity || '',
-          isSelected: true
+          is_selected: true
         }))
       )
       setValue('any_period', productDetailsData?.any_period)

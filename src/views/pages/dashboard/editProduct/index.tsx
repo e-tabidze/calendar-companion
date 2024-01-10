@@ -141,7 +141,6 @@ const EditProduct: React.FC = ({}) => {
     },
     {
       onSuccess: data => {
-  
         if (data) {
           const images = data?.result?.data?.images
           const productId = data?.result?.data?.id
@@ -158,16 +157,11 @@ const EditProduct: React.FC = ({}) => {
 
         queryClient.invalidateQueries(['companyProducts'])
 
+        toast.custom(<Toast title='განცხადება წარმატებით განახლდა' type='success' />)
 
-        toast.custom(
-          <Toast
-            title='წარმატება!'
-            type='success'
-            description='some success text'
-            path={'/dashboard/products'}
-            permalink='ავტომობილები'
-          />
-        )
+        setTimeout(() => {
+          router.push(`/dashboard/products/?is_active=1&page=1`)
+        }, 5000)
       }
     }
   )

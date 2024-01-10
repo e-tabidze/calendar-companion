@@ -2,7 +2,6 @@ import useWindowDimensions from 'src/hooks/useWindowDimensions'
 import { IconButton } from 'src/views/components/button'
 import { parseISO, format } from 'date-fns'
 import { ka } from 'date-fns/locale'
-import { useRouter } from 'next/router'
 import dynamic from 'next/dynamic'
 
 const Image = dynamic(() => import('src/views/components/image'), { ssr: true })
@@ -41,12 +40,10 @@ const OrderListComponent: React.FC<Props> = ({
 }) => {
   const { width } = useWindowDimensions()
 
-  const router = useRouter()
-
   console.log(productDetails, 'productDetails')
 
   return (
-    <div className='last:border-none' onClick={() => router.push('/dashboard/orders?status_id=&page=1')}>
+    <div className='last:border-none'>
       <div className='flex flex-col px-2 py-4 md:w-full gap-4 xl:gap-10 md:px-0 md:flex-row md:items-center'>
         <div className='flex items-center gap-4 2xl:gap-6 md:w-5/12 shrink-0'>
           <div className='w-[64px] shrink-0'>

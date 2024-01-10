@@ -3,7 +3,6 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import Icon from 'src/views/app/Icon'
-import SkeletonLoading from './skeletorLoading'
 import useCompanyOrders from './useCompanyOrders'
 
 const Pagination = dynamic(() => import('src/views/components/pagination'), { ssr: false })
@@ -56,7 +55,7 @@ const CompanyOrders = () => {
     }
   }, [status_id])
 
-  const { orders, fetchOrderFilters, companyOrdersLoading } = useCompanyOrders(status_id, Number(page))
+  const { orders, fetchOrderFilters } = useCompanyOrders(status_id, Number(page))
 
   const handlePageChange = (newPage: number) => {
     router.push({
@@ -78,9 +77,9 @@ const CompanyOrders = () => {
     fetchOrderFilters()
   }
 
-  if (companyOrdersLoading) {
-    return <SkeletonLoading filters={filters} />
-  }
+  // if (companyOrdersLoading) {
+  //   return <SkeletonLoading filters={filters} />
+  // }
 
   console.log(orders?.data, 'orders?.data')
 
@@ -92,7 +91,7 @@ const CompanyOrders = () => {
         <div className='h-full'>
           <div className='md:p-8 lg:p-10 md:border border-raisin-10 rounded-3xl md:min-h-[520px]'>
             <Typography type='h3' className='mb-6 md:mt-0 mt-6'>
-              შემოსული ჯავშნები
+              შემოსული ჯავშნები 
             </Typography>
             <div className='hidden lg:flex gap-3 pb-8 pr-8'>
               {filters.map(filter => (

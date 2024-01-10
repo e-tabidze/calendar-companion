@@ -23,6 +23,7 @@ const StepFour: React.FC<Props> = ({ control, step, errors }) => {
   const { companyServices, isCompanyServicesLoading } = useProductInfo(step)
   const [newServiceModal, setNewServiceModal] = useState(false)
 
+
   const handleNewServiceModal = () => setNewServiceModal(!newServiceModal)
 
   const formState = useWatch({ control })
@@ -54,6 +55,9 @@ const StepFour: React.FC<Props> = ({ control, step, errors }) => {
       return null
     }
   }
+
+  console.log(formState.company_services, 'companyServices?')
+
 
   return (
     <>

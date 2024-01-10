@@ -68,7 +68,7 @@ const OrderDetails = () => {
             width={38}
             height={38}
             label='შემოსული ჯავშნები'
-            onClick={() => router.push('dashboard/orders/?status_id=&page=1')}
+            onClick={() => router.push('/dashboard/orders/?status_id=&page=1')}
           />
         </div>
         <Divider />
