@@ -29,7 +29,7 @@ const LocationDropdown: React.FC<Props> = ({ control, resetField }) => {
               >
                 <FilterContainer>
                   <InnerFilterContainer>
-                    <Typography type='body' className='text-raisin-50 whitespace-nowrap'>
+                    <Typography type='body' className='whitespace-nowrap'>
                       {value || 'მდებარეობა'}
                     </Typography>
                     {value ? (
@@ -55,12 +55,12 @@ const LocationDropdown: React.FC<Props> = ({ control, resetField }) => {
                 leaveFrom='opacity-100'
                 leaveTo='opacity-0'
               >
-                <Listbox.Options className='absolute top-full z-10 mt-4 w-full origin-top-right divide-y divide-gray-100 rounded-2xl bg-white shadow-lg focus:outline-none'>
+                <Listbox.Options className='min-w-[240px] absolute top-full z-10 mt-6 w-full origin-top-right divide-y divide-gray-100 rounded-2xl bg-white shadow-lg focus:outline-none overflow-hidden'>
                   {cities?.map((city: any, index: number) => (
                     <Listbox.Option
                       key={index}
                       className={({ active }) =>
-                        `relative cursor-pointer my-2 select-none py-2 pl-10 pr-4 ${
+                        `relative cursor-pointer select-none py-3 px-6 ${
                           active ? 'bg-raisin-10' : 'text-gray-900'
                         }`
                       }
@@ -68,7 +68,7 @@ const LocationDropdown: React.FC<Props> = ({ control, resetField }) => {
                     >
                       {({ selected }) => (
                         <>
-                          <span className={`block truncate ${selected ? 'font-medium' : 'font-normal'}`}>
+                          <span className={`text-2sm block truncate ${selected ? 'font-medium' : 'font-normal'}`}>
                             {city.city}
                           </span>
                         </>
