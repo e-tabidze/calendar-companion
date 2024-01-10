@@ -28,7 +28,6 @@ const ServiceDetails: React.FC<Props> = ({ control, index, label, description, e
           <TwoOptionSelector
             control={control}
             name={`company_services.${index}.currency`}
-            className=''
             options={[
               { value: 'GEL', icon: 'gel', width: '11', height: '12' },
 

@@ -16,7 +16,6 @@ interface Props {
   options: Option[]
   name: string
   control: any
-  className: string
 }
 
 const TwoOptionSelector: React.FC<Props> = ({ options, name, control }) => {
