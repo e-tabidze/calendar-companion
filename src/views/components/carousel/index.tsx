@@ -61,9 +61,9 @@ const Carousel = ({ itemsArray, type, onClick, thumbs = false }: Props) => {
   return (
     <div className={`${type==='card' ? 'group':''} relative`}
          onMouseLeave={() => {
-      // if (type==='card') {
-      //   swiper.slideTo(0, 100)
-      // }
+        if (type==='card') {
+          swiper.slideTo(0, 100)
+        }
     }}
     >
       <Swiper
@@ -72,7 +72,7 @@ const Carousel = ({ itemsArray, type, onClick, thumbs = false }: Props) => {
         ref={swiperRef}
         breakpoints={handleBreakpoints()}
         modules={[Navigation, Pagination, EffectFade]}
-        navigation= {type === 'card' ? false: true}
+        navigation= {type === 'card' ? false : true}
         effect = {type === 'card' ? 'fade' : '' }
         pagination={type === 'card' ? pagination : (type === 'productDetails' || type === 'gallery') && {type:'fraction'}}
         centeredSlides={type==='productDetails'}
