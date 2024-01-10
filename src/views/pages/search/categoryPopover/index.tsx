@@ -29,6 +29,7 @@ const CategoryPopover: React.FC<Props> = ({ control, appendCategory, handleSubmi
       maxWidth='max-w-md'
       className={`${hasCategory ? 'border border-raisin-100' : 'hover:border hover:border-raisin-30'}`}
     >
+      
       <CheckboxField
         options={categoriesFilter}
         name='category'
@@ -36,9 +37,12 @@ const CategoryPopover: React.FC<Props> = ({ control, appendCategory, handleSubmi
         append={appendCategory}
         width='50'
         height='45'
+        className='py-4'
         divider
       />
-      <div className='flex items-center justify-between mt-4'>
+     
+      
+      <div className='flex items-center justify-between sticky bottom-0 bg-white py-5 mt-4'>
         <IconTextButton
           icon='rotate'
           label='გასუფთავება'

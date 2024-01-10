@@ -39,7 +39,7 @@ const PricePopover: React.FC<Props> = ({ control, handleSubmit, reset }) => {
           type='number'
         />
       </TagsWrapper>
-      <ActionsWrapper>
+      <ActionsWrapper className='pb-5'>
         <IconTextButton
           icon='rotate'
           label='გასუფთავება'
