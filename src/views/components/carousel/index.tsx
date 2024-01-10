@@ -16,6 +16,7 @@ import {
   CardSlider,
   GallerySlider
 } from 'src/@core/configs/swiper'
+import Icon from "src/views/app/Icon";
 
 // import Icon from 'src/views/app/Icon'
 
@@ -58,7 +59,13 @@ const Carousel = ({ itemsArray, type, onClick, thumbs = false }: Props) => {
     }
   }
 
+  const [reachedLimit, setReachedLimit] = useState(false)
+
+
+  const data = type === 'card' ? itemsArray.slice(0, 4) : itemsArray
+
   return (
+
     <div className={`${type==='card' ? 'group':''} relative`}
          onMouseLeave={() => {
         if (type==='card') {
@@ -80,8 +87,19 @@ const Carousel = ({ itemsArray, type, onClick, thumbs = false }: Props) => {
         onInit={swiper => {
           setSwiper(swiper)
         }}
+        onSlideChange={() => {
+          if (type==='card') {
 
-        // navigation={{
+            if (swiper.activeIndex == 3 && itemsArray.length > 4) {
+              setReachedLimit(true)
+            } else {
+              setReachedLimit(false)
+            }
+          }
+        }}
+
+
+          // navigation={{
         //   prevEl: prevRef.current,
         //   nextEl: nextRef.current
         // }}
@@ -97,28 +115,49 @@ const Carousel = ({ itemsArray, type, onClick, thumbs = false }: Props) => {
         keyboard={true}
         thumbs={{ swiper: thumbsSwiper }}
       >
-        {itemsArray?.map((item, index) => (
+        {data?.map((item, index) => (
+
           <SwiperSlide key={index} onClick={onClick} className='relative'>
             {item}
+            {/* additional images overlay */}
+            {type === 'card' &&
+            <div
+                className={`${reachedLimit ? 'flex' : 'hidden'} rounded-tl-3xl rounded-tl-3xl rounded-tr-3xl absolute left-0 top-0 h-full w-full bg-black/50 z-[111] cursor-pointer`}>
+              <div className='flex flex-1 flex-col items-center justify-center'>
+                <Icon svgPath='camera' width={64} height={64}/>
+                <span className='mt-2 text-sm text-white'>{`+${itemsArray.length - 4} ფოტო`}</span>
+              </div>
+            </div>
+            }
+
           </SwiperSlide>
         ))}
-        {/* hidden pillars */}
+
+
         {type === 'card' &&
-        <div className='absolute left-0 top-0 z-[1] hidden h-full w-full cursor-pointer md:flex'>
-          {itemsArray?.map((_, index) => {
-            return (
-              <div
-              key={index}
-              className='left-0 top-0 z-10 h-full flex-1 flex'
-              onMouseEnter={() => {
-                setTimeout(() => {
-                  swiper.slideTo(index, 150);
-                }, 500); // Adjust the delay time (in milliseconds) as needed
-              }}
-            ></div>
-            )
-          })}
-        </div>
+            <>
+              {/* overlay */}
+              <div className='pointer-events-none absolute left-0 top-0 z-10 block h-full w-full bg-card-overlay'></div>
+
+              {/* hidden pillars */}
+              <div className='absolute left-0 top-0 z-[1] hidden h-full w-full cursor-pointer md:flex'>
+                {data?.map((_, index) => {
+                  return (
+                      <div
+                          key={index}
+                          className='left-0 top-0 z-10 h-full flex-1 flex'
+                          onMouseEnter={() => {
+                            setTimeout(() => {
+                              swiper.slideTo(index, 150);
+
+                            }, 100); // Adjust the delay time (in milliseconds) as needed
+                          }}
+                      ></div>
+                  )
+                })}
+              </div>
+            </>
+
         }
       </Swiper>
 

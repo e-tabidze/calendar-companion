@@ -55,7 +55,7 @@ const AddressAndSchedule: React.FC<Props> = ({ index, control, address, errors, 
 
   return (
     <>
-      <div className='border border-raisin-10 rounded-3xl p-8 mt-8 mb-3'>
+      <div className='border border-raisin-10 rounded-3xl p-4 md:p-8 mt-8 mb-3'>
         {/* <LocationSuggestions  index={index} control={control} name={`addresses.${index}.address`}/> */}
 
         <div className='w-full grid grid-cols-1 lg:grid-cols-3 gap-4 relative mb-8'>

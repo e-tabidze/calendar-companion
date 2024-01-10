@@ -22,7 +22,7 @@ const LocationDropdown: React.FC<Props> = ({ control }) => {
           <Listbox value={cities?.find((opt: { city: any }) => opt?.city === value?.city)} onChange={onChange}>
             {({ open }) => (
               <div className={`relative flex text-left w-full rounded-2xl ${open ? '' : ''}`}>
-                <Listbox.Button className='relative w-full cursor-pointer rounded-2xl bg-white py-5 px-4 text-left focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-raisin-5 sm:text-sm'>
+                <Listbox.Button className='relative w-full cursor-pointer rounded-2xl bg-white py-6 px-6 text-left focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-raisin-5 sm:text-sm'>
                   <FilterContainer>
                     <Typography type='body' color='dark'>
                       მდებარეობა

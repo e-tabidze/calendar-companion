@@ -170,7 +170,7 @@ const SearchPage = () => {
               {/*}`}*/}
               <SearchResultsContainer>
                 <Typography type='body' className='text-md mr-2 mt-4 md:mt-0'>
-                  სულ ნაპოვნია {totalProductsCount} განცხადება
+                  ნაპოვნია {totalProductsCount} განცხადება
                 </Typography>
                 <div className='w-full md:w-auto flex items-center'>
                   {/*<span*/}

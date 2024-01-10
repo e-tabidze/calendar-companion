@@ -38,7 +38,7 @@ const NavigationBar = () => {
             <Link href='/dashboard/new-product/'>
               <div className='flex flex-col items-center text-[10px]'>
                 <span className='flex'>
-                  <Icon svgPath='add-outline' width={24} height={24} />
+                  <Icon svgPath='add-outline' className='fill-transparent' width={24} height={24} />
                 </span>
                 <span className='mt-1'>დამატება</span>
               </div>

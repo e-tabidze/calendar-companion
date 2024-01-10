@@ -49,7 +49,7 @@ const Avatar = () => {
   return (
     <Menu as='div' className='relative text-left hidden md:flex'>
       <Menu.Button>
-        <AvatarContainer>
+        <AvatarContainer className='hidden lg:flex'>
           <AvatarInnerContainer>
             <Image
               onError={(ev: any) => {
@@ -65,13 +65,25 @@ const Avatar = () => {
           <AvatarResponsiveContainer>
             <Typography
               type='subtitle'
-              className='max-w-[120px] inline-block overflow-hidden text-ellipsis whitespace-nowrap'
+              className='max-w-[120px] inline-block overflow-hidden text-ellipsis whitespace-nowrap ml-2'
             >
               {!!activeCompany ? activeCompany?.information?.name : userInfo?.information?.first_name}
             </Typography>
             <Icon svgPath='chevron' width={8} height={6} className='fill-transparent flex ml-2 transition-all' />
           </AvatarResponsiveContainer>
         </AvatarContainer>
+        <AvatarInnerContainer className='flex lg:hidden w-10 h-10 ml-2'>
+          <Image
+              onError={(ev: any) => {
+                ev.target.src = `/icons/avatar.svg`
+              }}
+              src={
+                !!activeCompany ? activeCompany.information.logo : userInfo?.information?.profile_pic || defaultImgUrl
+              }
+              className='object-cover w-full h-full'
+              alt='avatar'
+          />
+        </AvatarInnerContainer>
       </Menu.Button>
       <Transition
         as={Fragment}

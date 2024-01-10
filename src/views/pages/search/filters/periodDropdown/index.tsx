@@ -50,8 +50,8 @@ const PeriodDropwodn: React.FC<Props> = ({ control, resetField, setValue }) => {
   }, [book_from, book_to])
 
   return (
-    <Menu as='div' className='flex text-left mx-2 w-full'>
-      <Menu.Button className='px-4 w-40 lg:w-52 inline-flex justify-center rounded-md bg-raisin bg-opacity-20 text-sm font-medium text-white focus-visible:ring-white focus-visible:ring-opacity-75'>
+    <Menu as='div' className='flex text-left w-full'>
+      <Menu.Button className='px-3 lg:px-4 inline-flex justify-center rounded-md bg-raisin bg-opacity-20 text-sm font-medium text-white focus-visible:ring-white focus-visible:ring-opacity-75'>
         <FilterContainer>
           <InnerFilterContainer>
             <Typography type='body' className='whitespace-nowrap'>
@@ -72,10 +72,10 @@ const PeriodDropwodn: React.FC<Props> = ({ control, resetField, setValue }) => {
                   setDateRange([null, null])
                   resetField(), e.stopPropagation()
                 }}
-                className="fill-transparent"
+                className="fill-transparent ml-2"
               />
             ) : (
-              <Icon svgPath='chevron' width={10} height={10} className="fill-transparent" />
+              <Icon svgPath='chevron' width={10} height={10} className="fill-transparent ml-2" />
             )}
           </InnerFilterContainer>
         </FilterContainer>
