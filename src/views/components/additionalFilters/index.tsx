@@ -135,7 +135,7 @@ const AdditionalFilters: React.FC<Props> = ({
                       label={'დღიური მინიმალური ფასი'}
                       labelMobile={'მინ. ფასი დღიურად'}
                       errors={''}
-                      className='w-full mb-2 md:mb-0'
+                      className='w-full'
                       type='number'
                       min={1}
                     />

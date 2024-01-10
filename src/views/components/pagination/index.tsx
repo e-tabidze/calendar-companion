@@ -24,7 +24,7 @@ const Pagination: React.FC<Props> = ({ totalPages, onPageChange, currentPage }) 
           text={i}
           key={i}
           onClick={() => onPageChange(i)}
-          className={`!w-8 !h-8 md:!w-10 md:!h-10 !px-0 !py-0 mx-1 !font-medium ${
+          className={`!w-8 !h-8 md:!w-14 md:!h-14 !px-0 !py-0 mx-2 !font-medium ${
             i == currentPage
               ? 'bg-white border border-raisin-130'
               : currentPage == undefined
