@@ -169,7 +169,7 @@ const SearchPage = () => {
               {/*    mapVisible ? 'lg:w-1/2 pr-8' : 'lg:w-[calc(100%-40px)] lg:pr-0'*/}
               {/*}`}*/}
               <SearchResultsContainer>
-                <Typography type='body' className='text-md mr-2 mt-4 md:mt-0'>
+                <Typography type='body' className='text-md mr-2 mt-6 md:mt-0'>
                   ნაპოვნია {totalProductsCount} განცხადება
                 </Typography>
                 <div className='w-full md:w-auto flex items-center'>
@@ -200,7 +200,7 @@ const SearchPage = () => {
                   {/*  />*/}
                   {/*</span>*/}
                   <div className='w-full md:w-auto flex justify-between md:ml-6'>
-                    <div className='flex'>
+                    <div className='flex w-full justify-between'>
                       {width < 1025 && (
                         <Tag
                           component={<Icon svgPath='filters' width={22} height={20} className='fill-transparent' />}

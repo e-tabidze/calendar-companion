@@ -17,7 +17,7 @@ const Details: React.FC<Props> = ({ id, company, url }) => {
   console.log(notifictionDetails, 'notifictionDetails')
 
   return (
-    <div className='border mt-6 border-raisin-10 rounded-2xl md:rounded-3xl p-6 md:py-10 md:px-8'>
+    <div className='border mt-6 md:mt-0 border-raisin-10 rounded-2xl md:rounded-3xl p-6 md:py-10 md:px-8'>
       <Link href={url} className='flex items-center mb-12'>
         <div className='flex w-10 h-10 bg-grey-100 rounded-full mr-4 items-center justify-center shrink-0'>
           <Icon svgPath='chevron-left' width={20} height={20} className='fill-transparent' />

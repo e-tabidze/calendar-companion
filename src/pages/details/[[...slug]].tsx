@@ -195,7 +195,7 @@ const ProductDetails = memo(() => {
           <div className='flex gap-11 mt-8'>
             <div className='w-full md:w-7/12 lg:w-8/12'>
               <div id='details' data-section>
-                <Typography type='h3' className='text-3md md:text-2lg font-bold'>
+                <Typography type='h3' className='md:text-2lg font-bold'>
                   {singleProductDetails?.manufacturer?.title} {singleProductDetails?.manufacturer_model?.title}{' '}
                   {singleProductDetails?.prod_year}
                 </Typography>
