@@ -17,6 +17,7 @@ import {
   GallerySlider
 } from 'src/@core/configs/swiper'
 import Icon from "src/views/app/Icon";
+import {useRouter} from "next/router";
 
 // import Icon from 'src/views/app/Icon'
 
@@ -64,6 +65,8 @@ const Carousel = ({ itemsArray, type, onClick, thumbs = false }: Props) => {
 
   const data = type === 'card' ? itemsArray.slice(0, 4) : itemsArray
 
+  const router = useRouter()
+
   return (
 
     <div className={`${type==='card' ? 'group':''} relative`}
@@ -87,6 +90,7 @@ const Carousel = ({ itemsArray, type, onClick, thumbs = false }: Props) => {
         onInit={swiper => {
           setSwiper(swiper)
         }}
+
         onSlideChange={() => {
           if (type==='card') {
 
@@ -112,7 +116,7 @@ const Carousel = ({ itemsArray, type, onClick, thumbs = false }: Props) => {
           forceToAxis: true
         }}
         controller={{ control: [] }}
-        keyboard={true}
+        keyboard={router.asPath === '/' || router?.asPath?.startsWith('/details')}
         thumbs={{ swiper: thumbsSwiper }}
       >
         {data?.map((item, index) => (

@@ -18,17 +18,30 @@ const useEditProduct = (id: number) => {
 
   const productDetailsData = useProductDetailsData.data?.result?.data
 
-  console.log(productDetailsData, 'productDetailsData in edit')
-
-  console.log(productDetailsData?.product_services, ' productDetailsData?.product_services')
-
-  const services = productDetailsData?.product_services?.map((service: any) => ({
-    id: service?.company_service_id,
-    price: service?.price || '',
+  const services = companyServices?.map((service: any) => ({
+    id: service?.id,
+    price:
+      service?.price ||
+      productDetailsData?.product_services?.find(
+        (otherService: any) => otherService?.company_service_id === service?.id
+      )?.price ||
+      '',
     currency: service?.currency || 'GEL',
-    quantity: service?.quantity || '',
-    is_selected: true
+    quantity:
+      productDetailsData?.product_services?.find(
+        (otherService: any) => otherService?.company_service_id === service?.id
+      )?.quantity ||
+      service?.quantity ||
+      '',
+    is_selected: productDetailsData?.product_services?.some(
+      (otherService: any) => otherService?.company_service_id === service?.id
+    ),
+    title: service?.title,
+    description: service?.description,
+    type_id: service?.type_id
   }))
+
+  console.log(services, 'services')
 
   const discount_item = {
     number: 1,
@@ -114,12 +127,27 @@ const useEditProduct = (id: number) => {
       setValue('apply_discount', productDetailsData?.apply_discount)
       setValue(
         'company_services',
-        productDetailsData?.product_services?.map((service: any) => ({
-          id: service?.company_service_id,
-          price: service?.price || '',
+        companyServices?.map((service: any) => ({
+          id: service?.id,
+          price:
+            service?.price ||
+            productDetailsData?.product_services?.find(
+              (otherService: any) => otherService?.company_service_id === service?.id
+            )?.price ||
+            '',
           currency: service?.currency || 'GEL',
-          quantity: service?.quantity || '',
-          is_selected: true
+          quantity:
+            productDetailsData?.product_services?.find(
+              (otherService: any) => otherService?.company_service_id === service?.id
+            )?.quantity ||
+            service?.quantity ||
+            0,
+          is_selected: productDetailsData?.product_services?.some(
+            (otherService: any) => otherService?.company_service_id === service?.id
+          ),
+          title: service?.title,
+          description: service?.description,
+          type_id: service?.type_id
         }))
       )
       setValue('any_period', productDetailsData?.any_period)
@@ -211,7 +239,8 @@ const useEditProduct = (id: number) => {
     editProduct,
     productDefaultValues,
     isValid,
-    trigger
+    trigger,
+    services
   }
 }
 

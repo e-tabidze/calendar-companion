@@ -17,7 +17,7 @@ const customStyles = {
     border: state.isFocused ? '1px solid #272A37' : '1px solid #E9EAEB',
     boxShadow: state.isFocused ? '1px solid #272A37' : '1px solid #E9EAEB',
     transition: 'border 0.2s',
-    cursor: 'pointer',
+    cursor: 'pointer'
   }),
   valueContainer: (provided: any) => ({
     ...provided
@@ -54,8 +54,8 @@ interface Props {
   errors?: any
   isMulti?: boolean
   handleChange?: () => void
-  errorAbsolute?:boolean
-  errorRight?:boolean
+  errorAbsolute?: boolean
+  errorRight?: boolean
 }
 
 const Control = ({ children, ...props }: any) => {
@@ -83,22 +83,20 @@ const SelectField: React.FC<Props> = ({
   errors,
   errorAbsolute,
   errorRight,
-  isMulti,
-  handleChange,
+  isMulti = false,
+  handleChange
 }) => {
   const { DropdownIndicator, ClearIndicator } = components
 
   const customDropdownIndicator = (
     props: JSX.IntrinsicAttributes & DropdownIndicatorProps<any, boolean, GroupBase<unknown>>
   ) => {
-
-    if (!props.selectProps.value || props.selectProps.value?.length===0) {
+    if (!props.selectProps.value || props.selectProps.value?.length === 0) {
       return <DropdownIndicator {...props} />
     }
 
     return null
   }
-
 
   const customClearIndicator = (
     props: JSX.IntrinsicAttributes & ClearIndicatorProps<unknown, boolean, GroupBase<unknown>>
@@ -117,13 +115,15 @@ const SelectField: React.FC<Props> = ({
         control={control}
         render={({ field: { onChange, value } }) => (
           <>
+            {console.log(value, 'value react')}
+
             <Select
               styles={customStyles}
               options={options}
               value={
                 isMulti
                   ? options?.filter(opt => (valueKey ? value?.includes(opt[valueKey]) : value.includes(opt.value)))
-                  : options?.find(opt => (valueKey ? opt[valueKey] === value : opt.value === value))
+                  : options?.filter(opt => (valueKey ? opt[valueKey] === value : opt.value === value))
               }
               onChange={(e: any) => {
                 const selectedValues = isMulti
@@ -147,7 +147,6 @@ const SelectField: React.FC<Props> = ({
               isClearable
               placeholder={placeholder}
               isDisabled={disabled}
-              
               // @ts-ignore
               emoji={
                 icon && (
@@ -158,7 +157,12 @@ const SelectField: React.FC<Props> = ({
               }
             />
             {_.get(errors, name)?.message && (
-              <div id={name} className={`${errorAbsolute?'absolute top-full':'relative py-2'} ${errorRight?'right-0':''} text-sm text-red-100 max-h-max`}>
+              <div
+                id={name}
+                className={`${errorAbsolute ? 'absolute top-full' : 'relative py-2'} ${
+                  errorRight ? 'right-0' : ''
+                } text-sm text-red-100 max-h-max`}
+              >
                 {_.get(errors, name)?.message}
               </div>
             )}

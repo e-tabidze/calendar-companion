@@ -149,6 +149,34 @@ const ProductDetails = memo(() => {
     })
   }
 
+  const [activeNavItem, setActiveNavItem] = useState('details');
+
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const sectionElements = ['details', 'features', 'lessor'];
+      for (const section of sectionElements) {
+        const sectionElement = document.getElementById(section);
+        if (sectionElement) {
+          const { top,left,right, bottom } = sectionElement.getBoundingClientRect();
+          if (top >= 0 &&
+            left >= 0 &&
+            bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+            right <= (window.innerWidth || document.documentElement.clientWidth)) {
+            setActiveNavItem(section);
+            break;
+          }
+        }
+      }
+    };
+  
+    window.addEventListener('scroll', handleScroll);
+  
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <DefaultLayout>
@@ -176,15 +204,15 @@ const ProductDetails = memo(() => {
         >
           <ContentContainer className='overflow-x-auto no-scrollbar bg-white z-30'>
             <div className='flex gap-8 my-6 w-max'>
-              <SubNavItem section='details' activeSection={section} handleClick={handleClick}>
-                ავტომობილის შესახებ
-              </SubNavItem>
-              <SubNavItem section='features' activeSection={section} handleClick={handleClick}>
-                მახასიათებლები
-              </SubNavItem>
-              <SubNavItem section='lessor' activeSection={section} handleClick={handleClick}>
-                გამქირავებლის შესახებ
-              </SubNavItem>
+            <SubNavItem section='details' activeSection={activeNavItem} handleClick={handleClick}>
+              ავტომობილის შესახებ
+            </SubNavItem>
+            <SubNavItem section='features' activeSection={activeNavItem} handleClick={handleClick}>
+              მახასიათებლები
+            </SubNavItem>
+            <SubNavItem section='lessor' activeSection={activeNavItem} handleClick={handleClick}>
+              გამქირავებლის შესახებ
+            </SubNavItem>
             </div>
           </ContentContainer>
           <Divider />

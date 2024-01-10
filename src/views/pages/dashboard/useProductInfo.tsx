@@ -30,7 +30,7 @@ const useProductInfo = (step?: number | undefined) => {
     queryKey: ['companyServices'],
     queryFn: () => getCompanyServices(''),
     staleTime: Infinity,
-    enabled: step === 4
+    enabled: true
   })
 
   const useCompanyBranches: any = useQuery({

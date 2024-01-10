@@ -11,14 +11,14 @@ const User = () => {
 
   const router = useRouter()
 
-  const handleRouteFavourites = () => router.push('/profile/favourites',undefined, { shallow: true,locale:"." })
+  const handleRouteFavourites = () => router.push('/profile/favourites', undefined, { shallow: true, locale: '.' })
 
   const { isLoading } = useProfile()
 
   return (
     <UserContainer>
       {activeCompany && isAuthenticated && (
-        <RentBtn className='hidden md:flex' onClick={() => router.push('/dashboard/new-product/')}>
+        <RentBtn type='button' className='hidden md:flex' onClick={() => router.push('/dashboard/new-product/')}>
           <Icon svgPath='plus' width={16} height={16} />
           <Typography
             type='button'

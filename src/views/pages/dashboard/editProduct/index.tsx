@@ -167,6 +167,7 @@ const EditProduct: React.FC = ({}) => {
   )
 
   const onSubmit = () => {
+    console.log('SUBMIT')
     editProductMutation.mutate(productValues)
   }
 

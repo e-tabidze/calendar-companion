@@ -10,7 +10,6 @@ const Odometer = Yup.object().shape({
 })
 
 const CompanyService = Yup.object().shape({
-  id: Yup.number().required('აუცილებელი ველი'),
   currency: Yup.string(),
   quantity: Yup.string(),
   is_selected: Yup.boolean()

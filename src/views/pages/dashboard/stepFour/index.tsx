@@ -23,7 +23,6 @@ const StepFour: React.FC<Props> = ({ control, step, errors }) => {
   const { companyServices, isCompanyServicesLoading } = useProductInfo(step)
   const [newServiceModal, setNewServiceModal] = useState(false)
 
-
   const handleNewServiceModal = () => setNewServiceModal(!newServiceModal)
 
   const formState = useWatch({ control })
@@ -56,9 +55,6 @@ const StepFour: React.FC<Props> = ({ control, step, errors }) => {
     }
   }
 
-  console.log(formState.company_services, 'companyServices?')
-
-
   return (
     <>
       <div>
@@ -69,7 +65,7 @@ const StepFour: React.FC<Props> = ({ control, step, errors }) => {
           height={20}
           onClick={handleNewServiceModal}
           className='p-0 mb-12'
-          type="button"
+          type='button'
         />
         <Typography type='h4' weight='normal' color='dark'>
           სერვისების ჩამონათვალი
@@ -88,7 +84,7 @@ const StepFour: React.FC<Props> = ({ control, step, errors }) => {
                     control={control}
                     name={`company_services.${index}.is_selected`}
                   />
-                  {formState.company_services[index]?.is_selected && renderServiceDetails(service, index)}
+                  {formState?.company_services[index]?.is_selected && renderServiceDetails(service, index)}
                   <Divider />
                 </div>
               ))}

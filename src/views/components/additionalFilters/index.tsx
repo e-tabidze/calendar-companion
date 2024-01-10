@@ -71,7 +71,7 @@ const AdditionalFilters: React.FC<Props> = ({
     suitcases,
     additionalInformationFilters,
     manufacturerFilters,
-    steeringWheel,
+    steeringWheel
   } = useFilters()
 
   const { objectToURI } = useSearch()
@@ -276,7 +276,7 @@ const AdditionalFilters: React.FC<Props> = ({
                       />
                     </div>
                   </div>
-                  
+
                   {/* <SwitchField label='უფასო მიყვანა' name='free_delivery' control={control} className='my-4 md:my-8' /> */}
                   <Divider />
 
@@ -368,9 +368,9 @@ const AdditionalFilters: React.FC<Props> = ({
                     width={20}
                     height={22}
                     onClick={() => reset()}
+                    type='reset'
                   />
                   <div className='flex items-center justify-between md:justify-start text-md gap-4'>
-                    {/* სულ 136 შედეგი */}
                     <IconTextButton
                       label='ძებნა'
                       bg='bg-orange-100'
