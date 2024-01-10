@@ -2,6 +2,7 @@ import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { Product } from 'src/types/Products'
+import Icon from 'src/views/app/Icon'
 import SkeletonLoading from './skeletonLoading'
 
 const Divider = dynamic(() => import('src/views/components/divider'), { ssr: false })
@@ -92,20 +93,27 @@ const Products = () => {
           ))}
         </div>
         <div>
-          {companyProducts?.data?.map((product: Product) => (
-            <VehicleListComponent
-              key={product.id}
-              id={product.id}
-              price={product.price}
-              startCity={product.start_city}
-              prodYear={product.prod_year}
-              model={product?.manufacturer_model?.title}
-              manufacturer={product.manufacturer?.title}
-              active={product.is_active}
-              filter={filterQuery}
-              images={product?.images}
-            />
-          ))}
+          {companyProducts?.data?.length > 0 ? (
+            companyProducts?.data?.map((product: Product) => (
+              <VehicleListComponent
+                key={product.id}
+                id={product.id}
+                price={product.price}
+                startCity={product.start_city}
+                prodYear={product.prod_year}
+                model={product?.manufacturer_model?.title}
+                manufacturer={product.manufacturer?.title}
+                active={product.is_active}
+                filter={filterQuery}
+                images={product?.images}
+              />
+            ))
+          ) : (
+            <div className='flex flex-col justify-center my-6 items-center gap-5'>
+              <Icon svgPath='noOrders' width={207} height={156} />
+              <Typography type='h5'>ავტომობილები ჯერ არ გაქვს</Typography>
+            </div>
+          )}
         </div>
       </div>
       {companyProducts?.last_page > 1 && (
