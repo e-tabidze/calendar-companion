@@ -61,11 +61,6 @@ const Carousel = ({ itemsArray, type, onClick, thumbs = false }: Props) => {
 
   const [reachedLimit, setReachedLimit] = useState(false)
 
-  // const shouldShowArrow = (reachedLimit: boolean, imageList: string[]): boolean => {
-  //   return reachedLimit || imageList.length <= 1
-  // }
-
-
 
   const data = type === 'card' ? itemsArray.slice(0, 4) : itemsArray
 
