@@ -12,9 +12,10 @@ const NavigationBar = () => {
   const { isAuthenticated, activeCompany, defaultImgUrl } = useProfile()
 
   const router = useRouter()
+  const { isLoading } = useProfile()
 
   return (
-    <div className='lg:hidden bg-white py-4 fixed bottom-0 left-0 w-full z-[111] box-shadow-sm'>
+    <div className='lg:hidden bg-white py-4 fixed bottom-0 left-0 w-full z-[111] shadow-sm'>
       <ul className='flex justify-around'>
         <li>
           <Link href={`${activeCompany ? '/dashboard/dashboard' : '/'}`}>
@@ -87,7 +88,8 @@ const NavigationBar = () => {
           {isAuthenticated ?
               <button onClick={() => toggleBurger(!burger)}>
                 <div className='flex flex-col items-center text-raisin-70'>
-                <span className='w-6 h-6 relative flex items-center justify-center rounded-full overflow-hidden'>
+                  {isLoading ? <span className='w-6 h-6 flex'></span> :
+                      <span className='w-6 h-6 relative flex items-center justify-center rounded-full overflow-hidden'>
                     <Image
                         onError={(ev: any) => {
                           ev.target.src = `/icons/avatar.svg`
@@ -97,6 +99,7 @@ const NavigationBar = () => {
                         alt='avatar'
                     />
                 </span>
+                  }
                   <span className='text-[10px] mt-1'>პროფილი</span>
                 </div>
               </button> :

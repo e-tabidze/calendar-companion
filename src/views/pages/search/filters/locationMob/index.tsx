@@ -18,7 +18,7 @@ const LocationMob: React.FC<Props> = ({ control, resetField }) => {
     return (
         <>
             <FilterContainer onClick={() => toggleLocation(!location)}>
-                <InnerFilterContainer className='px-3 sm:px-4'>
+                <InnerFilterContainer className='py-3 px-3 sm:px-4'>
                     <Typography type='subtitle' className='text-sm'>
                         {formState.location || 'მდებარეობა'}
                     </Typography>
