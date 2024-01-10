@@ -15,7 +15,7 @@ const ResponsivePriceCalcCard: React.FC<Props> = ({ toggleDrawer, bookingModal, 
   return (
     <section
       className={`${
-        bookingModal ? 'bottom-0' : 'bottom-[74px]'
+        bookingModal ? 'bottom-0' : 'bottom-[75px]'
       } border-b-1 border-raisin-10 fixed w-full justify-between bg-white shadow-top z-[1] rounded-t-3xl flex p-4 md:hidden`}
       onClick={toggleDrawer}
     >

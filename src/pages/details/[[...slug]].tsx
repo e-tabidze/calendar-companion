@@ -209,15 +209,15 @@ const ProductDetails = memo(() => {
                   {singleProductDetails?.manufacturer?.title} {singleProductDetails?.manufacturer_model?.title}{' '}
                   {singleProductDetails?.prod_year}
                 </Typography>
-                <div className='flex items-center gap-4 mb-12'>
-                  <Typography type='body' color='light'>
+                <div className='flex md:items-center gap-3 md:gap-4 mb-12 mt-4 md:mt-0'>
+                  <Typography type='body' color='light' className='whitespace-nowrap'>
                     ან მსგავსი
                   </Typography>
                   <Typography type='subtitle'>| </Typography>
                   <div className='flex shrink-0'>
                     <Icon svgPath='locationOutline' width={24} height={24} className='fill-transparent' />
                   </div>
-                  <Typography type='subtitle'>
+                  <Typography type='subtitle' className='text-2sm'>
                     {singleProductDetails?.start_city}, {singleProductDetails?.start_address}
                   </Typography>
                 </div>
