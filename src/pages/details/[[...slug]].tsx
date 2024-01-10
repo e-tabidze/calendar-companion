@@ -170,7 +170,7 @@ const ProductDetails = memo(() => {
           />
         </MaxWidthContainer>
         <MaxWidthContainer
-          className={`${isSticky ? 'sticky top-[72px] md:top-20' : ''} bg-white z-[30]`}
+          className={`${isSticky ? 'sticky top-[62px] md:top-20' : ''} bg-white z-[30]`}
           ref={ref}
           id='head'
         >
