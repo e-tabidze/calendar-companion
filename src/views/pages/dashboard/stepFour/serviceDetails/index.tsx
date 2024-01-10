@@ -19,18 +19,20 @@ const ServiceDetails: React.FC<Props> = ({ control, index, label, description, e
       <Typography type='subtitle' className='text-black font-bold mt-9 mb-2'>
         ღირებულება
       </Typography>
-      <div className='flex justify-between items-center w-full gag-6'>
-        <Typography type='body' className='w-7/12'>
+      <div className='flex justify-between md:items-center w-full gag-6 flex-col md:flex-row'>
+        <Typography type='body' className='md:w-7/12 py-4 md-py-0'>
           {description}
         </Typography>
-        <div className='flex gap-4 justify-center'>
+        <div className='flex gap-4 md:justify-center justify-between '>
           <DefaultInput label={label} className='!w-64' control={control} name={`company_services.${index}.price`} errors={errors} type="number" />
           <TwoOptionSelector
             control={control}
             name={`company_services.${index}.currency`}
+            className=''
             options={[
               { value: 'GEL', icon: 'gel', width: '11', height: '12' },
-              { value: 'USD', icon: 'usd', width: '7', height: '12' }
+
+              // { value: 'USD', icon: 'usd', width: '7', height: '12' }
             ]}
           />
         </div>
@@ -39,8 +41,8 @@ const ServiceDetails: React.FC<Props> = ({ control, index, label, description, e
       <Typography type='subtitle' className='text-black font-bold mt-12 mb-2'>
         რაოდენობა
       </Typography>
-      <div className='flex justify-between items-center w-full gag-6'>
-        <Typography type='body' className='w-7/12'>
+      <div className='flex justify-between md:flex-row flex-col md:items-center w-full gag-6'>
+        <Typography type='body' className='py-4 md-py-0 md:w-7/12'>
           მითითებული რაოდენობა განსაზღვრავს დამატებითი სერვისისის 1 დღის ქირაობის ფასს, რომლის ცვალებადობაც დამოკიდებული
           იქნება დღეების რაოდენობასზე
         </Typography>
