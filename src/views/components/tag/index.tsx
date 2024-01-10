@@ -61,7 +61,7 @@ const Tag: React.FC<Props> = ({
                               ? 'border border-raisin-90'
                               : 'border border-green-100 bg-green-100 '
                             : 'border border-gray-90 hover:border hover:border-raisin-30'
-                        } ${outlined ? 'pl-1 pr-2' : 'px-4'}  cursor-pointer  ${className}`}
+                        } ${outlined ? 'pl-2 pr-4' : 'px-4'}  cursor-pointer  ${className}`}
                         onClick={() => {
                           if (append) {
                             if (selectedOptions.includes(option.id)) {

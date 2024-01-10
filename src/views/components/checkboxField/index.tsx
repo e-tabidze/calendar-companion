@@ -52,7 +52,7 @@ const CheckboxField: React.FC<Props> = ({
                 {options?.map(option => (
                   <div key={option.id}>
                     <div
-                      className='flex items-center gap-4 cursor-pointer mb-4'
+                      className='flex items-center gap-4 cursor-pointer my-3'
                       onClick={() => {
                         if (append) {
                           if (selectedOptions.includes(option.id)) {
