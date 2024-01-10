@@ -114,8 +114,8 @@ const ListComponent: React.FC<Props> = ({
           </div>
           <IconButton
             icon='favIconActive'
-            height={13}
-            width={14}
+            height={20}
+            width={20}
             className='hidden sm:flex absolute right-0 top-0 bg-red-10 w-8 !h-8 justify-center'
             onClick={handleFavorites}
             type='button'
