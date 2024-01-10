@@ -40,7 +40,7 @@ const ProfileNavigation: React.FC<Props> = ({
 
   return (
     <div
-      className={`mx-3 px-3 lg:px-6 border border-raisin-10 rounded-3xl py-8 shrink-0 h-fit ${
+      className={`md:min-h-[520px] px-3 lg:px-6 border border-raisin-10 rounded-3xl py-8 shrink-0 h-fit ${
         isSidebarVisible ? 'flex-col' : 'hidden'
       } ${
         width < 769

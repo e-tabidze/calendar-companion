@@ -94,7 +94,7 @@ const VehicleListComponent: React.FC<Props> = ({
                 <Typography type='subtitle' className='text-sm md:text-2sm'>
                   {manufacturer} {model} {prodYear}
                 </Typography>
-                <div className='flex items-center gap-10 mt-4 md:mt-10'>
+                <div className='flex items-center min-w-[254px] justify-between gap-10 mt-4 md:mt-10'>
                   <Typography
                     type='h4'
                     weight='medium'
