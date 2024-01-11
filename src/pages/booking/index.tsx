@@ -165,7 +165,7 @@ const Booking = () => {
           <Image src='/images/logo-rent.svg' alt='logo' className='cursor-pointer' onClick={onClickLogo} />
         </LargeContainer>
         <ContentContainer className='flex gap-12'>
-          <div className='w-full'>
+          <div className='w-full pb-28 md:pb-20'>
             <div className='flex items-baseline my-8 gap-3'>
               <Typography type='h3' className='font-bold'>
                 {book_from && book_to
