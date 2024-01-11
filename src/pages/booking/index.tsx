@@ -36,7 +36,7 @@ import Toast from 'src/views/components/toast'
 import toast from 'react-hot-toast'
 
 const Booking = () => {
-  const [additionalServices, toggleAdditionalServices] = useState(false)
+  const [additionalServices, toggleAdditionalServices] = useState(true)
   const [isOpenDrawer, setIsOpenDrawer] = useState(false)
   const [openEditModal, setOpenEditModal] = useState(false)
 

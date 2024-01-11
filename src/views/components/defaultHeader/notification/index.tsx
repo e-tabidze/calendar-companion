@@ -18,7 +18,7 @@ const Notification = () => {
         <div className='relative flex items-center justify-center w-10 h-10 rounded-full hover:bg-grey-100 transition-all'>
           <Icon svgPath='bell' width={24} height={24} className='rounded-full' />
           <span className='absolute right-0 top-0 mt-1 mr-1 w-4 h-4 flex items-center justify-center bg-orange-100 rounded-full text-white text-[9px] font-medium'>
-            {notifictions?.filter((notification: { read_at: null }) => notification?.read_at === null)?.length}
+            {notifictions?.length > 0 && notifictions?.filter((notification: { read_at: null }) => notification?.read_at === null)?.length}
           </span>
         </div>
       </Menu.Button>
@@ -62,7 +62,13 @@ const Notification = () => {
                     </span>
                     <div className='flex flex-col'>
                       <Typography type='h5' className='text-2sm font-medium text-raisin-100'>
-                        <Link href={`/${!!activeCompany ? '/dashboard' : '/profile'}/notifications/?id=${notification?.id}&company=${notification?.data?.company_id}`}>{notification?.data?.text}</Link>
+                        <Link
+                          href={`/${!!activeCompany ? '/dashboard' : '/profile'}/notifications/?id=${
+                            notification?.id
+                          }&company=${notification?.data?.company_id}`}
+                        >
+                          {notification?.data?.text}
+                        </Link>
                       </Typography>
                       <Typography type='subtitle' className='text-sm font-normal text-raisin-30'>
                         {format(parseISO(notification?.created_at), 'd MMM yyyy', { locale: ka })}

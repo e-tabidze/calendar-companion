@@ -9,7 +9,7 @@ type Props = {
 
 const PageMeta = ({
   meta = {
-    title: 'Vendoo.ge | ვენდუ ონლაინ სავაჭრო ცენტრი',
+    title: 'Rent.myauto.ge | მანქანის ქირაობის პლატფორმა',
     desc: ''
   }
 }: Props) => {
