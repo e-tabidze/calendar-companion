@@ -82,7 +82,7 @@ const SortListBox: React.FC<Props> = ({ control, onClick, setValue }) => {
                 leaveFrom='opacity-100'
                 leaveTo='opacity-0'
               >
-                <Listbox.Options className='absolute top-full mt-2 z-10 w-full origin-top-right divide-y divide-gray-100 rounded-2xl bg-white overflow-hidden shadow-lg focus:outline-none'>
+                <Listbox.Options className='absolute top-full mt-2 z-[11] w-full origin-top-right divide-y divide-gray-100 rounded-2xl bg-white overflow-hidden shadow-lg focus:outline-none'>
                   {sortFilters?.map((filter: any, index: number) => (
                     <Listbox.Option
                       key={index}

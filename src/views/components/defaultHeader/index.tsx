@@ -53,7 +53,7 @@ const DefaultHeader = () => {
             src='/images/logo-rent.svg'
             onClick={onClickLogo}
             alt='logo'
-            className='w-24 md:w-32 cursor-pointer mr-14 md:mr-0'
+            className='h-8 md:h-10 cursor-pointer mr-14 md:mr-0'
           />
           {router?.asPath?.startsWith('/search') && <Filters />}
         </div>
