@@ -75,6 +75,8 @@ const LocationModal: React.FC<Props> = ({ open, toggleModal, control }) => {
                   control={control}
                   render={({ field: { onChange, value } }) => (
                     <Combobox value={value} onChange={onChange}>
+                      <>{console.log(value, 'value')}</>
+
                       <div className='relative mt-1'>
                         <div className='relative w-full p-4'>
                           <Combobox.Input
@@ -84,20 +86,22 @@ const LocationModal: React.FC<Props> = ({ open, toggleModal, control }) => {
                             onChange={onChange}
                             value={value}
                           />
-                          <Combobox.Button className='absolute inset-y-0 right-0 flex items-center pr-2'></Combobox.Button>
                         </div>
-                        <ul className='max-h-[360px] overflow-auto'>
-                          {cities?.map((city: any) => (
+                        <ul className='h-[360px] overflow-auto'>
+                          {(value.length > 0
+                            ? cities.filter((city: any) => city.city.toLowerCase().includes(value.toLowerCase()))
+                            : cities
+                          ).map((filteredCity: any) => (
                             <Combobox.Option
-                              key={city.city}
+                              key={filteredCity.city}
                               className={({ active }) =>
                                 `relative cursor-default select-none py-2 px-8 text-raisin-100 mb-1 ${
                                   active ? 'bg-raisin-10' : ''
                                 }`
                               }
-                              value={city.city}
+                              value={filteredCity.city}
                             >
-                              {({ selected, active }) => (
+                              {({ selected }) => (
                                 <>
                                   <span
                                     className={`flex items-center truncate text-2sm ${
@@ -110,13 +114,8 @@ const LocationModal: React.FC<Props> = ({ open, toggleModal, control }) => {
                                       height={24}
                                       className='fill-transparent flex shrink-0 mr-2'
                                     />
-                                    {city.city}
+                                    {filteredCity.city}
                                   </span>
-                                  {selected ? (
-                                    <span
-                                      className={`flex items-center pl-3 ${active ? 'text-white' : 'text-raisin-100'}`}
-                                    ></span>
-                                  ) : null}
                                 </>
                               )}
                             </Combobox.Option>
