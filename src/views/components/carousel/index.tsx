@@ -52,7 +52,7 @@ const Carousel = ({ itemsArray, type, onClick, thumbs = false }: Props) => {
     clickable: true,
 
     // clickableClass: `flex justify-center items-center gap-2 !bottom-3 !z-[30] px-4`,
-    bulletClass: `bullet rounded-2xl w-2 h-2 lg:w-1/5 lg:h-1 flex border-0 bg-white md:opacity-0 md:group-hover:opacity-90 transition-all duration-200`,
+    bulletClass: `bullet rounded-2xl w-2 h-2 flex border-0 bg-white md:opacity-0 md:group-hover:opacity-90 transition-all duration-200`,
     bulletActiveClass: `!lg:w-1/5 !lg:h-1 !bg-orange-100`,
 
     renderBullet: function (index: number, className: string) {
