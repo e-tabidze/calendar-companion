@@ -2,7 +2,6 @@ import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
-import Icon from 'src/views/app/Icon'
 import DataPlaceHolder from 'src/views/components/dataPlaceholder'
 import SkeletonLoading from './skeletorLoading'
 import useCompanyOrders from './useCompanyOrders'
@@ -57,7 +56,7 @@ const CompanyOrders = () => {
     }
   }, [status_id])
 
-  const { orders, fetchOrderFilters, companyOrderLoading, companyOrdersLoading } = useCompanyOrders(
+  const { orders, fetchOrderFilters, companyOrdersLoading } = useCompanyOrders(
     status_id,
     Number(page)
   )

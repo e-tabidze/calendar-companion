@@ -2,7 +2,6 @@ import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { Product } from 'src/types/Products'
-import Icon from 'src/views/app/Icon'
 import DataPlaceHolder from 'src/views/components/dataPlaceholder'
 import SkeletonLoading from './skeletonLoading'
 
