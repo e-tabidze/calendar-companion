@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import Typography from "src/views/components/typography";
-import Social from "src/views/components/footer/Social";
+
+// import Social from "src/views/components/footer/Social";
 import Icon from "src/views/app/Icon";
 
 
@@ -31,7 +32,7 @@ const Help = () => {
                     href="mailto:info@myauto.ge">info@myauto.ge</a></li>
             </ul>
             <div className="hidden lg:flex">
-                <Social/>
+                {/*<Social/>*/}
             </div>
         </div>
     )

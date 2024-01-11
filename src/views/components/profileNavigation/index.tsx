@@ -21,7 +21,6 @@ interface Props {
   toggleSidebarCollapse: () => void
   selectedRoute: Route
   dividerIndexes: number[]
-  isSidebarVisible: boolean
 }
 const ProfileNavigation: React.FC<Props> = ({
   routes,
@@ -29,8 +28,7 @@ const ProfileNavigation: React.FC<Props> = ({
   handleRouteChange,
   toggleSidebarCollapse,
   selectedRoute,
-  dividerIndexes,
-  isSidebarVisible
+  dividerIndexes
 }) => {
   const { userInfo, activeCompany, isAuthenticated, handleLogout, defaultImgUrl } = useProfile()
 
@@ -40,15 +38,13 @@ const ProfileNavigation: React.FC<Props> = ({
 
   return (
     <div
-      className={`md:min-h-[520px] px-3 lg:px-6 border border-raisin-10 rounded-3xl py-8 shrink-0 h-fit ${
-        isSidebarVisible ? 'flex-col' : 'hidden'
-      } ${
-        width < 769
-          ? 'w-full'
-          : sidebarCollapsed
-          ? 'w-[103px] flex flex-col items-center transition-all duration-300'
-          : 'w-[350px] shrink-0'
-      }`}
+      className={`md:min-h-[520px] px-3 lg:px-6 border border-raisin-10 rounded-3xl py-8 shrink-0 h-fit
+    ${
+      sidebarCollapsed
+        ? 'w-[103px] shrink-0 flex flex-col items-center transition-all duration-300'
+        : 'w-[350px] shrink-0'
+    }
+      `}
     >
       <div
         className={` 
@@ -113,7 +109,10 @@ const ProfileNavigation: React.FC<Props> = ({
           <div className={`group relative flex items-center my-2  cursor-pointer transition-all duration-300`}>
             <div
               className={`flex items-center justify-center shrink-0 relative overflow-hidden h-8 w-8 rounded-lg ${
-                route.path?.split('?')[0] === router.asPath.split('?')[0].replace(/\/$/, '') || route.path === router.asPath ? 'bg-orange-10' : 'bg-raisin-10'
+                route.path?.split('?')[0] === router.asPath.split('?')[0].replace(/\/$/, '') ||
+                route.path === router.asPath
+                  ? 'bg-orange-10'
+                  : 'bg-raisin-10'
               } `}
             >
               {route.image ? (
@@ -131,7 +130,12 @@ const ProfileNavigation: React.FC<Props> = ({
                   width={20}
                   height={20}
                   color='#fff'
-                  className={`${route.path?.split('?')[0] === router.asPath.split('?')[0].replace(/\/$/, '') || route.path === router.asPath ? 'fill-orange-100' : 'fill-raisin-70'}`}
+                  className={`${
+                    route.path?.split('?')[0] === router.asPath.split('?')[0].replace(/\/$/, '') ||
+                    route.path === router.asPath
+                      ? 'fill-orange-100'
+                      : 'fill-raisin-70'
+                  }`}
                 />
               )}
             </div>
@@ -141,7 +145,12 @@ const ProfileNavigation: React.FC<Props> = ({
                 sidebarCollapsed ? 'opacity-0 w-0' : 'opacity-100 ml-4 2xl:ml-6'
               } ${
                 route.path && selectedRoute?.path?.split('/')[2] === route.path.split('/')[2] ? 'text-orange-100' : ''
-              }' ${route.path?.split('?')[0] === router.asPath.split('?')[0].replace(/\/$/, '') || route.path === router.asPath ? 'text-orange-100' : ''}`}
+              }' ${
+                route.path?.split('?')[0] === router.asPath.split('?')[0].replace(/\/$/, '') ||
+                route.path === router.asPath
+                  ? 'text-orange-100'
+                  : ''
+              }`}
             >
               {route.item}
             </Typography>

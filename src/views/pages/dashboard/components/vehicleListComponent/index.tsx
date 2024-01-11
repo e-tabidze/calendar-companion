@@ -117,7 +117,7 @@ const VehicleListComponent: React.FC<Props> = ({
               </Link>
             </div>
           </div>
-          <div className='hidden md:flex gap-4'>
+          <div className='hidden lg:flex gap-4'>
             <Action
               bg={active ? 'bg-raisin-10' : 'bg-green-10'}
               label={active ? 'გამორთვა' : 'ჩართვა'}

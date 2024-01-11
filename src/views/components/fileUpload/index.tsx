@@ -17,7 +17,7 @@ const FileUpload: React.FC<Props> = ({ title, description, onChange, handleDelet
 
   return (
     <div className='flex items-center gap-8'>
-      <div className='w-24 h-20 flex items-center justify-center overflow-hidden rounded-2xl bg-green-10 border-dashed border-raisin-10'>
+      <div className='w-[76px] h-[76px] md:w-24 md:h-24 border-dashed border-raisin-10 rounded-3xl relative overflow-hidden flex shrink-0 items-center justify-center overflow-hidden bg-green-10'>
         {isLoading ? (
           <div className='w-100 h-100 flex items-center justify-center rounded-12'>
             <div className='flex items-center cursor-pointer'>

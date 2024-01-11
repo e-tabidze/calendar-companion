@@ -93,7 +93,6 @@ const OrderDetails = () => {
           </RentalDetailsContainer>
         </div>
         <Divider />
-        <Divider />
         <PriceDetailsContainer>
           <div className='w-full lg:w-7/12'>
             <Typography type='h3' className='font-bold text-3md lg:text-2lg'>

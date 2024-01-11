@@ -25,11 +25,13 @@ const useNotifications = (notificationId?: string, companyId?: string) => {
   const notifictions = useGetNotifications.data?.result?.data
   const notifictionDetails = useGetNotificationDetails.data?.result?.data
   const refetchNotifications = useGetNotifications.refetch
+  const notificationsLoading = useGetNotifications.isLoading
 
   return {
     notifictions,
     notifictionDetails,
-    refetchNotifications
+    refetchNotifications,
+    notificationsLoading
   }
 }
 
