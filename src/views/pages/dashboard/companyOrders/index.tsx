@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import Icon from 'src/views/app/Icon'
+import DataPlaceHolder from 'src/views/components/dataPlaceholder'
 import useCompanyOrders from './useCompanyOrders'
 
 const Pagination = dynamic(() => import('src/views/components/pagination'), { ssr: false })
@@ -91,7 +92,7 @@ const CompanyOrders = () => {
         <div className='h-full'>
           <div className='md:p-8 lg:p-10 md:border border-raisin-10 rounded-3xl md:min-h-[520px]'>
             <Typography type='h3' className='mb-6 md:mt-0 mt-6'>
-              შემოსული ჯავშნები 
+              შემოსული ჯავშნები
             </Typography>
             <div className='hidden lg:flex gap-3 pb-8 pr-8'>
               {filters.map(filter => (
@@ -136,10 +137,7 @@ const CompanyOrders = () => {
                   </Link>
                 ))
               ) : (
-                <div className='flex flex-col justify-center my-6 items-center gap-5'>
-                  <Icon svgPath='noOrders' width={207} height={156} />
-                  <Typography type='h5'>შეკვეთები ჯერ არ გაქვს</Typography>
-                </div>
+                <DataPlaceHolder label='შეკვეთები ჯერ არ გაქვს' />
               )}
             </div>
           </div>

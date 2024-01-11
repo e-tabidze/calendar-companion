@@ -75,8 +75,6 @@ const LocationModal: React.FC<Props> = ({ open, toggleModal, control }) => {
                   control={control}
                   render={({ field: { onChange, value } }) => (
                     <Combobox value={value} onChange={onChange}>
-                      <>{console.log(value, 'value')}</>
-
                       <div className='relative mt-1'>
                         <div className='relative w-full p-4'>
                           <Combobox.Input

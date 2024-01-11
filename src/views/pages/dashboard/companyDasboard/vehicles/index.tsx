@@ -1,5 +1,6 @@
 import useProductInfo from '../../useProductInfo'
 import dynamic from 'next/dynamic'
+import DataPlaceHolder from 'src/views/components/dataPlaceholder'
 
 const Typography = dynamic(() => import('src/views/components/typography'), { ssr: false })
 const Divider = dynamic(() => import('src/views/components/divider'), { ssr: false })
@@ -15,20 +16,24 @@ const Vehicles = () => {
       </Typography>
       <Divider />
       <div>
-        {dashboardData?.products?.map((product: any) => (
-          <VehicleListComponent
-            key={product.id}
-            id={product.id}
-            price={product.price}
-            startCity={product.start_city}
-            prodYear={product.prod_year}
-            model={product?.manufacturer_model?.title}
-            manufacturer={product.manufacturer?.title}
-            active={product.is_active}
-            filter={''}
-            images={product?.images}
-          />
-        ))}
+        {dashboardData?.products?.length > 0 ? (
+          dashboardData?.products?.map((product: any) => (
+            <VehicleListComponent
+              key={product.id}
+              id={product.id}
+              price={product.price}
+              startCity={product.start_city}
+              prodYear={product.prod_year}
+              model={product?.manufacturer_model?.title}
+              manufacturer={product.manufacturer?.title}
+              active={product.is_active}
+              filter={''}
+              images={product?.images}
+            />
+          ))
+        ) : (
+          <DataPlaceHolder label='ავტომობილები ჯერ არ გაქვს' />
+        )}
       </div>
     </div>
   )

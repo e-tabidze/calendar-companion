@@ -59,6 +59,8 @@ const useProductInfo = (step?: number | undefined) => {
 
   const dashboardData = useGetDashboardData?.data?.result?.data
 
+  const dashboardDataLoading = useGetDashboardData.isLoading
+
   return {
     productDetails,
     manufacturers,
@@ -69,7 +71,8 @@ const useProductInfo = (step?: number | undefined) => {
     isAdditionalParamsLoading: useAdditionalParams.isLoading,
     isCompanyServicesLoading: useCompanyServices.isLoading,
     companyBranches,
-    dashboardData
+    dashboardData,
+    dashboardDataLoading
   }
 }
 

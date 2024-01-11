@@ -34,7 +34,6 @@ const useCompanyOrders = (statusId: '' | '0' | '1' | '2' | '5' | string | string
     postOrderStatus,
     companyOrderproductData,
     fetchOrderDetails,
-    fetchOrderFilters
   }
 }
 

@@ -22,12 +22,14 @@ const useOrders = (orderId?: string | number | undefined) => {
   const userOrders = useUserOrders?.data?.result?.data
   const userOrderDetails = useOrderDetails?.data?.result?.data
   const productData = useOrderDetails?.data && JSON.parse(useOrderDetails?.data?.result?.data?.product_data)
+  const useUserOrdersLoading = useUserOrders.isLoading
 
   return {
     userOrders,
     userOrderDetails,
     productData,
-    cancelUserOrder
+    cancelUserOrder,
+    useUserOrdersLoading
   }
 }
 
