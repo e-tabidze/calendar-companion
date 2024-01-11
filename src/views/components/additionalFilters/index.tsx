@@ -193,7 +193,7 @@ const AdditionalFilters: React.FC<Props> = ({
                         control={control}
                         options={manufacturerFilters}
                         placeholder='მწარმოებელი'
-                        className='w-full my-1 md:my-2 md:w-1/2'
+                        className='w-full my-1 md:my-2 md:w-1/2 option-field-size'
                         valueKey='id'
                         labelKey='title'
                         handleChange={() => {

@@ -37,7 +37,7 @@ const BookingRadio: React.FC<Props> = ({ options, control, color, horizontal, na
         {options.map((option: Option) => (
           <RadioGroup.Option key={option.value} value={option.value} className='w-full'>
             {({ checked }) => (
-              <div className='my-2'>
+              <div className='my-3'>
                 <div
                   className={`rounded-xl border py-5 xl:py-8 xl:pl-10 xl:pr-6 px-4 lg:px-5 cursor-pointer ${
                     checked ? ' border-green-100 bg-green-10' : 'border-raisin-10'

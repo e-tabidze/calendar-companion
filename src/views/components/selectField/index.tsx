@@ -13,7 +13,7 @@ const customStyles = {
     height: 56,
     position: 'relative',
     '&:hover': { border: '1px solid #BEBFC3' },
-    borderRadius: '8px',
+    borderRadius: '12px',
     border: state.isFocused ? '1px solid #272A37' : '1px solid #E9EAEB',
     boxShadow: state.isFocused ? '1px solid #272A37' : '1px solid #E9EAEB',
     transition: 'border 0.2s',
@@ -25,7 +25,7 @@ const customStyles = {
 
   menuList: (provided: any) => ({
     ...provided,
-    height: '150px'
+    height: '180px'
   }),
 
   placeholder: (defaultStyles: any) => {
@@ -133,7 +133,7 @@ const SelectField: React.FC<Props> = ({
                 onChange(selectedValues)
                 handleChange && handleChange()
               }}
-              className={_.get(errors, name)?.message ? `border border-red-100 rounded-lg` : ''}
+              className={_.get(errors, name)?.message ? `border border-red-100 rounded-[12px]` : ''}
               isMulti={isMulti}
               getOptionLabel={option => labelKey && option[labelKey]}
               getOptionValue={option => valueKey && option[valueKey]}
@@ -150,7 +150,7 @@ const SelectField: React.FC<Props> = ({
               emoji={
                 icon && (
                   <div className='ml-4'>
-                    <Icon svgPath='clock' width={18} height={18} />
+                    <Icon svgPath='clock' width={18} height={18} className='fill-black' />
                   </div>
                 )
               }
