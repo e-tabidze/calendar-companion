@@ -193,9 +193,9 @@ const Avatar = () => {
                   </div>
                 </div>
                 <div className='py-8px'>
-                  {userCompanies.length > 0 && (
+                  {userCompanies?.length > 0 && (
                     <button
-                      className='px-6 flex w-full flex items-center justify-between whitespace-nowrap text-md text-raisin-100 py-2 hover:bg-grey-100 transition-all'
+                      className='px-6 flex w-full items-center justify-between whitespace-nowrap text-md text-raisin-100 py-2 hover:bg-grey-100 transition-all'
                       onClick={handleSetActive}
                     >
                       ანგარიშის შეცვლა
