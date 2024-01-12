@@ -27,7 +27,7 @@ const SuitcasesPopover: React.FC<Props> = ({ control, appendLuggageNumber, handl
       <div className='flex flex-wrap gap-4 my-6 px-5'>
         <Tag options={suitcases} height='h-10' name='luggage_numbers' control={control} append={appendLuggageNumber} />
       </div>
-      <div className='flex items-center justify-between sticky bottom-0 bg-white p-5 shadow-buttonContainer'>
+      <div className='flex items-center justify-between sticky bottom-0 bg-white p-5'>
         <IconTextButton
           icon='rotate'
           label='გასუფთავება'
