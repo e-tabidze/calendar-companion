@@ -61,7 +61,7 @@ const SortListBox: React.FC<Props> = ({ control, onClick, setValue }) => {
             }}
           >
             <div className='relative flex text-left ml-2'>
-              <Listbox.Button className='relative flex items-center cursor-pointer rounded-xl bg-white py-2 px-4 text-left border border-raisin-10 text-2sm'>
+              <Listbox.Button className='relative flex items-center cursor-pointer rounded-xl bg-white py-2 px-4 text-left border border-raisin-10 text-2sm hover:border-raisin-100 transition-all'>
                 <Icon svgPath='sort' width={20} height={12} className='fill-transparent flex shrink-0 mr-3' />
                 <Typography
                   type='subtitle'

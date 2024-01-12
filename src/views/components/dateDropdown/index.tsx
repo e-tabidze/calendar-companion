@@ -31,7 +31,7 @@ const CustomDateInput: React.FC<CalendarInputProps> = ({ value, onClick, isCalen
     </div>
     <input
       type='text'
-      className='w-full h-full pl-12 pr-8 pb-1 pt-3 rounded-xl border border-raisin-10 text-2sm outline-none focus:ring-0 bg-transparent'
+      className='w-full h-full pl-12 pr-8 pb-1 pt-3 rounded-xl border border-raisin-10 text-2sm outline-none focus:ring-0 bg-transparent cursor-pointer transition-all hover:border-raisin-30'
       value={value}
       onClick={onClick}
       readOnly

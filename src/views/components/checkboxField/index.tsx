@@ -54,7 +54,7 @@ const CheckboxField: React.FC<Props> = ({
                 {options?.map((option, index) => (
                   <div className='' key={option.id}>
                     <div
-                      className={`flex items-center gap-4 cursor-pointer ${categoryCheckbox?'py-[4px] group hover:bg-raisin-5 px-5':'py-3'}`}
+                      className={`flex items-center gap-4 cursor-pointer transition-all ${categoryCheckbox?'py-[4px] group hover:bg-raisin-5 px-5':'py-3'}`}
                       onClick={() => {
                         if (append) {
                           if (selectedOptions.includes(option.id)) {
@@ -73,7 +73,7 @@ const CheckboxField: React.FC<Props> = ({
                         }`}
                       >
                         <Icon svgPath='check' height={11} width={8} className={`fill-transparent ${
-                          selectedOptions.includes(option.id) ? 'fill-raisin-5' : ''
+                          selectedOptions.includes(option.id) ? 'fill-white' : ''
                         }`} />
                       </span>
                       <input
@@ -107,7 +107,7 @@ const CheckboxField: React.FC<Props> = ({
         />
       ) : (
         <div
-          className={`flex items-center gap-3 w-max
+          className={`flex items-center gap-3 w-max 
           px-4 cursor-pointer rounded-xl border border-raisin-10 ${className}`}
           onClick={handleClick}
         >

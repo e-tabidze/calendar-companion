@@ -304,7 +304,7 @@ const ProductDetails = memo(() => {
                       </Typography>
                     )}
                   </div>
-                  <div className='hidden lg:flex gap-4 cursor-pointer '>
+                  <div className='hidden lg:flex gap-4 cursor-pointer transition-all'>
                     <Icon svgPath='rotate' width={20} height={22} className='fill-transparent' />
                     <Typography
                       type='body'
