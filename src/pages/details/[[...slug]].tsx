@@ -80,15 +80,11 @@ const ProductDetails = memo(() => {
 
   const { similarProducts } = useMain(singleProductDetails?.man_id, singleProductDetails?.model_id)
 
-  console.log(similarProducts, 'similarProducts')
-
   console.log(singleProductDetails, 'singleProductDetails')
 
   console.log(orderDatesData, 'orderDatesData')
 
   const ref = useRef<any>()
-
-  console.log(activeNavItem, 'activeNavItem')
 
   useEffect(() => {
     if (book_from && book_to) {
@@ -124,7 +120,6 @@ const ProductDetails = memo(() => {
         top: sectionToScroll.offsetTop - 180,
         behavior: 'smooth'
       })
-    // setActiveNavItem(id)
   }
 
   const toggleDrawer = () => setIsOpenDrawer(!isOpenDrawer)
@@ -180,7 +175,6 @@ const ProductDetails = memo(() => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <DefaultLayout>
-        
         {/* <ContentContainer>
           <DetailsPageHeader />
         </ContentContainer> */}

@@ -7,9 +7,10 @@ import { useWatch } from 'react-hook-form'
 
 interface Props {
   control: any
+  resetField?:any
 }
 
-const PeriodMob: React.FC<Props> = ({ control }) => {
+const PeriodMob: React.FC<Props> = ({ control, resetField }) => {
   const [calendar, toggleCalendar] = useState(false)
   const formState = useWatch({ control })
 
@@ -25,7 +26,20 @@ const PeriodMob: React.FC<Props> = ({ control }) => {
               ? `${formState?.booking?.book_from} - ${formState?.booking?.book_to}`
               : 'თარიღი'}
           </Typography>
-          <Icon svgPath='chevron' width={8} height={6} className='inline fill-white m-2' />
+          {(formState?.booking?.book_from || formState?.booking?.book_to) ? (
+              <Icon
+                  svgPath='clear-xs'
+                  width={7}
+                  height={7}
+                  color='raisin-10'
+                  onClick={e => {
+                    resetField(), e.stopPropagation()
+                  }}
+                  className="fill-transparent ml-2"
+              />
+          ) : (
+              <Icon svgPath='chevron' width={10} height={10} className="fill-transparent ml-2" />
+          )}
         </InnerFilterContainer>
       </FilterContainer>
 

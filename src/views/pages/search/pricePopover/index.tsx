@@ -31,7 +31,7 @@ const PricePopover: React.FC<Props> = ({ control, handleSubmit, reset }) => {
         <Divider />
         <DefaultInput label='მაქსიმუმ ფასი დღიურად' name='price_max' control={control} className='w-72' type='number' />
       </TagsWrapper>
-      <ActionsWrapper className='pb-5'>
+      <ActionsWrapper className='p-5 shadow-buttonContainer'>
         <IconTextButton
           icon='rotate'
           label='გასუფთავება'
@@ -48,7 +48,7 @@ const PricePopover: React.FC<Props> = ({ control, handleSubmit, reset }) => {
         />
         <DefaultButton
           text='შენახვა'
-          bg='bg-orange-100'
+          bg='bg-orange-100 hover:bg-orange-110 transition-all'
           textColor='text-white'
           type='button'
           onClick={() => {

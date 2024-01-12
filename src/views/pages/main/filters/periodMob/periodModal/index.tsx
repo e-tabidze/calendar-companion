@@ -106,7 +106,7 @@ const PeriodModal: React.FC<Props> = ({ open, toggleModal, control }) => {
                 />
                 <div className='w-full flex flex-row items-center justify-between py-4 px-4 md:px-10 border-t-1 border-raisin-10'>
                   <button
-                    className='w-full h-12 flex items-center justify-center rounded-2xl bg-orange-100 text-white'
+                    className='w-full h-12 flex items-center justify-center rounded-2xl bg-orange-100 hover:bg-orange-110 transition-all text-white'
                     onClick={toggleModal}
                   >
                     არჩევა

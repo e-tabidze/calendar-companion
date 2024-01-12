@@ -26,10 +26,10 @@ const FuelTypePopover: React.FC<Props> = ({ control, appendFuelType, reset, hand
         formState?.fuel_types?.length ? 'border border-raisin-100' : 'hover:border hover:border-raisin-30'
       }`}
     >
-      <Typography type='body' color='light' className='pt-5'>
+      <Typography type='body' color='light' className='px-5 pt-5'>
         შეგიძლიათ მონიშნოთ ერთი ან რამდენიმე
       </Typography>
-      <TagsWrapper>
+      <TagsWrapper className=''>
         {isLoading ? (
           <>Loading</>
         ) : (
@@ -43,7 +43,7 @@ const FuelTypePopover: React.FC<Props> = ({ control, appendFuelType, reset, hand
           />
         )}
       </TagsWrapper>
-      <ActionsWrapper className='sticky bottom-0 bg-white py-5'>
+      <ActionsWrapper className='sticky bottom-0 bg-white p-5 shadow-buttonContainer'>
         <IconTextButton
           icon='rotate'
           label='გასუფთავება'
@@ -59,7 +59,7 @@ const FuelTypePopover: React.FC<Props> = ({ control, appendFuelType, reset, hand
         />
         <DefaultButton
           text='შენახვა'
-          bg='bg-orange-100'
+          bg='bg-orange-100 hover:bg-orange-110 transition-all'
           textColor='text-white'
           type='button'
           onClick={() => {

@@ -22,7 +22,7 @@ const PopoverDropdown: React.FC<Props> = ({ label, children, maxWidth, className
         </Popover.Button>
 
         <Popover.Panel
-          className={`max-h-[332px] overflow-y-auto min-w-[340px] absolute z-50 w-max mt-4 px-5  h-fit rounded-2xl shadow-2xl bg-white header-shadow text-xs top-100 left-0 right-0 ${maxWidth}`}
+          className={`max-h-[332px] overflow-y-auto min-w-[340px] absolute z-50 w-max mt-4  h-fit rounded-2xl shadow-2xl bg-white header-shadow text-xs top-100 left-0 right-0 ${maxWidth}`}
         >
           {children}
         </Popover.Panel>

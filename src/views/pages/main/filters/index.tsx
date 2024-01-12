@@ -14,6 +14,12 @@ import LocationMob from 'src/views/pages/main/filters/locationMob'
 const Filters = () => {
   const [filters, toggleFilters] = useState(false)
   const [isMobileDevice, setIsMobileDevice] = useState(false)
+  const handleResetLocation = () => {
+    setValue('location', '')
+  }
+  const handleResetBooking = () => {
+    setValue('booking', { book_from: '', book_to: '' })
+  }
 
   const router = useRouter()
 
@@ -49,9 +55,9 @@ const Filters = () => {
   return (
     <form>
       <FiltersContainer>
-        {isMobileDevice ? <LocationMob control={control} /> : <LocationDropdown control={control} />}
+        {isMobileDevice ? <LocationMob control={control} resetField={handleResetLocation} /> : <LocationDropdown control={control} resetField={handleResetLocation} />}
         <Divider />
-        {isMobileDevice ? <PeriodMob control={control} /> : <PeriodDropdown control={control} />}
+        {isMobileDevice ? <PeriodMob control={control} resetField={handleResetBooking} /> : <PeriodDropdown control={control} resetField={handleResetBooking}/>}
         <Divider />
         <ExtraFiltersContainer className='flex shrink-0'>
           <IconTextButton
@@ -70,7 +76,7 @@ const Filters = () => {
             icon='search'
             width={20}
             height={20}
-            bg='bg-orange-100'
+            bg='bg-orange-100 hover:bg-orange-110 transition-all'
             className='md:h-16 px-4 md:px-6'
             labelClassname='text-2sm text-white md:hidden'
             onClick={onClickSearch}

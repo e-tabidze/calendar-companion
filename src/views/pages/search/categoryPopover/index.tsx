@@ -22,6 +22,7 @@ const CategoryPopover: React.FC<Props> = ({ control, appendCategory, handleSubmi
       maxWidth='max-w-md'
       className={`${formState?.category?.length ? 'border border-raisin-100' : 'hover:border hover:border-raisin-30'}`}
     >
+      <div className='px-5'>
       <CheckboxField
         options={categoriesFilter}
         name='category'
@@ -29,11 +30,13 @@ const CategoryPopover: React.FC<Props> = ({ control, appendCategory, handleSubmi
         append={appendCategory}
         width='50'
         height='45'
-        className='py-4'
+        className='py-4 m-5'
         divider
       />
+      </div>
+      
 
-      <div className='flex items-center justify-between sticky bottom-0 bg-white py-5 mt-4'>
+      <div className='flex items-center justify-between sticky bottom-0 bg-white p-5 shadow-buttonContainer'>
         <IconTextButton
           icon='rotate'
           label='გასუფთავება'
@@ -49,7 +52,7 @@ const CategoryPopover: React.FC<Props> = ({ control, appendCategory, handleSubmi
         />
         <DefaultButton
           text='შენახვა'
-          bg='bg-orange-100'
+          bg='bg-orange-100 hover:bg-orange-110 transition-all'
           textColor='text-white'
           type='button'
           onClick={() => {

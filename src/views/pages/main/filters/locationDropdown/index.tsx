@@ -8,9 +8,10 @@ import Icon from 'src/views/app/Icon'
 
 interface Props {
   control: any
+  resetField?: any
 }
 
-const LocationDropdown: React.FC<Props> = ({ control }) => {
+const LocationDropdown: React.FC<Props> = ({ control, resetField  }) => {
   const { cities } = useSearchLocations()
 
   return (
@@ -31,7 +32,20 @@ const LocationDropdown: React.FC<Props> = ({ control }) => {
                       <Typography type='subtitle' className='text-raisin-50 whitespace-nowrap'>
                         {value || 'ქალაქი, მისამართი'}
                       </Typography>
-                      <Icon svgPath='chevron' width={8} height={6} className='inline fill-white m-2' />
+                        {value ? (
+                            <Icon
+                                svgPath='clear-xs'
+                                width={7}
+                                height={7}
+                                color='raisin-10'
+                                onClick={e => {
+                                    resetField(), e.stopPropagation()
+                                }}
+                                className="fill-transparent ml-2"
+                            />
+                        ) : (
+                            <Icon svgPath='chevron' width={10} height={10} className={`fill-transparent ml-2 transition-all ${open ? 'rotate-180': ''}`} />
+                        )}
                     </InnerFilterContainer>
                   </FilterContainer>
                 </Listbox.Button>
@@ -41,7 +55,7 @@ const LocationDropdown: React.FC<Props> = ({ control }) => {
                   leaveFrom='opacity-100'
                   leaveTo='opacity-0'
                 >
-                  <Listbox.Options className='absolute max-h-64 overflow-y-auto top-full py-2 z-[11] mt-2 w-full overflow-hidden origin-top-right divide-y divide-gray-100 rounded-2xl bg-white shadow-lg focus:outline-none'>
+                  <Listbox.Options className='absolute max-h-[274px] overflow-y-auto top-full pt-2 z-[11] mt-2 w-full overflow-hidden origin-top-right divide-y divide-gray-100 rounded-2xl bg-white shadow-lg focus:outline-none'>
                     {cities?.map((city: any, index: number) => (
                       <Listbox.Option
                         key={index}
