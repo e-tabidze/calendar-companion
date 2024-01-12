@@ -24,12 +24,12 @@ const Pagination: React.FC<Props> = ({ totalPages, onPageChange, currentPage }) 
           text={i}
           key={i}
           onClick={() => onPageChange(i)}
-          className={`!w-8 !h-8 md:!w-10 md:!h-10 !px-0 !py-0 mx-[6px] !font-medium ${
+          className={`!w-8 !h-8 md:!w-10 md:!h-10 !px-0 !py-0 mx-[6px] !font-medium transition-all ${
             i == currentPage
               ? 'bg-white border border-raisin-130'
               : currentPage == undefined
               ? 'default-style'
-              : 'bg-raisin-10 border border-raisin-10'
+              : 'bg-raisin-10 border border-raisin-10 hover:bg-raisin-20'
           }`}
         />
       )

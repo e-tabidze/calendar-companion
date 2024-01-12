@@ -13,10 +13,11 @@ import { format } from 'date-fns'
 
 interface Props {
   control: any
+  resetField?:any
 }
 registerLocale('ka', ka)
 
-const PeriodDropdown: React.FC<Props> = ({ control }) => {
+const PeriodDropdown: React.FC<Props> = ({ control, resetField }) => {
   const [dateRange, setDateRange] = useState<[Date, Date] | [null, null]>([null, null])
   const [startDate, endDate] = dateRange
 
@@ -41,7 +42,21 @@ const PeriodDropdown: React.FC<Props> = ({ control }) => {
                       })}`
                     : 'თარიღი'}
                 </Typography>
-                <Icon svgPath='chevron' width={8} height={6} className='inline fill-white m-2' />
+                {startDate || endDate ? (
+                    <Icon
+                        svgPath='clear-xs'
+                        width={7}
+                        height={7}
+                        color='raisin-10'
+                        onClick={e => {
+                          setDateRange([null, null])
+                          resetField(), e.stopPropagation()
+                        }}
+                        className="fill-transparent ml-2"
+                    />
+                ) : (
+                    <Icon svgPath='chevron' width={10} height={10} className={`fill-transparent ml-2 transition-all ${open ? 'rotate-180': ''}`}/>
+                )}
               </InnerFilterContainer>
             </FilterContainer>
           </Menu.Button>

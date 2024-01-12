@@ -7,9 +7,10 @@ import LocationModal from 'src/views/pages/main/filters/locationMob/locationModa
 
 interface Props {
   control: any
+  resetField?:any
 }
 
-const LocationMob: React.FC<Props> = ({ control }) => {
+const LocationMob: React.FC<Props> = ({ control, resetField }) => {
   const [location, toggleLocation] = useState(false)
   const formState = useWatch({ control })
 
@@ -23,7 +24,20 @@ const LocationMob: React.FC<Props> = ({ control }) => {
           <Typography type='subtitle' className='text-raisin-50'>
             {formState.location || 'ქალაქი, მისამართი...'}
           </Typography>
-          <Icon svgPath='chevron' width={8} height={6} className='inline fill-white m-2' />
+          {formState.location ? (
+              <Icon
+                  svgPath='clear-xs'
+                  width={7}
+                  height={7}
+                  color='raisin-10'
+                  onClick={e => {
+                    resetField(), e.stopPropagation()
+                  }}
+                  className="fill-transparent ml-2"
+              />
+          ) : (
+              <Icon svgPath='chevron' width={10} height={10} className="fill-transparent ml-2" />
+          )}
         </InnerFilterContainer>
       </FilterContainer>
 
