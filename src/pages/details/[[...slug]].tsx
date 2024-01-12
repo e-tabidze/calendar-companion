@@ -58,7 +58,8 @@ const ProductDetails = memo(() => {
   const { width } = useWindowDimensions()
 
   const [isOpenDrawer, setIsOpenDrawer] = useState(false)
-  const [section, setSection] = useState('details')
+  const [activeNavItem, setActiveNavItem] = useState('details')
+
   const [isSticky, setIsSticky] = useState(false)
 
   const [dateRange, setDateRange] = useState<
@@ -87,7 +88,7 @@ const ProductDetails = memo(() => {
 
   const ref = useRef<any>()
 
-  console.log(section, 'section')
+  console.log(activeNavItem, 'activeNavItem')
 
   useEffect(() => {
     if (book_from && book_to) {
@@ -105,11 +106,11 @@ const ProductDetails = memo(() => {
   }, [book_from, book_to])
 
   const handleScroll = () => {
-    // const componentPosition = ref.current?.getBoundingClientRect().top - 80
+    const componentPosition = ref.current?.getBoundingClientRect().top - 80
 
     const pageScroll = window.pageYOffset
 
-    if (pageScroll > window?.innerHeight / 4) {
+    if (pageScroll > window?.innerHeight / componentPosition) {
       setIsSticky(true)
     } else {
       setIsSticky(false)
@@ -123,7 +124,7 @@ const ProductDetails = memo(() => {
         top: sectionToScroll.offsetTop - 180,
         behavior: 'smooth'
       })
-    setSection(id)
+    setActiveNavItem(id)
   }
 
   const toggleDrawer = () => setIsOpenDrawer(!isOpenDrawer)
@@ -149,33 +150,32 @@ const ProductDetails = memo(() => {
     })
   }
 
-  const [activeNavItem, setActiveNavItem] = useState('details');
-
-
   useEffect(() => {
     const handleScroll = () => {
-      const sectionElements = ['details', 'features', 'lessor'];
+      const sectionElements = ['details', 'features', 'lessor']
       for (const section of sectionElements) {
-        const sectionElement = document.getElementById(section);
+        const sectionElement = document.getElementById(section)
         if (sectionElement) {
-          const { top,left,right, bottom } = sectionElement.getBoundingClientRect();
-          if (top >= 0 &&
+          const { top, left, right, bottom } = sectionElement.getBoundingClientRect()
+          if (
+            top >= 0 &&
             left >= 0 &&
             bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-            right <= (window.innerWidth || document.documentElement.clientWidth)) {
-            setActiveNavItem(section);
-            break;
+            right <= (window.innerWidth || document.documentElement.clientWidth)
+          ) {
+            setActiveNavItem(section)
+            break
           }
         }
       }
-    };
-  
-    window.addEventListener('scroll', handleScroll);
-  
+    }
+
+    window.addEventListener('scroll', handleScroll)
+
     return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
+      window.removeEventListener('scroll', handleScroll)
+    }
+  }, [])
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -204,15 +204,15 @@ const ProductDetails = memo(() => {
         >
           <ContentContainer className='overflow-x-auto no-scrollbar bg-white z-30'>
             <div className='flex gap-8 my-6 w-max'>
-            <SubNavItem section='details' activeSection={activeNavItem} handleClick={handleClick}>
-              ავტომობილის შესახებ
-            </SubNavItem>
-            <SubNavItem section='features' activeSection={activeNavItem} handleClick={handleClick}>
-              მახასიათებლები
-            </SubNavItem>
-            <SubNavItem section='lessor' activeSection={activeNavItem} handleClick={handleClick}>
-              გამქირავებლის შესახებ
-            </SubNavItem>
+              <SubNavItem section='details' activeSection={activeNavItem} handleClick={handleClick}>
+                ავტომობილის შესახებ
+              </SubNavItem>
+              <SubNavItem section='features' activeSection={activeNavItem} handleClick={handleClick}>
+                მახასიათებლები
+              </SubNavItem>
+              <SubNavItem section='lessor' activeSection={activeNavItem} handleClick={handleClick}>
+                გამქირავებლის შესახებ
+              </SubNavItem>
             </div>
           </ContentContainer>
           <Divider />
@@ -222,7 +222,7 @@ const ProductDetails = memo(() => {
         <ContentContainer>
           <div className='flex gap-11 mt-8'>
             <div className='w-full md:w-7/12 lg:w-8/12'>
-              <div id='details' data-section>
+              <div id='details' data-section className='mb-8'>
                 <Typography type='h3' className='md:text-2lg font-bold'>
                   {singleProductDetails?.manufacturer?.title} {singleProductDetails?.manufacturer_model?.title}{' '}
                   {singleProductDetails?.prod_year}
@@ -248,8 +248,9 @@ const ProductDetails = memo(() => {
                   entityProductsCount={singleProductDetails?.company_user?.company?.count_company_poduct}
                 />
               </div>
-              <Divider />
-              <Features id='features' data-section singleProductDetails={singleProductDetails} />
+              <Divider className='mb-8' />
+              <div id='features'></div>
+              <Features singleProductDetails={singleProductDetails} />
 
               {singleProductDetails?.product_services.length > 0 && (
                 <>
@@ -426,6 +427,7 @@ const ProductDetails = memo(() => {
           <Typography type='h3' className='text-3md md:text-2lg block my-6 lg:hidden'>
             ფასი მოიცავს
           </Typography>
+
           <LessorInformationCard
             id='lessor'
             data-section
@@ -438,28 +440,28 @@ const ProductDetails = memo(() => {
         <div className='overflow-hidden'>
           <ContentContainer>
             {similarProducts?.length > 1 && (
-                <>
-                  <Typography type='h3' className='text-3md md:text-2lg mb-8'>
-                    მსგავსი შეთავაზებები
-                  </Typography>
-                  <Carousel
-                      itemsArray={similarProducts?.map((product: any) => (
-                          <ProductCard
-                              key={product?.id}
-                              productId={product?.id}
-                              manufacturer={product?.manufacturer?.title}
-                              model={product?.manufacturer_model?.title}
-                              prodYear={product?.prod_year}
-                              priceGel={product?.price_gel}
-                              luggageNumbers={product?.luggage_numbers}
-                              seats={product?.seat_type?.title}
-                              images={product?.images?.split(',')}
-                              city={product?.start_city}
-                          />
-                      ))}
-                      type='products'
-                  />
-                </>
+              <>
+                <Typography type='h3' className='text-3md md:text-2lg mb-8'>
+                  მსგავსი შეთავაზებები
+                </Typography>
+                <Carousel
+                  itemsArray={similarProducts?.map((product: any) => (
+                    <ProductCard
+                      key={product?.id}
+                      productId={product?.id}
+                      manufacturer={product?.manufacturer?.title}
+                      model={product?.manufacturer_model?.title}
+                      prodYear={product?.prod_year}
+                      priceGel={product?.price_gel}
+                      luggageNumbers={product?.luggage_numbers}
+                      seats={product?.seat_type?.title}
+                      images={product?.images?.split(',')}
+                      city={product?.start_city}
+                    />
+                  ))}
+                  type='products'
+                />
+              </>
             )}
           </ContentContainer>
         </div>
