@@ -24,10 +24,10 @@ const SuitcasesPopover: React.FC<Props> = ({ control, appendLuggageNumber, handl
         formState?.luggage_numbers?.length ? 'border border-raisin-100' : 'hover:border hover:border-raisin-30'
       }`}
     >
-      <div className='flex flex-wrap gap-4 mt-6'>
+      <div className='flex flex-wrap gap-4 my-6 px-5'>
         <Tag options={suitcases} height='h-10' name='luggage_numbers' control={control} append={appendLuggageNumber} />
       </div>
-      <div className='flex items-center justify-between sticky bottom-0 bg-white py-5'>
+      <div className='flex items-center justify-between sticky bottom-0 bg-white p-5 shadow-buttonContainer'>
         <IconTextButton
           icon='rotate'
           label='გასუფთავება'
