@@ -31,9 +31,9 @@ const Help = () => {
                     className="font-normal text-raisin-70 hover:text-raisin-100 transition-all text-sm lg:text-2sm hover:underline"
                     href="mailto:info@myauto.ge">info@myauto.ge</a></li>
             </ul>
-            <div className="hidden lg:flex">
-                {/*<Social/>*/}
-            </div>
+            {/*<div className="hidden lg:flex">*/}
+            {/*    <Social/>*/}
+            {/*</div>*/}
         </div>
     )
 }

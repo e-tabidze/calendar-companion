@@ -202,7 +202,7 @@ const PriceCalcCard: React.FC<Props> = ({
 
       {activeCompanyId === companyId || userInfo?.active_profile_id === userInfo?.UserID ? (
         <DefaultButton
-          bg='bg-orange-100'
+          bg='bg-orange-100 hover:bg-orange-110 transition-all'
           text='ჯავშნის დაწყება'
           className='w-full'
           textColor='text-white'

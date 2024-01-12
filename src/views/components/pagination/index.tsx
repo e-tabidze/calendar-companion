@@ -29,7 +29,7 @@ const Pagination: React.FC<Props> = ({ totalPages, onPageChange, currentPage }) 
               ? 'bg-white border border-raisin-130'
               : currentPage == undefined
               ? 'default-style'
-              : 'bg-raisin-10 border border-raisin-10 hover:bg-raisin-20'
+              : 'bg-raisin-10 border border-raisin-10 hover:border-raisin-100'
           }`}
         />
       )
@@ -65,8 +65,8 @@ const Pagination: React.FC<Props> = ({ totalPages, onPageChange, currentPage }) 
       <DefaultButton
         text='უკან'
         onClick={handlePreviousPage}
-        className={`hidden md:flex bg-raisin-10 !h-14 !px-8 !font-medium ${
-          currentPage == 1 ? 'opacity-50 cursor-not-allowed' : ''
+        className={`hidden md:flex bg-raisin-10 !h-14 !px-8 !font-medium transition-all ${
+          currentPage == 1 ? 'opacity-50 cursor-not-allowed' : 'hover:border-raisin-100'
         }`}
         disabled={currentPage === 1}
       />
@@ -84,8 +84,8 @@ const Pagination: React.FC<Props> = ({ totalPages, onPageChange, currentPage }) 
       <DefaultButton
         text='შემდეგი'
         onClick={handleNextPage}
-        className={`hidden md:flex bg-raisin-10 !h-14 !px-8 !font-medium ${
-          currentPage === totalPages ? 'opacity-50 cursor-not-allowed' : ''
+        className={`hidden md:flex bg-raisin-10 !h-14 !px-8 !font-medium  transition-all ${
+          currentPage === totalPages ? 'opacity-50 cursor-not-allowed' : 'hover:border-raisin-100'
         }`}
         disabled={currentPage === totalPages}
       />

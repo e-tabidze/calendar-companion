@@ -48,7 +48,7 @@ const CancelOrderDialog: React.FC<Props> = ({ open, close, handleCancel }) => {
 
                 <div className='flex justify-end p-4 gap-4'>
                   <DefaultButton text='უარყოფა' onClick={close} className='border-none' />
-                  <DefaultButton text='გაუქმება' bg='bg-orange-100' onClick={handleCancel} textColor="text-white" />
+                  <DefaultButton text='გაუქმება' bg='bg-orange-100 hover:bg-orange-110 transition-all' onClick={handleCancel} textColor="text-white" />
                 </div>
               </div>
             </Transition.Child>

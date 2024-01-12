@@ -44,7 +44,7 @@ const Filters = () => {
         <ExtraFiltersContainer>
           <button
             onClick={onSubmit}
-            className='rounded-full bg-orange-100 w-9 h-9 flex items-center justify-center shrink-0'
+            className='rounded-full bg-orange-100 hover:bg-orange-110 transition-all w-9 h-9 flex items-center justify-center shrink-0'
             type='button'
           >
             <Icon svgPath='search-sm' width={36} height={36} />

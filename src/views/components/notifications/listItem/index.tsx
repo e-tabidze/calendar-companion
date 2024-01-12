@@ -15,7 +15,7 @@ const ListItem: React.FC<Props> = ({ url, notification }) => {
       <li>
         <div className='py-4 flex items-center justify-between border-t-1 border-raisin-10 relative'>
           {notification?.read_at === null && (
-            <span className='w-2 h-2 rounded-full bg-orange-100 absolute left-[-17px] top-8'></span>
+            <span className='w-2 h-2 rounded-full bg-orange-100 hover:bg-orange-110 transition-all absolute left-[-17px] top-8'></span>
           )}
 
           <div className='flex'>

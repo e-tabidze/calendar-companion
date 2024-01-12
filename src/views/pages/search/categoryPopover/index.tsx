@@ -53,7 +53,7 @@ const CategoryPopover: React.FC<Props> = ({ control, appendCategory, handleSubmi
         />
         <DefaultButton
           text='შენახვა'
-          bg='bg-orange-100'
+          bg='bg-orange-100 hover:bg-orange-110 transition-all'
           textColor='text-white'
           type='button'
           onClick={() => {
