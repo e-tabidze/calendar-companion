@@ -41,7 +41,7 @@ export const CategoryCardSlider = {
     spaceBetween: 8,
     slidesOffsetBefore: 16,
     slidesOffsetAfter: 16,
-    cssMode:false
+    cssMode:true
   },
   480: {
     slidesPerView: 3,
@@ -49,7 +49,7 @@ export const CategoryCardSlider = {
     spaceBetween: 8,
     slidesOffsetBefore: 16,
     slidesOffsetAfter: 16,
-    cssMode:false
+    cssMode:true
   },
   640: {
     slidesPerView: 4,
@@ -57,7 +57,7 @@ export const CategoryCardSlider = {
     spaceBetween: 8,
     slidesOffsetBefore: 16,
     slidesOffsetAfter: 16,
-    cssMode:false
+    cssMode:true
   },
   768: {
     slidesPerView: 4,
@@ -65,7 +65,7 @@ export const CategoryCardSlider = {
     spaceBetween: 8,
     slidesOffsetBefore: 0,
     slidesOffsetAfter: 0,
-    cssMode:false
+    cssMode:true
   },
   1024: {
     slidesPerView: 5,

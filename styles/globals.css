@@ -89,13 +89,27 @@
 .main-swiper.swiper {
   overflow: visible !important;
 }
-.main-swiper .swiper-slide {
-  opacity: 0.2;
-  pointer-events: none;
+@media(max-width: 1023px) {
+  .main-swiper.swiper-css-mode > .swiper-wrapper {
+    scroll-snap-type: none !important;
+  }
+  .main-swiper .swiper-slide:first-child {
+    margin-left: 16px;
+  }
+  .main-swiper .swiper-slide:last-child {
+    margin-right: 16px;
+  }
 }
-.main-swiper .swiper-slide-visible {
-  opacity: 1;
-  pointer-events: visible;
+@media(min-width: 768px) {
+  .main-swiper .swiper-slide {
+    opacity: 0.2;
+    pointer-events: none;
+  }
+
+  .main-swiper .swiper-slide-visible {
+    opacity: 1;
+    pointer-events: visible;
+  }
 }
 @media(min-width: 1400px) {
   .main-swiper .swiper-button-prev {
