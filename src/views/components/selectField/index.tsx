@@ -133,7 +133,7 @@ const SelectField: React.FC<Props> = ({
                 onChange(selectedValues)
                 handleChange && handleChange()
               }}
-              className={_.get(errors, name)?.message ? `border border-red-100 rounded-[12px]` : ''}
+              className={`${_.get(errors, name)?.message ? `border border-red-100 rounded-[12px]` : ''}`}
               isMulti={isMulti}
               getOptionLabel={option => labelKey && option[labelKey]}
               getOptionValue={option => valueKey && option[valueKey]}

@@ -67,21 +67,21 @@ const Avatar = () => {
               type='subtitle'
               className='max-w-[120px] inline-block overflow-hidden text-ellipsis whitespace-nowrap ml-2'
             >
-              {!!activeCompany ? activeCompany?.information?.name : userInfo?.information?.first_name}
+              {!!activeCompany
+                ? activeCompany?.information?.name
+                : userInfo?.information?.first_name || userInfo?.FirstName}
             </Typography>
             <Icon svgPath='chevron' width={8} height={6} className='fill-transparent flex ml-2 transition-all' />
           </AvatarResponsiveContainer>
         </AvatarContainer>
         <AvatarInnerContainer className='flex lg:hidden w-10 h-10 ml-2'>
           <Image
-              onError={(ev: any) => {
-                ev.target.src = `/icons/avatar.svg`
-              }}
-              src={
-                !!activeCompany ? activeCompany.information.logo : userInfo?.information?.profile_pic || defaultImgUrl
-              }
-              className='object-cover w-full h-full'
-              alt='avatar'
+            onError={(ev: any) => {
+              ev.target.src = `/icons/avatar.svg`
+            }}
+            src={!!activeCompany ? activeCompany.information.logo : userInfo?.information?.profile_pic || defaultImgUrl}
+            className='object-cover w-full h-full'
+            alt='avatar'
           />
         </AvatarInnerContainer>
       </Menu.Button>
@@ -150,7 +150,8 @@ const Avatar = () => {
                         </span>
                         <div className='flex flex-col'>
                           <span className='text-2sm overflow-hidden text-ellipsis whitespace-nowrap max-w-[140px] inline-block'>
-                            {userInfo?.information?.first_name} {userInfo?.information?.last_name}
+                            {userInfo?.information?.first_name || userInfo?.FirstName}{' '}
+                            {userInfo?.information?.last_name || userInfo?.LastName}
                           </span>
                           <span className='flex text-sm text-raisin-80'>ID: {userInfo?.UserID} </span>
                         </div>

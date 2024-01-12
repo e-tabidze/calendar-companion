@@ -149,7 +149,7 @@ const BurgerMenu: React.FC<Props> = ({ open, setOpen }) => {
                               </span>
                               <div className='flex flex-col'>
                                 <span className='text-2sm overflow-hidden text-ellipsis whitespace-nowrap max-w-[140px] inline-block'>
-                                  {userInfo?.information?.first_name} {userInfo?.information?.last_name}
+                                  {userInfo?.information?.first_name || userInfo?.FirstName} {userInfo?.information?.last_name || userInfo?.FirstName}
                                 </span>
                                 <span className='flex text-sm text-raisin-80'>ID: {userInfo?.UserID} </span>
                               </div>

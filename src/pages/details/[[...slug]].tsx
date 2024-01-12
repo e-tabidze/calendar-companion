@@ -124,7 +124,7 @@ const ProductDetails = memo(() => {
         top: sectionToScroll.offsetTop - 180,
         behavior: 'smooth'
       })
-    setActiveNavItem(id)
+    // setActiveNavItem(id)
   }
 
   const toggleDrawer = () => setIsOpenDrawer(!isOpenDrawer)
@@ -180,6 +180,7 @@ const ProductDetails = memo(() => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <DefaultLayout>
+        
         {/* <ContentContainer>
           <DetailsPageHeader />
         </ContentContainer> */}
