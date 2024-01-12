@@ -22,7 +22,7 @@ const  ActionCard = ({ title, body, actioBtnLabel, actonBtnClick, image }: Props
         <Typography type='body' color='light' className='mt-7 mb-5 text-center'>
           {body}
         </Typography>
-        <DefaultButton bg='bg-orange-100' text={actioBtnLabel} onClick={actonBtnClick} textColor="text-white" />
+        <DefaultButton bg='bg-orange-100 hover:bg-orange-110 transition-all' text={actioBtnLabel} onClick={actonBtnClick} textColor="text-white" />
         <Image src={image} className='w-full' alt='img'/>
       </div>
     </div>

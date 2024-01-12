@@ -27,7 +27,7 @@ const ProfileInfoForm: React.FC<Props> = ({ control, errors }) => {
           name='gender'
           control={control}
           render={({ field }) => (
-            <Radio options={options} control={control} color='bg-orange-100' name={field.name} horizontal />
+            <Radio options={options} control={control} color='bg-orange-100 hover:bg-orange-110 transition-all' name={field.name} horizontal />
           )}
         />
         <div></div>
