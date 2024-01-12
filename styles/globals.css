@@ -433,9 +433,9 @@ padding-bottom:8px;
   fill: var(--Green-Green-100, #549684);
   fill: var(--Green-Green-100, #549684) !important;
  }
-.option-field-size .css-1nmdiq5-menu {
-  
-}
+ .shadow-buttonContainer {
+  box-shadow: 0px -4px 18px 0px rgba(0,0,0,.05);
+ }
 .manufacturer_options {
   background-color:red !important;
 }
