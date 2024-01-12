@@ -78,7 +78,7 @@ const Pagination: React.FC<Props> = ({ totalPages, onPageChange, currentPage }) 
         className={`md:hidden bg-raisin-10 h-8 px-2 rounded-lg ${
           currentPage === totalPages ? 'opacity-50 cursor-not-allowed' : ''
         }`}
-        onClick={handlePreviousPage}
+        onClick={handleNextPage}
         type='button'
       />
       <DefaultButton
