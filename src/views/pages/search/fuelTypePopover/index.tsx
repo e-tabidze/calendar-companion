@@ -43,7 +43,7 @@ const FuelTypePopover: React.FC<Props> = ({ control, appendFuelType, reset, hand
           />
         )}
       </TagsWrapper>
-      <ActionsWrapper className='sticky bottom-0 bg-white p-5 shadow-buttonContainer'>
+      <ActionsWrapper className='sticky bottom-0 bg-white p-5'>
         <IconTextButton
           icon='rotate'
           label='გასუფთავება'

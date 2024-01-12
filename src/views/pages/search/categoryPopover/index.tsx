@@ -22,15 +22,16 @@ const CategoryPopover: React.FC<Props> = ({ control, appendCategory, handleSubmi
       maxWidth='max-w-md'
       className={`${formState?.category?.length ? 'border border-raisin-100' : 'hover:border hover:border-raisin-30'}`}
     >
-      <div className='px-5'>
+      <div className=''>
       <CheckboxField
         options={categoriesFilter}
         name='category'
         control={control}
         append={appendCategory}
-        width='50'
-        height='45'
-        className='py-4 m-5'
+        width='48'
+        height='40'
+        className='py-4 p-5'
+        categoryCheckbox
         divider
       />
       </div>

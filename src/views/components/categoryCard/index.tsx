@@ -41,9 +41,9 @@ const CategoryCard: React.FC<Props> = ({ border, name, control, options, append,
                   }
                 }}
                 key={option.id}
-                className={`flex flex-col items-center justify-center cursor-pointer w-28 h-28 sm:w-36 sm:h-36 hover:border-raisin-30 ${
+                className={`flex flex-col items-center justify-center cursor-pointer w-28 h-28 sm:w-36 sm:h-36 ${
                   border && 'border border-gray-20 rounded-2xl'
-                } ${selectedOptions.includes(option.id) ? 'border-2 border-green-100 bg-green-100/10 hover:border-green-100' : ''} `}
+                } ${selectedOptions.includes(option.id) ? 'border-2 border-green-100 bg-green-100/10' : 'hover:bg-black/10 border-2 hover:border-black'} `}
               >
                 <Icon
                   svgPath={option.icon}
