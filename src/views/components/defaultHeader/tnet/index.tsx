@@ -8,7 +8,7 @@ const Tnet = () => {
         <Menu as='div' className='relative text-left'>
             {({ open }) => (
             <>
-                <Menu.Button className={`${open ? 'border-[#3c74ff]':''} bg-transparent border-raisin-10 hover:border-[#3c74ff] relative rounded-full border w-10 h-10 flex items-center justify-center ml-2 lg:ml-4 transition-all`}>
+                <Menu.Button className={`${open ? 'border-[#3c74ff]':'border-raisin-10 '} bg-transparent hover:border-[#3c74ff] relative rounded-full border w-10 h-10 flex items-center justify-center ml-2 lg:ml-4 transition-all`}>
                     <Image src='/icons/tnet/tnet.svg' alt='img'/>
                 </Menu.Button>
                 <Transition
