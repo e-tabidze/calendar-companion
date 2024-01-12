@@ -66,8 +66,8 @@ const useBooking = (id: number | string | string[]) => {
 
   useEffect(() => {
     if (!!userInfo) {
-      setValue('first_name', userInfo?.UserID === userInfo?.active_profile_id ? userInfo?.information?.first_name : '')
-      setValue('last_name', userInfo?.UserID === userInfo?.active_profile_id ? userInfo?.information?.last_name : '')
+      setValue('first_name', userInfo?.UserID === userInfo?.active_profile_id ? userInfo?.information?.first_name || userInfo?.FirstName : '')
+      setValue('last_name', userInfo?.UserID === userInfo?.active_profile_id ? userInfo?.information?.last_name || userInfo?.LastName : '')
       setValue(
         'identification_number',
         userInfo?.UserID === userInfo?.active_profile_id ? userInfo?.information?.identification_number : ''

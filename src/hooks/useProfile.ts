@@ -80,6 +80,8 @@ const useProfile = () => {
 
   const defaultImgUrl = `https://static.my.ge/users/profile/${userInfo?.UserID}.jpg?v=${Math.random()}`
 
+  console.log(userInfo, 'userInfo')
+
   return {
     router,
     userInfo,
