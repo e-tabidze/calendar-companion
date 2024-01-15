@@ -153,7 +153,7 @@ const PersonalInfo: React.FC<Props> = ({ userData }) => {
                     type='button'
                     color='dark'
                     weight='medium'
-                    className={`${selected ? 'border-b-2 border-b-orange-100' : 'border-none'} pb-[10px]`}
+                    className={`${selected ? 'border-b-2 border-b-orange-100' : 'border-none'} pb-2`}
                   >
                     {category.title}
                   </Typography>
