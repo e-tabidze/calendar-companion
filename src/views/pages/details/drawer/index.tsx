@@ -15,6 +15,7 @@ interface Props {
   onClick: () => void
   className?: string
   services?: any
+  handleDateChange?: () => void
 }
 
 const Drawer: React.FC<Props> = ({
@@ -25,7 +26,8 @@ const Drawer: React.FC<Props> = ({
   days,
   onClick,
   className,
-  services
+  services,
+  handleDateChange
 }) => {
   const { userInfo } = useProfile()
 
@@ -41,7 +43,7 @@ const Drawer: React.FC<Props> = ({
       </div>
 
       <div className='flex gap-3 items-center mb-4'>
-        <div className='flex gap-2'>
+        <div className='flex gap-1'>
           <Typography type='body' className='text-2sm'>
             {dates}
           </Typography>
@@ -49,7 +51,9 @@ const Drawer: React.FC<Props> = ({
             | {days} days
           </Typography>
         </div>
-        <button className='border border-raisin-100 rounded-xl p-1 text-sm'>შეცვლა</button>
+        <button className='border border-raisin-100 rounded-xl p-1 text-sm' onClick={handleDateChange}>
+          შეცვლა
+        </button>
       </div>
       <Divider />
       <Typography type='h5' weight='medium' className='mt-8 mb-5 font-bold'>
@@ -71,7 +75,7 @@ const Drawer: React.FC<Props> = ({
       </div>
 
       {services?.map((service: any) => (
-        <div className='flex gap-2 flex-col justify-between py-2 lg:items-center lg:flex-row' key={service.id}>
+        <div className='flex gap-2 justify-between py-2 lg:items-center lg:flex-row' key={service.id}>
           <div className='flex gap-2'>
             <Typography type='body' className='text-raisin-100'>
               {service?.title}
@@ -93,16 +97,26 @@ const Drawer: React.FC<Props> = ({
           ჯამი
         </Typography>
         <Typography type='h5' weight='normal' className='text-orange-100'>
-          {services?.reduce((accumulator: number, service: { type_id: number; count: number; price: number }) => {
-            if (service.type_id === 1) {
-              accumulator += service.count * service.price * days!
-            } else {
-              accumulator += service.count * service.price
-            }
-            
-            return accumulator
-          }, 0) +
-            price * days!}
+          {days && (
+            <Typography type='h5' weight='normal' className='font-bold'>
+              {days * price +
+                (services
+                  ? services.reduce(
+                      (accumulator: number, service: { type_id: number; count: number; price: number }) => {
+                        if (service.type_id === 1) {
+                          accumulator += service.count * service.price * days
+                        } else {
+                          accumulator += service.count * service.price
+                        }
+
+                        return accumulator
+                      },
+                      0
+                    )
+                  : 0)}{' '}
+              ₾
+            </Typography>
+          )}
         </Typography>
       </div>
       {userInfo?.active_profile_id ? (

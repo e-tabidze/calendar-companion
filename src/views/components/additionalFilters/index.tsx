@@ -122,11 +122,12 @@ const AdditionalFilters: React.FC<Props> = ({
                   <Dialog.Title as='h3' className='text-2md text-base-100 leading-6'>
                     დამატებითი ფილტრები
                   </Dialog.Title>
-                  <button onClick={toggleModal} className='relative flex w-10 h-10 items-center justify-center rounded-full before:content-[""] before:absolute before:top-0 before:left-0 before:w-full before:h-full before:rounded-full before:bg-[#D8D8D8]/40 hover:before:scale-110 before:transition before:duration-300 before:ease-in-out cursor-pointer'>
-                    <Icon svgPath='close-sm' height={16} width={16} className='z-[1] relative'
-                         />
+                  <button
+                    onClick={toggleModal}
+                    className='relative flex w-10 h-10 items-center justify-center rounded-full before:content-[""] before:absolute before:top-0 before:left-0 before:w-full before:h-full before:rounded-full before:bg-[#D8D8D8]/40 hover:before:scale-110 before:transition before:duration-300 before:ease-in-out cursor-pointer'
+                  >
+                    <Icon svgPath='close-sm' height={16} width={16} className='z-[1] relative' />
                   </button>
-
                 </div>
                 <div className='overflow-auto h-[60vh] px-4 py-5 sm:py-6 sm:px-10 w-max-full'>
                   <Typography type='body' color='dark'>
