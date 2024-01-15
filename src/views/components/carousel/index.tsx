@@ -121,7 +121,7 @@ const Carousel = ({ itemsArray, type, onClick, thumbs = false }: Props) => {
       >
         {data?.map((item, index) => (
 
-          <SwiperSlide key={index} onClick={onClick} className='relative'>
+          <SwiperSlide key={index} onClick={onClick} className={`relative ${type === 'productDetails' ? 'cursor-pointer':''}`}>
             {item}
             {/* additional images overlay */}
             {type === 'card' &&
@@ -177,7 +177,7 @@ const Carousel = ({ itemsArray, type, onClick, thumbs = false }: Props) => {
           className='gallery-thumbs mt-6 md:!flex !hidden'
         >
           {itemsArray.map((item, index) => (
-            <SwiperSlide key={index} className={`${type === 'productDetails' && 'h-full'}`}>
+            <SwiperSlide key={index} className={`cursor-pointer ${type === 'productDetails' && 'h-full'}`}>
               {item}
             </SwiperSlide>
           ))}
