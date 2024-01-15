@@ -34,7 +34,7 @@ const Delivery: React.FC<Props> = ({ control, toggleEditModal, errors }) => {
         <div className='lg:w-8/12 pl-9 lg:pl-0 mb-3 lg:mb-0'>
           <DefaultInput className='detail-input-placeholder' name='start_address' control={control} label='შეიყვანე მისამართი' />
         </div>
-        <div className='lg:w-2/12 flex items-center pl-9 lg:pl-4'>
+        <div className='lg:w-2/12 flex items-center pl-9 lg:pl-4 flex-wrap'>
           <span className='flex lg:hidden text-sm text-black/60 mr-3'>
             {formState.booking.book_from &&
               format(new Date(String(formState.booking.book_from)), 'd MMM yyyy', { locale: ka })}
