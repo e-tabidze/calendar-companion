@@ -99,12 +99,11 @@ const Tag: React.FC<Props> = ({
         />
       ) : (
         <div
-          className={`flex items-center gap-3 w-max ${height} 
-          } px-4 cursor-pointer rounded-xl border border-raisin-10 hover:border-raisin-100 transition-all ${className}`}
+          className={`flex items-center gap-3 w-max ${height} px-4 cursor-pointer rounded-xl border border-raisin-10 hover:border-raisin-100 transition-all ${className}`}
           onClick={handleClick}
         >
           {component}
-          <Typography type='body' className={`w-max `}>
+          <Typography type='body' className={`w-max`}>
             {label}
           </Typography>
         </div>
