@@ -4,6 +4,7 @@ import ListItem from 'src/views/components/notifications/listItem'
 import Details from 'src/views/components/notifications/details'
 import { useEffect } from 'react'
 import Typography from 'src/views/components/typography'
+import DataPlaceHolder from 'src/views/components/dataPlaceholder'
 
 const Notifications = () => {
   const { notifictions, refetchNotifications } = useNotifications()
@@ -25,13 +26,17 @@ const Notifications = () => {
             შეტყობინებები
           </Typography>
           <ul>
-            {notifictions?.map((notification: any) => (
-              <ListItem
-                url={`/profile/notifications/?id=${notification?.id}&company=${notification?.data?.company_id}`}
-                notification={notification}
-                key={notification?.id}
-              />
-            ))}
+            {notifictions?.length > 0 ? (
+              notifictions?.map((notification: any) => (
+                <ListItem
+                  url={`/profile/notifications/?id=${notification?.id}&company=${notification?.data?.company_id}`}
+                  notification={notification}
+                  key={notification?.id}
+                />
+              ))
+            ) : (
+              <DataPlaceHolder label='შეტყობინებები ჯერ არ გაქვს' />
+            )}
           </ul>
         </div>
       )}

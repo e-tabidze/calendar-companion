@@ -14,7 +14,6 @@ interface Props {
 }
 
 const FileUpload: React.FC<Props> = ({ title, description, onChange, handleDelete, value, isLoading }) => {
-
   return (
     <div className='flex items-center gap-8'>
       <div className='w-[76px] h-[76px] md:w-24 md:h-24 border-2 border-dashed border-green-100 rounded-3xl relative flex shrink-0 items-center justify-center overflow-hidden bg-green-10 transition-all hover:border-2'>
@@ -39,7 +38,7 @@ const FileUpload: React.FC<Props> = ({ title, description, onChange, handleDelet
         ) : (
           <label className='w-full h-full flex items-center justify-center cursor-pointer'>
             <Icon svgPath='fileUpload' width={27} height={26} className='fill-transparent' />
-            <input type='file' className='sr-only' onChange={onChange} value={value} />
+            <input type='file' className='sr-only' onChange={onChange} value={value} accept='image/*' />
           </label>
         )}
       </div>

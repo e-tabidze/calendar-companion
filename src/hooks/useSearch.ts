@@ -51,7 +51,7 @@ const useSearch = () => {
     year_from: params?.year_from || '',
     year_to: params?.year_to || '',
     sort_by: params?.sort_by || 'id',
-    order_by: params.order_by || 'asc',
+    order_by: params.order_by || 'desc',
     booking: {
       book_from: params?.book_from || '',
       book_to: params?.book_to || ''
@@ -80,7 +80,7 @@ const useSearch = () => {
       setValue('year_from', Number(params?.year_from) || '')
       setValue('year_to', Number(params?.year_to) || '')
       setValue('sort_by', params?.sort_by || 'id')
-      setValue('order_by', params?.order_by || 'asc')
+      setValue('order_by', params?.order_by || 'desc')
       setValue('booking.book_from', params?.book_from || '')
       setValue('booking.book_to', params?.book_to || '')
       searchProductsMutation.mutate(objectToURI(searchDefaultValues))
