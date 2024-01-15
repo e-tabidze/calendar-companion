@@ -78,9 +78,8 @@ const useProfile = () => {
   const activeCompanyId = usePersonalInfo?.data?.result?.data?.active_profile?.id
   const userId = usePersonalInfo.data?.result?.data?.UserID
 
-  const defaultImgUrl = `https://static.my.ge/users/profile/${userInfo?.UserID}.jpg?v=${Math.random()}`
 
-  console.log(userInfo, 'userInfo')
+  const defaultImgUrl = `https://static.my.ge/users/profile/${userInfo?.UserID}.jpg?v=${Math.random()}`
 
   return {
     router,

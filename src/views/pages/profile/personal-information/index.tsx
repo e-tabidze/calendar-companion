@@ -34,7 +34,7 @@ interface Props {
 
 const PersonalInfo: React.FC<Props> = ({ userData }) => {
   const [activeTab, setActiveTab] = useState<number>(0)
-  const { defaultImgUrl } = useProfile()
+  const { defaultImgUrl, userInfo } = useProfile()
   const {
     userInfoControl,
     passwordControl,
@@ -115,12 +115,21 @@ const PersonalInfo: React.FC<Props> = ({ userData }) => {
         </Typography>
         <div className='border border-raisin-10 p-4 md:border-none md:p-0 rounded-2xl flex items-center gap-6 md:mt-8 '>
           <div className='w-12 h-12 md:w-24 md:h-24 rounded-full overflow-hidden'>
-            <Image src={defaultImgUrl} height='100%' width='100%' alt='' className='w-full h-full object-cover' />
+            <Image
+              src={userInfo?.information?.profile_pic || defaultImgUrl}
+              onError={(ev: any) => {
+                ev.target.src = `/icons/avatar.svg`
+              }}
+              height='100%'
+              width='100%'
+              alt=''
+              className='w-full h-full object-cover'
+            />
           </div>
 
           <div className='flex flex-col md:gap-2'>
             <Typography type='h3' className='text-md md:text-2lg font-medium md:font-bold'>
-              {userData?.information?.first_name} {userData?.information?.last_name}
+              {userData?.information?.first_name || userData?.FirstName} {userData?.information?.last_name || userData?.LastName}
             </Typography>
 
             <Controller
@@ -145,7 +154,7 @@ const PersonalInfo: React.FC<Props> = ({ userData }) => {
         </div>
 
         <Tab.Group onChange={index => setActiveTab(index)}>
-          <Tab.List className='flex space-x-4 gap-6 pb-2 border-b border-raisin-10 mt-10'>
+          <Tab.List className='flex space-x-4 gap-6 pb-[10px] border-b border-raisin-10 mt-10'>
             {cat.map((category, key: number) => (
               <Tab key={key} className='focus:outline-none'>
                 {({ selected }) => (
@@ -172,7 +181,12 @@ const PersonalInfo: React.FC<Props> = ({ userData }) => {
       </div>
       <Divider className='hidden md:block' />
       <div className='flex items-center justify-end md:justify-start gap-3 p-2 md:p-4'>
-        <DefaultButton type='submit' text='შენახვა' textColor='text-white' bg='bg-orange-100 hover:bg-orange-110 transition-all'></DefaultButton>
+        <DefaultButton
+          type='submit'
+          text='შენახვა'
+          textColor='text-white'
+          bg='bg-orange-100 hover:bg-orange-110 transition-all'
+        ></DefaultButton>
         <DefaultButton text='უარყოფა' bg='bg-grey-100 hover:bg-raisin-10 transition-all' type='reset'></DefaultButton>
       </div>
     </form>
