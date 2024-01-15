@@ -25,7 +25,7 @@ const LessorInformationCard: React.FC<Props> = ({ id, lessor, description, count
 
       <div className='flex gap-20 my-6 items-center'>
         <div className='flex items-center gap-4'>
-            <div className="flex h-14 w-14 shrink-0 rounded-xl overflow-hidden">
+            <div className="flex h-16 w-16 shrink-0 rounded-xl overflow-hidden">
                 <Image src='/images/avatar.png' alt='' className='w-full h-full object-cover' />
             </div>
           <div>
