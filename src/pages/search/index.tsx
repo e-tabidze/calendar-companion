@@ -141,7 +141,7 @@ const SearchPage = () => {
               <Tag
                 label='ყველა ფილტრი'
                 className='bg-grey-60'
-                component={<Icon svgPath='filters' width={22} height={20} className='fill-transparent' />}
+                component={<Icon svgPath='filters' width={22} height={20} className='flex fill-transparent' />}
                 height='h-10'
                 handleClick={() => toggleFilters(!filters)}
               />
