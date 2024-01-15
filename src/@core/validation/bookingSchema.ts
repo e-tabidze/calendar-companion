@@ -31,8 +31,9 @@ const BookingSchema = Yup.object<Order>().shape({
   driver_license_expiration: Yup.mixed().nullable().required('აუცილებელი ველი') as Yup.StringSchema<string | null>,
   additional_services: Yup.array(OrderServiceSchema).required('აუცილებელი ველი'),
   supply: Yup.string().required('აუცილებელი ველი'),
-  start_time: Yup.string().required('აუცილებელი ველი'),
-  end_time: Yup.string().required('აუცილებელი ველი'),
+
+  start_time: Yup.string().required('აუცილებელი ველი').typeError('აუცილებელი ველი'),
+  end_time: Yup.string().required('აუცილებელი ველი').typeError('აუცილებელი ველი'),
   start_address: Yup.string().required('აუცილებელი ველი'),
   end_address: Yup.string().required('აუცილებელი ველი')
 })

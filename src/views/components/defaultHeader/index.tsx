@@ -58,6 +58,7 @@ const DefaultHeader = () => {
           {router?.asPath?.startsWith('/search') && <Filters />}
         </div>
         <div className='flex items-center'>
+          
           {/* <LanguagePicker responsive className='md:mx-4' /> */}
           {isAuthenticated && isLoading ? (
             <>Loading... </>

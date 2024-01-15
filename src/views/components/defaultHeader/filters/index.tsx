@@ -31,11 +31,10 @@ const Filters: React.FC<Props> = ({ className }) => {
     setValue,
     objectToURI,
     searchValues,
-    searchProductsMutation,
+    searchProductsMutation
   } = useSearch()
 
   const onClickSearch = async () => {
-    console.log('here?')
     const queryString = objectToURI(searchValues)
     searchProductsMutation.mutate(queryString)
     router.push(`/search?${queryString}`)

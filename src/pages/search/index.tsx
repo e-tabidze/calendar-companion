@@ -84,12 +84,9 @@ const SearchPage = () => {
 
   const onSubmit = () => {
     const updatedSearchValues: any = getValues()
-    console.log(updatedSearchValues, 'updatedSearchValues')
     searchProductsMutation.mutate(objectToURI(updatedSearchValues))
     router.push(`/search?${objectToURI(updatedSearchValues)}`)
   }
-
-  console.log(productsData, 'productsData')
 
   return (
     <>

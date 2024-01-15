@@ -56,7 +56,7 @@ const PeriodDropwodn: React.FC<Props> = ({ control, resetField, setValue }) => {
           <InnerFilterContainer>
             <Typography type='body' className='whitespace-nowrap'>
               {startDate && endDate && book_from && book_to
-                ? `${format(startDate, 'd MMM yyyy', { locale: ka })} - ${format(endDate, 'd MMM yyyy', {
+                ? `${format(startDate, 'd MMM', { locale: ka })} - ${format(endDate, 'd MMM', {
                     locale: ka
                   })}`
                 : 'დაქირავების პერიოდი'}

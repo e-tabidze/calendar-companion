@@ -41,8 +41,6 @@ const Filters = () => {
     searchProductsMutation
   } = useSearch()
 
-  console.log(searchValues, 'searchValues')
-
   const onClickSearch = async () => {
     const queryString = objectToURI(searchValues)
     searchProductsMutation.mutate(queryString)
