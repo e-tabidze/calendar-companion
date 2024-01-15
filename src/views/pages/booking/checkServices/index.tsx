@@ -43,7 +43,7 @@ const CheckServices: React.FC<Props> = ({ control, options }) => {
                         service.is_selected ? 'border-green-100 bg-green-100' : 'border-raisin-10'
                       }`}
                     >
-                      <Icon svgPath='check' height={10} width={14} className='fill-transparent' />
+                      <Icon svgPath='check' height={11} width={9} className='fill-white' />
                     </span>
                     <input type='checkbox' value={value} className='absolute opacity-0 w-0 h-0' onChange={onChange} />
                     <div className='flex flex-col md:flex-row md:items-center md:gap-4'>

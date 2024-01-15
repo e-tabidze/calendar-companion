@@ -299,7 +299,7 @@
     justify-content: space-around;
   }
   .css-b62m3t-container {
-    width:140px;
+    min-width:140px;
   } 
 }
 
@@ -412,12 +412,22 @@ padding-bottom:8px;
   height:48px;
   border-radius:12px;
  }
+ .group-color .error-border .css-g3equt-control {
+  border:none;
+ }
+ .group-color .error-border .css-1f6quk8-control {
+  border:none;
+ }
+ .group-color .error-border .css-r067w9-control {
+  border:none;
+ }
  .group-color .css-1f6quk8-control {
   background:transparent;
   border: 1px solid var(--Green-Green-100, #549684);
   height:48px;
   border-radius:12px;
  }
+ 
  .group-color .css-r067w9-control {
    background:transparent;
    border: 1px solid var(--Green-Green-100, #549684);

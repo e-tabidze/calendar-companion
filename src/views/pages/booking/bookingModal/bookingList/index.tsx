@@ -51,7 +51,7 @@ const BookingList: React.FC<Props> = ({ addresses, control }) => {
                                 <RadioGroup.Label className='flex items-center' style={{ margin: '0px' }}>
                                   <Circle checked={value === address.address}>
                                     {value === address.address && (
-                                      <Icon svgPath='check' width={14} height={10} className='fill-transparent' />
+                                      <Icon svgPath='check' width={11} height={10} className='fill-white' />
                                     )}
                                   </Circle>
                                   <Typography type='subtitle' className='text-sm ml-3'>
@@ -99,7 +99,7 @@ const BookingList: React.FC<Props> = ({ addresses, control }) => {
                             <RadioGroup.Label className='flex items-center' style={{ margin: '0px' }}>
                               <Circle checked={value === address.address}>
                                 {value === address.address && (
-                                  <Icon svgPath='check' width={14} height={10} className='fill-transparent' />
+                                  <Icon svgPath='check' width={11} height={9} className='fill-white' />
                                 )}
                               </Circle>
                               <Typography type='subtitle' className='ml-3'>

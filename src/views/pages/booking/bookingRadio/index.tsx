@@ -46,9 +46,9 @@ const BookingRadio: React.FC<Props> = ({ options, control, color, horizontal, na
                   <div className='flex justify-between items-center'>
                     <RadioGroup.Label className='flex items-center' style={{ margin: '0px' }}>
                       <Circle checked={checked}>
-                        {checked &&        <Icon svgPath='check' width={11} height={8} className='fill-white'/>}
+                        {checked &&        <Icon svgPath='check' width={11} height={9} className='fill-white'/>}
                       </Circle>
-                      <span className='text-2sm md:md ml-5'>{option.label}</span>
+                      <span className='text-2sm md:md ml-4'>{option.label}</span>
                     </RadioGroup.Label>
 
                     {/* {option.info && (

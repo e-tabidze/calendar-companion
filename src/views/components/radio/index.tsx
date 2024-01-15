@@ -52,7 +52,7 @@ const Radio: React.FC<Props> = ({ name, options, control, color, horizontal }) =
                   } 
                `} style={{ margin: '0px' }}>
                     <Circle checked={checked}>
-                      {checked &&  <Icon svgPath='check' width={11} height={8} className='fill-white'/>}
+                      {checked &&  <Icon svgPath='check' width={11} height={9} className='fill-white'/>}
                     </Circle>
                     <span className='text-sm md:text-2sm'>{option.label}</span>
                   </RadioGroup.Label>
