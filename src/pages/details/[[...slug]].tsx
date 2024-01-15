@@ -299,7 +299,7 @@ const ProductDetails = memo(() => {
                       </Typography>
                     )}
                   </div>
-                  <div className='hidden lg:flex gap-4 cursor-pointer '>
+                  <div className='hidden lg:flex gap-4 cursor-pointer transition-all'>
                     <Icon svgPath='rotate' width={20} height={22} className='fill-transparent' />
                     <Typography
                       type='body'
@@ -430,36 +430,40 @@ const ProductDetails = memo(() => {
             description={singleProductDetails?.company_user?.company?.information?.description}
             count={singleProductDetails?.company_user?.company?.count_company_poduct}
           />
-          <Divider className='my-10 md:my-20' />
         </ContentContainer>
-        <div className='overflow-hidden'>
-          <ContentContainer>
-            {similarProducts?.length > 1 && (
-              <>
-                <Typography type='h3' className='text-3md md:text-2lg mb-8'>
-                  მსგავსი შეთავაზებები
-                </Typography>
-                <Carousel
-                  itemsArray={similarProducts?.map((product: any) => (
-                    <ProductCard
-                      key={product?.id}
-                      productId={product?.id}
-                      manufacturer={product?.manufacturer?.title}
-                      model={product?.manufacturer_model?.title}
-                      prodYear={product?.prod_year}
-                      priceGel={product?.price_gel}
-                      luggageNumbers={product?.luggage_numbers}
-                      seats={product?.seat_type?.title}
-                      images={product?.images?.split(',')}
-                      city={product?.start_city}
+        {similarProducts?.length > 1 && (
+            <>
+              <ContentContainer>
+                <Divider className='my-10 md:my-20' />
+              </ContentContainer>
+              <div className='overflow-hidden'>
+                <ContentContainer>
+                  <>
+                    <Typography type='h3' className='text-3md md:text-2lg mb-8'>
+                      მსგავსი შეთავაზებები
+                    </Typography>
+                    <Carousel
+                        itemsArray={similarProducts?.map((product: any) => (
+                            <ProductCard
+                                key={product?.id}
+                                productId={product?.id}
+                                manufacturer={product?.manufacturer?.title}
+                                model={product?.manufacturer_model?.title}
+                                prodYear={product?.prod_year}
+                                priceGel={product?.price_gel}
+                                luggageNumbers={product?.luggage_numbers}
+                                seats={product?.seat_type?.title}
+                                images={product?.images?.split(',')}
+                                city={product?.start_city}
+                            />
+                        ))}
+                        type='products'
                     />
-                  ))}
-                  type='products'
-                />
-              </>
-            )}
-          </ContentContainer>
-        </div>
+                  </>
+                </ContentContainer>
+              </div>
+            </>
+        )}
         {isOpenDrawer && width < 779 ? (
           <Drawer
             isOpenDrawer={isOpenDrawer}

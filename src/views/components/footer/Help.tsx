@@ -23,7 +23,7 @@ const Help = () => {
             <ul className={`${active ? 'block':'hidden'} lg:block mt-4 lg:mt-6`}>
                 <li className="mb-2"><a
                     className="font-normal text-raisin-70 hover:text-raisin-100 transition-all text-sm lg:text-2sm hover:underline"
-                    href="https://www.myauto.ge/ka/help" target="_blank">ხშირად დასმული კითხვები</a></li>
+                    href="https://www.myauto.ge/ka/help" target="_blank" rel="noreferrer">ხშირად დასმული კითხვები</a></li>
                 <li className="mb-2"><a
                     className="font-normal text-raisin-70 hover:text-raisin-100 transition-all text-sm lg:text-2sm hover:underline"
                     href="tel:+995 32 280 00 45">+995 32 280 00 45</a></li>

@@ -66,7 +66,7 @@ const LocationModal: React.FC<Props> = ({ open, toggleModal, control }) => {
                 />
                 <div className='w-full flex justify-between items-center px-4 py-5 sm:py-6 sm:px-10 border-b-1 border-grey-90'>
                   <Dialog.Title as='h3' className='w-full flex items-center justify-between'>
-                    ადგილმდებარეობა
+                    მდებარეობა
                     <Icon svgPath='close' onClick={toggleModal} height={40} width={40} className='cursor-pointer' />
                   </Dialog.Title>
                 </div>

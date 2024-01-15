@@ -42,14 +42,17 @@ const Radio: React.FC<Props> = ({ name, options, control, color, horizontal }) =
                   //   ${checked ? 'border border-orange-100 py-4 px-4 w-full rounded-xl' : ''}
                   //   ${horizontal && 'border border-raisin-10 py-4 w-full px-4 rounded-xl'}
                   //  `}
-                  className={`'flex justify-between items-center w-full rounded-xl border p-4 ${
-                    checked ? ' border-orange-100' : 'border-raisin-10'
+                  className={`'flex justify-between items-center transition-all w-full rounded-xl border p-4 ${
+                    checked ? ' border-orange-100' : 'border-raisin-10 hover:border-raisin-100 cursor-pointer'
                   } 
                `}
                 >
-                  <RadioGroup.Label className='flex gap-4 items-center' style={{ margin: '0px' }}>
+                  <RadioGroup.Label className= {`flex gap-4 items-center ${
+                    checked ? ' cursor-default' : 'cursor-pointer'
+                  } 
+               `} style={{ margin: '0px' }}>
                     <Circle checked={checked}>
-                      {checked &&  <Icon svgPath='check' width={14} height={10} className='fill-transparent'/>}
+                      {checked &&  <Icon svgPath='check' width={11} height={8} className='fill-white'/>}
                     </Circle>
                     <span className='text-sm md:text-2sm'>{option.label}</span>
                   </RadioGroup.Label>

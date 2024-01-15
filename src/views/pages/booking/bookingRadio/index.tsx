@@ -39,14 +39,14 @@ const BookingRadio: React.FC<Props> = ({ options, control, color, horizontal, na
             {({ checked }) => (
               <div className='my-3'>
                 <div
-                  className={`rounded-xl border py-5 xl:py-8 xl:pl-10 xl:pr-6 px-4 lg:px-5 cursor-pointer ${
-                    checked ? ' border-green-100 bg-green-10' : 'border-raisin-10'
+                  className={`rounded-xl border transition-all py-5 xl:py-8 xl:pl-10 xl:pr-6 px-4 lg:px-5 cursor-pointer ${
+                    checked ? ' border-green-100 bg-green-10' : 'border-raisin-10 hover:border-raisin-100'
                   }`}
                 >
                   <div className='flex justify-between items-center'>
                     <RadioGroup.Label className='flex items-center' style={{ margin: '0px' }}>
                       <Circle checked={checked}>
-                        {checked &&        <Icon svgPath='check' width={14} height={10} className='fill-transparent'/>}
+                        {checked &&        <Icon svgPath='check' width={11} height={8} className='fill-white'/>}
                       </Circle>
                       <span className='text-2sm md:md ml-5'>{option.label}</span>
                     </RadioGroup.Label>

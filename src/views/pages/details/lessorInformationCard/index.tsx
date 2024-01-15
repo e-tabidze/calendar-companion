@@ -12,7 +12,7 @@ interface Props {
 
 const LessorInformationCard: React.FC<Props> = ({ id, lessor, description, count }) => {
   return (
-    <div className='bg-raisin-5 rounded-3xl pt-12 pl-11 pb-11 pr-20 mt-20' id={id}>
+    <div className='bg-raisin-5 rounded-3xl pt-12 px-6 md:pl-11 pb-11 md:pr-20 mt-20' id={id}>
       <Typography type='h3' className='mb-5 hidden lg:block'>
         ინფორმაცია გამქირავებელზე
       </Typography>
@@ -25,7 +25,9 @@ const LessorInformationCard: React.FC<Props> = ({ id, lessor, description, count
 
       <div className='flex gap-20 my-6 items-center'>
         <div className='flex items-center gap-4'>
-          <Image src='/images/avatar.png' alt='' className='rounded-xl h-14 w-fit' />
+            <div className="flex h-14 w-14 shrink-0 rounded-xl overflow-hidden">
+                <Image src='/images/avatar.png' alt='' className='w-full h-full object-cover' />
+            </div>
           <div>
             <div className='flex items-center gap-3'>
               <Typography type='h5' weight='normal'>

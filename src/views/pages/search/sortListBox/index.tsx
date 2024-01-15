@@ -60,8 +60,9 @@ const SortListBox: React.FC<Props> = ({ control, onClick, setValue }) => {
               updateOrderRef.current = true
             }}
           >
+            {({ open }) => (
             <div className='relative flex text-left ml-2'>
-              <Listbox.Button className='relative flex items-center cursor-pointer rounded-xl bg-white py-2 px-4 text-left border border-raisin-10 text-2sm'>
+              <Listbox.Button className={`${open ? 'bg-grey-100 border-raisin-30':'bg-white'} relative flex items-center cursor-pointer rounded-xl py-2 px-4 text-left border border-raisin-10 hover:bg-grey-100 hover:border-raisin-30 text-2sm hover:border-raisin-100 transition-all`}>
                 <Icon svgPath='sort' width={20} height={12} className='fill-transparent flex shrink-0 mr-3' />
                 <Typography
                   type='subtitle'
@@ -73,7 +74,7 @@ const SortListBox: React.FC<Props> = ({ control, onClick, setValue }) => {
                   svgPath='chevron'
                   width={8}
                   height={6}
-                  className='fill-transparent flex shrink-0 ml-3 transition-all'
+                  className={`${open ? 'rotate-180':''} transition-all fill-transparent flex shrink-0 ml-3 transition-all`}
                 />
               </Listbox.Button>
               <Transition
@@ -97,6 +98,7 @@ const SortListBox: React.FC<Props> = ({ control, onClick, setValue }) => {
                 </Listbox.Options>
               </Transition>
             </div>
+                )}
           </Listbox>
         )}
       />
