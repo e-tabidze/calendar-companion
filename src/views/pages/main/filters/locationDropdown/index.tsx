@@ -44,7 +44,7 @@ const LocationDropdown: React.FC<Props> = ({ control, resetField  }) => {
                                 className="fill-transparent ml-2"
                             />
                         ) : (
-                            <Icon svgPath='chevron' width={10} height={10} className={`fill-transparent ml-2 transition-all ${open ? 'rotate-180': ''}`} />
+                            <Icon svgPath='chevron' width={8} height={6} className={`fill-transparent ml-2 transition-all ${open ? 'rotate-180': ''}`} />
                         )}
                     </InnerFilterContainer>
                   </FilterContainer>

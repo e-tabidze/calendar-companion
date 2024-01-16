@@ -35,7 +35,7 @@ const PeriodMob: React.FC<Props> = ({ control, resetField }) => {
                 ? `${format(new Date(formState?.booking?.book_to), 'd MMM', { locale: ka })}`
                 : ''
             }`
-              : 'თარიღი'}
+              : 'დაქირავების პერიოდი'}
           </Typography>
           {formState?.booking?.book_from || formState?.booking?.book_to ? (
             <Icon

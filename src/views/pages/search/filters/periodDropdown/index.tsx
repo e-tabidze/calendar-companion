@@ -50,76 +50,81 @@ const PeriodDropwodn: React.FC<Props> = ({ control, resetField, setValue }) => {
   }, [book_from, book_to])
 
   return (
-    <Menu as='div' className='flex text-left w-full'>
-      <Menu.Button className='px-3 lg:px-4 inline-flex justify-center rounded-md bg-raisin bg-opacity-20 text-sm font-medium text-white focus-visible:ring-white focus-visible:ring-opacity-75'>
-        <FilterContainer>
-          <InnerFilterContainer>
-            <Typography type='body' className='whitespace-nowrap'>
-              {startDate && endDate && book_from && book_to
-                ? `${format(startDate, 'd MMM', { locale: ka })} - ${format(endDate, 'd MMM', {
-                    locale: ka
-                  })}`
-                : 'დაქირავების პერიოდი'}
-            </Typography>
+    <Menu as='div' className='flex text-left w-full h-full'>
+        {({ open }) => (
+        <>
+            <Menu.Button className='h-full bg-transparent px-3 lg:px-4 inline-flex justify-center items-center rounded-md text-sm font-medium text-white'>
+                <FilterContainer>
+                    <InnerFilterContainer>
+                        <Typography type='body' className='whitespace-nowrap'>
+                            {startDate && endDate && book_from && book_to
+                                ? `${format(startDate, 'd MMM', { locale: ka })} - ${format(endDate, 'd MMM', {
+                                    locale: ka
+                                })}`
+                                : 'დაქირავების პერიოდი'}
+                        </Typography>
 
-            {startDate || endDate ? (
-              <Icon
-                svgPath='clear-xs'
-                width={7}
-                height={7}
-                color='raisin-10'
-                onClick={e => {
-                  setDateRange([null, null])
-                  resetField(), e.stopPropagation()
-                }}
-                className="fill-transparent ml-2"
-              />
-            ) : (
-              <Icon svgPath='chevron' width={10} height={10} className="fill-transparent ml-2" />
-            )}
-          </InnerFilterContainer>
-        </FilterContainer>
-      </Menu.Button>
-      <Transition
-        as={Fragment}
-        enter='transition ease-out duration-100'
-        enterFrom='transform opacity-0 scale-95'
-        enterTo='transform opacity-100 scale-100'
-        leave='transition ease-in duration-75'
-        leaveFrom='transform opacity-100 scale-100'
-        leaveTo='transform opacity-0 scale-95'
-      >
-        <Menu.Items className='absolute w-max left-0 top-full z-[11] p-4 right-0 mt-4 flex justify-center origin-top-right divide-y divide-gray-100 rounded-2xl bg-white shadow-lg focus:outline-none'>
-          <Controller
-            name='booking'
-            control={control}
-            render={({ field: { onChange } }) => (
-              <DatePicker
-                locale="ka"
-                className='text-center border-l-4 border-red-500  w-full p-3 rounded text-sm  outline-none  focus:ring-0 bg-transparent'
-                inline
-                selectsRange={true}
-                startDate={startDate}
-                endDate={endDate}
-                monthsShown={2}
-                onChange={(update: any) => {
-                  if (update) {
-                    const [start, end] = update
-                    onChange({ book_from: formatDate(start), book_to: formatDate(end) })
-                    setDateRange(update)
-                  } else {
-                    onChange(null)
-                    setDateRange([null, null])
-                  }
-                }}
-                dateFormat='yyyy-MM-dd'
-                onChangeRaw={e => e.preventDefault()}
-                minDate={new Date()}
-              />
-            )}
-          />
-        </Menu.Items>
-      </Transition>
+                        {startDate || endDate ? (
+                            <Icon
+                                svgPath='clear-xs'
+                                width={7}
+                                height={7}
+                                color='raisin-10'
+                                onClick={e => {
+                                    setDateRange([null, null])
+                                    resetField(), e.stopPropagation()
+                                }}
+                                className="fill-transparent ml-2"
+                            />
+                        ) : (
+                            <Icon svgPath='chevron' width={8} height={6} className={`${open? 'rotate-180':''} transition-all fill-transparent ml-2`} />
+                        )}
+                    </InnerFilterContainer>
+                </FilterContainer>
+            </Menu.Button>
+            <Transition
+                as={Fragment}
+                enter='transition ease-out duration-100'
+                enterFrom='transform opacity-0 scale-95'
+                enterTo='transform opacity-100 scale-100'
+                leave='transition ease-in duration-75'
+                leaveFrom='transform opacity-100 scale-100'
+                leaveTo='transform opacity-0 scale-95'
+            >
+                <Menu.Items className='absolute w-max left-0 top-full z-[11] p-4 right-0 mt-4 flex justify-center origin-top-right divide-y divide-gray-100 rounded-2xl bg-white shadow-lg focus:outline-none'>
+                    <Controller
+                        name='booking'
+                        control={control}
+                        render={({ field: { onChange } }) => (
+                            <DatePicker
+                                locale="ka"
+                                className='text-center border-l-4 border-red-500  w-full p-3 rounded text-sm  outline-none  focus:ring-0 bg-transparent'
+                                inline
+                                selectsRange={true}
+                                startDate={startDate}
+                                endDate={endDate}
+                                monthsShown={2}
+                                onChange={(update: any) => {
+                                    if (update) {
+                                        const [start, end] = update
+                                        onChange({ book_from: formatDate(start), book_to: formatDate(end) })
+                                        setDateRange(update)
+                                    } else {
+                                        onChange(null)
+                                        setDateRange([null, null])
+                                    }
+                                }}
+                                dateFormat='yyyy-MM-dd'
+                                onChangeRaw={e => e.preventDefault()}
+                                minDate={new Date()}
+                            />
+                        )}
+                    />
+                </Menu.Items>
+            </Transition>
+        </>
+        )}
+
     </Menu>
   )
 }
