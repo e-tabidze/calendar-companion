@@ -140,7 +140,7 @@ const PriceCalcCard: React.FC<Props> = ({
           </Typography>
         </div>
         {changeDates && (
-          <button className='border border-raisin-100 rounded-[8px] px-2 py-1 text-sm' onClick={handleDateChange}>
+          <button className='border border-raisin-100 rounded-[8px] px-2 py-1 text-sm transition-all hover:bg-raisin-5' onClick={handleDateChange}>
             შეცვლა
           </button>
         )}

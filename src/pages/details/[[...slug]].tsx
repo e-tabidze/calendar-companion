@@ -423,6 +423,10 @@ const ProductDetails = memo(() => {
             ფასი მოიცავს
           </Typography>
 
+          <Typography type='h3' className='text-3md md:text-2lg block mb-6 md:hidden'>
+            გამქირავებელი
+          </Typography>
+
           <LessorInformationCard
             id='lessor'
             data-section
