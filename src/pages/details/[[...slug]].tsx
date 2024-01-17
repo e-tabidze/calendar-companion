@@ -419,9 +419,6 @@ const ProductDetails = memo(() => {
             </div>
           </div>
           <div id='priceCard' data-section></div>
-          <Typography type='h3' className='text-3md md:text-2lg block my-6 lg:hidden'>
-            ფასი მოიცავს
-          </Typography>
 
           <Typography type='h3' className='text-3md md:text-2lg block mb-6 md:hidden'>
             გამქირავებელი

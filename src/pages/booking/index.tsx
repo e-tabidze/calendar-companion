@@ -74,8 +74,6 @@ const Booking = () => {
 
   const formState = useWatch({ control })
 
-  console.log(formState, 'formState')
-
   const queryClient = useQueryClient()
 
   const onClickLogo = () => {

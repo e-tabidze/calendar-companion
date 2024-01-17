@@ -51,12 +51,6 @@ const PeriodDropwodn: React.FC<Props> = ({ control, resetField, setValue }) => {
     }
   }, [book_from, book_to])
 
-  {
-    formState.booking.book_from && format(new Date(String(formState.booking.book_from)), 'd MMM yyyy', { locale: ka })
-  }
-
-  ;('დაქირავების პერიოდი')
-
   return (
     <Menu as='div' className='flex text-left w-full h-full'>
       {({ open }) => (
