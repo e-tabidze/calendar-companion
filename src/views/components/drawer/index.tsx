@@ -4,16 +4,16 @@ const DrawerBottom = ({ children, isOpen, title, setIsOpen, onBack, showBack }: 
   return (
     <main
       className={
-        ' fixed bottom-0 overflow-hidden z-[111] bg-gray-900 bg-opacity-25 inset-0 transform ease-in-out ' +
+        ' fixed bottom-0 overflow-hidden z-[1111] bg-gray-900 bg-opacity-25 inset-0 transform ease-in-out ' +
         (isOpen
-          ? ' transition-opacity opacity-100 duration-300 translate-y-0  '
-          : ' transition-all delay-200 opacity-0 translate-y-full  ')
+          ? ' transition-opacity opacity-100 duration-300 translate-y-0'
+          : ' transition-all delay-200 opacity-0 translate-y-full')
       }
     >
       <section
         className={
           'rounded-t-3xl max-h-[80%] overflow-auto w-full absolute rounded-t-large bg-white shadow-xl delay-200 duration-300 ease-in-out transition-all transform  ' +
-          (isOpen ? ' bottom-0 translate-y-0 ' : ' bottom-[75px] translate-y-full ')
+          (isOpen ? 'bottom-0 translate-y-0 ' : 'bottom-[75px] translate-y-full ')
         }
       >
         <header className='sticky w-full top-0 z-[1]  bg-white flex items-center justify-between p-4 font-bold text-3md text-center'>

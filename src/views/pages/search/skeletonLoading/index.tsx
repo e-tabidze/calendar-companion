@@ -1,14 +1,14 @@
 const SkeletonLoading = () => {
   return (
-    <div className='grid sm:grid-cols-2 gap-6 lg:grid-cols-4 2xl:grid-cols-4 sm:gap-4 xl:gap-6'>
+    <div className='flex flex-col gap-4 sm:grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 lg:gap-6'>
       {Array.from({ length: 12 }, (_, index) => (
         <div key={index} className='animate-pulse relative last:border-none'>
-          <div className='flex flex-col px-2 py-4 md:w-full justify-between gap-6 md:px-0 md:py-0 md:flex-row md:items-center'>
-            <div className='flex w-full flex-col border-1 border-raisin-10 rounded-tl-3xl rounded-tr-3xl'>
+          <div className='flex flex-col md:w-full justify-between gap-6 md:px-0 md:py-0 md:flex-row md:items-center'>
+            <div className='flex w-full flex-col rounded-tl-3xl rounded-tr-3xl'>
               <div className='w-full '>
                 <div className='aspect-w-16 aspect-h-9 bg-gray-300 rounded-tl-3xl rounded-tr-3xl  overflow-hidden' />
               </div>
-              <div className='pr-6 md:pr-0 m-5'>
+              <div className='p-6 rounded-bl-3xl rounded-br-3xl border-1 border-raisin-10 border-t-transparent'>
                 <div className='w-30 h-6 bg-gray-300 rounded-md mb-4' />
 
                 {/* ... Other placeholders for user details ... */}

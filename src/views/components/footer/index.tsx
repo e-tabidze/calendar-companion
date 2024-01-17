@@ -8,10 +8,13 @@ import Categories from "src/views/components/footer/Categories";
 
 // import Social from "src/views/components/footer/Social";
 import Rules from "src/views/components/footer/Rules";
+import {useRouter} from "next/router";
 
 const Footer = () => {
+    const router = useRouter()
+
     return (
-        <footer className="rounded-3xl lg:rounded-none bg-white mt-8 pb-20 lg:pb-0 sm:px-5 lg:px-8 2xl:px-0">
+        <footer className={`${router?.asPath?.startsWith('/details')?'pb-[142px]':'pb-20'} rounded-3xl lg:rounded-none bg-white mt-8 lg:pb-0 sm:px-5 lg:px-8 2xl:px-0`}>
                 {/*<div className="px-5 sm:px-0 lg:border-b-[1px] lg:border-raisin-10 pb-8 pt-8 lg:pt-10 lg:pb-14">*/}
                 {/*    <div className="max-w-[1240px] 2xl:max-w-[1470px] mx-auto">*/}
                 {/*        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between">*/}
