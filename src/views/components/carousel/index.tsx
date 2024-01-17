@@ -30,7 +30,7 @@ interface Props {
   pagination?: boolean
 }
 
-SwiperCore.use([Navigation, Pagination, Virtual, Mousewheel, Keyboard, Thumbs, FreeMode, Controller])
+SwiperCore.use([Pagination, Virtual, Mousewheel, Keyboard, Thumbs, FreeMode, Controller])
 
 const Carousel = ({ itemsArray, type, onClick, thumbs = false }: Props) => {
   const [thumbsSwiper, setThumbsSwiper] = useState<any>()

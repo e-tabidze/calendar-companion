@@ -199,9 +199,9 @@ const Booking = () => {
               <DefaultInput control={control} name='phone' errors={errors} label='მობილურის ნომერი' />
               <DefaultInput control={control} name='email' errors={errors} label='ელ.ფოსტა' />
 
-              <DateDropdown label={'აირჩიე დაბადების თარიღი'} name='dob' control={control} errors={''} />
+              <DateDropdown label='აირჩიე დაბადების თარიღი' name='dob' control={control} errors={''} />
               <DateDropdown
-                label={'მართვის მოწმობის მოქმედების ვადა'}
+                label='მართვის მოწმობის მოქმედების ვადა'
                 name='driver_license_expiration'
                 control={control}
                 errors={''}
