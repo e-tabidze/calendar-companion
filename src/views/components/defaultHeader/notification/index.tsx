@@ -25,7 +25,9 @@ const Notification = () => {
               <Icon svgPath='bell' width={24} height={24} className='rounded-full' />
               {notifictions?.length > 0 && (
                 <span className='absolute right-0 top-0 mt-1 mr-1 w-4 h-4 flex items-center justify-center bg-orange-100 hover:bg-orange-110 transition-all rounded-full text-white text-[9px] font-medium'>
-                  {notifictions?.filter((notification: { read_at: null }) => notification?.read_at === null)?.length}
+                  {notifictions?.filter((notification: { read_at: null }) => notification?.read_at === null)?.length > 9
+      ? '9+'
+      : notifictions?.filter((notification: { read_at: null }) => notification?.read_at === null)?.length}
                 </span>
               )}
             </div>
@@ -41,11 +43,11 @@ const Notification = () => {
           >
             <Menu.Items className='w-[348px] absolute z-2 top-full left-1/2 -translate-x-1/2 mt-5 bg-white rounded-2xl shadow-sm'>
               <div className='border-b-1 border-raisin-10 p-4 text-md font-bold text-raisin-100'>შეტყობინებები</div>
-              <ul className='py-6 px-3 max-h-[320px] overflow-y-auto'>
+              <ul className='py-6 px-3 max-h-[328px] overflow-y-auto'>
                 {notifictions?.length > 0 ? (
                   notifictions
                     ?.filter((not: any) => not.read_at === null)
-                    ?.map((notification: any) => (
+                    ?.slice(0, 5).map((notification: any) => (
                       <li key={notification?.id}>
                         <a href='#' className='px-4 flex items-center py-2 relative'>
                           <span className='w-1 h-1 rounded-full bg-orange-100 hover:bg-orange-110 transition-all absolute left-[6px] top-1/2 -translate-y-1/2'></span>
