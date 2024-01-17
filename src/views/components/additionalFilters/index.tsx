@@ -72,7 +72,7 @@ const AdditionalFilters: React.FC<Props> = ({
     additionalInformationFilters,
     manufacturerFilters,
     steeringWheel
-  } = useFilters()
+  } = useFilters(open)
 
   const { objectToURI } = useSearch()
 

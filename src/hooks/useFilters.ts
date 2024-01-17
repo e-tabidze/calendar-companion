@@ -1,7 +1,8 @@
 import { useQuery } from '@tanstack/react-query'
 import SearchService from 'src/services/SearchService'
 
-const useFilters = () => {
+const useFilters = (open?: any) => {
+  console.log(open, 'open')
   const useProductFilters: any = useQuery({
     queryKey: ['searchFilters'],
     queryFn: () => getProductFilters(),
@@ -13,14 +14,14 @@ const useFilters = () => {
     queryKey: ['additionalInformationFilters'],
     queryFn: () => getAdditionalInformationFilters(),
     staleTime: Infinity,
-    enabled: true
+    enabled: !!open
   })
 
   const useManufacturerFilters: any = useQuery({
     queryKey: ['manufacturerFilters'],
     queryFn: () => getManufacturerFilters(),
     staleTime: Infinity,
-    enabled: true
+    enabled: !!open
   })
 
   const categoriesFilter = useProductFilters?.data?.result?.data?.categories
