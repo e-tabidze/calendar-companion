@@ -1,4 +1,4 @@
-import Divider from 'src/views/components/divider'
+// import Divider from 'src/views/components/divider'
 import Image from 'src/views/components/image'
 import Typography from 'src/views/components/typography'
 import Icon from "src/views/app/Icon";
