@@ -1,4 +1,4 @@
-import Divider from 'src/views/components/divider'
+// import Divider from 'src/views/components/divider'
 import Image from 'src/views/components/image'
 import Typography from 'src/views/components/typography'
 import Icon from "src/views/app/Icon";
@@ -12,18 +12,18 @@ interface Props {
 
 const LessorInformationCard: React.FC<Props> = ({ id, lessor, description, count }) => {
   return (
-    <div className='bg-raisin-5 rounded-3xl pt-12 px-6 md:pl-11 pb-11 md:pr-20 mt-20' id={id}>
+    <div className='bg-raisin-5 rounded-3xl px-6 md:px-12 py-12 md:mt-20' id={id}>
       <Typography type='h3' className='mb-5 hidden lg:block'>
         ინფორმაცია გამქირავებელზე
       </Typography>
       
-      {/* <div className='flex gap-3 items-center mb-9 lg:hidden'>
-        <Review review={4.89} size='normal' />
-        <Typography type='subtitle'>206 შეფასება</Typography>
-      </div> */}
-      <Divider />
+       {/*<div className='flex gap-3 items-center mb-9 lg:hidden'>*/}
+        {/*<Review review={4.89} size='normal' />*/}
+      {/*  <Typography type='subtitle'>206 შეფასება</Typography>*/}
+      {/*</div>*/}
+      {/*<Divider className='mb-6' />*/}
 
-      <div className='flex gap-20 my-6 items-center'>
+      <div className='flex gap-20 mb-6 items-center'>
         <div className='flex items-center gap-4'>
             <div className="flex h-16 w-16 shrink-0 rounded-xl overflow-hidden">
                 <Image src='/images/avatar.png' alt='' className='w-full h-full object-cover' />

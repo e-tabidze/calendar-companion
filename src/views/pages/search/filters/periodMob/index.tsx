@@ -23,7 +23,7 @@ const PeriodMob: React.FC<Props> = ({ control, resetField }) => {
     <>
       <FilterContainer onClick={() => toggleCalendar(!calendar)}>
         <InnerFilterContainer className='py-3 px-3 sm:px-4'>
-          <Typography type='subtitle' className='text-sm'>
+          <Typography type='subtitle' className='text-sm whitespace-nowrap'>
             {formState?.booking?.book_from?.length > 0 || formState?.booking?.book_to?.length > 0
               ? `  ${
                   formState?.booking?.book_from?.length > 0 &&
