@@ -433,3 +433,7 @@ input[type='number'] {
 .react-datepicker-wrapper {
   width: 100%;
 }
+.bg-green {
+  background-color: rgb(84 150 132 / 0.1);
+  border: 1px solid var(--Green-Green-100, #549684);
+}

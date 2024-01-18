@@ -311,6 +311,7 @@ const AdditionalFilters: React.FC<Props> = ({
                         name='door_types'
                         control={control}
                         height='h-10'
+                        className='door-type'
                         append={appendDoorType}
                         outlined
                       />

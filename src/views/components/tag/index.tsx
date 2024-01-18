@@ -58,7 +58,7 @@ const Tag: React.FC<Props> = ({
                         } ${
                           selectedOptions.includes(option.id)
                             ? outlined
-                              ? 'border border-raisin-90'
+                              ? 'border border-raisin-90 bg-green'
                               : 'border border-green-100 bg-green-100 '
                             : 'border border-gray-90 hover:border hover:border-raisin-30'
                         } ${outlined ? 'pl-2 pr-4' : 'px-4'}  cursor-pointer  ${className}`}
@@ -75,7 +75,7 @@ const Tag: React.FC<Props> = ({
                         }}
                       >
                         {component}
-                        {option.icon && <Icon svgPath={option.icon} width='32' height='32' />}
+                        {option.icon && <Icon svgPath={option.icon} width='32' height='32' color= {selectedOptions.includes(option.id) ? '#549684' : '#000'} />}
                         <Typography
                           type='body'
                           className={`w-max ${option.icon && 'ml-2'} ${
