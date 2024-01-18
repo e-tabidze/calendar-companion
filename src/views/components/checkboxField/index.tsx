@@ -72,7 +72,7 @@ const CheckboxField: React.FC<Props> = ({
                           selectedOptions.includes(option.id) ? 'border-green-100 bg-green-100 !fill-red-100' : 'border-raisin-10'
                         }`}
                       >
-                        <Icon svgPath='check' height={11} width={9} className={`fill-transparent ${
+                        <Icon svgPath='check' height={11} width={11} className={`fill-transparent ${
                           selectedOptions.includes(option.id) ? 'fill-white' : ''
                         }`} />
                       </span>
