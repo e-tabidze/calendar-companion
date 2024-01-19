@@ -34,11 +34,14 @@ const CheckServices = dynamic(() => import('src/views/pages/booking/checkService
 import Toast from 'src/views/components/toast'
 
 import toast from 'react-hot-toast'
+import { DefaultButton } from 'src/views/components/button'
+import PeriodDialog from 'src/views/pages/booking/periodDialog'
 
 const Booking = () => {
   const [additionalServices, toggleAdditionalServices] = useState(true)
   const [isOpenDrawer, setIsOpenDrawer] = useState(false)
   const [openEditModal, setOpenEditModal] = useState(false)
+  const [changeDatesDialog, setChangeDatesDialog] = useState(false)
 
   const [loading, setLoading] = useState(true)
 
@@ -54,6 +57,8 @@ const Booking = () => {
 
   const toggleEditModal = () => setOpenEditModal(!openEditModal)
 
+  const toggleChangeDatesDialog = () => setChangeDatesDialog(!changeDatesDialog)
+
   const { width } = useWindowDimensions()
 
   const toggleDrawer = () => setIsOpenDrawer(!isOpenDrawer)
@@ -68,9 +73,10 @@ const Booking = () => {
 
   const { singleCompanyBranches } = useCompanyInfo(company_id && company_id)
 
-  const { control, bookingValues, errors, handleSubmit, postOrder, selfBookProduct } = useBooking(id)
+  const { control, bookingValues, errors, handleSubmit, postOrder, selfBookProduct, setValue } =
+    useBooking(id)
 
-  console.log(bookingValues, 'bookingValues')
+  console.log(bookingValues, 'bookingValues??')
 
   const formState = useWatch({ control })
 
@@ -84,12 +90,38 @@ const Booking = () => {
     {
       label: 'წავიყვან ოფისიდან',
       value: '0',
-      children: <TakeAway control={control} toggleEditModal={toggleEditModal} errors={errors} />
+      children: (
+        <TakeAway
+          control={control}
+          toggleEditModal={toggleEditModal}
+          errors={errors}
+          startDate={book_from && format(new Date(String(book_from)), 'd MMM yyyy', { locale: ka })}
+          endDate={
+            book_to &&
+            format(new Date(String(book_to)), 'd MMM yyyy', {
+              locale: ka
+            })
+          }
+        />
+      )
     },
     {
       label: 'მიწოდება',
       value: '1',
-      children: <Delivery control={control} toggleEditModal={toggleEditModal} errors={errors} />
+      children: (
+        <Delivery
+          control={control}
+          toggleEditModal={toggleEditModal}
+          errors={errors}
+          startDate={book_from && format(new Date(String(book_from)), 'd MMM yyyy', { locale: ka })}
+          endDate={
+            book_to &&
+            format(new Date(String(book_to)), 'd MMM yyyy', {
+              locale: ka
+            })
+          }
+        />
+      )
     }
   ]
 
@@ -164,27 +196,30 @@ const Booking = () => {
         </LargeContainer>
         <ContentContainer className='flex gap-12'>
           <div className='w-full pb-28 md:pb-20'>
-            <div className='flex items-baseline my-8 gap-3'>
-              <Typography type='h3' className='font-bold'>
-                {book_from && book_to
-                  ? `${format(new Date(String(book_from)), 'd MMM yyyy', { locale: ka })} - ${format(
-                      new Date(String(book_to)),
-                      'd MMM yyyy',
-                      {
-                        locale: ka
-                      }
-                    )}`
-                  : ''}
-              </Typography>
-              <Typography type='body'>
-                |{' '}
-                {Math.round(
-                  (new Date(Array.isArray(book_to) ? book_to[0] : book_to).getTime() -
-                    new Date(Array.isArray(book_from) ? book_from[0] : book_from).getTime()) /
-                    (24 * 60 * 60 * 1000)
-                )}{' '}
-                დღე
-              </Typography>
+            <div className='flex justify-between items-center'>
+              <div className='flex items-baseline my-8 gap-3'>
+                <Typography type='h3' className='font-bold'>
+                  {book_from && book_to
+                    ? `${format(new Date(String(book_from)), 'd MMM yyyy', { locale: ka })} - ${format(
+                        new Date(String(book_to)),
+                        'd MMM yyyy',
+                        {
+                          locale: ka
+                        }
+                      )}`
+                    : ''}
+                </Typography>
+                <Typography type='body'>
+                  |{' '}
+                  {Math.round(
+                    (new Date(Array.isArray(book_to) ? book_to[0] : book_to).getTime() -
+                      new Date(Array.isArray(book_from) ? book_from[0] : book_from).getTime()) /
+                      (24 * 60 * 60 * 1000)
+                  )}{' '}
+                  დღე
+                </Typography>
+              </div>
+              <DefaultButton text='შეცვლა' type='button' onClick={toggleChangeDatesDialog} />
             </div>
             <Divider />
             <Typography type='h3' className='mt-11'>
@@ -262,16 +297,12 @@ const Booking = () => {
               year={singleProductDetails?.prod_year}
               price={singleProductDetails?.price}
               control={control}
-              dates={
-                book_from && book_to
-                  ? `${format(new Date(String(book_from)), 'd MMM yyyy', { locale: ka })} - ${format(
-                      new Date(String(book_to)),
-                      'd MMM yyyy',
-                      {
-                        locale: ka
-                      }
-                    )}`
-                  : ''
+              startDate={book_from && format(new Date(String(book_from)), 'd MMM yyyy', { locale: ka })}
+              endDate={
+                book_to &&
+                format(new Date(String(book_to)), 'd MMM yyyy', {
+                  locale: ka
+                })
               }
               days={Math.round(
                 (new Date(Array.isArray(book_to) ? book_to[0] : book_to).getTime() -
@@ -292,16 +323,12 @@ const Booking = () => {
             isOpenDrawer={isOpenDrawer}
             setIsOpenDrawer={setIsOpenDrawer}
             price={singleProductDetails?.price}
-            dates={
-              book_from && book_to
-                ? `${format(new Date(String(book_from)), 'd MMM yyyy', { locale: ka })} - ${format(
-                    new Date(String(book_to)),
-                    'd MMM yyyy',
-                    {
-                      locale: ka
-                    }
-                  )}`
-                : ''
+            startDate={book_from && format(new Date(String(book_from)), 'd MMM yyyy', { locale: ka })}
+            endDate={
+              book_to &&
+              format(new Date(String(book_to)), 'd MMM yyyy', {
+                locale: ka
+              })
             }
             days={Math.round(
               (new Date(Array.isArray(book_to) ? book_to[0] : book_to).getTime() -
@@ -323,6 +350,12 @@ const Booking = () => {
           onClose={toggleEditModal}
           addresses={singleCompanyBranches}
           control={control}
+        />
+        <PeriodDialog
+          control={control}
+          open={changeDatesDialog}
+          setOpen={toggleChangeDatesDialog}
+          setValue={setValue}
         />
       </form>
 

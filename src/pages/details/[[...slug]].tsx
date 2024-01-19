@@ -80,10 +80,6 @@ const ProductDetails = memo(() => {
 
   const { similarProducts } = useMain(singleProductDetails?.man_id, singleProductDetails?.model_id)
 
-  console.log(singleProductDetails, 'singleProductDetails')
-
-  console.log(orderDatesData, 'orderDatesData')
-
   const ref = useRef<any>()
 
   useEffect(() => {
@@ -127,10 +123,6 @@ const ProductDetails = memo(() => {
   const toggleProductImageDialog = () => {
     setProductImageDialogOpen(!productImageDialogOpen)
   }
-
-  console.log(singleProductDetails, 'singleProductDetails')
-
-  console.log(bookingValues, 'bookingValues')
 
   const onSubmit = () => {
     router.push({
@@ -300,7 +292,7 @@ const ProductDetails = memo(() => {
                     )}
                   </div>
                   <div className='hidden lg:flex gap-4 cursor-pointer transition-all'>
-                    <Icon svgPath='rotate' width={20} height={22} className='fill-transparent' />
+                    <Icon svgPath='rotate' width={24} height={24} className='fill-transparent' />
                     <Typography
                       type='body'
                       color='light'
@@ -399,12 +391,12 @@ const ProductDetails = memo(() => {
               <PriceCalcCard
                 className={`${isSticky ? 'sticky top-44' : ''} z-[11]`}
                 price={singleProductDetails?.price_gel}
-                dates={
-                  startDate && endDate
-                    ? `${format(startDate, 'd MMM yyyy', { locale: ka })} - ${format(endDate, 'd MMM yyyy', {
-                        locale: ka
-                      })}`
-                    : ''
+                startDate={startDate && format(startDate, 'd MMM yyyy', { locale: ka })}
+                endDate={
+                  endDate &&
+                  format(endDate, 'd MMM yyyy', {
+                    locale: ka
+                  })
                 }
                 days={
                   startDate && endDate && Math.round((endDate.getTime() - startDate.getTime()) / (24 * 60 * 60 * 1000))
@@ -471,12 +463,12 @@ const ProductDetails = memo(() => {
             setIsOpenDrawer={setIsOpenDrawer}
             className={`${isSticky ? 'sticky top-44' : ''} z-[11]`}
             price={singleProductDetails?.price_gel}
-            dates={
-              startDate && endDate
-                ? `${format(startDate, 'd MMM yyyy', { locale: ka })} - ${format(endDate, 'd MMM yyyy', {
-                    locale: ka
-                  })}`
-                : ''
+            startDate={startDate && format(startDate, 'd MMM yyyy', { locale: ka })}
+            endDate={
+              endDate &&
+              format(endDate, 'd MMM yyyy', {
+                locale: ka
+              })
             }
             days={startDate && endDate && Math.round((endDate.getTime() - startDate.getTime()) / (24 * 60 * 60 * 1000))}
             handleDateChange={() => {

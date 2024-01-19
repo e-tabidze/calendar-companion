@@ -10,24 +10,26 @@ interface Props {
   isOpenDrawer: boolean
   setIsOpenDrawer: any
   price: number
-  dates: string
   days: number | null | undefined
   onClick: () => void
   className?: string
   services?: any
   handleDateChange?: () => void
+  startDate: any
+  endDate: any
 }
 
 const Drawer: React.FC<Props> = ({
   isOpenDrawer,
   setIsOpenDrawer,
   price,
-  dates,
   days,
   onClick,
   className,
   services,
-  handleDateChange
+  handleDateChange,
+  startDate,
+  endDate
 }) => {
   const { userInfo } = useProfile()
 
@@ -45,7 +47,7 @@ const Drawer: React.FC<Props> = ({
       <div className='flex gap-3 items-center mb-4'>
         <div className='flex gap-1'>
           <Typography type='body' className='text-2sm'>
-            {dates}
+            {startDate} - {endDate}
           </Typography>
           <Typography type='body' color='light' className='text-2sm'>
             | {days} days

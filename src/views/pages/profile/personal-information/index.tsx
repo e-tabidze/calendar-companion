@@ -154,7 +154,7 @@ const PersonalInfo: React.FC<Props> = ({ userData }) => {
         </div>
 
         <Tab.Group onChange={index => setActiveTab(index)}>
-          <Tab.List className='flex space-x-4 gap-6 pb-[9px] border-b border-raisin-10 mt-10'>
+          <Tab.List className='flex space-x-4 gap-6 pb-[7.4px] border-b border-raisin-10 mt-10'>
             {cat.map((category, key: number) => (
               <Tab key={key} className='focus:outline-none'>
                 {({ selected }) => (

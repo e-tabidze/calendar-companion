@@ -7,7 +7,7 @@ export const DefaultButton = ({ text, onClick, bg, className, textColor, type, d
       className={`${bg} rounded-xl ${disabled ? 'opacity-60' : ''}  ${
         bg ? `${textColor}` : 'text-raisin-100'
       } text-2sm ${
-        bg ? 'border-none' : 'border border-px-raisin-100'
+        bg ? 'border-none text-white' : 'border border-px-raisin-100'
       } inline-flex items-center justify-center h-12 min-w-10 px-6 font-normal ${className}`}
       onClick={onClick}
       type={type}

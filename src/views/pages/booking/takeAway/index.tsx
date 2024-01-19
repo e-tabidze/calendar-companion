@@ -2,8 +2,6 @@ import { useWatch } from 'react-hook-form'
 import { generateTimeOptions } from 'src/utils/timeValues'
 import SelectField from 'src/views/components/selectField'
 import dynamic from 'next/dynamic'
-import { format } from 'date-fns'
-import { ka } from 'date-fns/locale'
 
 const Typography = dynamic(() => import('src/views/components/typography'), { ssr: false })
 const Icon = dynamic(() => import('src/views/app/Icon'), { ssr: false })
@@ -11,12 +9,12 @@ interface Props {
   control: any
   toggleEditModal: () => void
   errors: any
+  startDate: any
+  endDate: any
 }
 
-const TakeAway: React.FC<Props> = ({ control, toggleEditModal, errors }) => {
+const TakeAway: React.FC<Props> = ({ control, toggleEditModal, errors, startDate, endDate }) => {
   const formState = useWatch({ control })
-
-  console.log(formState, 'formState')
 
   return (
     <div className='pl-13 mt-4'>
@@ -24,25 +22,24 @@ const TakeAway: React.FC<Props> = ({ control, toggleEditModal, errors }) => {
         <div className='lg:w-2/12 flex items-center lg:items-start'>
           <Icon svgPath='booking-start' height={24} width={24} className='fill-transparent flex shrink-0' />
           <div className='ml-3'>
-            <span className='text-sm'>წაყვანა</span>
+            <Typography type='body' color='dark'>
+              წაყვანა
+            </Typography>
             <div className='absolute'>
-            <span className='hidden lg:flex text-sm text-black/60'>
-              {formState.booking.book_from &&
-                format(new Date(String(formState.booking.book_from)), 'd MMM yyyy', { locale: ka })}
-            </span>
+              <Typography type='subtitle' color='light' className='hidden lg:flex'>
+                {startDate}
+              </Typography>
             </div>
-           
           </div>
         </div>
         <div className='lg:w-8/12 flex flex-col lg:flex-row lg:items-center lg:justify-between'>
           <Typography type='body' className='text-2sm ml-9 mt-2 md:mt-0  mb-3 lg:mb-0'>
             {formState?.start_address}
           </Typography>
-          <div className='flex shrink-0 items-center pl-9 lg:pl-0'>
-            <span className='flex lg:hidden text-sm text-black/60 mr-3'>
-              {formState.booking.book_from &&
-                format(new Date(String(formState.booking.book_from)), 'd MMM yyyy', { locale: ka })}
-            </span>
+          <div className='flex gap-6 shrink-0 items-center pl-9 lg:pl-0'>
+            <Typography type='subtitle' color='light' className='flex lg:hidden'>
+              {startDate}
+            </Typography>
             <SelectField
               icon
               control={control}
@@ -70,12 +67,13 @@ const TakeAway: React.FC<Props> = ({ control, toggleEditModal, errors }) => {
         <div className='lg:w-2/12 flex items-start'>
           <Icon svgPath='booking-stop' height={24} width={24} className='fill-transparent flex shrink-0' />
           <div className='ml-3'>
-            <span className='text-sm'>დაბრუნება</span>
+            <Typography type='body' color='dark'>
+              დაბრუნება
+            </Typography>
             <div className='absolute'>
-            <span className='hidden lg:flex text-sm text-black/60'>
-              {formState.booking.book_to &&
-                format(new Date(String(formState.booking.book_to)), 'd MMM yyyy', { locale: ka })}
-            </span>
+              <Typography type='body' color='light' className='hidden lg:flex'>
+                {endDate}
+              </Typography>
             </div>
           </div>
         </div>
@@ -83,11 +81,10 @@ const TakeAway: React.FC<Props> = ({ control, toggleEditModal, errors }) => {
           <Typography type='body' className='text-2sm ml-9 mt-2 md:mt-0 mb-3 lg:mb-0'>
             {formState?.end_address}
           </Typography>
-          <div className='flex shrink-0 items-center pl-9 lg:pl-0'>
-            <span className='flex lg:hidden text-sm text-black/60 mr-3'>
-              {formState.booking.book_to &&
-                format(new Date(String(formState.booking.book_to)), 'd MMM yyyy', { locale: ka })}
-            </span>
+          <div className='flex gap-6 shrink-0 items-center pl-9 lg:pl-0'>
+            <Typography type='body' color='light' className='flex lg:hidden'>
+              {endDate}
+            </Typography>
             <SelectField
               control={control}
               icon

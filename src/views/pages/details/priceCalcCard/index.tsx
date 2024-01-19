@@ -8,13 +8,11 @@ import Typography from 'src/views/components/typography'
 import { registerLocale } from 'react-datepicker'
 
 import ka from 'date-fns/locale/ka'
-import { format } from 'date-fns'
 
 registerLocale('ka', ka)
 
 interface Props {
   price: number
-  dates: string
   days: number | null | undefined
   className?: string
   onClick: () => void
@@ -28,11 +26,12 @@ interface Props {
   model?: string
   companyId: number
   control: any
+  startDate: any
+  endDate: any
 }
 
 const PriceCalcCard: React.FC<Props> = ({
   price,
-  dates,
   days,
   className,
   onClick,
@@ -45,17 +44,11 @@ const PriceCalcCard: React.FC<Props> = ({
   manufacturer,
   model,
   companyId,
-  control
+  control,
+  startDate,
+  endDate
 }) => {
   const { userInfo, activeCompanyId } = useProfile()
-
-  console.log(services, 'services')
-
-  console.log(userInfo, 'userInfo')
-
-  console.log(activeCompanyId, 'activeCompanyId')
-
-  console.log(companyId, 'companyId')
 
   const formState = useWatch({ control })
 
@@ -84,8 +77,7 @@ const PriceCalcCard: React.FC<Props> = ({
           <div className='flex items-center mt-4'>
             <Icon svgPath='booking-start' height={24} width={24} className='fill-transparent flex shrink-0' />
             <Typography type='body' className='text-2sm ml-2 mb-3 lg:mb-0'>
-              {formState?.booking?.book_from?.length > 0 &&
-                `${format(new Date(formState?.booking?.book_from), 'd MMM yyyy', { locale: ka })}`}
+              {startDate}
             </Typography>
 
             <Typography type='body' className='text-2sm ml-2 mb-3 lg:mb-0'>
@@ -102,8 +94,7 @@ const PriceCalcCard: React.FC<Props> = ({
           <div className='flex items-center my-3'>
             <Icon svgPath='booking-stop' height={24} width={24} className='fill-transparent flex shrink-0' />
             <Typography type='body' className='text-2sm ml-2 mb-3 lg:mb-0'>
-              {formState?.booking?.book_to?.length > 0 &&
-                `${format(new Date(formState?.booking?.book_to), 'd MMM yyyy', { locale: ka })}`}
+              {endDate}
             </Typography>
 
             <Typography type='body' className='text-2sm ml-2 mb-3 lg:mb-0'>
@@ -133,14 +124,17 @@ const PriceCalcCard: React.FC<Props> = ({
       <div className='flex gap-3 lg:items-center mb-6 flex-col lg:flex-row'>
         <div className='flex gap-1'>
           <Typography type='body' className='text-2sm'>
-            {dates}
+            {startDate} - {endDate}
           </Typography>
           <Typography type='body' color='light' className='text-2sm'>
             | {days} დღე
           </Typography>
         </div>
         {changeDates && (
-          <button className='border border-raisin-100 rounded-[8px] px-2 py-1 text-sm transition-all hover:bg-raisin-5' onClick={handleDateChange}>
+          <button
+            className='border border-raisin-100 rounded-[8px] px-2 py-1 text-sm transition-all hover:bg-raisin-5'
+            onClick={handleDateChange}
+          >
             შეცვლა
           </button>
         )}
