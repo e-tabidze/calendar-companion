@@ -32,8 +32,8 @@ const SuitcasesPopover: React.FC<Props> = ({ control, appendLuggageNumber, handl
           icon='rotate'
           label='გასუფთავება'
           className='fill-transparent'
-          width={20}
-          height={22}
+          width={24}
+          height={24}
           onClick={() => reset('luggage_numbers')}
           labelClassname={
             formState?.luggage_numbers?.length ? 'text-sm text-red-100 border-b' : 'text-sm text-raisin-50 border-b'

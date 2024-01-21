@@ -39,8 +39,8 @@ const PricePopover: React.FC<Props> = ({ control, handleSubmit, reset }) => {
           labelClassname={hasPrice ? 'text-sm text-red-100 border-b' : 'text-sm text-raisin-50 border-b'}
           disabled={!hasPrice}
           type='button'
-          width={20}
-          height={22}
+          width={24}
+          height={24}
           onClick={() => {
             reset('price_min')
             reset('price_max')

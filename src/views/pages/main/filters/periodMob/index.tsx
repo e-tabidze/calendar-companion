@@ -24,7 +24,7 @@ const PeriodMob: React.FC<Props> = ({ control, resetField }) => {
     <div className='p-4 w-full'>
       <FilterContainer onClick={() => toggleCalendar(!calendar)}>
         <Typography type='body' color='dark'>
-          დაქირავების პერიოდი
+          დაქირავების პერიოდი 
         </Typography>
         <InnerFilterContainer>
           <Typography type='subtitle' className='text-raisin-50'>

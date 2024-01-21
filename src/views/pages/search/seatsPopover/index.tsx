@@ -33,8 +33,8 @@ const SeatsPopover: React.FC<Props> = ({ control, appendSeatType, handleSubmit, 
           icon='rotate'
           label='გასუფთავება'
           className='fill-transparent'
-          width={20}
-          height={22}
+          width={24}
+          height={24}
           onClick={() => reset('seat_types')}
           disabled={!formState?.seat_types?.length}
           labelClassname={

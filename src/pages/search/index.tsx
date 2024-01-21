@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import useWindowDimensions from 'src/hooks/useWindowDimensions'
 import { FullContainer } from 'src/styled/styles'
 
@@ -16,7 +16,7 @@ import useSearch from 'src/hooks/useSearch'
 import { useRouter } from 'next/router'
 import { IconTextButton } from 'src/views/components/button'
 import dynamic from 'next/dynamic'
-import { Controller } from 'react-hook-form'
+import { Controller, useWatch } from 'react-hook-form'
 
 import SortListBox from 'src/views/pages/search/sortListBox'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
@@ -73,6 +73,28 @@ const SearchPage = () => {
   const { book_from, book_to } = router.query
 
   const page = router.query.page ? Number(router.query.page) : 1
+
+  const [hasFilter, setHasFilter] = useState(false)
+
+  const formState = useWatch({ control })
+
+  useEffect(() => {
+    setHasFilter(
+      !!formState?.price_min?.length ||
+        !!formState?.price_max?.length ||
+        (formState?.category?.length ?? 0) > 0 ||
+        (formState?.manufacturer_id?.length ?? 0) > 0 ||
+        (formState?.model_id?.length ?? 0) > 0 ||
+        !!formState?.year_from ||
+        !!formState?.year_to ||
+        (formState?.fuel_types?.length ?? 0) > 0 ||
+        (formState?.seat_types?.length ?? 0) > 0 ||
+        (formState?.luggage_numbers?.length ?? 0) > 0 ||
+        (formState?.drive_tires?.length ?? 0) > 0 ||
+        (formState?.transmission_types?.length ?? 0) > 0 ||
+        (formState?.additional_information?.length ?? 0) > 0
+    )
+  }, [formState])
 
   // useEffect(() => {
   //   setMapVisible(width >= 1025)
@@ -137,7 +159,7 @@ const SearchPage = () => {
               </div>
               <Tag
                 label='ყველა ფილტრი'
-                className='bg-grey-60'
+                className={`${hasFilter ? 'border border-raisin-100' : ''} bg-grey-60`}
                 component={<Icon svgPath='filters' width={22} height={20} className='flex fill-transparent' />}
                 height='h-10'
                 handleClick={() => toggleFilters(!filters)}
@@ -146,8 +168,8 @@ const SearchPage = () => {
             <ClearFiltersWrapper>
               <IconTextButton
                 icon='return'
-                width={20}
-                height={22}
+                width={24}
+                height={24}
                 className='fill-transparent'
                 label='გასუფთავება'
                 labelClassname='text-red-100'

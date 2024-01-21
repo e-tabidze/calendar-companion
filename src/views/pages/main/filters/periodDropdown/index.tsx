@@ -13,7 +13,7 @@ import { format } from 'date-fns'
 
 interface Props {
   control: any
-  resetField?:any
+  resetField?: any
 }
 registerLocale('ka', ka)
 
@@ -43,19 +43,24 @@ const PeriodDropdown: React.FC<Props> = ({ control, resetField }) => {
                     : 'თარიღი'}
                 </Typography>
                 {startDate || endDate ? (
-                    <Icon
-                        svgPath='clear-xs'
-                        width={7}
-                        height={7}
-                        color='raisin-10'
-                        onClick={e => {
-                          setDateRange([null, null])
-                          resetField(), e.stopPropagation()
-                        }}
-                        className="fill-transparent ml-2"
-                    />
+                  <Icon
+                    svgPath='clear-xs'
+                    width={7}
+                    height={7}
+                    color='raisin-10'
+                    onClick={e => {
+                      setDateRange([null, null])
+                      resetField(), e.stopPropagation()
+                    }}
+                    className='fill-transparent ml-2'
+                  />
                 ) : (
-                    <Icon svgPath='chevron' width={8} height={6} className={`fill-transparent ml-2 transition-all ${open ? 'rotate-180': ''}`}/>
+                  <Icon
+                    svgPath='chevron'
+                    width={8}
+                    height={6}
+                    className={`fill-transparent ml-2 transition-all ${open ? 'rotate-180' : ''}`}
+                  />
                 )}
               </InnerFilterContainer>
             </FilterContainer>

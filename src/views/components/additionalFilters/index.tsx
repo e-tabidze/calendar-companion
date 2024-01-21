@@ -93,7 +93,14 @@ const AdditionalFilters: React.FC<Props> = ({
 
   return (
     <Transition.Root show={open} as={Fragment}>
-      <Dialog as='div' className='relative z-[111]' onClose={toggleModal}>
+      <Dialog
+        as='div'
+        className='relative z-[111]'
+        onClose={() => {
+          reset()
+          toggleModal()
+        }}
+      >
         <Transition.Child
           as={Fragment}
           enter='ease-out duration-300'
@@ -123,8 +130,11 @@ const AdditionalFilters: React.FC<Props> = ({
                     დამატებითი ფილტრები
                   </Dialog.Title>
                   <button
-                    onClick={toggleModal}
                     className='relative flex w-10 h-10 items-center justify-center rounded-full before:content-[""] before:absolute before:top-0 before:left-0 before:w-full before:h-full before:rounded-full before:bg-[#D8D8D8]/40 hover:before:scale-110 before:transition before:duration-300 before:ease-in-out cursor-pointer'
+                    onClick={() => {
+                      reset()
+                      toggleModal()
+                    }}
                   >
                     <Icon svgPath='close-sm' height={16} width={16} className='z-[1] relative' />
                   </button>
@@ -371,8 +381,8 @@ const AdditionalFilters: React.FC<Props> = ({
                     label='გასუფთავება'
                     icon='rotate'
                     className='fill-transparent'
-                    width={20}
-                    height={22}
+                    width={24}
+                    height={24}
                     onClick={() => reset()}
                     type='reset'
                   />

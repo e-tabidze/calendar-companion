@@ -48,8 +48,8 @@ const FuelTypePopover: React.FC<Props> = ({ control, appendFuelType, reset, hand
           icon='rotate'
           label='გასუფთავება'
           className='fill-transparent'
-          width={20}
-          height={22}
+          width={24}
+          height={24}
           onClick={() => reset('fuel_types')}
           disabled={!formState?.fuel_types?.length}
           labelClassname={

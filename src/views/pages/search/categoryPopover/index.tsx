@@ -42,8 +42,8 @@ const CategoryPopover: React.FC<Props> = ({ control, appendCategory, handleSubmi
           icon='rotate'
           label='გასუფთავება'
           className='fill-transparent'
-          width={20}
-          height={22}
+          width={24}
+          height={24}
           onClick={() => reset('category')}
           disabled={!formState?.category?.length}
           labelClassname={
