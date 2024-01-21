@@ -56,9 +56,10 @@ const CheckServices: React.FC<Props> = ({ control, options }) => {
                 {service.type_id === 1 || service.type_id === 2 ? (
                   <>
                     <div
-                      onClick={event => {
-                        event.stopPropagation()
+                      onClick={e => {
+                        e.stopPropagation()
                       }}
+                      className={`${!service?.is_selected ? 'opacity-50' : ''}`}
                     >
                       <Counter
                         name={`additional_services.${index}.count`}
