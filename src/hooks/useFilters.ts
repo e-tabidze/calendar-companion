@@ -2,7 +2,6 @@ import { useQuery } from '@tanstack/react-query'
 import SearchService from 'src/services/SearchService'
 
 const useFilters = (open?: any) => {
-  console.log(open, 'open')
   const useProductFilters: any = useQuery({
     queryKey: ['searchFilters'],
     queryFn: () => getProductFilters(),

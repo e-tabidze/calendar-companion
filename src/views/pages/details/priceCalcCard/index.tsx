@@ -122,85 +122,98 @@ const PriceCalcCard: React.FC<Props> = ({
       </div>
 
       <div className='flex gap-3 lg:items-center mb-6 flex-col lg:flex-row'>
-        <div className='flex gap-1'>
-          <Typography type='body' className='text-2sm'>
-            {startDate} - {endDate}
-          </Typography>
-          <Typography type='body' color='light' className='text-2sm'>
-            | {days} დღე
-          </Typography>
-        </div>
+        {startDate && endDate ? (
+          <div className='flex gap-1'>
+            <Typography type='body' className='text-2sm'>
+              {startDate} - {endDate}
+            </Typography>
+            <Typography type='body' color='light' className='text-2sm'>
+              | {days} დღე
+            </Typography>
+          </div>
+        ) : (
+          <></>
+        )}
         {changeDates && (
           <button
             className='border border-raisin-100 rounded-[8px] px-2 py-1 text-sm transition-all hover:bg-raisin-5'
             onClick={handleDateChange}
           >
-            შეცვლა
+            {startDate && endDate ? 'შეცვლა' : 'აირჩიე თარიღები'}
           </button>
         )}
       </div>
 
-      <div className='w-full h-px bg-raisin-10' />
+      <Divider />
       <Typography type='h5' weight='medium' className='mt-8 mb-5 font-bold'>
         ფასების დეტალები
       </Typography>
 
-      <div className='flex gap-2 flex-col justify-between py-2 lg:items-center lg:flex-row'>
-        <div className='flex gap-2'>
-          <Typography type='body' className='text-raisin-100'>
-            მანქანის ქირაობის საკომისიო
-          </Typography>
-          <Typography type='body' color='light'>
-            | {days} დღე
-          </Typography>
-        </div>
-        <Typography type='h5' weight='normal'>
-          {days && days * price + ' ₾'}
-        </Typography>
-      </div>
-
-      {services?.map((service: any) => (
-        <div className='flex gap-2 flex-col justify-between py-2 lg:items-center lg:flex-row' key={service.id}>
-          <div className='flex gap-2'>
-            <Typography type='body' className='text-raisin-100'>
-              {service?.title}
-            </Typography>
-            <Typography type='body' color='light'>
-              | რაოდენობა: {service?.count}
+      {startDate && endDate ? (
+        <>
+          <div className='flex gap-2 flex-col justify-between py-2 lg:items-center lg:flex-row'>
+            <div className='flex gap-2'>
+              <Typography type='body' className='text-raisin-100'>
+                მანქანის ქირაობის საკომისიო
+              </Typography>
+              <Typography type='body' color='light'>
+                | {days} დღე
+              </Typography>
+            </div>
+            <Typography type='h5' weight='normal'>
+              {days && days * price + ' ₾'}
             </Typography>
           </div>
-          <Typography type='h5' weight='normal'>
-            {service?.type_id == 1 ? service?.count * service?.price * days! : service?.count * service.price} ₾
-          </Typography>
-        </div>
-      ))}
 
-      <Divider className='my-7' />
+          {services?.map((service: any) => (
+            <div className='flex gap-2 flex-col justify-between py-2 lg:items-center lg:flex-row' key={service.id}>
+              <div className='flex gap-2'>
+                <Typography type='body' className='text-raisin-100'>
+                  {service?.title}
+                </Typography>
+                <Typography type='body' color='light'>
+                  | რაოდენობა: {service?.count}
+                </Typography>
+              </div>
+              <Typography type='h5' weight='normal'>
+                {service?.type_id == 1 ? service?.count * service?.price * days! : service?.count * service.price} ₾
+              </Typography>
+            </div>
+          ))}
 
-      <div className='flex gap-2 flex-col justify-between pb-7 lg:items-center lg:flex-row'>
-        <div className='flex gap-2'>
-          <Typography type='h5' className='text-raisin-100 font-bold'>
-            ჯამი
-          </Typography>
-        </div>
-        {days && (
-          <Typography type='h5' weight='normal' className='font-bold'>
-            {days * price +
-              (services
-                ? services.reduce((accumulator: number, service: { type_id: number; count: number; price: number }) => {
-                    if (service.type_id === 1) {
-                      accumulator += service.count * service.price * days
-                    } else {
-                      accumulator += service.count * service.price
-                    }
+          <Divider className='my-7' />
 
-                    return accumulator
-                  }, 0)
-                : 0)}{' '}
-            ₾
-          </Typography>
-        )}
-      </div>
+          <div className='flex gap-2 flex-col justify-between pb-7 lg:items-center lg:flex-row'>
+            <div className='flex gap-2'>
+              <Typography type='h5' className='text-raisin-100 font-bold'>
+                ჯამი
+              </Typography>
+            </div>
+            {days && (
+              <Typography type='h5' weight='normal' className='font-bold'>
+                {days * price +
+                  (services
+                    ? services.reduce(
+                        (accumulator: number, service: { type_id: number; count: number; price: number }) => {
+                          if (service.type_id === 1) {
+                            accumulator += service.count * service.price * days
+                          } else {
+                            accumulator += service.count * service.price
+                          }
+
+                          return accumulator
+                        },
+                        0
+                      )
+                    : 0)}{' '}
+                ₾
+              </Typography>
+            )}
+          </div>
+        </>
+      ) : (
+        <></>
+      )}
 
       {activeCompanyId === companyId || userInfo?.active_profile_id === userInfo?.UserID ? (
         <DefaultButton

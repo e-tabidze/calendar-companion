@@ -64,8 +64,6 @@ const useBooking = (id: number | string | string[]) => {
     resolver: yupResolver(BookingSchema) as any
   })
 
-  console.log(userInfo, 'data?')
-
   useEffect(() => {
     if (!!userInfo && userInfo?.UserID === userInfo?.active_profile_id) {
       setValue(
