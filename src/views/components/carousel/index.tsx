@@ -151,10 +151,10 @@ const Carousel = ({ itemsArray, type, onClick, thumbs = false }: Props) => {
                           key={index}
                           className='left-0 top-0 z-10 h-full flex-1 flex'
                           onMouseEnter={() => {
-                            setTimeout(() => {
+                            // setTimeout(() => {
                               swiper.slideTo(index, 150);
 
-                            }, 100); // Adjust the delay time (in milliseconds) as needed
+                            // }, 100); // Adjust the delay time (in milliseconds) as needed
                           }}
                       ></div>
                   )

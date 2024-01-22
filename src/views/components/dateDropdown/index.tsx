@@ -10,7 +10,6 @@ import _ from 'lodash'
 interface Props {
   name: string
   control: any
-  defaultValue?: string
   label: string
   errors: any
 }
@@ -66,7 +65,7 @@ const CustomDateInput: React.FC<CalendarInputProps> = ({
   </div>
 )
 
-const DateDropdown: React.FC<Props> = ({ name, control, defaultValue, label, errors }) => {
+const DateDropdown: React.FC<Props> = ({ name, control, label, errors }) => {
   const [isCalendarOpen, setIsCalendarOpen] = useState(false)
 
   return (
@@ -74,7 +73,6 @@ const DateDropdown: React.FC<Props> = ({ name, control, defaultValue, label, err
       <Controller
         name={name}
         control={control}
-        defaultValue={defaultValue}
         render={({ field: { onChange, value, onChange: onInputChange } }) => (
           <div className='relative w-full'>
             <DatePicker

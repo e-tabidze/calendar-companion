@@ -26,7 +26,7 @@ const LocationDropdown: React.FC<Props> = ({ control, resetField }) => {
             <div className='relative flex text-left w-full h-full items-center'>
                     <Listbox.Button
                         onClick={resetField}
-                        className='bg-transparent h-full relative cursor-pointer px-3 lg:px-4 text-left sm:text-sm'
+                        className='bg-transparent h-full relative cursor-pointer pl-3 lg:pl-4 pr-1 lg:pr-2 text-left sm:text-sm'
                     >
                       <FilterContainer>
                         <InnerFilterContainer>
@@ -34,18 +34,23 @@ const LocationDropdown: React.FC<Props> = ({ control, resetField }) => {
                             {value || 'მდებარეობა'}
                           </Typography>
                           {value ? (
-                              <Icon
-                                  svgPath='clear-xs'
-                                  width={7}
-                                  height={7}
-                                  color='raisin-10'
-                                  onClick={e => {
-                                    resetField(), e.stopPropagation()
-                                  }}
-                                  className="fill-transparent ml-2"
-                              />
+                              <span className='flex shrink-0 p-2'
+                                    onClick={e => {
+                                        resetField(), e.stopPropagation()
+                                    }}>
+                                   <Icon
+                                       svgPath='clear-xs'
+                                       width={7}
+                                       height={7}
+                                       color='raisin-10'
+                                       className="fill-transparent"
+                                   />
+                              </span>
+
                           ) : (
-                              <Icon svgPath='chevron' width={8} height={6} className={`${open? 'rotate-180':''} transition-all fill-transparent ml-2`} />
+                              <span className='flex shrink-0 p-2'>
+                              <Icon svgPath='chevron' width={8} height={6} className={`${open? 'rotate-180':''} transition-all fill-transparent`} />
+                              </span>
                           )}
                         </InnerFilterContainer>
                       </FilterContainer>
