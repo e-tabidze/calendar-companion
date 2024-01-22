@@ -81,14 +81,14 @@ const DateDropdown: React.FC<Props> = ({ name, control, defaultValue, label, err
               locale='ka'
               selected={value ? new Date(value) : null}
               onChange={date => onChange(date && format(date, 'yyyy-MM-dd'))}
-              dateFormat='yyyy-MM-dd'
+              dateFormat='dd-MM-yyyy'
               customInput={
                 <CustomDateInput
                   className='w-full h-full pl-12 pr-8 pb-1 pt-3 rounded-xl border border-raisin-10 text-2sm outline-none focus:ring-0 bg-transparent cursor-pointer transition-all hover:border-raisin-30'
                   value={value || ''}
                   onClick={() => setIsCalendarOpen(!isCalendarOpen)}
                   isCalendarOpen={isCalendarOpen}
-                  label={`${label} (წელი-თვე-დღე)`}
+                  label={label}
                   onChange={onInputChange}
                 />
               }
