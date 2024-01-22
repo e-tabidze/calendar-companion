@@ -22,7 +22,7 @@ const PeriodMob: React.FC<Props> = ({ control, resetField }) => {
   return (
     <>
       <FilterContainer onClick={() => toggleCalendar(!calendar)}>
-        <InnerFilterContainer className='py-3 px-3 sm:px-4'>
+        <InnerFilterContainer className='py-3 pl-3 pr-1 sm:pl-4 sm:pr-2'>
           <Typography type='subtitle' className='text-sm whitespace-nowrap'>
             {formState?.booking?.book_from?.length > 0 || formState?.booking?.book_to?.length > 0
               ? `  ${
@@ -38,18 +38,25 @@ const PeriodMob: React.FC<Props> = ({ control, resetField }) => {
               : 'დაქირავების პერიოდი'}
           </Typography>
           {formState?.booking?.book_from || formState?.booking?.book_to ? (
-            <Icon
-              svgPath='clear-xs'
-              width={7}
-              height={7}
-              color='raisin-10'
-              onClick={e => {
-                resetField(), e.stopPropagation()
-              }}
-              className='flex shrink-0 fill-transparent ml-2'
-            />
+              <span
+                  className='flex shrink-0 p-2'
+                  onClick={e => {
+                  resetField(), e.stopPropagation()
+              }}>
+               <Icon
+                   svgPath='clear-xs'
+                   width={7}
+                   height={7}
+                   color='raisin-10'
+                   className='fill-transparent'
+               />
+              </span>
+
           ) : (
-            <Icon svgPath='chevron' width={8} height={6} className='flex-shrink-0 fill-white ml-2' />
+              <span className='flex-shrink-0 p-2'>
+                  <Icon svgPath='chevron' width={8} height={6} className='fill-white' />
+              </span>
+
           )}
         </InnerFilterContainer>
       </FilterContainer>
