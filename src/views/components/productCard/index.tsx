@@ -67,9 +67,7 @@ const ProductCard: React.FC<Props> = ({
     router.push(`/details/${productId}${queryString}`)
   }
 
-  console.log(userFavourites, 'userFavourites')
-
-  const isProductInFavorites = userFavourites?.data?.some((fav: any) => fav.product_id === productId)
+  const isProductInFavorites = userFavourites?.some((fav: any) => fav.product_id === productId)
 
   const handleFavorites = async (e: any) => {
     e.stopPropagation()
