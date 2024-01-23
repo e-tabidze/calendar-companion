@@ -73,8 +73,7 @@ const Booking = () => {
 
   const { singleCompanyBranches } = useCompanyInfo(company_id && company_id)
 
-  const { control, bookingValues, errors, handleSubmit, postOrder, selfBookProduct, setValue } =
-    useBooking(id)
+  const { control, bookingValues, errors, handleSubmit, postOrder, selfBookProduct, setValue } = useBooking(id)
 
   console.log(bookingValues, 'bookingValues??')
 
@@ -149,7 +148,8 @@ const Booking = () => {
     },
 
     onError: (ex: any) => {
-      if (ex.response.status === 400) {
+      console.log(ex.response?.data?.result?.message, 'error?')
+      if (ex.response?.data?.result?.message === 'Already booked') {
         toast.custom(
           <Toast
             type='error'
@@ -167,14 +167,14 @@ const Booking = () => {
       router.push('/dashboard/orders/?status_id=5&page=1')
     },
     onError: (ex: any) => {
-      ex.response.status === 400
-      toast.custom(
-        <Toast
-          type='error'
-          title='ავტომობილი მოცემულ თარიღებში უკვე დაჯავშნილია'
-          description='გთხოვთ სცადეთ სხვა თარიღი'
-        />
-      )
+      ex.response.status === 400 &&
+        toast.custom(
+          <Toast
+            type='error'
+            title='ავტომობილი მოცემულ თარიღებში უკვე დაჯავშნილია'
+            description='გთხოვთ სცადეთ სხვა თარიღი'
+          />
+        )
     }
   })
 
@@ -232,12 +232,12 @@ const Booking = () => {
               <DefaultInput control={control} name='phone' errors={errors} label='მობილურის ნომერი' />
               <DefaultInput control={control} name='email' errors={errors} label='ელ.ფოსტა' />
 
-              <DateDropdown label='აირჩიე დაბადების თარიღი' name='dob' control={control} errors={''} />
+              <DateDropdown label='აირჩიე დაბადების თარიღი' name='dob' control={control} errors={errors} />
               <DateDropdown
                 label='მართვის მოწმობის მოქმედების ვადა'
                 name='driver_license_expiration'
                 control={control}
-                errors={''}
+                errors={errors}
               />
             </div>
             <Typography type='body' color='light' className='mb-14'>

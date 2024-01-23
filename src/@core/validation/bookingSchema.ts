@@ -27,8 +27,8 @@ const BookingSchema = Yup.object<Order>().shape({
     .required('აუცილებელი ველი'),
   identification_number: Yup.string().required('აუცილებელი ველი'),
   booking: OrderDatesSchema,
-  dob: Yup.mixed().nullable().required('აუცილებელი ველი') as Yup.StringSchema<string | null>,
-  driver_license_expiration: Yup.mixed().nullable().required('აუცილებელი ველი') as Yup.StringSchema<string | null>,
+  dob: Yup.string().nullable().required('აუცილებელი ველი') as Yup.StringSchema<string | null>,
+  driver_license_expiration: Yup.string().nullable().required('აუცილებელი ველი') as Yup.StringSchema<string | null>,
   additional_services: Yup.array(OrderServiceSchema).required('აუცილებელი ველი'),
   supply: Yup.string().required('აუცილებელი ველი'),
 
