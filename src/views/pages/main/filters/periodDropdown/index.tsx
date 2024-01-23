@@ -43,24 +43,30 @@ const PeriodDropdown: React.FC<Props> = ({ control, resetField }) => {
                     : 'თარიღი'}
                 </Typography>
                 {startDate || endDate ? (
-                  <Icon
-                    svgPath='clear-xs'
-                    width={7}
-                    height={7}
-                    color='raisin-10'
-                    onClick={e => {
-                      setDateRange([null, null])
-                      resetField(), e.stopPropagation()
-                    }}
-                    className='fill-transparent ml-2'
-                  />
+                    <span className='flex shrink-0 ml-1 p-2 rounded-full hover:bg-raisin-5 transition-all'
+                        onClick={e => {
+                          setDateRange([null, null])
+                          resetField(), e.stopPropagation()
+                        }}
+                    >
+                      <Icon
+                          svgPath='clear-xs'
+                          width={7}
+                          height={7}
+                          color='raisin-10'
+                          className='fill-transparent'
+                      />
+                    </span>
+
                 ) : (
-                  <Icon
-                    svgPath='chevron'
-                    width={8}
-                    height={6}
-                    className={`fill-transparent ml-2 transition-all ${open ? 'rotate-180' : ''}`}
-                  />
+                    <span className='flex shrink-0 ml-1 p-2 rounded-full hover:bg-raisin-5 transition-all'>
+                      <Icon
+                        svgPath='chevron'
+                        width={8}
+                        height={6}
+                        className={`fill-transparent transition-all ${open ? 'rotate-180' : ''}`}
+                      />
+                    </span>
                 )}
               </InnerFilterContainer>
             </FilterContainer>

@@ -59,7 +59,7 @@ const PeriodDropwodn: React.FC<Props> = ({ control, resetField, setValue }) => {
                 <FilterContainer>
                   <InnerFilterContainer>
                     <InnerFilterContainer>
-                      <Typography type='body' className='whitespace-nowrap'>
+                      <Typography type='body' className='whitespace-nowrap min-w-[144px]'>
                         {formState?.booking?.book_from?.length > 0 || formState?.booking?.book_to?.length > 0
                           ? `  ${
                               formState?.booking?.book_from?.length > 0 &&
@@ -74,7 +74,7 @@ const PeriodDropwodn: React.FC<Props> = ({ control, resetField, setValue }) => {
                           : 'დაქირავების პერიოდი'}
                       </Typography>
                       {formState?.booking?.book_from || formState?.booking?.book_to ? (
-                          <span className='flex shrink-0 p-2'
+                          <span className='flex shrink-0 ml-1 p-2 rounded-full hover:bg-raisin-5 transition-all'
                                 onClick={e => {
                                   resetField(), e.stopPropagation()
                                 }}>
@@ -88,7 +88,7 @@ const PeriodDropwodn: React.FC<Props> = ({ control, resetField, setValue }) => {
                           </span>
 
                       ) : (
-                          <span className='flex shrink-0 p-2'>
+                          <span className='flex shrink-0 ml-1 p-2 rounded-full hover:bg-raisin-5 transition-all'>
                            <Icon svgPath='chevron' width={8} height={6} className={`${open ? 'rotate-180':''} transition-all fill-transparent`} />
                           </span>
                       )}
