@@ -1,4 +1,4 @@
-import { Combobox, Listbox, Transition } from '@headlessui/react'
+import { Combobox, Transition } from '@headlessui/react'
 import { Fragment } from 'react'
 import { Controller } from 'react-hook-form'
 import Typography from 'src/views/components/typography'
@@ -59,34 +59,6 @@ const LocationDropdown: React.FC<Props> = ({ control, resetField  }) => {
                       </InnerFilterContainer>
                       </FilterContainer>
                   </Combobox.Button>
-
-
-                {/*<Listbox.Button className='relative w-full cursor-pointer rounded-2xl bg-white py-6 px-6 text-left focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-raisin-5 sm:text-sm'>*/}
-                {/*  <FilterContainer>*/}
-                {/*    <Typography type='body' color='dark'>*/}
-                {/*      მდებარეობა*/}
-                {/*    </Typography>*/}
-                {/*    <InnerFilterContainer>*/}
-                {/*      <Typography type='subtitle' className='text-raisin-50 whitespace-nowrap'>*/}
-                {/*        {value || 'ქალაქი, მისამართი'}*/}
-                {/*      </Typography>*/}
-                {/*        {value ? (*/}
-                {/*            <Icon*/}
-                {/*                svgPath='clear-xs'*/}
-                {/*                width={7}*/}
-                {/*                height={7}*/}
-                {/*                color='raisin-10'*/}
-                {/*                onClick={e => {*/}
-                {/*                    resetField(), e.stopPropagation()*/}
-                {/*                }}*/}
-                {/*                className="fill-transparent ml-2"*/}
-                {/*            />*/}
-                {/*        ) : (*/}
-                {/*            <Icon svgPath='chevron' width={8} height={6} className={`fill-transparent ml-2 transition-all ${open ? 'rotate-180': ''}`} />*/}
-                {/*        )}*/}
-                {/*    </InnerFilterContainer>*/}
-                {/*  </FilterContainer>*/}
-                {/*</Listbox.Button>*/}
 
                   <Transition
                   as={Fragment}
