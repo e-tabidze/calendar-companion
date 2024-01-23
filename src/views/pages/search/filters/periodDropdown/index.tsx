@@ -34,6 +34,7 @@ const PeriodDropwodn: React.FC<Props> = ({ control, resetField, setValue }) => {
           book_to ? new Date(book_to as string | number) : null
         ]
   )
+
   const [startDate, endDate] = dateRange
 
   useEffect(() => {
@@ -53,91 +54,93 @@ const PeriodDropwodn: React.FC<Props> = ({ control, resetField, setValue }) => {
 
   return (
     <Menu as='div' className='flex text-left w-full h-full'>
-        {({ open }) => (
-            <>
-              <Menu.Button className='h-full bg-transparent pl-3 lg:pl-4 pr-1 lg:pr-2 inline-flex justify-center items-center rounded-md text-sm font-medium text-white'>
-                <FilterContainer>
-                  <InnerFilterContainer>
-                    <InnerFilterContainer>
-                      <Typography type='body' className='whitespace-nowrap min-w-[144px]'>
-                        {formState?.booking?.book_from?.length > 0 || formState?.booking?.book_to?.length > 0
-                          ? `  ${
-                              formState?.booking?.book_from?.length > 0 &&
-                              `${format(new Date(formState?.booking?.book_from), 'd MMM', { locale: ka })}`
-                            }
+      {({ open }) => (
+        <>
+          <Menu.Button className='h-full bg-transparent pl-3 lg:pl-4 pr-1 lg:pr-2 inline-flex justify-center items-center rounded-md text-sm font-medium text-white'>
+            <FilterContainer>
+              <InnerFilterContainer>
+                <InnerFilterContainer>
+                  <Typography type='body' className='whitespace-nowrap'>
+                    {formState?.booking?.book_from?.length > 0 || formState?.booking?.book_to?.length > 0
+                      ? `  ${
+                          formState?.booking?.book_from?.length > 0 &&
+                          `${format(new Date(formState?.booking?.book_from), 'd MMM', { locale: ka })}`
+                        }
                         -
                     ${
                       formState?.booking?.book_to?.length > 0 && formState?.booking?.book_to !== 'თარიღი'
                         ? `${format(new Date(formState?.booking?.book_to), 'd MMM', { locale: ka })}`
                         : ''
                     }`
-                          : 'დაქირავების პერიოდი'}
-                      </Typography>
-                      {formState?.booking?.book_from || formState?.booking?.book_to ? (
-                          <span className='flex shrink-0 ml-1 p-2 rounded-full hover:bg-raisin-5 transition-all'
-                                onClick={e => {
-                                  resetField(), e.stopPropagation()
-                                }}>
-                            <Icon
-                                svgPath='clear-xs'
-                                width={7}
-                                height={7}
-                                color='raisin-10'
-                                className='fill-transparent'
-                            />
-                          </span>
-
-                      ) : (
-                          <span className='flex shrink-0 ml-1 p-2 rounded-full hover:bg-raisin-5 transition-all'>
-                           <Icon svgPath='chevron' width={8} height={6} className={`${open ? 'rotate-180':''} transition-all fill-transparent`} />
-                          </span>
-                      )}
-                    </InnerFilterContainer>
-                  </InnerFilterContainer>
-                </FilterContainer>
-              </Menu.Button>
-              <Transition
-                as={Fragment}
-                enter='transition ease-out duration-100'
-                enterFrom='transform opacity-0 scale-95'
-                enterTo='transform opacity-100 scale-100'
-                leave='transition ease-in duration-75'
-                leaveFrom='transform opacity-100 scale-100'
-                leaveTo='transform opacity-0 scale-95'
-              >
-                <Menu.Items className='absolute w-max left-0 top-full z-[11] p-4 right-0 mt-4 flex justify-center origin-top-right divide-y divide-gray-100 rounded-2xl bg-white shadow-lg focus:outline-none'>
-                  <Controller
-                    name='booking'
-                    control={control}
-                    render={({ field: { onChange } }) => (
-                      <DatePicker
-                        locale='ka'
-                        className='text-center border-l-4 border-red-500  w-full p-3 rounded text-sm  outline-none  focus:ring-0 bg-transparent'
-                        inline
-                        selectsRange={true}
-                        startDate={startDate}
-                        endDate={endDate}
-                        monthsShown={2}
-                        onChange={(update: any) => {
-                          if (update) {
-                            const [start, end] = update
-                            onChange({ book_from: formatDate(start), book_to: formatDate(end) })
-                            setDateRange(update)
-                          } else {
-                            onChange(null)
-                            setDateRange([null, null])
-                          }
-                        }}
-                        dateFormat='yyyy-MM-dd'
-                        onChangeRaw={e => e.preventDefault()}
-                        minDate={new Date()}
+                      : 'დაქირავების პერიოდი'}
+                  </Typography>
+                  {formState?.booking?.book_from || formState?.booking?.book_to ? (
+                    <span
+                      className='flex shrink-0 p-2'
+                      onClick={e => {
+                        resetField(), e.stopPropagation()
+                        setDateRange([null, null])
+                      }}
+                    >
+                      <Icon svgPath='clear-xs' width={7} height={7} color='raisin-10' className='fill-transparent' />
+                    </span>
+                  ) : (
+                    <span className='flex shrink-0 p-2'>
+                      <Icon
+                        svgPath='chevron'
+                        width={8}
+                        height={6}
+                        className={`${open ? 'rotate-180' : ''} transition-all fill-transparent`}
                       />
-                    )}
+                    </span>
+                  )}
+                </InnerFilterContainer>
+              </InnerFilterContainer>
+            </FilterContainer>
+          </Menu.Button>
+          <Transition
+            as={Fragment}
+            enter='transition ease-out duration-100'
+            enterFrom='transform opacity-0 scale-95'
+            enterTo='transform opacity-100 scale-100'
+            leave='transition ease-in duration-75'
+            leaveFrom='transform opacity-100 scale-100'
+            leaveTo='transform opacity-0 scale-95'
+          >
+            <Menu.Items className='absolute w-max left-0 top-full z-[11] p-4 right-0 mt-4 flex justify-center origin-top-right divide-y divide-gray-100 rounded-2xl bg-white shadow-lg focus:outline-none'>
+              <Controller
+                name='booking'
+                control={control}
+                render={({ field: { onChange } }) => (
+                  <DatePicker
+                    key={startDate ? startDate.toString() : 'null'}
+                    locale='ka'
+                    className='text-center border-l-4 border-red-500  w-full p-3 rounded text-sm  outline-none  focus:ring-0 bg-transparent'
+                    inline
+                    selectsRange={true}
+                    startDate={startDate}
+                    endDate={endDate}
+                    monthsShown={2}
+                    onChange={(update: any) => {
+                      if (update) {
+                        const [start, end] = update
+                        onChange({ book_from: formatDate(start), book_to: formatDate(end) })
+                        setDateRange(update)
+                      } else {
+                        onChange(null)
+                        setDateRange([null, null])
+                      }
+                    }}
+                    dateFormat='yyyy-MM-dd'
+                    onChangeRaw={e => e.preventDefault()}
+                    minDate={new Date()}
                   />
-                </Menu.Items>
-              </Transition>
-            </>
-        )}
+                )}
+              />
+            </Menu.Items>
+          </Transition>
+        </>
+      )}
     </Menu>
   )
 }

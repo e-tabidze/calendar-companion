@@ -3,6 +3,7 @@ import OrderService from 'src/services/OrderService'
 import SearchService from 'src/services/SearchService'
 
 const useSingleProductDetails = (id: any) => {
+  console.log(Number(id), 'id?')
   const getSingleProduct = async () => {
     const response: any = await SearchService.getSingleProduct(id)
 
@@ -11,7 +12,7 @@ const useSingleProductDetails = (id: any) => {
 
   const orderDates = async () => {
     try {
-      const response: any = await OrderService.orderDates('', id)
+      const response: any = await OrderService.orderDates('', Number(id))
 
       return response.data
     } catch (error) {
@@ -28,7 +29,7 @@ const useSingleProductDetails = (id: any) => {
     queryKey: ['orderDates'],
     queryFn: () => orderDates(),
     staleTime: Infinity,
-    enabled: true
+    enabled: !!id,
   })
 
   const orderDatesData = useOrderDates?.data?.result
