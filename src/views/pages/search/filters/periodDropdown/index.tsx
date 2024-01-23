@@ -60,7 +60,7 @@ const PeriodDropwodn: React.FC<Props> = ({ control, resetField, setValue }) => {
             <FilterContainer>
               <InnerFilterContainer>
                 <InnerFilterContainer>
-                  <Typography type='body' className='whitespace-nowrap'>
+                  <Typography type='body' className='whitespace-nowrap min-w-[144px]'>
                     {formState?.booking?.book_from?.length > 0 || formState?.booking?.book_to?.length > 0
                       ? `  ${
                           formState?.booking?.book_from?.length > 0 &&
@@ -76,7 +76,7 @@ const PeriodDropwodn: React.FC<Props> = ({ control, resetField, setValue }) => {
                   </Typography>
                   {formState?.booking?.book_from || formState?.booking?.book_to ? (
                     <span
-                      className='flex shrink-0 p-2'
+                      className='flex shrink-0 ml-1 p-2 rounded-full hover:bg-raisin-5 transition-all'
                       onClick={e => {
                         resetField(), e.stopPropagation()
                         setDateRange([null, null])
@@ -85,7 +85,7 @@ const PeriodDropwodn: React.FC<Props> = ({ control, resetField, setValue }) => {
                       <Icon svgPath='clear-xs' width={7} height={7} color='raisin-10' className='fill-transparent' />
                     </span>
                   ) : (
-                    <span className='flex shrink-0 p-2'>
+                    <span className='flex shrink-0 ml-1 p-2 rounded-full hover:bg-raisin-5 transition-all'>
                       <Icon
                         svgPath='chevron'
                         width={8}
