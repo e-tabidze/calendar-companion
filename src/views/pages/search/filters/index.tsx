@@ -36,8 +36,8 @@ const Filters = () => {
   }, [])
 
   return (
-    <div className='w-full mt-4 md:mt-0 justify-center flex border border-raisin-10 mx-auto md:ml-4 lg:ml-8 xl:ml-14 rounded-3xl h-12 items-center'>
-      <FiltersContainer className='w-full flex justify-between h-full md:!bg-transparent'>
+    <div className='w-full mt-4 md:mt-0 justify-center flex border md:border-0 lg:border border-raisin-10 mx-auto md:ml-4 lg:ml-8 xl:ml-14 rounded-3xl h-12 items-center'>
+      <FiltersContainer className='w-full flex md:hidden lg:flex justify-between h-full md:!bg-transparent'>
         {isMobileDevice ? <LocationMob control={control} resetField={handleResetLocation} /> : <LocationDropdown control={control} resetField={handleResetLocation} />}
         <Divider />
         {isMobileDevice ? <PeriodMob control={control} resetField={handleResetBooking} /> : <PeriodDropdown control={control} resetField={handleResetBooking} setValue={setValue} />}

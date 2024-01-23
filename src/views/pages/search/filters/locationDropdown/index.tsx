@@ -24,7 +24,7 @@ const LocationDropdown: React.FC<Props> = ({ control, resetField }) => {
                 <div className='relative h-full'>
                     <Combobox.Button className='h-full flex items-center pl-3 lg:pl-4 pr-1 lg:pr-2'>
                         <Combobox.Input
-                            className='flex shrink-0 border-none h-full text-2sm text-raisin-130 placeholder:text-sm placeholder:text-raisin-130'
+                            className='bg-transparent border-none h-full text-2sm text-raisin-130 placeholder:text-sm placeholder:text-raisin-130'
                             placeholder='მდებარეობა'
                             displayValue={(city: any) => city.city}
                             onChange={onChange}
