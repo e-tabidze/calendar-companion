@@ -41,6 +41,9 @@ interface Props {
   onSubmit: () => void
   reset: any
   setValue: any
+  setManufactuterMeta?: any
+  setYearFromMeta?: any
+  setYearToMeta?: any
 }
 
 const AdditionalFilters: React.FC<Props> = ({
@@ -58,7 +61,10 @@ const AdditionalFilters: React.FC<Props> = ({
   appendSteeringWheel,
   onSubmit,
   reset,
-  setValue
+  setValue,
+  setManufactuterMeta,
+  setYearFromMeta,
+  setYearToMeta
 }) => {
   const { width } = useWindowDimensions()
   const {
@@ -214,6 +220,7 @@ const AdditionalFilters: React.FC<Props> = ({
                         handleChange={() => {
                           setValue('model_id', [])
                         }}
+                        setValueLabel={setManufactuterMeta}
                       />
                       <SelectField
                         name='model_id'
@@ -237,6 +244,7 @@ const AdditionalFilters: React.FC<Props> = ({
                         className='w-full my-2 md:w-1/2'
                         valueKey='value'
                         labelKey='label'
+                        setValueLabel={setYearFromMeta}
                       />
                       <SelectField
                         name='year_to'
@@ -247,6 +255,7 @@ const AdditionalFilters: React.FC<Props> = ({
                         className='w-full my-2 md:w-1/2'
                         valueKey='value'
                         labelKey='label'
+                        setValueLabel={setYearToMeta}
                       />
                     </div>
                   </div>

@@ -36,6 +36,7 @@ import Toast from 'src/views/components/toast'
 import toast from 'react-hot-toast'
 import { DefaultButton } from 'src/views/components/button'
 import PeriodDialog from 'src/views/pages/booking/periodDialog'
+import PageMeta from 'src/@core/meta/PageMeta'
 
 const Booking = () => {
   const [additionalServices, toggleAdditionalServices] = useState(true)
@@ -188,8 +189,16 @@ const Booking = () => {
     return <div>Loading...</div>
   }
 
+  const pageMeta = {
+    title: `ქირავდება ${singleProductDetails?.manufacturer?.title} ${singleProductDetails?.manufacturer_model?.title} ${singleProductDetails?.prod_year} ${singleProductDetails?.start_city} |  Rent.myauto.ge | მანქანის ქირაობის პლატფორმა`,
+    desc: '',
+    img: singleProductDetails?.large_images?.split(',')[0]
+  }
+
   return (
     <>
+      <PageMeta meta={pageMeta} />
+
       <form onSubmit={handleSubmit(onSubmit)}>
         <LargeContainer className='flex items-baseline pt-5 flex-col md:flex-row'>
           <Image src='/images/logo-rent.svg' alt='logo' className='cursor-pointer' onClick={onClickLogo} />

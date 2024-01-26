@@ -3,16 +3,17 @@ import useFilters from 'src/hooks/useFilters'
 import { TailwindDiv } from 'src/interfaces/tailwind'
 import DefaultLayout from 'src/layouts/DefaultLayout'
 import { LargeContainer, ContentContainer, ResponsiveContainer } from 'src/styled/styles'
-import Carousel from 'src/views/components/carousel'
-import CategoryItem from 'src/views/components/categoryItem'
 import Divider from 'src/views/components/divider'
-import ProductCard from 'src/views/components/productCard'
-import Typography from 'src/views/components/typography'
-import Cities from 'src/views/pages/main/cities'
-import Hero from 'src/views/pages/main/hero'
 import useMain from 'src/views/pages/main/useMain'
 
 const PageMeta = dynamic(() => import('src/@core/meta/PageMeta'), { ssr: true })
+
+const ProductCard = dynamic(() => import('src/views/components/productCard'), { ssr: true })
+const CategoryItem = dynamic(() => import('src/views/components/categoryItem'), { ssr: true })
+const Carousel = dynamic(() => import('src/views/components/carousel'), { ssr: true })
+const Hero = dynamic(() => import('src/views/pages/main/hero'), { ssr: true })
+const Cities = dynamic(() => import('src/views/pages/main/cities'), { ssr: true })
+const Typography = dynamic(() => import('src/views/components/typography'), { ssr: true })
 
 // ** Tailwind Styled
 import tw from 'tailwind-styled-components'

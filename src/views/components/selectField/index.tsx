@@ -56,6 +56,7 @@ interface Props {
   handleChange?: () => void
   errorAbsolute?: boolean
   errorRight?: boolean
+  setValueLabel?: any
 }
 
 const Control = ({ children, ...props }: any) => {
@@ -84,7 +85,8 @@ const SelectField: React.FC<Props> = ({
   errorAbsolute,
   errorRight,
   isMulti = false,
-  handleChange
+  handleChange,
+  setValueLabel
 }) => {
   const { DropdownIndicator, ClearIndicator } = components
 
@@ -115,6 +117,7 @@ const SelectField: React.FC<Props> = ({
         control={control}
         render={({ field: { onChange, value } }) => (
           <>
+      
             <Select
               styles={customStyles}
               options={options}
@@ -132,6 +135,16 @@ const SelectField: React.FC<Props> = ({
 
                 onChange(selectedValues)
                 handleChange && handleChange()
+                setValueLabel &&
+                  setValueLabel(
+                    isMulti
+                      ? options?.filter(opt => (valueKey ? value?.includes(opt[valueKey]) : value.includes(opt.value)))
+                      : options?.filter(opt => (valueKey ? opt[valueKey] === value : opt.value === value))
+                  )
+                setValueLabel &&
+                  setValueLabel(
+                    isMulti ? e.map((opt: any) => (labelKey ? opt[labelKey] : opt.value)) : e?.label || ''
+                  )
               }}
               className={`${_.get(errors, name)?.message ? `error-border border border-red-100 rounded-[12px]` : ''}`}
               isMulti={isMulti}

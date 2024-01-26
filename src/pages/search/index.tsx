@@ -22,6 +22,7 @@ import SortListBox from 'src/views/pages/search/sortListBox'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { dehydrate } from '@tanstack/query-core'
 import { queryClient } from '../_app'
+import PageMeta from 'src/@core/meta/PageMeta'
 
 // const MapPicker = dynamic(() => import('src/views/components/mapPicker'), { ssr: true })
 const SkeletonLoading = dynamic(() => import('src/views/pages/search/skeletonLoading'), { ssr: false })
@@ -39,6 +40,12 @@ const SuitcasesPopover = dynamic(() => import('src/views/pages/search/suitcasesP
 const AdditionalFilters = dynamic(() => import('src/views/components/additionalFilters'), { ssr: false })
 
 // const ToggleMapButton = dynamic(() => import('../../views/pages/search/toggleMapButton'), { ssr: true })
+
+// const pageMeta = {
+//   title: 'მეტა?',
+//   desc: '',
+//   img: ''
+// }
 
 const SearchPage = () => {
   const {
@@ -67,6 +74,10 @@ const SearchPage = () => {
 
   // const [mapVisible, setMapVisible] = useState(true)
   const [filters, toggleFilters] = useState(false)
+  const [pageMeta, setPageMeta] = useState({})
+  const [manufactuterMeta, setManufactuterMeta] = useState('Rent.myauto.ge | მანქანის ქირაობის პლატფორმა')
+  const [yearFromMeta, setYearFromMeta] = useState('')
+  const [yearToMeta, setYearToMeta] = useState('')
 
   const router = useRouter()
 
@@ -96,6 +107,12 @@ const SearchPage = () => {
     )
   }, [formState])
 
+  useEffect(() => {
+    const metaTitle = `${manufactuterMeta} ${yearFromMeta} ${yearToMeta} Rent.myauto.ge | მანქანის ქირაობის პლატფორმა`
+    const metaDesc = `Rent.myauto.ge | მანქანის ქირაობის პლატფორმა`
+    setPageMeta({ title: metaTitle, desc: metaDesc, img: '' })
+  }, [formState])
+
   // useEffect(() => {
   //   setMapVisible(width >= 1025)
   // }, [width])
@@ -112,6 +129,8 @@ const SearchPage = () => {
 
   return (
     <>
+      <PageMeta meta={pageMeta} />
+
       <form>
         <SearchLayout>
           <FiltersWrapper className='border-t-1 border-b-1 border-raisin-10'>
@@ -322,6 +341,9 @@ const SearchPage = () => {
           reset={reset}
           setValue={setValue}
           appendSteeringWheel={appendSteeringWheel}
+          setManufactuterMeta={setManufactuterMeta}
+          setYearFromMeta={setYearFromMeta}
+          setYearToMeta={setYearToMeta}
         />
       </form>
     </>

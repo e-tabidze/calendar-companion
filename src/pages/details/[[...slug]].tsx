@@ -46,6 +46,7 @@ const Features = dynamic(() => import('src/views/pages/details/features'), { ssr
 
 import { format } from 'date-fns'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import PageMeta from 'src/@core/meta/PageMeta'
 
 registerLocale('ka', ka)
 
@@ -164,8 +165,16 @@ const ProductDetails = memo(() => {
     }
   }, [])
 
+  const pageMeta = {
+    title: `ქირავდება ${singleProductDetails?.manufacturer?.title} ${singleProductDetails?.manufacturer_model?.title} ${singleProductDetails?.prod_year} ${singleProductDetails?.start_city} |  Rent.myauto.ge | მანქანის ქირაობის პლატფორმა`,
+    desc: '',
+    img: singleProductDetails?.large_images?.split(',')[0]
+  }
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
+      <PageMeta meta={pageMeta} />
+
       <DefaultLayout>
         {/* <ContentContainer>
           <DetailsPageHeader />
