@@ -36,7 +36,7 @@ const Filters = () => {
     appendAdditionalInformation,
     appendSteeringWheel,
     objectToURI,
-    reset,
+    resetField,
     setValue,
     searchProductsMutation
   } = useSearch()
@@ -50,12 +50,37 @@ const Filters = () => {
     setIsMobileDevice(isMobile)
   }, [])
 
+  const resetSearchFields = () => {
+    resetField('fuel_types')
+    resetField('category')
+    resetField('seat_types')
+    resetField('luggage_numbers')
+    resetField('drive_tires')
+    resetField('door_types')
+    resetField('steering_wheel')
+    resetField('transmission_types')
+    resetField('additional_information')
+    resetField('price_min')
+    resetField('price_max')
+    resetField('manufacturer_id')
+    resetField('year_from')
+    resetField('year_to')
+  }
+
   return (
     <form>
       <FiltersContainer>
-        {isMobileDevice ? <LocationMob control={control} resetField={handleResetLocation} /> : <LocationDropdown control={control} resetField={handleResetLocation} />}
+        {isMobileDevice ? (
+          <LocationMob control={control} resetField={handleResetLocation} />
+        ) : (
+          <LocationDropdown control={control} resetField={handleResetLocation} />
+        )}
         <Divider />
-        {isMobileDevice ? <PeriodMob control={control} resetField={handleResetBooking} /> : <PeriodDropdown control={control} resetField={handleResetBooking}/>}
+        {isMobileDevice ? (
+          <PeriodMob control={control} resetField={handleResetBooking} />
+        ) : (
+          <PeriodDropdown control={control} resetField={handleResetBooking} />
+        )}
         <Divider />
         <ExtraFiltersContainer className='flex shrink-0'>
           <IconTextButton
@@ -96,7 +121,7 @@ const Filters = () => {
         appendTransmissionType={appendTransmissionType}
         appendAdditionalInformation={appendAdditionalInformation}
         onSubmit={onClickSearch}
-        reset={reset}
+        reset={resetSearchFields}
         setValue={setValue}
       />
     </form>
