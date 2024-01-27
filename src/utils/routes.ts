@@ -3,7 +3,7 @@ export const profileRoutes = [
     id: 1,
     icon: 'orders',
     item: 'ჩემი შეკვეთები',
-    path: '/profile/orders/'
+    path: '/profile/orders?page=1'
   },
   {
     id: 2,

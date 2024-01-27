@@ -81,8 +81,6 @@ const CompanyOrders = () => {
     fetchOrderFilters()
   }
 
-  console.log(orders?.data, 'orders?.data')
-
   return (
     <>
       {router.query.id ? (
