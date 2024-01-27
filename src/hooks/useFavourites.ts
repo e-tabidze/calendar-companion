@@ -2,7 +2,7 @@ import UserService from 'src/services/UserService'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import useProfile from './useProfile'
 
-const useFavourites = (productId?: string | number) => {
+const useFavourites = (productId?: string | number, page?: number) => {
   const queryClient = useQueryClient()
   const { isAuthenticated, activeCompanyId } = useProfile()
 
@@ -24,13 +24,13 @@ const useFavourites = (productId?: string | number) => {
   })
 
   const useFavourites: any = useQuery({
-    queryKey: ['userFavourites'],
-    queryFn: () => getUserFavourites(),
+    queryKey: ['userFavourites', page],
+    queryFn: () => getUserFavourites('', page || 1),
     staleTime: Infinity,
     enabled: !!isAuthenticated && activeCompanyId === undefined
   })
 
-  const userFavourites = useFavourites?.data?.result?.data
+  const userFavourites = useFavourites?.data?.result
   const isLoading = useFavourites?.isLoading
 
   return { toggleUserFavourites, userFavourites, isLoading }
@@ -38,9 +38,9 @@ const useFavourites = (productId?: string | number) => {
 
 export default useFavourites
 
-export const getUserFavourites = async (accessToken = '') => {
+export const getUserFavourites = async (accessToken = '', page: number) => {
   try {
-    const response: any = await UserService.getUserFavourites(accessToken)
+    const response: any = await UserService.getUserFavourites(accessToken, page)
 
     return response.data
   } catch (error) {

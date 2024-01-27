@@ -10,16 +10,16 @@ const useOrders = (orderId?: string | number | undefined, page?: number) => {
 
   const useUserOrders: any = useQuery({
     queryKey: ['userOders', page],
-    queryFn: () => getUserOrders(page || 0),
+    queryFn: () => getUserOrders(page || 1),
     staleTime: Infinity,
-    enabled: router.asPath.includes('/profile/orders/?page=')
+    enabled: router.asPath.includes('/profile/orders/?page=') || router.asPath.includes('/profile/transactions/?page=')
   })
 
   const useOrderDetails: any = useQuery({
     queryKey: ['userOdersDetails', orderId],
     queryFn: () => getUserOrderDetails(orderId),
     staleTime: Infinity,
-    enabled: !!isAuthenticated && !!orderId && router.asPath.includes('/profile/orders/?id=')
+    enabled: !!isAuthenticated && !!orderId 
   })
 
   const userOrders = useUserOrders?.data?.result

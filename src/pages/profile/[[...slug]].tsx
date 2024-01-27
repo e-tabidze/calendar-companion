@@ -6,7 +6,7 @@ import { UserInfo } from 'src/types/User'
 import useCompanyInfo from 'src/hooks/useCompanyInfo'
 import { useQueryClient } from '@tanstack/react-query'
 import { profileRoutes } from 'src/utils/routes'
-
+  
 const Orders = dynamic(() => import('src/views/pages/profile/orders'), { ssr: false })
 const Favourites = dynamic(() => import('src/views/pages/profile/favourites'), { ssr: false })
 const Notifications = dynamic(() => import('src/views/pages/profile/notifications'), { ssr: false })

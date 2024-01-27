@@ -25,8 +25,8 @@ class UserService extends HttpService {
     return this.post('/add-user-favourites', product_id, AccessToken ? { Authorization: `${AccessToken}` } : {})
   }
 
-  getUserFavourites(AccessToken = '') {
-    return this.get('/user-favourites', {}, AccessToken ? { Authorization: `${AccessToken}` } : {})
+  getUserFavourites(AccessToken = '', page: number) {
+    return this.get(`/user-favourites?page=${page}`, {}, AccessToken ? { Authorization: `${AccessToken}` } : {})
   }
 }
 

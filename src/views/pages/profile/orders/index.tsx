@@ -13,17 +13,13 @@ const Orders = () => {
 
   const { page } = router.query
 
-  const { userOrders, useUserOrdersLoading } = useOrders(undefined, page ? Number(page) : 0)
+  const { userOrders } = useOrders(undefined, page ? Number(page) : 0)
 
   const handlePageChange = (newPage: number) => {
     router.push({
       pathname: router.pathname,
       query: { ...router.query, page: newPage }
     })
-  }
-
-  if (useUserOrdersLoading) {
-    return <div>Loading</div>
   }
 
   return (
