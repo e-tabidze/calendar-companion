@@ -94,7 +94,7 @@ const CheckboxField: React.FC<Props> = ({
                         }}
                       />
                       {option.icon && <Icon svgPath={option.icon} width={width || 18} height={height || '18'} />}
-                      <Typography type='body' className='w-max'>
+                      <Typography type='body' className='w-max text-sm lg:text-2sm'>
                         {option.title}
                       </Typography>
                     </div>

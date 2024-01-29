@@ -53,7 +53,7 @@ const FuelTypePopover: React.FC<Props> = ({ control, appendFuelType, reset, hand
           onClick={() => reset('fuel_types')}
           disabled={!formState?.fuel_types?.length}
           labelClassname={
-            formState?.fuel_types?.length ? 'text-sm text-red-100 border-b' : 'text-sm text-raisin-50 border-b'
+            formState?.fuel_types?.length ? 'text-sm text-red-100' : 'text-sm text-raisin-50'
           }
           type='button'
         />

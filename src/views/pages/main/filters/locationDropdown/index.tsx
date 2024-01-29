@@ -73,7 +73,7 @@ const LocationDropdown: React.FC<Props> = ({ control, resetField  }) => {
                           )?.map((city: any) => (
                               <Combobox.Option
                                   key={city?.city}
-                                  className='hover:bg-raisin-5 cursor-pointer select-none py-2 px-6 flex items-center'
+                                  className='hover:bg-raisin-5 cursor-pointer select-none py-2 px-6 flex items-center last:mb-2'
                                   value={city.city}
                               >
                                   <Icon

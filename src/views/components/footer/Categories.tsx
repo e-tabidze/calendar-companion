@@ -23,14 +23,14 @@ const Categories = () => {
             </Typography>
             <div className={`${active?'block':'hidden'} lg:block`}>
                 <div className="lg:flex lg:justify-between">
-                    <ul className="mt-4 lg:mt-6 lg:flex lg:w-full overflow-hidden flex-wrap">
+                    <ul className="mt-4 lg:mt-6">
                           {categoriesFilter
                                 ?.sort(
                                     (a: { count_products: number }, b: { count_products: number }) => b.count_products - a.count_products
                                 )
                                 ?.map((product: any) => (
 
-                            <li className='w-1/3 mb-2' key={product?.id}>
+                            <li className='mb-2' key={product?.id}>
                                 <CategoryLink
                                     title={product?.title}
                                     id={product?.id}

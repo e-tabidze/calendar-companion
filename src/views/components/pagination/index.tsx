@@ -66,7 +66,7 @@ const Pagination: React.FC<Props> = ({ totalPages, onPageChange, currentPage }) 
         text='უკან'
         onClick={handlePreviousPage}
         className={`hidden md:flex bg-raisin-10 !h-14 !px-8 !font-medium transition-all ${
-          currentPage == 1 ? 'opacity-50 cursor-not-allowed' : 'hover:border-raisin-100'
+          currentPage == 1 ? '!opacity-100 bg-raisin-5 border-raisin-5 text-raisin-40 cursor-not-allowed' : 'hover:border-raisin-100'
         }`}
         disabled={currentPage === 1}
       />
@@ -85,7 +85,7 @@ const Pagination: React.FC<Props> = ({ totalPages, onPageChange, currentPage }) 
         text='შემდეგი'
         onClick={handleNextPage}
         className={`hidden md:flex bg-raisin-10 !h-14 !px-8 !font-medium  transition-all ${
-          currentPage === totalPages ? 'opacity-50 cursor-not-allowed' : 'hover:border-raisin-100'
+          currentPage === totalPages ? '!opacity-100 bg-raisin-5 border-raisin-5 text-raisin-40 cursor-not-allowed' : 'hover:border-raisin-100'
         }`}
         disabled={currentPage === totalPages}
       />
