@@ -1,9 +1,6 @@
 import React, { useState } from 'react'
 import Typography from "src/views/components/typography";
 import Icon from "src/views/app/Icon";
-import useFilters from "src/hooks/useFilters";
-import CategoryLink from "src/views/components/footer/CategoryLink";
-import {Combobox, Listbox} from "@headlessui/react";
 import useSearchLocations from "src/views/components/defaultHeader/filters/locationDropdown/useSearchLocations";
 
 
