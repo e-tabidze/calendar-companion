@@ -33,6 +33,7 @@ interface Props {
   seats: string | number
   images: string[]
   city: string
+  isProductInFavorites: boolean
 }
 
 const ProductCard: React.FC<Props> = ({
@@ -46,13 +47,14 @@ const ProductCard: React.FC<Props> = ({
   bookTo,
   seats,
   images,
-  city
+  city,
+  isProductInFavorites
 }) => {
   const router = useRouter()
 
   const { isAuthenticated, activeCompanyId } = useProfile()
 
-  const { toggleUserFavourites, userFavourites } = useFavourites(productId)
+  const { toggleUserFavourites } = useFavourites(productId)
 
   const handleCardClick = () => {
     const today = new Date()
@@ -67,7 +69,7 @@ const ProductCard: React.FC<Props> = ({
     router.push(`/details/${productId}${queryString}`)
   }
 
-  const isProductInFavorites = userFavourites?.some((fav: any) => fav.product_id === productId)
+  // const isProductInFavorites = userFavourites?.some((fav: any) => fav.product_id === productId)
 
   const handleFavorites = async (e: any) => {
     e.stopPropagation()

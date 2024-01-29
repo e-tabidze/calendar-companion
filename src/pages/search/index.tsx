@@ -127,6 +127,8 @@ const SearchPage = () => {
     router.push(`/search?${objectToURI(updatedSearchValues)}`)
   }
 
+  console.log(productsData, 'productsData')
+
   return (
     <>
       <PageMeta meta={pageMeta} />
