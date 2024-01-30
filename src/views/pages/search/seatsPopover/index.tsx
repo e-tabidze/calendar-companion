@@ -30,7 +30,7 @@ const SeatsPopover: React.FC<Props> = ({ control, appendSeatType, handleSubmit, 
       </TagsWrapper>
       <div className='flex items-center justify-between sticky bottom-0 bg-white p-5'>
         <IconTextButton
-          icon='rotate'
+          icon='return'
           label='გასუფთავება'
           className='fill-transparent'
           width={24}
@@ -38,7 +38,7 @@ const SeatsPopover: React.FC<Props> = ({ control, appendSeatType, handleSubmit, 
           onClick={() => reset('seat_types')}
           disabled={!formState?.seat_types?.length}
           labelClassname={
-            formState?.seat_types?.length ? 'text-sm text-red-100 border-b' : 'text-sm text-raisin-50 border-b'
+            formState?.seat_types?.length ? 'text-sm text-red-100' : 'text-sm text-raisin-50'
           }
           type='button'
         />

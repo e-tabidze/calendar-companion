@@ -29,14 +29,14 @@ const SuitcasesPopover: React.FC<Props> = ({ control, appendLuggageNumber, handl
       </div>
       <div className='flex items-center justify-between sticky bottom-0 bg-white p-5'>
         <IconTextButton
-          icon='rotate'
+          icon='return'
           label='გასუფთავება'
           className='fill-transparent'
           width={24}
           height={24}
           onClick={() => reset('luggage_numbers')}
           labelClassname={
-            formState?.luggage_numbers?.length ? 'text-sm text-red-100 border-b' : 'text-sm text-raisin-50 border-b'
+            formState?.luggage_numbers?.length ? 'text-sm text-red-100' : 'text-sm text-raisin-50'
           }
           disabled={!formState?.luggage_numbers?.length}
           type='button'

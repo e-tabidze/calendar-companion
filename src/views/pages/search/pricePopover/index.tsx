@@ -33,10 +33,10 @@ const PricePopover: React.FC<Props> = ({ control, handleSubmit, reset }) => {
       </TagsWrapper>
       <ActionsWrapper className='p-5'>
         <IconTextButton
-          icon='rotate'
+          icon='return'
           label='გასუფთავება'
           className='fill-transparent'
-          labelClassname={hasPrice ? 'text-sm text-red-100 border-b' : 'text-sm text-raisin-50 border-b'}
+          labelClassname={hasPrice ? 'text-sm text-red-100' : 'text-sm text-raisin-50'}
           disabled={!hasPrice}
           type='button'
           width={24}

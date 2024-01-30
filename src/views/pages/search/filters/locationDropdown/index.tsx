@@ -66,11 +66,11 @@ const LocationDropdown: React.FC<Props> = ({ control, resetField }) => {
                             )?.map((city: any) => (
                                 <Combobox.Option
                                     key={city?.city}
-                                    className='hover:bg-raisin-5 cursor-pointer select-none py-2 px-6'
+                                    className='hover:bg-raisin-5 cursor-pointer select-none py-2 px-6 flex items-center last:mb-2'
                                     value={city.city}
                                 >
                                   <span
-                                      className='flex items-center truncate text-2sm'
+                                      className='text-sm flex truncate font-normal text-black/70'
                                   >
                                       {city.city}
                                   </span>

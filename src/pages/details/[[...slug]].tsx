@@ -456,8 +456,7 @@ const ProductDetails = memo(() => {
                         luggageNumbers={product?.luggage_numbers}
                         seats={product?.seat_type?.title}
                         images={product?.images?.split(',')}
-                        city={product?.start_city}
-                      />
+                        city={product?.start_city} isProductInFavorites={product.is_favourite}                      />
                     ))}
                     type='products'
                   />

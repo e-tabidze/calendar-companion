@@ -83,16 +83,16 @@ const SortListBox: React.FC<Props> = ({ control, onClick, setValue }) => {
                 leaveFrom='opacity-100'
                 leaveTo='opacity-0'
               >
-                <Listbox.Options className='absolute top-full mt-2 z-[11] w-full origin-top-right divide-y divide-gray-100 rounded-2xl bg-white overflow-hidden shadow-lg focus:outline-none'>
+                <Listbox.Options className='absolute z-[11] top-full mt-2 py-2 w-full overflow-hidden rounded-2xl bg-white shadow-lg'>
                   {sortFilters?.map((filter: any, index: number) => (
                     <Listbox.Option
                       key={index}
                       className={({ active }) =>
-                        `relative cursor-pointer select-none py-4 px-6 ${active ? 'bg-raisin-10' : 'text-gray-900'}`
+                        `hover:bg-raisin-5 cursor-pointer select-none py-2 px-6 flex items-center ${active ? 'bg-raisin-10' : 'text-gray-900'}`
                       }
                       value={filter.label}
                     >
-                      <span className={`block truncate text-2sm`}>{filter.label}</span>
+                      <span className={`text-sm flex truncate font-normal text-black/70`}>{filter.label}</span>
                     </Listbox.Option>
                   ))}
                 </Listbox.Options>

@@ -86,6 +86,8 @@ const ProductCard: React.FC<Props> = ({
     setIsMobileDevice(isMobile)
   }, [])
 
+  console.log(isProductInFavorites, 'isProductInFavorites')
+
   return (
     <ProductCardContainer onClick={handleCardClick}>
       <div className='overflow-hidden cursor-pointer w-full'>
