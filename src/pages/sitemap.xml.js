@@ -1,4 +1,4 @@
-const EXTERNAL_DATA_URL = 'https://test-front-rent.myauto.ge/filters.json'
+const EXTERNAL_DATA_URL = 'https://test-api-rent.myauto.ge/api/product-filters'
 import { DOMAIN } from 'src/env'
 
 function generateSiteMap() {
@@ -6,11 +6,11 @@ function generateSiteMap() {
    <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
     <sitemap>
-      <loc>${`${DOMAIN}/sitemap/filters.xml`}</loc>
+      <loc>${`${DOMAIN}/sitemap/product-filters.xml`}</loc>
     </sitemap>
 
     <sitemap>
-      <loc>${`${DOMAIN}/sitemap/product.xml`}</loc>
+      <loc>${`${DOMAIN}/sitemap/cities.xml`}</loc>
     </sitemap>
 
    </sitemapindex>
