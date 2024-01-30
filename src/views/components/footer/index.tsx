@@ -28,16 +28,10 @@ const Footer = () => {
                 <div className="px-5 sm:px-0 mx-auto">
                     <div className="border-t-[1px] border-raisin-10 lg:border-0 lg:pt-14 lg:pb-10">
                         <div className="max-w-[1240px] 2xl:max-w-[1470px] mx-auto lg:flex">
-                            <div className="lg:w-1/2 lg:flex">
-                                <Navigation/>
-                                <Help/>
-                            </div>
-                            <div className="lg:w-1/4">
-                                <Categories/>
-                            </div>
-                            <div className="lg:w-1/4">
-                                <Cities/>
-                            </div>
+                            <Navigation/>
+                            <Help/>
+                            <Categories/>
+                            <Cities/>
                         </div>
                     </div>
                 </div>

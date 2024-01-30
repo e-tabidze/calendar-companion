@@ -37,7 +37,7 @@ const FuelTypePopover: React.FC<Props> = ({ control, appendFuelType, reset, hand
             options={fuelTypesFilter}
             name='fuel_types'
             control={control}
-            height='h-10'
+            height='h-12'
             append={appendFuelType}
             outlined
           />
@@ -45,7 +45,7 @@ const FuelTypePopover: React.FC<Props> = ({ control, appendFuelType, reset, hand
       </TagsWrapper>
       <ActionsWrapper className='sticky bottom-0 bg-white p-5'>
         <IconTextButton
-          icon='rotate'
+          icon='return'
           label='გასუფთავება'
           className='fill-transparent'
           width={24}

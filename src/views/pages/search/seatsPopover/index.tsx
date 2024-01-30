@@ -30,7 +30,7 @@ const SeatsPopover: React.FC<Props> = ({ control, appendSeatType, handleSubmit, 
       </TagsWrapper>
       <div className='flex items-center justify-between sticky bottom-0 bg-white p-5'>
         <IconTextButton
-          icon='rotate'
+          icon='return'
           label='გასუფთავება'
           className='fill-transparent'
           width={24}

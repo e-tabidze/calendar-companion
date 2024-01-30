@@ -39,7 +39,7 @@ const CategoryPopover: React.FC<Props> = ({ control, appendCategory, handleSubmi
 
       <div className='flex items-center justify-between sticky bottom-0 bg-white p-5 shadow-buttonContainer'>
         <IconTextButton
-          icon='rotate'
+          icon='return'
           label='გასუფთავება'
           className='fill-transparent'
           width={24}

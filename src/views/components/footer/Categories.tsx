@@ -14,7 +14,7 @@ const Categories = () => {
     const { categoriesFilter } = useFilters()
 
     return (
-        <div className="py-4 lg:py-0 border-b-[1px] border-raisin-10 lg:border-0">
+        <div className="py-4 lg:py-0 border-b-[1px] border-raisin-10 lg:border-0 lg:w-3/12">
             <Typography type='h5' weight='medium' className="flex items-center justify-between font-medium text-md lg:text-3md text-raisin-100" onClick={handleSetActive}>
                 კატეგორიები
                 <span className={`${active?'rotate-180':''} flex lg:hidden transition-all`}>
