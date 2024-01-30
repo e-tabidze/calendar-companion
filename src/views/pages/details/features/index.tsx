@@ -25,13 +25,11 @@ const Features: React.FC<Props> = ({ id, singleProductDetails }) => {
         />
         <ProductFeature feature={`${singleProductDetails?.seat_type?.title} მგზავრი`} icon='feature' />
         <ProductFeature feature={singleProductDetails?.transmission_type?.title} icon='feature' />
-      </div>
-      <div className='mt-8 mb-11 grid grid-cols-1 lg:grid-cols-2 gap-4'>
-        {singleProductDetails?.product_additional_information?.map(
-          (feature: { additional_information: { title: string }; icon: string; id: string | number }) => (
-            <ProductFeature feature={feature?.additional_information?.title} icon='feature' key={feature.id} />
-          )
-        )}
+          {singleProductDetails?.product_additional_information?.map(
+              (feature: { additional_information: { title: string }; icon: string; id: string | number }) => (
+                  <ProductFeature feature={feature?.additional_information?.title} icon='feature' key={feature.id} />
+              )
+          )}
       </div>
     </div>
   )
