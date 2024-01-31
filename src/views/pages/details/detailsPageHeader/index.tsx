@@ -23,7 +23,7 @@ const DetailsPageHeader = () => {
           </li>
       </ul>
         <button className='flex items-center bg-transparent text-sm'>
-            <Icon svgPath='back' width={5} height={8} className='flex mr-4'/>
+            <Icon svgPath='back-sm' width={5} height={8} className='flex mr-4'/>
             დაბრუნება
         </button>
       <ActionsWrapper>

@@ -200,8 +200,12 @@ const Booking = () => {
       <PageMeta meta={pageMeta} />
 
       <form onSubmit={handleSubmit(onSubmit)}>
-        <LargeContainer className='flex items-baseline pt-5 flex-col md:flex-row'>
+        <LargeContainer className='flex justify-center md:justify-start items-center pt-5 flex-row-reverse md:flex-row relative'>
           <Image src='/images/logo-rent.svg' alt='logo' className='cursor-pointer' onClick={onClickLogo} />
+          <button className='flex items-center bg-transparent text-sm md:ml-10 md:static absolute left-5 mt-2 top-1/2 -translate-y-1/2'>
+            <Icon svgPath='back' width={18} height={18} className='flex mr-4 fill-transparent'/>
+            უკან
+          </button>
         </LargeContainer>
         <ContentContainer className='flex gap-12'>
           <div className='w-full pb-28 md:pb-20'>
