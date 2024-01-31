@@ -34,7 +34,7 @@ const CheckServices = dynamic(() => import('src/views/pages/booking/checkService
 import Toast from 'src/views/components/toast'
 
 import toast from 'react-hot-toast'
-import { DefaultButton } from 'src/views/components/button'
+import { DefaultButton, IconTextButton } from 'src/views/components/button'
 import PeriodDialog from 'src/views/pages/booking/periodDialog'
 import PageMeta from 'src/@core/meta/PageMeta'
 
@@ -202,10 +202,15 @@ const Booking = () => {
       <form onSubmit={handleSubmit(onSubmit)}>
         <LargeContainer className='flex justify-center md:justify-start items-center pt-5 flex-row-reverse md:flex-row relative'>
           <Image src='/images/logo-rent.svg' alt='logo' className='cursor-pointer' onClick={onClickLogo} />
-          <button className='flex items-center bg-transparent text-sm md:ml-10 md:static absolute left-5 mt-2 top-1/2 -translate-y-1/2'>
-            <Icon svgPath='back' width={18} height={18} className='flex mr-4 fill-transparent'/>
-            უკან
-          </button>
+          <IconTextButton
+            label='უკან'
+            icon='back'
+            width={18}
+            height={18}
+            labelClassname='text-sm'
+            className='md:ml-10 md:static absolute left-5 mt-2 top-1/2 -translate-y-1/2'
+            onClick={() => router.back()}
+          />
         </LargeContainer>
         <ContentContainer className='flex gap-12'>
           <div className='w-full pb-28 md:pb-20'>

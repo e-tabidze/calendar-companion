@@ -165,7 +165,7 @@ const useSearch = () => {
 
   const searchProducts = async (querystring: string) => {
     try {
-      const response: any = await SearchService.getSearchProducts(querystring)
+      const response: any = await SearchService.getSearchProducts('', querystring)
 
       return response.data
     } catch (error) {

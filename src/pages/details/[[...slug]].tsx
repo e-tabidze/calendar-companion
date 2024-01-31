@@ -25,6 +25,7 @@ const EntityInformationCard = dynamic(() => import('src/views/pages/details/enti
 const Drawer = dynamic(() => import('src/views/pages/details/drawer'), { ssr: false })
 const ResponsivePriceCalcCard = dynamic(() => import('src/views/pages/details/responsivePriceCalcCard'), { ssr: false })
 const ProductImagesDialog = dynamic(() => import('src/views/pages/details/productImagesDialog'), { ssr: false })
+const DetailsPageHeader = dynamic(() => import('src/views/pages/details/detailsPageHeader'), { ssr: true })
 
 import { ContentContainer, MaxWidthContainer } from 'src/styled/styles'
 
@@ -47,7 +48,6 @@ const Features = dynamic(() => import('src/views/pages/details/features'), { ssr
 import { format } from 'date-fns'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import PageMeta from 'src/@core/meta/PageMeta'
-import DetailsPageHeader from "src/views/pages/details/detailsPageHeader";
 
 registerLocale('ka', ka)
 
@@ -178,7 +178,12 @@ const ProductDetails = memo(() => {
 
       <DefaultLayout>
         <ContentContainer>
-          <DetailsPageHeader/>
+          <DetailsPageHeader
+            city={singleProductDetails?.start_city}
+            manufacturer={singleProductDetails?.manufacturer?.title}
+            model={singleProductDetails?.manufacturer_model?.title}
+            prodYear={singleProductDetails?.prod_year}
+          />
         </ContentContainer>
         <MaxWidthContainer>
           <Carousel
@@ -254,25 +259,22 @@ const ProductDetails = memo(() => {
                   <Divider />
                   <div className='my-8'>
                     <Typography type='h3' className='text-3md md:text-2lg'>
-                      ღირებულება
+                      ფასი მოიცავს
                     </Typography>
 
+                    <>{console.log(singleProductDetails?.product_services, 'singleProductDetails?.product_services')}</>
+
                     <div className='mt-8 mb-11 grid grid-cols-1 gap-4'>
-                      {singleProductDetails?.product_services?.map((feature: any) => (
-                        <ProductFeature
-                          feature={feature?.title}
-                          icon='feature'
-                          key={feature.id}
-                          description={feature.description}
-                          price={
-                            feature.company_service_type_id === 3
-                              ? 'უფასო'
-                              : feature.company_service_type_id === 1
-                              ? `${feature.price}₾ / დღე`
-                              : `${feature.price}₾ / ერთჯერადად`
-                          }
-                        />
-                      ))}
+                      {singleProductDetails?.product_services
+                        ?.filter((feature: any) => feature.company_service_type_id === 3)
+                        .map((feature: any) => (
+                          <ProductFeature
+                            feature={feature?.title}
+                            icon='feature'
+                            key={feature.id}
+                            description={feature.description}
+                          />
+                        ))}
                     </div>
                   </div>
                 </>
@@ -457,7 +459,9 @@ const ProductDetails = memo(() => {
                         luggageNumbers={product?.luggage_numbers}
                         seats={product?.seat_type?.title}
                         images={product?.images?.split(',')}
-                        city={product?.start_city} isProductInFavorites={product.is_favourite}                      />
+                        city={product?.start_city}
+                        isProductInFavorites={product.is_favourite}
+                      />
                     ))}
                     type='products'
                   />

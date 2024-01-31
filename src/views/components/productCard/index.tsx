@@ -86,7 +86,6 @@ const ProductCard: React.FC<Props> = ({
     setIsMobileDevice(isMobile)
   }, [])
 
-  console.log(isProductInFavorites, 'isProductInFavorites')
 
   return (
     <ProductCardContainer onClick={handleCardClick}>
