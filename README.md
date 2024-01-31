@@ -1,5 +1,4 @@
 
-
 <!-- PROJECT LOGO -->
   
 
@@ -53,13 +52,19 @@ yarn / npm install
 
 ```js
 
-module.exports  ={
-	API_URL: '',
-	API_HOSTNAME: '',
-	ACCESS_TOKEN_NAME: 'token',
-	TOKEN_TIME_MINUTES: 600,
-	TOKEN_EXPIRE_TIME_NAME: 'trtn',
-	NODE_ENV: 'dev'
+module.exports = {
+  API_URL: 'https://test-api-rent.myauto.ge/api',
+  API_HOSTNAME: '',
+  TOKEN_TIME_MINUTES: 600,
+  TOKEN_EXPIRE_TIME_NAME: 'trtn',
+  NODE_ENV: 'dev',
+  MAP_KEY: 'pk.eyJ1IjoiZWxlbmV0YWJpZHplIiwiYSI6ImNsZmExZjVocTF1bWkzem80YmdqcW80aGEifQ.otzchv7AyQbbiK-FWRKVzA',
+  ACCESS_TOKEN_NAME: 'AccessToken',
+  TNET_ACCOUNTS_API_URL: 'https://test-api-rent.myauto.ge/api',
+  TNET_AUTH: 'https://test.auth.tnet.ge/ka/user/login/?Continue=https://test-front-rent.myauto.ge/',
+  TNET_LOGOUT: 'https://auth.tnet.ge/ka/user/logout/?Continue=https://test-front-rent.myauto.ge&signOut',
+  APP_PORT: 3000,
+  DOMAIN: 'https://test-front-rent.myauto.ge',
 }
 
 ```
