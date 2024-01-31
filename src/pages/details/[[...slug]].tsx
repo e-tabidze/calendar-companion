@@ -47,6 +47,7 @@ const Features = dynamic(() => import('src/views/pages/details/features'), { ssr
 import { format } from 'date-fns'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import PageMeta from 'src/@core/meta/PageMeta'
+import DetailsPageHeader from "src/views/pages/details/detailsPageHeader";
 
 registerLocale('ka', ka)
 
@@ -176,9 +177,9 @@ const ProductDetails = memo(() => {
       <PageMeta meta={pageMeta} />
 
       <DefaultLayout>
-        {/* <ContentContainer>
-          <DetailsPageHeader />
-        </ContentContainer> */}
+        <ContentContainer>
+          <DetailsPageHeader/>
+        </ContentContainer>
         <MaxWidthContainer>
           <Carousel
             itemsArray={singleProductDetails?.large_images?.split(',')?.map((imageUrl: string) => (
