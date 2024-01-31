@@ -1,25 +1,28 @@
-import { DOMAIN, CATEGORIES_INDEX } from 'src/env'
+import { DOMAIN, API_URL } from 'src/env'
+
+const CATEGORIES_URL = `${API_URL}/product-filters`
 
 function generateCitiesSitemap(categories) {
-  let xmlContent = `<?xml version="1.0" encoding="UTF-8"?>
-    <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">`
-
-  categories.forEach(category => {
-    xmlContent += `
-      <url>
-        <loc>${DOMAIN}/search?page=1&amp;category[]=${category.id}</loc>
-        <lastmod>${new Date().toISOString()}</lastmod>
-      </url>`
-  })
-
-  xmlContent += '\n</urlset>'
-
-  return xmlContent
+  return `<?xml version="1.0" encoding="UTF-8"?>
+  <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+     ${categories
+       .map(({ id }) => {
+         return `
+          <url>
+            <loc>${DOMAIN}/search/?page=1&amp;category[]=${id}</loc>
+            <changefreq>weekly</changefreq>
+            <priority>0.6</priority>
+            <xhtml:link rel="alternate" hreflang="ka" href="${DOMAIN}/search/?page=1&amp;category[]=${id}"/>
+          </url> `
+       })
+       .join('')}
+   </urlset>
+ `
 }
 
 export async function getServerSideProps({ res }) {
   try {
-    const categoriesResponse = await fetch(CATEGORIES_INDEX)
+    const categoriesResponse = await fetch(CATEGORIES_URL)
     const categoriesData = await categoriesResponse.json()
 
     const categories = categoriesData.result.data.categories
@@ -42,6 +45,5 @@ export async function getServerSideProps({ res }) {
 }
 
 export default function CategoriesSitemap() {
-  
   return null
 }
