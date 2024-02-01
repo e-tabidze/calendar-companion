@@ -86,9 +86,9 @@ const LocationModal: React.FC<Props> = ({ open, toggleModal, control }) => {
                           />
                         </div>
                         <ul className='h-[360px] overflow-auto'>
-                          {(value.length > 0
-                            ? cities.filter((city: any) => city.city.toLowerCase().includes(value.toLowerCase()))
-                            : cities
+                          {(open && value.length > 0 && cities?.find((opt: any) => opt?.city === value)?.city
+                            ? cities
+                            : cities.filter((city: any) => city.city.toLowerCase().includes(value.toLowerCase()))
                           ).map((filteredCity: any) => (
                             <Combobox.Option
                               key={filteredCity.city}

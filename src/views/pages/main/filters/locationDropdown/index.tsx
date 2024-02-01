@@ -72,33 +72,6 @@ const LocationDropdown: React.FC<Props> = ({ control, resetField }) => {
                   leaveTo='opacity-0'
                 >
                   <Combobox.Options className='absolute z-[11] top-full pt-2 mt-8 max-h-[274px] w-full overflow-auto rounded-2xl bg-white shadow-lg'>
-                    {/* {(value.length > 0
-                      ? cities?.filter((city: any) => city.city.toLowerCase().includes(value.toLowerCase()))
-                      : cities
-                    )?.map((city: any) => (
-                      <Combobox.Option
-                        key={city?.city}
-                        className='hover:bg-raisin-5 cursor-pointer select-none py-2 px-6 flex items-center last:mb-2'
-                        value={city.city}
-                      >
-                        <>
-                          {console.log(
-                            cities?.find(opt => opt?.city === value).city,
-                            'value?',
-                            value,
-                            'value'
-                          )}
-                        </>
-                        <Icon
-                          svgPath='locationOutline'
-                          width={24}
-                          height={24}
-                          className='fill-transparent flex shrink-0 mr-2'
-                        />
-                        <span className='text-sm flex truncate font-normal text-black/70'>{city.city}</span>
-                      </Combobox.Option>
-                    ))} */}
-
                     {(open && value.length > 0 && cities?.find((opt: any) => opt?.city === value)?.city
                       ? cities
                       : cities?.filter((city: any) => city.city.toLowerCase().includes(value.toLowerCase()))

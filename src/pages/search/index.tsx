@@ -127,8 +127,6 @@ const SearchPage = () => {
     router.push(`/search?${objectToURI(updatedSearchValues)}`)
   }
 
-  console.log(productsData, 'productsData')
-
   return (
     <>
       <PageMeta meta={pageMeta} />
@@ -270,7 +268,6 @@ const SearchPage = () => {
                 <SkeletonLoading />
               ) : (
                 <div className='flex flex-col gap-4 sm:grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 lg:gap-6'>
-                  
                   {/*  className={`grid sm:grid-cols-2 gap-6 ${*/}
                   {/*    mapVisible ? 'grid-cols-2 2xl:grid-cols-3' : 'lg:grid-cols-4 2xl:grid-cols-5'*/}
                   {/*}`}*/}
