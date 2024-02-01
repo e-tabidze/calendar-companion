@@ -183,6 +183,8 @@ const ProductDetails = memo(() => {
             manufacturer={singleProductDetails?.manufacturer?.title}
             model={singleProductDetails?.manufacturer_model?.title}
             prodYear={singleProductDetails?.prod_year}
+            productId={singleProductDetails?.id}
+            isProductInFavorites={singleProductDetails?.is_favourite}
           />
         </ContentContainer>
         <MaxWidthContainer>

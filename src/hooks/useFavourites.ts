@@ -19,6 +19,7 @@ const useFavourites = (productId?: string | number, page?: number) => {
 
   const toggleUserFavourites = useMutation(() => toggleFavourites(''), {
     onSettled: () => {
+      queryClient.invalidateQueries(['singleProduct'])
       queryClient.invalidateQueries(['userFavourites'])
     }
   })
