@@ -2,6 +2,7 @@ import { ActionsWrapper, DetailsHeader } from './styles'
 import dynamic from 'next/dynamic'
 import useFavourites from 'src/hooks/useFavourites'
 import Link from 'next/link'
+import ShareOptionsPopover from '../shareOptionsPopover'
 
 const Icon = dynamic(() => import('src/views/app/Icon'), { ssr: false })
 
@@ -38,14 +39,6 @@ const DetailsPageHeader: React.FC<Props> = ({
     window.print()
   }
 
-  const handleShare = (e: any) => {
-    e.stopPropagation()
-    if (typeof window !== 'undefined') {
-      const url = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`
-      window.open(url, '_blank', 'width=600,height=400')
-    }
-  }
-
   return (
     <DetailsHeader>
       <ul className='hidden md:flex items-center'>
@@ -73,7 +66,8 @@ const DetailsPageHeader: React.FC<Props> = ({
       </ul>
       <ActionsWrapper>
         <Icon svgPath='printer' width={24} height={24} className='cursor-pointer' onClick={handlePrint} />
-        <Icon svgPath='share' width={24} height={24} className='cursor-pointer' onClick={handleShare} />
+        {/* <Icon svgPath='share' width={24} height={24} className='cursor-pointer' onClick={handleShare} /> */}
+        <ShareOptionsPopover />
         <Icon
           svgPath={isProductInFavorites ? 'favIconActive' : 'favIcon'}
           width={24}
