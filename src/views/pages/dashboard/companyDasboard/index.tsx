@@ -7,7 +7,7 @@ const CompanyDashboard = () => {
   const { dashboardData } = useProductInfo()
 
   return (
-    <div className='md:px-10 lg:px-0'>
+    <div>
       <div className='grid grid-cols-1 lg:grid-cols-3 gap-4 mb-8 mt-8 lg:mt-0'>
         <SumUp
           bg='bg-blue-10'

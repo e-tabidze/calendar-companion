@@ -12,7 +12,7 @@ interface Props {
 
 const ActionsPopover: React.FC<Props> = ({ toggleDeleteProductModal, active, toggleActivateProduct, id }) => {
   return (
-    <div className='absolute right-4 top-4 md:hidden'>
+    <div className='absolute right-4 top-4 lg:hidden'>
       <Popover className='relative'>
         <Popover.Button className='flex items-center w-max cursor-pointer'>
           <Icon svgPath='more' width={4} height={14} className='fill-transparent' />

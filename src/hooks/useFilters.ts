@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 import SearchService from 'src/services/SearchService'
 
-const useFilters = () => {
+const useFilters = (open?: any) => {
   const useProductFilters: any = useQuery({
     queryKey: ['searchFilters'],
     queryFn: () => getProductFilters(),
@@ -13,14 +13,14 @@ const useFilters = () => {
     queryKey: ['additionalInformationFilters'],
     queryFn: () => getAdditionalInformationFilters(),
     staleTime: Infinity,
-    enabled: true
+    enabled: !!open
   })
 
   const useManufacturerFilters: any = useQuery({
     queryKey: ['manufacturerFilters'],
     queryFn: () => getManufacturerFilters(),
     staleTime: Infinity,
-    enabled: true
+    enabled: !!open
   })
 
   const categoriesFilter = useProductFilters?.data?.result?.data?.categories
@@ -74,7 +74,6 @@ const useFilters = () => {
   ]
 
   const suitcases = [
-    { title: 'ნებისმიერი', id: 1 },
     { title: 1, id: 2 },
     { title: 2, id: 3 },
     { title: 3, id: 4 },

@@ -31,11 +31,10 @@ const Filters: React.FC<Props> = ({ className }) => {
     setValue,
     objectToURI,
     searchValues,
-    searchProductsMutation,
+    searchProductsMutation
   } = useSearch()
 
   const onClickSearch = async () => {
-    console.log('here?')
     const queryString = objectToURI(searchValues)
     searchProductsMutation.mutate(queryString)
     router.push(`/search?${queryString}`)
@@ -61,7 +60,7 @@ const Filters: React.FC<Props> = ({ className }) => {
           <IconTextButton
             label={'ძებნა'}
             icon={'/icons/search.svg'}
-            bg='bg-orange-100'
+            bg='bg-orange-100 hover:bg-orange-110 transition-all'
             labelClassname='text-2sm text-white md:hidden'
             onClick={onClickSearch}
             type='submit'

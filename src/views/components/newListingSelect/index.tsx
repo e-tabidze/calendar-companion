@@ -17,7 +17,7 @@ type Props = {
 const NewListingSelect: React.FC<Props> = ({ options, onChange, selectedOption }) => {
   return (
     <Menu as='div' className='inline-block text-left'>
-      <div className='flex flex-col items-center'>
+      <div className='flex flex-col items-center gap-1'>
         <Typography type='h4' weight='normal' color='dark' className='text-md text-center md:text-3md'>
           {selectedOption.label}
         </Typography>

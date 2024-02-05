@@ -23,6 +23,7 @@ interface Props {
   height?: string
   divider?: boolean
   cols?: boolean
+  categoryCheckbox?:boolean
 }
 
 const CheckboxField: React.FC<Props> = ({
@@ -36,7 +37,8 @@ const CheckboxField: React.FC<Props> = ({
   width,
   height,
   divider,
-  cols
+  cols,
+  categoryCheckbox
 }) => {
   return (
     <>
@@ -49,10 +51,10 @@ const CheckboxField: React.FC<Props> = ({
 
             return (
               <div className={cols ? 'grid grid-cols-2' : ''}>
-                {options?.map(option => (
-                  <div key={option.id}>
+                {options?.map((option, index) => (
+                  <div className='' key={option.id}>
                     <div
-                      className='flex items-center gap-4 cursor-pointer mb-4'
+                      className={`flex items-center gap-4 cursor-pointer transition-all ${categoryCheckbox?'py-[4px] group hover:bg-raisin-5 px-5':'py-3'}`}
                       onClick={() => {
                         if (append) {
                           if (selectedOptions.includes(option.id)) {
@@ -67,10 +69,12 @@ const CheckboxField: React.FC<Props> = ({
                     >
                       <span
                         className={`flex items-center justify-center w-5 h-5 rounded border ${
-                          selectedOptions.includes(option.id) ? 'border-green-100 bg-green-100' : 'border-raisin-10'
+                          selectedOptions.includes(option.id) ? 'border-green-100 bg-green-100 !fill-red-100' : 'border-raisin-10'
                         }`}
                       >
-                        <Icon svgPath='check' height={10} width={14} className='fill-transparent' />
+                        <Icon svgPath='check' height={11} width={11} className={`fill-transparent ${
+                          selectedOptions.includes(option.id) ? 'fill-white' : ''
+                        }`} />
                       </span>
                       <input
                         type='checkbox'
@@ -90,11 +94,11 @@ const CheckboxField: React.FC<Props> = ({
                         }}
                       />
                       {option.icon && <Icon svgPath={option.icon} width={width || 18} height={height || '18'} />}
-                      <Typography type='body' className='w-max'>
+                      <Typography type='body' className='w-max text-sm lg:text-2sm'>
                         {option.title}
                       </Typography>
                     </div>
-                    {divider && <Divider />}
+                    {divider && index !== options.length - 1 && <Divider />}
                   </div>
                 ))}
               </div>
@@ -103,7 +107,7 @@ const CheckboxField: React.FC<Props> = ({
         />
       ) : (
         <div
-          className={`flex items-center gap-3 w-max
+          className={`flex items-center gap-3 w-max 
           px-4 cursor-pointer rounded-xl border border-raisin-10 ${className}`}
           onClick={handleClick}
         >

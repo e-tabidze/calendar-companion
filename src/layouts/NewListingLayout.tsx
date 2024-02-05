@@ -92,9 +92,9 @@ const NewListingLayout: React.FC<Props> = ({
           className='max-w-[850px] m-auto flex justify-between px-4 lg:w-10/12 lg:px-0 2xl:px-0'
           style={{ maxWidth: '850px' }}
         >
-          {selectedOption.step !== 1 ? <DefaultButton text='უკან' onClick={onPrevStep}></DefaultButton> : <div></div>}
+          {selectedOption.step !== 1 ? <DefaultButton text='უკან' className='' onClick={onPrevStep}></DefaultButton> : <div></div>}
           <DefaultButton
-            bg='bg-green-100'
+            bg='bg-green-100 hover:bg-green-90 transition-all'
             type={selectedOption.step === options.length ? 'submit' : 'button'}
             text={selectedOption.step === options.length ? submitLabel : 'შემდეგი'}
             textColor='text-white'

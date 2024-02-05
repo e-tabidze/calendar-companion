@@ -1,9 +1,8 @@
 import PopoverDropdown from 'src/views/components/popoverDropdown'
 import useFilters from 'src/hooks/useFilters'
 import CheckboxField from 'src/views/components/checkboxField'
-import {DefaultButton, IconTextButton} from 'src/views/components/button'
+import { DefaultButton, IconTextButton } from 'src/views/components/button'
 import { useWatch } from 'react-hook-form'
-import { useState, useEffect } from 'react'
 
 interface Props {
   control: any
@@ -17,41 +16,44 @@ const CategoryPopover: React.FC<Props> = ({ control, appendCategory, handleSubmi
 
   const formState = useWatch({ control })
 
-  const [hasCategory, setHasCategory] = useState(false)
-
-  useEffect(() => {
-    setHasCategory(!!formState?.category?.length)
-  }, [formState?.category?.length])
-
   return (
     <PopoverDropdown
       label='კატეგორია'
       maxWidth='max-w-md'
-      className={`${hasCategory ? 'border border-raisin-100' : 'hover:border hover:border-raisin-30'}`}
+      className={`${formState?.category?.length ? 'border border-raisin-100' : 'hover:border hover:border-raisin-30'}`}
     >
+      <div className=''>
       <CheckboxField
         options={categoriesFilter}
         name='category'
         control={control}
         append={appendCategory}
-        width='50'
-        height='45'
+        width='48'
+        height='40'
+        className='py-4 p-5'
+        categoryCheckbox
         divider
       />
-      <div className='flex items-center justify-between mt-4'>
+      </div>
+      
+
+      <div className='flex items-center justify-between sticky bottom-0 bg-white p-5 shadow-buttonContainer'>
         <IconTextButton
-          icon='rotate'
+          icon='return'
           label='გასუფთავება'
           className='fill-transparent'
-          width={20}
-          height={22}
+          width={24}
+          height={24}
           onClick={() => reset('category')}
-          labelClassname="text-sm text-raisin-50 border-b"
-          type="button"
+          disabled={!formState?.category?.length}
+          labelClassname={
+            formState?.category?.length ? 'text-sm text-red-100' : 'text-sm text-raisin-50'
+          }
+          type='button'
         />
         <DefaultButton
           text='შენახვა'
-          bg='bg-orange-100'
+          bg='bg-orange-100 hover:bg-orange-110 transition-all'
           textColor='text-white'
           type='button'
           onClick={() => {

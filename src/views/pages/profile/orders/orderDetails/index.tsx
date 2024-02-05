@@ -22,16 +22,16 @@ import Image from 'src/views/components/image'
 import { useRouter } from 'next/router'
 
 const OrderDetails = () => {
+  const queryClient = useQueryClient()
+
   const [cancelOrderDialog, setCancelOrderDialog] = useState(false)
+
+  const toggleCancelOrderDialog = () => setCancelOrderDialog(!cancelOrderDialog)
 
   const router = useRouter()
   const { id } = router.query
 
-  const toggleCancelOrderDialog = () => setCancelOrderDialog(!cancelOrderDialog)
-
-  const queryClient = useQueryClient()
-
-  const { userOrderDetails, productData, cancelUserOrder } = useOrders(String(id)!)
+  const { userOrderDetails, productData, cancelUserOrder } = useOrders(String(id))
 
   const cancelOrderStatusMutation = useMutation(() => cancelUserOrder(String(id)!, 2), {
     onSuccess: () => {
@@ -40,18 +40,10 @@ const OrderDetails = () => {
     }
   })
 
-  console.log(userOrderDetails, 'userOrderDetails')
-
   return (
     <div className='border border-raisin-10 rounded-2xl'>
       <div className='flex items-center md:w-full gap-6 p-4 md:p-8'>
-        <IconTextButton
-          icon='backWithBg'
-          width={38}
-          height={38}
-          label='ჩემი შეკვეთები'
-          onClick={() => router.push('/profile/orders/')}
-        />
+        <IconTextButton icon='backWithBg' width={38} height={38} label='ჩემი შეკვეთები' onClick={() => router.back()} />
       </div>
       <Divider />
       <RentalDetailsContainer>
@@ -152,7 +144,9 @@ const OrderDetails = () => {
 
             <PriceDetailsWrapper>
               <Typography type='subtitle'>მომსახურების საკომისიო - {userOrderDetails?.fee} %</Typography>
-              <Typography type='subtitle'>{productData?.price * userOrderDetails?.days / 100 * userOrderDetails?.fee} </Typography>
+              <Typography type='subtitle'>
+                {((productData?.price * userOrderDetails?.days) / 100) * userOrderDetails?.fee}{' '}
+              </Typography>
             </PriceDetailsWrapper>
 
             <Divider />

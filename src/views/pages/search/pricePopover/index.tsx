@@ -18,36 +18,29 @@ const PricePopover: React.FC<Props> = ({ control, handleSubmit, reset }) => {
 
   useEffect(() => {
     setPrice(!!formState?.price_min?.length || !!formState?.price_max?.length)
-  }, [formState?.fuel_types?.length])
+  }, [formState?.price_min?.length, formState?.price_max?.length])
 
   return (
-    <PopoverDropdown label='ფასი' maxWidth='max-w-[500px]' className={hasPrice ? 'border border-raisin-100' : 'hover:border hover:border-raisin-30'}>
+    <PopoverDropdown
+      label='ფასი'
+      maxWidth='max-w-[440px]'
+      className={hasPrice ? 'border border-raisin-100' : 'hover:border hover:border-raisin-30'}
+    >
       <TagsWrapper>
-        <DefaultInput
-          label={'მინიმუმ ფასი დღიურად'}
-          name='price_min'
-          control={control}
-          className='w-72'
-          type='number'
-        />
+        <DefaultInput label='მინ ფასი დღიურად' name='price_min' control={control} className='w-72' type='number' />
         <Divider />
-        <DefaultInput
-          label={'მაქსიმუმ ფასი დღიურად'}
-          name='price_max'
-          control={control}
-          className='w-72'
-          type='number'
-        />
+        <DefaultInput label='მაქს ფასი დღიურად' name='price_max' control={control} className='w-72' type='number' />
       </TagsWrapper>
-      <ActionsWrapper>
+      <ActionsWrapper className='p-5'>
         <IconTextButton
-          icon='rotate'
+          icon='return'
           label='გასუფთავება'
           className='fill-transparent'
-          labelClassname="text-sm text-raisin-50 border-b"
-          type="button"
-          width={20}
-          height={22}
+          labelClassname={hasPrice ? 'text-sm text-red-100' : 'text-sm text-raisin-50'}
+          disabled={!hasPrice}
+          type='button'
+          width={24}
+          height={24}
           onClick={() => {
             reset('price_min')
             reset('price_max')
@@ -55,7 +48,7 @@ const PricePopover: React.FC<Props> = ({ control, handleSubmit, reset }) => {
         />
         <DefaultButton
           text='შენახვა'
-          bg='bg-orange-100'
+          bg='bg-orange-100 hover:bg-orange-110 transition-all'
           textColor='text-white'
           type='button'
           onClick={() => {

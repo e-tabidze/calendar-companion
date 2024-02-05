@@ -5,8 +5,8 @@ class SearchService extends HttpService {
     return this.get('/product-filters')
   }
 
-  getSingleProduct(productId: number | string) {
-    return this.get(`/single-product/${productId}`, {}, { Authorization: '' })
+  getSingleProduct(AccessToken = '', productId: number | string) {
+    return this.get(`/single-product/${productId}`, {}, AccessToken ? { Authorization: `${AccessToken}` } : {})
   }
 
   getAdditionalInformationFilters() {
@@ -21,8 +21,8 @@ class SearchService extends HttpService {
     return this.get(`/manufacturer-model-filters?${queryString}`)
   }
 
-  getSearchProducts(querystring: string) {
-    return this.get(`/search-products?${querystring}&`)
+  getSearchProducts(AccessToken = '', querystring: string) {
+    return this.get(`/search-products?${querystring}&`, {}, AccessToken ? { Authorization: `${AccessToken}` } : {})
   }
 
   getCities() {

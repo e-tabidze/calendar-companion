@@ -1,14 +1,12 @@
 import { useRouter } from 'next/router'
 import dynamic from 'next/dynamic'
 
-import useProfile, { getUserInfo } from 'src/hooks/useProfile'
+import useProfile from 'src/hooks/useProfile'
 import { UserInfo } from 'src/types/User'
-import { dehydrate } from '@tanstack/query-core'
 import useCompanyInfo from 'src/hooks/useCompanyInfo'
-import { QueryClient, useQueryClient } from '@tanstack/react-query'
+import { useQueryClient } from '@tanstack/react-query'
 import { profileRoutes } from 'src/utils/routes'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-
+  
 const Orders = dynamic(() => import('src/views/pages/profile/orders'), { ssr: false })
 const Favourites = dynamic(() => import('src/views/pages/profile/favourites'), { ssr: false })
 const Notifications = dynamic(() => import('src/views/pages/profile/notifications'), { ssr: false })
@@ -115,26 +113,26 @@ const Profile = () => {
   )
 }
 
-const queryClient = new QueryClient()
+// const queryClient = new QueryClient()
 
-export async function getServerSideProps({ locale }: any) {
-  try {
-    await queryClient.prefetchQuery({
-      queryKey: ['userInfo'],
-      queryFn: () => getUserInfo(),
-      staleTime: Infinity
-    })
+// export async function getServerSideProps({ locale }: any) {
+//   try {
+//     await queryClient.prefetchQuery({
+//       queryKey: ['userInfo'],
+//       queryFn: () => getUserInfo(),
+//       staleTime: Infinity
+//     })
 
-    return {
-      props: {
-        ...(await serverSideTranslations(locale, ['common', 'productDetails'])),
+//     return {
+//       props: {
+//         ...(await serverSideTranslations(locale, ['common', 'productDetails'])),
 
-        dehydratedState: dehydrate(queryClient)
-      }
-    }
-  } catch (e) {
-    return { notFound: true }
-  }
-}
+//         dehydratedState: dehydrate(queryClient)
+//       }
+//     }
+//   } catch (e) {
+//     return { notFound: true }
+//   }
+// }
 
 export default Profile

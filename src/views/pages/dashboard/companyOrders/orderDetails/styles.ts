@@ -1,7 +1,7 @@
 import tw from 'tailwind-styled-components'
 import { TailwindComponent } from 'src/interfaces/tailwind'
 
-export const OrderDetailsContainer = tw.div<TailwindComponent>`border border-raisin-10 rounded-3xl`
+export const OrderDetailsContainer = tw.div<TailwindComponent>`border border-raisin-10 rounded-3xl mt-8 md:mt-0`
 export const RentalDetailsContainer = tw.div<TailwindComponent>`w-full flex flex-col md:flex-row justify-between px-4 md:px-10 py-7 md:w-1/2`
 export const RentalDetailsWrapper = tw.div<TailwindComponent>`flex items-center md:items-start gap-2 md:flex-col md:gap-0`
 export const PriceDetailsContainer = tw.div<TailwindComponent>`flex flex-col-reverse md:flex-row items-center md:items-start justify-between p-4 md:p-8`

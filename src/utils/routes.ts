@@ -3,19 +3,19 @@ export const profileRoutes = [
     id: 1,
     icon: 'orders',
     item: 'ჩემი შეკვეთები',
-    path: '/profile/orders/'
+    path: '/profile/orders?page=1'
   },
   {
     id: 2,
     icon: 'favIconOutlinedDark',
     item: 'ფავორიტები',
-    path: '/profile/favourites/'
+    path: '/profile/favourites?page=1'
   },
   {
     id: 3,
     icon: 'card',
     item: 'ტრანზაქციები',
-    path: '/profile/transactions/'
+    path: '/profile/transactions?page=1'
   },
   {
     id: 4,
@@ -33,7 +33,7 @@ export const profileRoutes = [
     id: 6,
     icon: 'bellOutline',
     item: 'შეტყობინებები',
-    path: '/profile/notifications/'
+    path: '/profile/notifications?page=1'
   },
   {
     id: 7,
@@ -66,7 +66,7 @@ export const dashboardRoutes = [
     id: 4,
     icon: 'bellOutline',
     item: 'შეტყობინება',
-    path: '/dashboard/notifications/'
+    path: '/dashboard/notifications?page=1'
   },
   {
     id: 5,

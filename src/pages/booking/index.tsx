@@ -34,11 +34,15 @@ const CheckServices = dynamic(() => import('src/views/pages/booking/checkService
 import Toast from 'src/views/components/toast'
 
 import toast from 'react-hot-toast'
+import { DefaultButton, IconTextButton } from 'src/views/components/button'
+import PeriodDialog from 'src/views/pages/booking/periodDialog'
+import PageMeta from 'src/@core/meta/PageMeta'
 
 const Booking = () => {
-  const [additionalServices, toggleAdditionalServices] = useState(false)
+  const [additionalServices, toggleAdditionalServices] = useState(true)
   const [isOpenDrawer, setIsOpenDrawer] = useState(false)
   const [openEditModal, setOpenEditModal] = useState(false)
+  const [changeDatesDialog, setChangeDatesDialog] = useState(false)
 
   const [loading, setLoading] = useState(true)
 
@@ -54,6 +58,8 @@ const Booking = () => {
 
   const toggleEditModal = () => setOpenEditModal(!openEditModal)
 
+  const toggleChangeDatesDialog = () => setChangeDatesDialog(!changeDatesDialog)
+
   const { width } = useWindowDimensions()
 
   const toggleDrawer = () => setIsOpenDrawer(!isOpenDrawer)
@@ -68,13 +74,11 @@ const Booking = () => {
 
   const { singleCompanyBranches } = useCompanyInfo(company_id && company_id)
 
-  const { control, bookingValues, errors, handleSubmit, postOrder, selfBookProduct } = useBooking(id)
+  const { control, bookingValues, errors, handleSubmit, postOrder, selfBookProduct, setValue } = useBooking(id)
 
-  console.log(bookingValues, 'bookingValues')
+  console.log(bookingValues, 'bookingValues??')
 
   const formState = useWatch({ control })
-
-  console.log(formState, 'formState')
 
   const queryClient = useQueryClient()
 
@@ -86,12 +90,38 @@ const Booking = () => {
     {
       label: 'წავიყვან ოფისიდან',
       value: '0',
-      children: <TakeAway control={control} toggleEditModal={toggleEditModal} errors={errors} />
+      children: (
+        <TakeAway
+          control={control}
+          toggleEditModal={toggleEditModal}
+          errors={errors}
+          startDate={book_from && format(new Date(String(book_from)), 'd MMM yyyy', { locale: ka })}
+          endDate={
+            book_to &&
+            format(new Date(String(book_to)), 'd MMM yyyy', {
+              locale: ka
+            })
+          }
+        />
+      )
     },
     {
       label: 'მიწოდება',
       value: '1',
-      children: <Delivery control={control} toggleEditModal={toggleEditModal} errors={errors} />
+      children: (
+        <Delivery
+          control={control}
+          toggleEditModal={toggleEditModal}
+          errors={errors}
+          startDate={book_from && format(new Date(String(book_from)), 'd MMM yyyy', { locale: ka })}
+          endDate={
+            book_to &&
+            format(new Date(String(book_to)), 'd MMM yyyy', {
+              locale: ka
+            })
+          }
+        />
+      )
     }
   ]
 
@@ -119,7 +149,8 @@ const Booking = () => {
     },
 
     onError: (ex: any) => {
-      if (ex.response.status === 400) {
+      console.log(ex.response?.data?.result?.message, 'error?')
+      if (ex.response?.data?.result?.message === 'Already booked') {
         toast.custom(
           <Toast
             type='error'
@@ -137,14 +168,14 @@ const Booking = () => {
       router.push('/dashboard/orders/?status_id=5&page=1')
     },
     onError: (ex: any) => {
-      ex.response.status === 400
-      toast.custom(
-        <Toast
-          type='error'
-          title='ავტომობილი მოცემულ თარიღებში უკვე დაჯავშნილია'
-          description='გთხოვთ სცადეთ სხვა თარიღი'
-        />
-      )
+      ex.response.status === 400 &&
+        toast.custom(
+          <Toast
+            type='error'
+            title='ავტომობილი მოცემულ თარიღებში უკვე დაჯავშნილია'
+            description='გთხოვთ სცადეთ სხვა თარიღი'
+          />
+        )
     }
   })
 
@@ -158,35 +189,55 @@ const Booking = () => {
     return <div>Loading...</div>
   }
 
+  const pageMeta = {
+    title: `ქირავდება ${singleProductDetails?.manufacturer?.title} ${singleProductDetails?.manufacturer_model?.title} ${singleProductDetails?.prod_year} ${singleProductDetails?.start_city} |  Rent.myauto.ge | მანქანის ქირაობის პლატფორმა`,
+    desc: '',
+    img: singleProductDetails?.large_images?.split(',')[0]
+  }
+
   return (
     <>
+      <PageMeta meta={pageMeta} />
+
       <form onSubmit={handleSubmit(onSubmit)}>
-        <LargeContainer className='flex items-baseline pt-5 flex-col md:flex-row'>
+        <LargeContainer className='flex justify-center md:justify-start items-center pt-5 flex-row-reverse md:flex-row relative'>
           <Image src='/images/logo-rent.svg' alt='logo' className='cursor-pointer' onClick={onClickLogo} />
+          <IconTextButton
+            label='უკან'
+            icon='back'
+            width={18}
+            height={18}
+            labelClassname='text-sm'
+            className='md:ml-10 md:static absolute left-5 mt-2 top-1/2 -translate-y-1/2'
+            onClick={() => router.back()}
+          />
         </LargeContainer>
         <ContentContainer className='flex gap-12'>
-          <div className='w-full'>
-            <div className='flex items-baseline my-8 gap-3'>
-              <Typography type='h3' className='font-bold'>
-                {book_from && book_to
-                  ? `${format(new Date(String(book_from)), 'd MMM yyyy', { locale: ka })} - ${format(
-                      new Date(String(book_to)),
-                      'd MMM yyyy',
-                      {
-                        locale: ka
-                      }
-                    )}`
-                  : ''}
-              </Typography>
-              <Typography type='body'>
-                |{' '}
-                {Math.round(
-                  (new Date(Array.isArray(book_to) ? book_to[0] : book_to).getTime() -
-                    new Date(Array.isArray(book_from) ? book_from[0] : book_from).getTime()) /
-                    (24 * 60 * 60 * 1000)
-                )}{' '}
-                დღე
-              </Typography>
+          <div className='w-full pb-28 md:pb-20'>
+            <div className='flex justify-between items-center'>
+              <div className='flex items-baseline my-8 gap-3'>
+                <Typography type='h3' className='font-bold'>
+                  {book_from && book_to
+                    ? `${format(new Date(String(book_from)), 'd MMM yyyy', { locale: ka })} - ${format(
+                        new Date(String(book_to)),
+                        'd MMM yyyy',
+                        {
+                          locale: ka
+                        }
+                      )}`
+                    : ''}
+                </Typography>
+                <Typography type='body'>
+                  |{' '}
+                  {Math.round(
+                    (new Date(Array.isArray(book_to) ? book_to[0] : book_to).getTime() -
+                      new Date(Array.isArray(book_from) ? book_from[0] : book_from).getTime()) /
+                      (24 * 60 * 60 * 1000)
+                  )}{' '}
+                  დღე
+                </Typography>
+              </div>
+              <DefaultButton text='შეცვლა' type='button' onClick={toggleChangeDatesDialog} />
             </div>
             <Divider />
             <Typography type='h3' className='mt-11'>
@@ -199,12 +250,12 @@ const Booking = () => {
               <DefaultInput control={control} name='phone' errors={errors} label='მობილურის ნომერი' />
               <DefaultInput control={control} name='email' errors={errors} label='ელ.ფოსტა' />
 
-              <DateDropdown label={'აირჩიე დაბადების თარიღი'} name='dob' control={control} errors={''} />
+              <DateDropdown label='აირჩიე დაბადების თარიღი' name='dob' control={control} errors={errors} />
               <DateDropdown
-                label={'მართვის მოწმობის მოქმედების ვადა'}
+                label='მართვის მოწმობის მოქმედების ვადა'
                 name='driver_license_expiration'
                 control={control}
-                errors={''}
+                errors={errors}
               />
             </div>
             <Typography type='body' color='light' className='mb-14'>
@@ -264,16 +315,12 @@ const Booking = () => {
               year={singleProductDetails?.prod_year}
               price={singleProductDetails?.price}
               control={control}
-              dates={
-                book_from && book_to
-                  ? `${format(new Date(String(book_from)), 'd MMM yyyy', { locale: ka })} - ${format(
-                      new Date(String(book_to)),
-                      'd MMM yyyy',
-                      {
-                        locale: ka
-                      }
-                    )}`
-                  : ''
+              startDate={book_from && format(new Date(String(book_from)), 'd MMM yyyy', { locale: ka })}
+              endDate={
+                book_to &&
+                format(new Date(String(book_to)), 'd MMM yyyy', {
+                  locale: ka
+                })
               }
               days={Math.round(
                 (new Date(Array.isArray(book_to) ? book_to[0] : book_to).getTime() -
@@ -294,16 +341,12 @@ const Booking = () => {
             isOpenDrawer={isOpenDrawer}
             setIsOpenDrawer={setIsOpenDrawer}
             price={singleProductDetails?.price}
-            dates={
-              book_from && book_to
-                ? `${format(new Date(String(book_from)), 'd MMM yyyy', { locale: ka })} - ${format(
-                    new Date(String(book_to)),
-                    'd MMM yyyy',
-                    {
-                      locale: ka
-                    }
-                  )}`
-                : ''
+            startDate={book_from && format(new Date(String(book_from)), 'd MMM yyyy', { locale: ka })}
+            endDate={
+              book_to &&
+              format(new Date(String(book_to)), 'd MMM yyyy', {
+                locale: ka
+              })
             }
             days={Math.round(
               (new Date(Array.isArray(book_to) ? book_to[0] : book_to).getTime() -
@@ -325,6 +368,12 @@ const Booking = () => {
           onClose={toggleEditModal}
           addresses={singleCompanyBranches}
           control={control}
+        />
+        <PeriodDialog
+          control={control}
+          open={changeDatesDialog}
+          setOpen={toggleChangeDatesDialog}
+          setValue={setValue}
         />
       </form>
 

@@ -27,10 +27,8 @@
   font-family: 'TBCXLight';
   font-style: normal;
   src: url('/fonts/tbc/TBCXLight.eot');
-  src: url('/fonts/tbc/TBCXLight.eot') format('embedded-opentype'),
-  url('/fonts/tbc/TBCXLight.woff2') format('woff2'),
-  url('/fonts/tbc/TBCXLight.woff') format('woff'),
-  url('/fonts/tbc/TBCXLight.ttf') format('truetype');
+  src: url('/fonts/tbc/TBCXLight.eot') format('embedded-opentype'), url('/fonts/tbc/TBCXLight.woff2') format('woff2'),
+    url('/fonts/tbc/TBCXLight.woff') format('woff'), url('/fonts/tbc/TBCXLight.ttf') format('truetype');
   font-display: swap;
 }
 
@@ -38,11 +36,9 @@
   font-family: 'TBCXRegular';
   font-style: normal;
   src: url('/fonts/tbc/TBCXRegular.eot');
-  src:
-          url('/fonts/tbc/TBCXRegular.eot') format('embedded-opentype'),
-          url('/fonts/tbc/TBCXRegular.ttf') format('truetype'),
-          url('/fonts/tbc/TBCXRegular.woff') format('woff'),
-          url('/fonts/tbc/TBCXRegular.woff2') format('woff2');
+  src: url('/fonts/tbc/TBCXRegular.eot') format('embedded-opentype'),
+    url('/fonts/tbc/TBCXRegular.ttf') format('truetype'), url('/fonts/tbc/TBCXRegular.woff') format('woff'),
+    url('/fonts/tbc/TBCXRegular.woff2') format('woff2');
   font-display: swap;
 }
 
@@ -50,35 +46,25 @@
   font-family: 'TBCXMedium';
   font-style: normal;
   src: url('/fonts/tbc/TBCXMedium.eot');
-  src:
-          url('/fonts/tbc/TBCXMedium.eot') format('embedded-opentype'),
-          url('/fonts/tbc/TBCXMedium.ttf') format('truetype'),
-          url('/fonts/tbc/TBCXMedium.woff') format('woff'),
-          url('/fonts/tbc/TBCXMedium.woff2') format('woff2');
+  src: url('/fonts/tbc/TBCXMedium.eot') format('embedded-opentype'), url('/fonts/tbc/TBCXMedium.ttf') format('truetype'),
+    url('/fonts/tbc/TBCXMedium.woff') format('woff'), url('/fonts/tbc/TBCXMedium.woff2') format('woff2');
   font-display: swap;
 }
 
 @font-face {
   font-family: 'TBCXBold';
   font-style: normal;
-  src:
-          url('/fonts/tbc/TBCXBold.eot') format('embedded-opentype'),
-          url('/fonts/tbc/TBCXBold.ttf') format('truetype'),
-          url('/fonts/tbc/TBCXBold.woff') format('woff'),
-          url('/fonts/tbc/TBCXBold.woff2') format('woff2');
+  src: url('/fonts/tbc/TBCXBold.eot') format('embedded-opentype'), url('/fonts/tbc/TBCXBold.ttf') format('truetype'),
+    url('/fonts/tbc/TBCXBold.woff') format('woff'), url('/fonts/tbc/TBCXBold.woff2') format('woff2');
   font-display: swap;
 }
-
-
 
 @font-face {
   font-family: 'TBCXBlack';
   font-style: normal;
   src: url('/fonts/tbc/TBCXBlack.eot');
-  src: url('/fonts/tbc/TBCXBlack.eot') format('embedded-opentype'),
-  url('/fonts/tbc/TBCXBlack.woff2') format('woff2'),
-  url('/fonts/tbc/TBCXBlack.woff') format('woff'),
-  url('/fonts/tbc/TBCXBlack.ttf') format('truetype');
+  src: url('/fonts/tbc/TBCXBlack.eot') format('embedded-opentype'), url('/fonts/tbc/TBCXBlack.woff2') format('woff2'),
+    url('/fonts/tbc/TBCXBlack.woff') format('woff'), url('/fonts/tbc/TBCXBlack.ttf') format('truetype');
   font-display: swap;
 }
 
@@ -89,15 +75,29 @@
 .main-swiper.swiper {
   overflow: visible !important;
 }
-.main-swiper .swiper-slide {
-  opacity: 0.2;
-  pointer-events: none;
+@media (max-width: 1023px) {
+  .main-swiper.swiper-css-mode > .swiper-wrapper {
+    scroll-snap-type: none !important;
+  }
+  .main-swiper .swiper-slide:first-child {
+    margin-left: 16px;
+  }
+  .main-swiper .swiper-slide:last-child {
+    margin-right: 16px;
+  }
 }
-.main-swiper .swiper-slide-visible {
-  opacity: 1;
-  pointer-events: visible;
+@media (min-width: 768px) {
+  .main-swiper .swiper-slide {
+    opacity: 0.2;
+    pointer-events: none;
+  }
+
+  .main-swiper .swiper-slide-visible {
+    opacity: 1;
+    pointer-events: visible;
+  }
 }
-@media(min-width: 1400px) {
+@media (min-width: 1400px) {
   .main-swiper .swiper-button-prev {
     left: -80px !important;
   }
@@ -105,7 +105,7 @@
     right: -80px !important;
   }
 }
-@media(min-width: 1536px) {
+@media (min-width: 1536px) {
   .main-swiper .swiper-button-prev {
     left: -110px !important;
   }
@@ -136,8 +136,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  bottom:20px;
-  gap:4px;
+  bottom: 20px;
+  gap: 4px;
   padding-left: 4px;
   padding-right: 4px;
 }
@@ -150,10 +150,9 @@
   transform: translateX(-50%) !important;
 }
 
-
 .swiper-button-prev.swiper-button-disabled,
 .swiper-button-next.swiper-button-disabled {
-  opacity: 0!important;
+  opacity: 0 !important;
   transition: 0.3s all;
 }
 .swiper-button-prev,
@@ -169,6 +168,7 @@
   .swiper-button-next {
     width: 46px !important;
     height: 46px !important;
+    display: none !important;
   }
 }
 
@@ -211,20 +211,17 @@
   border: none !important;
   box-shadow: none !important;
 }
-@media(min-width: 1200px) {
+@media (min-width: 1200px) {
   .react-datepicker__month-container {
-    padding-left:16px !important;
+    padding-left: 16px !important;
   }
 }
 .react-datepicker-popper {
   box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
-  padding-top:0px !important;
-  background-color:#fff;
-  border-radius:16px;
-  padding-top:16px;
-}
-.react-datepicker-popper > div {
-  
+  padding-top: 0px !important;
+  background-color: #fff;
+  border-radius: 16px;
+  padding-top: 16px;
 }
 
 .react-datepicker__year-read-view--down-arrow,
@@ -280,8 +277,11 @@
 }
 @media only screen and (max-width: 1024px) {
   .react-datepicker {
-    display:flex !important;
+    display: flex !important;
     justify-content: space-around;
+  }
+  .css-b62m3t-container {
+    min-width: 140px;
   }
 }
 
@@ -303,7 +303,6 @@
     border-radius: 14px !important;
   }
 } */
-
 
 .css-17db9ma-control {
   height: 56px !important;
@@ -327,7 +326,6 @@ html {
   -ms-overflow-style: none;
 }
 
-
 input:focus::placeholder {
   color: transparent;
 }
@@ -348,7 +346,8 @@ input[type='number'] {
   -moz-appearance: textfield;
 }
 
-.css-3w2yfm-ValueContainer, .css-1dyz3mf {
+.css-3w2yfm-ValueContainer,
+.css-1dyz3mf {
   flex-wrap: nowrap !important;
   -webkit-line-clamp: 1;
   overflow-x: auto !important;
@@ -365,11 +364,11 @@ input[type='number'] {
 }
 
 .css-1nmdiq5-menu {
-padding-top:8px;
-padding-bottom:8px;
+  padding-top: 8px;
+  padding-bottom: 8px;
 }
 .css-d32dvm-placeholder {
-  color: #272A37 !important;
+  color: #272a37 !important;
 }
 .focus-visible\:ring-2:focus-visible {
   --tw-ring-offset-shadow: none !important;
@@ -380,4 +379,61 @@ padding-bottom:8px;
 
 .my-slide-element.slide-in {
   transform: translateX(100px); /* Adjust the transformation as needed */
+}
+
+.group-color .css-keloal-control {
+  background: transparent;
+  border: 1px solid var(--Green-Green-100, #549684);
+  height: 48px;
+  border-radius: 12px;
+}
+.group-color .css-g3equt-control {
+  background: transparent;
+  border: 1px solid var(--Green-Green-100, #549684);
+  height: 48px;
+  border-radius: 12px;
+}
+.group-color .error-border .css-g3equt-control {
+  border: none;
+}
+.group-color .error-border .css-1f6quk8-control {
+  border: none;
+}
+.group-color .error-border .css-r067w9-control {
+  border: none;
+}
+.group-color .css-1f6quk8-control {
+  background: transparent;
+  border: 1px solid var(--Green-Green-100, #549684);
+  height: 48px;
+  border-radius: 12px;
+}
+
+.group-color .css-r067w9-control {
+  background: transparent;
+  border: 1px solid var(--Green-Green-100, #549684);
+  height: 48px;
+  border-radius: 12px;
+}
+.css-1f6quk8-control {
+  height: 48px;
+}
+
+.group-color svg {
+  fill: var(--Green-Green-100, #549684);
+  fill: var(--Green-Green-100, #549684) !important;
+}
+.shadow-buttonContainer {
+  box-shadow: 0px -4px 18px 0px rgba(0, 0, 0, 0.05);
+}
+.manufacturer_options {
+  background-color: red !important;
+}
+
+.react-datepicker-wrapper {
+  width: 100%;
+}
+.bg-green {
+  background-color: rgb(84 150 132 / 0.1);
+  border: 1px solid var(--Green-Green-100, #549684);
 }

@@ -15,7 +15,7 @@ const ResponsivePriceCalcCard: React.FC<Props> = ({ toggleDrawer, bookingModal, 
   return (
     <section
       className={`${
-        bookingModal ? 'bottom-0' : 'bottom-[74px]'
+        bookingModal ? 'bottom-0' : 'bottom-[75px]'
       } border-b-1 border-raisin-10 fixed w-full justify-between bg-white shadow-top z-[1] rounded-t-3xl flex p-4 md:hidden`}
       onClick={toggleDrawer}
     >
@@ -27,7 +27,7 @@ const ResponsivePriceCalcCard: React.FC<Props> = ({ toggleDrawer, bookingModal, 
         <Icon svgPath='chevron' width={8} height={6} className='fill-transparent rotate-180 cursor-pointer' />
       </div>
       {userInfo?.active_profile_id === userInfo?.UserID && (
-        <DefaultButton bg='bg-orange-100' text='ჯავშნის დაწყება' textColor='text-white'>
+        <DefaultButton bg='bg-orange-100 hover:bg-orange-110 transition-all' text='ჯავშნის დაწყება' textColor='text-white'>
           ჯავშნის დაწყება
         </DefaultButton>
       )}

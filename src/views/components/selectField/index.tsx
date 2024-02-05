@@ -13,11 +13,11 @@ const customStyles = {
     height: 56,
     position: 'relative',
     '&:hover': { border: '1px solid #BEBFC3' },
-    borderRadius: '8px',
+    borderRadius: '12px',
     border: state.isFocused ? '1px solid #272A37' : '1px solid #E9EAEB',
     boxShadow: state.isFocused ? '1px solid #272A37' : '1px solid #E9EAEB',
     transition: 'border 0.2s',
-    cursor: 'pointer',
+    cursor: 'pointer'
   }),
   valueContainer: (provided: any) => ({
     ...provided
@@ -25,7 +25,7 @@ const customStyles = {
 
   menuList: (provided: any) => ({
     ...provided,
-    height: '150px'
+    height: '180px'
   }),
 
   placeholder: (defaultStyles: any) => {
@@ -54,8 +54,9 @@ interface Props {
   errors?: any
   isMulti?: boolean
   handleChange?: () => void
-  errorAbsolute?:boolean
-  errorRight?:boolean
+  errorAbsolute?: boolean
+  errorRight?: boolean
+  setValueLabel?: any
 }
 
 const Control = ({ children, ...props }: any) => {
@@ -83,22 +84,21 @@ const SelectField: React.FC<Props> = ({
   errors,
   errorAbsolute,
   errorRight,
-  isMulti,
+  isMulti = false,
   handleChange,
+  setValueLabel
 }) => {
   const { DropdownIndicator, ClearIndicator } = components
 
   const customDropdownIndicator = (
     props: JSX.IntrinsicAttributes & DropdownIndicatorProps<any, boolean, GroupBase<unknown>>
   ) => {
-
-    if (!props.selectProps.value || props.selectProps.value?.length===0) {
+    if (!props.selectProps.value || props.selectProps.value?.length === 0) {
       return <DropdownIndicator {...props} />
     }
 
     return null
   }
-
 
   const customClearIndicator = (
     props: JSX.IntrinsicAttributes & ClearIndicatorProps<unknown, boolean, GroupBase<unknown>>
@@ -117,13 +117,14 @@ const SelectField: React.FC<Props> = ({
         control={control}
         render={({ field: { onChange, value } }) => (
           <>
+      
             <Select
               styles={customStyles}
               options={options}
               value={
                 isMulti
                   ? options?.filter(opt => (valueKey ? value?.includes(opt[valueKey]) : value.includes(opt.value)))
-                  : options?.find(opt => (valueKey ? opt[valueKey] === value : opt.value === value))
+                  : options?.filter(opt => (valueKey ? opt[valueKey] === value : opt.value === value))
               }
               onChange={(e: any) => {
                 const selectedValues = isMulti
@@ -134,8 +135,18 @@ const SelectField: React.FC<Props> = ({
 
                 onChange(selectedValues)
                 handleChange && handleChange()
+                setValueLabel &&
+                  setValueLabel(
+                    isMulti
+                      ? options?.filter(opt => (valueKey ? value?.includes(opt[valueKey]) : value.includes(opt.value)))
+                      : options?.filter(opt => (valueKey ? opt[valueKey] === value : opt.value === value))
+                  )
+                setValueLabel &&
+                  setValueLabel(
+                    isMulti ? e.map((opt: any) => (labelKey ? opt[labelKey] : opt.value)) : e?.label || ''
+                  )
               }}
-              className={_.get(errors, name)?.message ? `border border-red-100 rounded-lg` : ''}
+              className={`${_.get(errors, name)?.message ? `error-border border border-red-100 rounded-[12px]` : ''}`}
               isMulti={isMulti}
               getOptionLabel={option => labelKey && option[labelKey]}
               getOptionValue={option => valueKey && option[valueKey]}
@@ -152,13 +163,18 @@ const SelectField: React.FC<Props> = ({
               emoji={
                 icon && (
                   <div className='ml-4'>
-                    <Icon svgPath='clock' width={18} height={18} />
+                    <Icon svgPath='clock' width={18} height={18} className='fill-black' />
                   </div>
                 )
               }
             />
             {_.get(errors, name)?.message && (
-              <div id={name} className={`${errorAbsolute?'absolute top-full':'relative py-2'} ${errorRight?'right-0':''} text-sm text-red-100 max-h-max`}>
+              <div
+                id={name}
+                className={`${errorAbsolute ? 'absolute top-full' : 'relative py-2'} ${
+                  errorRight ? 'right-0' : ''
+                } text-sm text-red-100 max-h-max`}
+              >
                 {_.get(errors, name)?.message}
               </div>
             )}

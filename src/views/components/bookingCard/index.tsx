@@ -12,7 +12,7 @@ const BookingCard = ()  => {
             <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center text-sm">
                     <div className="w-6 h-6 flex items-center justify-center rounded-full bg-green-100 mr-4">
-                        <Icon svgPath='check' width={14} height={10} className='fill-transparent'/>
+                        <Icon svgPath='check' width={11} height={9} className='fill-white'/>
                     </div>
                     <Icon svgPath='booking-start' width={24} height={24} className='fill-transparent mr-4' />
                     წაყვანა

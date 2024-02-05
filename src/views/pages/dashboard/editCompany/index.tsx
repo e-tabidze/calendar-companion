@@ -270,7 +270,7 @@ const EditCompany = () => {
         <div className='flex justify-between items-center pt-8'>
           <DefaultButton
             text='შენახვა'
-            bg='bg-orange-100'
+            bg='bg-orange-100 hover:bg-orange-110 transition-all'
             textColor='text-white'
             type='submit'
             disabled={updateCompanyMutation.isLoading}

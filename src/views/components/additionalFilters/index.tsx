@@ -41,6 +41,9 @@ interface Props {
   onSubmit: () => void
   reset: any
   setValue: any
+  setManufactuterMeta?: any
+  setYearFromMeta?: any
+  setYearToMeta?: any
 }
 
 const AdditionalFilters: React.FC<Props> = ({
@@ -58,7 +61,10 @@ const AdditionalFilters: React.FC<Props> = ({
   appendSteeringWheel,
   onSubmit,
   reset,
-  setValue
+  setValue,
+  setManufactuterMeta,
+  setYearFromMeta,
+  setYearToMeta
 }) => {
   const { width } = useWindowDimensions()
   const {
@@ -71,8 +77,8 @@ const AdditionalFilters: React.FC<Props> = ({
     suitcases,
     additionalInformationFilters,
     manufacturerFilters,
-    steeringWheel,
-  } = useFilters()
+    steeringWheel
+  } = useFilters(open)
 
   const { objectToURI } = useSearch()
 
@@ -93,7 +99,14 @@ const AdditionalFilters: React.FC<Props> = ({
 
   return (
     <Transition.Root show={open} as={Fragment}>
-      <Dialog as='div' className='relative z-[111]' onClose={toggleModal}>
+      <Dialog
+        as='div'
+        className='relative z-[111]'
+        onClose={() => {
+          reset()
+          toggleModal()
+        }}
+      >
         <Transition.Child
           as={Fragment}
           enter='ease-out duration-300'
@@ -122,7 +135,15 @@ const AdditionalFilters: React.FC<Props> = ({
                   <Dialog.Title as='h3' className='text-2md text-base-100 leading-6'>
                     დამატებითი ფილტრები
                   </Dialog.Title>
-                  <Icon svgPath='close' onClick={toggleModal} height={40} width={40} className='cursor-pointer' />
+                  <button
+                    className='relative flex w-10 h-10 items-center justify-center rounded-full before:content-[""] before:absolute before:top-0 before:left-0 before:w-full before:h-full before:rounded-full before:bg-[#D8D8D8]/40 hover:before:scale-110 before:transition before:duration-300 before:ease-in-out cursor-pointer'
+                    onClick={() => {
+                      reset()
+                      toggleModal()
+                    }}
+                  >
+                    <Icon svgPath='close-sm' height={16} width={16} className='z-[1] relative' />
+                  </button>
                 </div>
                 <div className='overflow-auto h-[60vh] px-4 py-5 sm:py-6 sm:px-10 w-max-full'>
                   <Typography type='body' color='dark'>
@@ -135,7 +156,7 @@ const AdditionalFilters: React.FC<Props> = ({
                       label={'დღიური მინიმალური ფასი'}
                       labelMobile={'მინ. ფასი დღიურად'}
                       errors={''}
-                      className='w-full mb-2 md:mb-0'
+                      className='w-full'
                       type='number'
                       min={1}
                     />
@@ -193,12 +214,13 @@ const AdditionalFilters: React.FC<Props> = ({
                         control={control}
                         options={manufacturerFilters}
                         placeholder='მწარმოებელი'
-                        className='w-full my-1 md:my-2 md:w-1/2'
+                        className='w-full my-1 md:my-2 md:w-1/2 option-field-size'
                         valueKey='id'
                         labelKey='title'
                         handleChange={() => {
                           setValue('model_id', [])
                         }}
+                        setValueLabel={setManufactuterMeta}
                       />
                       <SelectField
                         name='model_id'
@@ -222,6 +244,7 @@ const AdditionalFilters: React.FC<Props> = ({
                         className='w-full my-2 md:w-1/2'
                         valueKey='value'
                         labelKey='label'
+                        setValueLabel={setYearFromMeta}
                       />
                       <SelectField
                         name='year_to'
@@ -232,6 +255,7 @@ const AdditionalFilters: React.FC<Props> = ({
                         className='w-full my-2 md:w-1/2'
                         valueKey='value'
                         labelKey='label'
+                        setValueLabel={setYearToMeta}
                       />
                     </div>
                   </div>
@@ -276,7 +300,7 @@ const AdditionalFilters: React.FC<Props> = ({
                       />
                     </div>
                   </div>
-                  
+
                   {/* <SwitchField label='უფასო მიყვანა' name='free_delivery' control={control} className='my-4 md:my-8' /> */}
                   <Divider />
 
@@ -306,6 +330,7 @@ const AdditionalFilters: React.FC<Props> = ({
                         name='door_types'
                         control={control}
                         height='h-10'
+                        className='door-type'
                         append={appendDoorType}
                         outlined
                       />
@@ -363,17 +388,17 @@ const AdditionalFilters: React.FC<Props> = ({
                 <div className='w-full flex flex-row items-center justify-between py-4 px-4 md:px-10 border-t-1 border-grey-90 shadow-md'>
                   <IconTextButton
                     label='გასუფთავება'
-                    icon='return'
+                    icon='rotate'
                     className='fill-transparent'
-                    width={20}
-                    height={22}
+                    width={24}
+                    height={24}
                     onClick={() => reset()}
+                    type='reset'
                   />
                   <div className='flex items-center justify-between md:justify-start text-md gap-4'>
-                    {/* სულ 136 შედეგი */}
                     <IconTextButton
                       label='ძებნა'
-                      bg='bg-orange-100'
+                      bg='bg-orange-100 hover:bg-orange-110 transition-all'
                       className='text-white pl-[24px] pr-[32px]'
                       icon='search'
                       width={20}

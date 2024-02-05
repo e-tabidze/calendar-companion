@@ -18,8 +18,8 @@ import {
   PriceContainer,
   ProductCardContainer
 } from './styles'
-import {isMobile} from "react-device-detect";
-import {useEffect, useState} from "react";
+import { isMobile } from 'react-device-detect'
+import { useEffect, useState } from 'react'
 
 interface Props {
   productId: number
@@ -33,6 +33,7 @@ interface Props {
   seats: string | number
   images: string[]
   city: string
+  isProductInFavorites: boolean
 }
 
 const ProductCard: React.FC<Props> = ({
@@ -46,13 +47,14 @@ const ProductCard: React.FC<Props> = ({
   bookTo,
   seats,
   images,
-  city
+  city,
+  isProductInFavorites
 }) => {
   const router = useRouter()
 
   const { isAuthenticated, activeCompanyId } = useProfile()
 
-  const { toggleUserFavourites, userFavourites, toggleFavouritesLoading } = useFavourites(productId)
+  const { toggleUserFavourites } = useFavourites(productId)
 
   const handleCardClick = () => {
     const today = new Date()
@@ -67,7 +69,7 @@ const ProductCard: React.FC<Props> = ({
     router.push(`/details/${productId}${queryString}`)
   }
 
-  const isProductInFavorites = userFavourites?.some((fav: any) => fav.product_id === productId)
+  // const isProductInFavorites = userFavourites?.some((fav: any) => fav.product_id === productId)
 
   const handleFavorites = async (e: any) => {
     e.stopPropagation()
@@ -78,6 +80,7 @@ const ProductCard: React.FC<Props> = ({
       console.log(error, 'error')
     }
   }
+
   const [isMobileDevice, setIsMobileDevice] = useState(false)
   useEffect(() => {
     setIsMobileDevice(isMobile)
@@ -87,52 +90,48 @@ const ProductCard: React.FC<Props> = ({
   return (
     <ProductCardContainer onClick={handleCardClick}>
       <div className='overflow-hidden cursor-pointer w-full'>
-          {isMobileDevice && !router?.asPath?.startsWith('/search') ?
-                <div className='aspect-w-16 aspect-h-9 rounded-tl-3xl rounded-tr-3xl overflow-hidden'>
-                  <Image
-                      src={images[0] || ''}
-                      alt={`${manufacturer} ${model} ${prodYear}`}
-                      height={'100%'}
-                      width={'100%'}
-                      className='object-cover'
-                  />
-                </div>
-               :
-            <Carousel
-                itemsArray={images?.map((imgUrl, index) => (
-                    <div className='aspect-w-16 aspect-h-9 rounded-tl-3xl rounded-tr-3xl overflow-hidden' key={index}>
-                      <Image
-                          src={imgUrl || ''}
-                          alt={`${manufacturer} ${model} ${prodYear}`}
-                          height={'100%'}
-                          width={'100%'}
-                          className='object-cover'
-                      />
-                    </div>
-                ))}
-                type='card'
-                key={Math.random()}
+        {isMobileDevice && !router?.asPath?.startsWith('/search') ? (
+          <div className='aspect-w-16 aspect-h-9 rounded-tl-3xl rounded-tr-3xl overflow-hidden'>
+            <Image
+              src={images[0] || ''}
+              alt={`${manufacturer} ${model} ${prodYear}`}
+              height={'100%'}
+              width={'100%'}
+              className='object-cover'
             />
-          }
+          </div>
+        ) : (
+          <Carousel
+            itemsArray={images?.map((imgUrl, index) => (
+              <div className='aspect-w-16 aspect-h-9 rounded-tl-3xl rounded-tr-3xl overflow-hidden' key={index}>
+                <Image
+                  src={imgUrl || ''}
+                  alt={`${manufacturer} ${model} ${prodYear}`}
+                  height={'100%'}
+                  width={'100%'}
+                  className='object-cover'
+                />
+              </div>
+            ))}
+            type='card'
+            key={Math.random()}
+          />
+        )}
       </div>
 
       {activeCompanyId === undefined && isAuthenticated && (
         <div
-          className={`absolute cursor-pointer z-[10] top-3 right-3 w-8 h-8 flex items-center justify-center rounded-full ${
-            isProductInFavorites ? 'bg-orange-20 hover:bg-orange-30' : ' bg-raisin-20 hover:bg-raisin-60'
+          className={`absolute cursor-pointer z-[10] top-3 right-3 w-8 h-8 flex items-center justify-center rounded-full bg-raisin-20 ${
+            isProductInFavorites ? '' : 'hover:bg-raisin-40'
           }`}
         >
-          {toggleFavouritesLoading ? (
-            <>...</>
-          ) : (
-            <Icon
-              svgPath={isProductInFavorites ? 'favIconActive' : 'favIconOutline'}
-              className='cursor-pointer'
-              width={isProductInFavorites ? 14 : 16}
-              height={isProductInFavorites ? 14 : 17}
-              onClick={e => handleFavorites(e)}
-            />
-          )}
+          <Icon
+            svgPath={isProductInFavorites ? 'favIconActive' : 'favIconOutline'}
+            className='cursor-pointer'
+            width={20}
+            height={20}
+            onClick={e => handleFavorites(e)}
+          />
         </div>
       )}
       <DetailsContainer>
@@ -147,7 +146,9 @@ const ProductCard: React.FC<Props> = ({
         <InnerDetailsContainer>
           <PriceContainer>
             {priceGel} ₾{/*<PreviousPrice>47₾</PreviousPrice>*/}
-            <Typography type='body' className='text-sm'>დღე</Typography>
+            <Typography type='body' className='text-sm'>
+              დღე
+            </Typography>
           </PriceContainer>
           <DetailsWrapper className='flex-col sm:flex-row pl-4 sm:pl-0 border-l-1 border-raisin-10 sm:border-none'>
             <Details>
