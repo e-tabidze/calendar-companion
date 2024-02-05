@@ -25,6 +25,7 @@ const EntityInformationCard = dynamic(() => import('src/views/pages/details/enti
 const Drawer = dynamic(() => import('src/views/pages/details/drawer'), { ssr: false })
 const ResponsivePriceCalcCard = dynamic(() => import('src/views/pages/details/responsivePriceCalcCard'), { ssr: false })
 const ProductImagesDialog = dynamic(() => import('src/views/pages/details/productImagesDialog'), { ssr: false })
+const DetailsPageHeader = dynamic(() => import('src/views/pages/details/detailsPageHeader'), { ssr: true })
 
 import { ContentContainer, MaxWidthContainer } from 'src/styled/styles'
 
@@ -46,6 +47,7 @@ const Features = dynamic(() => import('src/views/pages/details/features'), { ssr
 
 import { format } from 'date-fns'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import PageMeta from 'src/@core/meta/PageMeta'
 
 registerLocale('ka', ka)
 
@@ -58,7 +60,8 @@ const ProductDetails = memo(() => {
   const { width } = useWindowDimensions()
 
   const [isOpenDrawer, setIsOpenDrawer] = useState(false)
-  const [section, setSection] = useState('details')
+  const [activeNavItem, setActiveNavItem] = useState('details')
+
   const [isSticky, setIsSticky] = useState(false)
 
   const [dateRange, setDateRange] = useState<
@@ -79,12 +82,6 @@ const ProductDetails = memo(() => {
 
   const { similarProducts } = useMain(singleProductDetails?.man_id, singleProductDetails?.model_id)
 
-  console.log(similarProducts, 'similarProducts')
-
-  console.log(singleProductDetails, 'singleProductDetails')
-
-  console.log(orderDatesData, 'orderDatesData')
-
   const ref = useRef<any>()
 
   useEffect(() => {
@@ -103,12 +100,11 @@ const ProductDetails = memo(() => {
   }, [book_from, book_to])
 
   const handleScroll = () => {
-
-    // const componentPosition = ref.current?.getBoundingClientRect().top - 80
+    const componentPosition = ref.current?.getBoundingClientRect().top - 80
 
     const pageScroll = window.pageYOffset
 
-    if (pageScroll > window?.innerHeight / 4) {
+    if (pageScroll > window?.innerHeight / componentPosition) {
       setIsSticky(true)
     } else {
       setIsSticky(false)
@@ -122,7 +118,6 @@ const ProductDetails = memo(() => {
         top: sectionToScroll.offsetTop - 180,
         behavior: 'smooth'
       })
-    setSection(id)
   }
 
   const toggleDrawer = () => setIsOpenDrawer(!isOpenDrawer)
@@ -130,10 +125,6 @@ const ProductDetails = memo(() => {
   const toggleProductImageDialog = () => {
     setProductImageDialogOpen(!productImageDialogOpen)
   }
-
-  console.log(singleProductDetails, 'singleProductDetails')
-
-  console.log(bookingValues, 'bookingValues')
 
   const onSubmit = () => {
     router.push({
@@ -148,13 +139,54 @@ const ProductDetails = memo(() => {
     })
   }
 
+  useEffect(() => {
+    const handleScroll = () => {
+      const sectionElements = ['details', 'features', 'lessor']
+      for (const section of sectionElements) {
+        const sectionElement = document.getElementById(section)
+        if (sectionElement) {
+          const { top, left, right, bottom } = sectionElement.getBoundingClientRect()
+          if (
+            top >= 0 &&
+            left >= 0 &&
+            bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+            right <= (window.innerWidth || document.documentElement.clientWidth)
+          ) {
+            setActiveNavItem(section)
+            break
+          }
+        }
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll)
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+    }
+  }, [])
+
+  const pageMeta = {
+    title: `ქირავდება ${singleProductDetails?.manufacturer?.title} ${singleProductDetails?.manufacturer_model?.title} ${singleProductDetails?.prod_year} ${singleProductDetails?.start_city} |  Rent.myauto.ge | მანქანის ქირაობის პლატფორმა`,
+    desc: '',
+    img: singleProductDetails?.large_images?.split(',')[0]
+  }
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <DefaultLayout>
+      <PageMeta meta={pageMeta} />
 
-        {/* <ContentContainer>
-          <DetailsPageHeader />
-        </ContentContainer> */}
+      <DefaultLayout>
+        <ContentContainer>
+          <DetailsPageHeader
+            city={singleProductDetails?.start_city}
+            manufacturer={singleProductDetails?.manufacturer?.title}
+            model={singleProductDetails?.manufacturer_model?.title}
+            prodYear={singleProductDetails?.prod_year}
+            productId={singleProductDetails?.id}
+            isProductInFavorites={singleProductDetails?.is_favourite}
+          />
+        </ContentContainer>
         <MaxWidthContainer>
           <Carousel
             itemsArray={singleProductDetails?.large_images?.split(',')?.map((imageUrl: string) => (
@@ -170,30 +202,20 @@ const ProductDetails = memo(() => {
           />
         </MaxWidthContainer>
         <MaxWidthContainer
-          className={`${isSticky ? 'sticky top-[72px] md:top-20' : ''} bg-white z-[30]`}
+          className={`${isSticky ? 'sticky top-[62px] md:top-20' : ''} bg-white z-[30]`}
           ref={ref}
           id='head'
         >
           <ContentContainer className='overflow-x-auto no-scrollbar bg-white z-30'>
-            <div className='flex gap-8 my-6 w-max'>
-              <SubNavItem section='details' activeSection={section} handleClick={handleClick}>
-                დეტალური ინფორმაცია
+            <div className='flex gap-8 w-max'>
+              <SubNavItem section='details' activeSection={activeNavItem} handleClick={handleClick}>
+                ავტომობილის შესახებ
               </SubNavItem>
-              <SubNavItem section='features' activeSection={section} handleClick={handleClick}>
+              <SubNavItem section='features' activeSection={activeNavItem} handleClick={handleClick}>
                 მახასიათებლები
               </SubNavItem>
-              <SubNavItem section='pricing' activeSection={section} handleClick={handleClick}>
-                ღირებულება
-              </SubNavItem>
-
-              {/* <SubNavItem section='insurance' activeSection={section} handleClick={handleClick}>
-                დაზღვევა
-              </SubNavItem> */}
-              {/*<SubNavItem section='reviews' activeSection={section} handleClick={handleClick}>*/}
-              {/*  შეფასება*/}
-              {/*</SubNavItem>*/}
-              <SubNavItem section='informationcard' activeSection={section} handleClick={handleClick}>
-                განმცხადებელი
+              <SubNavItem section='lessor' activeSection={activeNavItem} handleClick={handleClick}>
+                გამქირავებლის შესახებ
               </SubNavItem>
             </div>
           </ContentContainer>
@@ -204,20 +226,20 @@ const ProductDetails = memo(() => {
         <ContentContainer>
           <div className='flex gap-11 mt-8'>
             <div className='w-full md:w-7/12 lg:w-8/12'>
-              <div id='details'>
-                <Typography type='h3' className='text-3md md:text-2lg font-bold'>
+              <div id='details' data-section className='mb-8'>
+                <Typography type='h3' className='md:text-2lg font-bold'>
                   {singleProductDetails?.manufacturer?.title} {singleProductDetails?.manufacturer_model?.title}{' '}
                   {singleProductDetails?.prod_year}
                 </Typography>
-                <div className='flex items-center gap-4 mb-12'>
-                  <Typography type='body' color='light'>
+                <div className='flex md:items-center gap-3 md:gap-4 mb-12 mt-4 md:mt-0'>
+                  <Typography type='body' color='light' className='whitespace-nowrap'>
                     ან მსგავსი
                   </Typography>
                   <Typography type='subtitle'>| </Typography>
                   <div className='flex shrink-0'>
                     <Icon svgPath='locationOutline' width={24} height={24} className='fill-transparent' />
                   </div>
-                  <Typography type='subtitle'>
+                  <Typography type='subtitle' className='text-2sm'>
                     {singleProductDetails?.start_city}, {singleProductDetails?.start_address}
                   </Typography>
                 </div>
@@ -230,39 +252,37 @@ const ProductDetails = memo(() => {
                   entityProductsCount={singleProductDetails?.company_user?.company?.count_company_poduct}
                 />
               </div>
-              <Divider />
-              <Features id='features' singleProductDetails={singleProductDetails} />
+              <Divider className='mb-8' />
+              <div id='features'></div>
+              <Features singleProductDetails={singleProductDetails} />
 
               {singleProductDetails?.product_services.length > 0 && (
                 <>
                   <Divider />
-                  <div className='my-8' id='pricing'>
+                  <div className='my-8'>
                     <Typography type='h3' className='text-3md md:text-2lg'>
-                      ღირებულება
+                      ფასი მოიცავს
                     </Typography>
 
+                    <>{console.log(singleProductDetails?.product_services, 'singleProductDetails?.product_services')}</>
+
                     <div className='mt-8 mb-11 grid grid-cols-1 gap-4'>
-                      {singleProductDetails?.product_services?.map((feature: any) => (
-                        <ProductFeature
-                          feature={feature?.title}
-                          icon='feature'
-                          key={feature.id}
-                          description={feature.description}
-                          price={
-                            feature.company_service_type_id === 3
-                              ? 'უფასო'
-                              : feature.company_service_type_id === 1
-                              ? `${feature.price}₾ / დღე`
-                              : `${feature.price}₾ / ერთჯერადად`
-                          }
-                        />
-                      ))}
+                      {singleProductDetails?.product_services
+                        ?.filter((feature: any) => feature.company_service_type_id === 3)
+                        .map((feature: any) => (
+                          <ProductFeature
+                            feature={feature?.title}
+                            icon='feature'
+                            key={feature.id}
+                            description={feature.description}
+                          />
+                        ))}
                     </div>
                   </div>
                 </>
               )}
               <Divider />
-              <div className='my-8' id='calendar'>
+              <div className='my-8' id='calendar' data-section>
                 <Typography type='h3' className='text-3md md:text-2lg'>
                   პერიოდი
                 </Typography>
@@ -285,8 +305,8 @@ const ProductDetails = memo(() => {
                       </Typography>
                     )}
                   </div>
-                  <div className='hidden lg:flex gap-4 cursor-pointer '>
-                    <Icon svgPath='rotate' width={20} height={22} className='fill-transparent' />
+                  <div className='hidden lg:flex gap-4 cursor-pointer transition-all'>
+                    <Icon svgPath='rotate' width={24} height={24} className='fill-transparent' />
                     <Typography
                       type='body'
                       color='light'
@@ -385,12 +405,12 @@ const ProductDetails = memo(() => {
               <PriceCalcCard
                 className={`${isSticky ? 'sticky top-44' : ''} z-[11]`}
                 price={singleProductDetails?.price_gel}
-                dates={
-                  startDate && endDate
-                    ? `${format(startDate, 'd MMM yyyy', { locale: ka })} - ${format(endDate, 'd MMM yyyy', {
-                        locale: ka
-                      })}`
-                    : ''
+                startDate={startDate && format(startDate, 'd MMM yyyy', { locale: ka })}
+                endDate={
+                  endDate &&
+                  format(endDate, 'd MMM yyyy', {
+                    locale: ka
+                  })
                 }
                 days={
                   startDate && endDate && Math.round((endDate.getTime() - startDate.getTime()) / (24 * 60 * 60 * 1000))
@@ -404,57 +424,72 @@ const ProductDetails = memo(() => {
               />
             </div>
           </div>
-          <div id='priceCard'></div>
-          <Typography type='h3' className='text-3md md:text-2lg block my-6 lg:hidden'>
-            ფასი მოიცავს
+          <div id='priceCard' data-section></div>
+
+          <Typography type='h3' className='text-3md md:text-2lg block mb-6 md:hidden'>
+            გამქირავებელი
           </Typography>
+
           <LessorInformationCard
-            id='informationcard'
+            id='lessor'
+            data-section
             lessor={singleProductDetails?.company_user?.company?.information?.name}
             description={singleProductDetails?.company_user?.company?.information?.description}
             count={singleProductDetails?.company_user?.company?.count_company_poduct}
           />
-          <Divider className='my-10 md:my-20' />
-
-          {similarProducts?.length > 1 && (
-            <div>
-              <Typography type='h3' className='text-3md md:text-2lg mb-8'>
-                მსგავსი შეთავაზებები
-              </Typography>
-              <Carousel
-                itemsArray={similarProducts?.map((product: any) => (
-                  <ProductCard
-                    key={product?.id}
-                    productId={product?.id}
-                    manufacturer={product?.manufacturer?.title}
-                    model={product?.manufacturer_model?.title}
-                    prodYear={product?.prod_year}
-                    priceGel={product?.price_gel}
-                    luggageNumbers={product?.luggage_numbers}
-                    seats={product?.seat_type?.title}
-                    images={product?.images?.split(',')}
-                    city={product?.start_city}
-                  />
-                ))}
-                type='products'
-              />
-            </div>
-          )}
         </ContentContainer>
+        {similarProducts?.length > 1 && (
+          <>
+            <ContentContainer>
+              <Divider className='my-10 md:my-20' />
+            </ContentContainer>
+            <div className='overflow-hidden'>
+              <ContentContainer>
+                <>
+                  <Typography type='h3' className='text-3md md:text-2lg mb-8'>
+                    მსგავსი შეთავაზებები
+                  </Typography>
+                  <Carousel
+                    itemsArray={similarProducts?.map((product: any) => (
+                      <ProductCard
+                        key={product?.id}
+                        productId={product?.id}
+                        manufacturer={product?.manufacturer?.title}
+                        model={product?.manufacturer_model?.title}
+                        prodYear={product?.prod_year}
+                        priceGel={product?.price_gel}
+                        luggageNumbers={product?.luggage_numbers}
+                        seats={product?.seat_type?.title}
+                        images={product?.images?.split(',')}
+                        city={product?.start_city}
+                        isProductInFavorites={product.is_favourite}
+                      />
+                    ))}
+                    type='products'
+                  />
+                </>
+              </ContentContainer>
+            </div>
+          </>
+        )}
         {isOpenDrawer && width < 779 ? (
           <Drawer
             isOpenDrawer={isOpenDrawer}
             setIsOpenDrawer={setIsOpenDrawer}
             className={`${isSticky ? 'sticky top-44' : ''} z-[11]`}
             price={singleProductDetails?.price_gel}
-            dates={
-              startDate && endDate
-                ? `${format(startDate, 'd MMM yyyy', { locale: ka })} - ${format(endDate, 'd MMM yyyy', {
-                    locale: ka
-                  })}`
-                : ''
+            startDate={startDate && format(startDate, 'd MMM yyyy', { locale: ka })}
+            endDate={
+              endDate &&
+              format(endDate, 'd MMM yyyy', {
+                locale: ka
+              })
             }
             days={startDate && endDate && Math.round((endDate.getTime() - startDate.getTime()) / (24 * 60 * 60 * 1000))}
+            handleDateChange={() => {
+              setIsOpenDrawer(!isOpenDrawer)
+              handleClick('calendar')
+            }}
             onClick={onSubmit}
           />
         ) : (

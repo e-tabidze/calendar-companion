@@ -14,7 +14,7 @@ const Navigation = () => {
   const { activeCompany, isAuthenticated, handleLogin } = useProfile()
 
   return (
-    <div className='py-4 lg:py-0 border-b-[1px] border-raisin-10 lg:border-0 lg:w-5/12'>
+    <div className='py-4 lg:py-0 border-b-[1px] border-raisin-10 lg:border-0 lg:w-2/12'>
       <Typography
         type='h5'
         weight='medium'

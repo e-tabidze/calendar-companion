@@ -13,10 +13,11 @@ import { format } from 'date-fns'
 
 interface Props {
   control: any
+  resetField?: any
 }
 registerLocale('ka', ka)
 
-const PeriodDropdown: React.FC<Props> = ({ control }) => {
+const PeriodDropdown: React.FC<Props> = ({ control, resetField }) => {
   const [dateRange, setDateRange] = useState<[Date, Date] | [null, null]>([null, null])
   const [startDate, endDate] = dateRange
 
@@ -25,7 +26,7 @@ const PeriodDropdown: React.FC<Props> = ({ control }) => {
       {({ open }) => (
         <>
           <Menu.Button
-            className={`py-5 px-4 inline-flex w-full justify-center rounded-2xl bg-raisin bg-opacity-20 text-sm font-medium text-white focus-visible:ring-white focus-visible:ring-opacity-75 ${
+            className={`py-6 px-6 inline-flex w-full justify-center rounded-2xl bg-raisin bg-opacity-20 text-sm font-medium text-white focus-visible:ring-white focus-visible:ring-opacity-75 ${
               open ? '' : ''
             }`}
           >
@@ -36,12 +37,37 @@ const PeriodDropdown: React.FC<Props> = ({ control }) => {
               <InnerFilterContainer>
                 <Typography type='subtitle' className='text-raisin-50'>
                   {startDate && endDate
-                    ? `${format(startDate, 'd MMM yyyy', { locale: ka })} - ${format(endDate, 'd MMM yyyy', {
+                    ? `${format(startDate, 'd MMM', { locale: ka })} - ${format(endDate, 'd MMM', {
                         locale: ka
                       })}`
                     : 'თარიღი'}
                 </Typography>
-                <Icon svgPath='chevron' width={8} height={6} className='inline fill-white m-2' />
+                {startDate || endDate ? (
+                    <span className='flex shrink-0 ml-1 p-2 rounded-full hover:bg-raisin-5 transition-all'
+                        onClick={e => {
+                          setDateRange([null, null])
+                          resetField(), e.stopPropagation()
+                        }}
+                    >
+                      <Icon
+                          svgPath='clear-xs'
+                          width={7}
+                          height={7}
+                          color='raisin-10'
+                          className='fill-transparent'
+                      />
+                    </span>
+
+                ) : (
+                    <span className='flex shrink-0 ml-1 p-2 rounded-full hover:bg-raisin-5 transition-all'>
+                      <Icon
+                        svgPath='chevron'
+                        width={8}
+                        height={6}
+                        className={`fill-transparent transition-all ${open ? 'rotate-180' : ''}`}
+                      />
+                    </span>
+                )}
               </InnerFilterContainer>
             </FilterContainer>
           </Menu.Button>

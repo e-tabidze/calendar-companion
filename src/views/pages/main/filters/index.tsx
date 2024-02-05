@@ -14,6 +14,12 @@ import LocationMob from 'src/views/pages/main/filters/locationMob'
 const Filters = () => {
   const [filters, toggleFilters] = useState(false)
   const [isMobileDevice, setIsMobileDevice] = useState(false)
+  const handleResetLocation = () => {
+    setValue('location', '')
+  }
+  const handleResetBooking = () => {
+    setValue('booking', { book_from: '', book_to: '' })
+  }
 
   const router = useRouter()
 
@@ -30,7 +36,7 @@ const Filters = () => {
     appendAdditionalInformation,
     appendSteeringWheel,
     objectToURI,
-    reset,
+    resetField,
     setValue,
     searchProductsMutation
   } = useSearch()
@@ -44,12 +50,37 @@ const Filters = () => {
     setIsMobileDevice(isMobile)
   }, [])
 
+  const resetSearchFields = () => {
+    resetField('fuel_types')
+    resetField('category')
+    resetField('seat_types')
+    resetField('luggage_numbers')
+    resetField('drive_tires')
+    resetField('door_types')
+    resetField('steering_wheel')
+    resetField('transmission_types')
+    resetField('additional_information')
+    resetField('price_min')
+    resetField('price_max')
+    resetField('manufacturer_id')
+    resetField('year_from')
+    resetField('year_to')
+  }
+
   return (
     <form>
       <FiltersContainer>
-        {isMobileDevice ? <LocationMob control={control} /> : <LocationDropdown control={control} />}
+        {isMobileDevice ? (
+          <LocationMob control={control} resetField={handleResetLocation} />
+        ) : (
+          <LocationDropdown control={control} resetField={handleResetLocation} />
+        )}
         <Divider />
-        {isMobileDevice ? <PeriodMob control={control} /> : <PeriodDropdown control={control} />}
+        {isMobileDevice ? (
+          <PeriodMob control={control} resetField={handleResetBooking} />
+        ) : (
+          <PeriodDropdown control={control} resetField={handleResetBooking} />
+        )}
         <Divider />
         <ExtraFiltersContainer className='flex shrink-0'>
           <IconTextButton
@@ -68,7 +99,8 @@ const Filters = () => {
             icon='search'
             width={20}
             height={20}
-            bg='bg-orange-100'
+            bg='bg-orange-100 hover:bg-orange-110 transition-all'
+            className='md:h-16 px-4 md:px-6'
             labelClassname='text-2sm text-white md:hidden'
             onClick={onClickSearch}
             type='button'
@@ -89,7 +121,7 @@ const Filters = () => {
         appendTransmissionType={appendTransmissionType}
         appendAdditionalInformation={appendAdditionalInformation}
         onSubmit={onClickSearch}
-        reset={reset}
+        reset={resetSearchFields}
         setValue={setValue}
       />
     </form>

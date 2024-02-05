@@ -67,7 +67,7 @@ const NewServiceModal: React.FC<Props> = ({ open, onClose }) => {
         </Transition.Child>
 
         <div className='fixed inset-0 overflow-y-auto'>
-          <div className='flex min-h-full items-center justify-center p-4 text-center'>
+          <div className='flex items-center justify-center p-4 text-center'>
             <Transition.Child
               as={Fragment}
               enter='ease-out duration-300'
@@ -84,12 +84,17 @@ const NewServiceModal: React.FC<Props> = ({ open, onClose }) => {
                     <IconButton icon='close' onClick={onClose} width={40} height={40} className='cursor-pointer' />
                   </Dialog.Title>
                   <Divider />
-                  <div className='p-6 mb-40'>
-                    <div className='flex flex-col gap-4'>
-                      <DefaultInput label='სერვისის დასახელება' control={control} name='title' errors={errors} />
-                      <DefaultInput label='აღწერა' control={control} name='description' rows={4} errors={errors} />
-                    </div>
-                    <SelectField options={options} control={control} name='type_id' errors={errors} valueKey='value' labelKey='label' />
+                  <div className='p-6 mb-40 flex flex-col gap-4'>
+                    <DefaultInput label='სერვისის დასახელება' control={control} name='title' errors={errors} />
+                    <DefaultInput label='აღწერა' control={control} name='description' rows={4} errors={errors} />
+                    <SelectField
+                      options={options}
+                      control={control}
+                      name='type_id'
+                      errors={errors}
+                      valueKey='value'
+                      labelKey='label'
+                    />
                   </div>
                   <div className='flex justify-end absolute bottom-0 w-full shadow-md'>
                     <DefaultButton

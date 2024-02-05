@@ -65,7 +65,7 @@ const StepFour: React.FC<Props> = ({ control, step, errors }) => {
           height={20}
           onClick={handleNewServiceModal}
           className='p-0 mb-12'
-          type="button"
+          type='button'
         />
         <Typography type='h4' weight='normal' color='dark'>
           სერვისების ჩამონათვალი
@@ -84,7 +84,7 @@ const StepFour: React.FC<Props> = ({ control, step, errors }) => {
                     control={control}
                     name={`company_services.${index}.is_selected`}
                   />
-                  {formState.company_services[index]?.is_selected && renderServiceDetails(service, index)}
+                  {formState?.company_services[index]?.is_selected && renderServiceDetails(service, index)}
                   <Divider />
                 </div>
               ))}

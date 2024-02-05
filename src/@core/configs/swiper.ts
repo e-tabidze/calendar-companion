@@ -5,28 +5,32 @@ export const ProductCardSlider = {
     slidesPerGroup: 1,
     spaceBetween: 16,
     slidesOffsetBefore: 16,
-    slidesOffsetAfter: 16
+    slidesOffsetAfter: 16,
+    cssMode:true
   },
   560: {
     slidesPerView: 2.3,
     slidesPerGroup: 1,
     spaceBetween: 16,
     slidesOffsetBefore: 16,
-    slidesOffsetAfter: 16
+    slidesOffsetAfter: 16,
+    cssMode:true
   },
   768: {
     slidesPerView: 3,
     slidesPerGroup: 1,
     spaceBetween: 16,
     slidesOffsetBefore: 0,
-    slidesOffsetAfter: 0
+    slidesOffsetAfter: 0,
+    cssMode:true
   },
   1024: {
     slidesPerView: 3,
     slidesPerGroup: 1,
     spaceBetween: 24,
     slidesOffsetBefore: 0,
-    slidesOffsetAfter: 0
+    slidesOffsetAfter: 0,
+    cssMode:false
   }
 }
 
@@ -36,42 +40,48 @@ export const CategoryCardSlider = {
     slidesPerGroup: 1,
     spaceBetween: 8,
     slidesOffsetBefore: 16,
-    slidesOffsetAfter: 16
+    slidesOffsetAfter: 16,
+    cssMode:true
   },
   480: {
     slidesPerView: 3,
     slidesPerGroup: 1,
     spaceBetween: 8,
     slidesOffsetBefore: 16,
-    slidesOffsetAfter: 16
+    slidesOffsetAfter: 16,
+    cssMode:true
   },
   640: {
     slidesPerView: 4,
     slidesPerGroup: 1,
     spaceBetween: 8,
     slidesOffsetBefore: 16,
-    slidesOffsetAfter: 16
+    slidesOffsetAfter: 16,
+    cssMode:true
   },
   768: {
     slidesPerView: 4,
     slidesPerGroup: 1,
     spaceBetween: 8,
     slidesOffsetBefore: 0,
-    slidesOffsetAfter: 0
+    slidesOffsetAfter: 0,
+    cssMode:true
   },
   1024: {
     slidesPerView: 5,
     slidesPerGroup: 1,
     spaceBetween: 8,
     slidesOffsetBefore: 0,
-    slidesOffsetAfter: 0
+    slidesOffsetAfter: 0,
+    cssMode: false
   },
   1280: {
     slidesPerView: 6,
     slidesPerGroup: 1,
     spaceBetween: 8,
     slidesOffsetBefore: 0,
-    slidesOffsetAfter: 0
+    slidesOffsetAfter: 0,
+    cssMode:false
   }
 }
 
@@ -80,7 +90,6 @@ export const ProductDetailsSlider = {
     slidesPerView: 1.2,
     slidesPerGroup: 1,
     spaceBetween: 12
-
   },
 
   768: {
@@ -96,7 +105,6 @@ export const CardSlider = {
     slidesPerView: 1,
     slidesPerGroup: 1,
     spaceBetween: 12
-
   },
 
   768: {

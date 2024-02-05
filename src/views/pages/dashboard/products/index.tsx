@@ -2,6 +2,7 @@ import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { Product } from 'src/types/Products'
+import DataPlaceHolder from 'src/views/components/dataPlaceholder'
 import SkeletonLoading from './skeletonLoading'
 
 const Divider = dynamic(() => import('src/views/components/divider'), { ssr: false })
@@ -75,12 +76,12 @@ const Products = () => {
 
   return (
     <div>
-      <div className='md:p-8 lg:p-10 md:border border-raisin-10 rounded-3xl'>
-        <Typography type='h3' className='mb-6'>
+      <div className='md:p-8 lg:p-10 md:border border-raisin-10 rounded-3xl mt-8 lg:mt-0'>
+        <Typography type='h3' className='mb-6 mt-8 lg:mt-0'>
           ავტომობილები
         </Typography>
         <Divider />
-        <div className='hidden lg:flex gap-3 py-8'>
+        <div className='flex gap-3 py-8 overflow-x-auto'>
           {filters.map(filter => (
             <Tag
               label={filter.label}
@@ -92,20 +93,24 @@ const Products = () => {
           ))}
         </div>
         <div>
-          {companyProducts?.data?.map((product: Product) => (
-            <VehicleListComponent
-              key={product.id}
-              id={product.id}
-              price={product.price}
-              startCity={product.start_city}
-              prodYear={product.prod_year}
-              model={product?.manufacturer_model?.title}
-              manufacturer={product.manufacturer?.title}
-              active={product.is_active}
-              filter={filterQuery}
-              images={product?.images}
-            />
-          ))}
+          {companyProducts?.data?.length > 0 ? (
+            companyProducts?.data?.map((product: Product) => (
+              <VehicleListComponent
+                key={product.id}
+                id={product.id}
+                price={product.price}
+                startCity={product.start_city}
+                prodYear={product.prod_year}
+                model={product?.manufacturer_model?.title}
+                manufacturer={product.manufacturer?.title}
+                active={product.is_active}
+                filter={filterQuery}
+                images={product?.images}
+              />
+            ))
+          ) : (
+            <DataPlaceHolder label='ავტომობილები ჯერ არ გაქვს' />
+          )}
         </div>
       </div>
       {companyProducts?.last_page > 1 && (

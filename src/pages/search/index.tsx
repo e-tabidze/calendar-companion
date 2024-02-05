@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import useWindowDimensions from 'src/hooks/useWindowDimensions'
 import { FullContainer } from 'src/styled/styles'
 
@@ -16,13 +16,13 @@ import useSearch from 'src/hooks/useSearch'
 import { useRouter } from 'next/router'
 import { IconTextButton } from 'src/views/components/button'
 import dynamic from 'next/dynamic'
-import { Controller } from 'react-hook-form'
+import { Controller, useWatch } from 'react-hook-form'
 
 import SortListBox from 'src/views/pages/search/sortListBox'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { dehydrate } from '@tanstack/query-core'
 import { queryClient } from '../_app'
-
+import PageMeta from 'src/@core/meta/PageMeta'
 
 // const MapPicker = dynamic(() => import('src/views/components/mapPicker'), { ssr: true })
 const SkeletonLoading = dynamic(() => import('src/views/pages/search/skeletonLoading'), { ssr: false })
@@ -40,6 +40,12 @@ const SuitcasesPopover = dynamic(() => import('src/views/pages/search/suitcasesP
 const AdditionalFilters = dynamic(() => import('src/views/components/additionalFilters'), { ssr: false })
 
 // const ToggleMapButton = dynamic(() => import('../../views/pages/search/toggleMapButton'), { ssr: true })
+
+// const pageMeta = {
+//   title: 'მეტა?',
+//   desc: '',
+//   img: ''
+// }
 
 const SearchPage = () => {
   const {
@@ -68,12 +74,44 @@ const SearchPage = () => {
 
   // const [mapVisible, setMapVisible] = useState(true)
   const [filters, toggleFilters] = useState(false)
+  const [pageMeta, setPageMeta] = useState({})
+  const [manufactuterMeta, setManufactuterMeta] = useState('Rent.myauto.ge | მანქანის ქირაობის პლატფორმა')
+  const [yearFromMeta, setYearFromMeta] = useState('')
+  const [yearToMeta, setYearToMeta] = useState('')
 
   const router = useRouter()
 
   const { book_from, book_to } = router.query
 
   const page = router.query.page ? Number(router.query.page) : 1
+
+  const [hasFilter, setHasFilter] = useState(false)
+
+  const formState = useWatch({ control })
+
+  useEffect(() => {
+    setHasFilter(
+      !!formState?.price_min?.length ||
+        !!formState?.price_max?.length ||
+        (formState?.category?.length ?? 0) > 0 ||
+        (formState?.manufacturer_id?.length ?? 0) > 0 ||
+        (formState?.model_id?.length ?? 0) > 0 ||
+        !!formState?.year_from ||
+        !!formState?.year_to ||
+        (formState?.fuel_types?.length ?? 0) > 0 ||
+        (formState?.seat_types?.length ?? 0) > 0 ||
+        (formState?.luggage_numbers?.length ?? 0) > 0 ||
+        (formState?.drive_tires?.length ?? 0) > 0 ||
+        (formState?.transmission_types?.length ?? 0) > 0 ||
+        (formState?.additional_information?.length ?? 0) > 0
+    )
+  }, [formState])
+
+  useEffect(() => {
+    const metaTitle = `${manufactuterMeta} ${yearFromMeta} ${yearToMeta} Rent.myauto.ge | მანქანის ქირაობის პლატფორმა`
+    const metaDesc = `Rent.myauto.ge | მანქანის ქირაობის პლატფორმა`
+    setPageMeta({ title: metaTitle, desc: metaDesc, img: '' })
+  }, [formState])
 
   // useEffect(() => {
   //   setMapVisible(width >= 1025)
@@ -85,20 +123,26 @@ const SearchPage = () => {
 
   const onSubmit = () => {
     const updatedSearchValues: any = getValues()
-    console.log(updatedSearchValues, 'updatedSearchValues')
     searchProductsMutation.mutate(objectToURI(updatedSearchValues))
     router.push(`/search?${objectToURI(updatedSearchValues)}`)
   }
 
-  console.log(productsData, 'productsData')
-
   return (
     <>
+      <PageMeta meta={pageMeta} />
+
       <form>
         <SearchLayout>
           <FiltersWrapper className='border-t-1 border-b-1 border-raisin-10'>
             <MainFilters>
-              <PricePopover control={control} handleSubmit={onSubmit} reset={resetField} />
+              <PricePopover
+                control={control}
+                handleSubmit={onSubmit}
+                reset={() => {
+                  setValue('price_max', '')
+                  setValue('price_min', '')
+                }}
+              />
               <FuelTypePopover
                 control={control}
                 appendFuelType={appendFuelType}
@@ -134,8 +178,8 @@ const SearchPage = () => {
               </div>
               <Tag
                 label='ყველა ფილტრი'
-                className='bg-grey-60'
-                component={<Icon svgPath='filters' width={22} height={20} className='fill-transparent' />}
+                className={`${hasFilter ? 'border border-raisin-100' : ''} bg-grey-60`}
+                component={<Icon svgPath='filters' width={22} height={20} className='flex fill-transparent' />}
                 height='h-10'
                 handleClick={() => toggleFilters(!filters)}
               />
@@ -143,11 +187,11 @@ const SearchPage = () => {
             <ClearFiltersWrapper>
               <IconTextButton
                 icon='return'
-                width={20}
-                height={22}
+                width={24}
+                height={24}
                 className='fill-transparent'
                 label='გასუფთავება'
-                labelClassname='text-orange-120'
+                labelClassname='text-red-100'
                 type='reset'
                 onClick={(e: { preventDefault: () => void }) => {
                   reset()
@@ -163,8 +207,8 @@ const SearchPage = () => {
               {/*    mapVisible ? 'lg:w-1/2 pr-8' : 'lg:w-[calc(100%-40px)] lg:pr-0'*/}
               {/*}`}*/}
               <SearchResultsContainer>
-                <Typography type='body' className='text-md mr-2 mt-4 md:mt-0'>
-                  სულ ნაპოვნია {totalProductsCount} განცხადება
+                <Typography type='body' className='text-md mr-2 mt-6 md:mt-0'>
+                  ნაპოვნია {totalProductsCount} განცხადება
                 </Typography>
                 <div className='w-full md:w-auto flex items-center'>
                   {/*<span*/}
@@ -194,7 +238,7 @@ const SearchPage = () => {
                   {/*  />*/}
                   {/*</span>*/}
                   <div className='w-full md:w-auto flex justify-between md:ml-6'>
-                    <div className='flex'>
+                    <div className='flex w-full justify-between'>
                       {width < 1025 && (
                         <Tag
                           component={<Icon svgPath='filters' width={22} height={20} className='fill-transparent' />}
@@ -241,6 +285,7 @@ const SearchPage = () => {
                       seats={product?.seat_type?.title}
                       images={product?.images?.split(',')}
                       city={product?.start_city}
+                      isProductInFavorites={product.is_favourite}
                     />
                   ))}
                 </div>
@@ -297,6 +342,9 @@ const SearchPage = () => {
           reset={reset}
           setValue={setValue}
           appendSteeringWheel={appendSteeringWheel}
+          setManufactuterMeta={setManufactuterMeta}
+          setYearFromMeta={setYearFromMeta}
+          setYearToMeta={setYearToMeta}
         />
       </form>
     </>

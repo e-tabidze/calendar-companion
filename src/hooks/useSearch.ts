@@ -35,8 +35,8 @@ const useSearch = () => {
     location: params?.location || '',
     fuel_types: convertToNumberArray(params?.fuel_types),
     category: convertToNumberArray(params?.category),
-    seat_types: convertToNumberArray([1]),
-    luggage_numbers: convertToNumberArray([1]),
+    seat_types: convertToNumberArray(params?.seat_types),
+    luggage_numbers: convertToNumberArray(params?.luggage_numbers),
     drive_tires: convertToNumberArray(params?.drive_tires),
     steering_wheel: convertToNumberArray([1]),
     door_types: convertToNumberArray(params?.door_types),
@@ -51,7 +51,7 @@ const useSearch = () => {
     year_from: params?.year_from || '',
     year_to: params?.year_to || '',
     sort_by: params?.sort_by || 'id',
-    order_by: params.order_by || 'asc',
+    order_by: params.order_by || 'desc',
     booking: {
       book_from: params?.book_from || '',
       book_to: params?.book_to || ''
@@ -80,7 +80,7 @@ const useSearch = () => {
       setValue('year_from', Number(params?.year_from) || '')
       setValue('year_to', Number(params?.year_to) || '')
       setValue('sort_by', params?.sort_by || 'id')
-      setValue('order_by', params?.order_by || 'asc')
+      setValue('order_by', params?.order_by || 'desc')
       setValue('booking.book_from', params?.book_from || '')
       setValue('booking.book_to', params?.book_to || '')
       searchProductsMutation.mutate(objectToURI(searchDefaultValues))
@@ -165,7 +165,7 @@ const useSearch = () => {
 
   const searchProducts = async (querystring: string) => {
     try {
-      const response: any = await SearchService.getSearchProducts(querystring)
+      const response: any = await SearchService.getSearchProducts('', querystring)
 
       return response.data
     } catch (error) {

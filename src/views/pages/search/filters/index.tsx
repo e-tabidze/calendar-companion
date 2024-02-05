@@ -36,16 +36,15 @@ const Filters = () => {
   }, [])
 
   return (
-    <div className='w-full mt-4 md:mt-0 justify-center flex border border-raisin-10 mx-auto md:ml-8 xl:ml-14 rounded-3xl h-12 items-center'>
-      <FiltersContainer className='w-full flex justify-between'>
+    <div className='w-full mt-4 md:mt-0 justify-center flex border md:border-0 lg:border border-raisin-10 mx-auto md:ml-4 lg:ml-8 xl:ml-14 rounded-3xl h-12 items-center'>
+      <FiltersContainer className='w-full flex md:hidden lg:flex justify-between h-full md:!bg-transparent'>
         {isMobileDevice ? <LocationMob control={control} resetField={handleResetLocation} /> : <LocationDropdown control={control} resetField={handleResetLocation} />}
-        <Divider className='hidden md:flex' />
+        <Divider />
         {isMobileDevice ? <PeriodMob control={control} resetField={handleResetBooking} /> : <PeriodDropdown control={control} resetField={handleResetBooking} setValue={setValue} />}
-        <Divider className='hidden md:flex' />
         <ExtraFiltersContainer>
           <button
             onClick={onSubmit}
-            className='rounded-full bg-orange-100 w-9 h-9 flex items-center justify-center shrink-0'
+            className='rounded-full bg-orange-100 hover:bg-orange-110 transition-all w-9 h-9 flex items-center justify-center shrink-0'
             type='button'
           >
             <Icon svgPath='search-sm' width={36} height={36} />

@@ -53,11 +53,12 @@ const DefaultHeader = () => {
             src='/images/logo-rent.svg'
             onClick={onClickLogo}
             alt='logo'
-            className='w-24 md:w-32 cursor-pointer mr-14 md:mr-0'
+            className='h-8 md:h-10 cursor-pointer mr-14 md:mr-0'
           />
           {router?.asPath?.startsWith('/search') && <Filters />}
         </div>
         <div className='flex items-center'>
+          
           {/* <LanguagePicker responsive className='md:mx-4' /> */}
           {isAuthenticated && isLoading ? (
             <>Loading... </>
@@ -70,7 +71,8 @@ const DefaultHeader = () => {
                 width={25}
                 height={24}
                 label='შესვლა'
-                className='hidden md:flex fill-transparent border border-raisin-10 rounded-xl px-3 h-10 items-center text-raisin-100 text-2sm transition-all hover:bg-grey-100 hover:border-raisin-30'
+                type='button'
+                className='hidden md:flex fill-transparent border border-raisin-10 rounded-xl pl-3 pr-4 h-10 items-center text-raisin-100 text-2sm transition-all hover:bg-grey-100 hover:border-raisin-30'
                 onClick={handleLogin}
               />
             </>

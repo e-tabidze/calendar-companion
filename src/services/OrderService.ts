@@ -25,8 +25,8 @@ class OrderService extends HttpService {
     )
   }
 
-  getUserOrders(AccessToken = '') {
-    return this.get('/user-orders', {}, AccessToken ? { Authorization: `${AccessToken}` } : {})
+  getUserOrders(AccessToken = '', page: number) {
+    return this.get(`/user-orders?page=${page}`, {}, AccessToken ? { Authorization: `${AccessToken}` } : {})
   }
 
   getUserOrdersDetails(AccessToken = '', orderId: number | string | undefined) {

@@ -3,16 +3,17 @@ import useFilters from 'src/hooks/useFilters'
 import { TailwindDiv } from 'src/interfaces/tailwind'
 import DefaultLayout from 'src/layouts/DefaultLayout'
 import { LargeContainer, ContentContainer, ResponsiveContainer } from 'src/styled/styles'
-import Carousel from 'src/views/components/carousel'
-import CategoryItem from 'src/views/components/categoryItem'
 import Divider from 'src/views/components/divider'
-import ProductCard from 'src/views/components/productCard'
-import Typography from 'src/views/components/typography'
-import Cities from 'src/views/pages/main/cities'
-import Hero from 'src/views/pages/main/hero'
 import useMain from 'src/views/pages/main/useMain'
 
 const PageMeta = dynamic(() => import('src/@core/meta/PageMeta'), { ssr: true })
+
+const ProductCard = dynamic(() => import('src/views/components/productCard'), { ssr: true })
+const CategoryItem = dynamic(() => import('src/views/components/categoryItem'), { ssr: true })
+const Carousel = dynamic(() => import('src/views/components/carousel'), { ssr: true })
+const Hero = dynamic(() => import('src/views/pages/main/hero'), { ssr: true })
+const Cities = dynamic(() => import('src/views/pages/main/cities'), { ssr: true })
+const Typography = dynamic(() => import('src/views/components/typography'), { ssr: true })
 
 // ** Tailwind Styled
 import tw from 'tailwind-styled-components'
@@ -30,8 +31,6 @@ const MainPage = () => {
   const { popularProducts, lastSeenProducts } = useMain()
 
   const { categoriesFilter } = useFilters()
-
-  console.log(categoriesFilter, 'categoriesFilter')
 
   return (
     <DefaultLayout>
@@ -90,6 +89,7 @@ const MainPage = () => {
                 seats={product?.seat_type?.title}
                 images={product?.images?.split(',')}
                 city={product?.start_city}
+                isProductInFavorites={product.is_favourite}
               />
             ))}
             type='products'
@@ -117,12 +117,13 @@ const MainPage = () => {
                 seats={product?.product?.seat_type?.title}
                 images={product?.product?.images?.split(',')}
                 city={product?.product?.start_city}
+                isProductInFavorites={product.is_favourite}
               />
             ))}
             type='products'
           />
         </ContentContainer>
-        <ResponsiveContainer className='mt-16 md:mt-20'>
+        <ResponsiveContainer className='mt-16 md:mt-24'>
           <Cities />
         </ResponsiveContainer>
       </MainPageBox>

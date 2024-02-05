@@ -5,7 +5,6 @@ import { DefaultButton, IconTextButton } from 'src/views/components/button'
 import { ActionsWrapper, TagsWrapper } from './styles'
 import useFilters from 'src/hooks/useFilters'
 import { useWatch } from 'react-hook-form'
-import { useEffect, useState } from 'react'
 
 interface Props {
   control: any
@@ -17,24 +16,20 @@ interface Props {
 const FuelTypePopover: React.FC<Props> = ({ control, appendFuelType, reset, handleSubmit }) => {
   const { fuelTypesFilter, isLoading } = useFilters()
 
-  const [hasFuelTypes, setFuelTypes] = useState(false)
-
   const formState = useWatch({ control })
-
-  useEffect(() => {
-    setFuelTypes(!!formState?.fuel_types?.length)
-  }, [formState?.fuel_types?.length])
 
   return (
     <PopoverDropdown
       label='საწვავის ტიპი'
       maxWidth='max-w-sm'
-      className={`${hasFuelTypes ? 'border border-raisin-100' : 'hover:border hover:border-raisin-30'}`}
+      className={` ${
+        formState?.fuel_types?.length ? 'border border-raisin-100' : 'hover:border hover:border-raisin-30'
+      }`}
     >
-      <Typography type='body' color='light'>
+      <Typography type='body' color='light' className='px-5 pt-5'>
         შეგიძლიათ მონიშნოთ ერთი ან რამდენიმე
       </Typography>
-      <TagsWrapper>
+      <TagsWrapper className=''>
         {isLoading ? (
           <>Loading</>
         ) : (
@@ -42,26 +37,29 @@ const FuelTypePopover: React.FC<Props> = ({ control, appendFuelType, reset, hand
             options={fuelTypesFilter}
             name='fuel_types'
             control={control}
-            height='h-10'
+            height='h-12'
             append={appendFuelType}
             outlined
           />
         )}
       </TagsWrapper>
-      <ActionsWrapper>
+      <ActionsWrapper className='sticky bottom-0 bg-white p-5'>
         <IconTextButton
-          icon='rotate'
+          icon='return'
           label='გასუფთავება'
           className='fill-transparent'
-          width={20}
-          height={22}
+          width={24}
+          height={24}
           onClick={() => reset('fuel_types')}
-          labelClassname="text-sm text-raisin-50 border-b"
-          type="button"
+          disabled={!formState?.fuel_types?.length}
+          labelClassname={
+            formState?.fuel_types?.length ? 'text-sm text-red-100' : 'text-sm text-raisin-50'
+          }
+          type='button'
         />
         <DefaultButton
           text='შენახვა'
-          bg='bg-orange-100'
+          bg='bg-orange-100 hover:bg-orange-110 transition-all'
           textColor='text-white'
           type='button'
           onClick={() => {

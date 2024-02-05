@@ -58,10 +58,10 @@ const Tag: React.FC<Props> = ({
                         } ${
                           selectedOptions.includes(option.id)
                             ? outlined
-                              ? 'border border-raisin-90'
+                              ? 'border border-raisin-90 bg-green'
                               : 'border border-green-100 bg-green-100 '
                             : 'border border-gray-90 hover:border hover:border-raisin-30'
-                        } ${outlined ? 'pl-1 pr-2' : 'px-4'}  cursor-pointer  ${className}`}
+                        } ${outlined ? 'pl-2 pr-4' : 'px-4'}  cursor-pointer  ${className}`}
                         onClick={() => {
                           if (append) {
                             if (selectedOptions.includes(option.id)) {
@@ -75,7 +75,7 @@ const Tag: React.FC<Props> = ({
                         }}
                       >
                         {component}
-                        {option.icon && <Icon svgPath={option.icon} width='32' height='32' />}
+                        {option.icon && <Icon svgPath={option.icon} width='32' height='32' color= {selectedOptions.includes(option.id) ? '#549684' : '#000'} />}
                         <Typography
                           type='body'
                           className={`w-max ${option.icon && 'ml-2'} ${
@@ -99,12 +99,11 @@ const Tag: React.FC<Props> = ({
         />
       ) : (
         <div
-          className={`flex items-center gap-3 w-max ${height} 
-          } px-4 cursor-pointer rounded-xl border border-raisin-10 ${className}`}
+          className={`flex items-center gap-3 w-max ${height} px-4 cursor-pointer rounded-xl border border-raisin-10 hover:border-raisin-100 transition-all ${className}`}
           onClick={handleClick}
         >
           {component}
-          <Typography type='body' className={`w-max `}>
+          <Typography type='body' className={`w-max`}>
             {label}
           </Typography>
         </div>

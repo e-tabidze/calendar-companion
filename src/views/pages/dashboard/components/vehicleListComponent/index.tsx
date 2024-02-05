@@ -5,11 +5,14 @@ import useProducts from '../../products/useProducts'
 import Action from './action'
 import dynamic from 'next/dynamic'
 import ActionsPopover from './actionsPopover'
+import Toast from 'src/views/components/toast'
 
 const Image = dynamic(() => import('src/views/components/image'), { ssr: true })
 const Carousel = dynamic(() => import('src/views/components/carousel'), { ssr: false })
 const Typography = dynamic(() => import('src/views/components/typography'), { ssr: false })
 const DeleteProductConfirmationModal = dynamic(() => import('../../products/deleteProductModal'), { ssr: false })
+
+import toast from 'react-hot-toast'
 
 interface Props {
   price: number
@@ -43,6 +46,10 @@ const VehicleListComponent: React.FC<Props> = ({
   const deleteProductMutation = useMutation(() => deleteProduct(id), {
     onSuccess: () => {
       queryClient.invalidateQueries(['companyProducts'])
+      toast.custom(<Toast type='success' title='ავტომობილი წარმატებით წაიშალა' />)
+    },
+    onError: () => {
+      toast.custom(<Toast type='error' title='მოხდა შეცდომა, გთხოვთ ხელახლა სცადოთ' />)
     }
   })
 
@@ -74,8 +81,8 @@ const VehicleListComponent: React.FC<Props> = ({
                     <Image
                       src={imgUrl || ''}
                       alt={`${manufacturer} ${model} ${prodYear}`}
-                      height={'100%'}
-                      width={'100%'}
+                      height='100%'
+                      width='100%'
                       className='object-cover'
                       onError={(ev: any) => {
                         ev.target.src = `/icons/avatar.svg`
@@ -94,17 +101,9 @@ const VehicleListComponent: React.FC<Props> = ({
                 <Typography type='subtitle' className='text-sm md:text-2sm'>
                   {manufacturer} {model} {prodYear}
                 </Typography>
-                <div className='flex items-center gap-10 mt-4 md:mt-10'>
-                  <Typography
-                    type='h4'
-                    weight='medium'
-                    color='dark'
-                    className='text-2sm md:text-3md'
-                  >
-                    {price}₾  
-                    <span className='text-[14px] pl-3 font-normal text-center'>
-                    დღე
-                    </span>
+                <div className='flex items-center min-w-[254px] justify-between gap-10 mt-4 md:mt-10'>
+                  <Typography type='h4' weight='medium' color='dark' className='text-2sm md:text-3md'>
+                    {price}₾<span className='text-[14px] pl-3 font-normal text-center'>დღე</span>
                   </Typography>
                   <Typography
                     type='subtitle'
@@ -118,7 +117,7 @@ const VehicleListComponent: React.FC<Props> = ({
               </Link>
             </div>
           </div>
-          <div className='hidden md:flex gap-4'>
+          <div className='hidden lg:flex gap-4'>
             <Action
               bg={active ? 'bg-raisin-10' : 'bg-green-10'}
               label={active ? 'გამორთვა' : 'ჩართვა'}

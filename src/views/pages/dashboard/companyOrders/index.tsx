@@ -2,7 +2,7 @@ import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
-import Icon from 'src/views/app/Icon'
+import DataPlaceHolder from 'src/views/components/dataPlaceholder'
 import SkeletonLoading from './skeletorLoading'
 import useCompanyOrders from './useCompanyOrders'
 
@@ -56,7 +56,10 @@ const CompanyOrders = () => {
     }
   }, [status_id])
 
-  const { orders, fetchOrderFilters, companyOrdersLoading } = useCompanyOrders(status_id, Number(page))
+  const { orders, fetchOrderFilters, companyOrdersLoading } = useCompanyOrders(
+    status_id,
+    Number(page)
+  )
 
   const handlePageChange = (newPage: number) => {
     router.push({
@@ -78,77 +81,74 @@ const CompanyOrders = () => {
     fetchOrderFilters()
   }
 
-  if (companyOrdersLoading) {
-    return <SkeletonLoading filters={filters} />
-  }
-
-  console.log(orders?.data, 'orders?.data')
-
   return (
     <>
       {router.query.id ? (
         <OrderDetails />
       ) : (
-        <div className='mt-8 lg:mt-0'>
-          <div className='md:p-8 lg:p-10 md:border border-raisin-10 rounded-3xl'>
-            <Typography type='h3' className='mb-6'>
-              შემოსული ჯავშნები
-            </Typography>
-            <div className='hidden lg:flex gap-3 pb-8 pr-8'>
-              {filters.map(filter => (
-                <Tag
-                  label={filter.label}
-                  height='h-10'
-                  key={filter.id}
-                  className={`${filter.filterOption == filterQuery ? 'border !border-orange-100' : ''} rounded-xl`}
-                  handleClick={() => {
-                    handleFilterChange(filter.filterOption as '' | '0' | '1' | '2' | '5')
-                    handleClickFilter()
-                  }}
-                />
-              ))}
-            </div>
-
-            <Divider />
-            <div className=''>
-              {orders?.data.length > 0 ? (
-                orders?.data?.map((order: any, index: number) => (
-                  <Link
-                    href={`/dashboard/orders/?id=${order?.id}`}
-                    as={`/dashboard/orders/?id=${order?.id}`}
-                    key={order?.id}
-                  >
-                    <OrderListComponent
-                      startAddress={order?.start_address}
-                      startDate={order?.start_date}
-                      startTime={order?.start_time}
-                      endDate={order?.end_date}
-                      endTime={order?.end_time}
-                      firstName={order?.first_name}
-                      lastName={order?.last_name}
-                      days={order?.days}
-                      productDetails={JSON.parse(order?.product_data)}
-                      price={order?.price}
-                      discount={order?.discount_percent}
-                      status={order?.status_id}
+        <>
+          {companyOrdersLoading ? (
+            <SkeletonLoading filters={filters} />
+          ) : (
+            <div className='h-full'>
+              <div className='md:p-8 lg:p-10 md:border border-raisin-10 rounded-3xl md:min-h-[520px]'>
+                <Typography type='h3' className='mb-6 md:mt-0 mt-6'>
+                  შემოსული ჯავშნები
+                </Typography>
+                <div className='hidden lg:flex gap-3 pb-8 pr-8'>
+                  {filters.map(filter => (
+                    <Tag
+                      label={filter.label}
+                      height='h-10'
+                      key={filter.id}
+                      className={`${filter.filterOption == filterQuery ? 'border !border-orange-100' : ''} rounded-xl`}
+                      handleClick={() => {
+                        handleFilterChange(filter.filterOption as '' | '0' | '1' | '2' | '5')
+                        handleClickFilter()
+                      }}
                     />
-
-                    {index !== orders?.data?.length - 1 && <Divider />}
-                  </Link>
-                ))
-              ) : (
-                <div className='flex flex-col justify-center my-6 items-center gap-5'>
-                  <Icon svgPath='noOrders' width={207} height={156} />
-                  <Typography type='h5'>შეკვეთები ჯერ არ გაქვს</Typography>
+                  ))}
                 </div>
+
+                <Divider />
+                <div className=''>
+                  {orders?.data.length > 0 ? (
+                    orders?.data?.map((order: any, index: number) => (
+                      <Link
+                        href={`/dashboard/orders/?id=${order?.id}`}
+                        as={`/dashboard/orders/?id=${order?.id}`}
+                        key={order?.id}
+                      >
+                        <OrderListComponent
+                          startAddress={order?.start_address}
+                          startDate={order?.start_date}
+                          startTime={order?.start_time}
+                          endDate={order?.end_date}
+                          endTime={order?.end_time}
+                          firstName={order?.first_name}
+                          lastName={order?.last_name}
+                          days={order?.days}
+                          productDetails={JSON.parse(order?.product_data)}
+                          price={order?.price}
+                          discount={order?.discount_percent}
+                          status={order?.status_id}
+                        />
+
+                        {index !== orders?.data?.length - 1 && <Divider />}
+                      </Link>
+                    ))
+                  ) : (
+                    <DataPlaceHolder label='შეკვეთები ჯერ არ გაქვს' />
+                  )}
+                </div>
+              </div>
+
+              {orders?.last_page > 1 && (
+                <Pagination totalPages={orders?.last_page} onPageChange={handlePageChange} currentPage={Number(page)} />
               )}
             </div>
-          </div>
-
-          {orders?.last_page > 1 && (
-            <Pagination totalPages={orders?.last_page} onPageChange={handlePageChange} currentPage={Number(page)} />
           )}
-        </div>
+        </>
       )}
     </>
   )

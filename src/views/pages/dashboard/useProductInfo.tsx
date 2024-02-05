@@ -30,7 +30,7 @@ const useProductInfo = (step?: number | undefined) => {
     queryKey: ['companyServices'],
     queryFn: () => getCompanyServices(''),
     staleTime: Infinity,
-    enabled: step === 4
+    enabled: true
   })
 
   const useCompanyBranches: any = useQuery({
@@ -59,6 +59,8 @@ const useProductInfo = (step?: number | undefined) => {
 
   const dashboardData = useGetDashboardData?.data?.result?.data
 
+  const dashboardDataLoading = useGetDashboardData.isLoading
+
   return {
     productDetails,
     manufacturers,
@@ -69,7 +71,8 @@ const useProductInfo = (step?: number | undefined) => {
     isAdditionalParamsLoading: useAdditionalParams.isLoading,
     isCompanyServicesLoading: useCompanyServices.isLoading,
     companyBranches,
-    dashboardData
+    dashboardData,
+    dashboardDataLoading
   }
 }
 

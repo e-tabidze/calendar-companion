@@ -8,6 +8,8 @@ import StaticService from 'src/services/StaticService'
 
 const usePersonalInfo = (userData: UserInfo) => {
   const { userInfo } = useProfile()
+  console.log(userInfo, 'userInfo')
+
   const defaultValues = {
     profile_pic: userData?.information?.profile_pic,
     gender: userData?.information?.gender || userInfo?.gender_id,

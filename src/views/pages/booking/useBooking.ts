@@ -39,8 +39,8 @@ const useBooking = (id: number | string | string[]) => {
       book_from: '',
       book_to: ''
     },
-    dob: new Date(),
-    driver_license_expiration: new Date(),
+    dob: '',
+    driver_license_expiration: '',
     additional_services: additionalService,
     supply: '0',
     start_time: '',
@@ -65,20 +65,20 @@ const useBooking = (id: number | string | string[]) => {
   })
 
   useEffect(() => {
-    if (!!userInfo) {
-      setValue('first_name', userInfo?.UserID === userInfo?.active_profile_id ? userInfo?.information?.first_name : '')
-      setValue('last_name', userInfo?.UserID === userInfo?.active_profile_id ? userInfo?.information?.last_name : '')
+    if (!!userInfo && userInfo?.UserID === userInfo?.active_profile_id) {
       setValue(
-        'identification_number',
-        userInfo?.UserID === userInfo?.active_profile_id ? userInfo?.information?.identification_number : ''
+        'first_name',
+        userInfo?.UserID === userInfo?.active_profile_id ? userInfo?.information?.first_name || userInfo?.FirstName : ''
       )
+      setValue(
+        'last_name',
+        userInfo?.UserID === userInfo?.active_profile_id ? userInfo?.information?.last_name || userInfo?.LastName : ''
+      )
+      setValue('identification_number', userInfo?.information?.identification_number || '')
       setValue('email', userInfo?.UserID === userInfo?.active_profile_id ? userInfo?.Email : '')
       setValue('phone', userInfo?.UserID === userInfo?.active_profile_id ? userInfo?.phone : '')
-      setValue('dob', userInfo?.UserID === userInfo?.active_profile_id ? userInfo?.information?.birth_date : new Date())
-      setValue(
-        'driver_license_expiration',
-        userInfo?.UserID === userInfo?.active_profile_id ? userInfo?.information?.driver_license_expiration : new Date()
-      )
+      setValue('dob', userInfo?.information?.birth_date || '')
+      setValue('driver_license_expiration', userInfo?.information?.driver_license_expiration || '')
 
       setValue('start_address', singleProductDetails ? singleProductDetails?.start_address : '')
       setValue('end_address', singleProductDetails ? singleProductDetails?.end_address : '')
