@@ -30,7 +30,7 @@ const LocationDropdown: React.FC<Props> = ({ control, resetField }) => {
                     </Typography>
                     <InnerFilterContainer>
                       <Combobox.Input
-                        className='flex shrink-0 border-none h-full text-2sm text-raisin-130 placeholder:text-2sm placeholder:text-raisin-50'
+                        className={`flex shrink-0 border-none h-full text-2sm placeholder:text-2sm ${value? 'text-green-100 placeholder:text-green-100':'text-raisin-130 placeholder:text-raisin-50'}`}
                         placeholder='ქალაქი, მისამართი'
                         displayValue={(city: any) => city.city}
                         onChange={onChange}

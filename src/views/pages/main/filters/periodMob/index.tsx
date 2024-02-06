@@ -27,7 +27,7 @@ const PeriodMob: React.FC<Props> = ({ control, resetField }) => {
           დაქირავების პერიოდი 
         </Typography>
         <InnerFilterContainer>
-          <Typography type='subtitle' className='text-raisin-50'>
+          <Typography type='subtitle' className={`${formState?.booking?.book_from || formState?.booking?.book_to ? 'text-green-100':'text-raisin-50'}`}>
             {formState?.booking?.book_from?.length > 0 || formState?.booking?.book_to?.length > 0
               ? `  ${
                   formState?.booking?.book_from?.length > 0 &&

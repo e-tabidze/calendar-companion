@@ -35,7 +35,7 @@ const PeriodDropdown: React.FC<Props> = ({ control, resetField }) => {
                 დაქირავების პერიოდი
               </Typography>
               <InnerFilterContainer>
-                <Typography type='subtitle' className='text-raisin-50'>
+                <Typography type='subtitle' className={`${startDate && endDate ? 'text-green-100' :'text-raisin-50'} `}>
                   {startDate && endDate
                     ? `${format(startDate, 'd MMM', { locale: ka })} - ${format(endDate, 'd MMM', {
                         locale: ka
