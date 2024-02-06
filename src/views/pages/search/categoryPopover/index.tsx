@@ -39,7 +39,7 @@ const CategoryPopover: React.FC<Props> = ({ control, appendCategory, handleSubmi
 
       <div className='flex items-center justify-between sticky bottom-0 bg-white p-5 shadow-buttonContainer'>
         <IconTextButton
-          icon='return'
+          icon='clearFilter'
           label='გასუფთავება'
           className='fill-transparent'
           width={24}
@@ -48,6 +48,9 @@ const CategoryPopover: React.FC<Props> = ({ control, appendCategory, handleSubmi
           disabled={!formState?.category?.length}
           labelClassname={
             formState?.category?.length ? 'text-sm text-red-100' : 'text-sm text-raisin-50'
+          }
+          iconFill={
+            formState?.category?.length ? '!fill-red-100' : '!fill-black'
           }
           type='button'
         />

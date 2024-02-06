@@ -186,12 +186,13 @@ const SearchPage = () => {
             </MainFilters>
             <ClearFiltersWrapper>
               <IconTextButton
-                icon='return'
+                icon='clearFilter'
                 width={24}
                 height={24}
                 className='fill-transparent'
                 label='გასუფთავება'
                 labelClassname='text-red-100'
+                iconFill='fill-red-100'
                 type='reset'
                 onClick={(e: { preventDefault: () => void }) => {
                   reset()
