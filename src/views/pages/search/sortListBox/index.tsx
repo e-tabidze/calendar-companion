@@ -92,7 +92,7 @@ const SortListBox: React.FC<Props> = ({ control, onClick, setValue }) => {
                       }
                       value={filter.label}
                     >
-                      <span className={`text-sm flex truncate font-normal text-black/70`}>{filter.label}</span>
+                      <span className={`text-2sm flex truncate font-normal text-black/70`}>{filter.label}</span>
                     </Listbox.Option>
                   ))}
                 </Listbox.Options>

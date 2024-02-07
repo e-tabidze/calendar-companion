@@ -45,7 +45,7 @@ const FuelTypePopover: React.FC<Props> = ({ control, appendFuelType, reset, hand
       </TagsWrapper>
       <ActionsWrapper className='sticky bottom-0 bg-white p-5'>
         <IconTextButton
-          icon='return'
+          icon='clearFilter'
           label='გასუფთავება'
           className='fill-transparent'
           width={24}
@@ -54,6 +54,9 @@ const FuelTypePopover: React.FC<Props> = ({ control, appendFuelType, reset, hand
           disabled={!formState?.fuel_types?.length}
           labelClassname={
             formState?.fuel_types?.length ? 'text-sm text-red-100' : 'text-sm text-raisin-50'
+          }
+          iconFill={
+            formState?.fuel_types?.length ? '!fill-red-100' : '!fill-black'
           }
           type='button'
         />
