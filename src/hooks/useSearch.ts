@@ -38,7 +38,7 @@ const useSearch = () => {
     seat_types: convertToNumberArray(params?.seat_types),
     luggage_numbers: convertToNumberArray(params?.luggage_numbers),
     drive_tires: convertToNumberArray(params?.drive_tires),
-    steering_wheel: convertToNumberArray([1]),
+    steering_wheel: convertToNumberArray(params?.steering_wheel),
     door_types: convertToNumberArray(params?.door_types),
     transmission_types: convertToNumberArray(params?.transmission_types),
     additional_information: convertToNumberArray(params?.additional_information),
@@ -149,7 +149,7 @@ const useSearch = () => {
     name: 'additional_information'
   })
 
-  const searchProductsMutation = useMutation((querystring: string) => searchProducts(querystring), {
+  const searchProductsMutation = useMutation((querystring: string) => searchProducts('', querystring), {
     onSuccess: () => {
       queryClient.invalidateQueries(['searchProducts'])
     },
@@ -163,9 +163,9 @@ const useSearch = () => {
   const totalProductsCount = searchProductsMutation?.data?.result?.total
   const totalPages = searchProductsMutation?.data?.result?.last_page
 
-  const searchProducts = async (querystring: string) => {
+  const searchProducts = async (AccessToken = '', querystring: string) => {
     try {
-      const response: any = await SearchService.getSearchProducts('', querystring)
+      const response: any = await SearchService.getSearchProducts(AccessToken, querystring)
 
       return response.data
     } catch (error) {

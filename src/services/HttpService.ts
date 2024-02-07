@@ -19,13 +19,11 @@ class HttpService {
       const formData = new FormData()
       Object.entries(dataMerged).forEach(([key, value]) => {
         if (typeof value == 'object') {
-
           // @ts-ignore
           for (const val of value) {
             formData.append(key, val)
           }
         } else {
-
           // @ts-ignore
           formData.append(key, value)
         }
@@ -148,10 +146,11 @@ class HttpService {
   }
 
   request(headers = {}, serverReq = null, responseType: any = 'json') {
+    console.log(this.getToken(serverReq), 'this.getToken(serverReq)')
     if (!headers || (headers && !headers.hasOwnProperty('Authorization'))) {
       headers = {
         ...headers,
-        Authorization: `${this.getToken(serverReq)}`
+        Authorization: this.getToken(serverReq)?.length > 0 ? `${this.getToken(serverReq)}` : ''
       }
     }
 
