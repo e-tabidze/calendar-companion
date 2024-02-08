@@ -1,10 +1,8 @@
 import UserService from 'src/services/UserService'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import useProfile from './useProfile'
-import { useRouter } from 'next/router'
 
 const useFavourites = (productId?: string | number, page?: number) => {
-  const router = useRouter()
   const queryClient = useQueryClient()
   const { isAuthenticated, activeCompanyId } = useProfile()
 
@@ -18,8 +16,6 @@ const useFavourites = (productId?: string | number, page?: number) => {
       throw error
     }
   }
-
-  console.log(router, 'router')
 
   const toggleUserFavourites = useMutation(() => toggleFavourites(''), {
     onSettled: () => {

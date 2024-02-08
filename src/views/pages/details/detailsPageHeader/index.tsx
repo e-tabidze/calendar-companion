@@ -65,16 +65,19 @@ const DetailsPageHeader: React.FC<Props> = ({
         </li>
       </ul>
       <ActionsWrapper>
-        <Icon svgPath='printer' width={24} height={24} className='cursor-pointer' onClick={handlePrint} />
-        {/* <Icon svgPath='share' width={24} height={24} className='cursor-pointer' onClick={handleShare} /> */}
+        <div className='hover:bg-raisin-10 rounded-full w-10 h-10 flex items-center justify-center'>
+          <Icon svgPath='printer' width={24} height={24} className='cursor-pointer' onClick={handlePrint} />
+        </div>
         <ShareOptionsPopover />
-        <Icon
-          svgPath={isProductInFavorites ? 'favIconActive' : 'favIcon'}
-          width={24}
-          height={24}
-          className='cursor-pointer'
-          onClick={e => handleFavorites(e)}
-        />
+        <div className='hover:bg-raisin-10 rounded-full w-10 h-10 flex items-center justify-center'>
+          <Icon
+            svgPath={isProductInFavorites ? 'favIconDetails' : 'favIcon'}
+            width={24}
+            height={24}
+            className='cursor-pointer'
+            onClick={e => handleFavorites(e)}
+          />
+        </div>
       </ActionsWrapper>
     </DetailsHeader>
   )

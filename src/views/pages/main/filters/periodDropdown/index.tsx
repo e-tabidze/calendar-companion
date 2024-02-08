@@ -32,7 +32,7 @@ const PeriodDropdown: React.FC<Props> = ({ control, resetField, setOpen }) => {
     updateButtonState()
     const observer = new MutationObserver(updateButtonState)
     observer.observe(buttonRef.current!, { attributes: true, attributeFilter: ['aria-expanded'] })
-    
+
     return () => {
       observer.disconnect()
     }
@@ -53,7 +53,10 @@ const PeriodDropdown: React.FC<Props> = ({ control, resetField, setOpen }) => {
                 დაქირავების პერიოდი
               </Typography>
               <InnerFilterContainer>
-                <Typography type='subtitle' className={`${startDate && endDate ? 'text-green-100' :'text-raisin-50'} `}>
+                <Typography
+                  type='subtitle'
+                  className={`${startDate && endDate ? 'text-green-100' : 'text-raisin-50'} `}
+                >
                   {startDate && endDate
                     ? `${format(startDate, 'd MMM', { locale: ka })} - ${format(endDate, 'd MMM', {
                         locale: ka
@@ -102,6 +105,7 @@ const PeriodDropdown: React.FC<Props> = ({ control, resetField, setOpen }) => {
                     className='text-center border-l-4 border-red-500 w-full p-3 rounded text-sm outline-none focus:ring-0 bg-transparent'
                     inline
                     locale='ka'
+                    selected={startDate}
                     selectsRange={true}
                     startDate={startDate}
                     endDate={endDate}

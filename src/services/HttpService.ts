@@ -146,7 +146,6 @@ class HttpService {
   }
 
   request(headers = {}, serverReq = null, responseType: any = 'json') {
-    console.log(this.getToken(serverReq), 'this.getToken(serverReq)')
     if (!headers || (headers && !headers.hasOwnProperty('Authorization'))) {
       headers = {
         ...headers,
