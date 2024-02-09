@@ -33,7 +33,7 @@ const Cities = () => {
               </Typography>
               <DefaultButton
                 text='ყველას ნახვა'
-                className='hidden lg:inline-flex border-[#D4D4D7] hover:border-raisin-100 transition-all'
+                className='hidden lg:inline-flex border-[#D4D4D7] hover:border-raisin-100 transition duration-300 ease-in-out'
                 onClick={() => router?.push('/search/?page=1&free_delivery=false&sort_by=id&order_by=asc')}
               />
             </Container>
@@ -57,7 +57,7 @@ const Cities = () => {
           </CitiesWrapper>
           <DefaultButton
             text='ყველას ნახვა'
-            className='inline-flex lg:hidden border-[#D4D4D7] hover:border-raisin-100 transition-all'
+            className='inline-flex lg:hidden border-[#D4D4D7] hover:border-raisin-100 transition duration-300 ease-in-out'
             onClick={() => router?.push('/search/?page=1&free_delivery=false&sort_by=id&order_by=asc')}
           />
         </CitiesListContainer>

@@ -21,7 +21,7 @@ const LocationMob: React.FC<Props> = ({ control, resetField }) => {
           მდებარეობა
         </Typography>
         <InnerFilterContainer>
-          <Typography type='subtitle' className='text-raisin-50'>
+          <Typography type='subtitle' className={`${formState.location ? 'text-green-100':'text-raisin-50'}`}>
             {formState.location || 'ქალაქი, მისამართი...'}
           </Typography>
           {formState.location ? (

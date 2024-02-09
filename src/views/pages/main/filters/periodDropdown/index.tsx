@@ -1,5 +1,5 @@
 import { Menu, Transition } from '@headlessui/react'
-import { Fragment, useState } from 'react'
+import { Fragment, useEffect, useRef, useState } from 'react'
 import Typography from 'src/views/components/typography'
 import { FilterContainer, InnerFilterContainer } from './styles'
 import DatePicker, { registerLocale } from 'react-datepicker'
@@ -14,20 +14,38 @@ import { format } from 'date-fns'
 interface Props {
   control: any
   resetField?: any
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>
 }
 registerLocale('ka', ka)
 
-const PeriodDropdown: React.FC<Props> = ({ control, resetField }) => {
+const PeriodDropdown: React.FC<Props> = ({ control, resetField, setOpen }) => {
   const [dateRange, setDateRange] = useState<[Date, Date] | [null, null]>([null, null])
   const [startDate, endDate] = dateRange
+
+  const buttonRef = useRef<HTMLButtonElement>(null)
+
+  useEffect(() => {
+    const updateButtonState = () => {
+      const newButtonState = buttonRef?.current?.getAttribute('aria-expanded')
+      newButtonState === 'false' ? setOpen(false) : setOpen(true)
+    }
+    updateButtonState()
+    const observer = new MutationObserver(updateButtonState)
+    observer.observe(buttonRef.current!, { attributes: true, attributeFilter: ['aria-expanded'] })
+
+    return () => {
+      observer.disconnect()
+    }
+  }, [])
 
   return (
     <Menu as='div' className='flex text-left w-full'>
       {({ open }) => (
         <>
           <Menu.Button
-            className={`py-6 px-6 inline-flex w-full justify-center rounded-2xl bg-raisin bg-opacity-20 text-sm font-medium text-white focus-visible:ring-white focus-visible:ring-opacity-75 ${
-              open ? '' : ''
+            ref={buttonRef}
+            className={`py-6 px-6 inline-flex w-full justify-center rounded-2xl text-sm font-medium text-white focus-visible:ring-white focus-visible:ring-opacity-75 ${
+              open ? 'bg-white' : ''
             }`}
           >
             <FilterContainer>
@@ -35,7 +53,10 @@ const PeriodDropdown: React.FC<Props> = ({ control, resetField }) => {
                 დაქირავების პერიოდი
               </Typography>
               <InnerFilterContainer>
-                <Typography type='subtitle' className='text-raisin-50'>
+                <Typography
+                  type='subtitle'
+                  className={`${startDate && endDate ? 'text-green-100' : 'text-raisin-50'} `}
+                >
                   {startDate && endDate
                     ? `${format(startDate, 'd MMM', { locale: ka })} - ${format(endDate, 'd MMM', {
                         locale: ka
@@ -43,30 +64,24 @@ const PeriodDropdown: React.FC<Props> = ({ control, resetField }) => {
                     : 'თარიღი'}
                 </Typography>
                 {startDate || endDate ? (
-                    <span className='flex shrink-0 ml-1 p-2 rounded-full hover:bg-raisin-5 transition-all'
-                        onClick={e => {
-                          setDateRange([null, null])
-                          resetField(), e.stopPropagation()
-                        }}
-                    >
-                      <Icon
-                          svgPath='clear-xs'
-                          width={7}
-                          height={7}
-                          color='raisin-10'
-                          className='fill-transparent'
-                      />
-                    </span>
-
+                  <span
+                    className='flex shrink-0 ml-1 p-2 rounded-full hover:bg-raisin-5 transition-all'
+                    onClick={e => {
+                      setDateRange([null, null])
+                      resetField(), e.stopPropagation()
+                    }}
+                  >
+                    <Icon svgPath='clear-xs' width={7} height={7} color='raisin-10' className='fill-transparent' />
+                  </span>
                 ) : (
-                    <span className='flex shrink-0 ml-1 p-2 rounded-full hover:bg-raisin-5 transition-all'>
-                      <Icon
-                        svgPath='chevron'
-                        width={8}
-                        height={6}
-                        className={`fill-transparent transition-all ${open ? 'rotate-180' : ''}`}
-                      />
-                    </span>
+                  <span className='flex shrink-0 ml-1 p-2 rounded-full hover:bg-raisin-5 transition-all'>
+                    <Icon
+                      svgPath='chevron'
+                      width={8}
+                      height={6}
+                      className={`fill-transparent transition-all ${open ? 'rotate-180' : ''}`}
+                    />
+                  </span>
                 )}
               </InnerFilterContainer>
             </FilterContainer>
@@ -90,6 +105,7 @@ const PeriodDropdown: React.FC<Props> = ({ control, resetField }) => {
                     className='text-center border-l-4 border-red-500 w-full p-3 rounded text-sm outline-none focus:ring-0 bg-transparent'
                     inline
                     locale='ka'
+                    selected={startDate}
                     selectsRange={true}
                     startDate={startDate}
                     endDate={endDate}
