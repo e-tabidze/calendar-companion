@@ -14,7 +14,7 @@ interface Props {
 
 const CityCard: React.FC<Props> = ({ src, city, numberOfCars, onClick }) => {
   return (
-    <div className='mb-8 lg:mb-0 cursor-pointer' onClick={onClick}>
+    <div className='mb-8 lg:mb-0 cursor-pointer transition-all hover:opacity-80' onClick={onClick}>
       <Container>
         <Image
             onError={(ev: any) => {

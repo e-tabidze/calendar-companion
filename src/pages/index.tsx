@@ -117,7 +117,7 @@ const MainPage = () => {
                 seats={product?.product?.seat_type?.title}
                 images={product?.product?.images?.split(',')}
                 city={product?.product?.start_city}
-                isProductInFavorites={product.is_favourite}
+                isProductInFavorites={product?.product?.is_favourite}
               />
             ))}
             type='products'

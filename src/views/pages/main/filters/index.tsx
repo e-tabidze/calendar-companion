@@ -14,6 +14,9 @@ import LocationMob from 'src/views/pages/main/filters/locationMob'
 const Filters = () => {
   const [filters, toggleFilters] = useState(false)
   const [isMobileDevice, setIsMobileDevice] = useState(false)
+  const [locationDropdown, setLocationDropdown] = useState<boolean>(false)
+  const [periodDropdown, setPeriodDropdown] = useState<boolean>(false)
+
   const handleResetLocation = () => {
     setValue('location', '')
   }
@@ -69,17 +72,17 @@ const Filters = () => {
 
   return (
     <form>
-      <FiltersContainer>
+      <FiltersContainer className={locationDropdown || periodDropdown ? 'bg-raisin-10' : 'bg-white'}>
         {isMobileDevice ? (
           <LocationMob control={control} resetField={handleResetLocation} />
         ) : (
-          <LocationDropdown control={control} resetField={handleResetLocation} />
+          <LocationDropdown control={control} resetField={handleResetLocation} setOpen={setLocationDropdown} />
         )}
         <Divider />
         {isMobileDevice ? (
           <PeriodMob control={control} resetField={handleResetBooking} />
         ) : (
-          <PeriodDropdown control={control} resetField={handleResetBooking} />
+          <PeriodDropdown control={control} resetField={handleResetBooking} setOpen={setPeriodDropdown} />
         )}
         <Divider />
         <ExtraFiltersContainer className='flex shrink-0'>

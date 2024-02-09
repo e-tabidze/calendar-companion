@@ -51,7 +51,7 @@ const EditScheduleModal: React.FC<Props> = ({ open, onClose, control, address, i
 
   return (
     <Transition appear show={open} as={Fragment}>
-      <Dialog as='div' className='relative z-50' onClose={onClose}>
+      <Dialog as='div' className='relative z-[111]' onClose={onClose}>
         <Transition.Child
           as={Fragment}
           enter='ease-out duration-300'

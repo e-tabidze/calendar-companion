@@ -24,6 +24,7 @@ import { useWatch } from 'react-hook-form'
 import Icon from 'src/views/app/Icon'
 import { generateYearsArray } from 'src/utils/years'
 import SelectField from '../selectField'
+import { useRouter } from 'next/router'
 
 interface Props {
   open: boolean
@@ -90,6 +91,10 @@ const AdditionalFilters: React.FC<Props> = ({
     staleTime: Infinity,
     enabled: formState.manufacturer_id?.length > 0
   })
+
+  const router = useRouter()
+
+  console.log(router.asPath.includes('search'), 'router')
 
   useEffect(() => {
     if (formState.manufacturer_id?.length > 0) {
@@ -397,7 +402,7 @@ const AdditionalFilters: React.FC<Props> = ({
                   />
                   <div className='flex items-center justify-between md:justify-start text-md gap-4'>
                     <IconTextButton
-                      label='ძებნა'
+                      label='არჩევა'
                       bg='bg-orange-100 hover:bg-orange-110 transition-all'
                       className='text-white pl-[24px] pr-[32px]'
                       icon='search'
@@ -405,7 +410,7 @@ const AdditionalFilters: React.FC<Props> = ({
                       height={20}
                       type='submit'
                       onClick={() => {
-                        onSubmit()
+                        router.asPath.includes('search') && onSubmit()
                         toggleModal()
                       }}
                     />

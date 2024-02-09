@@ -61,7 +61,7 @@ export const IconButton = ({
   )
 }
 
-export const IconTextButton = ({ label, icon, width, height, bg, className, onClick, labelClassname, type, disabled }: any) => {
+export const IconTextButton = ({ label, icon,iconFill, width, height, bg, className, onClick, labelClassname, type, disabled }: any) => {
   return (
     <button
       className={`flex items-center focus:outline-none rounded-2xl  ${bg} ${bg ? 'p-4' : ''} ${className}`}
@@ -69,7 +69,7 @@ export const IconTextButton = ({ label, icon, width, height, bg, className, onCl
       type={type}
       disabled={disabled}
     >
-      <Icon svgPath={icon} width={width} height={height} className='fill-transparent' />
+      <Icon svgPath={icon} width={width} height={height} className={`fill-transparent ${iconFill}`} />
       <span className={`text-2sm ml-3 ${labelClassname} `}>{label}</span>
     </button>
   )
