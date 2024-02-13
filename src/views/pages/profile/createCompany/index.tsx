@@ -96,7 +96,7 @@ const CreateCompany = () => {
 
       setTimeout(() => {
         router.push(`/profile/company/${data?.result?.data?.id}`)
-      }, 5000)
+      }, 3000)
     }
   })
 

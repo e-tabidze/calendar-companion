@@ -94,8 +94,6 @@ const AdditionalFilters: React.FC<Props> = ({
 
   const router = useRouter()
 
-  console.log(router.asPath.includes('search'), 'router')
-
   useEffect(() => {
     if (formState.manufacturer_id?.length > 0) {
       refetch()
