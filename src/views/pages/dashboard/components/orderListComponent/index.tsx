@@ -40,8 +40,6 @@ const OrderListComponent: React.FC<Props> = ({
 }) => {
   const { width } = useWindowDimensions()
 
-  console.log(productDetails, 'productDetails')
-
   return (
     <div className='last:border-none'>
       <div className='flex flex-col px-2 py-4 md:w-full gap-4 xl:gap-10 md:px-0 md:flex-row md:items-center'>

@@ -34,6 +34,7 @@ const Filters: React.FC<Props> = ({ className }) => {
     searchProductsMutation
   } = useSearch()
 
+
   const onClickSearch = async () => {
     const queryString = objectToURI(searchValues)
     searchProductsMutation.mutate(queryString)

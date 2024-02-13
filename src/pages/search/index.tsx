@@ -52,7 +52,6 @@ const SearchPage = () => {
     control,
     reset,
     getValues,
-    resetField,
     appendFuelType,
     appendCategory,
     appendSeatType,
@@ -146,14 +145,14 @@ const SearchPage = () => {
               <FuelTypePopover
                 control={control}
                 appendFuelType={appendFuelType}
-                reset={resetField}
                 handleSubmit={onSubmit}
+                setValue={setValue}
               />
               <CategoryPopover
                 control={control}
                 appendCategory={appendCategory}
                 handleSubmit={onSubmit}
-                reset={resetField}
+                setValue={setValue}
               />
 
               {/* <Tag
@@ -166,14 +165,14 @@ const SearchPage = () => {
                 control={control}
                 appendSeatType={appendSeatType}
                 handleSubmit={onSubmit}
-                reset={resetField}
+                setValue={setValue}
               />
               <div className='hidden xl:flex'>
                 <SuitcasesPopover
                   control={control}
                   appendLuggageNumber={appendLuggageNumber}
                   handleSubmit={onSubmit}
-                  reset={resetField}
+                  setValue={setValue}
                 />
               </div>
               <Tag
