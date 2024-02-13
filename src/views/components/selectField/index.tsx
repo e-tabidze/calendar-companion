@@ -25,7 +25,7 @@ const customStyles = {
 
   menuList: (provided: any) => ({
     ...provided,
-    height: '180px'
+    maxHeight: '180px'
   }),
 
   placeholder: (defaultStyles: any) => {
@@ -117,10 +117,18 @@ const SelectField: React.FC<Props> = ({
         control={control}
         render={({ field: { onChange, value } }) => (
           <>
-      
             <Select
               styles={customStyles}
               options={options}
+              theme={theme => ({
+                ...theme,
+                borderRadius: 0,
+                colors: {
+                  ...theme.colors,
+                  primary: '#549684',
+                  primary25: '#DDEAE6'
+                }
+              })}
               value={
                 isMulti
                   ? options?.filter(opt => (valueKey ? value?.includes(opt[valueKey]) : value.includes(opt.value)))
@@ -142,9 +150,7 @@ const SelectField: React.FC<Props> = ({
                       : options?.filter(opt => (valueKey ? opt[valueKey] === value : opt.value === value))
                   )
                 setValueLabel &&
-                  setValueLabel(
-                    isMulti ? e.map((opt: any) => (labelKey ? opt[labelKey] : opt.value)) : e?.label || ''
-                  )
+                  setValueLabel(isMulti ? e.map((opt: any) => (labelKey ? opt[labelKey] : opt.value)) : e?.label || '')
               }}
               className={`${_.get(errors, name)?.message ? `error-border border border-red-100 rounded-[12px]` : ''}`}
               isMulti={isMulti}

@@ -50,7 +50,11 @@ const LocationDropdown: React.FC<Props> = ({ control, resetField, setOpen }) => 
                   </Typography>
                   <InnerFilterContainer>
                     <Combobox.Input
-                      className='flex shrink-0 border-none h-full bg-transparent text-2sm text-raisin-130 placeholder:text-2sm placeholder:text-raisin-50'
+                      className={`flex shrink-0 border-none h-full text-2sm placeholder:text-2sm ${
+                        value
+                          ? 'text-green-100 placeholder:text-green-100'
+                          : 'text-raisin-130 placeholder:text-raisin-50'
+                      }`}
                       placeholder='ქალაქი, მისამართი'
                       displayValue={(city: any) => city.city}
                       onChange={onChange}
@@ -92,7 +96,7 @@ const LocationDropdown: React.FC<Props> = ({ control, resetField, setOpen }) => 
                   )?.map((city: any) => (
                     <Combobox.Option
                       key={city?.city}
-                      className='hover:bg-raisin-5 cursor-pointer select-none py-2 px-6 flex items-center last:mb-2'
+                      className={`hover:bg-raisin-5 cursor-pointer select-none py-2 px-6 flex items-center last:mb-2 `}
                       value={city.city}
                     >
                       <Icon
@@ -101,7 +105,13 @@ const LocationDropdown: React.FC<Props> = ({ control, resetField, setOpen }) => 
                         height={24}
                         className='fill-transparent flex shrink-0 mr-2'
                       />
-                      <span className='text-sm flex truncate font-normal text-black/70'>{city.city}</span>
+                      <span
+                        className={`text-sm flex truncate font-normal ${
+                          value == city.city ? 'text-green-100' : 'text-raisin-100'
+                        }`}
+                      >
+                        {city.city}
+                      </span>
                     </Combobox.Option>
                   ))}
                 </Combobox.Options>

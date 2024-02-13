@@ -70,71 +70,79 @@ const BranchInfoComponent: React.FC<Props> = ({ index, control, errors, setValue
   )
 
   return (
-    <div className='flex flex-col md:border md:border-raisin-10 md:py-10 md:px-9 rounded-3xl'>
-      <div className='mb-6 grid grid-cols-1 gap-7'>
-        <div className='w-full grid grid-cols-1 lg:grid-cols-3 gap-4 relative'>
-          <CitiesSuggestions index={index} control={control} name={`addresses.${index}.city`} border errors={errors} />
+    <div className='flex flex-col'>
+      <div className='md:border md:border-raisin-10 rounded-3xl md:py-10 md:px-9 mb-3'>
+        <div className='mb-6 grid grid-cols-1 gap-7'>
+          <div className='w-full grid grid-cols-1 lg:grid-cols-3 gap-4 relative'>
+            <CitiesSuggestions
+              index={index}
+              control={control}
+              name={`addresses.${index}.city`}
+              border
+              errors={errors}
+            />
 
-          <DefaultInput
-            label='მისამართი'
-            name={`addresses.${index}.address`}
-            control={control}
-            errors={errors}
-            disabled={formState.addresses[index].city.length < 3}
-          />
+            <DefaultInput
+              label='მისამართი'
+              name={`addresses.${index}.address`}
+              control={control}
+              errors={errors}
+              disabled={formState.addresses[index].city.length < 3}
+            />
 
-          <DefaultInput label='ტელეფონი' name={`addresses.${index}.phone`} control={control} errors={errors} />
+            <DefaultInput label='ტელეფონი' name={`addresses.${index}.phone`} control={control} errors={errors} />
+          </div>
         </div>
+
+        <SwitchField
+          name={`addresses.${index}.is_same_time`}
+          label='ერთნაირი დროის მონიშვნა'
+          control={control}
+          reversed
+        />
+
+        {formState.addresses[index]?.is_same_time ? (
+          <div className='flex flex-col gap-2 lg:items-center lg:flex-row justify-between' key={index}>
+            <div className='flex items-center gap-4'>{days.map(day => renderDaysSelector(day))}</div>
+            <TimeRangeComponent
+              control={control}
+              startTimeName={`addresses.${index}.start_time`}
+              endTimeName={`addresses.${index}.end_time`}
+            />
+
+            {/* <DefaultInput label='ტელეფონი' name={`addresses.${index}.phone`} control={control} errors={errors} /> */}
+          </div>
+        ) : (
+          <div className='grid md:grid-cols-12 mt-4'>
+            <div className='md:col-span-6'>
+              {days.slice(0, 5).map(day => (
+                <div className='flex items-center gap-6 ' key={day.value}>
+                  {renderDaysSelector(day)}
+                  <TimeRangeComponent
+                    control={control}
+                    startTimeName={`addresses.${index}.working_hours.${day.value}.start_time`}
+                    endTimeName={`addresses.${index}.working_hours.${day.value}.end_time`}
+                    isDisabled={!formState.addresses[index]?.working_hours[day.value]?.is_selected}
+                  />
+                </div>
+              ))}
+            </div>
+            <div className='md:col-span-6'>
+              {days.slice(5).map(day => (
+                <div className='flex items-center gap-6 ' key={day.value}>
+                  {renderDaysSelector(day)}
+                  <TimeRangeComponent
+                    control={control}
+                    startTimeName={`addresses.${index}.working_hours.${day.value}.start_time`}
+                    endTimeName={`addresses.${index}.working_hours.${day.value}.end_time`}
+                    isDisabled={!formState.addresses[index]?.working_hours[day.value]?.is_selected}
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
-
-      <SwitchField
-        name={`addresses.${index}.is_same_time`}
-        label='ერთნაირი დროის მონიშვნა'
-        control={control}
-        reversed
-      />
-
-      {formState.addresses[index]?.is_same_time ? (
-        <div className='flex flex-col gap-2 lg:items-center lg:flex-row justify-between' key={index}>
-          <div className='flex items-center gap-4'>{days.map(day => renderDaysSelector(day))}</div>
-          <TimeRangeComponent
-            control={control}
-            startTimeName={`addresses.${index}.start_time`}
-            endTimeName={`addresses.${index}.end_time`}
-          />
-
-          {/* <DefaultInput label='ტელეფონი' name={`addresses.${index}.phone`} control={control} errors={errors} /> */}
-        </div>
-      ) : (
-        <div className='grid md:grid-cols-12 mt-4'>
-          <div className='md:col-span-6'>
-            {days.slice(0, 5).map(day => (
-              <div className='flex items-center gap-6 ' key={day.value}>
-                {renderDaysSelector(day)}
-                <TimeRangeComponent
-                  control={control}
-                  startTimeName={`addresses.${index}.working_hours.${day.value}.start_time`}
-                  endTimeName={`addresses.${index}.working_hours.${day.value}.end_time`}
-                  isDisabled={!formState.addresses[index]?.working_hours[day.value]?.is_selected}
-                />
-              </div>
-            ))}
-          </div>
-          <div className='md:col-span-6'>
-            {days.slice(5).map(day => (
-              <div className='flex items-center gap-6 ' key={day.value}>
-                {renderDaysSelector(day)}
-                <TimeRangeComponent
-                  control={control}
-                  startTimeName={`addresses.${index}.working_hours.${day.value}.start_time`}
-                  endTimeName={`addresses.${index}.working_hours.${day.value}.end_time`}
-                  isDisabled={!formState.addresses[index]?.working_hours[day.value]?.is_selected}
-                />
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
 
       {index > 0 && (
         <IconTextButton

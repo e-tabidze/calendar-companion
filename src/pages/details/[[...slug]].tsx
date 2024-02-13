@@ -207,7 +207,7 @@ const ProductDetails = memo(() => {
           id='head'
         >
           <ContentContainer className='overflow-x-auto no-scrollbar bg-white z-30'>
-            <div className='flex gap-8 w-max'>
+            <div className='flex w-max'>
               <SubNavItem section='details' activeSection={activeNavItem} handleClick={handleClick}>
                 ავტომობილის შესახებ
               </SubNavItem>

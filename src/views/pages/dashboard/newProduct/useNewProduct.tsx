@@ -16,7 +16,7 @@ const useNewProduct = () => {
     id: service.id,
     price: service.type_id === 3 ? 0 : null,
     currency: 'GEL',
-    quantity: '',
+    quantity: service.quantity ?? 0,
     is_selected: false
   }))
 

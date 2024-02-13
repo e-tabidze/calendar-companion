@@ -9,10 +9,10 @@ interface Props {
   control: any
   appendSeatType: any
   handleSubmit: () => void
-  reset: any
+  setValue: any
 }
 
-const SeatsPopover: React.FC<Props> = ({ control, appendSeatType, handleSubmit, reset }) => {
+const SeatsPopover: React.FC<Props> = ({ control, appendSeatType, handleSubmit, setValue }) => {
   const formState = useWatch({ control })
 
   const { seatTypesFilter } = useFilters()
@@ -35,14 +35,10 @@ const SeatsPopover: React.FC<Props> = ({ control, appendSeatType, handleSubmit, 
           className='fill-transparent'
           width={24}
           height={24}
-          onClick={() => reset('seat_types')}
+          onClick={() => setValue('seat_types', [])}
           disabled={!formState?.seat_types?.length}
-          labelClassname={
-            formState?.seat_types?.length ? 'text-sm text-red-100' : 'text-sm text-raisin-50'
-          }
-          iconFill={
-            formState?.seat_types?.length ? '!fill-red-100' : '!fill-black'
-          }
+          labelClassname={formState?.seat_types?.length ? 'text-sm text-red-100' : 'text-sm text-raisin-50'}
+          iconFill={formState?.seat_types?.length ? '!fill-red-100' : '!fill-black'}
           type='button'
         />
         <DefaultButton
