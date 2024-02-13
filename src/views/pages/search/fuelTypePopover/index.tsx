@@ -9,11 +9,11 @@ import { useWatch } from 'react-hook-form'
 interface Props {
   control: any
   appendFuelType: any
-  reset: any
   handleSubmit: () => void
+  setValue: any
 }
 
-const FuelTypePopover: React.FC<Props> = ({ control, appendFuelType, reset, handleSubmit }) => {
+const FuelTypePopover: React.FC<Props> = ({ control, appendFuelType, handleSubmit, setValue }) => {
   const { fuelTypesFilter, isLoading } = useFilters()
 
   const formState = useWatch({ control })
@@ -50,14 +50,10 @@ const FuelTypePopover: React.FC<Props> = ({ control, appendFuelType, reset, hand
           className='fill-transparent'
           width={24}
           height={24}
-          onClick={() => reset('fuel_types')}
+          onClick={() => setValue('fuel_types', [])}
           disabled={!formState?.fuel_types?.length}
-          labelClassname={
-            formState?.fuel_types?.length ? 'text-sm text-red-100' : 'text-sm text-raisin-50'
-          }
-          iconFill={
-            formState?.fuel_types?.length ? '!fill-red-100' : '!fill-black'
-          }
+          labelClassname={formState?.fuel_types?.length ? 'text-sm text-red-100' : 'text-sm text-raisin-50'}
+          iconFill={formState?.fuel_types?.length ? '!fill-red-100' : '!fill-black'}
           type='button'
         />
         <DefaultButton
