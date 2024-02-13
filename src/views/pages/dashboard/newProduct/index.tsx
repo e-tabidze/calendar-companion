@@ -63,7 +63,6 @@ const NewProduct: React.FC = () => {
     switch (currentIndex) {
       case 0:
         const isValidStep1 = await trigger([
-          'vin',
           'plate',
           'man_id',
           'model_id',
@@ -161,6 +160,10 @@ const NewProduct: React.FC = () => {
 
         queryClient.invalidateQueries(['companyProducts'])
         queryClient.invalidateQueries(['latestProducts'])
+      },
+
+      onError: () => {
+        toast.custom(<Toast type='error' title='განცხადების დამატების დროს მოხდა შეცდომა. გთხოვთ თავიდან სცადეთ' />)
       }
     }
   )

@@ -93,6 +93,7 @@ const NewServiceModal: React.FC<Props> = ({ open, onClose }) => {
                       name='type_id'
                       errors={errors}
                       valueKey='value'
+                      placeholder='აირჩიეთ სერვისის ტიპი*'
                       labelKey='label'
                     />
                   </div>

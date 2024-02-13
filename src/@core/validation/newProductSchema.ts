@@ -6,7 +6,7 @@ const NewProductPrice = Yup.object().shape({
 })
 
 const Odometer = Yup.object().shape({
-  run: Yup.number().required('აუცილებელი ველი').typeError('თანხის ველი უნდა იყოს რიცხვი')
+  run: Yup.number().required('აუცილებელი ველი').typeError('გარბენის ველი უნდა იყოს რიცხვი')
 })
 
 const CompanyService = Yup.object().shape({
@@ -16,7 +16,7 @@ const CompanyService = Yup.object().shape({
 })
 
 const NewProductSchema = Yup.object().shape({
-  vin: Yup.string().required('აუცილებელი ველი'),
+  vin: Yup.string().max(17, 'სიმბოლოების მაქსიმალური სიგრძე 17'),
   plate: Yup.string().required('აუცილებელი ველი'),
   man_id: Yup.number().required('აუცილებელი ველი').typeError('აუცილებელი ველი'),
   model_id: Yup.number().required('აუცილებელი ველი').typeError('აუცილებელი ველი'),
