@@ -437,3 +437,24 @@ input[type='number'] {
   background-color: rgb(84 150 132 / 0.1);
   border: 1px solid var(--Green-Green-100, #549684);
 }
+
+.tab-underline::after {
+  content: "";
+  background: #fd4100;
+  height: 3px;
+  position: absolute;
+  bottom: 0;
+  transition: .15s all 0.025s;
+  left: 100%;
+  right: 0;
+}
+
+.tab-underline.active ~ .tab-underline::after {
+  left: 0;
+  right: 100%;
+}
+
+.tab-underline.active::after {
+  left: 0;
+  right: 0;
+}

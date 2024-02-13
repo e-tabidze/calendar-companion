@@ -8,10 +8,10 @@ interface Props {
   control: any
   appendLuggageNumber: (data: any) => void
   handleSubmit: () => void
-  reset: any
+  setValue: any
 }
 
-const SuitcasesPopover: React.FC<Props> = ({ control, appendLuggageNumber, handleSubmit, reset }) => {
+const SuitcasesPopover: React.FC<Props> = ({ control, appendLuggageNumber, handleSubmit, setValue }) => {
   const { suitcases } = useFilters()
 
   const formState = useWatch({ control })
@@ -34,13 +34,9 @@ const SuitcasesPopover: React.FC<Props> = ({ control, appendLuggageNumber, handl
           className='fill-transparent'
           width={24}
           height={24}
-          onClick={() => reset('luggage_numbers')}
-          labelClassname={
-            formState?.luggage_numbers?.length ? 'text-sm text-red-100' : 'text-sm text-raisin-50'
-          }
-          iconFill={
-            formState?.luggage_numbers?.length ? '!fill-red-100' : '!fill-black'
-          }
+          onClick={() => setValue('luggage_numbers', [])}
+          labelClassname={formState?.luggage_numbers?.length ? 'text-sm text-red-100' : 'text-sm text-raisin-50'}
+          iconFill={formState?.luggage_numbers?.length ? '!fill-red-100' : '!fill-black'}
           disabled={!formState?.luggage_numbers?.length}
           type='button'
         />

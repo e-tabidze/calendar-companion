@@ -1,9 +1,10 @@
+import { STATIC_URL } from 'src/env'
 import HttpService from './HttpService'
 
 class StaticService extends HttpService {
   postUploadCompanyLogo(AccessToken = '', File: any, companyId?: string | number) {
     return this.post(
-      'https://static.my.ge',
+      STATIC_URL,
       { Func: 'UploadCompLogo', UploadedFiles: 1, IP: '0.0.0.0', UserID: companyId, SiteID: '39', File },
       AccessToken ? { Authorization: `${AccessToken}` } : {}
     )
@@ -19,7 +20,7 @@ class StaticService extends HttpService {
 
   postUploadProductImages(AccessToken = '', files: any, count: number, userId: number) {
     return this.post(
-      'https://test.static.my.ge',
+      STATIC_URL,
       { Func: 'UploadPhotos', UploadedFiles: count, IP: '0.0.0.0', UserID: userId, SiteID: '39', 'Files[]': files },
       AccessToken ? { Authorization: `${AccessToken}` } : {}
     )
@@ -47,7 +48,7 @@ class StaticService extends HttpService {
 
   uploadProfileImage(AccessToken = '', File: string) {
     return this.post(
-      'https://static.my.ge',
+      STATIC_URL,
       { Func: 'UploadProfileImage', SiteID: '39', File: File },
       AccessToken ? { Authorization: `${AccessToken}` } : {}
     )
@@ -57,7 +58,7 @@ class StaticService extends HttpService {
     return this.post(
       'save-profile-pic',
       {
-        Photo: `https://static.my.ge/${Photo}`
+        Photo: `${STATIC_URL}/${Photo}`
       },
       AccessToken ? { Authorization: `${AccessToken}` } : {}
     )
