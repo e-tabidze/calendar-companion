@@ -25,7 +25,7 @@ const App: FC<AppProps> = ({ Component, pageProps }) => {
   return (
     <>
       <Provider store={store}>
-        <NextNProgress showOnShallow={true} options={{ showSpinner: false }} />
+        <NextNProgress showOnShallow={true} options={{ showSpinner: false }} color="#549684" />
 
         <QueryClientProvider client={queryClient}>
           <Hydrate state={pageProps.dehydratedState}>

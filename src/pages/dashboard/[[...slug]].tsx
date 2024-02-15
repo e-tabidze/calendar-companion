@@ -10,6 +10,9 @@ const Payments = dynamic(() => import('src/views/pages/dashboard/payments'), { s
 
 import dynamic from 'next/dynamic'
 import { dashboardRoutes } from 'src/utils/routes'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { queryClient } from '../_app'
+import { dehydrate } from '@tanstack/react-query'
 
 const ProfileLayout = dynamic(() => import('src/layouts/ProfileLayout'), { ssr: false })
 
@@ -19,8 +22,8 @@ const ProfileRouter = () => {
   const router = useRouter()
   let key = ''
 
-  if (router.query.link?.length) {
-    key = router.query?.link[0]
+  if (router.query.slug?.length) {
+    key = router.query?.slug[0]
   }
 
   switch (key) {
@@ -61,6 +64,17 @@ const Profile = () => {
       )}
     </>
   )
+}
+
+export async function getServerSideProps({ locale }: { locale: string }) {
+  const [translations] = await Promise.all([serverSideTranslations(locale)])
+
+  return {
+    props: {
+      dehydratedState: dehydrate(queryClient),
+      ...translations
+    }
+  }
 }
 
 export default Profile

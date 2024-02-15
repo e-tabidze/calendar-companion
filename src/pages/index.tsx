@@ -1,4 +1,7 @@
+import { dehydrate } from '@tanstack/react-query'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import dynamic from 'next/dynamic'
+import { useTranslation } from 'react-i18next'
 import useFilters from 'src/hooks/useFilters'
 import { TailwindDiv } from 'src/interfaces/tailwind'
 import DefaultLayout from 'src/layouts/DefaultLayout'
@@ -17,6 +20,7 @@ const Typography = dynamic(() => import('src/views/components/typography'), { ss
 
 // ** Tailwind Styled
 import tw from 'tailwind-styled-components'
+import { queryClient } from './_app'
 
 const pageMeta = {
   title: 'Rent.myauto.ge | მანქანის ქირაობის პლატფორმა',
@@ -32,6 +36,8 @@ const MainPage = () => {
 
   const { categoriesFilter } = useFilters()
 
+  const { t } = useTranslation()
+
   return (
     <DefaultLayout>
       <PageMeta meta={pageMeta} />
@@ -44,6 +50,7 @@ const MainPage = () => {
           <ContentContainer>
             <Typography type='h3' className='text-3md md:text-2lg mt-12 mb-8'>
               აირჩიე სასურველი კატეგორია
+              {t('easiest_way_to_your_new_home')}
             </Typography>
           </ContentContainer>
         )}
@@ -72,6 +79,7 @@ const MainPage = () => {
           <ContentContainer>
             <Typography type='h3' className='text-3md md:text-2lg mt-12 mb-8'>
               პოპულარული ავტომობილები
+              {t('home_page_popular_products.test_text')}
             </Typography>
           </ContentContainer>
         )}
@@ -133,13 +141,13 @@ const MainPage = () => {
 
 export default MainPage
 
-// export async function getStaticProps({ locale }: { locale: string }) {
-//   const [translations] = await Promise.all([serverSideTranslations(locale)])
+export async function getServerSideProps({ locale }: { locale: string }) {
+  const [translations] = await Promise.all([serverSideTranslations(locale)])
 
-//   return {
-//     props: {
-//       dehydratedState: dehydrate(queryClient),
-//       ...translations
-//     }
-//   }
-// }
+  return {
+    props: {
+      dehydratedState: dehydrate(queryClient),
+      ...translations
+    }
+  }
+}

@@ -1,6 +1,7 @@
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { Product } from 'src/types/Products'
 import DataPlaceHolder from 'src/views/components/dataPlaceholder'
 import SkeletonLoading from './skeletonLoading'
@@ -42,6 +43,8 @@ const Products = () => {
   const router = useRouter()
   const { is_active, page } = router.query
 
+  const { t } = useTranslation()
+
   const [filterQuery, setFilterQuery] = useState<'' | '0' | '1' | '2'>('')
 
   useEffect(() => {
@@ -52,8 +55,6 @@ const Products = () => {
   }, [is_active])
 
   const { companyProducts, isLoading } = useProducts(is_active, Number(page))
-
-  console.log(companyProducts, 'companyProducts')
 
   const handlePageChange = (newPage: number) => {
     router.push({
@@ -79,6 +80,7 @@ const Products = () => {
       <div className='md:p-8 lg:p-10 md:border border-raisin-10 rounded-3xl mt-8 lg:mt-0'>
         <Typography type='h3' className='mb-6 mt-8 lg:mt-0'>
           ავტომობილები
+          {t('easiest_way_to_your_new_home')}
         </Typography>
         <Divider />
         <div className='flex gap-3 py-8 overflow-x-auto'>

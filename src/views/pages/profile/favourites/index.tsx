@@ -5,6 +5,7 @@ import Divider from 'src/views/components/divider'
 import DataPlaceHolder from 'src/views/components/dataPlaceholder'
 import Pagination from 'src/views/components/pagination'
 import { useRouter } from 'next/router'
+import { useTranslation } from 'react-i18next'
 
 const Favourites = () => {
   const router = useRouter()
@@ -12,6 +13,8 @@ const Favourites = () => {
   const { page } = router.query
 
   const { userFavourites, isLoading } = useFavourites(undefined, Number(page))
+
+  const { t } = useTranslation()
 
   const handlePageChange = (newPage: number) => {
     router.push({
@@ -29,6 +32,7 @@ const Favourites = () => {
       <div className='md:p-8 lg:p-10 md:border border-raisin-10 rounded-3xl mt-8 lg:mt-0'>
         <Typography type='h3' className='mb-6'>
           ფავორიტები
+          {t('easiest_way_to_your_new_home')}
         </Typography>
         <Divider />
         {userFavourites?.data?.length > 0 ? (
