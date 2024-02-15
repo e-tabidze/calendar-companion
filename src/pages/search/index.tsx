@@ -23,6 +23,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { dehydrate } from '@tanstack/query-core'
 import { queryClient } from '../_app'
 import PageMeta from 'src/@core/meta/PageMeta'
+import { useTranslation } from 'react-i18next'
 
 // const MapPicker = dynamic(() => import('src/views/components/mapPicker'), { ssr: true })
 const SkeletonLoading = dynamic(() => import('src/views/pages/search/skeletonLoading'), { ssr: false })
@@ -87,6 +88,8 @@ const SearchPage = () => {
   const [hasFilter, setHasFilter] = useState(false)
 
   const formState = useWatch({ control })
+
+  const { t } = useTranslation()
 
   useEffect(() => {
     setHasFilter(
@@ -208,6 +211,7 @@ const SearchPage = () => {
               {/*}`}*/}
               <SearchResultsContainer>
                 <Typography type='body' className='text-md mr-2 mt-6 md:mt-0'>
+                  {t('easiest_way_to_your_new_home')}
                   ნაპოვნია {totalProductsCount} განცხადება
                 </Typography>
                 <div className='w-full md:w-auto flex items-center'>
