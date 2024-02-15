@@ -20,8 +20,6 @@ import { Controller, useWatch } from 'react-hook-form'
 
 import SortListBox from 'src/views/pages/search/sortListBox'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { dehydrate } from '@tanstack/query-core'
-import { queryClient } from '../_app'
 import PageMeta from 'src/@core/meta/PageMeta'
 import { useTranslation } from 'react-i18next'
 
@@ -80,6 +78,8 @@ const SearchPage = () => {
   const [yearToMeta, setYearToMeta] = useState('')
 
   const router = useRouter()
+
+  console.log(router.locale, 'locale')
 
   const { book_from, book_to } = router.query
 
@@ -357,13 +357,10 @@ const SearchPage = () => {
 
 export default SearchPage
 
-export async function getServerSideProps({ locale }: { locale: string }) {
-  const [translations] = await Promise.all([serverSideTranslations(locale)])
-
+export async function getServerSideProps({ locale }: any) {
   return {
     props: {
-      dehydratedState: dehydrate(queryClient),
-      ...translations
+      ...(await serverSideTranslations(locale, ['common', 'searchProducts']))
     }
   }
 }

@@ -31,6 +31,7 @@ const LanguagePicker = ({ dropdownUp, responsive, className }: Props) => {
         {({ open }) => (
           <>
             <Menu.Button
+              type='button'
               className={`${
                 responsive
                   ? 'md:border md:border-raisin-10 md:rounded-xl md:px-3'
@@ -72,6 +73,7 @@ const LanguagePicker = ({ dropdownUp, responsive, className }: Props) => {
                   <Menu.Item key={lang.id}>
                     <button
                       value={lang.title}
+                      type="button"
                       onClick={() => router.push(router.asPath, router.asPath, { locale: lang.locale })}
                       className='w-full flex items-center text-raisin-130 text-2sm font-medium py-2 hover:bg-grey-100 px-6 cursor-pointer'
                     >
