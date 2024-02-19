@@ -2,6 +2,7 @@ import { Combobox, Transition } from '@headlessui/react'
 import { Controller } from 'react-hook-form'
 import useSearchLocations from './useSearchLocations'
 import dynamic from 'next/dynamic'
+import {useTranslation} from "next-i18next";
 
 const Icon = dynamic(() => import('src/views/app/Icon'), { ssr: false })
 interface Props {
@@ -11,6 +12,7 @@ interface Props {
 
 const LocationDropdown: React.FC<Props> = ({ control, resetField }) => {
   const { cities } = useSearchLocations()
+    const {t} = useTranslation()
 
   return (
     <Controller
@@ -23,7 +25,7 @@ const LocationDropdown: React.FC<Props> = ({ control, resetField }) => {
               <Combobox.Button className='h-full flex items-center pl-3 lg:pl-4 pr-1 lg:pr-2'>
                 <Combobox.Input
                   className='bg-transparent border-none h-full text-2sm text-raisin-130 placeholder:text-sm placeholder:text-raisin-130'
-                  placeholder='მდებარეობა'
+                  placeholder={t('location')}
                   displayValue={(city: any) => city.city}
                   onChange={onChange}
                   value={value}

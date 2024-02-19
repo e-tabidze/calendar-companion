@@ -17,6 +17,7 @@ import { dehydrate } from '@tanstack/react-query'
 import { queryClient } from '../_app'
 import { DefaultButton } from 'src/views/components/button'
 import useOrders from 'src/views/pages/profile/orders/useOrders'
+import {useTranslation} from "next-i18next";
 
 const Icon = dynamic(() => import('src/views/app/Icon'), { ssr: false })
 const Typography = dynamic(() => import('src/views/components/typography'), { ssr: true })
@@ -24,6 +25,7 @@ const Divider = dynamic(() => import('src/views/components/divider'), { ssr: fal
 const Image = dynamic(() => import('src/views/components/image'), { ssr: false })
 
 const SuccessfulPayment = () => {
+  const {t} = useTranslation()
   const router = useRouter()
 
   const { carOrderID } = router.query
@@ -174,7 +176,7 @@ const SuccessfulPayment = () => {
             <Divider />
             <PriceDetailsWrapper>
               <Typography type='subtitle' className='font-bold'>
-                ჯამი
+                {t('sum')}
               </Typography>
               <Typography type='subtitle' className='font-bold'>
                 {userOrderDetails?.price} ₾

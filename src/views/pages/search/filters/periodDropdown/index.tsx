@@ -10,6 +10,7 @@ import { formatDate } from 'src/utils/formatDate'
 import Icon from 'src/views/app/Icon'
 import { useRouter } from 'next/router'
 import { format } from 'date-fns'
+import {useTranslation} from "next-i18next";
 
 interface Props {
   control: any
@@ -21,6 +22,7 @@ registerLocale('ka', ka)
 const PeriodDropwodn: React.FC<Props> = ({ control, resetField, setValue }) => {
   const router = useRouter()
   const { book_from, book_to } = router?.query
+  const {t} = useTranslation()
 
   const formState = useWatch({ control })
 
@@ -72,7 +74,7 @@ const PeriodDropwodn: React.FC<Props> = ({ control, resetField, setValue }) => {
                         ? `${format(new Date(formState?.booking?.book_to), 'd MMM', { locale: ka })}`
                         : ''
                     }`
-                      : 'დაქირავების პერიოდი'}
+                      : t('rental_period')}
                   </Typography>
                   {formState?.booking?.book_from || formState?.booking?.book_to ? (
                     <span

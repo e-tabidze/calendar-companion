@@ -7,10 +7,12 @@ import Link from 'next/link'
 import useProfile from 'src/hooks/useProfile'
 import { format, parseISO } from 'date-fns'
 import { ka } from 'date-fns/locale'
+import {useTranslation} from "next-i18next";
 
 const Notification = () => {
   const { notifictions } = useNotifications()
   const { activeCompany } = useProfile()
+  const {t} = useTranslation()
 
   return (
     <Menu as='div' className='hidden md:flex relative'>
@@ -89,7 +91,7 @@ const Notification = () => {
                       </li>
                     ))
                 ) : (
-                  <Typography type='subtitle' className='text-center'>შეტყობინებები ჯერ არ გაქვს</Typography>
+                  <Typography type='subtitle' className='text-center'>{t('no_messages_yet')}</Typography>
                 )}
               </ul>
              {notifictions?.length > 0 && <Link

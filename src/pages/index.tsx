@@ -49,8 +49,7 @@ const MainPage = () => {
         {categoriesFilter?.filter((product: any) => product?.count_products > 0) && (
           <ContentContainer>
             <Typography type='h3' className='text-3md md:text-2lg mt-12 mb-8'>
-              აირჩიე სასურველი კატეგორია
-              {t('easiest_way_to_your_new_home')}
+              {t('choose_preferable_category')}
             </Typography>
           </ContentContainer>
         )}
@@ -78,8 +77,7 @@ const MainPage = () => {
         {popularProducts?.length > 0 && (
           <ContentContainer>
             <Typography type='h3' className='text-3md md:text-2lg mt-12 mb-8'>
-              პოპულარული ავტომობილები
-              {t('home_page_popular_products.test_text')}
+              {t('popular_vehicles')}
             </Typography>
           </ContentContainer>
         )}
@@ -106,7 +104,7 @@ const MainPage = () => {
         {lastSeenProducts?.length > 0 && (
           <ContentContainer>
             <Typography type='h3' className='text-3md md:text-2lg mt-12 mb-8'>
-              ბოლოს ნანახი
+              {t('last_seen')}
             </Typography>
           </ContentContainer>
         )}

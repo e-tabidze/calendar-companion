@@ -20,6 +20,7 @@ import OrderDetailsSkeleton from './skeletonLoading'
 import { useRouter } from 'next/router'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
+import {useTranslation} from "next-i18next";
 
 const Image = dynamic(() => import('src/views/components/image'), { ssr: true })
 const Icon = dynamic(() => import('src/views/app/Icon'), { ssr: false })
@@ -27,6 +28,7 @@ const Typography = dynamic(() => import('src/views/components/typography'), { ss
 const Divider = dynamic(() => import('src/views/components/divider'), { ssr: false })
 
 const OrderDetails = () => {
+  const {t} = useTranslation()
   const [cancelOrderDialog, setCancelOrderDialog] = useState(false)
 
   const router = useRouter()
@@ -67,7 +69,7 @@ const OrderDetails = () => {
             icon='backWithBg'
             width={38}
             height={38}
-            label='შემოსული ჯავშნები'
+            label={t('pending_orders')}
             onClick={() => router.push('/dashboard/orders/?status_id=&page=1')}
           />
         </div>
@@ -76,7 +78,7 @@ const OrderDetails = () => {
           <RentalDetailsContainer>
             <RentalDetailsWrapper>
               <Typography type='body' color='light'>
-                შეკვეთის თარიღი
+                {t('order_date')}
               </Typography>
               {companyOrder?.created_at && (
                 <Typography type='subtitle'>
@@ -86,7 +88,7 @@ const OrderDetails = () => {
             </RentalDetailsWrapper>
             <RentalDetailsWrapper>
               <Typography type='body' color='light'>
-                შეკვეთის ნომერი
+                {t('order_number')}
               </Typography>
               <Typography type='subtitle'>#{companyOrder?.id}</Typography>
             </RentalDetailsWrapper>
@@ -99,7 +101,7 @@ const OrderDetails = () => {
               {companyOrder?.first_name} {companyOrder?.last_name}
             </Typography>
             <Typography type='h5' className='text-2sm lg:text-md'>
-              პ.ნ. {companyOrder?.identification_number}
+              {t('identification_number')} {companyOrder?.identification_number}
             </Typography>
             <div className='flex flex-col sm:flex-row w-full justify-between my-6'>
               <ul className=''>
@@ -122,7 +124,7 @@ const OrderDetails = () => {
               </ul>
               <ul>
                 <li className='flex items-center space-x-4 my-3'>
-                  <Typography type='subtitle'>მართვის მოწმობის მოქმედების ვადა</Typography>
+                  <Typography type='subtitle'>{t('driver_licence_exp_date')}</Typography>
                 </li>
                 <li className='flex items-center space-x-4 my-3'>
                   <Icon svgPath='calendar' width={24} height={24} className='fill-transparent' />
@@ -140,7 +142,7 @@ const OrderDetails = () => {
                 <TakeAwayWrapper>
                   <TakeAway>
                     <Typography type='body' color='light' className='lg:w-4/12'>
-                      დაწყება
+                      {t('start')}
                     </Typography>
                     <div className='flex items-center lg:w-8/12'>
                       <div className='flex-shrink-0 mr-3'>
@@ -164,7 +166,7 @@ const OrderDetails = () => {
                 <TakeAwayWrapper>
                   <TakeAway>
                     <Typography type='body' color='light' className='lg:w-4/12'>
-                      დასრულება
+                      {t('finish')}
                     </Typography>
                     <div className='flex items-center lg:w-8/12'>
                       <div className='flex-shrink-0 mr-3'>
@@ -188,7 +190,7 @@ const OrderDetails = () => {
             <Divider />
             <div>
               <PriceDetailsWrapper>
-                <Typography type='subtitle'>ქირაობის ღირებულება x {companyOrder?.days} დღე</Typography>
+                <Typography type='subtitle'>{t('rent_price')} x {companyOrder?.days} {t('day')}</Typography>
                 <Typography type='subtitle'>{companyOrderproductData?.price * companyOrder?.days} </Typography>
               </PriceDetailsWrapper>
               {companyOrderproductData?.user_selected_product_services.map((service: any, index: number) => (
@@ -206,14 +208,14 @@ const OrderDetails = () => {
               ))}
 
               <PriceDetailsWrapper>
-                <Typography type='subtitle'>მომსახურების საკომისიო - {companyOrder?.fee} %</Typography>
+                <Typography type='subtitle'>{t('service_commission')} - {companyOrder?.fee} %</Typography>
                 <Typography type='subtitle'>
                   {((companyOrderproductData?.price * companyOrder?.days) / 100) * companyOrder?.fee}{' '}
                 </Typography>
               </PriceDetailsWrapper>
               <PriceDetailsWrapper>
                 <Typography type='subtitle' className='font-bold'>
-                  ჯამი
+                  {t('sum')}
                 </Typography>
                 <Typography type='subtitle' className='font-bold'>
                   {companyOrder?.price} ₾
@@ -268,10 +270,10 @@ const OrderDetails = () => {
                 <DefaultButton
                   bg='bg-green-100'
                   textColor='text-white'
-                  text='დადასტურება'
+                  text={t('approve')}
                   onClick={() => activeOrderStatusMutation.mutate()}
                 />
-                <DefaultButton bg='bg-raisin-10' text='გაუქმება' onClick={toggleCancelOrderDialog} />
+                <DefaultButton bg='bg-raisin-10' text={t('cancel')} onClick={toggleCancelOrderDialog} />
               </div>
             )}
           </div>

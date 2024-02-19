@@ -37,6 +37,7 @@ import toast from 'react-hot-toast'
 import { DefaultButton, IconTextButton } from 'src/views/components/button'
 import PeriodDialog from 'src/views/pages/booking/periodDialog'
 import PageMeta from 'src/@core/meta/PageMeta'
+import {useTranslation} from "next-i18next";
 
 const Booking = () => {
   const [additionalServices, toggleAdditionalServices] = useState(true)
@@ -47,6 +48,7 @@ const Booking = () => {
   const [loading, setLoading] = useState(true)
 
   const router = useRouter()
+  const {t} = useTranslation()
 
   const { book_from, book_to, price_day, company_id, id } = router.query
 
@@ -234,7 +236,7 @@ const Booking = () => {
                       new Date(Array.isArray(book_from) ? book_from[0] : book_from).getTime()) /
                       (24 * 60 * 60 * 1000)
                   )}{' '}
-                  დღე
+                  {t('day')}
                 </Typography>
               </div>
               <DefaultButton text='შეცვლა' type='button' onClick={toggleChangeDatesDialog} />
@@ -264,7 +266,7 @@ const Booking = () => {
             </Typography>
             <Divider />
             <Typography type='h3' className='text-3md md:text-2lg my-6 md:my-10'>
-              მდებარეობა *
+              {t('locations')} *
             </Typography>
 
             <BookingRadio name='supply' options={options} control={control} color='bg-green-100' />

@@ -1,6 +1,7 @@
 import useProductInfo from '../../useProductInfo'
 import dynamic from 'next/dynamic'
 import DataPlaceHolder from 'src/views/components/dataPlaceholder'
+import {useTranslation} from "next-i18next";
 
 const Typography = dynamic(() => import('src/views/components/typography'), { ssr: false })
 const Divider = dynamic(() => import('src/views/components/divider'), { ssr: false })
@@ -9,6 +10,7 @@ const OrderListComponent = dynamic(() => import('src/views/pages/dashboard/compo
 })
 
 const IncomingOrders = () => {
+   const {t} = useTranslation()
   const { dashboardData, dashboardDataLoading } = useProductInfo()
 
   if (dashboardDataLoading) {
@@ -18,7 +20,7 @@ const IncomingOrders = () => {
   return (
     <div className='md:p-8 lg:p-10 md:border border-raisin-10 rounded-3xl'>
       <Typography type='h3' className='mb-6'>
-        შემოსული ჯავშნები
+          {t('pending_orders')}
       </Typography>
       <Divider />
       <div className='px-none md:px-6 2xl:px-8'>
@@ -41,7 +43,7 @@ const IncomingOrders = () => {
             />
           ))
         ) : (
-          <DataPlaceHolder label='შეკვეთები ჯერ არ გაქვს' />
+          <DataPlaceHolder label={t('no_orders_yet')} />
         )}
       </div>
     </div>

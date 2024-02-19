@@ -43,8 +43,6 @@ const LanguagePicker = ({ dropdownUp, responsive, className }: Props) => {
               <Icon svgPath='globe' width={21} height={20} />
               <span className={`${responsive ? 'hidden md:flex' : 'flex'} ml-2`}>
                 {selectedLang?.title}
-
-                {t('easiest_way_to_your_new_home')}
               </span>
               <Icon
                 svgPath='chevron'

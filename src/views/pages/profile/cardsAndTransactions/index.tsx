@@ -30,8 +30,7 @@ const CardsAndTransactions = () => {
     <>
       <div className='md:p-10 md:border border-raisin-10 rounded-3xl mt-8 lg:mt-0'>
         <Typography type='h3' className='mb-6'>
-          ტრანზაქციები
-          {t('easiest_way_to_your_new_home')}
+          {t('transactions')}
         </Typography>
         <Divider />
 
@@ -46,7 +45,7 @@ const CardsAndTransactions = () => {
             />
           ))
         ) : (
-          <DataPlaceHolder label='ტრანზაქციები ჯერ არ გაქვს' />
+          <DataPlaceHolder label={t('no_transactions_yet')} />
         )}
       </div>
       {userOrders?.last_page > 1 && (

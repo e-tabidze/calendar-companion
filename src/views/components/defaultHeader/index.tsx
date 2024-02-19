@@ -14,6 +14,7 @@ const Filters = dynamic(() => import('src/views/pages/search/filters'), { ssr: f
 const LanguagePicker = dynamic(() => import('src/views/components/defaultHeader/languagePicker'), { ssr: false })
 
 import { InnerContainer } from './styles'
+import {useTranslation} from "next-i18next";
 
 const DefaultHeader = () => {
   const router = useRouter()
@@ -44,6 +45,7 @@ const DefaultHeader = () => {
   }, [])
 
   const [isMobileDevice, setIsMobileDevice] = useState(false)
+  const {t} = useTranslation()
 
   return (
     <InnerContainer>
@@ -69,7 +71,7 @@ const DefaultHeader = () => {
                 icon='auth'
                 width={25}
                 height={24}
-                label='შესვლა'
+                label={t('login')}
                 type='button'
                 className='hidden md:flex fill-transparent border border-raisin-10 rounded-xl pl-3 pr-4 h-10 items-center text-raisin-100 text-2sm transition-all hover:bg-grey-100 hover:border-raisin-30'
                 onClick={handleLogin}

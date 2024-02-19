@@ -3,6 +3,7 @@ import dynamic from 'next/dynamic'
 import useFavourites from 'src/hooks/useFavourites'
 import Link from 'next/link'
 import ShareOptionsPopover from '../shareOptionsPopover'
+import {useTranslation} from "next-i18next";
 
 const Icon = dynamic(() => import('src/views/app/Icon'), { ssr: false })
 
@@ -38,13 +39,14 @@ const DetailsPageHeader: React.FC<Props> = ({
   const handlePrint = () => {
     window.print()
   }
+  const {t} = useTranslation()
 
   return (
     <DetailsHeader>
       <ul className='hidden md:flex items-center'>
         <li>
           <Link href='/' className='text-sm flex'>
-            მთავარი
+            {t('main')}
           </Link>
         </li>
         <li>

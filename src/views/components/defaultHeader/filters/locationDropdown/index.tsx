@@ -5,6 +5,7 @@ import Image from 'src/views/components/image'
 import Typography from 'src/views/components/typography'
 import { FilterContainer, InnerFilterContainer } from './styles'
 import useSearchLocations from './useSearchLocations'
+import {useTranslation} from "next-i18next";
 
 interface Props {
   control: any
@@ -12,6 +13,7 @@ interface Props {
 
 const LocationDropdown: React.FC<Props> = ({ control }) => {
   const { cities } = useSearchLocations()
+  const {t} = useTranslation()
 
   return (
     <>
@@ -24,11 +26,11 @@ const LocationDropdown: React.FC<Props> = ({ control }) => {
               <Listbox.Button className='relative w-full cursor-pointer rounded-2xl md:bg-white py-5 px-4 text-left focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-raisin-5 sm:text-sm'>
                 <FilterContainer>
                   <Typography type='body' color='dark'>
-                    მდებარეობა
+                    {t('location')}
                   </Typography>
                   <InnerFilterContainer>
                     <Typography type='subtitle' className='text-raisin-50 whitespace-nowrap'>
-                      {value || 'ქალაქი, მისამართი'}
+                      {value || t('city_address')}
                     </Typography>
                     <Image src='/icons/chevron.svg' className='inline fill-white m-2' alt='img' />
                   </InnerFilterContainer>

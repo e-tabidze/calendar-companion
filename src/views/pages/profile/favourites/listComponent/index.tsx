@@ -6,6 +6,7 @@ import Icon from 'src/views/app/Icon'
 import Image from 'src/views/components/image'
 import Carousel from 'src/views/components/carousel'
 import Link from 'next/link'
+import {useTranslation} from "next-i18next";
 
 interface Props {
   productId: string | number
@@ -43,6 +44,7 @@ const ListComponent: React.FC<Props> = ({
       console.log(error, 'error')
     }
   }
+const {t} = useTranslation()
 
   return (
     <div className='w-full sm:border-b-1 sm:border-raisin-10 my-3 sm:my-2 last:border-none'>
@@ -93,7 +95,7 @@ const ListComponent: React.FC<Props> = ({
           <div className='flex justify-between w-full mt-3 sm:mt-none items-center'>
             <div className='flex items-center gap-6'>
               <Typography type='h4' weight='medium' color='dark'>
-                <PriceContainer className='text-[20px]'>{price} ₾ /დღე </PriceContainer>
+                <PriceContainer className='text-[20px]'>{price} ₾ /{t('day')} </PriceContainer>
               </Typography>
               {isDeleted && (
                 <Typography type='subtitle'>

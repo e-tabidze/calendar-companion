@@ -8,6 +8,7 @@ import { useWatch } from 'react-hook-form'
 import Icon from 'src/views/app/Icon'
 import PeriodModal from 'src/views/pages/main/filters/periodMob/periodModal'
 import { format } from 'date-fns'
+import {useTranslation} from "next-i18next";
 
 interface Props {
   control: any
@@ -18,6 +19,7 @@ registerLocale('ka', ka)
 const PeriodMob: React.FC<Props> = ({ control, resetField }) => {
   const [calendar, toggleCalendar] = useState(false)
   const formState = useWatch({ control })
+    const {t} = useTranslation()
 
   return (
     <>
@@ -35,7 +37,7 @@ const PeriodMob: React.FC<Props> = ({ control, resetField }) => {
                 ? `${format(new Date(formState?.booking?.book_to), 'd MMM', { locale: ka })}`
                 : ''
             }`
-              : 'დაქირავების პერიოდი'}
+              : t('rental_period')}
           </Typography>
           {formState?.booking?.book_from || formState?.booking?.book_to ? (
               <span

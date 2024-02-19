@@ -4,6 +4,7 @@ import Icon from 'src/views/app/Icon'
 import { dashboardRoutes, profileRoutes } from 'src/utils/routes'
 import Link from 'next/link'
 import useProfile from 'src/hooks/useProfile'
+import {useTranslation} from "next-i18next";
 
 const Navigation = () => {
   const [active, setActive] = useState(false)
@@ -12,6 +13,7 @@ const Navigation = () => {
     setActive(!active)
   }
   const { activeCompany, isAuthenticated, handleLogin } = useProfile()
+    const {t} = useTranslation()
 
   return (
     <div className='py-4 lg:py-0 border-b-[1px] border-raisin-10 lg:border-0 lg:w-2/12'>
@@ -21,7 +23,7 @@ const Navigation = () => {
         className='flex items-center justify-between font-medium text-md lg:text-3md text-raisin-100'
         onClick={handleSetActive}
       >
-        ნავიგაცია
+          {t('navigation')}
         <span className={`${active ? 'rotate-180' : ''} flex lg:hidden transition-all`}>
           <Icon svgPath='footer-arrow' width={24} height={24} />
         </span>
@@ -68,7 +70,7 @@ const Navigation = () => {
                 className='font-normal text-raisin-70 hover:text-raisin-100 transition-all text-sm lg:text-2sm hover:underline'
                 onClick={handleLogin}
               >
-                შესვლა
+                  {t('login')}
               </button>
             </li>
             <li className='mb-2'>
@@ -76,7 +78,7 @@ const Navigation = () => {
                 className='font-normal text-raisin-70 hover:text-raisin-100 transition-all text-sm lg:text-2sm hover:underline'
                 onClick={handleLogin}
               >
-                რეგისტრაცია
+                  {t('registration')}
               </button>
             </li>
           </>

@@ -6,6 +6,7 @@ import Image from 'src/views/components/image'
 import Link from 'next/link'
 import { TNET_AUTH } from 'src/env'
 import { useRouter } from 'next/router'
+import {useTranslation} from "next-i18next";
 
 const NavigationBar = () => {
   const [burger, toggleBurger] = useState(false)
@@ -13,6 +14,7 @@ const NavigationBar = () => {
 
   const router = useRouter()
   const { isLoading } = useProfile()
+  const {t} = useTranslation()
 
   return (
     <div className='lg:hidden bg-white py-4 fixed bottom-0 left-0 w-full z-[111] shadow-sm'>
@@ -108,7 +110,7 @@ const NavigationBar = () => {
                 <span className='w-6 h-6 relative flex items-center justify-center rounded-full overflow-hidden'>
                   <Icon svgPath='auth' width={25} height={24} />
                 </span>
-                  <span className='text-[10px] mt-1'>შესვლა</span>
+                  <span className='text-[10px] mt-1'>{t('login')}</span>
                 </div>
               </Link>
           }

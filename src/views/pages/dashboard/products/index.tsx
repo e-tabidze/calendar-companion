@@ -79,8 +79,7 @@ const Products = () => {
     <div>
       <div className='md:p-8 lg:p-10 md:border border-raisin-10 rounded-3xl mt-8 lg:mt-0'>
         <Typography type='h3' className='mb-6 mt-8 lg:mt-0'>
-          ავტომობილები
-          {t('easiest_way_to_your_new_home')}
+          {t('cars')}
         </Typography>
         <Divider />
         <div className='flex gap-3 py-8 overflow-x-auto'>

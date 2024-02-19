@@ -13,6 +13,7 @@ const Typography = dynamic(() => import('src/views/components/typography'), { ss
 const DeleteProductConfirmationModal = dynamic(() => import('../../products/deleteProductModal'), { ssr: false })
 
 import toast from 'react-hot-toast'
+import {useTranslation} from "next-i18next";
 
 interface Props {
   price: number
@@ -68,6 +69,7 @@ const VehicleListComponent: React.FC<Props> = ({
   }
 
   const toggleDeleteProductModal = () => setDeleteProductModal(!deleteProductModal)
+  const{t} = useTranslation()
 
   return (
     <>
@@ -103,7 +105,7 @@ const VehicleListComponent: React.FC<Props> = ({
                 </Typography>
                 <div className='flex items-center min-w-[254px] justify-between gap-10 mt-4 md:mt-10'>
                   <Typography type='h4' weight='medium' color='dark' className='text-2sm md:text-3md'>
-                    {price}₾<span className='text-[14px] pl-3 font-normal text-center'>დღე</span>
+                    {price}₾<span className='text-[14px] pl-3 font-normal text-center'>{t('day')}</span>
                   </Typography>
                   <Typography
                     type='subtitle'

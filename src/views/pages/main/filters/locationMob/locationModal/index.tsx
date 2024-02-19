@@ -5,6 +5,7 @@ import { Dialog, Transition, Combobox } from '@headlessui/react'
 import Icon from 'src/views/app/Icon'
 import { Controller } from 'react-hook-form'
 import useSearchLocations from 'src/views/pages/main/filters/locationDropdown/useSearchLocations'
+import {useTranslation} from "next-i18next";
 
 interface Props {
   open: boolean
@@ -14,6 +15,7 @@ interface Props {
 
 const LocationModal: React.FC<Props> = ({ open, toggleModal, control }) => {
   const { cities } = useSearchLocations()
+  const {t} = useTranslation()
 
   const modalRef = useRef<HTMLDivElement>(null)
 
@@ -66,7 +68,7 @@ const LocationModal: React.FC<Props> = ({ open, toggleModal, control }) => {
                 />
                 <div className='w-full flex justify-between items-center px-4 py-5 sm:py-6 sm:px-10 border-b-1 border-grey-90'>
                   <Dialog.Title as='h3' className='w-full flex items-center justify-between'>
-                    მდებარეობა
+                    {t('locations')}
                     <Icon svgPath='close' onClick={toggleModal} height={40} width={40} className='cursor-pointer' />
                   </Dialog.Title>
                 </div>
@@ -128,7 +130,7 @@ const LocationModal: React.FC<Props> = ({ open, toggleModal, control }) => {
                     className='w-full h-12 flex items-center justify-center rounded-2xl bg-orange-100 hover:bg-orange-110 transition-all text-white'
                     onClick={toggleModal}
                   >
-                    არჩევა
+                    {t('select')}
                   </button>
                 </div>
               </Dialog.Panel>

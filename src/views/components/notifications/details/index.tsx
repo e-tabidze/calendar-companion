@@ -4,6 +4,7 @@ import Typography from 'src/views/components/typography'
 import { parseISO, format } from 'date-fns'
 import { ka } from 'date-fns/locale'
 import { useRouter } from 'next/router'
+import {useTranslation} from "next-i18next";
 
 interface Props {
   id: string
@@ -13,6 +14,7 @@ interface Props {
 const Details: React.FC<Props> = ({ id, company }) => {
   const { notifictionDetails } = useNotifications(String(id), String(company))
   const router = useRouter()
+  const {t} = useTranslation()
 
   return (
     <div className='border mt-6 md:mt-0 border-raisin-10 rounded-2xl md:rounded-3xl p-6 md:py-10 md:px-8'>
@@ -21,7 +23,7 @@ const Details: React.FC<Props> = ({ id, company }) => {
           <Icon svgPath='chevron-left' width={20} height={20} className='fill-transparent' />
         </div>
         <Typography type='h3' className='font-bold md:font-normal text-sm md:text-2sm'>
-          შეტყობინებები
+          {t('messages')}
         </Typography>
       </div>
       <div className=''>

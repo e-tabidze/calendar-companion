@@ -1,5 +1,6 @@
 import ProductFeature from '../productFeature'
 import dynamic from 'next/dynamic'
+import {useTranslation} from "next-i18next";
 
 const Typography = dynamic(() => import('src/views/components/typography'), { ssr: false })
 
@@ -9,10 +10,12 @@ interface Props {
 }
 
 const Features: React.FC<Props> = ({ id, singleProductDetails }) => {
+    const {t} = useTranslation()
+
   return (
     <div className='mb-8' id={id}>
       <Typography type='h3' className='text-3md md:text-2lg'>
-        მახასიათებლები{' '}
+          {t('features')}
       </Typography>
       <div className='mt-8 mb-11 grid grid-cols-1 lg:grid-cols-2 gap-4'>
         <ProductFeature feature={`${singleProductDetails?.door_type?.title} კარი`} icon='feature' />

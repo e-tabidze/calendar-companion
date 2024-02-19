@@ -6,8 +6,10 @@ import { useEffect } from 'react'
 import Typography from 'src/views/components/typography'
 import DataPlaceHolder from 'src/views/components/dataPlaceholder'
 import Pagination from 'src/views/components/pagination'
+import {useTranslation} from "next-i18next";
 
 const Notifications = () => {
+  const {t} = useTranslation()
   const router = useRouter()
   const { id, company, page } = router.query
 
@@ -32,7 +34,7 @@ const Notifications = () => {
         <>
           <div className='md:p-8 lg:p-10 md:border border-raisin-10 rounded-3xl mt-8 lg:mt-0'>
             <Typography type='h3' className='mb-6'>
-              შეტყობინებები
+              {t('messages')}
             </Typography>
             <ul>
               {notifictions?.data?.length > 0 ? (
@@ -44,7 +46,7 @@ const Notifications = () => {
                   />
                 ))
               ) : (
-                <DataPlaceHolder label='შეტყობინებები ჯერ არ გაქვს' />
+                <DataPlaceHolder label={t('no_messages_yet')} />
               )}
             </ul>
           </div>

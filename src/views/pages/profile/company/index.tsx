@@ -14,6 +14,7 @@ import Image from 'src/views/components/image'
 import Icon from 'src/views/app/Icon'
 import toast from 'react-hot-toast'
 import Toast from 'src/views/components/toast'
+import {useTranslation} from "next-i18next";
 
 interface Props {
   id: number
@@ -88,6 +89,7 @@ const Company: React.FC<Props> = ({ id, name, productsCount, logo }) => {
   const deletCompanyAddress = () => {
     deleteAddressId ? deleteCompanyAddressMutation.mutate(deleteAddressId) : remove(index)
   }
+  const {t}= useTranslation()
 
   console.log(companyValues, 'companyValues edit')
 
@@ -113,7 +115,7 @@ const Company: React.FC<Props> = ({ id, name, productsCount, logo }) => {
                 {name}
               </Typography>
               <Link href='/' className='text-blue-80 text-2sm underline'>
-                სულ {productsCount}  განცხადება
+                სულ {productsCount} {t('ads')}
               </Link>
             </div>
           </div>
@@ -214,7 +216,7 @@ const Company: React.FC<Props> = ({ id, name, productsCount, logo }) => {
             <Icon svgPath='loader' width={20} height={20} />
           ) : (
             <DefaultButton
-              text='შენახვა'
+              text={t('save')}
               bg='bg-orange-100 hover:bg-orange-110 transition-all'
               textColor='text-white'
               type='submit'

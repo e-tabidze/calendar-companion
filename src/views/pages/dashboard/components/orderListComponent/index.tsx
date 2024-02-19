@@ -3,6 +3,7 @@ import { IconButton } from 'src/views/components/button'
 import { parseISO, format } from 'date-fns'
 import { ka } from 'date-fns/locale'
 import dynamic from 'next/dynamic'
+import {useTranslation} from "next-i18next";
 
 const Image = dynamic(() => import('src/views/components/image'), { ssr: true })
 const Icon = dynamic(() => import('src/views/app/Icon'), { ssr: false })
@@ -39,6 +40,7 @@ const OrderListComponent: React.FC<Props> = ({
   status
 }) => {
   const { width } = useWindowDimensions()
+  const {t} = useTranslation()
 
   return (
     <div className='last:border-none'>
@@ -85,7 +87,7 @@ const OrderListComponent: React.FC<Props> = ({
               ფასდაკლება {discount} %
             </Typography> */}
             <Typography type='subtitle' className='hidden lg:inline-flex text-sm xl:text-2sm'>
-              {days} დღე
+              {days} {t('day')}
             </Typography>
             <Typography type='subtitle' className='flex items-center gap-2'>
               {price} <Icon svgPath='gel' width={14} height={14} />

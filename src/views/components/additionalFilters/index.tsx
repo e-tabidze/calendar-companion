@@ -25,6 +25,7 @@ import Icon from 'src/views/app/Icon'
 import { generateYearsArray } from 'src/utils/years'
 import SelectField from '../selectField'
 import { useRouter } from 'next/router'
+import {useTranslation} from "next-i18next";
 
 interface Props {
   open: boolean
@@ -80,6 +81,7 @@ const AdditionalFilters: React.FC<Props> = ({
     manufacturerFilters,
     steeringWheel
   } = useFilters(open)
+  const {t} = useTranslation()
 
   const { objectToURI } = useSearch()
 
@@ -136,7 +138,7 @@ const AdditionalFilters: React.FC<Props> = ({
               <Dialog.Panel className='relative transform overflow-hidden rounded-tl-3xl rounded-tr-3xl md:rounded-bl-3xl md:rounded-br-3xl bg-white text-left shadow-xl transition-all w-full md:my-4 md:max-w-3xl'>
                 <div className='w-full flex justify-between items-center px-4 py-5 sm:py-6 sm:px-10 border-b-1 border-grey-90'>
                   <Dialog.Title as='h3' className='text-2md text-base-100 leading-6'>
-                    დამატებითი ფილტრები
+                    {t('additional_filters_modal_heading')}
                   </Dialog.Title>
                   <button
                     className='relative flex w-10 h-10 items-center justify-center rounded-full before:content-[""] before:absolute before:top-0 before:left-0 before:w-full before:h-full before:rounded-full before:bg-[#D8D8D8]/40 hover:before:scale-110 before:transition before:duration-300 before:ease-in-out cursor-pointer'
@@ -150,14 +152,14 @@ const AdditionalFilters: React.FC<Props> = ({
                 </div>
                 <div className='overflow-auto h-[60vh] px-4 py-5 sm:py-6 sm:px-10 w-max-full'>
                   <Typography type='body' color='dark'>
-                    მოძებნე ავტომობილი დღიური ფასის მიხედვით
+                    {t('additional_filters_title')}
                   </Typography>
                   <div className='w-full flex items-center mb-10 md:mb-16 mt-8'>
                     <DefaultInput
                       name='price_min'
                       control={control}
-                      label={'დღიური მინიმალური ფასი'}
-                      labelMobile={'მინ. ფასი დღიურად'}
+                      label={t('daily_min_price')}
+                      labelMobile={t('min_daily_price')}
                       errors={''}
                       className='w-full'
                       type='number'
@@ -167,8 +169,8 @@ const AdditionalFilters: React.FC<Props> = ({
                     <DefaultInput
                       name='price_max'
                       control={control}
-                      label={'დღიური მაქსიმალური ფასი'}
-                      labelMobile={'მაქს. ფასი დღიურად'}
+                      label={t('daily_max_price')}
+                      labelMobile={t('max_daily_price')}
                       errors={''}
                       className='w-full'
                       type='number'
@@ -176,10 +178,10 @@ const AdditionalFilters: React.FC<Props> = ({
                   </div>
                   <div className='my-8'>
                     <Typography type='h5' weight='normal' className='text-md md:text-3md'>
-                      ავტომობილის კატეგორია
+                      {t('vehicle_category')}
                     </Typography>
                     <Typography type='body' color='light'>
-                      შეგიძლია მონიშნო ერთი ან რამდენიმე კატეგორია
+                      {t('select_one_or_more_category')}
                     </Typography>
                     <>
                       {width > 779 ? (
@@ -208,7 +210,7 @@ const AdditionalFilters: React.FC<Props> = ({
                   </div>
                   <div className='my-10 md:my-16'>
                     <Typography type='h5' weight='normal' className='text-md md:text-3md mb-2'>
-                      ავტომობილის პარამეტრები
+                      {t('vehicle_parameters')}
                     </Typography>
                     <div className='flex flex-col md:flex-row md:gap-4'>
                       <SelectField
@@ -263,7 +265,7 @@ const AdditionalFilters: React.FC<Props> = ({
                     </div>
                   </div>
                   <Typography type='h5' weight='normal' className='text-md md:text-3md'>
-                    საწვავის ტიპი
+                    {t('fuel_type')}
                   </Typography>
                   <div className='flex flex-wrap gap-3 my-6'>
                     <Tag
@@ -277,7 +279,7 @@ const AdditionalFilters: React.FC<Props> = ({
                   </div>
                   <div className='my-10 md:my-16'>
                     <Typography type='h5' weight='normal' className='text-md md:text-3md'>
-                      ადგილების რაოდენობა
+                      {t('seat_type')}
                     </Typography>
                     <div className='flex flex-wrap gap-2 my-3 md:gap-4 md:my-6'>
                       <Tag
@@ -291,7 +293,7 @@ const AdditionalFilters: React.FC<Props> = ({
                   </div>
                   <div className='my-10 md:my-16'>
                     <Typography type='h5' weight='normal' className='text-md md:text-3md'>
-                      ჩემოდნების რაოდენობა
+                      {t('luggage_type')}
                     </Typography>
                     <div className='flex flex-wrap gap-2 my-3 md:gap-4 md:my-6'>
                       <Tag
@@ -309,7 +311,7 @@ const AdditionalFilters: React.FC<Props> = ({
 
                   <SectionWrapper>
                     <Typography type='h5' weight='normal' className='mb-2 md:mb-0'>
-                      საჭე
+                      {t('steering_wheel')}
                     </Typography>
                     <ListWrapper>
                       <Tag
@@ -325,7 +327,7 @@ const AdditionalFilters: React.FC<Props> = ({
 
                   <SectionWrapper>
                     <Typography type='h5' weight='normal' className='mb-2 md:mb-0'>
-                      კარის რაოდენობა
+                      {t('door_types')}
                     </Typography>
                     <ListWrapper>
                       <Tag
@@ -343,7 +345,7 @@ const AdditionalFilters: React.FC<Props> = ({
 
                   <SectionWrapper>
                     <Typography type='h5' weight='normal' className='mb-2 md:mb-0'>
-                      წამყვანი საბურავები
+                      {t('drive_tyres')}
                     </Typography>
                     <ListWrapper>
                       <Tag
@@ -359,7 +361,7 @@ const AdditionalFilters: React.FC<Props> = ({
 
                   <SectionWrapper>
                     <Typography type='h5' weight='normal' className='mb-2 md:mb-0'>
-                      ტრანსმისია
+                      {t('transmission')}
                     </Typography>
                     <ListWrapper>
                       <Tag
@@ -374,10 +376,10 @@ const AdditionalFilters: React.FC<Props> = ({
                   <Divider />
 
                   <Typography type='h5' weight='normal' className='mt-4 md:mt-8'>
-                    დამატებითი პარამეტრები
+                    {t('additional_parameters')}
                   </Typography>
                   <Typography type='body' color='light' className='mt-2 mb-8'>
-                    შეგიძლია მონიშნო ერთი ან რამდენიმე პარამეტრი
+                    {t('select_one_or_more_parameter')}
                   </Typography>
                   <CheckboxField
                     name='additional_information'
@@ -390,7 +392,7 @@ const AdditionalFilters: React.FC<Props> = ({
                 </div>
                 <div className='w-full flex flex-row items-center justify-between py-4 px-4 md:px-10 border-t-1 border-grey-90 shadow-md'>
                   <IconTextButton
-                    label='გასუფთავება'
+                      label={t('clear')}
                     icon='rotate'
                     className='fill-transparent'
                     width={24}
@@ -400,7 +402,7 @@ const AdditionalFilters: React.FC<Props> = ({
                   />
                   <div className='flex items-center justify-between md:justify-start text-md gap-4'>
                     <IconTextButton
-                      label='არჩევა'
+                        label={t('select')}
                       bg='bg-orange-100 hover:bg-orange-110 transition-all'
                       className='text-white pl-[24px] pr-[32px]'
                       icon='search'

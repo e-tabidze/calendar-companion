@@ -20,6 +20,7 @@ import {
 } from './styles'
 import { isMobile } from 'react-device-detect'
 import { useEffect, useState } from 'react'
+import {useTranslation} from "next-i18next";
 
 interface Props {
   productId: number
@@ -86,6 +87,8 @@ const ProductCard: React.FC<Props> = ({
     setIsMobileDevice(isMobile)
   }, [])
 
+  const {t} = useTranslation()
+
 
   return (
     <ProductCardContainer onClick={handleCardClick}>
@@ -147,7 +150,7 @@ const ProductCard: React.FC<Props> = ({
           <PriceContainer>
             {priceGel} ₾{/*<PreviousPrice>47₾</PreviousPrice>*/}
             <Typography type='body' className='text-sm'>
-              დღე
+              {t('day')}
             </Typography>
           </PriceContainer>
           <DetailsWrapper className='flex-col sm:flex-row pl-4 sm:pl-0 border-l-1 border-raisin-10 sm:border-none'>

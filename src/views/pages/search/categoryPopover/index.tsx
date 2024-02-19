@@ -3,6 +3,7 @@ import useFilters from 'src/hooks/useFilters'
 import CheckboxField from 'src/views/components/checkboxField'
 import { DefaultButton, IconTextButton } from 'src/views/components/button'
 import { useWatch } from 'react-hook-form'
+import {useTranslation} from "next-i18next";
 
 interface Props {
   control: any
@@ -15,10 +16,11 @@ const CategoryPopover: React.FC<Props> = ({ control, appendCategory, handleSubmi
   const { categoriesFilter } = useFilters()
 
   const formState = useWatch({ control })
+  const {t} = useTranslation()
 
   return (
     <PopoverDropdown
-      label='კატეგორია'
+      label={t('category')}
       maxWidth='max-w-md'
       className={`${formState?.category?.length ? 'border border-raisin-100' : 'hover:border hover:border-raisin-30'}`}
     >
@@ -39,7 +41,7 @@ const CategoryPopover: React.FC<Props> = ({ control, appendCategory, handleSubmi
       <div className='flex items-center justify-between sticky bottom-0 bg-white p-5 shadow-buttonContainer'>
         <IconTextButton
           icon='clearFilter'
-          label='გასუფთავება'
+          label={t('clear')}
           className='fill-transparent'
           width={24}
           height={24}
@@ -50,7 +52,7 @@ const CategoryPopover: React.FC<Props> = ({ control, appendCategory, handleSubmi
           type='button'
         />
         <DefaultButton
-          text='შენახვა'
+          text={t('save')}
           bg='bg-orange-100 hover:bg-orange-110 transition-all'
           textColor='text-white'
           type='button'

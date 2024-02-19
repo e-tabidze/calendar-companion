@@ -2,6 +2,7 @@ import useProfile from 'src/hooks/useProfile'
 import { DefaultButton } from 'src/views/components/button'
 import { Divider } from '../insuranceCard/styles'
 import dynamic from 'next/dynamic'
+import {useTranslation} from "next-i18next";
 
 const Typography = dynamic(() => import('src/views/components/typography'), { ssr: false })
 const DrawerBottom = dynamic(() => import('src/views/components/drawer'), { ssr: false })
@@ -32,6 +33,7 @@ const Drawer: React.FC<Props> = ({
   endDate
 }) => {
   const { userInfo } = useProfile()
+  const {t} = useTranslation()
 
   return (
     <DrawerBottom isOpen={isOpenDrawer} setIsOpen={setIsOpenDrawer} className={className}>
@@ -40,7 +42,7 @@ const Drawer: React.FC<Props> = ({
           {price}₾
         </Typography>
         <Typography type='h5' weight='normal'>
-          / დღე
+          / {t('day')}
         </Typography>
       </div>
 
@@ -54,12 +56,12 @@ const Drawer: React.FC<Props> = ({
           </Typography>
         </div>
         <button className='border border-raisin-100 rounded-xl p-1 text-sm' onClick={handleDateChange}>
-          შეცვლა
+          {t('change')}
         </button>
       </div>
       <Divider />
       <Typography type='h5' weight='medium' className='mt-8 mb-5 font-bold'>
-        ფასების დეტალები
+        {t('price_details')}
       </Typography>
 
       <div className='flex gap-2 justify-between'>
@@ -68,7 +70,7 @@ const Drawer: React.FC<Props> = ({
             მანქანის ქირაობის საკომისიო
           </Typography>
           <Typography type='body' color='light'>
-            | {days} დღე
+            | {days} {t('day')}
           </Typography>
         </div>
         <Typography type='h5' weight='normal'>
@@ -96,7 +98,7 @@ const Drawer: React.FC<Props> = ({
 
       <div className='flex justify-between py-1 pt-4 pb-7'>
         <Typography type='h5' weight='medium' className='font-bold'>
-          ჯამი
+          {t('sum')}
         </Typography>
         <Typography type='h5' weight='normal' className='text-orange-100'>
           {days && (
@@ -135,7 +137,7 @@ const Drawer: React.FC<Props> = ({
         </>
       ) : (
         <Typography type='subtitle' className='text-orange-100'>
-          ჯავშნის გასაგრძელებლად გთხოვთ შეხვიდეთ სისტემაში
+          {t('for_booking_login')}
         </Typography>
       )}
     </DrawerBottom>

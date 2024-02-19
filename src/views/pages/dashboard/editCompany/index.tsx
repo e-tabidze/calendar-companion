@@ -10,6 +10,7 @@ import dynamic from 'next/dynamic'
 import Toast from 'src/views/components/toast'
 
 import toast from 'react-hot-toast'
+import {useTranslation} from "next-i18next";
 
 const Image = dynamic(() => import('src/views/components/image'), { ssr: false })
 const Typography = dynamic(() => import('src/views/components/typography'), { ssr: true })
@@ -37,6 +38,7 @@ const EditCompany = () => {
   const { companyInfo } = useCompanyInfo(activeCompanyId)
 
   const { isLoading } = useCompanyInfo(activeCompanyId)
+  const {t} = useTranslation()
 
   const {
     control,
@@ -129,6 +131,7 @@ const EditCompany = () => {
   if (isLoading) {
     return <>Loading...</>
   }
+
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -269,7 +272,7 @@ const EditCompany = () => {
         <Divider />
         <div className='flex justify-between items-center pt-8'>
           <DefaultButton
-            text='შენახვა'
+            text={t('save')}
             bg='bg-orange-100 hover:bg-orange-110 transition-all'
             textColor='text-white'
             type='submit'

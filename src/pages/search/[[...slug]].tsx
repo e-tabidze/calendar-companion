@@ -179,7 +179,7 @@ const SearchPage = () => {
                 />
               </div>
               <Tag
-                label='ყველა ფილტრი'
+                label={t('filters_all')}
                 className={`${hasFilter ? 'border border-raisin-100' : ''} bg-grey-60`}
                 component={<Icon svgPath='filters' width={22} height={20} className='flex fill-transparent' />}
                 height='h-10'
@@ -192,7 +192,7 @@ const SearchPage = () => {
                 width={24}
                 height={24}
                 className='fill-transparent'
-                label='გასუფთავება'
+                label={t('clear')}
                 labelClassname='text-red-100'
                 iconFill='fill-red-100'
                 type='reset'
@@ -211,8 +211,7 @@ const SearchPage = () => {
               {/*}`}*/}
               <SearchResultsContainer>
                 <Typography type='body' className='text-md mr-2 mt-6 md:mt-0'>
-                  {t('easiest_way_to_your_new_home')}
-                  ნაპოვნია {totalProductsCount} განცხადება
+                  {t('founded')} {totalProductsCount}  {t('search_results')}
                 </Typography>
                 <div className='w-full md:w-auto flex items-center'>
                   {/*<span*/}

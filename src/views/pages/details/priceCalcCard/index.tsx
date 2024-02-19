@@ -8,6 +8,7 @@ import Typography from 'src/views/components/typography'
 import { registerLocale } from 'react-datepicker'
 
 import ka from 'date-fns/locale/ka'
+import {useTranslation} from "next-i18next";
 
 registerLocale('ka', ka)
 
@@ -51,6 +52,7 @@ const PriceCalcCard: React.FC<Props> = ({
   const { userInfo, activeCompanyId } = useProfile()
 
   const formState = useWatch({ control })
+  const {t} = useTranslation()
 
   return (
     <div className={`shadow-2xl w-full rounded-3xl pt-5 px-4 lg:px-6 pb-10 ${className}`}>
@@ -117,7 +119,7 @@ const PriceCalcCard: React.FC<Props> = ({
           {price} ₾
         </Typography>
         <Typography type='h5' weight='normal'>
-          / დღე
+          / {t('day')}
         </Typography>
       </div>
 
@@ -128,7 +130,7 @@ const PriceCalcCard: React.FC<Props> = ({
               {startDate} - {endDate}
             </Typography>
             <Typography type='body' color='light' className='text-2sm'>
-              | {days} დღე
+              | {days} {t('day')}
             </Typography>
           </div>
         ) : (
@@ -139,14 +141,14 @@ const PriceCalcCard: React.FC<Props> = ({
             className='border border-raisin-100 rounded-[8px] px-2 py-1 text-sm transition-all hover:bg-raisin-5'
             onClick={handleDateChange}
           >
-            {startDate && endDate ? 'შეცვლა' : 'აირჩიე თარიღები'}
+            {startDate && endDate ? t('change') : t('select_date')}
           </button>
         )}
       </div>
 
       <Divider />
       <Typography type='h5' weight='medium' className='mt-8 mb-5 font-bold'>
-        ფასების დეტალები
+        {t('price_details')}
       </Typography>
 
       {startDate && endDate ? (
@@ -154,10 +156,10 @@ const PriceCalcCard: React.FC<Props> = ({
           <div className='flex gap-2 flex-col justify-between py-2 lg:items-center lg:flex-row'>
             <div className='flex gap-2'>
               <Typography type='body' className='text-raisin-100'>
-                მანქანის ქირაობის საკომისიო
+                {t('rental_price_daily')}
               </Typography>
               <Typography type='body' color='light'>
-                | {days} დღე
+                | {days} {t('day')}
               </Typography>
             </div>
             <Typography type='h5' weight='normal'>
@@ -186,7 +188,7 @@ const PriceCalcCard: React.FC<Props> = ({
           <div className='flex gap-2 flex-col justify-between pb-7 lg:items-center lg:flex-row'>
             <div className='flex gap-2'>
               <Typography type='h5' className='text-raisin-100 font-bold'>
-                ჯამი
+                {t('sum')}
               </Typography>
             </div>
             {days && (
@@ -218,7 +220,7 @@ const PriceCalcCard: React.FC<Props> = ({
       {activeCompanyId === companyId || userInfo?.active_profile_id === userInfo?.UserID ? (
         <DefaultButton
           bg='bg-orange-100 hover:bg-orange-110 transition-all'
-          text='ჯავშნის დაწყება'
+          text={t('start_renting')}
           className='w-full'
           textColor='text-white'
           type='submit'

@@ -48,6 +48,7 @@ const Features = dynamic(() => import('src/views/pages/details/features'), { ssr
 import { format } from 'date-fns'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import PageMeta from 'src/@core/meta/PageMeta'
+import {useTranslation} from "next-i18next";
 
 registerLocale('ka', ka)
 
@@ -83,6 +84,7 @@ const ProductDetails = memo(() => {
   const { similarProducts } = useMain(singleProductDetails?.man_id, singleProductDetails?.model_id)
 
   const ref = useRef<any>()
+  const {t}= useTranslation()
 
   useEffect(() => {
     if (book_from && book_to) {
@@ -209,13 +211,13 @@ const ProductDetails = memo(() => {
           <ContentContainer className='overflow-x-auto no-scrollbar bg-white z-30'>
             <div className='flex w-max'>
               <SubNavItem section='details' activeSection={activeNavItem} handleClick={handleClick}>
-                ავტომობილის შესახებ
+                {t('about_the_vehicle')}
               </SubNavItem>
               <SubNavItem section='features' activeSection={activeNavItem} handleClick={handleClick}>
-                მახასიათებლები
+                {t('features')}
               </SubNavItem>
               <SubNavItem section='lessor' activeSection={activeNavItem} handleClick={handleClick}>
-                გამქირავებლის შესახებ
+                {t('about_the_lessor')}
               </SubNavItem>
             </div>
           </ContentContainer>
@@ -233,7 +235,7 @@ const ProductDetails = memo(() => {
                 </Typography>
                 <div className='flex md:items-center gap-3 md:gap-4 mb-12 mt-4 md:mt-0'>
                   <Typography type='body' color='light' className='whitespace-nowrap'>
-                    ან მსგავსი
+                    {t('or_similar')}
                   </Typography>
                   <Typography type='subtitle'>| </Typography>
                   <div className='flex shrink-0'>
@@ -261,7 +263,7 @@ const ProductDetails = memo(() => {
                   <Divider />
                   <div className='my-8'>
                     <Typography type='h3' className='text-3md md:text-2lg'>
-                      ფასი მოიცავს
+                      {t('price_includes')}
                     </Typography>
 
                     <>{console.log(singleProductDetails?.product_services, 'singleProductDetails?.product_services')}</>
@@ -284,7 +286,7 @@ const ProductDetails = memo(() => {
               <Divider />
               <div className='my-8' id='calendar' data-section>
                 <Typography type='h3' className='text-3md md:text-2lg'>
-                  პერიოდი
+                  {t('period')}
                 </Typography>
                 <div className='flex justify-between mb-16 mt-2'>
                   <div className='flex gap-2'>
@@ -293,7 +295,7 @@ const ProductDetails = memo(() => {
                         ? `${format(startDate, 'd MMM yyyy', { locale: ka })} - ${format(endDate, 'd MMM yyyy', {
                             locale: ka
                           })}`
-                        : 'თარიღი'}
+                        : t('date')}
                     </Typography>
                     {startDate && endDate && (
                       <Typography type='subtitle'>
@@ -301,7 +303,7 @@ const ProductDetails = memo(() => {
                         {startDate &&
                           endDate &&
                           Math.round((endDate.getTime() - startDate.getTime()) / (24 * 60 * 60 * 1000))}
-                        {'    '} დღე
+                        {'    '} {t('day')}
                       </Typography>
                     )}
                   </div>
@@ -316,7 +318,7 @@ const ProductDetails = memo(() => {
                         setDateRange([null, null])
                       }}
                     >
-                      გასუფთავება
+                      {t('clear')}
                     </Typography>
                   </div>
                 </div>
@@ -427,7 +429,7 @@ const ProductDetails = memo(() => {
           <div id='priceCard' data-section></div>
 
           <Typography type='h3' className='text-3md md:text-2lg block mb-6 md:hidden'>
-            გამქირავებელი
+            {t('lessor')}
           </Typography>
 
           <LessorInformationCard
@@ -447,7 +449,7 @@ const ProductDetails = memo(() => {
               <ContentContainer>
                 <>
                   <Typography type='h3' className='text-3md md:text-2lg mb-8'>
-                    მსგავსი შეთავაზებები
+                    {t('similar_offers')}
                   </Typography>
                   <Carousel
                     itemsArray={similarProducts?.map((product: any) => (

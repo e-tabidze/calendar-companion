@@ -10,6 +10,7 @@ import { formatDate } from 'src/utils/formatDate'
 import Icon from 'src/views/app/Icon'
 
 import { format } from 'date-fns'
+import {useTranslation} from "next-i18next";
 
 interface Props {
   control: any
@@ -21,6 +22,7 @@ registerLocale('ka', ka)
 const PeriodDropdown: React.FC<Props> = ({ control, resetField, setOpen }) => {
   const [dateRange, setDateRange] = useState<[Date, Date] | [null, null]>([null, null])
   const [startDate, endDate] = dateRange
+  const {t} = useTranslation()
 
   const buttonRef = useRef<HTMLButtonElement>(null)
 
@@ -50,7 +52,7 @@ const PeriodDropdown: React.FC<Props> = ({ control, resetField, setOpen }) => {
           >
             <FilterContainer>
               <Typography type='body' color='dark'>
-                დაქირავების პერიოდი
+                {t('rental_period')}s
               </Typography>
               <InnerFilterContainer>
                 <Typography
@@ -61,7 +63,7 @@ const PeriodDropdown: React.FC<Props> = ({ control, resetField, setOpen }) => {
                     ? `${format(startDate, 'd MMM', { locale: ka })} - ${format(endDate, 'd MMM', {
                         locale: ka
                       })}`
-                    : 'თარიღი'}
+                    : t('date')}
                 </Typography>
                 {startDate || endDate ? (
                   <span

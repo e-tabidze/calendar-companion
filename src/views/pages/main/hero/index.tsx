@@ -4,9 +4,11 @@ import { HeroContainer, Copy } from './styles'
 import Image from 'src/views/components/image'
 import { isMobile } from 'react-device-detect'
 import {useEffect, useState} from "react";
+import { useTranslation } from 'react-i18next'
 
 
 const Hero = () => {
+  const { t } = useTranslation()
   const [isMobileDevice, setIsMobileDevice] = useState(false)
   useEffect(() => {
     setIsMobileDevice(isMobile)
@@ -27,11 +29,10 @@ const Hero = () => {
             type='h1'
             className='mt-[120px] md:mt-0 text-white font-bold text-3md md:text-2xl lg:text-[42px] xl:text-[54px]'
           >
-            ავტომობილის დაქირავება მარტივად
+            {t('hero_main_heading')}
           </Typography>
           <Typography type='body' className='text-white text-md mt-3 hidden md:block'>
-            შეარჩიეთ სასურველი ავტომობილი ონლაინ და გაიმარტივეთ ქირაობის პროცესი. ისარგებლეთ დამატებითი სერვისებით და
-            შეიქმენით მაქსიმალური კომფორტი.
+            {t('hero_sub_heading')}
           </Typography>
         </div>
         <Filters />

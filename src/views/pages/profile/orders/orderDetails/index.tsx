@@ -20,8 +20,10 @@ import { parseISO, format } from 'date-fns'
 import { ka } from 'date-fns/locale'
 import Image from 'src/views/components/image'
 import { useRouter } from 'next/router'
+import {useTranslation} from "next-i18next";
 
 const OrderDetails = () => {
+  const {t} = useTranslation()
   const queryClient = useQueryClient()
 
   const [cancelOrderDialog, setCancelOrderDialog] = useState(false)
@@ -152,7 +154,7 @@ const OrderDetails = () => {
             <Divider />
             <PriceDetailsWrapper>
               <Typography type='subtitle' className='font-bold'>
-                ჯამი
+                {t('sum')}
               </Typography>
               <Typography type='subtitle' className='font-bold'>
                 {userOrderDetails?.price} ₾

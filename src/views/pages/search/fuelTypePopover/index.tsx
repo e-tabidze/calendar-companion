@@ -5,6 +5,7 @@ import { DefaultButton, IconTextButton } from 'src/views/components/button'
 import { ActionsWrapper, TagsWrapper } from './styles'
 import useFilters from 'src/hooks/useFilters'
 import { useWatch } from 'react-hook-form'
+import {useTranslation} from "next-i18next";
 
 interface Props {
   control: any
@@ -17,17 +18,18 @@ const FuelTypePopover: React.FC<Props> = ({ control, appendFuelType, handleSubmi
   const { fuelTypesFilter, isLoading } = useFilters()
 
   const formState = useWatch({ control })
+  const {t}=useTranslation()
 
   return (
     <PopoverDropdown
-      label='საწვავის ტიპი'
+      label= {t('fuel_type')}
       maxWidth='max-w-sm'
       className={` ${
         formState?.fuel_types?.length ? 'border border-raisin-100' : 'hover:border hover:border-raisin-30'
       }`}
     >
       <Typography type='body' color='light' className='px-5 pt-5'>
-        შეგიძლიათ მონიშნოთ ერთი ან რამდენიმე
+        {t('can_multi_choice')}
       </Typography>
       <TagsWrapper className=''>
         {isLoading ? (
@@ -46,7 +48,7 @@ const FuelTypePopover: React.FC<Props> = ({ control, appendFuelType, handleSubmi
       <ActionsWrapper className='sticky bottom-0 bg-white p-5'>
         <IconTextButton
           icon='clearFilter'
-          label='გასუფთავება'
+          label={t('clear')}
           className='fill-transparent'
           width={24}
           height={24}
@@ -57,7 +59,7 @@ const FuelTypePopover: React.FC<Props> = ({ control, appendFuelType, handleSubmi
           type='button'
         />
         <DefaultButton
-          text='შენახვა'
+          text={t('save')}
           bg='bg-orange-100 hover:bg-orange-110 transition-all'
           textColor='text-white'
           type='button'

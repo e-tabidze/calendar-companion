@@ -2,6 +2,7 @@ import tw from 'tailwind-styled-components'
 import { TailwindComponent } from 'src/interfaces/tailwind'
 import Typography from 'src/views/components/typography'
 import Image from 'src/views/components/image'
+import {useTranslation} from "next-i18next";
 
 const Container = tw.div<TailwindComponent>``
 
@@ -13,6 +14,9 @@ interface Props {
 }
 
 const CityCard: React.FC<Props> = ({ src, city, numberOfCars, onClick }) => {
+
+  const {t} = useTranslation()
+
   return (
     <div className='mb-8 lg:mb-0 cursor-pointer transition-all hover:opacity-80' onClick={onClick}>
       <Container>
@@ -31,7 +35,7 @@ const CityCard: React.FC<Props> = ({ src, city, numberOfCars, onClick }) => {
           {city}
         </Typography>
         <Typography type='body' color='light' className='text-sm text-black/50 text-center xl:text-left'>
-          {numberOfCars} ავტომობილი
+          {numberOfCars} {t('car')}
         </Typography>
       </Container>
     </div>
