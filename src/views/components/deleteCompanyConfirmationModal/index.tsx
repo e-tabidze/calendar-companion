@@ -1,6 +1,7 @@
 import { Fragment } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { DefaultButton, IconTextButton } from 'src/views/components/button'
+import {useTranslation} from "next-i18next";
 
 interface Props {
   open: boolean
@@ -10,6 +11,7 @@ interface Props {
 }
 
 const DeleteCompanyConfirmationModal: React.FC<Props> = ({ open, toggleModal, companyId, deleteCompany }) => {
+  const {t} = useTranslation()
 
   return (
     <Transition.Root show={open} as={Fragment}>
@@ -40,13 +42,13 @@ const DeleteCompanyConfirmationModal: React.FC<Props> = ({ open, toggleModal, co
               <Dialog.Panel className='relative transform overflow-hidden rounded-3xl bg-white text-left shadow-xl transition-all w-full md:my-4 md:max-w-3xl'>
                 <div className='w-full mx-5 my-3 flex justify-between items-center sm:py-6 sm:px-1'>
                   <Dialog.Title as='h3' className='text-2md text-base-100 leading-6'>
-                    ნამდვილად გსურთ კომპანიის წაშლა?
+                    {t('sure_remove_company')}
                   </Dialog.Title>
                 </div>
 
                 <div className='w-full flex flex-col md:flex-row md:items-center justify-between py-4 px-4 md:px-10 border-t-1 border-grey-90'>
                   <DefaultButton
-                    text='უარყოფა'
+                    text={t('decline')}
                     className='border-none'
                     type='submit'
                     onClick={() => {
@@ -54,7 +56,7 @@ const DeleteCompanyConfirmationModal: React.FC<Props> = ({ open, toggleModal, co
                     }}
                   />
                   <IconTextButton
-                    label='წაშლა'
+                    label={t('remove')}
                     className='text-red-120'
                     icon='clear'
                     width={24}

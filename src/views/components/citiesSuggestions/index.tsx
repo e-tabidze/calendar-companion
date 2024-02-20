@@ -6,6 +6,7 @@ import { Combobox, Transition } from '@headlessui/react'
 import Icon from 'src/views/app/Icon'
 import useCompanyInfo from 'src/hooks/useCompanyInfo'
 import _ from 'lodash'
+import {useTranslation} from "next-i18next";
 
 interface Props {
   index: number
@@ -17,6 +18,7 @@ interface Props {
 
 const CitiesSuggestions: React.FC<Props> = ({ index, control, name, border, errors }) => {
   const { getCitiesSuggestions } = useCompanyInfo()
+  const {t} = useTranslation()
 
   const formState = useWatch({ control })
 
@@ -41,7 +43,7 @@ const CitiesSuggestions: React.FC<Props> = ({ index, control, name, border, erro
               <div className='relative'>
                 <div className='relative w-full cursor-default overflow-hidden rounded-lg'>
                   <Combobox.Input
-                    placeholder='ქალაქი (მინიმუმ 3 სიმბოლო)'
+                    placeholder={t('city_symbols')}
                     className={`${
                       border ? 'border border-raisin-10' : ''
                     } h-12 lg:h-14 w-full rounded-xl px-3 text-2sm text-raisin-100  ${

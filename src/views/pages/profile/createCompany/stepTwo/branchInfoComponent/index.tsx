@@ -8,6 +8,7 @@ import SwitchField from 'src/views/components/switchField'
 import TimeRangeComponent from './timeRangeComponent'
 import CitiesSuggestions from 'src/views/components/citiesSuggestions'
 import { IconTextButton } from 'src/views/components/button'
+import {useTranslation} from "next-i18next";
 
 interface Props {
   index: number
@@ -21,6 +22,7 @@ interface Props {
 
 const BranchInfoComponent: React.FC<Props> = ({ index, control, errors, setValue, removeAddress }) => {
   const formState = useWatch({ control })
+  const {t} = useTranslation()
 
   useEffect(() => {
     if (formState.addresses[index].is_same_time) {
@@ -83,20 +85,20 @@ const BranchInfoComponent: React.FC<Props> = ({ index, control, errors, setValue
             />
 
             <DefaultInput
-              label='მისამართი'
+              label={t('address')}
               name={`addresses.${index}.address`}
               control={control}
               errors={errors}
               disabled={formState.addresses[index].city.length < 3}
             />
 
-            <DefaultInput label='ტელეფონი' name={`addresses.${index}.phone`} control={control} errors={errors} />
+            <DefaultInput label={t('phone')} name={`addresses.${index}.phone`} control={control} errors={errors} />
           </div>
         </div>
 
         <SwitchField
           name={`addresses.${index}.is_same_time`}
-          label='ერთნაირი დროის მონიშვნა'
+          label={t('same_time')}
           control={control}
           reversed
         />
@@ -146,7 +148,7 @@ const BranchInfoComponent: React.FC<Props> = ({ index, control, errors, setValue
 
       {index > 0 && (
         <IconTextButton
-          label='წაშლა'
+          label={t('remove')}
           icon='clear'
           width={20}
           height={20}

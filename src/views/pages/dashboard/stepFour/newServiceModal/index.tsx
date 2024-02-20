@@ -7,6 +7,7 @@ import useNewService from './useNewService'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { NewService } from 'src/types/Product'
 import dynamic from 'next/dynamic'
+import {useTranslation} from "next-i18next";
 
 const Divider = dynamic(() => import('src/views/components/divider'), { ssr: false })
 
@@ -17,6 +18,7 @@ interface Props {
 
 const NewServiceModal: React.FC<Props> = ({ open, onClose }) => {
   const { control, handleSubmit, createNewService, serviceValues, errors } = useNewService()
+  const {t} = useTranslation()
 
   const options = [
     {
@@ -80,27 +82,27 @@ const NewServiceModal: React.FC<Props> = ({ open, onClose }) => {
               <Dialog.Panel className='w-full max-w-[800px] transform overflow-hidden rounded-2xl bg-white text-left align-middle shadow-xl transition-all'>
                 <form onSubmit={handleSubmit(onSubmit)}>
                   <Dialog.Title as='h3' className='w-full flex items-center justify-between px-10 py-6'>
-                    ახალი სერვისის დამატება
+                    {t('add_new_service')}
                     <IconButton icon='close' onClick={onClose} width={40} height={40} className='cursor-pointer' />
                   </Dialog.Title>
                   <Divider />
                   <div className='p-6 mb-40 flex flex-col gap-4'>
-                    <DefaultInput label='სერვისის დასახელება' control={control} name='title' errors={errors} />
-                    <DefaultInput label='აღწერა' control={control} name='description' rows={4} errors={errors} />
+                    <DefaultInput label={t('service_name')} control={control} name='title' errors={errors} />
+                    <DefaultInput label={t('description')} control={control} name='description' rows={4} errors={errors} />
                     <SelectField
                       options={options}
                       control={control}
                       name='type_id'
                       errors={errors}
                       valueKey='value'
-                      placeholder='აირჩიეთ სერვისის ტიპი*'
+                      placeholder={t('select_service_type')}
                       labelKey='label'
                     />
                   </div>
                   <div className='flex justify-end absolute bottom-0 w-full shadow-md'>
                     <DefaultButton
                       type='submit'
-                      text='დამატება'
+                      text={t('add')}
                       bg='bg-green-100'
                       className='my-4 mr-10'
                       textColor='text-white'

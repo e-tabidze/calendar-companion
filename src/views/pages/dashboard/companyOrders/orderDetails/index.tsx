@@ -101,7 +101,7 @@ const OrderDetails = () => {
               {companyOrder?.first_name} {companyOrder?.last_name}
             </Typography>
             <Typography type='h5' className='text-2sm lg:text-md'>
-              {t('identification_number')} {companyOrder?.identification_number}
+              {t('id_number')} {companyOrder?.identification_number}
             </Typography>
             <div className='flex flex-col sm:flex-row w-full justify-between my-6'>
               <ul className=''>
@@ -257,11 +257,11 @@ const OrderDetails = () => {
                 {cancelOrderStatusMutation.isLoading || activeOrderStatusMutation.isLoading
                   ? 'Loading...'
                   : companyOrder?.status_id === 0
-                  ? 'მოლოდინში'
+                  ? t('pending')
                   : companyOrder?.status_id === 1
-                  ? 'დადასტურებული'
+                  ? t('approved')
                   : companyOrder?.status_id === 2
-                  ? 'გაუქმებული'
+                  ? t('canceled')
                   : ''}
               </Typography>
             </div>
@@ -273,7 +273,7 @@ const OrderDetails = () => {
                   text={t('approve')}
                   onClick={() => activeOrderStatusMutation.mutate()}
                 />
-                <DefaultButton bg='bg-raisin-10' text={t('cancel')} onClick={toggleCancelOrderDialog} />
+                <DefaultButton bg='bg-raisin-10' text={t('decline')} onClick={toggleCancelOrderDialog} />
               </div>
             )}
           </div>

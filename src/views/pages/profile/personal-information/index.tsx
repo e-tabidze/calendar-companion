@@ -113,7 +113,7 @@ const PersonalInfo: React.FC<Props> = ({ userData }) => {
     >
       <div>
         <Typography type='h3' className='mb-6'>
-          პარამეტრები
+          {t('parameters')}
         </Typography>
         <div className='border border-raisin-10 p-4 md:border-none md:p-0 rounded-2xl flex items-center gap-6 md:mt-8 '>
           <div className='w-12 h-12 md:w-24 md:h-24 rounded-full overflow-hidden'>
@@ -139,7 +139,7 @@ const PersonalInfo: React.FC<Props> = ({ userData }) => {
               control={userInfoControl}
               render={({ field: { value, onChange } }) => (
                 <label className='text-blue-130 text-2sm underline cursor-pointer'>
-                  სურათის შეცვლა
+                  {t('change_photo')}
                   <input
                     value={value}
                     className='sr-only'
@@ -189,7 +189,7 @@ const PersonalInfo: React.FC<Props> = ({ userData }) => {
           textColor='text-white'
           bg='bg-orange-100 hover:bg-orange-110 transition-all'
         ></DefaultButton>
-        <DefaultButton text='უარყოფა' bg='bg-grey-100 hover:bg-raisin-10 transition-all' type='reset'></DefaultButton>
+        <DefaultButton text={t('decline')} bg='bg-grey-100 hover:bg-raisin-10 transition-all' type='reset'></DefaultButton>
       </div>
     </form>
   )

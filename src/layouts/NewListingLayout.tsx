@@ -10,6 +10,7 @@ import Image from '../views/components/image'
 import useProfile from 'src/hooks/useProfile'
 import { useEffect } from 'react'
 import Icon from 'src/views/app/Icon'
+import {useTranslation} from "next-i18next";
 
 interface Props {
   children: any
@@ -47,6 +48,7 @@ const NewListingLayout: React.FC<Props> = ({
   )
 
   const { isAuthenticated, activeCompany, isLoading } = useProfile()
+  const {t} = useTranslation()
 
   useEffect(() => {
     if (!isLoading) {
@@ -92,11 +94,11 @@ const NewListingLayout: React.FC<Props> = ({
           className='max-w-[850px] m-auto flex justify-between px-4 lg:w-10/12 lg:px-0 2xl:px-0'
           style={{ maxWidth: '850px' }}
         >
-          {selectedOption.step !== 1 ? <DefaultButton text='უკან' className='' onClick={onPrevStep}></DefaultButton> : <div></div>}
+          {selectedOption.step !== 1 ? <DefaultButton text={t('back')} className='' onClick={onPrevStep}></DefaultButton> : <div></div>}
           <DefaultButton
             bg='bg-green-100 hover:bg-green-90 transition-all'
             type={selectedOption.step === options.length ? 'submit' : 'button'}
-            text={selectedOption.step === options.length ? submitLabel : 'შემდეგი'}
+            text={selectedOption.step === options.length ? submitLabel : t('next')}
             textColor='text-white'
             onClick={selectedOption.step === options.length ? onSubmit : onNextStep}
             disabled={selectedOption.step === options.length && disabled}

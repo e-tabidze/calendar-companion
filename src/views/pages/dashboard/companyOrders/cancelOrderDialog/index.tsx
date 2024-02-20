@@ -55,7 +55,7 @@ const CancelOrderDialog: React.FC<Props> = ({ open, toggleModal, handleCancelOrd
                     }}
                   />
                   <IconTextButton
-                    label={t('cancel')}
+                    label={t('decline')}
                     className='text-red-120'
                     icon='clear'
                     width={24}

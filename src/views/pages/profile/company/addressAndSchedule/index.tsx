@@ -63,14 +63,14 @@ const {t} = useTranslation()
           <CitiesSuggestions index={index} control={control} name={`addresses.${index}.city`} border errors={errors} />
 
           <DefaultInput
-            label='მისამართი'
+            label={t('address')}
             name={`addresses.${index}.address`}
             control={control}
             errors={errors}
             disabled={`addresses.${index}.city`.length === 0}
           />
 
-          <DefaultInput label='ტელეფონი' name={`addresses.${index}.phone`} control={control} errors={errors} />
+          <DefaultInput label={t('phone')} name={`addresses.${index}.phone`} control={control} errors={errors} />
         </div>
 
         <div

@@ -44,14 +44,14 @@ const SuccessfulPayment = () => {
             <div className='flex items-center mb-4 md:mb-0'>
               <Icon svgPath='success' height={40} width={40} className='fill-transparent mr-4 flex shrink-0' />
               <Typography type='h3' className='text-white text-md md:text-2lg'>
-                წარმატებული ტრანზაქცია
+                {t('transaction_success')}
               </Typography>
             </div>
           </div>
           <div className='w-full lg:w-8/12 xl:w-7/12 md:pl-10 lg:pl-0 flex flex-col md:flex-row  gap-4 md:gap-24'>
             <RentalDetailsWrapper>
               <Typography type='body' color='light' className='text-white/50'>
-                შეკვეთის თარიღი
+                {t('order_date')}
               </Typography>
               {userOrderDetails?.created_at && (
                 <Typography type='subtitle' className='text-white'>
@@ -61,7 +61,7 @@ const SuccessfulPayment = () => {
             </RentalDetailsWrapper>
             <RentalDetailsWrapper>
               <Typography type='body' color='light' className='text-white/50'>
-                შეკვეთის ნომერი
+                {t('order_number')}
               </Typography>
               <Typography type='subtitle' className='text-white'>
                 #{userOrderDetails?.id}
@@ -69,7 +69,7 @@ const SuccessfulPayment = () => {
             </RentalDetailsWrapper>
             <RentalDetailsWrapper>
               <Typography type='body' color='light' className='text-white/50'>
-                განმცხადებელი
+                {t('publisher')}
               </Typography>
               <Typography type='subtitle' className='text-white'>
                 {productData?.company?.information?.name}
@@ -92,7 +92,7 @@ const SuccessfulPayment = () => {
               {productData?.manufacturer?.title} {productData?.manufacturer_model?.title} {productData?.prod_year}
             </Typography>
             <Typography type='subtitle' className='font-bold text-[#3EB75E] text-[24px]'>
-              აქტიური
+              {t('active')}
             </Typography>
           </div>
         </div>
@@ -105,7 +105,7 @@ const SuccessfulPayment = () => {
                     <Icon svgPath='booking-start' height={24} width={24} className='fill-transparent' />
                   </div>
                   <Typography type='body' color='light'>
-                    წაყვანა
+                    {t('take_away')}
                   </Typography>
                 </TakeAway>
               </TakeAwayWrapper>
@@ -127,7 +127,7 @@ const SuccessfulPayment = () => {
                     <Icon svgPath='booking-stop' height={24} width={24} className='fill-transparent' />
                   </div>
                   <Typography type='body' color='light'>
-                    დაბრუნება
+                    {t('return')}
                   </Typography>
                 </TakeAway>
               </TakeAwayWrapper>
@@ -167,7 +167,7 @@ const SuccessfulPayment = () => {
             ))}
 
             <PriceDetailsWrapper>
-              <Typography type='subtitle'>მომსახურების საკომისიო  {userOrderDetails?.fee} %</Typography>
+              <Typography type='subtitle'>{t('service_commission')}  {userOrderDetails?.fee} %</Typography>
               <Typography type='subtitle'>
                 {((productData?.price * userOrderDetails?.days) / 100) * userOrderDetails?.fee}{' '}
               </Typography>
@@ -183,7 +183,7 @@ const SuccessfulPayment = () => {
               </Typography>
             </PriceDetailsWrapper>
             <DefaultButton
-              text='ნახე შეკვეთები'
+              text={t('view_bookings')}
               onClick={() => router.push('/profile/orders')}
               textColor='text-white'
               icon

@@ -39,6 +39,7 @@ const VehicleListComponent: React.FC<Props> = ({
   images
 }) => {
   const [deleteProductModal, setDeleteProductModal] = useState(false)
+  const{t} = useTranslation()
 
   const { deleteProduct, activeProducts } = useProducts(filter)
 
@@ -69,7 +70,6 @@ const VehicleListComponent: React.FC<Props> = ({
   }
 
   const toggleDeleteProductModal = () => setDeleteProductModal(!deleteProductModal)
-  const{t} = useTranslation()
 
   return (
     <>
@@ -113,7 +113,7 @@ const VehicleListComponent: React.FC<Props> = ({
                       active ? 'text-white bg-green-100' : 'text-raisin-100 bg-grey-100'
                     }`}
                   >
-                    {active ? 'აქტიური' : 'გამორთული'}
+                    {active ? t('active') : t('paused')}
                   </Typography>
                 </div>
               </Link>
@@ -122,17 +122,17 @@ const VehicleListComponent: React.FC<Props> = ({
           <div className='hidden lg:flex gap-4'>
             <Action
               bg={active ? 'bg-raisin-10' : 'bg-green-10'}
-              label={active ? 'გამორთვა' : 'ჩართვა'}
+              label={active ? t('stop'): t('play')}
               icon={active ? 'stop' : 'play'}
               onClick={toggleActivateProduct}
               disabled={activeProductMutation?.isLoading}
             />
             <Link href={`/dashboard/edit-product?id=${id}`} as={`/dashboard/edit-product?id=${id}`}>
-              <Action bg='bg-raisin-10' label='რედაქტირება' icon='edit' />
+              <Action bg='bg-raisin-10' label={t('edit')} icon='edit' />
             </Link>
             <Action
               bg='bg-raisin-10'
-              label='წაშლა'
+              label={t('remove')}
               icon='trash'
               onClick={toggleDeleteProductModal}
               disabled={deleteProductMutation.isLoading}

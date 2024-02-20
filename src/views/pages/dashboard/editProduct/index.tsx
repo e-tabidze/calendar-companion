@@ -8,6 +8,7 @@ import useEditProduct from './useEditProduct'
 import useNewProduct from '../newProduct/useNewProduct'
 import toast from 'react-hot-toast'
 import Toast from 'src/views/components/toast'
+import {useTranslation} from "next-i18next";
 
 const StepOne = dynamic(() => import('../stepOne'), { ssr: false })
 const StepTwo = dynamic(() => import('../stepTwo'), { ssr: false })
@@ -30,6 +31,7 @@ const options = [
 ]
 
 const EditProduct: React.FC = ({}) => {
+  const {t} = useTranslation()
   const [step, setStep] = useState(options[0])
 
   const router = useRouter()
@@ -224,7 +226,7 @@ const EditProduct: React.FC = ({}) => {
       onPrevStep={handleGoPrevStep}
       onClose={handleClose}
       onSubmit={handleSubmit(onSubmit)}
-      submitLabel='დამატება'
+      submitLabel={t('add')}
       disabled={editProductMutation.isLoading}
     >
       <form>{renderStepComponent()}</form>

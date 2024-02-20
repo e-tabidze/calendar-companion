@@ -205,7 +205,7 @@ const Booking = () => {
         <LargeContainer className='flex justify-center md:justify-start items-center pt-5 flex-row-reverse md:flex-row relative'>
           <Image src='/images/logo-rent.svg' alt='logo' className='cursor-pointer' onClick={onClickLogo} />
           <IconTextButton
-            label='უკან'
+            label={t('back')}
             icon='back'
             width={18}
             height={18}
@@ -239,30 +239,29 @@ const Booking = () => {
                   {t('day')}
                 </Typography>
               </div>
-              <DefaultButton text='შეცვლა' type='button' onClick={toggleChangeDatesDialog} />
+              <DefaultButton text={t('change')} type='button' onClick={toggleChangeDatesDialog} />
             </div>
             <Divider />
             <Typography type='h3' className='mt-11'>
-              პირადი ინფორმაცია *
+              {t('personal_info')} *
             </Typography>
             <div className='grid gap-3 my-6 grid-cols-1 lg:grid-cols-2 lg:gap-4'>
-              <DefaultInput control={control} name='first_name' errors={errors} label='სახელი' />
-              <DefaultInput control={control} name='last_name' errors={errors} label='გვარი' />
-              <DefaultInput control={control} name='identification_number' errors={errors} label='პირადი ნომერი' />
-              <DefaultInput control={control} name='phone' errors={errors} label='მობილურის ნომერი' />
-              <DefaultInput control={control} name='email' errors={errors} label='ელ.ფოსტა' />
+              <DefaultInput control={control} name='first_name' errors={errors} label={t('first_name')} />
+              <DefaultInput control={control} name='last_name' errors={errors} label={t('last_name')} />
+              <DefaultInput control={control} name='identification_number' errors={errors} label={t('personal_id')} />
+              <DefaultInput control={control} name='phone' errors={errors} label={t('mobile_number')} />
+              <DefaultInput control={control} name='email' errors={errors} label={t('e_mail')} />
 
-              <DateDropdown label='აირჩიე დაბადების თარიღი' name='dob' control={control} errors={errors} />
+              <DateDropdown label={t('dob')} name='dob' control={control} errors={errors} />
               <DateDropdown
-                label='მართვის მოწმობის მოქმედების ვადა'
+                label={t('driver_licence_exp_date')}
                 name='driver_license_expiration'
                 control={control}
                 errors={errors}
               />
             </div>
             <Typography type='body' color='light' className='mb-14'>
-              გთხოვთ გადაამოწმოთ მითითებული პარამეტრები და შემდეგ დაასრულოთ დაჯავშნის პროცესი, ეს პარამეტრები
-              მნიშვნელოვანია შემდგომში თქვენსა და გამქირავებელს შორის კომუნიკაციისთვის
+              {t('booking_notice')}
             </Typography>
             <Divider />
             <Typography type='h3' className='text-3md md:text-2lg my-6 md:my-10'>
@@ -278,7 +277,7 @@ const Booking = () => {
                   onClick={() => toggleAdditionalServices(!additionalServices)}
                 >
                   <Typography type='h3' className='text-3md md:text-2lg'>
-                    დამატებითი სერვისები
+                    {t('additional_services')}
                   </Typography>
                   <Icon
                     svgPath='chevron-md'

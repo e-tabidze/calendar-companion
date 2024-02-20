@@ -5,6 +5,7 @@ import FileUpload from 'src/views/components/fileUpload'
 import { DefaultInput } from 'src/views/components/input'
 import useCreateCompany from '../useCreateCompany'
 import _ from 'lodash'
+import {useTranslation} from "next-i18next";
 
 interface Props {
   control: any
@@ -37,32 +38,33 @@ const StepOne: React.FC<Props> = ({ control, errors, clearErrors, setValue }) =>
   }, [uploadCompanyLogoMutation.data?.Data?.FilesList[0]])
 
   const handleRemoveFile = () => setValue('company_information.logo', '')
+    const{t}=useTranslation()
 
   return (
     <div>
       <div className='grid grid-cols-1 pb-6 md:grid-cols-2 gap-4'>
         <DefaultInput
-          label='საიდენტიფიკაციო კოდი'
+          label={t('identification_number')}
           control={control}
           name='identification_number'
           errors={errors}
           clearErrors={clearErrors}
         />
         <DefaultInput
-          label='იურიდიული დასახელება'
+          label={t('legal_name')}
           control={control}
           name='company_information.legal_name'
           errors={errors}
         />
         <DefaultInput
-          label='კომპანიის დასახელება'
+          label={t('company_name')}
           control={control}
           className='md:col-span-2'
           name='company_information.name'
           errors={errors}
         />
         <DefaultInput
-          label='აღწერა'
+          label={t('description')}
           control={control}
           className='md:col-span-2'
           name='company_information.description'
@@ -77,8 +79,8 @@ const StepOne: React.FC<Props> = ({ control, errors, clearErrors, setValue }) =>
         render={({ field: { value, onChange } }) => (
           <>
             <FileUpload
-              title='კომპანიის ლოგო'
-              description='(მაქს. ზომა 10 მბ, JPG, PNG, SVG)'
+              title={t('company_logo')}
+              description={t('max_image_size')}
               handleDelete={handleRemoveFile}
               value={value}
               onChange={(e: any) => {

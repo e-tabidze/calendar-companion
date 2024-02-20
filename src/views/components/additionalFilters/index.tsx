@@ -218,7 +218,7 @@ const AdditionalFilters: React.FC<Props> = ({
                         isMulti
                         control={control}
                         options={manufacturerFilters}
-                        placeholder='მწარმოებელი'
+                        placeholder={t('manufacturer')}
                         className='w-full my-1 md:my-2 md:w-1/2 option-field-size'
                         valueKey='id'
                         labelKey='title'
@@ -232,7 +232,7 @@ const AdditionalFilters: React.FC<Props> = ({
                         isMulti
                         control={control}
                         options={manufacturerModelFilters?.result?.data}
-                        placeholder='მოდელი'
+                        placeholder={t('model')}
                         disabled={formState.manufacturer_id?.length === 0}
                         className='w-full my-1 md:my-2 md:w-1/2'
                         valueKey='id'
@@ -244,7 +244,7 @@ const AdditionalFilters: React.FC<Props> = ({
                         name='year_from'
                         control={control}
                         options={generateYearsArray()}
-                        placeholder='წლიდან'
+                        placeholder={t('year_from')}
                         disabled={false}
                         className='w-full my-2 md:w-1/2'
                         valueKey='value'
@@ -255,7 +255,7 @@ const AdditionalFilters: React.FC<Props> = ({
                         name='year_to'
                         control={control}
                         options={generateYearsArray()}
-                        placeholder='წლამდე'
+                        placeholder={t('year_to')}
                         disabled={false}
                         className='w-full my-2 md:w-1/2'
                         valueKey='value'
@@ -392,7 +392,7 @@ const AdditionalFilters: React.FC<Props> = ({
                 </div>
                 <div className='w-full flex flex-row items-center justify-between py-4 px-4 md:px-10 border-t-1 border-grey-90 shadow-md'>
                   <IconTextButton
-                      label={t('clear')}
+                    label={t('clear')}
                     icon='rotate'
                     className='fill-transparent'
                     width={24}
@@ -402,7 +402,7 @@ const AdditionalFilters: React.FC<Props> = ({
                   />
                   <div className='flex items-center justify-between md:justify-start text-md gap-4'>
                     <IconTextButton
-                        label={t('select')}
+                      label={t('select')}
                       bg='bg-orange-100 hover:bg-orange-110 transition-all'
                       className='text-white pl-[24px] pr-[32px]'
                       icon='search'

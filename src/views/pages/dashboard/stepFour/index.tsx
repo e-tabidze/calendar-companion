@@ -9,6 +9,7 @@ import useProductInfo from '../useProductInfo'
 import NewServiceModal from './newServiceModal'
 import ServiceDetails from './serviceDetails'
 import dynamic from 'next/dynamic'
+import {useTranslation} from "next-i18next";
 
 const Divider = dynamic(() => import('src/views/components/divider'), { ssr: false })
 const Typography = dynamic(() => import('src/views/components/typography'), { ssr: false })
@@ -26,6 +27,7 @@ const StepFour: React.FC<Props> = ({ control, step, errors }) => {
   const handleNewServiceModal = () => setNewServiceModal(!newServiceModal)
 
   const formState = useWatch({ control })
+  const {t} = useTranslation()
 
   const renderServiceDetails = (service: NewService, index: number) => {
     if (service.type_id === 1) {
@@ -33,10 +35,9 @@ const StepFour: React.FC<Props> = ({ control, step, errors }) => {
         <ServiceDetails
           control={control}
           index={index}
-          label='დღიური ფასი'
+          label={t('daily_price')}
           errors={errors}
-          description='მითითებული ფასი განსაზღვრავს დამატებითი სერვისისის 1 დღის ქირაობის ფასს, რომლის ცვალებადობაც დამოკიდებული
-      იქნება დღეების რაოდენობასზე'
+          description={t('daily_price_desc')}
         />
       )
     }
@@ -46,8 +47,8 @@ const StepFour: React.FC<Props> = ({ control, step, errors }) => {
           control={control}
           index={index}
           errors={errors}
-          label='ერთჯერადი ფასი'
-          description='მითითებული ფასი განსაზღვრავს დამატებითი სერვისისის ერთჯერად ფასს ფასს'
+          label={t('one_time_price')}
+          description={t('one_time_desc')}
         />
       )
     } else {
@@ -59,7 +60,7 @@ const StepFour: React.FC<Props> = ({ control, step, errors }) => {
     <>
       <div>
         <IconTextButton
-          label='ახალი სერვისის დამატება'
+          label={t('add_new_service')}
           icon='add'
           width={20}
           height={20}
@@ -68,7 +69,7 @@ const StepFour: React.FC<Props> = ({ control, step, errors }) => {
           type='button'
         />
         <Typography type='h4' weight='normal' color='dark'>
-          სერვისების ჩამონათვალი
+          {t('services_list')}
         </Typography>
         <div className='mt-14'>
           {isCompanyServicesLoading ? (

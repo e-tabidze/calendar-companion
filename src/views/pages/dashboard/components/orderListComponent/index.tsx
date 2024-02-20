@@ -104,7 +104,7 @@ const OrderListComponent: React.FC<Props> = ({
                   : ''
               }`}
             >
-              {status === 0 ? 'მოლოდინში' : status === 1 ? 'დადასტურებული' : status === 2 ? 'გაუქმებული' : ''}
+              {status === 0 ? t('pending') : status === 1 ? t('approved') : status === 2 ? t('canceled') : ''}
             </Typography>
           </div>
           {width > 779 && <IconButton icon='chevronWithBg' height={38} width={38} className='ml-4' />}

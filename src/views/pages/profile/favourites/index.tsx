@@ -31,8 +31,7 @@ const Favourites = () => {
     <>
       <div className='md:p-8 lg:p-10 md:border border-raisin-10 rounded-3xl mt-8 lg:mt-0'>
         <Typography type='h3' className='mb-6'>
-          ფავორიტები
-          {t('easiest_way_to_your_new_home')}
+          {t('favourites')}
         </Typography>
         <Divider />
         {userFavourites?.data?.length > 0 ? (
@@ -53,7 +52,7 @@ const Favourites = () => {
             />
           ))
         ) : (
-          <DataPlaceHolder label='ფავორიტები ჯერ არ გაქვს' />
+          <DataPlaceHolder label={t('no_favourites_yet')} />
         )}
       </div>
       {userFavourites?.last_page > 1 && (
