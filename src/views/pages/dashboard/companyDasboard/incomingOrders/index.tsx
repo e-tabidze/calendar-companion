@@ -20,7 +20,7 @@ const IncomingOrders = () => {
   return (
     <div className='md:p-8 lg:p-10 md:border border-raisin-10 rounded-3xl'>
       <Typography type='h3' className='mb-6'>
-          {t('pending_orders')}
+          {t('incoming_orders')}
       </Typography>
       <Divider />
       <div className='px-none md:px-6 2xl:px-8'>

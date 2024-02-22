@@ -99,7 +99,7 @@ const CitiesSuggestions: React.FC<Props> = ({ index, control, name, border, erro
             </Combobox>
           </div>
           {_.get(errors, name)?.message && (
-            <div className='text-sm text-red-100 ml-2 py-2 max-h-max relative'>{_.get(errors, name)?.message}</div>
+            <div className='text-sm text-red-100 ml-2 py-2 max-h-max relative'>{t(_.get(errors, name)?.message)}</div>
           )}
         </div>
       )}

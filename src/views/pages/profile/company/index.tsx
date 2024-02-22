@@ -56,7 +56,7 @@ const Company: React.FC<Props> = ({ id, name, productsCount, logo }) => {
       queryClient.invalidateQueries(['companyInfo'])
       toast.custom(
         <Toast
-          title='კომპანია წარმატებით განახლდა!'
+          title={t('company_successfully_updated')}
           type='success'
         />
       )

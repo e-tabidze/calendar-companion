@@ -11,11 +11,11 @@ interface Props {
 }
 
 const ProfileInfoForm: React.FC<Props> = ({ control, errors }) => {
-  const options = [
-    { label: 'მამრობითი', value: 1 },
-    { label: 'მდედრობითი', value: 0 }
-  ]
   const {t} = useTranslation()
+  const options = [
+    { label: t('male'), value: 1 },
+    { label: t('female'), value: 0 }
+  ]
 
   return (
     <div>
@@ -35,7 +35,7 @@ const ProfileInfoForm: React.FC<Props> = ({ control, errors }) => {
         <DefaultInput control={control} name='first_name' errors={errors} label={t('first_name')} />
         <DefaultInput control={control} name='last_name' errors={errors} label={t('last_name')} />
         <DefaultInput control={control} name='identification_number' errors={errors} label={t('personal_id')} />
-        <DefaultInput control={control} name='phone' errors={errors} label={t('mobile_number')} />
+        <DefaultInput control={control} name='phone' errors={errors} label={t('phone_number')} />
         <DefaultInput control={control} name='Email' errors={errors} label={t('e_mail')} disabled />
         <DateDropdown label={t('dob')} name='birth_date' control={control} errors={errors} />
         <DateDropdown label={t('driver_licence_exp_date')} name='driver_license_expiration' control={control} errors={errors} />

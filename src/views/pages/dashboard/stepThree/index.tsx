@@ -55,7 +55,7 @@ const StepThree: React.FC<Props> = ({ control, errors }) => {
     <StepThreeContainer>
       <StepThreePriceContainer>
         <DefaultInput
-          label={t('daily_price')}
+          label={t('daily_price') + '*'}
           control={control}
           name='daily_price.amount'
           errors={errors}

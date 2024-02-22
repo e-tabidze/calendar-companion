@@ -71,11 +71,11 @@ const EditCompany = () => {
         })
       }
 
-      toast.custom(<Toast type='success' title='კომპანია წარმატებით განახლდა' />)
+      toast.custom(<Toast type='success' title={t('company_successfully_updated')} />)
     },
 
     onError: () => {
-      toast.custom(<Toast type='error' title='მოხდა შეცდომა' description='გთხოვთ ხელახლა სცადოთ' />)
+      toast.custom(<Toast type='error' title={t('error_occurred')} description={t('try_again_later')} />)
     }
   })
 

@@ -5,6 +5,7 @@ import Icon from 'src/views/app/Icon'
 import Divider from '../divider'
 import Image from '../image'
 import Typography from '../typography'
+import {useTranslation} from "next-i18next";
 
 interface Route {
   id: number
@@ -31,6 +32,7 @@ const ProfileNavigation: React.FC<Props> = ({
   dividerIndexes
 }) => {
   const { userInfo, activeCompany, isAuthenticated, handleLogout, defaultImgUrl } = useProfile()
+  const {t} = useTranslation()
 
   const router = useRouter()
 
@@ -152,7 +154,7 @@ const ProfileNavigation: React.FC<Props> = ({
                   : ''
               }`}
             >
-              {route.item}
+              {t(route.item)}
             </Typography>
           </div>
           {dividerIndexes.includes(index) && <Divider className='mt-6 mb-4' />}

@@ -8,6 +8,7 @@ import { Product } from 'src/types/Product'
 
 import toast from 'react-hot-toast'
 import Toast from 'src/views/components/toast'
+import {useTranslation} from "next-i18next";
 
 const StepOne = dynamic(() => import('../stepOne'), { ssr: false })
 const StepTwo = dynamic(() => import('../stepTwo'), { ssr: false })
@@ -19,17 +20,18 @@ const StepSix = dynamic(() => import('../stepSix'), { ssr: false })
 // const StepSeven = dynamic(() => import('./stepSeven'), { ssr: false })
 
 const options = [
-  { value: '1/6 ნაბიჯი', label: 'ავტომობილის შესახებ', step: 1 },
-  { value: '2/6 ნაბიჯი', label: 'ავტომობილის პარამეტრები', step: 2 },
-  { value: '3/6 ნაბიჯი', label: 'ფასები და ფასდაკლება', step: 3 },
-  { value: '4/6 ნაბიჯი', label: 'სერვისები', step: 4 },
-  { value: '5/6 ნაბიჯი', label: 'ჯავშნის მიღების პირობები', step: 5 },
-  { value: '6/6 ნაბიჯი', label: 'მდებარეობა', step: 6 }
+  { value: '1/6_step', label: 'about_the_vehicle', step: 1 },
+  { value: '2/6_step', label: 'car_parameters', step: 2 },
+  { value: '3/6_step', label: 'prices_and_sales', step: 3 },
+  { value: '4/6_step', label: 'services', step: 4 },
+  { value: '5/6_step', label: 'booking_rules', step: 5 },
+  { value: '6/6_step', label: 'location', step: 6 }
 
   // { value: '7/7 ნაბიჯი', label: 'მდებარეობა', step: 7 }
 ]
 
 const NewProduct: React.FC = () => {
+  const{t} = useTranslation()
   const [step, setStep] = useState(options[0])
 
   const router = useRouter()
@@ -148,7 +150,7 @@ const NewProduct: React.FC = () => {
               productId: productId
             })
 
-            toast.custom(<Toast type='success' title='განცხადება წარმატებით აიტვირთა' />)
+            toast.custom(<Toast type='success' title={t('new_product_add_success')} />)
 
             setTimeout(() => {
               router.push(`/dashboard/products/?is_active=1&page=1`)
@@ -163,7 +165,7 @@ const NewProduct: React.FC = () => {
       },
 
       onError: () => {
-        toast.custom(<Toast type='error' title='განცხადების დამატების დროს მოხდა შეცდომა. გთხოვთ თავიდან სცადეთ' />)
+        toast.custom(<Toast type='error' title={t('new_product_add_error')} />)
       }
     }
   )
@@ -226,7 +228,7 @@ const NewProduct: React.FC = () => {
       onPrevStep={handleGoPrevStep}
       onClose={handleClose}
       onSubmit={handleSubmit(onSubmit)}
-      submitLabel='დამატება'
+      submitLabel={t('add')}
       disabled={createNewProducteMutation.isLoading || saveProductImagesMutation.isLoading}
     >
       <form>{renderStepComponent()}</form>

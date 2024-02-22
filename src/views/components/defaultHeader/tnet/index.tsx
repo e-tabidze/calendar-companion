@@ -2,8 +2,11 @@ import { Menu, Transition } from '@headlessui/react'
 import { Fragment } from 'react'
 import Image from '../../image'
 import Typography from '../../typography'
+import {useTranslation} from "next-i18next";
 
 const Tnet = () => {
+    const {t} = useTranslation()
+
     return (
         <Menu as='div' className='relative text-left'>
             {({ open }) => (
@@ -27,7 +30,7 @@ const Tnet = () => {
                             <Typography type='h5' weight='normal' className='font-bold text-2md text-black mb-2'>TNET</Typography>
 
                             <Typography type='body' className='font-medium text-sm text-raisin-60 mb-4'>
-                                ყველაზე დიდი ტექნოლოგიური ეკოსისტემა, რომელიც აერთიანებს 11 პლატფორმას:
+                                {t('tnet_platform')}
                             </Typography>
                         </div>
                         <div className="grid gap-1 grid-cols-3">

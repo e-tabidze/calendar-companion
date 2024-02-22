@@ -5,9 +5,11 @@ import Notification from '../notification'
 import useProfile from 'src/hooks/useProfile'
 import { useRouter } from 'next/router'
 import Icon from 'src/views/app/Icon'
+import {useTranslation} from "next-i18next";
 
 const User = () => {
   const { activeCompany, isAuthenticated } = useProfile()
+  const {t} = useTranslation()
 
   const router = useRouter()
 
@@ -26,7 +28,7 @@ const User = () => {
             color='dark'
             className='font-medium text-orange xl:ml-2 hidden xl:flex'
           >
-            გაქირავება
+            {t('rent')}
           </Typography>
         </RentBtn>
       )}

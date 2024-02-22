@@ -48,10 +48,10 @@ const VehicleListComponent: React.FC<Props> = ({
   const deleteProductMutation = useMutation(() => deleteProduct(id), {
     onSuccess: () => {
       queryClient.invalidateQueries(['companyProducts'])
-      toast.custom(<Toast type='success' title='ავტომობილი წარმატებით წაიშალა' />)
+      toast.custom(<Toast type='success' title={t('car_successfully_removed')} />)
     },
     onError: () => {
-      toast.custom(<Toast type='error' title='მოხდა შეცდომა, გთხოვთ ხელახლა სცადოთ' />)
+      toast.custom(<Toast type='error' title={t('error_try_again_later')} />)
     }
   })
 

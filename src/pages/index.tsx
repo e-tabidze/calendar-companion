@@ -38,6 +38,27 @@ const MainPage = () => {
 
   const { t } = useTranslation()
 
+  const dynamicTranslateCategories = (word: any) => {
+    switch (word){
+      case 'სედანი':
+        return t('backend_categories.sedan');
+      case 'ჯიპი':
+        return t('backend_categories.jeep');
+      case 'ეკონომიური':
+        return t('backend_categories.economy');
+      case 'კუპე':
+        return t('backend_categories.coupe');
+      case 'პიკაპი':
+        return t('backend_categories.pickup');
+      case 'მინივენი':
+        return t('backend_categories.minivan');
+      case 'კაბრიოლეტი':
+        return t('backend_categories.cabriolet');
+      default:
+        return word
+    }
+  }
+
   return (
     <DefaultLayout>
       <PageMeta meta={pageMeta} />
@@ -62,7 +83,7 @@ const MainPage = () => {
               ?.map((product: any) => (
                 <CategoryItem
                   svgPath={product?.icon}
-                  title={product?.title}
+                  title={dynamicTranslateCategories(product?.title)}
                   count={product?.count_products}
                   id={product?.id}
                   key={product?.id}

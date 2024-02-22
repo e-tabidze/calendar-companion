@@ -220,7 +220,7 @@ const OrderDetails = () => {
       />
       <div className='md:hidden flex justify-between items-center fixed w-full bg-white bottom-[75px] left-0 p-4 shadow-sm border-b-1 border-raisin-10'>
         <Typography type='subtitle' className='mr-8'>
-          დარეკვა
+          {t('call')}
         </Typography>
         <a
           href={`tel:${productData?.company?.information?.phone_numbers}`}

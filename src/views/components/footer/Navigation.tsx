@@ -40,7 +40,7 @@ const Navigation = () => {
                         href={route.path}
                         className='font-normal text-raisin-70 hover:text-raisin-100 transition-all text-sm lg:text-2sm hover:underline'
                       >
-                        {route.item}
+                        {t(route.item)}
                       </Link>
                     )}
                   </li>
@@ -55,7 +55,7 @@ const Navigation = () => {
                         href={route.path}
                         className='font-normal text-raisin-70 hover:text-raisin-100 transition-all text-sm lg:text-2sm hover:underline'
                       >
-                        {route.item}
+                        {t(route.item)}
                       </Link>
                     )}
                   </li>

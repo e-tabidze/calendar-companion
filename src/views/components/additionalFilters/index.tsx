@@ -178,7 +178,7 @@ const AdditionalFilters: React.FC<Props> = ({
                   </div>
                   <div className='my-8'>
                     <Typography type='h5' weight='normal' className='text-md md:text-3md'>
-                      {t('vehicle_category')}
+                      {t('category')}
                     </Typography>
                     <Typography type='body' color='light'>
                       {t('select_one_or_more_category')}
@@ -202,7 +202,7 @@ const AdditionalFilters: React.FC<Props> = ({
                           labelKey='title'
                           name='category'
                           options={categoriesFilter}
-                          placeholder='კატეგორია'
+                          placeholder={t('category')}
                           className='my-2'
                         />
                       )}
@@ -345,7 +345,7 @@ const AdditionalFilters: React.FC<Props> = ({
 
                   <SectionWrapper>
                     <Typography type='h5' weight='normal' className='mb-2 md:mb-0'>
-                      {t('drive_tyres')}
+                      {t('drive_wheels')}
                     </Typography>
                     <ListWrapper>
                       <Tag

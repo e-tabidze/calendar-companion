@@ -32,7 +32,7 @@ const NavigationBar = () => {
                   }`}
                 />
               </span>
-              <span className='text-[10px] mt-1'>{activeCompany ? 'დეშბორდი' : 'მთავარი'}</span>
+              <span className='text-[10px] mt-1'>{activeCompany ? t('dashboard') : t('main')}</span>
             </div>
           </Link>
         </li>
@@ -43,7 +43,7 @@ const NavigationBar = () => {
                 <span className='flex'>
                   <Icon svgPath='add-outline' className='fill-transparent' width={24} height={24} />
                 </span>
-                <span className='mt-1'>დამატება</span>
+                <span className='mt-1'>{t('add')}</span>
               </div>
             </Link>
           </li>
@@ -62,7 +62,7 @@ const NavigationBar = () => {
                     }`}
                   />
                 </span>
-                <span className='text-[10px] mt-1'>ფავორიტები</span>
+                <span className='text-[10px] mt-1'>{t('favourites')}</span>
               </div>
             </Link>
           </li>
@@ -82,7 +82,7 @@ const NavigationBar = () => {
                   className={`${router.pathname.includes('/notifications/') ? 'fill-orange-100' : 'fill-raisin-100'}`}
                 />
               </span>
-              <span className='text-[10px] mt-1'>შეტყობინებები</span>
+              <span className='text-[10px] mt-1'>{t('messages')}</span>
             </div>
           </Link>
         </li>
@@ -102,7 +102,7 @@ const NavigationBar = () => {
                     />
                 </span>
                   }
-                  <span className='text-[10px] mt-1'>პროფილი</span>
+                  <span className='text-[10px] mt-1'>{t('profile')}</span>
                 </div>
               </button> :
               <Link href={TNET_AUTH}>

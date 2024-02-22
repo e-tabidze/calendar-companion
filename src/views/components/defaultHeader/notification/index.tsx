@@ -98,7 +98,7 @@ const Notification = () => {
                 className='flex justify-center border-t-1 border-raisin-10 p-4 text-2sm font-medium text-raisin-100'
                 href={!!activeCompany ? '/dashboard/notifications' : '/profile/notifications'}
               >
-                ნახე ყველა
+               {t('view_all')}
               </Link>}
             </Menu.Items>
           </Transition>

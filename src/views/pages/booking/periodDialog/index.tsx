@@ -114,7 +114,7 @@ const PeriodDialog: React.FC<Props> = ({ control, open, setOpen, setValue }) => 
             >
               <Dialog.Panel className='w-max transform overflow-hidden rounded-2xl bg-white text-left align-middle shadow-xl transition-all'>
                 <div className='mb-8 p-6 border-b border-raisin-10 flex justify-between'>
-                  <Typography type='h3'>შეარჩიე ქირაობის პერიოდი</Typography>
+                  <Typography type='h3'>{t('select_rent_period')}</Typography>
                   <Icon
                     svgPath='close'
                     width={40}
@@ -175,7 +175,7 @@ const PeriodDialog: React.FC<Props> = ({ control, open, setOpen, setValue }) => 
 
                 <div className='w-full flex flex-row items-center justify-between p-6 border-t-1 border-grey-90'>
                   <IconTextButton
-                      label={t('clear')}
+                    label={t('clear')}
                     icon='rotate'
                     className='fill-transparent'
                     width={24}

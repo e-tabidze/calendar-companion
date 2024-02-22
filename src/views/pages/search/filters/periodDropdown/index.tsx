@@ -70,7 +70,7 @@ const PeriodDropwodn: React.FC<Props> = ({ control, resetField, setValue }) => {
                         }
                         -
                     ${
-                      formState?.booking?.book_to?.length > 0 && formState?.booking?.book_to !== 'თარიღი'
+                      formState?.booking?.book_to?.length > 0 && formState?.booking?.book_to !== t('date')
                         ? `${format(new Date(formState?.booking?.book_to), 'd MMM', { locale: ka })}`
                         : ''
                     }`

@@ -90,7 +90,7 @@ const Booking = () => {
 
   const options = [
     {
-      label: 'წავიყვან ოფისიდან',
+      label: t('take_away_from_office'),
       value: '0',
       children: (
         <TakeAway
@@ -108,7 +108,7 @@ const Booking = () => {
       )
     },
     {
-      label: 'მიწოდება',
+      label: t('supply'),
       value: '1',
       children: (
         <Delivery
@@ -156,8 +156,8 @@ const Booking = () => {
         toast.custom(
           <Toast
             type='error'
-            title='ავტომობილი მოცემულ თარიღებში უკვე დაჯავშნილია'
-            description='გთხოვთ სცადეთ სხვა თარიღი'
+            title={t('car_already_booked')}
+            description={t('select_other_date')}
           />
         )
       }
@@ -174,8 +174,8 @@ const Booking = () => {
         toast.custom(
           <Toast
             type='error'
-            title='ავტომობილი მოცემულ თარიღებში უკვე დაჯავშნილია'
-            description='გთხოვთ სცადეთ სხვა თარიღი'
+            title={t('car_already_booked')}
+            description={t('select_other_date')}
           />
         )
     }
@@ -249,7 +249,7 @@ const Booking = () => {
               <DefaultInput control={control} name='first_name' errors={errors} label={t('first_name')} />
               <DefaultInput control={control} name='last_name' errors={errors} label={t('last_name')} />
               <DefaultInput control={control} name='identification_number' errors={errors} label={t('personal_id')} />
-              <DefaultInput control={control} name='phone' errors={errors} label={t('mobile_number')} />
+              <DefaultInput control={control} name='phone' errors={errors} label={t('phone_number')} />
               <DefaultInput control={control} name='email' errors={errors} label={t('e_mail')} />
 
               <DateDropdown label={t('dob')} name='dob' control={control} errors={errors} />
@@ -265,7 +265,7 @@ const Booking = () => {
             </Typography>
             <Divider />
             <Typography type='h3' className='text-3md md:text-2lg my-6 md:my-10'>
-              {t('locations')} *
+              {t('location')} *
             </Typography>
 
             <BookingRadio name='supply' options={options} control={control} color='bg-green-100' />
@@ -277,7 +277,7 @@ const Booking = () => {
                   onClick={() => toggleAdditionalServices(!additionalServices)}
                 >
                   <Typography type='h3' className='text-3md md:text-2lg'>
-                    {t('additional_services')}
+                    {t('services_price')}
                   </Typography>
                   <Icon
                     svgPath='chevron-md'
@@ -296,7 +296,7 @@ const Booking = () => {
 
             {/* <div>
               <div className='mt-11 flex items-center justify-between mb-8' onClick={() => toggleInsurance(!insurance)}>
-                <Typography type='h3'>დაზღვევა</Typography>
+                <Typography type='h3'>  {t('insurance')}</Typography>
                 <Icon
                   svgPath='chevron'
                   width={8}

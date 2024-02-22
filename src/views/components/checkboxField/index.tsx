@@ -2,6 +2,7 @@ import { Controller } from 'react-hook-form'
 import Icon from 'src/views/app/Icon'
 import Divider from '../divider'
 import Typography from '../typography'
+import {useTranslation} from "next-i18next";
 
 interface Option {
   id: string | number
@@ -40,6 +41,42 @@ const CheckboxField: React.FC<Props> = ({
   cols,
   categoryCheckbox
 }) => {
+  const {t} = useTranslation()
+  const dynamicAdditionalParameters= (word: any) => {
+    switch (word){
+      case 'სსმპ ადაპტირებული':
+        return t('backend_additional_parameters.adapted_psn');
+      case 'პარკინგის სენსორი':
+        return t('backend_additional_parameters.parking_control');
+      case 'ცხოველების დაშვება':
+        return t('backend_additional_parameters.animals_allowed');
+      case '4 წამყვანი თვალი':
+        return t('backend_additional_parameters.drive_wheels_4');
+      case 'უკანა კამერა':
+        return t('backend_additional_parameters.rear_view_camera');
+      case 'სავარძლის გათბობა':
+        return t('backend_additional_parameters.seat_heater');
+      case 'USB პორტი':
+        return t('backend_additional_parameters.usb_port');
+      case 'Android Auto':
+        return t('backend_additional_parameters.android_auto');
+      case 'GPS':
+        return t('backend_additional_parameters.gps');
+      case 'USB დამტენი':
+        return t('backend_additional_parameters.usb_charger');
+      case 'Apple CarPlay':
+        return t('backend_additional_parameters.apple_car_play');
+      case 'Bluetooth':
+        return t('backend_additional_parameters.bluetooth');
+      case 'ზამთრის საბურავები':
+        return t('backend_additional_parameters.winter_tires');
+      case 'AUX პორტი':
+        return t('backend_additional_parameters.aux_port');
+      default:
+        return word
+    }
+  }
+
   return (
     <>
       {control && name ? (
@@ -95,7 +132,7 @@ const CheckboxField: React.FC<Props> = ({
                       />
                       {option.icon && <Icon svgPath={option.icon} width={width || 18} height={height || '18'} />}
                       <Typography type='body' className='w-max text-sm lg:text-2sm'>
-                        {option.title}
+                        {dynamicAdditionalParameters(option.title)}
                       </Typography>
                     </div>
                     {divider && index !== options.length - 1 && <Divider />}

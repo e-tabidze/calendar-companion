@@ -23,15 +23,15 @@ const NewServiceModal: React.FC<Props> = ({ open, onClose }) => {
   const options = [
     {
       value: 1,
-      label: 'დღიურ ფასიანი'
+      label: t('daily_priced')
     },
     {
       value: 2,
-      label: 'ერთჯერად ფასიანი'
+      label: t('one_time_priced')
     },
     {
       value: 3,
-      label: 'უფასო'
+      label: t('price_free')
     }
   ]
 

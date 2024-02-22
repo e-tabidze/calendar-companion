@@ -14,6 +14,26 @@ const Categories = () => {
     }
     const { categoriesFilter } = useFilters()
     const {t}=useTranslation()
+    const dynamicTranslateCategories = (word: any) => {
+        switch (word){
+            case 'სედანი':
+                return t('backend_categories.sedan');
+            case 'ჯიპი':
+                return t('backend_categories.jeep');
+            case 'ეკონომიური':
+                return t('backend_categories.economy');
+            case 'კუპე':
+                return t('backend_categories.coupe');
+            case 'პიკაპი':
+                return t('backend_categories.pickup');
+            case 'მინივენი':
+                return t('backend_categories.minivan');
+            case 'კაბრიოლეტი':
+                return t('backend_categories.cabriolet');
+            default:
+                return word
+        }
+    }
 
     return (
         <div className="py-4 lg:py-0 border-b-[1px] border-raisin-10 lg:border-0 lg:w-3/12">
@@ -34,7 +54,7 @@ const Categories = () => {
 
                             <li className='mb-2' key={product?.id}>
                                 <CategoryLink
-                                    title={product?.title}
+                                    title={dynamicTranslateCategories(product?.title)}
                                     id={product?.id}
                                 />
                             </li>

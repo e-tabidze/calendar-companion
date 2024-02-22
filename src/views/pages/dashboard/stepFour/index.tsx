@@ -28,6 +28,20 @@ const StepFour: React.FC<Props> = ({ control, step, errors }) => {
 
   const formState = useWatch({ control })
   const {t} = useTranslation()
+  const dynamicTranslateServices= (word: any) => {
+    switch (word){
+      case 'ფასიანი მიწოდება':
+        return t('backend_services.priced_supply');
+      case 'ორი მძღოლი':
+        return t('backend_services.two_drivers');
+      case 'სამი მძღოლი':
+        return t('backend_services.three_drivers');
+      case 'მძღოლის მომსახურება':
+        return t('backend_services.driver_service');
+      default:
+        return t(word)
+    }
+  }
 
   const renderServiceDetails = (service: NewService, index: number) => {
     if (service.type_id === 1) {
@@ -37,7 +51,7 @@ const StepFour: React.FC<Props> = ({ control, step, errors }) => {
           index={index}
           label={t('daily_price')}
           errors={errors}
-          description={t('daily_price_desc')}
+          description={t('service_price_desc')}
         />
       )
     }
@@ -79,7 +93,7 @@ const StepFour: React.FC<Props> = ({ control, step, errors }) => {
               {companyServices?.map((service: NewService, index: number) => (
                 <div key={index}>
                   <SwitchField
-                    label={service.title}
+                    label={dynamicTranslateServices(service.title)}
                     className='my-8'
                     description={service.description}
                     control={control}

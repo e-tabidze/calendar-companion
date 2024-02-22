@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { useWatch } from 'react-hook-form'
 import dynamic from 'next/dynamic'
+import {useTranslation} from "next-i18next";
 
 const Divider = dynamic(() => import('src/views/components/divider'), { ssr: false })
 const NumberInputWithSelect = dynamic(() => import('src/views/components/numberInputWithSelect'), { ssr: false })
@@ -15,12 +16,12 @@ const options = [
 ]
 
 const preparationPeriod = [
-  { title: 'შეზღუდვის გარეშე', id: 1 },
-  { title: '12 საათი', id: 2 },
-  { title: '1 დღე', id: 3 },
-  { title: '2 დღე', id: 4 },
-  { title: '3 დღე', id: 5 },
-  { title: '7 დღე', id: 6 }
+  { title: 'no_limits', id: 1 },
+  { title: '12_hours', id: 2 },
+  { title: '1_day', id: 3 },
+  { title: '2_days', id: 4 },
+  { title: '3_days', id: 5 },
+  { title: '7_days', id: 6 }
 ]
 
 interface Props {
@@ -29,6 +30,7 @@ interface Props {
 }
 
 const StepFive: React.FC<Props> = ({ control, setValue }) => {
+  const {t} = useTranslation()
   const formState = useWatch({ control })
 
   useEffect(() => {
@@ -50,14 +52,14 @@ const StepFive: React.FC<Props> = ({ control, setValue }) => {
   return (
     <div>
       <Typography type='h4' weight='normal' color='dark' className='mb-4'>
-        ქირაობის მინიმალური ვადა
+          {t('rent_min_period')}
       </Typography>
       <Divider />
-      <SwitchField label='ნებისმიერი ვადა' name='any_period' defaultValue={true} control={control} className='my-8' />
+      <SwitchField label={t('any_period')} name='any_period' defaultValue={true} control={control} className='my-8' />
       <Divider />
       <SwitchField
-        label='მინიმალური ვადა'
-        description='ავტომობილის გაქირავების მინიმალური ხანგრძლივობა (მაგ. 3 დღე)'
+        label={t('min_period')}
+        description={t('car_rent_min_period')}
         className='my-8'
         name='min_period.has_min_period'
         defaultValue={formState.min_period.has_min_period}
@@ -74,18 +76,17 @@ const StepFive: React.FC<Props> = ({ control, setValue }) => {
             type='number'
           />
           <Typography type='body' color='light' className='w-1/2'>
-            ამ პარამეტრის გააქტიურებით თქვენ ადგენთ ავტომობილის გაქირავების პერიოდის მაქსიმალურ ლიმიტს
+              {t('car_rent_max_limit')}
           </Typography>
         </div>
       )}
 
       <Divider />
       <Typography type='h4' weight='normal' color='dark' className='mt-16'>
-        მოსამზადებელი პერიოდი
+          {t('preparation_period')}
       </Typography>
       <Typography type='body' color='light' className='text-2sm mt-2'>
-        რა დრო გჭირდებათ იმისთვის, რომ მოამზადოთ ავტომობილი გასაქირავებლად ან მოახდინოთ რეაგირება შემოსულ შეკვეთაზე.
-        მონიშნული პერიოდი ავტომატურად დაიბლოკება ყოველ მომდევნო ჯავშნამდე
+          {t('preparation_period_desc')}
       </Typography>
       <div className='flex flex-wrap gap-2 mt-14 mb-4'>
         <Tag height={'h-10'} options={preparationPeriod} name='preparation_period_type_id' control={control} />

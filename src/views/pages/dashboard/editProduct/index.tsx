@@ -20,14 +20,14 @@ const StepSix = dynamic(() => import('../stepSix'), { ssr: false })
 // const StepSeven = dynamic(() => import('./stepSeven'), { ssr: false })
 
 const options = [
-  { value: '1/6 ნაბიჯი', label: 'ავტომობილის შესახებ', step: 1 },
-  { value: '2/6 ნაბიჯი', label: 'ავტომობილის პარამეტრები', step: 2 },
-  { value: '3/6 ნაბიჯი', label: 'ფასები და ფასდაკლება', step: 3 },
-  { value: '4/6 ნაბიჯი', label: 'სერვისები', step: 4 },
-  { value: '5/6 ნაბიჯი', label: 'ჯავშნის მიღების პირობები', step: 5 },
-  { value: '6/6 ნაბიჯი', label: 'მდებარეობა', step: 6 }
+  { value: '1/6_step', label: 'about_the_vehicle', step: 1 },
+  { value: '2/6_step', label: 'car_parameters', step: 2 },
+  { value: '3/6_step', label: 'prices_and_sales', step: 3 },
+  { value: '4/6_step', label: 'services', step: 4 },
+  { value: '5/6_step', label: 'booking_rules', step: 5 },
+  { value: '6/6_step', label: 'location', step: 6 }
 
-  // { value: '7/7 ნაბიჯი', label: 'მდებარეობა', step: 7 }
+  // { value: '7/7 ნაბიჯი', label: 'location', step: 7 }
 ]
 
 const EditProduct: React.FC = ({}) => {
@@ -159,7 +159,7 @@ const EditProduct: React.FC = ({}) => {
 
         queryClient.invalidateQueries(['companyProducts'])
 
-        toast.custom(<Toast title='განცხადება წარმატებით განახლდა' type='success' />)
+        toast.custom(<Toast title={t('product_successfully_updated')} type='success' />)
 
         setTimeout(() => {
           router.push(`/dashboard/products/?is_active=1&page=1`)

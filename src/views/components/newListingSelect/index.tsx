@@ -2,6 +2,7 @@ import { Fragment } from 'react'
 import Typography from 'src/views/components/typography'
 
 import { Transition, Menu } from '@headlessui/react'
+import {useTranslation} from "next-i18next";
 
 type SelectOption = {
   value: string
@@ -15,14 +16,16 @@ type Props = {
 }
 
 const NewListingSelect: React.FC<Props> = ({ options, onChange, selectedOption }) => {
-  return (
+  const {t} = useTranslation()
+
+    return (
     <Menu as='div' className='inline-block text-left'>
       <div className='flex flex-col items-center gap-1'>
         <Typography type='h4' weight='normal' color='dark' className='text-md text-center md:text-3md'>
-          {selectedOption.label}
+          {t(selectedOption.label)}
         </Typography>
         <Menu.Button className='text-raisin-130 px-2 font-normal inline-flex items-center gap-2 w-max rounded-2xl justify-around text-2sm focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75'>
-          <Typography type='h5'>{selectedOption.value}</Typography>
+          <Typography type='h5'>{t(selectedOption.value)}</Typography>
           <svg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'>
             <rect width='24' height='24' rx='8' fill='#DDEAE6' />
             <path d='M8 11L11.75 14L15.5 11' stroke='#549684' strokeWidth='2' strokeLinecap='round' />
@@ -59,7 +62,7 @@ const NewListingSelect: React.FC<Props> = ({ options, onChange, selectedOption }
                     {index + 1}
                   </span>
                 </div>
-                {option.label}
+                {t(option.label)}
               </button>
             </Menu.Item>
           ))}

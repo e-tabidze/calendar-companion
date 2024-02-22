@@ -99,7 +99,7 @@ const {t} = useTranslation()
               </Typography>
               {isDeleted && (
                 <Typography type='subtitle'>
-                  <PreviousPrice>პროდუქტი წაშლილია</PreviousPrice>
+                  <PreviousPrice>{t('product_removed')}</PreviousPrice>
                 </Typography>
               )}
             </div>

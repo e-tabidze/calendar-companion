@@ -18,22 +18,22 @@ import useProducts from './useProducts'
 
 const filters = [
   {
-    label: 'ყველა',
+    label: 'all',
     id: 1,
     filterOption: ''
   },
   {
-    label: 'აქტიური',
+    label: 'active',
     id: 2,
     filterOption: '1'
   },
   {
-    label: 'გამორთული',
+    label: 'paused',
     id: 3,
     filterOption: '0'
   },
   {
-    label: 'დაბლოკილი',
+    label: 'blocked',
     id: 4,
     filterOption: '2'
   }
@@ -85,7 +85,7 @@ const Products = () => {
         <div className='flex gap-3 py-8 overflow-x-auto'>
           {filters.map(filter => (
             <Tag
-              label={filter.label}
+              label={t(filter.label)}
               height='h-10'
               key={filter.id}
               className={`${filter.filterOption == filterQuery ? 'border !border-orange-100' : ''} rounded-xl`}
@@ -110,7 +110,7 @@ const Products = () => {
               />
             ))
           ) : (
-            <DataPlaceHolder label='ავტომობილები ჯერ არ გაქვს' />
+            <DataPlaceHolder label={t('no_cars_yet')} />
           )}
         </div>
       </div>

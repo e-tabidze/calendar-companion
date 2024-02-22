@@ -3,6 +3,7 @@ import Icon from 'src/views/app/Icon'
 import Typography from 'src/views/components/typography'
 import { parseISO, format } from 'date-fns'
 import { ka } from 'date-fns/locale'
+import {useTranslation} from "next-i18next";
 
 interface Props {
   url: string
@@ -10,6 +11,8 @@ interface Props {
 }
 
 const ListItem: React.FC<Props> = ({ url, notification }) => {
+  const {t} = useTranslation()
+
   return (
     <Link href={url} as={url}>
       <li>
@@ -27,7 +30,7 @@ const ListItem: React.FC<Props> = ({ url, notification }) => {
                 {notification?.data?.text}
               </Typography>
               <Typography type='subtitle' className='text-sm md:text-2sm font-normal text-raisin-100'>
-                მართვის მოწმობის თეორიული და პრაქტიკული (მეორე ეტაპი) გამოცდის ჯავშანი. სატრასპორტო
+                {t('driver_license_exam_book')}
               </Typography>
               <Typography type='subtitle' className='text-sm font-normal text-raisin-30'>
                 {format(parseISO(notification?.created_at), 'd MMM yyyy HH:mm', { locale: ka })}

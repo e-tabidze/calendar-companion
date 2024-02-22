@@ -146,7 +146,7 @@ const SuccessfulPayment = () => {
           <Divider />
           <div>
             <PriceDetailsWrapper>
-              <Typography type='subtitle'>ქირაობის ღირებულება x {userOrderDetails?.days} დღე</Typography>
+              <Typography type='subtitle'>{t('rent_price')} x {userOrderDetails?.days} {t('day')}</Typography>
               <Typography type='subtitle' className='whitespace-nowrap flex shrink-0'>
                 {productData?.price} ₾
               </Typography>

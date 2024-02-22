@@ -246,7 +246,7 @@ const SearchPage = () => {
                         <Tag
                           component={<Icon svgPath='filters' width={22} height={20} className='fill-transparent' />}
                           className='bg-grey-60'
-                          label={'ფილტრი'}
+                          label={t('filter')}
                           height='h-10'
                           handleClick={() => toggleFilters(!filters)}
                         />

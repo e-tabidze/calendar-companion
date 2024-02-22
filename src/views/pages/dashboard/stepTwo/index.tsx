@@ -27,7 +27,7 @@ const StepTwo: React.FC<Props> = ({ control, appendAdditionalParam, step, errors
   return (
     <div>
       <Typography type='h4' color='dark'>
-          {t('vehicle_category')}*
+          {t('category')}*
       </Typography>
       {isProductDetailsLoading ? (
         <>Loading</>
@@ -49,7 +49,7 @@ const StepTwo: React.FC<Props> = ({ control, appendAdditionalParam, step, errors
               control={control}
               name='category_id'
               options={productDetails?.categories}
-              placeholder='კატეგორია'
+              placeholder={t('category')}
               valueKey='id'
               labelKey='title'
             />
@@ -122,7 +122,7 @@ const StepTwo: React.FC<Props> = ({ control, appendAdditionalParam, step, errors
 
       <div className='flex justify-between my-10 flex-col items-baseline md:items-center md:flex-row'>
         <Typography type='h5' weight='normal' className='mb-4 md:mb-0'>
-            {t('drive_tyres')}*
+            {t('drive_wheels')}*
         </Typography>
         <div className='flex w-max gap-2'>
           {isProductDetailsLoading ? (

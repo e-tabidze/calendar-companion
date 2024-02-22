@@ -52,7 +52,7 @@ const PeriodDropdown: React.FC<Props> = ({ control, resetField, setOpen }) => {
           >
             <FilterContainer>
               <Typography type='body' color='dark'>
-                {t('rental_period')}s
+                {t('rental_period')}
               </Typography>
               <InnerFilterContainer>
                 <Typography

@@ -34,7 +34,7 @@ const Vehicles = () => {
             />
           ))
         ) : (
-          <DataPlaceHolder label='ავტომობილები ჯერ არ გაქვს' />
+          <DataPlaceHolder label={t('no_cars_yet')} />
         )}
       </div>
     </div>

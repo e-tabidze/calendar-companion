@@ -385,7 +385,7 @@ const ProductDetails = memo(() => {
 
               {/*<div className='mt-8'>*/}
               {/*  <Typography type='h3' className='text-3md md:text-2lg'>*/}
-              {/*    მდებარეობა*/}
+              {/*   {t('location')}*/}
               {/*  </Typography>*/}
               {/*  <div className='flex gap-4 items-center mt-10 mb-6'>*/}
               {/*    <Icon svgPath='locationOutline' width={24} height={24} className='fill-transparent' />*/}

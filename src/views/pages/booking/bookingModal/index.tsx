@@ -76,7 +76,7 @@ const BookingModal: React.FC<Props> = ({ open, onClose, addresses, control }) =>
               <Dialog.Panel className='relative transform overflow-hidden rounded-tl-3xl rounded-tr-3xl md:rounded-bl-3xl md:rounded-br-3xl bg-white text-left shadow-xl transition-all w-full md:my-4 md:max-w-3xl'>
                 <div className='w-full flex justify-between items-center px-5 md:px-10 py-4 md:py-6 sm:px-10 border-b-1 border-raisin-10 mb-6'>
                   <Dialog.Title as='h3' className='text-md md:text-2md text-raisin-100 font-normal'>
-                    აირჩიე მისამართი
+                    {t('select_address')}
                   </Dialog.Title>
                   <Icon
                     svgPath='close'

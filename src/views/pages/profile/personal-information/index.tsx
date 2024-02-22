@@ -16,11 +16,11 @@ import {useTranslation} from "next-i18next";
 
 const cat = [
   {
-    title: 'პირადი ინფორმაცია',
+    title: 'personal_info',
     id: 0
   },
   {
-    title: 'პაროლის შეცვლა',
+    title: 'change_password',
     id: 1
   }
 ]
@@ -166,7 +166,7 @@ const PersonalInfo: React.FC<Props> = ({ userData }) => {
                     weight='medium'
                     className={`${selected ? 'border-b-2 border-b-orange-100' : 'border-none'} pb-2`}
                   >
-                    {category.title}
+                    {t(category.title)}
                   </Typography>
                 )}
               </Tab>

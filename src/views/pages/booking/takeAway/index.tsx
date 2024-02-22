@@ -25,7 +25,7 @@ const TakeAway: React.FC<Props> = ({ control, toggleEditModal, errors, startDate
           <Icon svgPath='booking-start' height={24} width={24} className='fill-transparent flex shrink-0' />
           <div className='ml-3'>
             <Typography type='body' color='dark'>
-              წაყვანა
+              {t('take_away')}
             </Typography>
             <div className='absolute'>
               <Typography type='subtitle' color='light' className='hidden lg:flex'>
@@ -49,7 +49,7 @@ const TakeAway: React.FC<Props> = ({ control, toggleEditModal, errors, startDate
               labelKey='label'
               name='start_time'
               options={generateTimeOptions()}
-              placeholder='დრო*'
+              placeholder={t('time') + '*'}
               className='bg-transparent fill-transparent border-green-100 group-color'
               errors={errors}
               errorAbsolute
@@ -70,7 +70,7 @@ const TakeAway: React.FC<Props> = ({ control, toggleEditModal, errors, startDate
           <Icon svgPath='booking-stop' height={24} width={24} className='fill-transparent flex shrink-0' />
           <div className='ml-3'>
             <Typography type='body' color='dark'>
-              დაბრუნება
+              {t('return')}
             </Typography>
             <div className='absolute'>
               <Typography type='body' color='light' className='hidden lg:flex'>
@@ -94,7 +94,7 @@ const TakeAway: React.FC<Props> = ({ control, toggleEditModal, errors, startDate
               labelKey='label'
               name='end_time'
               options={generateTimeOptions()}
-              placeholder='დრო*'
+              placeholder={t('time') + '*'}
               className='bg-transparent fill-transparent border-green-100 group-color'
               errors={errors}
               errorAbsolute

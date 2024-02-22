@@ -36,7 +36,7 @@ const StepSix: React.FC<Props> = ({ control, errors }) => {
         <SelectField
           control={control}
           name='start_city'
-          placeholder={t('select_city')}
+          placeholder={t('city')}
           options={cities()}
           disabled={false}
           valueKey='value'
@@ -46,7 +46,7 @@ const StepSix: React.FC<Props> = ({ control, errors }) => {
         <SelectField
           control={control}
           name='start_address'
-          placeholder={t('select_branch')}
+          placeholder={t('branch')}
           options={renderAddresses('start_city')}
           disabled={!formState.start_city}
           valueKey='value'
@@ -61,7 +61,7 @@ const StepSix: React.FC<Props> = ({ control, errors }) => {
         <SelectField
           control={control}
           name='end_city'
-          placeholder={t('select_city')}
+          placeholder={t('city')}
           options={cities()}
           disabled={false}
           valueKey='value'
@@ -71,7 +71,7 @@ const StepSix: React.FC<Props> = ({ control, errors }) => {
         <SelectField
           control={control}
           name='end_address'
-          placeholder={t('select_branch')}
+          placeholder={t('branch')}
           options={renderAddresses('end_city')}
           disabled={!formState.end_city}
           valueKey='value'

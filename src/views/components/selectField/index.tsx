@@ -3,6 +3,7 @@ import { Controller } from 'react-hook-form'
 import Select, { ClearIndicatorProps, components, DropdownIndicatorProps, GroupBase } from 'react-select'
 import _ from 'lodash'
 import Icon from 'src/views/app/Icon'
+import {useTranslation} from "next-i18next";
 
 const customStyles = {
   indicatorSeparator: () => ({
@@ -109,6 +110,7 @@ const SelectField: React.FC<Props> = ({
 
     return null
   }
+  const {t} = useTranslation()
 
   return (
     <div className={`relative ${className}`}>
@@ -181,7 +183,7 @@ const SelectField: React.FC<Props> = ({
                   errorRight ? 'right-0' : ''
                 } text-sm text-red-100 max-h-max`}
               >
-                {_.get(errors, name)?.message}
+                {t(_.get(errors, name)?.message)}
               </div>
             )}
           </>

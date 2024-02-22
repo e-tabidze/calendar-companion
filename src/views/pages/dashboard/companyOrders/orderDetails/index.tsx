@@ -69,7 +69,7 @@ const OrderDetails = () => {
             icon='backWithBg'
             width={38}
             height={38}
-            label={t('pending_orders')}
+            label={t('incoming_orders')}
             onClick={() => router.push('/dashboard/orders/?status_id=&page=1')}
           />
         </div>

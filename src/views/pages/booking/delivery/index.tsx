@@ -27,7 +27,7 @@ const Delivery: React.FC<Props> = ({ control, toggleEditModal, errors, startDate
           <Icon svgPath='booking-start' height={24} width={24} className='fill-transparent flex shrink-0' />
           <div className='flex flex-col ml-3 pb-3 md:pb-0'>
             <Typography type='body' color='dark'>
-              წაყვანა
+              {t('take_away')}
             </Typography>
             <Typography type='subtitle' color='light' className='hidden lg:flex'>
               {startDate}
@@ -39,7 +39,7 @@ const Delivery: React.FC<Props> = ({ control, toggleEditModal, errors, startDate
             className='detail-input-placeholder'
             name='start_address'
             control={control}
-            label='შეიყვანე მისამართი'
+            label={t('enter_address')}
           />
         </div>
         <div className='lg:w-2/12 flex items-center pl-9 lg:pl-4 flex-wrap'>
@@ -52,7 +52,7 @@ const Delivery: React.FC<Props> = ({ control, toggleEditModal, errors, startDate
             labelKey='label'
             name='start_time'
             options={generateTimeOptions()}
-            placeholder='დრო*'
+            placeholder={t('time') + '*'}
             className='bg-transparent border-green-100 shrink-0  md:w-full'
             errors={errors}
             errorAbsolute
@@ -65,7 +65,7 @@ const Delivery: React.FC<Props> = ({ control, toggleEditModal, errors, startDate
           <Icon svgPath='booking-stop' width={24} height={24} className='fill-transparent flex shrink-0' />
           <div className='flex flex-col ml-3'>
             <Typography type='body' color='dark'>
-              დაბრუნება
+              {t('return')}
             </Typography>
             <Typography type='body' color='light' className='hidden lg:flex'>
               {endDate}
@@ -87,7 +87,7 @@ const Delivery: React.FC<Props> = ({ control, toggleEditModal, errors, startDate
               icon
               name='end_time'
               options={generateTimeOptions()}
-              placeholder='დრო*'
+              placeholder={t('time') + '*'}
               className='bg-transparent fill-transparent border-green-100 group-color'
               errors={errors}
               errorAbsolute

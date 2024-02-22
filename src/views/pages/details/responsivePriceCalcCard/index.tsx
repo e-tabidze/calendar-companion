@@ -29,8 +29,8 @@ const ResponsivePriceCalcCard: React.FC<Props> = ({ toggleDrawer, bookingModal, 
         <Icon svgPath='chevron' width={8} height={6} className='fill-transparent rotate-180 cursor-pointer' />
       </div>
       {userInfo?.active_profile_id === userInfo?.UserID && (
-        <DefaultButton bg='bg-orange-100 hover:bg-orange-110 transition-all' text='ჯავშნის დაწყება' textColor='text-white'>
-          ჯავშნის დაწყება
+        <DefaultButton bg='bg-orange-100 hover:bg-orange-110 transition-all' text={t('start_renting')} textColor='text-white'>
+          {t('start_renting')}
         </DefaultButton>
       )}
     </section>

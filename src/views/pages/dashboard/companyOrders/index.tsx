@@ -95,7 +95,7 @@ const CompanyOrders = () => {
             <div className='h-full'>
               <div className='md:p-8 lg:p-10 md:border border-raisin-10 rounded-3xl md:min-h-[520px]'>
                 <Typography type='h3' className='mb-6 md:mt-0 mt-6'>
-                  {t('pending_orders')}
+                  {t('incoming_orders')}
                 </Typography>
                 <div className='hidden lg:flex gap-3 pb-8 pr-8'>
                   {filters.map(filter => (

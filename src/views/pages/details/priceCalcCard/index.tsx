@@ -63,7 +63,7 @@ const PriceCalcCard: React.FC<Props> = ({
               {manufacturer} {model} {year}
             </Typography>
             <Typography type='body' className='text-2sm'>
-              ან მსგავსი
+              {t('or_similar')}
             </Typography>
           </div>
           {image && (
@@ -174,7 +174,7 @@ const PriceCalcCard: React.FC<Props> = ({
                   {service?.title}
                 </Typography>
                 <Typography type='body' color='light'>
-                  | რაოდენობა: {service?.count}
+                  | {t('quantity')}: {service?.count}
                 </Typography>
               </div>
               <Typography type='h5' weight='normal'>

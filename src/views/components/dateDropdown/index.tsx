@@ -6,6 +6,7 @@ import { Controller } from 'react-hook-form'
 import { format } from 'date-fns'
 import Icon from 'src/views/app/Icon'
 import _ from 'lodash'
+import {useTranslation} from "next-i18next";
 
 interface Props {
   name: string
@@ -67,6 +68,7 @@ const CustomDateInput: React.FC<CalendarInputProps> = ({
 
 const DateDropdown: React.FC<Props> = ({ name, control, label, errors }) => {
   const [isCalendarOpen, setIsCalendarOpen] = useState(false)
+    const {t} = useTranslation()
 
   return (
     <>
@@ -95,7 +97,7 @@ const DateDropdown: React.FC<Props> = ({ name, control, label, errors }) => {
             />
             {_.get(errors, name)?.message && (
               <div id={name} className='absolute text-sm text-red-100 ml-2 my-2'>
-                {_.get(errors, name)?.message}
+                {t(_.get(errors, name)?.message)}
               </div>
             )}
           </div>

@@ -8,6 +8,7 @@ import { dehydrate, useQueryClient } from '@tanstack/react-query'
 import { profileRoutes } from 'src/utils/routes'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { queryClient } from '../_app'
+import {useTranslation} from "next-i18next";
 
 const Orders = dynamic(() => import('src/views/pages/profile/orders'), { ssr: false })
 const Favourites = dynamic(() => import('src/views/pages/profile/favourites'), { ssr: false })
@@ -80,6 +81,7 @@ const ProfileRouter = ({ userInfo }: { userInfo: UserInfo }) => {
 }
 
 const Profile = () => {
+  const {t} = useTranslation()
   const { userInfo, router, userCompanies, handleLogout } = useProfile()
 
   const companyRoutes =
@@ -97,7 +99,7 @@ const Profile = () => {
     {
       id: 9,
       icon: 'logout',
-      item: 'გასვლა',
+      item: t('logout'),
       onClick: handleLogout
     }
   ]

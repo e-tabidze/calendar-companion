@@ -29,7 +29,7 @@ const LocationDropdown: React.FC<Props> = ({ control }) => {
           </Typography>
           <InnerFilterContainer>
             <Typography type='subtitle' className='text-raisin-50'>
-              {startDate && endDate ? `${formatDate(startDate)} - ${formatDate(endDate)}` : 'თარიღი'}
+              {startDate && endDate ? `${formatDate(startDate)} - ${formatDate(endDate)}` : t('date')}
             </Typography>
             <Image src='/icons/chevron.svg' className='inline fill-white m-2' alt='img' />
           </InnerFilterContainer>

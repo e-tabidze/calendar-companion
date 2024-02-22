@@ -18,15 +18,15 @@ const Features: React.FC<Props> = ({ id, singleProductDetails }) => {
           {t('features')}
       </Typography>
       <div className='mt-8 mb-11 grid grid-cols-1 lg:grid-cols-2 gap-4'>
-        <ProductFeature feature={`${singleProductDetails?.door_type?.title} კარი`} icon='feature' />
-        <ProductFeature feature={`წამყვანი თვლები - ${singleProductDetails?.drive_tires?.title}`} icon='feature' />
+        <ProductFeature feature={`${singleProductDetails?.door_type?.title + ' ' + t('door')}`} icon='feature' />
+        <ProductFeature feature={`${t('drive_wheels') + ' - ' + singleProductDetails?.drive_tires?.title}`} icon='feature' />
         <ProductFeature feature={singleProductDetails?.fuel_type?.title} icon='feature' />
-        <ProductFeature feature={`${singleProductDetails?.luggage_numbers || 0} ჩემოდანი`} icon='feature' />
+        <ProductFeature feature={`${singleProductDetails?.luggage_numbers || 0 + t('suitcase')}`} icon='feature' />
         <ProductFeature
-          feature={`გარბენი - ${singleProductDetails?.car_run} ${singleProductDetails?.measure}`}
+          feature={`${t('run') + ' - ' + singleProductDetails?.car_run} ${singleProductDetails?.measure}`}
           icon='feature'
         />
-        <ProductFeature feature={`${singleProductDetails?.seat_type?.title} მგზავრი`} icon='feature' />
+        <ProductFeature feature={`${singleProductDetails?.seat_type?.title + ' ' + t('passenger')}`} icon='feature' />
         <ProductFeature feature={singleProductDetails?.transmission_type?.title} icon='feature' />
           {singleProductDetails?.product_additional_information?.map(
               (feature: { additional_information: { title: string }; icon: string; id: string | number }) => (

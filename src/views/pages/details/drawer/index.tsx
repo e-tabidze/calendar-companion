@@ -67,7 +67,7 @@ const Drawer: React.FC<Props> = ({
       <div className='flex gap-2 justify-between'>
         <div className='flex gap-2'>
           <Typography type='body' className='text-raisin-100'>
-            მანქანის ქირაობის საკომისიო
+            {t('rental_price_daily')}
           </Typography>
           <Typography type='body' color='light'>
             | {days} {t('day')}
@@ -85,7 +85,7 @@ const Drawer: React.FC<Props> = ({
               {service?.title}
             </Typography>
             <Typography type='body' color='light'>
-              | რაოდენობა: {service?.count}
+              | {t('quantity')}: {service?.count}
             </Typography>
           </div>
           <Typography type='h5' weight='normal'>
@@ -128,7 +128,7 @@ const Drawer: React.FC<Props> = ({
           {userInfo?.active_profile_id === userInfo?.UserID && (
             <DefaultButton
               bg='bg-orange-100 hover:bg-orange-110 transition-all'
-              text='ჯავშნის დაწყება'
+              text={t('start_renting')}
               className='w-full'
               textColor='text-white'
               onClick={onClick}

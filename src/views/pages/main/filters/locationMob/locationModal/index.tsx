@@ -33,6 +33,34 @@ const LocationModal: React.FC<Props> = ({ open, toggleModal, control }) => {
       toggleModal()
     }
   }
+  const dynamicTranslateCities = (word:any) => {
+    switch (word){
+      case 'თბილისი':
+        return t('backend_cities.tbilisi');
+      case 'ბათუმი':
+        return t('backend_cities.batumi');
+      case 'გორი':
+        return t('backend_cities.gori');
+      case 'ზუგდიდი':
+        return t('backend_cities.zugdidi');
+      case 'თელავი':
+        return t('backend_cities.telavi');
+      case 'ქუთაისი':
+        return t('backend_cities.kutaisi');
+      case 'რუსთავი':
+        return t('backend_cities.rustavi');
+      case 'კასპი':
+        return t('backend_cities.kaspi');
+      case 'ხაშური':
+        return t('backend_cities.khashuri');
+      case 'დედოფლისწყარო':
+        return t('backend_cities.dedofliswyaro');
+      case 'წალენჯიხა':
+        return t('backend_cities.tsalenjikha');
+      default:
+        return word
+    }
+  }
 
   return (
     <Transition.Root show={open} as={Fragment}>
@@ -68,7 +96,7 @@ const LocationModal: React.FC<Props> = ({ open, toggleModal, control }) => {
                 />
                 <div className='w-full flex justify-between items-center px-4 py-5 sm:py-6 sm:px-10 border-b-1 border-grey-90'>
                   <Dialog.Title as='h3' className='w-full flex items-center justify-between'>
-                    {t('locations')}
+                    {t('location')}
                     <Icon svgPath='close' onClick={toggleModal} height={40} width={40} className='cursor-pointer' />
                   </Dialog.Title>
                 </div>
@@ -81,7 +109,7 @@ const LocationModal: React.FC<Props> = ({ open, toggleModal, control }) => {
                         <div className='relative w-full p-4'>
                           <Combobox.Input
                             className='w-full border border-raisin-10 h-12 rounded-lg p-4 text-2sm'
-                            placeholder='ჩაწერე ადგილმდებარეობა'
+                            placeholder={t('enter_location')}
                             displayValue={(city: any) => city.city}
                             onChange={onChange}
                             value={value}
@@ -114,7 +142,7 @@ const LocationModal: React.FC<Props> = ({ open, toggleModal, control }) => {
                                       height={24}
                                       className='fill-transparent flex shrink-0 mr-2'
                                     />
-                                    {filteredCity.city}
+                                    {dynamicTranslateCities(filteredCity.city)}
                                   </span>
                                 </>
                               )}

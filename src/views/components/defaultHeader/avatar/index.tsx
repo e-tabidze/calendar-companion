@@ -8,8 +8,10 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import Link from 'next/link'
 import { dashboardRoutes, profileRoutes } from 'src/utils/routes'
 import Icon from 'src/views/app/Icon'
+import {useTranslation} from "next-i18next";
 
 const Avatar = () => {
+  const {t} = useTranslation()
   const [active, setActive] = useState(false)
 
   const queryClient = useQueryClient()
@@ -103,7 +105,7 @@ const Avatar = () => {
                   <div className='border-b-1 border-raisin-10'>
                     <button className='cursor-pointer flex items-center w-full text-sm p-4' onClick={handleSetActive}>
                       <Icon svgPath='chevron-left' width={20} height={20} className='fill-transparent flex mr-4' />
-                      დაბრუნება
+                      {t('back')}
                     </button>
                   </div>
                   <ul className='py-3 max-h-[335px] overflow-y-auto'>
@@ -194,13 +196,13 @@ const Avatar = () => {
                       </div>
                     </div>
                   </div>
-                  <div className='py-8px'>
+                  <div className='py-2'>
                     {userCompanies?.length > 0 && (
                       <button
                         className='px-6 flex w-full items-center justify-between whitespace-nowrap text-md text-raisin-100 py-2 hover:bg-grey-100 transition-all'
                         onClick={handleSetActive}
                       >
-                        ანგარიშის შეცვლა
+                        {t('switch_account')}
                         <Icon svgPath='chevron-right' width={20} height={20} className='fill-transparent' />
                       </button>
                     )}
@@ -210,12 +212,12 @@ const Avatar = () => {
                           <li key={route.id}>
                             {route.path ? (
                               <Link href={route.path} className={routeClass}>
-                                {route.item}
+                                {t(route.item)}
                               </Link>
                             ) : (
                               <div className='border-t-1 border-raisin-10 mt-2 py-2'>
                                 <button className={`w-full ${routeClass}`} onClick={handleLogout}>
-                                  {route.item}
+                                  {t(route.item)}
                                 </button>
                               </div>
                             )}
@@ -228,12 +230,12 @@ const Avatar = () => {
                           <li key={route.id}>
                             {route.path ? (
                               <Link href={route.path} className={routeClass}>
-                                {route.item}
+                                {t(route.item)}
                               </Link>
                             ) : (
                               <div className='border-t-1 border-raisin-10 mt-2 py-2'>
                                 <button className={`w-full ${routeClass}`} onClick={handleLogout}>
-                                  {route.item}
+                                  {t(route.item)}
                                 </button>
                               </div>
                             )}
