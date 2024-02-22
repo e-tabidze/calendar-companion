@@ -4,7 +4,6 @@ import Typography from '../../typography'
 import { LanPickerContainer } from './styles'
 import Icon from 'src/views/app/Icon'
 import { useRouter } from 'next/router'
-import { useTranslation } from 'react-i18next'
 
 // import { useTranslation } from 'next-i18next'
 
@@ -22,8 +21,6 @@ interface Props {
 const LanguagePicker = ({ dropdownUp, responsive, className }: Props) => {
   const router = useRouter()
   const selectedLang = langs.find(lang => lang.locale === router.locale)
-
-  const { t } = useTranslation()
 
   return (
     <LanPickerContainer className={className}>

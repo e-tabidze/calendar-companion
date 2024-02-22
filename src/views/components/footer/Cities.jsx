@@ -3,7 +3,6 @@ import Typography from "src/views/components/typography";
 import Icon from "src/views/app/Icon";
 import useSearchLocations from "src/views/components/defaultHeader/filters/locationDropdown/useSearchLocations";
 import {useTranslation} from "next-i18next";
-import {string} from "yup";
 
 
 const Cities = () => {
