@@ -26,11 +26,9 @@ const Tnet = () => {
                     <Menu.Items className='w-[376px] px-3 pt-5 pb-3 absolute z-2 top-full mt-5 right-0 bg-white rounded-2xl shadow-sm'>
 
                         <div className="px-4">
-
-                            <Typography type='h5' weight='normal' className='font-bold text-2md text-black mb-2'>TNET</Typography>
-
+                            <Typography type='h5' weight='normal' className='font-bold text-2md text-black mb-2'>{t('tnet')}</Typography>
                             <Typography type='body' className='font-medium text-sm text-raisin-60 mb-4'>
-                                {t('tnet_platform')}
+                                {t('tnet_about')}
                             </Typography>
                         </div>
                         <div className="grid gap-1 grid-cols-3">

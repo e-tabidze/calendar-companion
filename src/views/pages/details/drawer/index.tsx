@@ -61,7 +61,7 @@ const Drawer: React.FC<Props> = ({
       </div>
       <Divider />
       <Typography type='h5' weight='medium' className='mt-8 mb-5 font-bold'>
-        {t('price_details')}
+        {t('rent_price')}
       </Typography>
 
       <div className='flex gap-2 justify-between'>

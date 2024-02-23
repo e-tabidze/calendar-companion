@@ -185,7 +185,7 @@ const EditCompany = () => {
             name='company_information.name'
             control={control}
             errors={errors}
-            label={t('name')}
+            label={t('company_name')}
             className='mb-4 md:mb-0'
           />
           <DefaultInput
@@ -250,7 +250,7 @@ const EditCompany = () => {
         />
 
         <Typography type='h3' className='font-bold mt-10 md:mt-16 text-3md md:text-2lg'>
-          {t('contact')}
+          {t('contact_info')}
         </Typography>
         <div className='grid grid-cols-2 gap-4 mt-5 my-10'>
           <DefaultInput

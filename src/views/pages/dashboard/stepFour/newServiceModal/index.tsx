@@ -27,7 +27,7 @@ const NewServiceModal: React.FC<Props> = ({ open, onClose }) => {
     },
     {
       value: 2,
-      label: t('one_time_priced')
+      label: t('one_time_price')
     },
     {
       value: 3,

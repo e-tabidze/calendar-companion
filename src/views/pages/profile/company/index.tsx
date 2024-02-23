@@ -140,7 +140,7 @@ const Company: React.FC<Props> = ({ id, name, productsCount, logo }) => {
               name='company_information.name'
               control={control}
               errors={errors}
-              label={t('name')}
+              label={t('company_name')}
               className='col-span-2'
             />
             <DefaultInput
@@ -191,7 +191,7 @@ const Company: React.FC<Props> = ({ id, name, productsCount, logo }) => {
           />
 
           <Typography type='h3' className='font-bold mt-24 text-3md md:text-2lg'>
-            {t('contact')}
+            {t('contact_info')}
           </Typography>
           <div className='grid grid-cols-2 gap-4 my-5'>
             <DefaultInput

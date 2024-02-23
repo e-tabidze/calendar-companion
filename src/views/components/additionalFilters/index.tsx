@@ -158,8 +158,8 @@ const AdditionalFilters: React.FC<Props> = ({
                     <DefaultInput
                       name='price_min'
                       control={control}
-                      label={t('daily_min_price')}
-                      labelMobile={t('min_daily_price')}
+                      label={t('min_price')}
+                      labelMobile={t('min_price')}
                       errors={''}
                       className='w-full'
                       type='number'
@@ -169,8 +169,8 @@ const AdditionalFilters: React.FC<Props> = ({
                     <DefaultInput
                       name='price_max'
                       control={control}
-                      label={t('daily_max_price')}
-                      labelMobile={t('max_daily_price')}
+                      label={t('max_price')}
+                      labelMobile={t('max_price')}
                       errors={''}
                       className='w-full'
                       type='number'
@@ -210,7 +210,7 @@ const AdditionalFilters: React.FC<Props> = ({
                   </div>
                   <div className='my-10 md:my-16'>
                     <Typography type='h5' weight='normal' className='text-md md:text-3md mb-2'>
-                      {t('vehicle_parameters')}
+                      {t('parameters')}
                     </Typography>
                     <div className='flex flex-col md:flex-row md:gap-4'>
                       <SelectField

@@ -75,9 +75,6 @@ const StepFive: React.FC<Props> = ({ control, setValue }) => {
             selectName='min_period.time_interval'
             type='number'
           />
-          <Typography type='body' color='light' className='w-1/2'>
-              {t('car_rent_max_limit')}
-          </Typography>
         </div>
       )}
 
