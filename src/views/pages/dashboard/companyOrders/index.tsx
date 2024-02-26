@@ -18,27 +18,27 @@ const OrderDetails = dynamic(() => import('./orderDetails'), { ssr: false })
 
 const filters = [
   {
-    label: 'ყველა',
+    label: 'all',
     id: '1',
     filterOption: ''
   },
   {
-    label: 'მოლოდინში',
+    label: 'pending',
     id: '3',
     filterOption: '0'
   },
   {
-    label: 'გაუქმებული',
+    label: 'canceled',
     id: '4',
     filterOption: '2'
   },
   {
-    label: 'დადასტურებული',
+    label: 'approved',
     id: '5',
     filterOption: '1'
   },
   {
-    label: 'თვითდაჯავშნილი',
+    label: 'self_booked',
     id: '7',
     filterOption: '5'
   }
@@ -100,7 +100,7 @@ const CompanyOrders = () => {
                 <div className='hidden lg:flex gap-3 pb-8 pr-8'>
                   {filters.map(filter => (
                     <Tag
-                      label={filter.label}
+                      label={t(filter.label)}
                       height='h-10'
                       key={filter.id}
                       className={`${filter.filterOption == filterQuery ? 'border !border-orange-100' : ''} rounded-xl`}
