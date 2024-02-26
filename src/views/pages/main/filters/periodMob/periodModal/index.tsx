@@ -7,7 +7,7 @@ import { Controller } from 'react-hook-form'
 import DatePicker, { registerLocale } from 'react-datepicker'
 import ka from 'date-fns/locale/ka'
 import { formatDate } from 'src/utils/formatDate'
-import {useTranslation} from "next-i18next";
+import {i18n, useTranslation} from "next-i18next";
 
 interface Props {
   open: boolean
@@ -82,7 +82,7 @@ const PeriodModal: React.FC<Props> = ({ open, toggleModal, control }) => {
                   render={({ field: { onChange } }) => (
                     <div className='flex justify-center py-6'>
                       <DatePicker
-                        locale='ka'
+                        locale={i18n?.language}
                         className='text-center border-l-4 border-red-500  w-full p-3 rounded text-sm  outline-none  focus:ring-0 bg-transparent'
                         inline
                         selectsRange={true}

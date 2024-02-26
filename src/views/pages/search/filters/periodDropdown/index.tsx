@@ -10,7 +10,7 @@ import { formatDate } from 'src/utils/formatDate'
 import Icon from 'src/views/app/Icon'
 import { useRouter } from 'next/router'
 import { format } from 'date-fns'
-import {useTranslation} from "next-i18next";
+import {i18n, useTranslation} from "next-i18next";
 
 interface Props {
   control: any
@@ -116,7 +116,7 @@ const PeriodDropwodn: React.FC<Props> = ({ control, resetField, setValue }) => {
                 render={({ field: { onChange } }) => (
                   <DatePicker
                     key={startDate ? startDate.toString() : 'null'}
-                    locale='ka'
+                    locale={i18n?.language}
                     className='text-center border-l-4 border-red-500  w-full p-3 rounded text-sm  outline-none  focus:ring-0 bg-transparent'
                     inline
                     selectsRange={true}

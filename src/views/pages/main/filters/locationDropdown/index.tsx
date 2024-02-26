@@ -81,7 +81,7 @@ const LocationDropdown: React.FC<Props> = ({ control, resetField, setOpen }) => 
                   </Typography>
                   <InnerFilterContainer>
                     <Combobox.Input
-                      className={`flex shrink-0 border-none h-full text-2sm placeholder:text-2sm ${
+                      className={`flex shrink-0 border-none h-full text-2sm placeholder:text-2sm bg-transparent ${
                         value
                           ? 'text-green-100 placeholder:text-green-100'
                           : 'text-raisin-130 placeholder:text-raisin-50'

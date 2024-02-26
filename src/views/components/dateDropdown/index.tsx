@@ -6,7 +6,7 @@ import { Controller } from 'react-hook-form'
 import { format } from 'date-fns'
 import Icon from 'src/views/app/Icon'
 import _ from 'lodash'
-import {useTranslation} from "next-i18next";
+import {i18n, useTranslation} from "next-i18next";
 
 interface Props {
   name: string
@@ -78,7 +78,7 @@ const DateDropdown: React.FC<Props> = ({ name, control, label, errors }) => {
         render={({ field: { onChange, value, onChange: onInputChange } }) => (
           <div className='relative w-full'>
             <DatePicker
-              locale='ka'
+              locale={i18n?.language}
               selected={value ? new Date(value) : null}
               onChange={date => onChange(date && format(date, 'yyyy-MM-dd'))}
               dateFormat='dd-MM-yyyy'

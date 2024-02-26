@@ -48,7 +48,7 @@ const Features = dynamic(() => import('src/views/pages/details/features'), { ssr
 import { format } from 'date-fns'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import PageMeta from 'src/@core/meta/PageMeta'
-import {useTranslation} from "next-i18next";
+import {i18n, useTranslation} from "next-i18next";
 
 registerLocale('ka', ka)
 
@@ -327,7 +327,7 @@ const ProductDetails = memo(() => {
                   control={control}
                   render={({ field: { onChange } }) => (
                     <DatePicker
-                      locale='ka'
+                       locale={i18n?.language}
                       className='text-center border-l-4 border-red-500  w-full p-3 rounded text-sm  outline-none  focus:ring-0 bg-transparent'
                       inline
                       selectsRange={true}

@@ -11,7 +11,7 @@ import useWindowDimensions from 'src/hooks/useWindowDimensions'
 import { useRouter } from 'next/router'
 import { DefaultButton, IconTextButton } from 'src/views/components/button'
 import Icon from 'src/views/app/Icon'
-import {useTranslation} from "next-i18next";
+import {i18n, useTranslation} from "next-i18next";
 
 interface Props {
   control: any
@@ -133,7 +133,7 @@ const PeriodDialog: React.FC<Props> = ({ control, open, setOpen, setValue }) => 
                     render={({ field: { onChange } }) => (
                       <DatePicker
                         key={startDate ? startDate.toString() : 'null'}
-                        locale='ka'
+                        locale={i18n?.language}
                         className='p-6 text-center border-l-4 border-red-500 w-full rounded text-sm outline-none focus:ring-0 bg-transparent'
                         inline
                         selectsRange={true}
