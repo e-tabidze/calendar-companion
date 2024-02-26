@@ -10,7 +10,8 @@ import { useRouter } from 'next/router'
 const langs = [
   { id: 0, title: 'ქართული', locale: 'ka' },
   { id: 1, title: 'English', locale: 'en' },
-  { id: 2, title: 'Русский', locale: 'ru' }
+
+  // { id: 2, title: 'Русский', locale: 'ru' }
 ]
 interface Props {
   dropdownUp?: boolean
