@@ -208,9 +208,17 @@ const EditCompany = () => {
             name='company_information.description'
             control={control}
             errors={errors}
-            label={t('description')}
+            label={t('description')+' ('+ t('georgian')+ ')'}
             rows={4}
             className='col-span-3 mb-4 md:mb-0'
+          />
+          <DefaultInput
+              name='company_information.description_en'
+              control={control}
+              errors={errors}
+              label={t('description')+' ('+ t('english')+ ')'}
+              rows={4}
+              className='col-span-3 mb-4 md:mb-0'
           />
         </div>
         <Typography type='h3' className='font-bold text-3md md:text-2lg mt-10 md:mt-16'>

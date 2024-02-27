@@ -135,15 +135,29 @@ const StepOne: React.FC<Props> = ({ control, productValues, errors, setValue, re
           name='additional_information'
           control={control}
           errors={errors}
-          label={t('additional_info') + '*'}
+          label={t('additional_info') +' ('+ t('georgian')+ ') *'}
           rows={4}
+        />
+        <DefaultInput
+            name='additional_information_en'
+            control={control}
+            errors={errors}
+            label={t('additional_info') +' ('+ t('english')+ ') *'}
+            rows={4}
         />
         <DefaultInput
           name='use_instruction'
           control={control}
           errors={errors}
-          label={t('instruction_for_use') + '*'}
+          label={t('instruction_for_use') +' ('+ t('georgian')+ ') *'}
           rows={4}
+        />
+        <DefaultInput
+            name='use_instruction_en'
+            control={control}
+            errors={errors}
+            label={t('instruction_for_use') +' ('+ t('english')+ ') *'}
+            rows={4}
         />
       </div>
       <div className='flex flex-col flex-wrap gap-2 mt-4'>

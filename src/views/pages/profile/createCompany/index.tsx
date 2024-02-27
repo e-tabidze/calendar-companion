@@ -52,6 +52,7 @@ const CreateCompany = () => {
           'company_information.name',
           'company_information.legal_name',
           'company_information.description',
+          'company_information.description_en',
           'company_information.logo'
         ])
         if (isValidStep1) {

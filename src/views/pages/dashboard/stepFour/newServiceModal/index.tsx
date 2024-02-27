@@ -87,8 +87,10 @@ const NewServiceModal: React.FC<Props> = ({ open, onClose }) => {
                   </Dialog.Title>
                   <Divider />
                   <div className='p-6 mb-40 flex flex-col gap-4'>
-                    <DefaultInput label={t('service_name')} control={control} name='title' errors={errors} />
-                    <DefaultInput label={t('description')} control={control} name='description' rows={4} errors={errors} />
+                    <DefaultInput label={t('service_name')+' ('+ t('georgian')+ ')'} control={control} name='title' errors={errors} />
+                    <DefaultInput label={t('service_name')+' ('+ t('english')+ ')'} control={control} name='title_en' errors={errors} />
+                    <DefaultInput label={t('description')+' ('+ t('georgian')+ ')'} control={control} name='description' rows={4} errors={errors} />
+                    <DefaultInput label={t('description')+' ('+ t('english')+ ')'} control={control} name='description_en' rows={4} errors={errors} />
                     <SelectField
                       options={options}
                       control={control}

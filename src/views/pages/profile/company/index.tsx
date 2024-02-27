@@ -149,7 +149,7 @@ const Company: React.FC<Props> = ({ id, name, productsCount, logo }) => {
               control={control}
               className='col-span-2'
               rows={4}
-              label={t('description')}
+              label={t('description') + '(' + t('georgian')+')'}
             />
           </div>
           <Typography type='h3' className='font-bold text-3md md:text-2lg'>

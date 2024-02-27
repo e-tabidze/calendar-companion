@@ -44,33 +44,41 @@ const StepOne: React.FC<Props> = ({ control, errors, clearErrors, setValue }) =>
     <div>
       <div className='grid grid-cols-1 pb-6 md:grid-cols-2 gap-4'>
         <DefaultInput
-          label={t('identification_number')}
+          label={t('identification_number') + '*'}
           control={control}
           name='identification_number'
           errors={errors}
           clearErrors={clearErrors}
         />
         <DefaultInput
-          label={t('legal_name')}
+          label={t('legal_name') + '*'}
           control={control}
           name='company_information.legal_name'
           errors={errors}
         />
         <DefaultInput
-          label={t('company_name')}
+          label={t('company_name') + '*'}
           control={control}
           className='md:col-span-2'
           name='company_information.name'
           errors={errors}
         />
         <DefaultInput
-          label={t('description')}
+          label={t('description')+' ('+ t('georgian')+ ') *'}
           control={control}
           className='md:col-span-2'
           name='company_information.description'
           rows={4}
           errors={errors}
         />
+          <DefaultInput
+              label={t('description')+' ('+ t('english')+ ') *'}
+              control={control}
+              className='md:col-span-2'
+              name='company_information.description_en'
+              rows={4}
+              errors={errors}
+          />
       </div>
 
       <Controller
@@ -91,7 +99,7 @@ const StepOne: React.FC<Props> = ({ control, errors, clearErrors, setValue }) =>
             />
             {errors && (
               <div className={`text-sm text-red-100 ml-2 my-2`}>
-                {_.get(errors, 'company_information.logo')?.message}
+                {t(_.get(errors, 'company_information.logo')?.message)}
               </div>
             )}
           </>

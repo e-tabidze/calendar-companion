@@ -75,7 +75,9 @@ const EditProduct: React.FC = ({}) => {
           'model_id',
           'prod_year',
           'additional_information',
+          'additional_information_en',
           'use_instruction',
+          'use_instruction_en',
           'odometer.run' as any
         ])
         if (isValidStep1) {
