@@ -131,7 +131,7 @@ const Carousel = ({ itemsArray, type, onClick, thumbs = false }: Props) => {
                 className={`${reachedLimit ? 'flex' : 'hidden'} rounded-tl-3xl rounded-tl-3xl rounded-tr-3xl absolute left-0 top-0 h-full w-full bg-black/50 z-[111] cursor-pointer`}>
               <div className='flex flex-1 flex-col items-center justify-center'>
                 <Icon svgPath='camera' width={64} height={64}/>
-                <span className='mt-2 text-sm text-white'>{`+${itemsArray.length - 4} + ${t('photo')} `}</span>
+                <span className='mt-2 text-sm text-white'>{`+${itemsArray.length - 4 + ' '+ t('photo')}`}</span>
               </div>
             </div>
             }
