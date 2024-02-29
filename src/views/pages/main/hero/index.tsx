@@ -5,6 +5,7 @@ import Image from 'src/views/components/image'
 import { isMobile } from 'react-device-detect'
 import {useEffect, useState} from "react";
 import { useTranslation } from 'react-i18next'
+import dynamic from 'next/dynamic'
 
 
 const Hero = () => {
@@ -41,4 +42,4 @@ const Hero = () => {
   )
 }
 
-export default Hero
+export default dynamic(() => Promise.resolve(Hero), { ssr: false });
