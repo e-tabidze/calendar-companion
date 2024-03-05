@@ -60,23 +60,21 @@ const DefaultHeader = () => {
           {router?.asPath?.startsWith('/search') && <Filters />}
         </div>
         <div className='flex items-center'>
-          <LanguagePicker responsive className='md:mx-4' />
+          <LanguagePicker responsive className='md:mx-4' /> ABC
           {isAuthenticated && isLoading ? (
             <>Loading... </>
           ) : isAuthenticated ? (
             <User />
           ) : (
-            <>
-              <IconTextButton
-                icon='auth'
-                width={25}
-                height={24}
-                label={t('login')}
-                type='button'
-                className='hidden md:flex fill-transparent border border-raisin-10 rounded-xl pl-3 pr-4 h-10 items-center text-raisin-100 text-2sm transition-all hover:bg-grey-100 hover:border-raisin-30'
-                onClick={handleLogin}
-              />
-            </>
+            <IconTextButton
+              icon='auth'
+              width={25}
+              height={24}
+              label={t('login')}
+              type='button'
+              className='hidden md:flex fill-transparent border border-raisin-10 rounded-xl pl-3 pr-4 h-10 items-center text-raisin-100 text-2sm transition-all hover:bg-grey-100 hover:border-raisin-30'
+              onClick={handleLogin}
+            />
           )}
           {!isMobileDevice && <Tnet />}
         </div>
