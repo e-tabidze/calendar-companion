@@ -3,6 +3,7 @@ import dynamic from 'next/dynamic'
 import useFavourites from 'src/hooks/useFavourites'
 import Link from 'next/link'
 import ShareOptionsPopover from '../shareOptionsPopover'
+import {useTranslation} from "next-i18next";
 
 const Icon = dynamic(() => import('src/views/app/Icon'), { ssr: false })
 
@@ -38,13 +39,42 @@ const DetailsPageHeader: React.FC<Props> = ({
   const handlePrint = () => {
     window.print()
   }
+  const {t} = useTranslation()
+  const dynamicTranslateCities = (word:any) => {
+    switch (word){
+      case 'თბილისი':
+        return t('backend_cities.tbilisi');
+      case 'ბათუმი':
+        return t('backend_cities.batumi');
+      case 'გორი':
+        return t('backend_cities.gori');
+      case 'ზუგდიდი':
+        return t('backend_cities.zugdidi');
+      case 'თელავი':
+        return t('backend_cities.telavi');
+      case 'ქუთაისი':
+        return t('backend_cities.kutaisi');
+      case 'რუსთავი':
+        return t('backend_cities.rustavi');
+      case 'კასპი':
+        return t('backend_cities.kaspi');
+      case 'ხაშური':
+        return t('backend_cities.khashuri');
+      case 'დედოფლისწყარო':
+        return t('backend_cities.dedofliswyaro');
+      case 'წალენჯიხა':
+        return t('backend_cities.tsalenjikha');
+      default:
+        return word
+    }
+  }
 
   return (
     <DetailsHeader>
       <ul className='hidden md:flex items-center'>
         <li>
           <Link href='/' className='text-sm flex'>
-            მთავარი
+            {t('main')}
           </Link>
         </li>
         <li>
@@ -52,7 +82,7 @@ const DetailsPageHeader: React.FC<Props> = ({
         </li>
         <li>
           <Link href={`/search/?page=1&location=${city}&sort_by=id&order_by=desc`} className='text-sm flex'>
-            {city}
+            {dynamicTranslateCities(city)}
           </Link>
         </li>
         <li>

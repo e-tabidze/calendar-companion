@@ -18,14 +18,14 @@ const WorkingHoursSchema = Yup.object<WorkingHours>().shape({
 })
 
 const CompanyAddressSchema = Yup.object<CompanyAddress>().shape({
-  city: Yup.string().required('სავალდებულო ველი'),
+  city: Yup.string().required('required_field'),
 
-  address: Yup.string().required('სავალდებულო ველი'),
+  address: Yup.string().required('required_field'),
 
   phone: Yup.number()
-    .required('სავალდებულო ველი')
-    .typeError('ტელეფონის ნომერი უნდა იყოს რიცხვი')
-    .test('is-9-digit', 'მაქსიმუმ 9 სიმბოლო', value => {
+    .required('required_field')
+    .typeError('phone_is_number')
+    .test('is-9-digit', 'max_9_symbol', value => {
       if (value === null || value === undefined) {
         return true
       }
@@ -33,26 +33,26 @@ const CompanyAddressSchema = Yup.object<CompanyAddress>().shape({
 
       return !isNaN(numericValue) && numericValue.toString().length <= 9
     }),
-  email: Yup.string().email('მეილის ფორმატი არასწორია').nullable(),
+  email: Yup.string().email('email_format_error').nullable(),
   lat: Yup.string().nullable(),
   long: Yup.string().nullable(),
   working_hours: WorkingHoursSchema
 })
 
 const CompanyInfoSchema = Yup.object<CompanyInfo>().shape({
-  name: Yup.string().required('სავალდებულო ველი'),
-  legal_name: Yup.string().required('სავალდებულო ველი'),
-  logo: Yup.string().required('გთხოვთ ატვირთოთ კომპანიის ლოგო'),
-  description: Yup.string().required('სავალდებულო ველი'),
-  email: Yup.string().required('სავალდებულო ველი').email('მეილის ფორმატი არასწორია'),
-  phone_numbers: Yup.string().required('სავალდებულო ველი').max(9, 'მაქსიმუმ 9 რიცხვი')
+  name: Yup.string().required('required_field'),
+  legal_name: Yup.string().required('required_field'),
+  logo: Yup.string().required('upload_company_logo'),
+  description: Yup.string().required('required_field'),
+  email: Yup.string().required('required_field').email('email_format_error'),
+  phone_numbers: Yup.string().required('required_field').max(9, 'max_9_number')
 })
 
 const CompanySchema = Yup.object<Company>().shape({
   identification_number: Yup.number()
-    .required('სავალდებულო ველი')
-    .typeError('საინდეთიფიკაციო ნომერი უნდა იყოს რიცხვი')
-    .test('is-11-digit', 'საინდეთიფიკაციო ნომერი უნდა იყოს 11 ნიშნიანი', value => {
+    .required('required_field')
+    .typeError('identification_number_is_number')
+    .test('is-11-digit', 'identification_number_11_digit', value => {
       if (value === null || value === undefined) {
         return true
       }

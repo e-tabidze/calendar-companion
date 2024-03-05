@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react'
 import DataPlaceHolder from 'src/views/components/dataPlaceholder'
 import SkeletonLoading from './skeletorLoading'
 import useCompanyOrders from './useCompanyOrders'
+import {useTranslation} from "next-i18next";
 
 const Pagination = dynamic(() => import('src/views/components/pagination'), { ssr: false })
 const Typography = dynamic(() => import('src/views/components/typography'), { ssr: true })
@@ -17,33 +18,34 @@ const OrderDetails = dynamic(() => import('./orderDetails'), { ssr: false })
 
 const filters = [
   {
-    label: 'ყველა',
+    label: 'all',
     id: '1',
     filterOption: ''
   },
   {
-    label: 'მოლოდინში',
+    label: 'pending',
     id: '3',
     filterOption: '0'
   },
   {
-    label: 'გაუქმებული',
+    label: 'canceled',
     id: '4',
     filterOption: '2'
   },
   {
-    label: 'დადასტურებული',
+    label: 'approved',
     id: '5',
     filterOption: '1'
   },
   {
-    label: 'თვითდაჯავშნილი',
+    label: 'self_booked',
     id: '7',
     filterOption: '5'
   }
 ]
 
 const CompanyOrders = () => {
+  const {t} = useTranslation()
   const router = useRouter()
   const { status_id, page } = router.query
 
@@ -93,12 +95,12 @@ const CompanyOrders = () => {
             <div className='h-full'>
               <div className='md:p-8 lg:p-10 md:border border-raisin-10 rounded-3xl md:min-h-[520px]'>
                 <Typography type='h3' className='mb-6 md:mt-0 mt-6'>
-                  შემოსული ჯავშნები
+                  {t('incoming_orders')}
                 </Typography>
                 <div className='hidden lg:flex gap-3 pb-8 pr-8'>
                   {filters.map(filter => (
                     <Tag
-                      label={filter.label}
+                      label={t(filter.label)}
                       height='h-10'
                       key={filter.id}
                       className={`${filter.filterOption == filterQuery ? 'border !border-orange-100' : ''} rounded-xl`}

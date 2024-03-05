@@ -14,6 +14,7 @@ import Image from 'src/views/components/image'
 import Icon from 'src/views/app/Icon'
 import toast from 'react-hot-toast'
 import Toast from 'src/views/components/toast'
+import {useTranslation} from "next-i18next";
 
 interface Props {
   id: number
@@ -55,7 +56,7 @@ const Company: React.FC<Props> = ({ id, name, productsCount, logo }) => {
       queryClient.invalidateQueries(['companyInfo'])
       toast.custom(
         <Toast
-          title='კომპანია წარმატებით განახლდა!'
+          title={t('company_successfully_updated')}
           type='success'
         />
       )
@@ -88,6 +89,7 @@ const Company: React.FC<Props> = ({ id, name, productsCount, logo }) => {
   const deletCompanyAddress = () => {
     deleteAddressId ? deleteCompanyAddressMutation.mutate(deleteAddressId) : remove(index)
   }
+  const {t}= useTranslation()
 
   console.log(companyValues, 'companyValues edit')
 
@@ -113,7 +115,7 @@ const Company: React.FC<Props> = ({ id, name, productsCount, logo }) => {
                 {name}
               </Typography>
               <Link href='/' className='text-blue-80 text-2sm underline'>
-                სულ {productsCount}  განცხადება
+                {t('total')} {productsCount} {t('ads')}
               </Link>
             </div>
           </div>
@@ -123,7 +125,7 @@ const Company: React.FC<Props> = ({ id, name, productsCount, logo }) => {
               name='identification_number'
               control={control}
               errors={errors}
-              label='საიდენტიფიკაციო კოდი'
+              label={t('identification_number')}
               className='col-span-2 sm:col-span-1'
             />
             <DefaultInput
@@ -131,14 +133,14 @@ const Company: React.FC<Props> = ({ id, name, productsCount, logo }) => {
               control={control}
               errors={errors}
               disabled
-              label='იურიდიული დასახელება'
+              label={t('legal_name')}
               className='col-span-2 sm:col-span-1'
             />
             <DefaultInput
               name='company_information.name'
               control={control}
               errors={errors}
-              label='დასახელება'
+              label={t('company_name')}
               className='col-span-2'
             />
             <DefaultInput
@@ -147,11 +149,11 @@ const Company: React.FC<Props> = ({ id, name, productsCount, logo }) => {
               control={control}
               className='col-span-2'
               rows={4}
-              label='აღწერა'
+              label={t('description') + '(' + t('georgian')+')'}
             />
           </div>
           <Typography type='h3' className='font-bold text-3md md:text-2lg'>
-            მისამართები და განრიგი
+            {t('address_and_schedule')}
           </Typography>
 
           {addressFields.map((address: any, index: number) => (
@@ -162,7 +164,7 @@ const Company: React.FC<Props> = ({ id, name, productsCount, logo }) => {
                 <div className='w-full flex justify-end pr-8'>
                   <IconTextButton
                     icon='clear'
-                    label='წაშლა'
+                    label={t('remove')}
                     width={24}
                     height={24}
                     onClick={() => {
@@ -177,7 +179,7 @@ const Company: React.FC<Props> = ({ id, name, productsCount, logo }) => {
           ))}
 
           <IconTextButton
-            label='მისამართის დამატება'
+            label={t('add_address')}
             icon='add'
             width={20}
             height={20}
@@ -189,21 +191,21 @@ const Company: React.FC<Props> = ({ id, name, productsCount, logo }) => {
           />
 
           <Typography type='h3' className='font-bold mt-24 text-3md md:text-2lg'>
-            საკონტაქტო
+            {t('contact_info')}
           </Typography>
           <div className='grid grid-cols-2 gap-4 my-5'>
             <DefaultInput
               name='company_information.email'
               control={control}
               errors={errors}
-              label='ელ. ფოსტა'
+              label={t('e_mail')}
               className='col-span-2 md:col-span-1'
             />
             <DefaultInput
               name='company_information.phone_numbers'
               control={control}
               errors={errors}
-              label='ტელეფონის ნომერი'
+              label={t('phone_number')}
               className='col-span-2 md:col-span-1'
             />
           </div>
@@ -214,7 +216,7 @@ const Company: React.FC<Props> = ({ id, name, productsCount, logo }) => {
             <Icon svgPath='loader' width={20} height={20} />
           ) : (
             <DefaultButton
-              text='შენახვა'
+              text={t('save')}
               bg='bg-orange-100 hover:bg-orange-110 transition-all'
               textColor='text-white'
               type='submit'
@@ -223,7 +225,7 @@ const Company: React.FC<Props> = ({ id, name, productsCount, logo }) => {
           )}
 
           <IconTextButton
-            label='კომპანიის წაშლა'
+            label={t('company_remove')}
             width={20}
             height={21}
             icon='trash'

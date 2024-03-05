@@ -15,8 +15,10 @@ import {
   ViewAllCitiesContainer
 } from './styles'
 import Icon from 'src/views/app/Icon'
+import {useTranslation} from "next-i18next";
 
 const Cities = () => {
+  const {t} = useTranslation()
   const { cities } = useSearchLocations()
 
   const router = useRouter()
@@ -29,10 +31,10 @@ const Cities = () => {
             <Icon svgPath='location' width={40} height={40} className='shrink-0 hidden sm:inline-flex mt-1' />
             <Container>
               <Typography type='h3' className='text-3md xl:text-[24px] 2xl:text-[30px] mb-8'>
-                ავტომობილები ყველაზე აქტიურ ქალაქებში
+                {t('vehicles_in_most_active_cities')}
               </Typography>
               <DefaultButton
-                text='ყველას ნახვა'
+                text={t('view_all')}
                 className='hidden lg:inline-flex border-[#D4D4D7] hover:border-raisin-100 transition duration-300 ease-in-out'
                 onClick={() => router?.push('/search/?page=1&free_delivery=false&sort_by=id&order_by=asc')}
               />
@@ -56,7 +58,7 @@ const Cities = () => {
               ))}
           </CitiesWrapper>
           <DefaultButton
-            text='ყველას ნახვა'
+            text={t('view_all')}
             className='inline-flex lg:hidden border-[#D4D4D7] hover:border-raisin-100 transition duration-300 ease-in-out'
             onClick={() => router?.push('/search/?page=1&free_delivery=false&sort_by=id&order_by=asc')}
           />
@@ -67,22 +69,22 @@ const Cities = () => {
             icon='speed'
             width={64}
             height={64}
-            title='სწრაფი'
-            bodyText='დაზოგე დრო —  ნახე ყველა გამქირავებელი კომპანია ერთ ვებსაიტზე, შეადარე და დაუკავშირდი საუკეთესოს. ასევე, ჩაიბარე და ჩააბარე ავტომობილი მარტივად, ვებსაიტის მეშვეობით.'
+            title={t('fast')}
+            bodyText={t('fast_desc')}
           />
           <BenefitsCard
             icon='comfort'
             width={64}
             height={64}
-            title='კომფორტული'
-            bodyText='აირჩიე, დაჯავშნე, გადაიხადე — მოძებნე და დაჯავშნე ავტომობილი სასურველ თარიღებში. გადაიხადე ვებსაიტზე და მიიღე ყველა საჭირო მომსახურება ერთ სივრცეში.'
+            title={t('comfort')}
+            bodyText={t('comfort_desc')}
           />
           <BenefitsCard
             icon='safe'
             width={64}
             height={64}
-            title='უსაფრთხო'
-            bodyText='გადაიხადე სანდო პლატფორმაზე — აირჩიე გადახდის მოსახერხებელი მეთოდი. დამატებით ისარგებლე დაზღვევით, არ იფიქრო შესაძლო სირთულეებზე და ისიამოვნე მომენტით.'
+            title={t('safe')}
+            bodyText={t('safe_desc')}
           />
         </BenefitsContainer>
       </CitiesInnerContainer>

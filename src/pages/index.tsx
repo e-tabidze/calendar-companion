@@ -1,4 +1,7 @@
+import { dehydrate } from '@tanstack/react-query'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import dynamic from 'next/dynamic'
+import { useTranslation } from 'next-i18next'
 import useFilters from 'src/hooks/useFilters'
 import { TailwindDiv } from 'src/interfaces/tailwind'
 import DefaultLayout from 'src/layouts/DefaultLayout'
@@ -11,12 +14,13 @@ const PageMeta = dynamic(() => import('src/@core/meta/PageMeta'), { ssr: true })
 const ProductCard = dynamic(() => import('src/views/components/productCard'), { ssr: true })
 const CategoryItem = dynamic(() => import('src/views/components/categoryItem'), { ssr: true })
 const Carousel = dynamic(() => import('src/views/components/carousel'), { ssr: true })
-const Hero = dynamic(() => import('src/views/pages/main/hero'), { ssr: true })
+const Hero = dynamic(() => import('src/views/pages/main/hero'), { ssr: false })
 const Cities = dynamic(() => import('src/views/pages/main/cities'), { ssr: true })
 const Typography = dynamic(() => import('src/views/components/typography'), { ssr: true })
 
 // ** Tailwind Styled
 import tw from 'tailwind-styled-components'
+import { queryClient } from './_app'
 
 const pageMeta = {
   title: 'Rent.myauto.ge | მანქანის ქირაობის პლატფორმა',
@@ -32,6 +36,29 @@ const MainPage = () => {
 
   const { categoriesFilter } = useFilters()
 
+  const { t } = useTranslation()
+
+  const dynamicTranslateCategories = (word: any) => {
+    switch (word){
+      case 'სედანი':
+        return t('backend_categories.sedan');
+      case 'ჯიპი':
+        return t('backend_categories.jeep');
+      case 'ეკონომიური':
+        return t('backend_categories.economy');
+      case 'კუპე':
+        return t('backend_categories.coupe');
+      case 'პიკაპი':
+        return t('backend_categories.pickup');
+      case 'მინივენი':
+        return t('backend_categories.minivan');
+      case 'კაბრიოლეტი':
+        return t('backend_categories.cabriolet');
+      default:
+        return word
+    }
+  }
+
   return (
     <DefaultLayout>
       <PageMeta meta={pageMeta} />
@@ -43,7 +70,7 @@ const MainPage = () => {
         {categoriesFilter?.filter((product: any) => product?.count_products > 0) && (
           <ContentContainer>
             <Typography type='h3' className='text-3md md:text-2lg mt-12 mb-8'>
-              აირჩიე სასურველი კატეგორია
+              {t('choose_preferable_category')}
             </Typography>
           </ContentContainer>
         )}
@@ -56,7 +83,7 @@ const MainPage = () => {
               ?.map((product: any) => (
                 <CategoryItem
                   svgPath={product?.icon}
-                  title={product?.title}
+                  title={dynamicTranslateCategories(product?.title)}
                   count={product?.count_products}
                   id={product?.id}
                   key={product?.id}
@@ -71,7 +98,7 @@ const MainPage = () => {
         {popularProducts?.length > 0 && (
           <ContentContainer>
             <Typography type='h3' className='text-3md md:text-2lg mt-12 mb-8'>
-              პოპულარული ავტომობილები
+              {t('popular_vehicles')}
             </Typography>
           </ContentContainer>
         )}
@@ -98,7 +125,7 @@ const MainPage = () => {
         {lastSeenProducts?.length > 0 && (
           <ContentContainer>
             <Typography type='h3' className='text-3md md:text-2lg mt-12 mb-8'>
-              ბოლოს ნანახი
+              {t('last_seen')}
             </Typography>
           </ContentContainer>
         )}
@@ -133,13 +160,13 @@ const MainPage = () => {
 
 export default MainPage
 
-// export async function getStaticProps({ locale }: { locale: string }) {
-//   const [translations] = await Promise.all([serverSideTranslations(locale)])
+export async function getServerSideProps({ locale }: { locale: string }) {
+  const [translations] = await Promise.all([serverSideTranslations(locale)])
 
-//   return {
-//     props: {
-//       dehydratedState: dehydrate(queryClient),
-//       ...translations
-//     }
-//   }
-// }
+  return {
+    props: {
+      dehydratedState: dehydrate(queryClient),
+      ...translations
+    }
+  }
+}

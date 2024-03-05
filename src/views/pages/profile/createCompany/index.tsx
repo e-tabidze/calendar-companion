@@ -8,12 +8,14 @@ import useCreateCompany from './useCreateCompany'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import Toast from 'src/views/components/toast'
 import toast from 'react-hot-toast'
+import {useTranslation} from "next-i18next";
 
 const CreateCompany = () => {
+  const {t} = useTranslation()
   const options = [
-    { value: '1/3 ნაბიჯი', label: 'კომპანიის დამატება', step: 1 },
-    { value: '2/3 ნაბიჯი', label: 'მისამართები და სამუშაო საათები', step: 2 },
-    { value: '3/3 ნაბიჯი', label: 'მისამართები და სამუშაო საათები', step: 3 }
+    { value: t('1/3_step'), label: t('company_add'), step: 1 },
+    { value: t('2/3_step'), label: t('addresses_and_hours'), step: 2 },
+    { value: t('3/3_step'), label: t('addresses_and_hours'), step: 3 }
   ]
   const [step, setStep] = useState(options[0])
 
@@ -92,7 +94,7 @@ const CreateCompany = () => {
           companyId: data?.result?.data?.id
         })
       }
-      toast.custom(<Toast type='success' title='კომპანია წარმატებით დაემატა' />)
+      toast.custom(<Toast type='success' title={t('company_successfully_added')} />)
 
       setTimeout(() => {
         router.push(`/profile/company/${data?.result?.data?.id}`)
@@ -121,7 +123,7 @@ const CreateCompany = () => {
         onPrevStep={handleGoPrevStep}
         onClose={handleClose}
         onSubmit={handleSubmit(onSubmit)}
-        submitLabel='დამატება'
+        submitLabel={t('add')}
         disabled={createCompanyMutation.isLoading || saveCompanyLogoMutation.isLoading}
       >
         {step.step === 1 && (

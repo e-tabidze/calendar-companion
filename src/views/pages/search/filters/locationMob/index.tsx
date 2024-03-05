@@ -3,6 +3,7 @@ import { useWatch } from 'react-hook-form'
 import { FilterContainer, InnerFilterContainer } from './styles'
 import dynamic from 'next/dynamic'
 import LocationModal from 'src/views/pages/main/filters/locationMob/locationModal'
+import {useTranslation} from "next-i18next";
 
 const Icon = dynamic(() => import('src/views/app/Icon'), { ssr: false })
 const Typography = dynamic(() => import('src/views/components/typography'), { ssr: false })
@@ -14,13 +15,14 @@ interface Props {
 const LocationMob: React.FC<Props> = ({ control, resetField }) => {
   const [location, toggleLocation] = useState(false)
   const formState = useWatch({ control })
+    const {t} = useTranslation()
 
   return (
     <>
       <FilterContainer onClick={() => toggleLocation(!location)}>
         <InnerFilterContainer className='py-3 pl-3 pr-1 sm:pl-4 sm:pr-2'>
           <Typography type='subtitle' className='text-sm'>
-            {formState.location || 'მდებარეობა'}
+            {formState.location || t('city_address')}
           </Typography>
           {formState.location ? (
             <span

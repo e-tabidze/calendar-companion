@@ -5,6 +5,7 @@ import Typography from 'src/views/components/typography'
 import { parseISO, format } from 'date-fns'
 import { ka } from 'date-fns/locale'
 import Divider from 'src/views/components/divider'
+import {useTranslation} from "next-i18next";
 
 interface Props {
   startAddress: string
@@ -27,6 +28,8 @@ const OrderListComponent: React.FC<Props> = ({
   price,
   status
 }) => {
+
+  const {t} = useTranslation()
 
   return (
     <div>
@@ -80,7 +83,7 @@ const OrderListComponent: React.FC<Props> = ({
                   : ''
               }`}
             >
-              {status === 0 ? 'მოლოდინში' : status === 1 ? 'დადასტურებული' : status === 2 ? 'გაუქმებული' : ''}
+              {status === 0 ? t('pending') : status === 1 ? t('approved') : status === 2 ? t('canceled') : ''}
             </Typography>
           </div>
           <IconButton icon='chevronWithBg' height={38} width={38} />

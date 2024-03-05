@@ -10,6 +10,7 @@ import { formatDate } from 'src/utils/formatDate'
 import Icon from 'src/views/app/Icon'
 import { useRouter } from 'next/router'
 import { format } from 'date-fns'
+import {i18n, useTranslation} from "next-i18next";
 
 interface Props {
   control: any
@@ -21,6 +22,7 @@ registerLocale('ka', ka)
 const PeriodDropwodn: React.FC<Props> = ({ control, resetField, setValue }) => {
   const router = useRouter()
   const { book_from, book_to } = router?.query
+  const {t} = useTranslation()
 
   const formState = useWatch({ control })
 
@@ -68,11 +70,11 @@ const PeriodDropwodn: React.FC<Props> = ({ control, resetField, setValue }) => {
                         }
                         -
                     ${
-                      formState?.booking?.book_to?.length > 0 && formState?.booking?.book_to !== 'თარიღი'
+                      formState?.booking?.book_to?.length > 0 && formState?.booking?.book_to !== t('date')
                         ? `${format(new Date(formState?.booking?.book_to), 'd MMM', { locale: ka })}`
                         : ''
                     }`
-                      : 'დაქირავების პერიოდი'}
+                      : t('rental_period')}
                   </Typography>
                   {formState?.booking?.book_from || formState?.booking?.book_to ? (
                     <span
@@ -114,7 +116,7 @@ const PeriodDropwodn: React.FC<Props> = ({ control, resetField, setValue }) => {
                 render={({ field: { onChange } }) => (
                   <DatePicker
                     key={startDate ? startDate.toString() : 'null'}
-                    locale='ka'
+                    locale={i18n?.language}
                     className='text-center border-l-4 border-red-500  w-full p-3 rounded text-sm  outline-none  focus:ring-0 bg-transparent'
                     inline
                     selectsRange={true}

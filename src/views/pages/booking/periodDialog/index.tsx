@@ -11,6 +11,7 @@ import useWindowDimensions from 'src/hooks/useWindowDimensions'
 import { useRouter } from 'next/router'
 import { DefaultButton, IconTextButton } from 'src/views/components/button'
 import Icon from 'src/views/app/Icon'
+import {i18n, useTranslation} from "next-i18next";
 
 interface Props {
   control: any
@@ -21,6 +22,7 @@ interface Props {
 registerLocale('ka', ka)
 
 const PeriodDialog: React.FC<Props> = ({ control, open, setOpen, setValue }) => {
+  const {t} = useTranslation()
   const router = useRouter()
   const { id, book_from, book_to, price_day, company_id } = router.query
 
@@ -112,7 +114,7 @@ const PeriodDialog: React.FC<Props> = ({ control, open, setOpen, setValue }) => 
             >
               <Dialog.Panel className='w-max transform overflow-hidden rounded-2xl bg-white text-left align-middle shadow-xl transition-all'>
                 <div className='mb-8 p-6 border-b border-raisin-10 flex justify-between'>
-                  <Typography type='h3'>შეარჩიე ქირაობის პერიოდი</Typography>
+                  <Typography type='h3'>{t('select_rent_period')}</Typography>
                   <Icon
                     svgPath='close'
                     width={40}
@@ -131,7 +133,7 @@ const PeriodDialog: React.FC<Props> = ({ control, open, setOpen, setValue }) => 
                     render={({ field: { onChange } }) => (
                       <DatePicker
                         key={startDate ? startDate.toString() : 'null'}
-                        locale='ka'
+                        locale={i18n?.language}
                         className='p-6 text-center border-l-4 border-red-500 w-full rounded text-sm outline-none focus:ring-0 bg-transparent'
                         inline
                         selectsRange={true}
@@ -173,7 +175,7 @@ const PeriodDialog: React.FC<Props> = ({ control, open, setOpen, setValue }) => 
 
                 <div className='w-full flex flex-row items-center justify-between p-6 border-t-1 border-grey-90'>
                   <IconTextButton
-                    label='გასუფთავება'
+                    label={t('clear')}
                     icon='rotate'
                     className='fill-transparent'
                     width={24}
@@ -183,7 +185,7 @@ const PeriodDialog: React.FC<Props> = ({ control, open, setOpen, setValue }) => 
                   />
 
                   <div className='flex items-center justify-between md:justify-start text-md gap-4'>
-                    <DefaultButton text='შენახვა' bg='bg-green-100 transition-all' type='submit' onClick={onSubmit} />
+                    <DefaultButton text={t('save')} bg='bg-green-100 transition-all' type='submit' onClick={onSubmit} />
                   </div>
                 </div>
               </Dialog.Panel>

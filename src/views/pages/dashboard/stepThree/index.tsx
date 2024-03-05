@@ -17,6 +17,7 @@ import {
 // import { useWatch } from 'react-hook-form'
 // import useNewProduct from '../newProduct/useNewProduct'
 import dynamic from 'next/dynamic'
+import {useTranslation} from "next-i18next";
 
 const Typography = dynamic(() => import('src/views/components/typography'), { ssr: false })
 
@@ -38,6 +39,7 @@ interface Props {
 // ]
 
 const StepThree: React.FC<Props> = ({ control, errors }) => {
+    const {t} = useTranslation()
 
   // const { discount_item, setValue } = useNewProduct()
   // const { width } = useWindowDimensions()
@@ -53,7 +55,7 @@ const StepThree: React.FC<Props> = ({ control, errors }) => {
     <StepThreeContainer>
       <StepThreePriceContainer>
         <DefaultInput
-          label='დღიური ღირებულება*'
+          label={t('daily_price') + '*'}
           control={control}
           name='daily_price.amount'
           errors={errors}
@@ -71,8 +73,7 @@ const StepThree: React.FC<Props> = ({ control, errors }) => {
         />
       </StepThreePriceContainer>
       <Typography type='subtitle' className='my-9'>
-        მითითებული ფასი განსაზღვრავს ავტომობილის 1 დღის ქირაობის ფასს, რომლის ცვლილებაც დამოკიდებული იქნება დაქირავებული
-        დღეების რაოდენობასა და დინამიური ფასების პოლიტიკაზე
+          {t('daily_price_desc')}
       </Typography>
 
       {/* <Typography type='h5' weight='normal' className='text-3md my-6'>

@@ -1,4 +1,5 @@
 import { useRouter } from 'next/router'
+import { useTranslation } from 'next-i18next'
 import DataPlaceHolder from 'src/views/components/dataPlaceholder'
 import Divider from 'src/views/components/divider'
 import Pagination from 'src/views/components/pagination'
@@ -11,6 +12,8 @@ const CardsAndTransactions = () => {
 
   const { page } = router.query
   const { userOrders, useUserOrdersLoading } = useOrders(undefined, page ? Number(page) : 0)
+
+  const { t } = useTranslation()
 
   const handlePageChange = (newPage: number) => {
     router.push({
@@ -27,7 +30,7 @@ const CardsAndTransactions = () => {
     <>
       <div className='md:p-10 md:border border-raisin-10 rounded-3xl mt-8 lg:mt-0'>
         <Typography type='h3' className='mb-6'>
-          ტრანზაქციები
+          {t('transactions')}
         </Typography>
         <Divider />
 
@@ -42,7 +45,7 @@ const CardsAndTransactions = () => {
             />
           ))
         ) : (
-          <DataPlaceHolder label='ტრანზაქციები ჯერ არ გაქვს' />
+          <DataPlaceHolder label={t('no_transactions_yet')} />
         )}
       </div>
       {userOrders?.last_page > 1 && (

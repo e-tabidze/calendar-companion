@@ -2,9 +2,9 @@ import * as Yup from 'yup'
 
 const UserInfoSchema = Yup.object().shape({
   identification_number: Yup.number()
-    .required('პირადი ნომერი უნდა იყოს რიცხვი')
-    .typeError('საინდეთიფიკაციო ნომერი უნდა იყოს რიცხვი')
-    .test('is-11-digit', 'საინდეთიფიკაციო ნომერი უნდა იყოს 11 ნიშნიანი', value => {
+    .required('personal_number_is_number')
+    .typeError('identification_number_is_number')
+    .test('is-11-digit', 'identification_number_11_digit', value => {
       if (value === null || value === undefined) {
         return true
       }
@@ -13,18 +13,18 @@ const UserInfoSchema = Yup.object().shape({
       return !isNaN(numericValue) && numericValue.toString().length === 11
     }),
   phone: Yup.number()
-    .typeError('ტელეფონის ნომერი უნდა იყოს რიცხვი')
-    .required('აუცილებელი ველი')
-    .min(6, 'მინიმუმ 6 რიცხვი'),
-  birth_date: Yup.string().required('აუცილებელი ველი'),
-  driver_license_expiration: Yup.string().required('აუცილებელი ველი')
+    .typeError('phone_is_number')
+    .required('required_field')
+    .min(6, 'min_6_number'),
+  birth_date: Yup.string().required('required_field'),
+  driver_license_expiration: Yup.string().required('required_field')
 })
 
 const PasswordSchema = Yup.object().shape({
-  current_password: Yup.string().required('აუცილებელი ველი'),
-  password: Yup.string().required('აუცილებელი ველი'),
+  current_password: Yup.string().required('required_field'),
+  password: Yup.string().required('required_field'),
   confirm_password: Yup.string()
-    .required('აუცილებელი ველი')
+    .required('required_field')
     .oneOf([Yup.ref('password'), ''], 'Passwords must match')
 })
 

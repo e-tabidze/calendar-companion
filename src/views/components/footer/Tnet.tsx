@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import Image from "src/views/components/image";
 import Typography from "src/views/components/typography";
 import Icon from "src/views/app/Icon";
+import {useTranslation} from "next-i18next";
 
 
 const Tnet = () => {
@@ -10,6 +11,7 @@ const Tnet = () => {
     const handleSetActive = () => {
         setActive(!active)
     }
+    const {t} = useTranslation()
 
     return (
         <div className="mx-auto">
@@ -74,7 +76,7 @@ const Tnet = () => {
             </div>
             <div className="flex justify-center pt-6 pb-8">
                 <Typography type='body' className="font-normal text-raisin-70 text-sm lg:text-2sm text-center">
-                    © 2023 ყველა უფლება დაცულია
+                    © {t('copyright')}
                 </Typography>
             </div>
         </div>

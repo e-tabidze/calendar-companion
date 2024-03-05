@@ -2,6 +2,7 @@ import { Combobox, Transition } from '@headlessui/react'
 import { Controller } from 'react-hook-form'
 import useSearchLocations from './useSearchLocations'
 import dynamic from 'next/dynamic'
+import {useTranslation} from "next-i18next";
 
 const Icon = dynamic(() => import('src/views/app/Icon'), { ssr: false })
 interface Props {
@@ -11,6 +12,35 @@ interface Props {
 
 const LocationDropdown: React.FC<Props> = ({ control, resetField }) => {
   const { cities } = useSearchLocations()
+    const {t} = useTranslation()
+    const dynamicTranslateCities = (word:any) => {
+        switch (word){
+            case 'თბილისი':
+                return t('backend_cities.tbilisi');
+            case 'ბათუმი':
+                return t('backend_cities.batumi');
+            case 'გორი':
+                return t('backend_cities.gori');
+            case 'ზუგდიდი':
+                return t('backend_cities.zugdidi');
+            case 'თელავი':
+                return t('backend_cities.telavi');
+            case 'ქუთაისი':
+                return t('backend_cities.kutaisi');
+            case 'რუსთავი':
+                return t('backend_cities.rustavi');
+            case 'კასპი':
+                return t('backend_cities.kaspi');
+            case 'ხაშური':
+                return t('backend_cities.khashuri');
+            case 'დედოფლისწყარო':
+                return t('backend_cities.dedofliswyaro');
+            case 'წალენჯიხა':
+                return t('backend_cities.tsalenjikha');
+            default:
+                return word
+        }
+    }
 
   return (
     <Controller
@@ -23,7 +53,7 @@ const LocationDropdown: React.FC<Props> = ({ control, resetField }) => {
               <Combobox.Button className='h-full flex items-center pl-3 lg:pl-4 pr-1 lg:pr-2'>
                 <Combobox.Input
                   className='bg-transparent border-none h-full text-2sm text-raisin-130 placeholder:text-sm placeholder:text-raisin-130'
-                  placeholder='მდებარეობა'
+                  placeholder={t('location')}
                   displayValue={(city: any) => city.city}
                   onChange={onChange}
                   value={value}
@@ -72,7 +102,7 @@ const LocationDropdown: React.FC<Props> = ({ control, resetField }) => {
                           value == city.city ? 'text-green-100' : 'text-raisin-100'
                         }`}
                       >
-                        {city.city}
+                        {dynamicTranslateCities(city.city)}
                       </span>
                     </Combobox.Option>
                   ))}

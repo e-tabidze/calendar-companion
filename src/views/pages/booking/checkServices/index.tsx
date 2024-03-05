@@ -1,5 +1,6 @@
 import { Controller } from 'react-hook-form'
 import dynamic from 'next/dynamic'
+import {useTranslation} from "next-i18next";
 
 const Typography = dynamic(() => import('src/views/components/typography'), { ssr: false })
 const Icon = dynamic(() => import('src/views/app/Icon'), { ssr: false })
@@ -21,6 +22,7 @@ interface Props {
 }
 
 const CheckServices: React.FC<Props> = ({ control, options }) => {
+  const {t} = useTranslation()
 
   return (
     <div className='md:border md:border-raisin-10 md:rounded-xl md:p-10'>
@@ -74,7 +76,7 @@ const CheckServices: React.FC<Props> = ({ control, options }) => {
                   </>
                 ) : (
                   <Typography type='body' className='text-2sm md:text-md w-max text-green-100 font-bold'>
-                    უფასო
+                    {t('price_free')}
                   </Typography>
                 )}
               </div>

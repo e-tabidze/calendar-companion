@@ -20,9 +20,8 @@ import { Controller, useWatch } from 'react-hook-form'
 
 import SortListBox from 'src/views/pages/search/sortListBox'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { dehydrate } from '@tanstack/query-core'
-import { queryClient } from '../_app'
 import PageMeta from 'src/@core/meta/PageMeta'
+import { useTranslation } from 'next-i18next'
 
 // const MapPicker = dynamic(() => import('src/views/components/mapPicker'), { ssr: true })
 const SkeletonLoading = dynamic(() => import('src/views/pages/search/skeletonLoading'), { ssr: false })
@@ -80,6 +79,8 @@ const SearchPage = () => {
 
   const router = useRouter()
 
+  console.log(router.locale, 'locale')
+
   const { book_from, book_to } = router.query
 
   const page = router.query.page ? Number(router.query.page) : 1
@@ -87,6 +88,8 @@ const SearchPage = () => {
   const [hasFilter, setHasFilter] = useState(false)
 
   const formState = useWatch({ control })
+
+  const { t } = useTranslation()
 
   useEffect(() => {
     setHasFilter(
@@ -176,7 +179,7 @@ const SearchPage = () => {
                 />
               </div>
               <Tag
-                label='ყველა ფილტრი'
+                label={t('filters_all')}
                 className={`${hasFilter ? 'border border-raisin-100' : ''} bg-grey-60`}
                 component={<Icon svgPath='filters' width={22} height={20} className='flex fill-transparent' />}
                 height='h-10'
@@ -189,7 +192,7 @@ const SearchPage = () => {
                 width={24}
                 height={24}
                 className='fill-transparent'
-                label='გასუფთავება'
+                label={t('clear')}
                 labelClassname='text-red-100'
                 iconFill='fill-red-100'
                 type='reset'
@@ -208,7 +211,7 @@ const SearchPage = () => {
               {/*}`}*/}
               <SearchResultsContainer>
                 <Typography type='body' className='text-md mr-2 mt-6 md:mt-0'>
-                  ნაპოვნია {totalProductsCount} განცხადება
+                  {t('founded')} {totalProductsCount}  {t('search_results')}
                 </Typography>
                 <div className='w-full md:w-auto flex items-center'>
                   {/*<span*/}
@@ -243,7 +246,7 @@ const SearchPage = () => {
                         <Tag
                           component={<Icon svgPath='filters' width={22} height={20} className='fill-transparent' />}
                           className='bg-grey-60'
-                          label={'ფილტრი'}
+                          label={t('filter')}
                           height='h-10'
                           handleClick={() => toggleFilters(!filters)}
                         />
@@ -353,13 +356,10 @@ const SearchPage = () => {
 
 export default SearchPage
 
-export async function getServerSideProps({ locale }: { locale: string }) {
-  const [translations] = await Promise.all([serverSideTranslations(locale)])
-
+export async function getServerSideProps({ locale }: any) {
   return {
     props: {
-      dehydratedState: dehydrate(queryClient),
-      ...translations
+      ...(await serverSideTranslations(locale, ['common', 'searchProducts']))
     }
   }
 }

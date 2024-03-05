@@ -20,6 +20,7 @@ import {
 } from './styles'
 import { isMobile } from 'react-device-detect'
 import { useEffect, useState } from 'react'
+import {useTranslation} from "next-i18next";
 
 interface Props {
   productId: number
@@ -86,6 +87,37 @@ const ProductCard: React.FC<Props> = ({
     setIsMobileDevice(isMobile)
   }, [])
 
+  const {t} = useTranslation()
+
+  const dynamicTranslateCities = (word:any) => {
+    switch (word) {
+      case 'თბილისი':
+        return t('backend_cities.tbilisi');
+      case 'ბათუმი':
+        return t('backend_cities.batumi');
+      case 'გორი':
+        return t('backend_cities.gori');
+      case 'ზუგდიდი':
+        return t('backend_cities.zugdidi');
+      case 'თელავი':
+        return t('backend_cities.telavi');
+      case 'ქუთაისი':
+        return t('backend_cities.kutaisi');
+      case 'რუსთავი':
+        return t('backend_cities.rustavi');
+      case 'კასპი':
+        return t('backend_cities.kaspi');
+      case 'ხაშური':
+        return t('backend_cities.khashuri');
+      case 'დედოფლისწყარო':
+        return t('backend_cities.dedofliswyaro');
+      case 'წალენჯიხა':
+        return t('backend_cities.tsalenjikha');
+      default:
+        return word
+    }
+  }
+
 
   return (
     <ProductCardContainer onClick={handleCardClick}>
@@ -141,13 +173,13 @@ const ProductCard: React.FC<Props> = ({
           </span>
         </Typography>
         <Typography type='body' color='light'>
-          {city}
+          {dynamicTranslateCities(city)}
         </Typography>
         <InnerDetailsContainer>
           <PriceContainer>
             {priceGel} ₾{/*<PreviousPrice>47₾</PreviousPrice>*/}
             <Typography type='body' className='text-sm'>
-              დღე
+              {t('day')}
             </Typography>
           </PriceContainer>
           <DetailsWrapper className='flex-col sm:flex-row pl-4 sm:pl-0 border-l-1 border-raisin-10 sm:border-none'>

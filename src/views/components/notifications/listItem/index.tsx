@@ -10,6 +10,7 @@ interface Props {
 }
 
 const ListItem: React.FC<Props> = ({ url, notification }) => {
+
   return (
     <Link href={url} as={url}>
       <li>

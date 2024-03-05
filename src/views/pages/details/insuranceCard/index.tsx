@@ -1,6 +1,7 @@
 import Typography from 'src/views/components/typography'
 import { InsuranceList, InsuranceListItem } from './styles'
 import Icon from "src/views/app/Icon";
+import {useTranslation} from "next-i18next";
 
 interface Props {
   selected?: boolean
@@ -8,6 +9,8 @@ interface Props {
 }
 
 const InsuranceCard = ({ selected, handleClick }: Props) => {
+  const {t} = useTranslation()
+
   return (
     <div
       onClick={handleClick}
@@ -16,7 +19,7 @@ const InsuranceCard = ({ selected, handleClick }: Props) => {
       }  rounded-3xl px-9 pt-10 pb-5 cursor-pointer`}
     >
       <Typography type='h5' weight='normal'>
-        გზის დაზღვევა
+        {t('road_insurance')}
       </Typography>
       <Typography type='subtitle'>0.00$</Typography>
 

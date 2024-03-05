@@ -13,6 +13,7 @@ const Typography = dynamic(() => import('src/views/components/typography'), { ss
 const DeleteProductConfirmationModal = dynamic(() => import('../../products/deleteProductModal'), { ssr: false })
 
 import toast from 'react-hot-toast'
+import {useTranslation} from "next-i18next";
 
 interface Props {
   price: number
@@ -38,6 +39,35 @@ const VehicleListComponent: React.FC<Props> = ({
   images
 }) => {
   const [deleteProductModal, setDeleteProductModal] = useState(false)
+  const{t} = useTranslation()
+  const dynamicTranslateCities = (word:any) => {
+    switch (word){
+      case 'თბილისი':
+        return t('backend_cities.tbilisi');
+      case 'ბათუმი':
+        return t('backend_cities.batumi');
+      case 'გორი':
+        return t('backend_cities.gori');
+      case 'ზუგდიდი':
+        return t('backend_cities.zugdidi');
+      case 'თელავი':
+        return t('backend_cities.telavi');
+      case 'ქუთაისი':
+        return t('backend_cities.kutaisi');
+      case 'რუსთავი':
+        return t('backend_cities.rustavi');
+      case 'კასპი':
+        return t('backend_cities.kaspi');
+      case 'ხაშური':
+        return t('backend_cities.khashuri');
+      case 'დედოფლისწყარო':
+        return t('backend_cities.dedofliswyaro');
+      case 'წალენჯიხა':
+        return t('backend_cities.tsalenjikha');
+      default:
+        return word
+    }
+  }
 
   const { deleteProduct, activeProducts } = useProducts(filter)
 
@@ -46,10 +76,10 @@ const VehicleListComponent: React.FC<Props> = ({
   const deleteProductMutation = useMutation(() => deleteProduct(id), {
     onSuccess: () => {
       queryClient.invalidateQueries(['companyProducts'])
-      toast.custom(<Toast type='success' title='ავტომობილი წარმატებით წაიშალა' />)
+      toast.custom(<Toast type='success' title={t('car_successfully_removed')} />)
     },
     onError: () => {
-      toast.custom(<Toast type='error' title='მოხდა შეცდომა, გთხოვთ ხელახლა სცადოთ' />)
+      toast.custom(<Toast type='error' title={t('error_try_again_later')} />)
     }
   })
 
@@ -95,7 +125,7 @@ const VehicleListComponent: React.FC<Props> = ({
             </div>
             <div className='pr-6 md:pr-0'>
               <Typography type='body' color='light'>
-                {startCity}
+                {dynamicTranslateCities(startCity)}
               </Typography>
               <Link href={`/details/${id}`}>
                 <Typography type='subtitle' className='text-sm md:text-2sm'>
@@ -103,7 +133,7 @@ const VehicleListComponent: React.FC<Props> = ({
                 </Typography>
                 <div className='flex items-center min-w-[254px] justify-between gap-10 mt-4 md:mt-10'>
                   <Typography type='h4' weight='medium' color='dark' className='text-2sm md:text-3md'>
-                    {price}₾<span className='text-[14px] pl-3 font-normal text-center'>დღე</span>
+                    {price}₾<span className='text-[14px] pl-3 font-normal text-center'>{t('day')}</span>
                   </Typography>
                   <Typography
                     type='subtitle'
@@ -111,7 +141,7 @@ const VehicleListComponent: React.FC<Props> = ({
                       active ? 'text-white bg-green-100' : 'text-raisin-100 bg-grey-100'
                     }`}
                   >
-                    {active ? 'აქტიური' : 'გამორთული'}
+                    {active ? t('active') : t('paused')}
                   </Typography>
                 </div>
               </Link>
@@ -120,17 +150,17 @@ const VehicleListComponent: React.FC<Props> = ({
           <div className='hidden lg:flex gap-4'>
             <Action
               bg={active ? 'bg-raisin-10' : 'bg-green-10'}
-              label={active ? 'გამორთვა' : 'ჩართვა'}
+              label={active ? t('stop'): t('play')}
               icon={active ? 'stop' : 'play'}
               onClick={toggleActivateProduct}
               disabled={activeProductMutation?.isLoading}
             />
             <Link href={`/dashboard/edit-product?id=${id}`} as={`/dashboard/edit-product?id=${id}`}>
-              <Action bg='bg-raisin-10' label='რედაქტირება' icon='edit' />
+              <Action bg='bg-raisin-10' label={t('edit')} icon='edit' />
             </Link>
             <Action
               bg='bg-raisin-10'
-              label='წაშლა'
+              label={t('remove')}
               icon='trash'
               onClick={toggleDeleteProductModal}
               disabled={deleteProductMutation.isLoading}

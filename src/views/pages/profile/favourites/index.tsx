@@ -5,6 +5,7 @@ import Divider from 'src/views/components/divider'
 import DataPlaceHolder from 'src/views/components/dataPlaceholder'
 import Pagination from 'src/views/components/pagination'
 import { useRouter } from 'next/router'
+import { useTranslation } from 'next-i18next'
 
 const Favourites = () => {
   const router = useRouter()
@@ -12,6 +13,8 @@ const Favourites = () => {
   const { page } = router.query
 
   const { userFavourites, isLoading } = useFavourites(undefined, Number(page))
+
+  const { t } = useTranslation()
 
   const handlePageChange = (newPage: number) => {
     router.push({
@@ -28,7 +31,7 @@ const Favourites = () => {
     <>
       <div className='md:p-8 lg:p-10 md:border border-raisin-10 rounded-3xl mt-8 lg:mt-0'>
         <Typography type='h3' className='mb-6'>
-          ფავორიტები
+          {t('favourites')}
         </Typography>
         <Divider />
         {userFavourites?.data?.length > 0 ? (
@@ -49,7 +52,7 @@ const Favourites = () => {
             />
           ))
         ) : (
-          <DataPlaceHolder label='ფავორიტები ჯერ არ გაქვს' />
+          <DataPlaceHolder label={t('no_favourites_yet')} />
         )}
       </div>
       {userFavourites?.last_page > 1 && (

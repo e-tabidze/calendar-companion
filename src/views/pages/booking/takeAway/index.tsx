@@ -2,6 +2,7 @@ import { useWatch } from 'react-hook-form'
 import { generateTimeOptions } from 'src/utils/timeValues'
 import SelectField from 'src/views/components/selectField'
 import dynamic from 'next/dynamic'
+import {useTranslation} from "next-i18next";
 
 const Typography = dynamic(() => import('src/views/components/typography'), { ssr: false })
 const Icon = dynamic(() => import('src/views/app/Icon'), { ssr: false })
@@ -15,6 +16,7 @@ interface Props {
 
 const TakeAway: React.FC<Props> = ({ control, toggleEditModal, errors, startDate, endDate }) => {
   const formState = useWatch({ control })
+  const {t} = useTranslation()
 
   return (
     <div className='pl-13 mt-4'>
@@ -23,7 +25,7 @@ const TakeAway: React.FC<Props> = ({ control, toggleEditModal, errors, startDate
           <Icon svgPath='booking-start' height={24} width={24} className='fill-transparent flex shrink-0' />
           <div className='ml-3'>
             <Typography type='body' color='dark'>
-              წაყვანა
+              {t('take_away')}
             </Typography>
             <div className='absolute'>
               <Typography type='subtitle' color='light' className='hidden lg:flex'>
@@ -47,7 +49,7 @@ const TakeAway: React.FC<Props> = ({ control, toggleEditModal, errors, startDate
               labelKey='label'
               name='start_time'
               options={generateTimeOptions()}
-              placeholder='დრო*'
+              placeholder={t('time') + '*'}
               className='bg-transparent fill-transparent border-green-100 group-color'
               errors={errors}
               errorAbsolute
@@ -59,7 +61,7 @@ const TakeAway: React.FC<Props> = ({ control, toggleEditModal, errors, startDate
             onClick={toggleEditModal}
             className='hidden lg:flex border border-black items-center justify-center h-12 rounded-xl text-sm px-6'
           >
-            შეცვლა
+            {t('change')}
           </button>
         </div>
       </div>
@@ -68,7 +70,7 @@ const TakeAway: React.FC<Props> = ({ control, toggleEditModal, errors, startDate
           <Icon svgPath='booking-stop' height={24} width={24} className='fill-transparent flex shrink-0' />
           <div className='ml-3'>
             <Typography type='body' color='dark'>
-              დაბრუნება
+              {t('return')}
             </Typography>
             <div className='absolute'>
               <Typography type='body' color='light' className='hidden lg:flex'>
@@ -92,7 +94,7 @@ const TakeAway: React.FC<Props> = ({ control, toggleEditModal, errors, startDate
               labelKey='label'
               name='end_time'
               options={generateTimeOptions()}
-              placeholder='დრო*'
+              placeholder={t('time') + '*'}
               className='bg-transparent fill-transparent border-green-100 group-color'
               errors={errors}
               errorAbsolute
@@ -105,7 +107,7 @@ const TakeAway: React.FC<Props> = ({ control, toggleEditModal, errors, startDate
         onClick={toggleEditModal}
         className='flex lg:hidden mt-5 ml-auto border border-black items-center justify-center h-8 rounded-lg text-sm px-2'
       >
-        შეცვლა
+        {t('change')}
       </button>
     </div>
   )

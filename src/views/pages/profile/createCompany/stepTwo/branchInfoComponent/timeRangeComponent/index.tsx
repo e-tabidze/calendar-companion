@@ -1,6 +1,7 @@
 import React from 'react'
 import { generateTimeOptions } from 'src/utils/timeValues'
 import SelectField from 'src/views/components/selectField'
+import {useTranslation} from "next-i18next";
 
 interface Props {
   control: any
@@ -11,13 +12,15 @@ interface Props {
 }
 
 const TimeRangeComponent: React.FC<Props> = ({ control, startTimeName, endTimeName, isDisabled }) => {
-  return (
+  const {t} = useTranslation()
+
+    return (
     <div className='flex items-center gap-1'>
       <SelectField
         options={generateTimeOptions()}
         className='my-2 min-w-[136px] fill-transparent'
         icon
-        placeholder='დან'
+        placeholder={t('from')}
         name={startTimeName}
         control={control}
         valueKey='value'
@@ -29,7 +32,7 @@ const TimeRangeComponent: React.FC<Props> = ({ control, startTimeName, endTimeNa
         options={generateTimeOptions()}
         className='my-2 min-w-[136px] fill-transparent'
         icon
-        placeholder='მდე'
+        placeholder={t('to')}
         control={control}
         name={endTimeName}
         valueKey='value'

@@ -10,6 +10,7 @@ import AdditionalFilters from 'src/views/components/additionalFilters'
 
 import PeriodMob from 'src/views/pages/main/filters/periodMob'
 import LocationMob from 'src/views/pages/main/filters/locationMob'
+import {useTranslation} from "next-i18next";
 
 const Filters = () => {
   const [filters, toggleFilters] = useState(false)
@@ -69,6 +70,7 @@ const Filters = () => {
     resetField('year_from')
     resetField('year_to')
   }
+  const {t} = useTranslation()
 
   return (
     <form>
@@ -87,7 +89,7 @@ const Filters = () => {
         <Divider />
         <ExtraFiltersContainer className='flex shrink-0'>
           <IconTextButton
-            label='დამატებითი ფილტრი'
+            label={t('additional_filter')}
             icon='filters'
             width={22}
             height={20}
@@ -98,7 +100,7 @@ const Filters = () => {
             type='button'
           />
           <IconTextButton
-            label='ძებნა'
+            label={t('search')}
             icon='search'
             width={20}
             height={20}

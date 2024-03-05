@@ -10,6 +10,7 @@ import dynamic from 'next/dynamic'
 import Toast from 'src/views/components/toast'
 
 import toast from 'react-hot-toast'
+import {useTranslation} from "next-i18next";
 
 const Image = dynamic(() => import('src/views/components/image'), { ssr: false })
 const Typography = dynamic(() => import('src/views/components/typography'), { ssr: true })
@@ -37,6 +38,7 @@ const EditCompany = () => {
   const { companyInfo } = useCompanyInfo(activeCompanyId)
 
   const { isLoading } = useCompanyInfo(activeCompanyId)
+  const {t} = useTranslation()
 
   const {
     control,
@@ -69,11 +71,11 @@ const EditCompany = () => {
         })
       }
 
-      toast.custom(<Toast type='success' title='კომპანია წარმატებით განახლდა' />)
+      toast.custom(<Toast type='success' title={t('company_successfully_updated')} />)
     },
 
     onError: () => {
-      toast.custom(<Toast type='error' title='მოხდა შეცდომა' description='გთხოვთ ხელახლა სცადოთ' />)
+      toast.custom(<Toast type='error' title={t('error_occurred')} description={t('try_again_later')} />)
     }
   })
 
@@ -130,6 +132,7 @@ const EditCompany = () => {
     return <>Loading...</>
   }
 
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className='md:border md:border-raisin-10 md:rounded-3xl md:p-8 mt-8 lg:mt-0'>
@@ -165,7 +168,7 @@ const EditCompany = () => {
               control={control}
               render={() => (
                 <label className='text-2sm flex flex-col cursor-pointer max-w-[220px] md:max-w-none'>
-                  სურათის შეცვლა
+                  {t('change_photo')}
                   <input
                     type='file'
                     className='opacity-0 text-blue-100'
@@ -182,14 +185,14 @@ const EditCompany = () => {
             name='company_information.name'
             control={control}
             errors={errors}
-            label='დასახელება'
+            label={t('company_name')}
             className='mb-4 md:mb-0'
           />
           <DefaultInput
             name='identification_number'
             control={control}
             errors={errors}
-            label='საიდენტიფიკაციო კოდი'
+            label={t('identification_number')}
             className='mb-4 md:mb-0'
             disabled
           />
@@ -197,7 +200,7 @@ const EditCompany = () => {
             name='company_information.legal_name'
             control={control}
             errors={''}
-            label='იურიდიული დასახელება'
+            label={t('legal_name')}
             className='mb-4 md:mb-0'
             disabled
           />
@@ -205,13 +208,21 @@ const EditCompany = () => {
             name='company_information.description'
             control={control}
             errors={errors}
-            label='აღწერა'
+            label={t('description')+' ('+ t('georgian')+ ')'}
             rows={4}
             className='col-span-3 mb-4 md:mb-0'
           />
+          <DefaultInput
+              name='company_information.description_en'
+              control={control}
+              errors={errors}
+              label={t('description')+' ('+ t('english')+ ')'}
+              rows={4}
+              className='col-span-3 mb-4 md:mb-0'
+          />
         </div>
         <Typography type='h3' className='font-bold text-3md md:text-2lg mt-10 md:mt-16'>
-          მისამართები და განრიგი
+          {t('address_and_schedule')}
         </Typography>
 
         {addressFields.map((address: any, index: number) => (
@@ -221,7 +232,7 @@ const EditCompany = () => {
               <IconTextButton
                 icon='clear'
                 type='button'
-                label='წაშლა'
+                label={t('remove')}
                 width={24}
                 height={24}
                 onClick={() => {
@@ -235,7 +246,7 @@ const EditCompany = () => {
         ))}
 
         <IconTextButton
-          label='მისამართის დამატება'
+          label={t('add_address')}
           icon='add'
           width={20}
           height={20}
@@ -247,21 +258,21 @@ const EditCompany = () => {
         />
 
         <Typography type='h3' className='font-bold mt-10 md:mt-16 text-3md md:text-2lg'>
-          საკონტაქტო
+          {t('contact_info')}
         </Typography>
         <div className='grid grid-cols-2 gap-4 mt-5 my-10'>
           <DefaultInput
             name='company_information.email'
             control={control}
             errors={errors}
-            label='ელ. ფოსტა'
+            label={t('e_mail')}
             className='col-span-2 md:col-span-1'
           />
           <DefaultInput
             name='company_information.phone_numbers'
             control={control}
             errors={errors}
-            label='ტელეფონის ნომერი'
+            label={t('phone_number')}
             className='col-span-2 md:col-span-1'
           />
         </div>
@@ -269,14 +280,14 @@ const EditCompany = () => {
         <Divider />
         <div className='flex justify-between items-center pt-8'>
           <DefaultButton
-            text='შენახვა'
+            text={t('save')}
             bg='bg-orange-100 hover:bg-orange-110 transition-all'
             textColor='text-white'
             type='submit'
             disabled={updateCompanyMutation.isLoading}
           />
           <IconTextButton
-            label='კომპანიის წაშლა'
+            label={t('company_remove')}
             icon='trash'
             width={20}
             height={21}

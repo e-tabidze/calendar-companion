@@ -2,6 +2,7 @@ import tw from 'tailwind-styled-components'
 import { RadioGroup } from '@headlessui/react'
 import { Controller, useWatch } from 'react-hook-form'
 import dynamic from 'next/dynamic'
+import {useTranslation} from "next-i18next";
 
 const Icon = dynamic(() => import('src/views/app/Icon'), { ssr: false })
 const Divider = dynamic(() => import('../../../../components/divider'), { ssr: false })
@@ -12,6 +13,7 @@ interface Props {
 }
 
 const BookingList: React.FC<Props> = ({ addresses, control }) => {
+ const {t} = useTranslation()
   const Circle = tw.div<{
     checked: boolean
   }>`w-6 h-6 md:w-8 md:h-8 flex shrink-0 items-center justify-center rounded-full border-[2px] border-raisin-100  outline-none ${props =>
@@ -28,7 +30,7 @@ const BookingList: React.FC<Props> = ({ addresses, control }) => {
           <div className='flex items-center my-4 ml-5 md:ml-0'>
             <Icon svgPath='booking-start' height={24} width={24} className='fill-transparent flex mr-4' />
             <Typography type='body' className='text-md md:text-2lg font-normal'>
-              წაყვანა
+                {t('take_away')}
             </Typography>
           </div>
           <Controller
@@ -76,7 +78,7 @@ const BookingList: React.FC<Props> = ({ addresses, control }) => {
       <div className='flex items-center mb-4 ml-5 md:ml-0'>
         <Icon svgPath='booking-stop' width={24} height={24} className='fill-transparent flex mr-4' />
         <Typography type='body' className='text-md md:text-2lg font-normal'>
-          დაბრუნება
+            {t('return')}
         </Typography>
       </div>
       <Controller

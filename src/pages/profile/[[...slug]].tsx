@@ -4,9 +4,12 @@ import dynamic from 'next/dynamic'
 import useProfile from 'src/hooks/useProfile'
 import { UserInfo } from 'src/types/User'
 import useCompanyInfo from 'src/hooks/useCompanyInfo'
-import { useQueryClient } from '@tanstack/react-query'
+import { dehydrate, useQueryClient } from '@tanstack/react-query'
 import { profileRoutes } from 'src/utils/routes'
-  
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { queryClient } from '../_app'
+import {useTranslation} from "next-i18next";
+
 const Orders = dynamic(() => import('src/views/pages/profile/orders'), { ssr: false })
 const Favourites = dynamic(() => import('src/views/pages/profile/favourites'), { ssr: false })
 const Notifications = dynamic(() => import('src/views/pages/profile/notifications'), { ssr: false })
@@ -78,6 +81,7 @@ const ProfileRouter = ({ userInfo }: { userInfo: UserInfo }) => {
 }
 
 const Profile = () => {
+  const {t} = useTranslation()
   const { userInfo, router, userCompanies, handleLogout } = useProfile()
 
   const companyRoutes =
@@ -95,7 +99,7 @@ const Profile = () => {
     {
       id: 9,
       icon: 'logout',
-      item: 'გასვლა',
+      item: t('logout'),
       onClick: handleLogout
     }
   ]
@@ -134,5 +138,16 @@ const Profile = () => {
 //     return { notFound: true }
 //   }
 // }
+
+export async function getServerSideProps({ locale }: { locale: string }) {
+  const [translations] = await Promise.all([serverSideTranslations(locale)])
+
+  return {
+    props: {
+      dehydratedState: dehydrate(queryClient),
+      ...translations
+    }
+  }
+}
 
 export default Profile

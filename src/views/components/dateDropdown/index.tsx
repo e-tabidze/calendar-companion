@@ -6,6 +6,7 @@ import { Controller } from 'react-hook-form'
 import { format } from 'date-fns'
 import Icon from 'src/views/app/Icon'
 import _ from 'lodash'
+import {i18n, useTranslation} from "next-i18next";
 
 interface Props {
   name: string
@@ -67,6 +68,7 @@ const CustomDateInput: React.FC<CalendarInputProps> = ({
 
 const DateDropdown: React.FC<Props> = ({ name, control, label, errors }) => {
   const [isCalendarOpen, setIsCalendarOpen] = useState(false)
+    const {t} = useTranslation()
 
   return (
     <>
@@ -76,7 +78,7 @@ const DateDropdown: React.FC<Props> = ({ name, control, label, errors }) => {
         render={({ field: { onChange, value, onChange: onInputChange } }) => (
           <div className='relative w-full'>
             <DatePicker
-              locale='ka'
+              locale={i18n?.language}
               selected={value ? new Date(value) : null}
               onChange={date => onChange(date && format(date, 'yyyy-MM-dd'))}
               dateFormat='dd-MM-yyyy'
@@ -95,7 +97,7 @@ const DateDropdown: React.FC<Props> = ({ name, control, label, errors }) => {
             />
             {_.get(errors, name)?.message && (
               <div id={name} className='absolute text-sm text-red-100 ml-2 my-2'>
-                {_.get(errors, name)?.message}
+                {t(_.get(errors, name)?.message)}
               </div>
             )}
           </div>

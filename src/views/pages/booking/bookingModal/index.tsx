@@ -9,6 +9,7 @@ import BookingList from './bookingList'
 // import BookingMap from './bookingMap'
 
 import dynamic from 'next/dynamic'
+import {useTranslation} from "next-i18next";
 
 const Icon = dynamic(() => import('src/views/app/Icon'), { ssr: false })
 
@@ -18,6 +19,7 @@ interface Props {
   addresses: any
   control: any
 }
+
 
 // const cat = [
 //   {
@@ -44,6 +46,7 @@ const BookingModal: React.FC<Props> = ({ open, onClose, addresses, control }) =>
   //     return <BookingMap />
   //   }
   // }
+  const {t} = useTranslation()
 
   return (
     <Transition appear show={open} as={Fragment}>
@@ -73,7 +76,7 @@ const BookingModal: React.FC<Props> = ({ open, onClose, addresses, control }) =>
               <Dialog.Panel className='relative transform overflow-hidden rounded-tl-3xl rounded-tr-3xl md:rounded-bl-3xl md:rounded-br-3xl bg-white text-left shadow-xl transition-all w-full md:my-4 md:max-w-3xl'>
                 <div className='w-full flex justify-between items-center px-5 md:px-10 py-4 md:py-6 sm:px-10 border-b-1 border-raisin-10 mb-6'>
                   <Dialog.Title as='h3' className='text-md md:text-2md text-raisin-100 font-normal'>
-                    აირჩიე მისამართი
+                    {t('select_address')}
                   </Dialog.Title>
                   <Icon
                     svgPath='close'
@@ -115,7 +118,7 @@ const BookingModal: React.FC<Props> = ({ open, onClose, addresses, control }) =>
                 {/*</div>*/}
                 <div className='w-full flex items-center justify-end py-4 px-4 md:px-10 border-t-1 border-grey-90 mt-10'>
                   <DefaultButton
-                    text='შენახვა'
+                    text={t('save')}
                     onClick={onClose}
                     bg='bg-green-100'
                     textColor='text-white'

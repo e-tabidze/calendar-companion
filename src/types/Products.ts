@@ -10,7 +10,9 @@ export type Product = {
   car_run: number
   measure: string
   additional_information: string
+  additional_information_en: string
   use_instruction: string
+  use_instruction_en:string
   images: any
   category_id: number
   fuel_type_id: number

@@ -6,6 +6,7 @@ import RoundedTag from 'src/views/components/roundedTag'
 import SwitchField from 'src/views/components/switchField'
 import { Controller, useWatch } from 'react-hook-form'
 import SelectField from 'src/views/components/selectField'
+import {useTranslation} from "next-i18next";
 
 interface Props {
   open: boolean
@@ -17,6 +18,7 @@ interface Props {
 
 const EditScheduleModal: React.FC<Props> = ({ open, onClose, control, address, index }) => {
   const formState = useWatch({ control })
+  const {t} = useTranslation()
 
   const generateTimeOptions = () => {
     const options = []
@@ -31,13 +33,13 @@ const EditScheduleModal: React.FC<Props> = ({ open, onClose, control, address, i
 
   const workDayData = () => {
     const customLabels: Record<string, string> = {
-      monday: 'ორშ',
-      tuesday: 'სამ',
-      wednesday: 'ოთხ',
-      thursday: 'ხუთ ',
-      friday: 'პარ',
-      saturday: 'შაბ ',
-      sunday: 'კვი'
+      monday: t('monday'),
+      tuesday: t('tuesday'),
+      wednesday: t('wednesday'),
+      thursday: t('thursday'),
+      friday: t('friday'),
+      saturday: t('saturday'),
+      sunday: t('sunday')
     }
 
     return Object.keys(address.working_hours).map(day => ({
@@ -77,14 +79,14 @@ const EditScheduleModal: React.FC<Props> = ({ open, onClose, control, address, i
             >
               <Dialog.Panel className='w-full max-w-[900px] transform overflow-hidden rounded-2xl bg-white text-left align-middle shadow-xl transition-all'>
                 <Dialog.Title as='h3' className='w-full flex items-center justify-between px-10 py-6'>
-                  საათების რედაქტირება
+                  {t('edit_hours')}
                   <IconButton icon='close' onClick={onClose} width={40} height={40} className='cursor-pointer' />
                 </Dialog.Title>
                 <Divider />
                 <div className='mb-20'>
                   <div className='px-9 grid grid-cols-1 gap-7'>
                     <SwitchField
-                      label='ერთნაირი დროის მონიშვნა'
+                      label={t('same_time')}
                       name={`addresses.${index}.is_same_time`}
                       control={control}
                     />
@@ -202,7 +204,7 @@ const EditScheduleModal: React.FC<Props> = ({ open, onClose, control, address, i
                 </div>
                 <div className='flex justify-end bottom-0 w-full shadow-md'>
                   <DefaultButton
-                    text='დამატება'
+                    text={t('add')}
                     bg='bg-green-100'
                     className='my-4 mr-10'
                     textColor='text-white'
