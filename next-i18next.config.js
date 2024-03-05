@@ -1,12 +1,15 @@
 module.exports = {
   i18n: {
-    // debug:true,
+     debug:true,
     defaultLocale: 'en',
     locales: ['en', 'ka'],
+    pages:{
+      '*':['common.json']
+    },
     directory: './locales', // Directory where locale files are stored
     objectNotation: true, // Enable object notation for translation strings
     cookie: 'locale', // Cookie name to parse locale settings from
-    fallbacks: { 'ge': 'ka' }, // Fallback language if translation is missing
+    fallbacks: { 'ka': 'en' }, // Fallback language if translation is missing
     syncFiles: true, // Synchronize locale files when new keys are added
     autoReload: true, // Auto-reload locale files when changes are made
     updateFiles: true, // Update locale files on save if autoReload is enabled

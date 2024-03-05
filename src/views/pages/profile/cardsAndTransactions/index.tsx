@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from 'next-i18next'
 import DataPlaceHolder from 'src/views/components/dataPlaceholder'
 import Divider from 'src/views/components/divider'
 import Pagination from 'src/views/components/pagination'

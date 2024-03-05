@@ -1,7 +1,7 @@
 import { dehydrate } from '@tanstack/react-query'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import dynamic from 'next/dynamic'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from 'next-i18next'
 import useFilters from 'src/hooks/useFilters'
 import { TailwindDiv } from 'src/interfaces/tailwind'
 import DefaultLayout from 'src/layouts/DefaultLayout'

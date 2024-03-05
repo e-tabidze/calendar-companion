@@ -21,7 +21,7 @@ import { Controller, useWatch } from 'react-hook-form'
 import SortListBox from 'src/views/pages/search/sortListBox'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import PageMeta from 'src/@core/meta/PageMeta'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from 'next-i18next'
 
 // const MapPicker = dynamic(() => import('src/views/components/mapPicker'), { ssr: true })
 const SkeletonLoading = dynamic(() => import('src/views/pages/search/skeletonLoading'), { ssr: false })

@@ -1,7 +1,7 @@
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from 'next-i18next'
 import { Product } from 'src/types/Products'
 import DataPlaceHolder from 'src/views/components/dataPlaceholder'
 import SkeletonLoading from './skeletonLoading'
