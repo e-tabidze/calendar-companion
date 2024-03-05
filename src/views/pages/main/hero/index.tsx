@@ -3,10 +3,8 @@ import Typography from 'src/views/components/typography'
 import { HeroContainer, Copy } from './styles'
 import Image from 'src/views/components/image'
 import { isMobile } from 'react-device-detect'
-import {useEffect, useState} from "react";
+import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import dynamic from 'next/dynamic'
-
 
 const Hero = () => {
   const { t } = useTranslation()
@@ -17,13 +15,13 @@ const Hero = () => {
 
   return (
     <HeroContainer>
-        <Image
-            src={isMobileDevice ?'/images/banner-mob.png' : '/images/banner.png'}
-            alt=''
-            height={'100%'}
-            width={'100%'}
-            className='object-cover absolute w-full h-full top-0 left-0 rounded-2xl'
-          />
+      <Image
+        src={isMobileDevice ? '/images/banner-mob.png' : '/images/banner.png'}
+        alt=''
+        height={'100%'}
+        width={'100%'}
+        className='object-cover absolute w-full h-full top-0 left-0 rounded-2xl'
+      />
       <Copy>
         <div className='lg:w-11/12 relative'>
           <Typography
@@ -42,4 +40,4 @@ const Hero = () => {
   )
 }
 
-export default dynamic(() => Promise.resolve(Hero), { ssr: false });
+export default Hero

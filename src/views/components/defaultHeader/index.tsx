@@ -14,7 +14,7 @@ const Filters = dynamic(() => import('src/views/pages/search/filters'), { ssr: f
 const LanguagePicker = dynamic(() => import('src/views/components/defaultHeader/languagePicker'), { ssr: false })
 
 import { InnerContainer } from './styles'
-import {useTranslation} from "next-i18next";
+import { useTranslation } from 'next-i18next'
 
 const DefaultHeader = () => {
   const router = useRouter()
@@ -45,7 +45,7 @@ const DefaultHeader = () => {
   }, [])
 
   const [isMobileDevice, setIsMobileDevice] = useState(false)
-  const {t} = useTranslation()
+  const { t } = useTranslation()
 
   return (
     <InnerContainer>
