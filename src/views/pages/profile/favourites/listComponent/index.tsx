@@ -46,6 +46,7 @@ const ListComponent: React.FC<Props> = ({
     }
   }
 const {t} = useTranslation()
+
   return (
     <div className='w-full sm:border-b-1 sm:border-raisin-10 my-3 sm:my-2 last:border-none'>
       <div className='w-full sm:gap-6 flex flex-col sm:flex-row sm:my-5 border border-raisin-10 sm:border-none overflow-hidden rounded-xl sm:rounded-0'>
