@@ -8,6 +8,7 @@ import DefaultLayout from 'src/layouts/DefaultLayout'
 import { LargeContainer, ContentContainer, ResponsiveContainer } from 'src/styled/styles'
 import Divider from 'src/views/components/divider'
 import useMain from 'src/views/pages/main/useMain'
+import { dynamicTranslateCategories} from 'src/utils/translationUtils'
 
 const PageMeta = dynamic(() => import('src/@core/meta/PageMeta'), { ssr: true })
 
@@ -38,27 +39,6 @@ const MainPage = () => {
 
   const { t } = useTranslation()
 
-  const dynamicTranslateCategories = (word: any) => {
-    switch (word){
-      case 'სედანი':
-        return t('backend_categories.sedan');
-      case 'ჯიპი':
-        return t('backend_categories.jeep');
-      case 'ეკონომიური':
-        return t('backend_categories.economy');
-      case 'კუპე':
-        return t('backend_categories.coupe');
-      case 'პიკაპი':
-        return t('backend_categories.pickup');
-      case 'მინივენი':
-        return t('backend_categories.minivan');
-      case 'კაბრიოლეტი':
-        return t('backend_categories.cabriolet');
-      default:
-        return word
-    }
-  }
-
   return (
     <DefaultLayout>
       <PageMeta meta={pageMeta} />
@@ -83,7 +63,7 @@ const MainPage = () => {
               ?.map((product: any) => (
                 <CategoryItem
                   svgPath={product?.icon}
-                  title={dynamicTranslateCategories(product?.title)}
+                  title={dynamicTranslateCategories(product?.title, t)}
                   count={product?.count_products}
                   id={product?.id}
                   key={product?.id}

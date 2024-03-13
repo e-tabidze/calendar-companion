@@ -14,35 +14,6 @@ const Cities = () => {
   }
   const { t } = useTranslation()
 
-  // const dynamicTranslateCities = (word) => {
-  //     switch (word){
-  //         case 'თბილისი':
-  //             return t('backend_cities.tbilisi');
-  //         case 'ბათუმი':
-  //             return t('backend_cities.batumi');
-  //         case 'გორი':
-  //             return t('backend_cities.gori');
-  //         case 'ზუგდიდი':
-  //             return t('backend_cities.zugdidi');
-  //         case 'თელავი':
-  //             return t('backend_cities.telavi');
-  //         case 'ქუთაისი':
-  //             return t('backend_cities.kutaisi');
-  //         case 'რუსთავი':
-  //             return t('backend_cities.rustavi');
-  //         case 'კასპი':
-  //             return t('backend_cities.kaspi');
-  //         case 'ხაშური':
-  //             return t('backend_cities.khashuri');
-  //         case 'დედოფლისწყარო':
-  //             return t('backend_cities.dedofliswyaro');
-  //         case 'წალენჯიხა':
-  //             return t('backend_cities.tsalenjikha');
-  //         default:
-  //             return word
-  //     }
-  // }
-
   return (
     <div className='py-4 lg:py-0 border-b-[1px] border-raisin-10 lg:border-0 lg:w-4/12'>
       <Typography
@@ -65,7 +36,6 @@ const Cities = () => {
                   className='font-normal text-raisin-70 hover:text-raisin-100 transition-all text-sm lg:text-2sm hover:underline'
                   type='subtitle'
                 >
-                  {/* {dynamicTranslateCities(city.city)} */}
                   {dynamicTranslateCities(city.city, t)}
                 </Typography>
               </li>

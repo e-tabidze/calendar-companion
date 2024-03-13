@@ -3,6 +3,7 @@ import Icon from 'src/views/app/Icon'
 import Typography from '../typography'
 import _ from 'lodash'
 import {useTranslation} from "next-i18next";
+import { dynamicTranslateCategories } from 'src/utils/translationUtils'
 
 interface Props {
   border?: boolean
@@ -15,26 +16,6 @@ interface Props {
 
 const CategoryCard: React.FC<Props> = ({ border, name, control, options, append, errors }) => {
  const {t} = useTranslation()
- const dynamicTranslateCategories = (word: any) => {
-        switch (word){
-            case 'სედანი':
-                return t('backend_categories.sedan');
-            case 'ჯიპი':
-                return t('backend_categories.jeep');
-            case 'ეკონომიური':
-                return t('backend_categories.economy');
-            case 'კუპე':
-                return t('backend_categories.coupe');
-            case 'პიკაპი':
-                return t('backend_categories.pickup');
-            case 'მინივენი':
-                return t('backend_categories.minivan');
-            case 'კაბრიოლეტი':
-                return t('backend_categories.cabriolet');
-            default:
-                return word
-        }
-    }
 
   return (
     <Controller
@@ -80,7 +61,7 @@ const CategoryCard: React.FC<Props> = ({ border, name, control, options, append,
                   color={value === option.id ? 'dark' : 'light'}
                   className='text-2sm text-raisin-100'
                 >
-                  {dynamicTranslateCategories(option.title)}
+                  {dynamicTranslateCategories(option.title, t)}
                 </Typography>
               </div>
             ))}
