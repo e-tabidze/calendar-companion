@@ -29,9 +29,9 @@ const PricePopover: React.FC<Props> = ({ control, handleSubmit, reset }) => {
       className={hasPrice ? 'border border-raisin-100' : 'hover:border hover:border-raisin-30'}
     >
       <TagsWrapper>
-        <DefaultInput label={t('min_daily_price')} name='price_min' control={control} className='w-72' type='number' />
+        <DefaultInput label={t('min_price')} name='price_min' control={control} className='w-72' type='number' />
         <Divider />
-        <DefaultInput label={t('max_daily_price')} name='price_max' control={control} className='w-72' type='number' />
+        <DefaultInput label={t('max_price')} name='price_max' control={control} className='w-72' type='number' />
       </TagsWrapper>
       <ActionsWrapper className='p-5'>
         <IconTextButton
