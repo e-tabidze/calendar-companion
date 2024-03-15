@@ -15,10 +15,10 @@ import {
   ViewAllCitiesContainer
 } from './styles'
 import Icon from 'src/views/app/Icon'
-import {useTranslation} from "next-i18next";
+import { useTranslation } from 'next-i18next'
 
 const Cities = () => {
-  const {t} = useTranslation()
+  const { t } = useTranslation()
   const { cities } = useSearchLocations()
 
   const router = useRouter()
@@ -48,7 +48,7 @@ const Cities = () => {
               ?.map((city: any) => (
                 <CityCard
                   key={city?.city}
-                  src={`/images/cities/${city?.image}`}
+                  src={city?.image ? `/images/cities/${city?.image}` : '/images/cities/default.png'}
                   city={city.city}
                   numberOfCars={city?.products}
                   onClick={() =>
@@ -65,27 +65,9 @@ const Cities = () => {
         </CitiesListContainer>
         <Divider />
         <BenefitsContainer>
-          <BenefitsCard
-            icon='speed'
-            width={64}
-            height={64}
-            title={t('fast')}
-            bodyText={t('fast_desc')}
-          />
-          <BenefitsCard
-            icon='comfort'
-            width={64}
-            height={64}
-            title={t('comfort')}
-            bodyText={t('comfort_desc')}
-          />
-          <BenefitsCard
-            icon='safe'
-            width={64}
-            height={64}
-            title={t('safe')}
-            bodyText={t('safe_desc')}
-          />
+          <BenefitsCard icon='speed' width={64} height={64} title={t('fast')} bodyText={t('fast_desc')} />
+          <BenefitsCard icon='comfort' width={64} height={64} title={t('comfort')} bodyText={t('comfort_desc')} />
+          <BenefitsCard icon='safe' width={64} height={64} title={t('safe')} bodyText={t('safe_desc')} />
         </BenefitsContainer>
       </CitiesInnerContainer>
     </CitiesContainer>

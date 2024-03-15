@@ -3,6 +3,7 @@ import Icon from 'src/views/app/Icon'
 import Typography from '../typography'
 import _ from 'lodash'
 import {useTranslation} from "next-i18next";
+import { dynamicTranslateTag } from 'src/utils/translationUtils'
 
 interface Option {
   id: string | number
@@ -38,33 +39,8 @@ const Tag: React.FC<Props> = ({
   outlined,
   errors
 }) => {
-  const { t} = useTranslation()
-  const dynamicTranslateTag= (word: any) => {
-    switch (word){
-      case 'ელექტრო':
-        return t('backend_fuel_types.electric');
-      case 'ჰიბრიდი':
-        return t('backend_fuel_types.hybrid');
-      case 'დატენვადი ჰიბრიდი':
-        return t('backend_fuel_types.plug_in_hybrid');
-      case 'ბენზინი':
-        return t('backend_fuel_types.petrol');
-      case 'დიზელი':
-        return t('backend_fuel_types.diesel');
-      case 'გაზი':
-        return t('backend_fuel_types.gas');
-      case 'წინა':
-        return t('backend_drive_wheels.drive_front_wheels');
-      case 'უკანა':
-        return t('backend_drive_wheels.drive_rear_wheels');
-      case 'ავტომატიკა':
-        return t('backend_transmission.automatic');
-      case 'მექანიკა':
-        return t('backend_transmission.manual');
-      default:
-        return t(word)
-    }
-  }
+  const {t} = useTranslation()
+
 
   return (
     <>
@@ -111,7 +87,7 @@ const Tag: React.FC<Props> = ({
                             selectedOptions.includes(option.id) && (!!outlined ? '' : 'text-white')
                           }`}
                         >
-                          {dynamicTranslateTag(option.title)}
+                          {dynamicTranslateTag(option.title, t)}
                         </Typography>
                       </div>
                     ))}

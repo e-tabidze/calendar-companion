@@ -6,6 +6,7 @@ import Action from './action'
 import dynamic from 'next/dynamic'
 import ActionsPopover from './actionsPopover'
 import Toast from 'src/views/components/toast'
+import { dynamicTranslateCities } from 'src/utils/translationUtils'
 
 const Image = dynamic(() => import('src/views/components/image'), { ssr: true })
 const Carousel = dynamic(() => import('src/views/components/carousel'), { ssr: false })
@@ -40,34 +41,6 @@ const VehicleListComponent: React.FC<Props> = ({
 }) => {
   const [deleteProductModal, setDeleteProductModal] = useState(false)
   const{t} = useTranslation()
-  const dynamicTranslateCities = (word:any) => {
-    switch (word){
-      case 'თბილისი':
-        return t('backend_cities.tbilisi');
-      case 'ბათუმი':
-        return t('backend_cities.batumi');
-      case 'გორი':
-        return t('backend_cities.gori');
-      case 'ზუგდიდი':
-        return t('backend_cities.zugdidi');
-      case 'თელავი':
-        return t('backend_cities.telavi');
-      case 'ქუთაისი':
-        return t('backend_cities.kutaisi');
-      case 'რუსთავი':
-        return t('backend_cities.rustavi');
-      case 'კასპი':
-        return t('backend_cities.kaspi');
-      case 'ხაშური':
-        return t('backend_cities.khashuri');
-      case 'დედოფლისწყარო':
-        return t('backend_cities.dedofliswyaro');
-      case 'წალენჯიხა':
-        return t('backend_cities.tsalenjikha');
-      default:
-        return word
-    }
-  }
 
   const { deleteProduct, activeProducts } = useProducts(filter)
 
@@ -125,7 +98,7 @@ const VehicleListComponent: React.FC<Props> = ({
             </div>
             <div className='pr-6 md:pr-0'>
               <Typography type='body' color='light'>
-                {dynamicTranslateCities(startCity)}
+                {dynamicTranslateCities(startCity, t)}
               </Typography>
               <Link href={`/details/${id}`}>
                 <Typography type='subtitle' className='text-sm md:text-2sm'>
