@@ -13,12 +13,13 @@ const customStyles = {
     ...provided,
     height: 56,
     position: 'relative',
-    '&:hover': { border: '1px solid #BEBFC3' },
+    '&:hover': { border: '1px solid #BEBFC3'},
     borderRadius: '12px',
-    border: state.isFocused ? '1px solid #272A37' : '1px solid #E9EAEB',
+    border: state.isDisabled ? '1px solid #F4F4F5' : state.isFocused ? '1px solid #272A37':'1px solid #E9EAEB',
     boxShadow: state.isFocused ? '1px solid #272A37' : '1px solid #E9EAEB',
     transition: 'border 0.2s',
-    cursor: 'pointer'
+    cursor: 'pointer',
+    backgroundColor: state.isDisabled ? '#F4F4F5': '#ffffff'
   }),
   valueContainer: (provided: any) => ({
     ...provided
@@ -29,11 +30,11 @@ const customStyles = {
     maxHeight: '180px'
   }),
 
-  placeholder: (defaultStyles: any) => {
+  placeholder: (defaultStyles: any, state:any) => {
     return {
       ...defaultStyles,
       fontSize: '14px',
-      color: '#93959B'
+      color: state.isDisabled? '#BEBFC3':'#93959B'
     }
   }
 }

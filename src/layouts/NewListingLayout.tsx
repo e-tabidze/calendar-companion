@@ -71,7 +71,7 @@ const NewListingLayout: React.FC<Props> = ({
   }
 
   return (
-    <MaxWidthContainer>
+    <MaxWidthContainer className='h-screen'>
       <HeaderWrapper fullWidth>
         <InnerContainer>
           <Image src='/images/logo-rent.svg' alt='' onClick={onClickLogo} className='w-24 md:w-32 cursor-pointer' />
@@ -81,18 +81,18 @@ const NewListingLayout: React.FC<Props> = ({
         <ProgressBar color='green-100' progress={selectedOption.step / options.length} className='md:mt-2' />
       </HeaderWrapper>
       {width < 780 && (
-        <div className='w-full flex justify-center top-20 bg-white z-[11] py-3' style={{ position: 'sticky' }}>
+        <div className='sticky w-full flex justify-center top-20 bg-white z-[11] py-3'>
           {renderNewListingSelect()}
         </div>
       )}
 
-      <div className='max-w-[850px] pb-32 m-auto px-4 lg:w-10/12 lg:p-5 lg:px-0 2xl:p-0' style={{ maxWidth: '850px' }}>
+      <div className='max-w-[850px] pb-32 mx-auto px-4 lg:w-10/12 lg:p-5 lg:px-0 2xl:p-0 min-h-[calc(100%_-_241px)] md:min-h-[calc(100%_-_180px)]'>
         <div className='mt-5  md:mt-20  md:pb-20 pb-5 h-full'>{children}</div>
       </div>
       <div className='sticky w-full bottom-0 bg-white py-5 border border-t-raisin-10 z-10'>
         <div
           className='max-w-[850px] m-auto flex justify-between px-4 lg:w-10/12 lg:px-0 2xl:px-0'
-          style={{ maxWidth: '850px' }}
+
         >
           {selectedOption.step !== 1 ? <DefaultButton text={t('back')} className='' onClick={onPrevStep}></DefaultButton> : <div></div>}
           <DefaultButton
