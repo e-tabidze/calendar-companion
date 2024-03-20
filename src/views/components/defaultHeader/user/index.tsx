@@ -5,11 +5,13 @@ import Notification from '../notification'
 import useProfile from 'src/hooks/useProfile'
 import { useRouter } from 'next/router'
 import Icon from 'src/views/app/Icon'
-import {useTranslation} from "next-i18next";
+import { useTranslation } from 'next-i18next'
+import useFavourites from 'src/hooks/useFavourites'
 
 const User = () => {
   const { activeCompany, isAuthenticated } = useProfile()
-  const {t} = useTranslation()
+  const { userFavouritesLength } = useFavourites()
+  const { t } = useTranslation()
 
   const router = useRouter()
 

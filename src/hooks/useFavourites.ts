@@ -37,8 +37,9 @@ const useFavourites = (productId?: string | number, page?: number) => {
 
   const userFavourites = useFavourites?.data?.result
   const isLoading = useFavourites?.isLoading
+  const userFavouritesLength = useFavourites?.data?.result?.total
 
-  return { toggleUserFavourites, userFavourites, isLoading }
+  return { toggleUserFavourites, userFavourites, isLoading, userFavouritesLength }
 }
 
 export default useFavourites
