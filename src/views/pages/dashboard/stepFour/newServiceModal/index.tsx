@@ -9,7 +9,6 @@ import dynamic from 'next/dynamic'
 import { useTranslation } from 'next-i18next'
 import Tag from 'src/views/components/tag'
 import Typography from 'src/views/components/typography'
-import { useWatch } from 'react-hook-form'
 
 const Divider = dynamic(() => import('src/views/components/divider'), { ssr: false })
 
@@ -21,12 +20,6 @@ interface Props {
 const NewServiceModal: React.FC<Props> = ({ open, onClose }) => {
   const { control, handleSubmit, createNewService, serviceValues, errors } = useNewService()
   const { t } = useTranslation()
-
-  console.log(errors, 'errors')
-
-  const formsState = useWatch({ control })
-
-  console.log(formsState, 'formsState')
 
   const options = [
     {
@@ -67,8 +60,6 @@ const NewServiceModal: React.FC<Props> = ({ open, onClose }) => {
       }
     }
   )
-
-  console.log(serviceValues, 'serviceValues')
 
   const onSubmit = () => {
     createNewServiceMutation.mutate(serviceValues)
