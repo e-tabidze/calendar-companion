@@ -4,7 +4,7 @@ const CompanyDashboard = dynamic(() => import('src/views/pages/dashboard/company
 const CompanyOrders = dynamic(() => import('src/views/pages/dashboard/companyOrders'), { ssr: true })
 const Products = dynamic(() => import('src/views/pages/dashboard/products'), { ssr: true })
 const EditCompany = dynamic(() => import('src/views/pages/dashboard/editCompany'), { ssr: true })
-const NewProduct = dynamic(() => import('src/views/pages/dashboard/newProduct'), { ssr: true })
+const NewProduct = dynamic(() => import('src/views/pages/dashboard/newProduct'), { ssr: false })
 const Notifications = dynamic(() => import('src/views/pages/dashboard/notifications'), { ssr: false })
 const Payments = dynamic(() => import('src/views/pages/dashboard/payments'), { ssr: false })
 

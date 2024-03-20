@@ -21,7 +21,7 @@ import {
 } from './styles'
 import { isMobile } from 'react-device-detect'
 import { useEffect, useState } from 'react'
-import {useTranslation} from "next-i18next";
+import { useTranslation } from 'next-i18next'
 
 interface Props {
   productId: number
@@ -54,9 +54,17 @@ const ProductCard: React.FC<Props> = ({
 }) => {
   const router = useRouter()
 
+  const [isMobileDevice, setIsMobileDevice] = useState(false)
+
+  useEffect(() => {
+    setIsMobileDevice(isMobile)
+  }, [])
+
   const { isAuthenticated, activeCompanyId } = useProfile()
 
   const { toggleUserFavourites } = useFavourites(productId)
+
+  const { t } = useTranslation()
 
   const handleCardClick = () => {
     const today = new Date()
@@ -71,24 +79,16 @@ const ProductCard: React.FC<Props> = ({
     router.push(`/details/${productId}${queryString}`)
   }
 
-  // const isProductInFavorites = userFavourites?.some((fav: any) => fav.product_id === productId)
-
   const handleFavorites = async (e: any) => {
     e.stopPropagation()
     e.nativeEvent.preventDefault()
+
     try {
-      toggleUserFavourites.mutate()
+      await toggleUserFavourites.mutateAsync()
     } catch (error) {
       console.log(error, 'error')
     }
   }
-
-  const [isMobileDevice, setIsMobileDevice] = useState(false)
-  useEffect(() => {
-    setIsMobileDevice(isMobile)
-  }, [])
-
-  const {t} = useTranslation()
 
   return (
     <ProductCardContainer onClick={handleCardClick}>
@@ -98,8 +98,8 @@ const ProductCard: React.FC<Props> = ({
             <Image
               src={images[0] || ''}
               alt={`${manufacturer} ${model} ${prodYear}`}
-              height={'100%'}
-              width={'100%'}
+              height='100%'
+              width='100%'
               className='object-cover'
             />
           </div>
@@ -110,8 +110,8 @@ const ProductCard: React.FC<Props> = ({
                 <Image
                   src={imgUrl || ''}
                   alt={`${manufacturer} ${model} ${prodYear}`}
-                  height={'100%'}
-                  width={'100%'}
+                  height='100%'
+                  width='100%'
                   className='object-cover'
                 />
               </div>

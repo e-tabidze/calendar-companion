@@ -21,10 +21,10 @@ const useFavourites = (productId?: string | number, page?: number) => {
     onSettled: () => {
       queryClient.invalidateQueries(['singleProduct'])
       queryClient.invalidateQueries(['userFavourites'])
-
       queryClient.invalidateQueries(['popularProducts'])
       queryClient.invalidateQueries(['similarProducts'])
       queryClient.invalidateQueries(['searchProducts'])
+      queryClient.invalidateQueries(['lastSeenProducts'])
     }
   })
 

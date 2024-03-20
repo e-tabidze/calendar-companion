@@ -8,7 +8,7 @@ import DefaultLayout from 'src/layouts/DefaultLayout'
 import { LargeContainer, ContentContainer, ResponsiveContainer } from 'src/styled/styles'
 import Divider from 'src/views/components/divider'
 import useMain from 'src/views/pages/main/useMain'
-import { dynamicTranslateCategories} from 'src/utils/translationUtils'
+import { dynamicTranslateCategories } from 'src/utils/translationUtils'
 
 const PageMeta = dynamic(() => import('src/@core/meta/PageMeta'), { ssr: true })
 
@@ -111,19 +111,22 @@ const MainPage = () => {
         <ContentContainer className='px-0 md:px-5 lg:px-8'>
           <Carousel
             itemsArray={lastSeenProducts?.map((product: any) => (
-              <ProductCard
-                key={product?.product?.id}
-                productId={product?.product?.id}
-                manufacturer={product?.product?.manufacturer?.title}
-                model={product?.product?.manufacturer_model?.title}
-                prodYear={product?.product?.prod_year}
-                priceGel={product?.product?.price_gel}
-                luggageNumbers={product?.product?.luggage_numbers}
-                seats={product?.product?.seat_type?.title}
-                images={product?.product?.images?.split(',')}
-                city={product?.product?.start_city}
-                isProductInFavorites={product?.product?.is_favourite}
-              />
+              <>
+                {console.log(product?.product?.is_favourite, 'is_favourite')}
+                <ProductCard
+                  key={product?.product?.id}
+                  productId={product?.product?.id}
+                  manufacturer={product?.product?.manufacturer?.title}
+                  model={product?.product?.manufacturer_model?.title}
+                  prodYear={product?.product?.prod_year}
+                  priceGel={product?.product?.price_gel}
+                  luggageNumbers={product?.product?.luggage_numbers}
+                  seats={product?.product?.seat_type?.title}
+                  images={product?.product?.images?.split(',')}
+                  city={product?.product?.start_city}
+                  isProductInFavorites={product?.product?.is_favourite}
+                />
+              </>
             ))}
             type='products'
           />
