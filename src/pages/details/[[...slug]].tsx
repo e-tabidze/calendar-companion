@@ -49,6 +49,7 @@ import { format } from 'date-fns'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import PageMeta from 'src/@core/meta/PageMeta'
 import {i18n, useTranslation} from "next-i18next";
+import {dynamicTranslateServices} from "src/utils/translationUtils";
 
 registerLocale('ka', ka)
 
@@ -273,7 +274,7 @@ const ProductDetails = memo(() => {
                         ?.filter((feature: any) => feature.company_service_type_id === 3)
                         .map((feature: any) => (
                           <ProductFeature
-                            feature={feature?.title}
+                            feature={dynamicTranslateServices(feature?.title, t)}
                             icon='feature'
                             key={feature.id}
                             description={feature.description}
@@ -307,16 +308,15 @@ const ProductDetails = memo(() => {
                       </Typography>
                     )}
                   </div>
-                  <div className='hidden lg:flex gap-4 cursor-pointer transition-all'>
+                  <div className='hidden lg:flex  items-center gap-4 cursor-pointer transition-all cursor-pointer'  onClick={() => {
+                    resetField('booking')
+                    setDateRange([null, null])
+                  }}>
                     <Icon svgPath='rotate' width={24} height={24} className='fill-transparent' />
                     <Typography
                       type='body'
                       color='light'
-                      className='border-b-[1px] w-fit pb-px'
-                      onClick={() => {
-                        resetField('booking')
-                        setDateRange([null, null])
-                      }}
+                      className='hover:border-b-[1px] w-fit pb-px transition-all'
                     >
                       {t('clear')}
                     </Typography>

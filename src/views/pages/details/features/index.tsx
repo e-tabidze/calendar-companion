@@ -1,6 +1,7 @@
 import ProductFeature from '../productFeature'
 import dynamic from 'next/dynamic'
 import {useTranslation} from "next-i18next";
+import {dynamicTranslateAdditionalParameters, dynamicTranslateTag} from "src/utils/translationUtils";
 
 const Typography = dynamic(() => import('src/views/components/typography'), { ssr: false })
 
@@ -19,18 +20,18 @@ const Features: React.FC<Props> = ({ id, singleProductDetails }) => {
       </Typography>
       <div className='mt-8 mb-11 grid grid-cols-1 lg:grid-cols-2 gap-4'>
         <ProductFeature feature={`${singleProductDetails?.door_type?.title + ' ' + t('door')}`} icon='feature' />
-        <ProductFeature feature={`${t('drive_wheels') + ' — ' + singleProductDetails?.drive_tires?.title}`} icon='feature' />
-        <ProductFeature feature={singleProductDetails?.fuel_type?.title} icon='feature' />
+        <ProductFeature feature={`${t('drive_wheels') + ' — ' + dynamicTranslateTag(singleProductDetails?.drive_tires?.title, t)}`} icon='feature' />
+        <ProductFeature feature={dynamicTranslateTag(singleProductDetails?.fuel_type?.title,t)} icon='feature' />
         <ProductFeature feature={`${t('suitcase') + ' – ' + singleProductDetails?.luggage_numbers || 0 + t('suitcase')}`} icon='feature' />
         <ProductFeature
           feature={`${t('run') + ' — ' + singleProductDetails?.car_run} ${singleProductDetails?.measure}`}
           icon='feature'
         />
         <ProductFeature feature={`${t('passenger') + ' – ' + singleProductDetails?.seat_type?.title}`} icon='feature' />
-        <ProductFeature feature={singleProductDetails?.transmission_type?.title} icon='feature' />
+        <ProductFeature feature={dynamicTranslateTag(singleProductDetails?.transmission_type?.title,t)} icon='feature' />
           {singleProductDetails?.product_additional_information?.map(
               (feature: { additional_information: { title: string }; icon: string; id: string | number }) => (
-                  <ProductFeature feature={feature?.additional_information?.title} icon='feature' key={feature.id} />
+                  <ProductFeature feature={dynamicTranslateAdditionalParameters(feature?.additional_information?.title, t)} icon='feature' key={feature.id} />
               )
           )}
       </div>

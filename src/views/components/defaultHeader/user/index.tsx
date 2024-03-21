@@ -19,8 +19,6 @@ const User = () => {
 
   const { isLoading } = useProfile()
 
-  console.log(userFavouritesCount, 'userFavouritesCount')
-
   return (
     <UserContainer>
       {activeCompany && isAuthenticated && (
@@ -37,8 +35,9 @@ const User = () => {
         </RentBtn>
       )}
       {!activeCompany && (
-        <FavoriteBtn className='hidden md:flex'>
+        <FavoriteBtn className='hidden md:flex relative'>
           <Icon svgPath='favorite' width={24} height={24} className='fill-raisin-100' onClick={handleRouteFavourites} />
+          <span className="bg-orange-100 text-white text-xs absolute rounded-full flex items-center justify-center w-4 h-4 absolute top-0 right-0 mt-1">{userFavouritesCount}</span>
         </FavoriteBtn>
       )}
       <Notification />
