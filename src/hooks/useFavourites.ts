@@ -18,7 +18,7 @@ const useFavourites = (productId?: string | number, page?: number) => {
   }
 
   const toggleUserFavourites = useMutation(() => toggleFavourites(''), {
-    onSettled: () => {
+    onSuccess: () => {
       queryClient.invalidateQueries(['singleProduct'])
       queryClient.invalidateQueries(['userFavourites'])
       queryClient.invalidateQueries(['popularProducts'])
@@ -37,9 +37,9 @@ const useFavourites = (productId?: string | number, page?: number) => {
 
   const userFavourites = useFavourites?.data?.result
   const isLoading = useFavourites?.isLoading
-  const userFavouritesLength = useFavourites?.data?.result?.total
+  const userFavouritesCount = useFavourites?.data?.result?.total
 
-  return { toggleUserFavourites, userFavourites, isLoading, userFavouritesLength }
+  return { toggleUserFavourites, userFavourites, isLoading, userFavouritesCount }
 }
 
 export default useFavourites

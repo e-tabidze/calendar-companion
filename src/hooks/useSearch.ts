@@ -1,4 +1,4 @@
-import { useMutation } from '@tanstack/react-query'
+import { useQuery } from '@tanstack/react-query'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 import { useFieldArray, useForm, useWatch } from 'react-hook-form'
@@ -84,7 +84,9 @@ const useSearch = () => {
       setValue('order_by', params?.order_by || 'desc')
       setValue('booking.book_from', params?.book_from || '')
       setValue('booking.book_to', params?.book_to || '')
-      searchProductsMutation.mutate(objectToURI(searchDefaultValues))
+
+      // searchProductsMutation.mutate(objectToURI(searchDefaultValues))
+      searchProductsMutation.refetch()
     }
   }, [router.query])
 
@@ -150,14 +152,39 @@ const useSearch = () => {
     name: 'additional_information'
   })
 
-  const searchProductsMutation = useMutation((querystring: string) => searchProducts('', querystring), {
-    onSuccess: () => {
-      queryClient.invalidateQueries(['searchProducts'])
+  // const searchProductsMutation = useMutation((querystring: string) => searchProducts('', querystring), {
+  //   onSuccess: () => {
+  //     queryClient.invalidateQueries(['searchProducts'])
+  //   },
+  //   onError: error => {
+  //     console.error('Mutation Error:', error)
+  //   }
+  // })
+
+  const searchProductsMutation = useQuery(
+    ['searchProducts'],
+    async () => {
+      try {
+        const response = await searchProducts('', objectToURI(getValues()))
+        queryClient.invalidateQueries(['searchProducts'])
+        
+        return response
+      } catch (error) {
+        console.error('Mutation Error:', error)
+        throw error
+      }
     },
-    onError: error => {
-      console.error('Mutation Error:', error)
+    {
+      staleTime: Infinity,
+      enabled: false,
+      onError: error => {
+        console.error('Query Error:', error)
+      },
+      onSuccess: () => {
+        queryClient.invalidateQueries(['searchProducts'])
+      }
     }
-  })
+  )
 
   const productsData = searchProductsMutation?.data?.result?.data
   const isLoading = searchProductsMutation?.isLoading

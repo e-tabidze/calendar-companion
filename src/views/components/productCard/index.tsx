@@ -50,11 +50,12 @@ const ProductCard: React.FC<Props> = ({
   seats,
   images,
   city,
-  isProductInFavorites
+  isProductInFavorites: productFav
 }) => {
   const router = useRouter()
 
   const [isMobileDevice, setIsMobileDevice] = useState(false)
+  const [isProductInFavorites, setIsProductInFavorites] = useState(productFav)
 
   useEffect(() => {
     setIsMobileDevice(isMobile)
@@ -82,6 +83,8 @@ const ProductCard: React.FC<Props> = ({
   const handleFavorites = async (e: any) => {
     e.stopPropagation()
     e.nativeEvent.preventDefault()
+
+    setIsProductInFavorites(!productFav)
 
     try {
       await toggleUserFavourites.mutateAsync()

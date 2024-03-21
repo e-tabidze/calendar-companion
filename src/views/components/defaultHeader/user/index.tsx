@@ -10,7 +10,7 @@ import useFavourites from 'src/hooks/useFavourites'
 
 const User = () => {
   const { activeCompany, isAuthenticated } = useProfile()
-  const { userFavouritesLength } = useFavourites()
+  const { userFavouritesCount } = useFavourites()
   const { t } = useTranslation()
 
   const router = useRouter()
@@ -18,6 +18,8 @@ const User = () => {
   const handleRouteFavourites = () => router.push('/profile/favourites', undefined, { shallow: true, locale: '.' })
 
   const { isLoading } = useProfile()
+
+  console.log(userFavouritesCount, 'userFavouritesCount')
 
   return (
     <UserContainer>
