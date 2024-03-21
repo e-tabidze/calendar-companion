@@ -39,11 +39,11 @@ const NewServiceModal: React.FC<Props> = ({ open, onClose }) => {
   const quantity_options = [
     {
       id: 1,
-      title: 'დიახ'
+      title: t('yes')
     },
     {
       id: 0,
-      title: 'არა'
+      title: t('no')
     }
   ]
 
@@ -126,7 +126,7 @@ const NewServiceModal: React.FC<Props> = ({ open, onClose }) => {
                       errors={errors}
                     />
                     <Typography type='subtitle' className='font-bold'>
-                      ფასი
+                      {t('price')}
                     </Typography>
                     <Tag options={options} name='type_id' height='h-10' control={control} />
                     {errors.type_id && (
@@ -135,7 +135,7 @@ const NewServiceModal: React.FC<Props> = ({ open, onClose }) => {
                       </div>
                     )}
                     <Typography type='subtitle' className='font-bold'>
-                      მოცემულ სერვისს აქვს რაოდენობა?
+                      {t('service_quantity')}
                     </Typography>
                     <Tag options={quantity_options} name='has_quantity' height='h-10' control={control} />
 
