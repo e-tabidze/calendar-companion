@@ -20,7 +20,7 @@ interface Props {
 const PeriodMob: React.FC<Props> = ({ control, resetField }) => {
   const [calendar, toggleCalendar] = useState(false)
   const formState = useWatch({ control })
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
 
   return (
     <div className='p-4 w-full'>
@@ -38,12 +38,12 @@ const PeriodMob: React.FC<Props> = ({ control, resetField }) => {
             {formState?.booking?.book_from?.length > 0 || formState?.booking?.book_to?.length > 0
               ? `  ${
                   formState?.booking?.book_from?.length > 0 &&
-                  `${format(new Date(formState?.booking?.book_from), 'd MMM', { locale: ka })}`
+                  `${format(new Date(formState?.booking?.book_from), 'd MMM', i18n.language === 'ka' ? { locale: ka } : {})}`
                 }
                 -
                 ${
                   formState?.booking?.book_to && Date.parse(formState?.booking?.book_to)
-                    ? `${format(new Date(formState?.booking?.book_to), 'd MMM', { locale: ka })}`
+                    ? `${format(new Date(formState?.booking?.book_to), 'd MMM', i18n.language === 'ka' ? { locale: ka } : {})}`
                     : ''
                 }`
               : t('date')}

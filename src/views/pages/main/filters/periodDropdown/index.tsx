@@ -22,7 +22,7 @@ registerLocale('ka', ka)
 const PeriodDropdown: React.FC<Props> = ({ control, resetField, setOpen }) => {
   const [dateRange, setDateRange] = useState<[Date, Date] | [null, null]>([null, null])
   const [startDate, endDate] = dateRange
-  const {t} = useTranslation()
+  const {t, i18n} = useTranslation()
 
   const buttonRef = useRef<HTMLButtonElement>(null)
 
@@ -60,9 +60,7 @@ const PeriodDropdown: React.FC<Props> = ({ control, resetField, setOpen }) => {
                   className={`${startDate && endDate ? 'text-green-100' : 'text-raisin-50'} `}
                 >
                   {startDate && endDate
-                    ? `${format(startDate, 'd MMM', { locale: ka })} - ${format(endDate, 'd MMM', {
-                        locale: ka
-                      })}`
+                    ? `${format(startDate, 'd MMM',i18n.language === 'ka' ? { locale: ka } : {} )} - ${format(endDate, 'd MMM', i18n.language === 'ka' ? { locale: ka } : {})}`
                     : t('date')}
                 </Typography>
                 {startDate || endDate ? (

@@ -48,7 +48,7 @@ const Booking = () => {
   const [loading, setLoading] = useState(true)
 
   const router = useRouter()
-  const {t} = useTranslation()
+  const {t, i18n} = useTranslation()
 
   const { book_from, book_to, price_day, company_id, id } = router.query
 
@@ -97,12 +97,10 @@ const Booking = () => {
           control={control}
           toggleEditModal={toggleEditModal}
           errors={errors}
-          startDate={book_from && format(new Date(String(book_from)), 'd MMM yyyy', { locale: ka })}
+          startDate={book_from && format(new Date(String(book_from)), 'd MMM yyyy', i18n.language === 'ka' ? { locale: ka } : {})}
           endDate={
             book_to &&
-            format(new Date(String(book_to)), 'd MMM yyyy', {
-              locale: ka
-            })
+            format(new Date(String(book_to)), 'd MMM yyyy', i18n.language === 'ka' ? { locale: ka } : {})
           }
         />
       )
@@ -115,12 +113,10 @@ const Booking = () => {
           control={control}
           toggleEditModal={toggleEditModal}
           errors={errors}
-          startDate={book_from && format(new Date(String(book_from)), 'd MMM yyyy', { locale: ka })}
+          startDate={book_from && format(new Date(String(book_from)), 'd MMM yyyy', i18n.language === 'ka' ? { locale: ka } : {})}
           endDate={
             book_to &&
-            format(new Date(String(book_to)), 'd MMM yyyy', {
-              locale: ka
-            })
+            format(new Date(String(book_to)), 'd MMM yyyy', i18n.language === 'ka' ? { locale: ka } : {})
           }
         />
       )
@@ -220,12 +216,10 @@ const Booking = () => {
               <div className='flex items-baseline my-8 gap-3'>
                 <Typography type='h3' className='font-bold'>
                   {book_from && book_to
-                    ? `${format(new Date(String(book_from)), 'd MMM yyyy', { locale: ka })} - ${format(
+                    ? `${format(new Date(String(book_from)), 'd MMM yyyy', i18n.language === 'ka' ? { locale: ka } : {})} - ${format(
                         new Date(String(book_to)),
                         'd MMM yyyy',
-                        {
-                          locale: ka
-                        }
+                          i18n.language === 'ka' ? { locale: ka } : {}
                       )}`
                     : ''}
                 </Typography>
@@ -316,12 +310,10 @@ const Booking = () => {
               year={singleProductDetails?.prod_year}
               price={singleProductDetails?.price}
               control={control}
-              startDate={book_from && format(new Date(String(book_from)), 'd MMM yyyy', { locale: ka })}
+              startDate={book_from && format(new Date(String(book_from)), 'd MMM yyyy', i18n.language === 'ka' ? { locale: ka } : {})}
               endDate={
                 book_to &&
-                format(new Date(String(book_to)), 'd MMM yyyy', {
-                  locale: ka
-                })
+                format(new Date(String(book_to)), 'd MMM yyyy', i18n.language === 'ka' ? { locale: ka } : {})
               }
               days={Math.round(
                 (new Date(Array.isArray(book_to) ? book_to[0] : book_to).getTime() -
@@ -342,12 +334,10 @@ const Booking = () => {
             isOpenDrawer={isOpenDrawer}
             setIsOpenDrawer={setIsOpenDrawer}
             price={singleProductDetails?.price}
-            startDate={book_from && format(new Date(String(book_from)), 'd MMM yyyy', { locale: ka })}
+            startDate={book_from && format(new Date(String(book_from)), 'd MMM yyyy', i18n.language === 'ka' ? { locale: ka } : {})}
             endDate={
               book_to &&
-              format(new Date(String(book_to)), 'd MMM yyyy', {
-                locale: ka
-              })
+              format(new Date(String(book_to)), 'd MMM yyyy', i18n.language === 'ka' ? { locale: ka } : {})
             }
             days={Math.round(
               (new Date(Array.isArray(book_to) ? book_to[0] : book_to).getTime() -

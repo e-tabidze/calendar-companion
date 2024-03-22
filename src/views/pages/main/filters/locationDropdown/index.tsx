@@ -100,7 +100,7 @@ const LocationDropdown: React.FC<Props> = ({ control, resetField, setOpen }) => 
                     <Combobox.Option
                       key={city?.city}
                       className={`hover:bg-raisin-5 cursor-pointer select-none py-2 px-6 flex items-center last:mb-2 `}
-                      value={city.city}
+                      value={dynamicTranslateCities(city.city, t)}
                     >
                       <Icon
                         svgPath='locationOutline'
