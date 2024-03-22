@@ -10,7 +10,7 @@ import { formatDate } from 'src/utils/formatDate'
 import Icon from 'src/views/app/Icon'
 
 import { format } from 'date-fns'
-import {i18n, useTranslation} from "next-i18next";
+import {useTranslation} from "next-i18next";
 
 interface Props {
   control: any

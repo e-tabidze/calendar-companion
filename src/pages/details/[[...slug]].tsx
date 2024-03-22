@@ -49,7 +49,7 @@ const Features = dynamic(() => import('src/views/pages/details/features'), { ssr
 import { format } from 'date-fns'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import PageMeta from 'src/@core/meta/PageMeta'
-import {i18n, useTranslation} from "next-i18next";
+import {useTranslation} from "next-i18next";
 import {dynamicTranslateServices} from "src/utils/translationUtils";
 
 registerLocale('ka', ka)
