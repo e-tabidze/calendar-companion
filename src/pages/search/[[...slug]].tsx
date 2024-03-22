@@ -124,7 +124,6 @@ const SearchPage = () => {
   const onSubmit = () => {
     const updatedSearchValues: any = getValues()
 
-
     // searchProductsMutation.mutate(objectToURI(updatedSearchValues))
     searchProductsMutation.refetch()
 

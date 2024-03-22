@@ -111,22 +111,19 @@ const MainPage = () => {
         <ContentContainer className='px-0 md:px-5 lg:px-8'>
           <Carousel
             itemsArray={lastSeenProducts?.map((product: any) => (
-              <>
-                {console.log(product?.product?.is_favourite, 'is_favourite')}
-                <ProductCard
-                  key={product?.product?.id}
-                  productId={product?.product?.id}
-                  manufacturer={product?.product?.manufacturer?.title}
-                  model={product?.product?.manufacturer_model?.title}
-                  prodYear={product?.product?.prod_year}
-                  priceGel={product?.product?.price_gel}
-                  luggageNumbers={product?.product?.luggage_numbers}
-                  seats={product?.product?.seat_type?.title}
-                  images={product?.product?.images?.split(',')}
-                  city={product?.product?.start_city}
-                  isProductInFavorites={product?.product?.is_favourite}
-                />
-              </>
+              <ProductCard
+                key={product?.product?.id}
+                productId={product?.product?.id}
+                manufacturer={product?.product?.manufacturer?.title}
+                model={product?.product?.manufacturer_model?.title}
+                prodYear={product?.product?.prod_year}
+                priceGel={product?.product?.price_gel}
+                luggageNumbers={product?.product?.luggage_numbers}
+                seats={product?.product?.seat_type?.title}
+                images={product?.product?.images?.split(',')}
+                city={product?.product?.start_city}
+                isProductInFavorites={product?.product?.is_favourite}
+              />
             ))}
             type='products'
           />

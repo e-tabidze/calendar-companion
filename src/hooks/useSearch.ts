@@ -32,7 +32,7 @@ const useSearch = () => {
   }
 
   const searchDefaultValues = {
-    page: Number(params?.page) || 1,
+    page:  1,
     location: params?.location || '',
     fuel_types: convertToNumberArray(params?.fuel_types),
     category: convertToNumberArray(params?.category),
@@ -61,7 +61,7 @@ const useSearch = () => {
 
   useEffect(() => {
     if (Object.keys(router.query).length > 0) {
-      setValue('page', Number(params?.page) || 1)
+      setValue('page', 1)
       setValue('location', params?.location || '')
       setValue('fuel_types', convertToNumberArray(params?.fuel_types))
       setValue('category', convertToNumberArray(params?.category))
