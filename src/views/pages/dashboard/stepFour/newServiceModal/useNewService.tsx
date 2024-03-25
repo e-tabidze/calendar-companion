@@ -19,6 +19,7 @@ const useNewService = () => {
     control,
     handleSubmit,
     formState: { errors, dirtyFields },
+    reset,
     resetField,
     setError,
     clearErrors,
@@ -39,6 +40,7 @@ const useNewService = () => {
       const response: any = await CompanyService.postCompanyServices(service, AccessToken)
 
       await queryClient.invalidateQueries(['companyServices'])
+      reset()
 
       return response.data
     } catch (error) {

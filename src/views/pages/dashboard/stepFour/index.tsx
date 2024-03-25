@@ -9,8 +9,7 @@ import useProductInfo from '../useProductInfo'
 import NewServiceModal from './newServiceModal'
 import ServiceDetails from './serviceDetails'
 import dynamic from 'next/dynamic'
-import {useTranslation} from "next-i18next";
-import { dynamicTranslateServices } from 'src/utils/translationUtils'
+import { useTranslation } from 'next-i18next'
 
 const Divider = dynamic(() => import('src/views/components/divider'), { ssr: false })
 const Typography = dynamic(() => import('src/views/components/typography'), { ssr: false })
@@ -28,8 +27,11 @@ const StepFour: React.FC<Props> = ({ control, step, errors }) => {
   const handleNewServiceModal = () => setNewServiceModal(!newServiceModal)
 
   const formState = useWatch({ control })
-  const {t} = useTranslation()
+  const { t, i18n } = useTranslation()
 
+  console.log(companyServices, 'companyServices')
+
+  console.log(i18n.language, 'i18n')
 
   const renderServiceDetails = (service: NewService, index: number) => {
     if (service.type_id === 1) {
@@ -40,6 +42,7 @@ const StepFour: React.FC<Props> = ({ control, step, errors }) => {
           label={t('daily_price')}
           errors={errors}
           description={t('service_price_desc')}
+          hasQuantity={service.has_quantity}
         />
       )
     }
@@ -51,6 +54,7 @@ const StepFour: React.FC<Props> = ({ control, step, errors }) => {
           errors={errors}
           label={t('one_time_price')}
           description={t('one_time_desc')}
+          hasQuantity={service.has_quantity}
         />
       )
     } else {
@@ -81,9 +85,9 @@ const StepFour: React.FC<Props> = ({ control, step, errors }) => {
               {companyServices?.map((service: NewService, index: number) => (
                 <div key={index}>
                   <SwitchField
-                    label={dynamicTranslateServices(service.title, t)}
+                    label={i18n.language === 'en' ? service.title_en : service.title}
                     className='my-8'
-                    description={service.description}
+                    description={i18n.language === 'en' ? service.description_en : service.description}
                     control={control}
                     name={`company_services.${index}.is_selected`}
                   />

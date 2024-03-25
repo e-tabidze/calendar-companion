@@ -3,7 +3,6 @@ import OrderService from 'src/services/OrderService'
 import SearchService from 'src/services/SearchService'
 
 const useSingleProductDetails = (id: any) => {
-  console.log(Number(id), 'id?')
   const getSingleProduct = async () => {
     const response: any = await SearchService.getSingleProduct('', id)
 
