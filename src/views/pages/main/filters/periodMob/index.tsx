@@ -8,6 +8,7 @@ import { format } from 'date-fns'
 import { registerLocale } from 'react-datepicker'
 
 import ka from 'date-fns/locale/ka'
+import { useTranslation } from 'next-i18next'
 
 registerLocale('ka', ka)
 
@@ -19,27 +20,33 @@ interface Props {
 const PeriodMob: React.FC<Props> = ({ control, resetField }) => {
   const [calendar, toggleCalendar] = useState(false)
   const formState = useWatch({ control })
+  const { t, i18n } = useTranslation()
 
   return (
     <div className='p-4 w-full'>
       <FilterContainer onClick={() => toggleCalendar(!calendar)}>
         <Typography type='body' color='dark'>
-          დაქირავების პერიოდი 
+          {t('rental_period')}
         </Typography>
         <InnerFilterContainer>
-          <Typography type='subtitle' className={`${formState?.booking?.book_from || formState?.booking?.book_to ? 'text-green-100':'text-raisin-50'}`}>
+          <Typography
+            type='subtitle'
+            className={`${
+              formState?.booking?.book_from || formState?.booking?.book_to ? 'text-green-100' : 'text-raisin-50'
+            }`}
+          >
             {formState?.booking?.book_from?.length > 0 || formState?.booking?.book_to?.length > 0
               ? `  ${
                   formState?.booking?.book_from?.length > 0 &&
-                  `${format(new Date(formState?.booking?.book_from), 'd MMM', { locale: ka })}`
+                  `${format(new Date(formState?.booking?.book_from), 'd MMM', i18n.language === 'ka' ? { locale: ka } : {})}`
                 }
                 -
-            ${
-              formState?.booking?.book_to?.length > 0 && formState?.booking?.book_to !== 'თარიღი'
-                ? `${format(new Date(formState?.booking?.book_to), 'd MMM', { locale: ka })}`
-                : ''
-            }`
-              : 'თარიღი'}
+                ${
+                  formState?.booking?.book_to && Date.parse(formState?.booking?.book_to)
+                    ? `${format(new Date(formState?.booking?.book_to), 'd MMM', i18n.language === 'ka' ? { locale: ka } : {})}`
+                    : ''
+                }`
+              : t('date')}
           </Typography>
           {formState?.booking?.book_from || formState?.booking?.book_to ? (
             <Icon

@@ -6,6 +6,7 @@ import Image from 'src/views/components/image'
 import Link from 'next/link'
 import { TNET_AUTH } from 'src/env'
 import { useRouter } from 'next/router'
+import {useTranslation} from "next-i18next";
 
 const NavigationBar = () => {
   const [burger, toggleBurger] = useState(false)
@@ -13,6 +14,7 @@ const NavigationBar = () => {
 
   const router = useRouter()
   const { isLoading } = useProfile()
+  const {t} = useTranslation()
 
   return (
     <div className='lg:hidden bg-white py-4 fixed bottom-0 left-0 w-full z-[111] shadow-sm'>
@@ -30,7 +32,7 @@ const NavigationBar = () => {
                   }`}
                 />
               </span>
-              <span className='text-[10px] mt-1'>{activeCompany ? 'დეშბორდი' : 'მთავარი'}</span>
+              <span className='text-[10px] mt-1'>{activeCompany ? t('dashboard') : t('main')}</span>
             </div>
           </Link>
         </li>
@@ -41,7 +43,7 @@ const NavigationBar = () => {
                 <span className='flex'>
                   <Icon svgPath='add-outline' className='fill-transparent' width={24} height={24} />
                 </span>
-                <span className='mt-1'>დამატება</span>
+                <span className='mt-1'>{t('add')}</span>
               </div>
             </Link>
           </li>
@@ -60,7 +62,7 @@ const NavigationBar = () => {
                     }`}
                   />
                 </span>
-                <span className='text-[10px] mt-1'>ფავორიტები</span>
+                <span className='text-[10px] mt-1'>{t('favourites')}</span>
               </div>
             </Link>
           </li>
@@ -80,7 +82,7 @@ const NavigationBar = () => {
                   className={`${router.pathname.includes('/notifications/') ? 'fill-orange-100' : 'fill-raisin-100'}`}
                 />
               </span>
-              <span className='text-[10px] mt-1'>შეტყობინებები</span>
+              <span className='text-[10px] mt-1'>{t('messages')}</span>
             </div>
           </Link>
         </li>
@@ -100,7 +102,7 @@ const NavigationBar = () => {
                     />
                 </span>
                   }
-                  <span className='text-[10px] mt-1'>პროფილი</span>
+                  <span className='text-[10px] mt-1'>{t('profile')}</span>
                 </div>
               </button> :
               <Link href={TNET_AUTH}>
@@ -108,7 +110,7 @@ const NavigationBar = () => {
                 <span className='w-6 h-6 relative flex items-center justify-center rounded-full overflow-hidden'>
                   <Icon svgPath='auth' width={25} height={24} />
                 </span>
-                  <span className='text-[10px] mt-1'>შესვლა</span>
+                  <span className='text-[10px] mt-1'>{t('login')}</span>
                 </div>
               </Link>
           }

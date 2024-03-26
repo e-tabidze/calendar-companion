@@ -3,6 +3,7 @@ import useFilters from 'src/hooks/useFilters'
 import { DefaultButton, IconTextButton } from 'src/views/components/button'
 import PopoverDropdown from 'src/views/components/popoverDropdown'
 import Tag from 'src/views/components/tag'
+import {useTranslation} from "next-i18next";
 
 interface Props {
   control: any
@@ -13,12 +14,12 @@ interface Props {
 
 const SuitcasesPopover: React.FC<Props> = ({ control, appendLuggageNumber, handleSubmit, setValue }) => {
   const { suitcases } = useFilters()
-
+  const {t} = useTranslation()
   const formState = useWatch({ control })
 
   return (
     <PopoverDropdown
-      label='ჩემოდნების რაოდენობა'
+      label={t('luggage_type')}
       maxWidth='max-w-xs'
       className={`${
         formState?.luggage_numbers?.length ? 'border border-raisin-100' : 'hover:border hover:border-raisin-30'
@@ -30,7 +31,7 @@ const SuitcasesPopover: React.FC<Props> = ({ control, appendLuggageNumber, handl
       <div className='flex items-center justify-between sticky bottom-0 bg-white p-5'>
         <IconTextButton
           icon='clearFilter'
-          label='გასუფთავება'
+          label={t('clear')}
           className='fill-transparent'
           width={24}
           height={24}
@@ -41,7 +42,7 @@ const SuitcasesPopover: React.FC<Props> = ({ control, appendLuggageNumber, handl
           type='button'
         />
         <DefaultButton
-          text='შენახვა'
+          text={t('save')}
           bg='bg-orange-100 hover:bg-orange-110 transition-all'
           textColor='text-white'
           type='button'

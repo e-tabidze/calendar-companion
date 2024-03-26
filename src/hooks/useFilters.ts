@@ -1,7 +1,10 @@
 import { useQuery } from '@tanstack/react-query'
 import SearchService from 'src/services/SearchService'
+import {useTranslation} from "next-i18next";
 
 const useFilters = (open?: any) => {
+  const {t} = useTranslation()
+
   const useProductFilters: any = useQuery({
     queryKey: ['searchFilters'],
     queryFn: () => getProductFilters(),
@@ -42,22 +45,22 @@ const useFilters = (open?: any) => {
   const sortFilters = [
     {
       id: 'price',
-      label: 'ფასი ზრდადობით',
+      label: t('price_asc'),
       order_by: 'asc'
     },
     {
       id: 'price',
-      label: 'ფასი კლებადობით',
+      label: t('price_desc'),
       order_by: 'desc'
     },
     {
       id: 'id',
-      label: 'თარიღი - ზრდადობით',
+      label: t('date_asc'),
       order_by: 'asc'
     },
     {
       id: 'id',
-      label: 'თარიღი - კლებადობით',
+      label: t('date_desc'),
       order_by: 'desc'
     }
   ]
@@ -65,11 +68,11 @@ const useFilters = (open?: any) => {
   const steeringWheel = [
     {
       id: 1,
-      title: 'მარცხენა'
+      title: t('wheel_left')
     },
     {
       id: 2,
-      title: 'მარჯვენა'
+      title: t('wheel_right')
     }
   ]
 

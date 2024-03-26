@@ -6,6 +6,7 @@ import { useState } from 'react'
 import useSearch from 'src/hooks/useSearch'
 import AdditionalFilters from 'src/views/components/additionalFilters'
 import { useRouter } from 'next/router'
+import {useTranslation} from "next-i18next";
 
 interface Props {
   className?: string
@@ -13,6 +14,7 @@ interface Props {
 
 const Filters: React.FC<Props> = ({ className }) => {
   const [filters, toggleFilters] = useState(false)
+  const {t} = useTranslation()
 
   const router = useRouter()
 
@@ -37,7 +39,10 @@ const Filters: React.FC<Props> = ({ className }) => {
 
   const onClickSearch = async () => {
     const queryString = objectToURI(searchValues)
-    searchProductsMutation.mutate(queryString)
+
+    // searchProductsMutation.mutate(queryString)
+    searchProductsMutation.refetch()
+
     router.push(`/search?${queryString}`)
   }
 
@@ -50,7 +55,7 @@ const Filters: React.FC<Props> = ({ className }) => {
         <Divider />
         <ExtraFiltersContainer>
           <IconTextButton
-            label={'დამატებითი ფილტრი'}
+            label={t('additional_filter')}
             icon={'/icons/filters.svg'}
             bg='white'
             labelClassname='text-xs text-base-100 text-left md:hidden'
@@ -59,7 +64,7 @@ const Filters: React.FC<Props> = ({ className }) => {
             type='button'
           />
           <IconTextButton
-            label={'ძებნა'}
+            label={t('search')}
             icon={'/icons/search.svg'}
             bg='bg-orange-100 hover:bg-orange-110 transition-all'
             labelClassname='text-2sm text-white md:hidden'

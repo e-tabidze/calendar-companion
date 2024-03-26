@@ -2,6 +2,8 @@ import { Combobox, Transition } from '@headlessui/react'
 import { Controller } from 'react-hook-form'
 import useSearchLocations from './useSearchLocations'
 import dynamic from 'next/dynamic'
+import {useTranslation} from "next-i18next";
+import { dynamicTranslateCities } from 'src/utils/translationUtils'
 
 const Icon = dynamic(() => import('src/views/app/Icon'), { ssr: false })
 interface Props {
@@ -11,6 +13,7 @@ interface Props {
 
 const LocationDropdown: React.FC<Props> = ({ control, resetField }) => {
   const { cities } = useSearchLocations()
+    const {t} = useTranslation()
 
   return (
     <Controller
@@ -23,7 +26,7 @@ const LocationDropdown: React.FC<Props> = ({ control, resetField }) => {
               <Combobox.Button className='h-full flex items-center pl-3 lg:pl-4 pr-1 lg:pr-2'>
                 <Combobox.Input
                   className='bg-transparent border-none h-full text-2sm text-raisin-130 placeholder:text-sm placeholder:text-raisin-130'
-                  placeholder='მდებარეობა'
+                  placeholder={t('location')}
                   displayValue={(city: any) => city.city}
                   onChange={onChange}
                   value={value}
@@ -65,14 +68,14 @@ const LocationDropdown: React.FC<Props> = ({ control, resetField }) => {
                     <Combobox.Option
                       key={city?.city}
                       className='hover:bg-raisin-5 cursor-pointer select-none py-2 px-6 flex items-center last:mb-2'
-                      value={city.city}
+                      value={dynamicTranslateCities(city.city, t)}
                     >
                       <span
                         className={`text-sm flex truncate font-normal ${
                           value == city.city ? 'text-green-100' : 'text-raisin-100'
                         }`}
                       >
-                        {city.city}
+                        {dynamicTranslateCities(city.city, t)}
                       </span>
                     </Combobox.Option>
                   ))}

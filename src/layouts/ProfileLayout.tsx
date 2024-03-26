@@ -7,6 +7,7 @@ import HeaderWrapper from '../views/components/headerWrapper'
 import Footer from 'src/views/components/footer'
 import { IconTextButton } from 'src/views/components/button'
 import BurgerMenu from 'src/views/components/defaultHeader/burgerMenu'
+import {useTranslation} from "next-i18next";
 
 interface Route {
   id: number
@@ -24,6 +25,7 @@ interface Props {
 }
 
 const ProfileLayout: React.FC<Props> = ({ routes, dividerIndexes, children }) => {
+  const {t} = useTranslation()
   const router = useRouter()
   const { width } = useWindowDimensions()
   const [selectedRoute, setSelectedRoute] = useState<any>(routes[0])
@@ -62,7 +64,7 @@ const ProfileLayout: React.FC<Props> = ({ routes, dividerIndexes, children }) =>
         <div className='transition-all duration-300 w-full z-[11] p-0 md:p-4 lg:p-0'>
           <IconTextButton
             icon='chevron-l'
-            label='ჩემი გვერდი'
+            label={t('my_profile')}
             width={8}
             height={12}
             onClick={() => setBurgerMenu(!burderMenu)}

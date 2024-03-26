@@ -10,6 +10,7 @@ import { generateYearsArray } from 'src/utils/years'
 import ImagesInput from './imagesInput'
 import _ from 'lodash'
 import useProfile from 'src/hooks/useProfile'
+import {useTranslation} from "next-i18next";
 
 interface Props {
   control: any
@@ -21,6 +22,7 @@ interface Props {
 }
 
 const StepOne: React.FC<Props> = ({ control, productValues, errors, setValue, removeImage, appendImages }) => {
+  const {t} = useTranslation()
   const { manufacturers } = useProductInfo()
   const { postUploadProductImages } = useNewProduct()
   const { userId } = useProfile()
@@ -79,12 +81,12 @@ const StepOne: React.FC<Props> = ({ control, productValues, errors, setValue, re
   return (
     <>
       <div className='grid gap-4 grid-cold-1 md:grid-cols-2'>
-        <DefaultInput name='vin' control={control} errors={errors} label='ვინ კოდი' />
-        <DefaultInput name='plate' control={control} errors={errors} label='სახელმწიფო ნომერი*' />
+        <DefaultInput name='vin' control={control} errors={errors} label={t('vin_code')} />
+        <DefaultInput name='plate' control={control} errors={errors} label={t('legal_number') + '*'} />
         <SelectField
           name='man_id'
           control={control}
-          placeholder='მწარმოებელი*'
+          placeholder={t('manufacturer') + '*'}
           options={manufacturers}
           valueKey='id'
           labelKey='title'
@@ -93,7 +95,7 @@ const StepOne: React.FC<Props> = ({ control, productValues, errors, setValue, re
         <SelectField
           name='model_id'
           control={control}
-          placeholder='მოდელი*'
+          placeholder={t('model') + ' *'}
           options={manufacturerModels?.result?.data}
           valueKey='id'
           labelKey='title'
@@ -103,7 +105,7 @@ const StepOne: React.FC<Props> = ({ control, productValues, errors, setValue, re
         <SelectField
           name='prod_year'
           control={control}
-          placeholder='წელი*'
+          placeholder={t('year') + '*'}
           options={generateYearsArray()}
           valueKey='value'
           labelKey='label'
@@ -114,7 +116,7 @@ const StepOne: React.FC<Props> = ({ control, productValues, errors, setValue, re
             name='odometer.run'
             control={control}
             errors={errors}
-            label='გარბენი*'
+            label={t('run') + '*'}
             className='flex-grow'
             type='number'
           />
@@ -122,8 +124,8 @@ const StepOne: React.FC<Props> = ({ control, productValues, errors, setValue, re
             control={control}
             name='odometer.measure'
             options={[
-              { value: 'km', label: 'კმ' },
-              { value: 'mile', label: 'მილი' }
+              { value: 'km', label: t('km')},
+              { value: 'mile', label: t('mile') }
             ]}
           />
         </div>
@@ -133,15 +135,29 @@ const StepOne: React.FC<Props> = ({ control, productValues, errors, setValue, re
           name='additional_information'
           control={control}
           errors={errors}
-          label='დამატებითი ინფორმაცია*'
+          label={t('additional_info') +' ('+ t('georgian')+ ') *'}
           rows={4}
+        />
+        <DefaultInput
+            name='additional_information_en'
+            control={control}
+            errors={errors}
+            label={t('additional_info') +' ('+ t('english')+ ') *'}
+            rows={4}
         />
         <DefaultInput
           name='use_instruction'
           control={control}
           errors={errors}
-          label='გამოყენების ინსტრუქცია*'
+          label={t('instruction_for_use') +' ('+ t('georgian')+ ') *'}
           rows={4}
+        />
+        <DefaultInput
+            name='use_instruction_en'
+            control={control}
+            errors={errors}
+            label={t('instruction_for_use') +' ('+ t('english')+ ') *'}
+            rows={4}
         />
       </div>
       <div className='flex flex-col flex-wrap gap-2 mt-4'>
@@ -151,8 +167,8 @@ const StepOne: React.FC<Props> = ({ control, productValues, errors, setValue, re
           render={({ field: { value } }) => (
             <>
               <ImagesInput
-                title='ავტომობილის ფოტოსურათები'
-                description='(მაქს. ზომა 10 მბ, JPG, PNG, SVG)'
+                title={t('car_photos')}
+                description={t('max_image_size')}
                 handleRemoveImage={removeImage}
                 handleMoveToFront={handleMoveToFront}
                 isLoading={uploadProductImagesMutation.isLoading}

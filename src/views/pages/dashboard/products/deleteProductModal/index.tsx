@@ -3,6 +3,7 @@ import { Dialog, Transition } from '@headlessui/react'
 import { DefaultButton, IconTextButton } from 'src/views/components/button'
 import Icon from 'src/views/app/Icon'
 import Divider from 'src/views/components/divider'
+import {useTranslation} from "next-i18next";
 
 interface Props {
   open: boolean
@@ -12,6 +13,8 @@ interface Props {
 }
 
 const DeleteProductConfirmationModal: React.FC<Props> = ({ open, toggleModal, productId, deleteCompany }) => {
+  const {t} = useTranslation()
+
   return (
     <Transition.Root show={open} as={Fragment}>
       <Dialog as='div' className='relative z-[111]' onClose={toggleModal}>
@@ -42,13 +45,13 @@ const DeleteProductConfirmationModal: React.FC<Props> = ({ open, toggleModal, pr
                 <div className='w-full px-8 pt-5 pb-8 md:px-16 md:pt-10 md:pb-16 flex items-center flex-col'>
                   <Icon svgPath='trash-red' width={64} height={64} />
                   <Dialog.Title as='h3' className='text-sm md:text-2md text-base-100 leading-6 pt-4'>
-                    ნამდვილად გსურთ პროდუქტის წაშლა?
+                    {t('sure_remove_product')}
                   </Dialog.Title>
                 </div>
                 <Divider />
                 <div className='w-full flex md:items-center justify-between py-2 md:py-4 px-4 md:px-10'>
                   <DefaultButton
-                    text='უარყოფა'
+                    text={t('decline')}
                     className='border-none text-sm md:text-md'
                     type='submit'
                     onClick={() => {
@@ -56,7 +59,7 @@ const DeleteProductConfirmationModal: React.FC<Props> = ({ open, toggleModal, pr
                     }}
                   />
                   <IconTextButton
-                    label='წაშლა'
+                    label={t('remove')}
                     className='text-red-120 text-sm md:text-md'
                     icon='clear'
                     width={24}

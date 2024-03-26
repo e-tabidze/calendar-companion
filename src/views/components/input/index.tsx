@@ -4,6 +4,7 @@ import _ from 'lodash'
 import { Controller } from 'react-hook-form'
 import { InputContainer } from './styles'
 import Icon from 'src/views/app/Icon'
+import {useTranslation} from "next-i18next";
 
 const styles = {
   disabledInput: 'opacity-80',
@@ -56,8 +57,10 @@ export const DefaultInput: React.FC<Props> = ({
   type = 'text',
   min
 }) => {
+
   const [isFocused, setIsFocused] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
+   const {t} = useTranslation()
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword)
@@ -68,6 +71,7 @@ export const DefaultInput: React.FC<Props> = ({
   const handleFocus = () => setIsFocused(true)
 
   const handleBlur = () => setIsFocused(false)
+
 
   return (
     <InputContainer key={index} className={` flex flex-col ${className} ${disabled && styles.disabledInput}`}>
@@ -112,7 +116,7 @@ export const DefaultInput: React.FC<Props> = ({
             />
             {_.get(errors, name)?.message && (
               <div id={id} className='text-sm text-red-100 py-2 max-h-max relative'>
-                {_.get(errors, name)?.message}
+                {t(_.get(errors, name)?.message)}
               </div>
             )}
 
@@ -164,6 +168,7 @@ export const InputWithComponent: React.FC<Props> = ({
   const handleFocus = () => setIsFocused(true)
 
   const handleBlur = () => setIsFocused(false)
+  const {t} = useTranslation()
 
   return (
     <>
@@ -192,7 +197,7 @@ export const InputWithComponent: React.FC<Props> = ({
               />
               {errors && (
                 <div id={id} className='text-sm text-red-100 absolute -bottom-5'>
-                  {_.get(errors, name)?.message}
+                  {t(_.get(errors, name)?.message)}
                 </div>
               )}
             </>

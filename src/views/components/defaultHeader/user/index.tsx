@@ -5,9 +5,13 @@ import Notification from '../notification'
 import useProfile from 'src/hooks/useProfile'
 import { useRouter } from 'next/router'
 import Icon from 'src/views/app/Icon'
+import { useTranslation } from 'next-i18next'
+import useFavourites from 'src/hooks/useFavourites'
 
 const User = () => {
   const { activeCompany, isAuthenticated } = useProfile()
+  const { userFavouritesCount } = useFavourites()
+  const { t } = useTranslation()
 
   const router = useRouter()
 
@@ -26,13 +30,14 @@ const User = () => {
             color='dark'
             className='font-medium text-orange xl:ml-2 hidden xl:flex'
           >
-            გაქირავება
+            {t('rent')}
           </Typography>
         </RentBtn>
       )}
       {!activeCompany && (
-        <FavoriteBtn className='hidden md:flex'>
+        <FavoriteBtn className='hidden md:flex relative'>
           <Icon svgPath='favorite' width={24} height={24} className='fill-raisin-100' onClick={handleRouteFavourites} />
+          <span className="bg-orange-100 text-white text-xs absolute rounded-full flex items-center justify-center w-4 h-4 absolute top-0 right-0 mt-1">{userFavouritesCount}</span>
         </FavoriteBtn>
       )}
       <Notification />

@@ -10,6 +10,7 @@ import { formatDate } from 'src/utils/formatDate'
 import Icon from 'src/views/app/Icon'
 
 import { format } from 'date-fns'
+import {useTranslation} from "next-i18next";
 
 interface Props {
   control: any
@@ -21,6 +22,7 @@ registerLocale('ka', ka)
 const PeriodDropdown: React.FC<Props> = ({ control, resetField, setOpen }) => {
   const [dateRange, setDateRange] = useState<[Date, Date] | [null, null]>([null, null])
   const [startDate, endDate] = dateRange
+  const {t, i18n} = useTranslation()
 
   const buttonRef = useRef<HTMLButtonElement>(null)
 
@@ -50,7 +52,7 @@ const PeriodDropdown: React.FC<Props> = ({ control, resetField, setOpen }) => {
           >
             <FilterContainer>
               <Typography type='body' color='dark'>
-                დაქირავების პერიოდი
+                {t('rental_period')}
               </Typography>
               <InnerFilterContainer>
                 <Typography
@@ -58,10 +60,8 @@ const PeriodDropdown: React.FC<Props> = ({ control, resetField, setOpen }) => {
                   className={`${startDate && endDate ? 'text-green-100' : 'text-raisin-50'} `}
                 >
                   {startDate && endDate
-                    ? `${format(startDate, 'd MMM', { locale: ka })} - ${format(endDate, 'd MMM', {
-                        locale: ka
-                      })}`
-                    : 'თარიღი'}
+                    ? `${format(startDate, 'd MMM',i18n.language === 'ka' ? { locale: ka } : {} )} - ${format(endDate, 'd MMM', i18n.language === 'ka' ? { locale: ka } : {})}`
+                    : t('date')}
                 </Typography>
                 {startDate || endDate ? (
                   <span
@@ -104,7 +104,7 @@ const PeriodDropdown: React.FC<Props> = ({ control, resetField, setOpen }) => {
                   <DatePicker
                     className='text-center border-l-4 border-red-500 w-full p-3 rounded text-sm outline-none focus:ring-0 bg-transparent'
                     inline
-                    locale='ka'
+                    locale={i18n?.language}
                     selected={startDate}
                     selectsRange={true}
                     startDate={startDate}

@@ -3,6 +3,7 @@ import CategoryCard from 'src/views/components/categoryCard'
 import useProductInfo from '../useProductInfo'
 import dynamic from 'next/dynamic'
 import useFilters from 'src/hooks/useFilters'
+import {useTranslation} from "next-i18next";
 
 const Typography = dynamic(() => import('src/views/components/typography'), { ssr: false })
 const Divider = dynamic(() => import('src/views/components/divider'), { ssr: false })
@@ -21,11 +22,12 @@ const StepTwo: React.FC<Props> = ({ control, appendAdditionalParam, step, errors
   const { width } = useWindowDimensions()
   const { productDetails, additionalParams, isProductDetailsLoading, isAdditionalParamsLoading } = useProductInfo(step)
   const { steeringWheel, suitcases } = useFilters()
+    const {t} = useTranslation()
 
   return (
     <div>
       <Typography type='h4' color='dark'>
-        ავტომობილის კატეგორია*
+          {t('category')}*
       </Typography>
       {isProductDetailsLoading ? (
         <>Loading</>
@@ -47,7 +49,7 @@ const StepTwo: React.FC<Props> = ({ control, appendAdditionalParam, step, errors
               control={control}
               name='category_id'
               options={productDetails?.categories}
-              placeholder='კატეგორია'
+              placeholder={t('category')}
               valueKey='id'
               labelKey='title'
             />
@@ -57,7 +59,7 @@ const StepTwo: React.FC<Props> = ({ control, appendAdditionalParam, step, errors
       )}
 
       <Typography type='h4' color='dark' className='mt-14'>
-        საწვავის ტიპი*
+          {t('fuel_type')}*
       </Typography>
       <div className='flex flex-wrap gap-3 my-6'>
         {isProductDetailsLoading ? (
@@ -74,7 +76,7 @@ const StepTwo: React.FC<Props> = ({ control, appendAdditionalParam, step, errors
         )}
       </div>
       <Typography type='h5' weight='normal' className=' mt-14'>
-        ადგილების რაოდენობა*
+          {t('seat_type')}*
       </Typography>
       <div className='flex flex-wrap gap-4 my-6'>
         {isProductDetailsLoading ? (
@@ -90,7 +92,7 @@ const StepTwo: React.FC<Props> = ({ control, appendAdditionalParam, step, errors
         )}
       </div>
       <Typography type='h5' weight='normal' className=' mt-14'>
-        ჩემოდნების რაოდენობა*
+          {t('luggage_type')}*
       </Typography>
       <div className='flex flex-wrap gap-4 my-6'>
         <Tag name='luggage_numbers' control={control} options={suitcases} height='h-10' errors={errors} />
@@ -98,7 +100,7 @@ const StepTwo: React.FC<Props> = ({ control, appendAdditionalParam, step, errors
       <Divider />
       <div className='flex justify-between my-10 flex-col items-baseline md:items-center md:flex-row'>
         <Typography type='h5' weight='normal' className=' mb-4 md:mb-0'>
-          კარის რაოდენობა*
+            {t('door_types')}*
         </Typography>
         <div className='flex w-max gap-2'>
           {isProductDetailsLoading ? (
@@ -120,7 +122,7 @@ const StepTwo: React.FC<Props> = ({ control, appendAdditionalParam, step, errors
 
       <div className='flex justify-between my-10 flex-col items-baseline md:items-center md:flex-row'>
         <Typography type='h5' weight='normal' className='mb-4 md:mb-0'>
-          წამყვანი საბურავები*
+            {t('drive_wheels')}*
         </Typography>
         <div className='flex w-max gap-2'>
           {isProductDetailsLoading ? (
@@ -140,7 +142,7 @@ const StepTwo: React.FC<Props> = ({ control, appendAdditionalParam, step, errors
 
       <div className='flex justify-between my-10 flex-col items-baseline md:items-center md:flex-row'>
         <Typography type='h5' weight='normal' className='mb-4 md:mb-0'>
-          საჭე*
+            {t('steering_wheel')}*
         </Typography>
         <div className='flex w-max gap-2'>
           {isProductDetailsLoading ? (
@@ -160,7 +162,7 @@ const StepTwo: React.FC<Props> = ({ control, appendAdditionalParam, step, errors
 
       <div className='flex justify-between my-10 flex-col items-baseline md:items-center md:flex-row'>
         <Typography type='h5' weight='normal' className='mb-4 md:mb-0'>
-          ტრანსმისია*
+            {t('transmission')}*
         </Typography>
         <div className='flex w-max gap-2'>
           {isProductDetailsLoading ? (
@@ -179,10 +181,10 @@ const StepTwo: React.FC<Props> = ({ control, appendAdditionalParam, step, errors
       <Divider />
 
       <Typography type='h5' weight='normal' className='mt-6'>
-        დამატებითი პარამეტრები
+          {t('additional_parameters')}
       </Typography>
       <Typography type='body' color='light'>
-        შეგიძლია მონიშნო ერთი ან რამდენიმე პარამეტრი
+          {t('select_one_or_more_parameter')}
       </Typography>
       <div className='py-9 grid grid-cols-1'>
         {isAdditionalParamsLoading ? (

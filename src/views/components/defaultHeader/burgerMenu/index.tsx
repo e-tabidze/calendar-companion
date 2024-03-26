@@ -8,12 +8,14 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import Icon from 'src/views/app/Icon'
 import { dashboardRoutes, profileRoutes } from 'src/utils/routes'
 import Link from 'next/link'
+import {useTranslation} from "next-i18next";
 
 interface Props {
   open: boolean
   setOpen: () => void
 }
 const BurgerMenu: React.FC<Props> = ({ open, setOpen }) => {
+  const {t} = useTranslation()
   const cancelButtonRef = useRef(null)
 
   const [active, setActive] = useState(false)
@@ -81,7 +83,7 @@ const BurgerMenu: React.FC<Props> = ({ open, setOpen }) => {
               <Dialog.Panel className='relative transform overflow-hidden bg-white text-left transition-all w-full'>
                 <div className='flex items-center justify-between mt-5 mb-4 px-6'>
                   <Dialog.Title as='h3' className='text-sm text-raisin-40'>
-                    მენიუ
+                    {t('menu')}
                   </Dialog.Title>
                   <button onClick={setOpen}>
                     <Icon svgPath='close' height={40} width={40} className='cursor-pointer' />
@@ -96,7 +98,7 @@ const BurgerMenu: React.FC<Props> = ({ open, setOpen }) => {
                           onClick={handleSetActive}
                         >
                           <Icon svgPath='chevron-left' width={20} height={20} className='fill-transparent flex mr-4' />
-                          დაბრუნება
+                          {t('back')}
                         </button>
                       </div>
                       <ul className='py-3 max-h-[335px] overflow-y-auto'>
@@ -189,13 +191,13 @@ const BurgerMenu: React.FC<Props> = ({ open, setOpen }) => {
                           </div>
                         </div>
                       </div>
-                      <div className='py-8px'>
+                      <div className='py-2'>
                         {userCompanies?.length > 0 && (
                           <button
                             className='mt-2 px-6  w-full flex items-center justify-between whitespace-nowrap text-md text-raisin-100 py-2 active:bg-grey-100 transition-all'
                             onClick={handleSetActive}
                           >
-                            ანგარიშის შეცვლა
+                            {t('switch_account')}
                             <Icon svgPath='chevron-right' width={20} height={20} className='fill-transparent' />
                           </button>
                         )}
@@ -211,14 +213,14 @@ const BurgerMenu: React.FC<Props> = ({ open, setOpen }) => {
                                       setOpen()
                                     }}
                                   >
-                                    {route.item}
+                                    {t(route.item)}
                                   </button>
                                 ) : (
                                   <button
                                     className={`border-t-1 border-raisin-10 w-full mt-2 pt-2 ${routeClass}`}
                                     onClick={handleLogout}
                                   >
-                                    {route.item}
+                                    {t(route.item)}
                                   </button>
                                 )}
                               </li>
@@ -230,14 +232,14 @@ const BurgerMenu: React.FC<Props> = ({ open, setOpen }) => {
                               <li key={route.id}>
                                 {route.path ? (
                                   <Link href={route.path} className={routeClass}>
-                                    {route.item}
+                                    {t(route.item)}
                                   </Link>
                                 ) : (
                                   <button
                                     className={`border-t-1 border-raisin-10 w-full mt-2 pt-2 ${routeClass}`}
                                     onClick={handleLogout}
                                   >
-                                    {route.item}
+                                    {t(route.item)}
                                   </button>
                                 )}
                               </li>

@@ -4,6 +4,7 @@ import { DefaultButton, IconTextButton } from 'src/views/components/button'
 import PopoverDropdown from 'src/views/components/popoverDropdown'
 import Tag from 'src/views/components/tag'
 import { TagsWrapper } from './styles'
+import {useTranslation} from "next-i18next";
 
 interface Props {
   control: any
@@ -16,10 +17,11 @@ const SeatsPopover: React.FC<Props> = ({ control, appendSeatType, handleSubmit, 
   const formState = useWatch({ control })
 
   const { seatTypesFilter } = useFilters()
+  const {t} = useTranslation()
 
   return (
     <PopoverDropdown
-      label='ადგილების რაოდენობა'
+      label={t('seat_type')}
       maxWidth='max-w-xs'
       className={`${
         formState?.seat_types?.length ? 'border border-raisin-100' : 'hover:border hover:border-raisin-30'
@@ -31,7 +33,7 @@ const SeatsPopover: React.FC<Props> = ({ control, appendSeatType, handleSubmit, 
       <div className='flex items-center justify-between sticky bottom-0 bg-white p-5'>
         <IconTextButton
           icon='clearFilter'
-          label='გასუფთავება'
+          label={t('clear')}
           className='fill-transparent'
           width={24}
           height={24}
@@ -42,7 +44,7 @@ const SeatsPopover: React.FC<Props> = ({ control, appendSeatType, handleSubmit, 
           type='button'
         />
         <DefaultButton
-          text='შენახვა'
+          text={t('save')}
           bg='bg-orange-100 hover:bg-orange-110 transition-all'
           textColor='text-white'
           type='button'

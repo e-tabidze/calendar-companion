@@ -7,6 +7,7 @@ import { Controller } from 'react-hook-form'
 import DatePicker, { registerLocale } from 'react-datepicker'
 import ka from 'date-fns/locale/ka'
 import { formatDate } from 'src/utils/formatDate'
+import {i18n, useTranslation} from "next-i18next";
 
 interface Props {
   open: boolean
@@ -18,6 +19,7 @@ registerLocale('ka', ka)
 const PeriodModal: React.FC<Props> = ({ open, toggleModal, control }) => {
   const [dateRange, setDateRange] = useState<[Date, Date] | [null, null]>([null, null])
   const [startDate, endDate] = dateRange
+  const {t} = useTranslation()
 
   const modalRef = useRef<HTMLDivElement>(null)
 
@@ -70,7 +72,7 @@ const PeriodModal: React.FC<Props> = ({ open, toggleModal, control }) => {
                 />
                 <div className='w-full flex justify-between items-center px-4 py-5 sm:py-6 sm:px-10 border-b-1 border-grey-90'>
                   <Dialog.Title as='h3' className='w-full flex items-center justify-between'>
-                    დაქირავების პერიოდი
+                    {t('rental_period')}
                     <Icon svgPath='close' onClick={toggleModal} height={40} width={40} className='cursor-pointer' />
                   </Dialog.Title>
                 </div>
@@ -80,7 +82,7 @@ const PeriodModal: React.FC<Props> = ({ open, toggleModal, control }) => {
                   render={({ field: { onChange } }) => (
                     <div className='flex justify-center py-6'>
                       <DatePicker
-                        locale='ka'
+                        locale={i18n?.language}
                         className='text-center border-l-4 border-red-500  w-full p-3 rounded text-sm  outline-none  focus:ring-0 bg-transparent'
                         inline
                         selectsRange={true}
@@ -109,7 +111,7 @@ const PeriodModal: React.FC<Props> = ({ open, toggleModal, control }) => {
                     className='w-full h-12 flex items-center justify-center rounded-2xl bg-orange-100 hover:bg-orange-110 transition-all text-white'
                     onClick={toggleModal}
                   >
-                    არჩევა
+                    {t('select')}
                   </button>
                 </div>
               </Dialog.Panel>

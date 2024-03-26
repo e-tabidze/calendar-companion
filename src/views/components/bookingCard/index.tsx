@@ -1,7 +1,9 @@
 import Typography from "../typography";
 import Icon from "src/views/app/Icon";
+import {useTranslation} from "next-i18next";
 
 const BookingCard = ()  => {
+    const {t} = useTranslation()
 
 
     return (
@@ -15,7 +17,7 @@ const BookingCard = ()  => {
                         <Icon svgPath='check' width={11} height={9} className='fill-white'/>
                     </div>
                     <Icon svgPath='booking-start' width={24} height={24} className='fill-transparent mr-4' />
-                    წაყვანა
+                    {t('take_away')}
                 </div>
                 <div className="flex items-center text-2sm">
                     <Icon svgPath='booking-time' width={24} height={24} className='fill-transparent mr-3' />
@@ -27,7 +29,7 @@ const BookingCard = ()  => {
                     <div className="w-6 h-6 flex items-center justify-center rounded-full border border-black mr-4">
                     </div>
                     <Icon svgPath='booking-stop' width={24} height={24} className='fill-transparent mr-4' />
-                    დაბრუნება
+                    {t('return')}
                 </div>
                 <div className="flex items-center text-2sm">
                     <Icon svgPath='booking-time' width={24} height={24} className='fill-transparent mr-3' />

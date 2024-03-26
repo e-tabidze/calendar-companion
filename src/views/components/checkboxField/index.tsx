@@ -2,6 +2,8 @@ import { Controller } from 'react-hook-form'
 import Icon from 'src/views/app/Icon'
 import Divider from '../divider'
 import Typography from '../typography'
+import {useTranslation} from "next-i18next";
+import { dynamicTranslateAdditionalParameters } from 'src/utils/translationUtils'
 
 interface Option {
   id: string | number
@@ -40,6 +42,8 @@ const CheckboxField: React.FC<Props> = ({
   cols,
   categoryCheckbox
 }) => {
+  const {t} = useTranslation()
+
   return (
     <>
       {control && name ? (
@@ -95,7 +99,7 @@ const CheckboxField: React.FC<Props> = ({
                       />
                       {option.icon && <Icon svgPath={option.icon} width={width || 18} height={height || '18'} />}
                       <Typography type='body' className='w-max text-sm lg:text-2sm'>
-                        {option.title}
+                        {dynamicTranslateAdditionalParameters(option.title, t)}
                       </Typography>
                     </div>
                     {divider && index !== options.length - 1 && <Divider />}

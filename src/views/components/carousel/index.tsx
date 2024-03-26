@@ -18,6 +18,7 @@ import {
 } from 'src/@core/configs/swiper'
 import Icon from "src/views/app/Icon";
 import {useRouter} from "next/router";
+import {useTranslation} from "next-i18next";
 
 // import Icon from 'src/views/app/Icon'
 
@@ -66,6 +67,7 @@ const Carousel = ({ itemsArray, type, onClick, thumbs = false }: Props) => {
   const data = type === 'card' ? itemsArray.slice(0, 4) : itemsArray
 
   const router = useRouter()
+  const {t} = useTranslation()
 
   return (
 
@@ -129,7 +131,7 @@ const Carousel = ({ itemsArray, type, onClick, thumbs = false }: Props) => {
                 className={`${reachedLimit ? 'flex' : 'hidden'} rounded-tl-3xl rounded-tl-3xl rounded-tr-3xl absolute left-0 top-0 h-full w-full bg-black/50 z-[111] cursor-pointer`}>
               <div className='flex flex-1 flex-col items-center justify-center'>
                 <Icon svgPath='camera' width={64} height={64}/>
-                <span className='mt-2 text-sm text-white'>{`+${itemsArray.length - 4} ფოტო`}</span>
+                <span className='mt-2 text-sm text-white'>{`+${itemsArray.length - 4 + ' '+ t('photo')}`}</span>
               </div>
             </div>
             }

@@ -3,6 +3,7 @@ import { Controller } from 'react-hook-form'
 import Select, { ClearIndicatorProps, components, DropdownIndicatorProps, GroupBase } from 'react-select'
 import _ from 'lodash'
 import Icon from 'src/views/app/Icon'
+import {useTranslation} from "next-i18next";
 
 const customStyles = {
   indicatorSeparator: () => ({
@@ -12,12 +13,13 @@ const customStyles = {
     ...provided,
     height: 56,
     position: 'relative',
-    '&:hover': { border: '1px solid #BEBFC3' },
+    '&:hover': { border: '1px solid #BEBFC3'},
     borderRadius: '12px',
-    border: state.isFocused ? '1px solid #272A37' : '1px solid #E9EAEB',
+    border: state.isDisabled ? '1px solid #F4F4F5' : state.isFocused ? '1px solid #272A37':'1px solid #E9EAEB',
     boxShadow: state.isFocused ? '1px solid #272A37' : '1px solid #E9EAEB',
     transition: 'border 0.2s',
-    cursor: 'pointer'
+    cursor: 'pointer',
+    backgroundColor: state.isDisabled ? '#F4F4F5': '#ffffff'
   }),
   valueContainer: (provided: any) => ({
     ...provided
@@ -28,11 +30,11 @@ const customStyles = {
     maxHeight: '180px'
   }),
 
-  placeholder: (defaultStyles: any) => {
+  placeholder: (defaultStyles: any, state:any) => {
     return {
       ...defaultStyles,
       fontSize: '14px',
-      color: '#93959B'
+      color: state.isDisabled? '#BEBFC3':'#93959B'
     }
   }
 }
@@ -109,6 +111,7 @@ const SelectField: React.FC<Props> = ({
 
     return null
   }
+  const {t} = useTranslation()
 
   return (
     <div className={`relative ${className}`}>
@@ -181,7 +184,7 @@ const SelectField: React.FC<Props> = ({
                   errorRight ? 'right-0' : ''
                 } text-sm text-red-100 max-h-max`}
               >
-                {_.get(errors, name)?.message}
+                {t(_.get(errors, name)?.message)}
               </div>
             )}
           </>

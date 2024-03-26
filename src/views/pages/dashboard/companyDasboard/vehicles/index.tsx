@@ -1,6 +1,7 @@
 import useProductInfo from '../../useProductInfo'
 import dynamic from 'next/dynamic'
 import DataPlaceHolder from 'src/views/components/dataPlaceholder'
+import {useTranslation} from "next-i18next";
 
 const Typography = dynamic(() => import('src/views/components/typography'), { ssr: false })
 const Divider = dynamic(() => import('src/views/components/divider'), { ssr: false })
@@ -8,11 +9,12 @@ const VehicleListComponent = dynamic(() => import('../../components/vehicleListC
 
 const Vehicles = () => {
   const { dashboardData } = useProductInfo()
+    const {t} = useTranslation()
 
   return (
     <div className='md:p-8 lg:p-10 md:border border-raisin-10 rounded-3xl mt-8'>
       <Typography type='h3' className='text-md md:text-2lg mb-6'>
-        ავტომობილები
+          {t('cars')}
       </Typography>
       <Divider />
       <div>
@@ -32,7 +34,7 @@ const Vehicles = () => {
             />
           ))
         ) : (
-          <DataPlaceHolder label='ავტომობილები ჯერ არ გაქვს' />
+          <DataPlaceHolder label={t('no_cars_yet')} />
         )}
       </div>
     </div>

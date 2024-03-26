@@ -9,6 +9,7 @@ import useProductInfo from '../useProductInfo'
 import NewServiceModal from './newServiceModal'
 import ServiceDetails from './serviceDetails'
 import dynamic from 'next/dynamic'
+import { useTranslation } from 'next-i18next'
 
 const Divider = dynamic(() => import('src/views/components/divider'), { ssr: false })
 const Typography = dynamic(() => import('src/views/components/typography'), { ssr: false })
@@ -26,6 +27,11 @@ const StepFour: React.FC<Props> = ({ control, step, errors }) => {
   const handleNewServiceModal = () => setNewServiceModal(!newServiceModal)
 
   const formState = useWatch({ control })
+  const { t, i18n } = useTranslation()
+
+  console.log(companyServices, 'companyServices')
+
+  console.log(i18n.language, 'i18n')
 
   const renderServiceDetails = (service: NewService, index: number) => {
     if (service.type_id === 1) {
@@ -33,10 +39,10 @@ const StepFour: React.FC<Props> = ({ control, step, errors }) => {
         <ServiceDetails
           control={control}
           index={index}
-          label='დღიური ფასი'
+          label={t('daily_price')}
           errors={errors}
-          description='მითითებული ფასი განსაზღვრავს დამატებითი სერვისისის 1 დღის ქირაობის ფასს, რომლის ცვალებადობაც დამოკიდებული
-      იქნება დღეების რაოდენობასზე'
+          description={t('service_price_desc')}
+          hasQuantity={service.has_quantity}
         />
       )
     }
@@ -46,8 +52,9 @@ const StepFour: React.FC<Props> = ({ control, step, errors }) => {
           control={control}
           index={index}
           errors={errors}
-          label='ერთჯერადი ფასი'
-          description='მითითებული ფასი განსაზღვრავს დამატებითი სერვისისის ერთჯერად ფასს ფასს'
+          label={t('one_time_price')}
+          description={t('one_time_desc')}
+          hasQuantity={service.has_quantity}
         />
       )
     } else {
@@ -59,7 +66,7 @@ const StepFour: React.FC<Props> = ({ control, step, errors }) => {
     <>
       <div>
         <IconTextButton
-          label='ახალი სერვისის დამატება'
+          label={t('add_new_service')}
           icon='add'
           width={20}
           height={20}
@@ -68,7 +75,7 @@ const StepFour: React.FC<Props> = ({ control, step, errors }) => {
           type='button'
         />
         <Typography type='h4' weight='normal' color='dark'>
-          სერვისების ჩამონათვალი
+          {t('services_list')}
         </Typography>
         <div className='mt-14'>
           {isCompanyServicesLoading ? (
@@ -78,9 +85,9 @@ const StepFour: React.FC<Props> = ({ control, step, errors }) => {
               {companyServices?.map((service: NewService, index: number) => (
                 <div key={index}>
                   <SwitchField
-                    label={service.title}
+                    label={i18n.language === 'en' ? service.title_en : service.title}
                     className='my-8'
-                    description={service.description}
+                    description={i18n.language === 'en' ? service.description_en : service.description}
                     control={control}
                     name={`company_services.${index}.is_selected`}
                   />

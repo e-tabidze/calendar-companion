@@ -5,6 +5,8 @@ import Typography from 'src/views/components/typography'
 import { FilterContainer, InnerFilterContainer } from './styles'
 import useSearchLocations from './useSearchLocations'
 import Icon from 'src/views/app/Icon'
+import {useTranslation} from "next-i18next";
+import { dynamicTranslateCities } from 'src/utils/translationUtils'
 
 interface Props {
   control: any
@@ -14,6 +16,7 @@ interface Props {
 
 const LocationDropdown: React.FC<Props> = ({ control, resetField, setOpen }) => {
   const { cities } = useSearchLocations()
+  const {t} = useTranslation()
 
   const buttonRef = useRef<HTMLButtonElement>(null)
 
@@ -46,16 +49,16 @@ const LocationDropdown: React.FC<Props> = ({ control, resetField, setOpen }) => 
               <Combobox.Button ref={buttonRef} className='w-full flex items-center pl-3 lg:pl-4 pr-1 lg:pr-2'>
                 <FilterContainer>
                   <Typography type='body' color='dark'>
-                    მდებარეობა
+                    {t('location')}
                   </Typography>
                   <InnerFilterContainer>
                     <Combobox.Input
-                      className={`flex shrink-0 border-none h-full text-2sm placeholder:text-2sm ${
+                      className={`flex shrink-0 border-none h-full text-2sm placeholder:text-2sm bg-transparent ${
                         value
                           ? 'text-green-100 placeholder:text-green-100'
                           : 'text-raisin-130 placeholder:text-raisin-50'
                       }`}
-                      placeholder='ქალაქი, მისამართი'
+                      placeholder={t('city_address')}
                       displayValue={(city: any) => city.city}
                       onChange={onChange}
                       value={value}
@@ -97,7 +100,7 @@ const LocationDropdown: React.FC<Props> = ({ control, resetField, setOpen }) => 
                     <Combobox.Option
                       key={city?.city}
                       className={`hover:bg-raisin-5 cursor-pointer select-none py-2 px-6 flex items-center last:mb-2 `}
-                      value={city.city}
+                      value={dynamicTranslateCities(city.city, t)}
                     >
                       <Icon
                         svgPath='locationOutline'
@@ -110,7 +113,7 @@ const LocationDropdown: React.FC<Props> = ({ control, resetField, setOpen }) => 
                           value == city.city ? 'text-green-100' : 'text-raisin-100'
                         }`}
                       >
-                        {city.city}
+                        {dynamicTranslateCities(city.city, t)}
                       </span>
                     </Combobox.Option>
                   ))}

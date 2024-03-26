@@ -61,7 +61,9 @@ const useEditProduct = (id: number) => {
       measure: ''
     },
     additional_information: '',
+    additional_information_en: '',
     use_instruction: '',
+    use_instruction_en: '',
     images: null,
     category_id: '',
     fuel_type_id: '',
@@ -108,7 +110,9 @@ const useEditProduct = (id: number) => {
       setValue('odometer.run', productDetailsData?.car_run)
       setValue('odometer.measure', productDetailsData?.measure)
       setValue('additional_information', productDetailsData?.additional_information)
+      setValue('additional_information_en', productDetailsData?.additional_information_en)
       setValue('use_instruction', productDetailsData?.use_instruction)
+      setValue('use_instruction_en', productDetailsData?.use_instruction_en)
       setValue('images', productDetailsData?.images?.split(',') || null)
       setValue('category_id', productDetailsData?.category_id)
       setValue('fuel_type_id', productDetailsData?.fuel_type_id)

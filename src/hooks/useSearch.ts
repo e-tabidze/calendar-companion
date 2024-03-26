@@ -1,9 +1,10 @@
-import { useMutation } from '@tanstack/react-query'
+import { useQuery } from '@tanstack/react-query'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 import { useFieldArray, useForm, useWatch } from 'react-hook-form'
 import { queryClient } from 'src/pages/_app'
 import SearchService from 'src/services/SearchService'
+import { objectToURI } from 'src/utils/objectToURI'
 
 const useSearch = () => {
   const urlSearchParams = typeof window !== 'undefined' ? new URLSearchParams(window?.location.search) : null
@@ -31,7 +32,7 @@ const useSearch = () => {
   }
 
   const searchDefaultValues = {
-    page: Number(params?.page) || 1,
+    page:  1,
     location: params?.location || '',
     fuel_types: convertToNumberArray(params?.fuel_types),
     category: convertToNumberArray(params?.category),
@@ -60,7 +61,7 @@ const useSearch = () => {
 
   useEffect(() => {
     if (Object.keys(router.query).length > 0) {
-      setValue('page', Number(params?.page) || 1)
+      setValue('page', 1)
       setValue('location', params?.location || '')
       setValue('fuel_types', convertToNumberArray(params?.fuel_types))
       setValue('category', convertToNumberArray(params?.category))
@@ -83,7 +84,9 @@ const useSearch = () => {
       setValue('order_by', params?.order_by || 'desc')
       setValue('booking.book_from', params?.book_from || '')
       setValue('booking.book_to', params?.book_to || '')
-      searchProductsMutation.mutate(objectToURI(searchDefaultValues))
+
+      // searchProductsMutation.mutate(objectToURI(searchDefaultValues))
+      searchProductsMutation.refetch()
     }
   }, [router.query])
 
@@ -149,14 +152,39 @@ const useSearch = () => {
     name: 'additional_information'
   })
 
-  const searchProductsMutation = useMutation((querystring: string) => searchProducts('', querystring), {
-    onSuccess: () => {
-      queryClient.invalidateQueries(['searchProducts'])
+  // const searchProductsMutation = useMutation((querystring: string) => searchProducts('', querystring), {
+  //   onSuccess: () => {
+  //     queryClient.invalidateQueries(['searchProducts'])
+  //   },
+  //   onError: error => {
+  //     console.error('Mutation Error:', error)
+  //   }
+  // })
+
+  const searchProductsMutation = useQuery(
+    ['searchProducts'],
+    async () => {
+      try {
+        const response = await searchProducts('', objectToURI(getValues()))
+        queryClient.invalidateQueries(['searchProducts'])
+        
+        return response
+      } catch (error) {
+        console.error('Mutation Error:', error)
+        throw error
+      }
     },
-    onError: error => {
-      console.error('Mutation Error:', error)
+    {
+      staleTime: Infinity,
+      enabled: false,
+      onError: error => {
+        console.error('Query Error:', error)
+      },
+      onSuccess: () => {
+        queryClient.invalidateQueries(['searchProducts'])
+      }
     }
-  })
+  )
 
   const productsData = searchProductsMutation?.data?.result?.data
   const isLoading = searchProductsMutation?.isLoading
@@ -172,26 +200,6 @@ const useSearch = () => {
       console.error('Error creating product:', error)
       throw error
     }
-  }
-
-  const objectToURI = (obj: any) => {
-    return Object.entries(obj)
-      .filter(([value]) => {
-        return value !== null && value !== undefined && !(Array.isArray(value) && value.length === 0)
-      })
-      .map(([key, value]: [string, any]) => {
-        if (key === 'booking' && value !== null && value !== undefined) {
-          const { book_from, book_to } = value
-
-          return [`book_from=${encodeURIComponent(book_from)}`, `book_to=${encodeURIComponent(book_to)}`]
-        } else if (Array.isArray(value)) {
-          return value.map(v => `${encodeURIComponent(key)}[]=${encodeURIComponent(v)}`)
-        } else {
-          return `${encodeURIComponent(key)}=${encodeURIComponent(value)}`
-        }
-      })
-      .flat()
-      .join('&')
   }
 
   return {

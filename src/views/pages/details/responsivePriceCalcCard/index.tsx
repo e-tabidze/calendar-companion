@@ -2,6 +2,7 @@ import useProfile from 'src/hooks/useProfile'
 import { DefaultButton } from 'src/views/components/button'
 import Typography from 'src/views/components/typography'
 import Icon from "src/views/app/Icon";
+import {useTranslation} from "next-i18next";
 
 interface Props {
   toggleDrawer: () => void
@@ -11,6 +12,7 @@ interface Props {
 
 const ResponsivePriceCalcCard: React.FC<Props> = ({ toggleDrawer, bookingModal, price }) => {
   const { userInfo } = useProfile()
+  const {t} = useTranslation()
 
   return (
     <section
@@ -23,12 +25,12 @@ const ResponsivePriceCalcCard: React.FC<Props> = ({ toggleDrawer, bookingModal, 
         <Typography type='h5' weight='medium' className='text-bold text-raisin-100'>
           {price}₾
         </Typography>
-        <Typography type='body'>/ დღე</Typography>
+        <Typography type='body'>/ {t('day')}</Typography>
         <Icon svgPath='chevron' width={8} height={6} className='fill-transparent rotate-180 cursor-pointer' />
       </div>
       {userInfo?.active_profile_id === userInfo?.UserID && (
-        <DefaultButton bg='bg-orange-100 hover:bg-orange-110 transition-all' text='ჯავშნის დაწყება' textColor='text-white'>
-          ჯავშნის დაწყება
+        <DefaultButton bg='bg-orange-100 hover:bg-orange-110 transition-all' text={t('start_renting')} textColor='text-white'>
+          {t('start_renting')}
         </DefaultButton>
       )}
     </section>

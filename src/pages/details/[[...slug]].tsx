@@ -5,6 +5,7 @@ import EventListener from 'react-event-listener'
 import { registerLocale } from 'react-datepicker'
 import ka from 'date-fns/locale/ka'
 
+
 const Carousel = dynamic(() => import('src/views/components/carousel'), { ssr: false })
 const Image = dynamic(() => import('src/views/components/image'), { ssr: false })
 const Typography = dynamic(() => import('src/views/components/typography'), { ssr: true })
@@ -48,6 +49,8 @@ const Features = dynamic(() => import('src/views/pages/details/features'), { ssr
 import { format } from 'date-fns'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import PageMeta from 'src/@core/meta/PageMeta'
+import {useTranslation} from "next-i18next";
+import {dynamicTranslateServices} from "src/utils/translationUtils";
 
 registerLocale('ka', ka)
 
@@ -83,6 +86,7 @@ const ProductDetails = memo(() => {
   const { similarProducts } = useMain(singleProductDetails?.man_id, singleProductDetails?.model_id)
 
   const ref = useRef<any>()
+  const {t, i18n}= useTranslation()
 
   useEffect(() => {
     if (book_from && book_to) {
@@ -209,13 +213,13 @@ const ProductDetails = memo(() => {
           <ContentContainer className='overflow-x-auto no-scrollbar bg-white z-30'>
             <div className='flex w-max'>
               <SubNavItem section='details' activeSection={activeNavItem} handleClick={handleClick}>
-                ავტომობილის შესახებ
+                {t('about_the_vehicle')}
               </SubNavItem>
               <SubNavItem section='features' activeSection={activeNavItem} handleClick={handleClick}>
-                მახასიათებლები
+                {t('features')}
               </SubNavItem>
               <SubNavItem section='lessor' activeSection={activeNavItem} handleClick={handleClick}>
-                გამქირავებლის შესახებ
+                {t('about_the_lessor')}
               </SubNavItem>
             </div>
           </ContentContainer>
@@ -233,7 +237,7 @@ const ProductDetails = memo(() => {
                 </Typography>
                 <div className='flex md:items-center gap-3 md:gap-4 mb-12 mt-4 md:mt-0'>
                   <Typography type='body' color='light' className='whitespace-nowrap'>
-                    ან მსგავსი
+                    {t('or_similar')}
                   </Typography>
                   <Typography type='subtitle'>| </Typography>
                   <div className='flex shrink-0'>
@@ -261,7 +265,7 @@ const ProductDetails = memo(() => {
                   <Divider />
                   <div className='my-8'>
                     <Typography type='h3' className='text-3md md:text-2lg'>
-                      ფასი მოიცავს
+                      {t('price_includes')}
                     </Typography>
 
                     <>{console.log(singleProductDetails?.product_services, 'singleProductDetails?.product_services')}</>
@@ -271,7 +275,7 @@ const ProductDetails = memo(() => {
                         ?.filter((feature: any) => feature.company_service_type_id === 3)
                         .map((feature: any) => (
                           <ProductFeature
-                            feature={feature?.title}
+                            feature={dynamicTranslateServices(feature?.title, t)}
                             icon='feature'
                             key={feature.id}
                             description={feature.description}
@@ -284,16 +288,15 @@ const ProductDetails = memo(() => {
               <Divider />
               <div className='my-8' id='calendar' data-section>
                 <Typography type='h3' className='text-3md md:text-2lg'>
-                  პერიოდი
+                  {t('period')}
                 </Typography>
                 <div className='flex justify-between mb-16 mt-2'>
                   <div className='flex gap-2'>
                     <Typography type='subtitle' className='text-green-100'>
                       {startDate && endDate
-                        ? `${format(startDate, 'd MMM yyyy', { locale: ka })} - ${format(endDate, 'd MMM yyyy', {
-                            locale: ka
-                          })}`
-                        : 'თარიღი'}
+                        ? `${format(startDate, 'd MMM yyyy', i18n.language === 'ka' ? { locale: ka } : {})} - ${format(endDate, 'd MMM yyyy', i18n.language === 'ka' ? { locale: ka } : {}
+                          )}`
+                        : t('date')}
                     </Typography>
                     {startDate && endDate && (
                       <Typography type='subtitle'>
@@ -301,22 +304,21 @@ const ProductDetails = memo(() => {
                         {startDate &&
                           endDate &&
                           Math.round((endDate.getTime() - startDate.getTime()) / (24 * 60 * 60 * 1000))}
-                        {'    '} დღე
+                        {'    '} {t('day')}
                       </Typography>
                     )}
                   </div>
-                  <div className='hidden lg:flex gap-4 cursor-pointer transition-all'>
+                  <div className='hidden lg:flex  items-center gap-4 cursor-pointer transition-all cursor-pointer'  onClick={() => {
+                    resetField('booking')
+                    setDateRange([null, null])
+                  }}>
                     <Icon svgPath='rotate' width={24} height={24} className='fill-transparent' />
                     <Typography
                       type='body'
                       color='light'
-                      className='border-b-[1px] w-fit pb-px'
-                      onClick={() => {
-                        resetField('booking')
-                        setDateRange([null, null])
-                      }}
+                      className='hover:border-b-[1px] w-fit pb-px transition-all'
                     >
-                      გასუფთავება
+                      {t('clear')}
                     </Typography>
                   </div>
                 </div>
@@ -325,7 +327,7 @@ const ProductDetails = memo(() => {
                   control={control}
                   render={({ field: { onChange } }) => (
                     <DatePicker
-                      locale='ka'
+                       locale={i18n?.language}
                       className='text-center border-l-4 border-red-500  w-full p-3 rounded text-sm  outline-none  focus:ring-0 bg-transparent'
                       inline
                       selectsRange={true}
@@ -383,7 +385,7 @@ const ProductDetails = memo(() => {
 
               {/*<div className='mt-8'>*/}
               {/*  <Typography type='h3' className='text-3md md:text-2lg'>*/}
-              {/*    მდებარეობა*/}
+              {/*   {t('location')}*/}
               {/*  </Typography>*/}
               {/*  <div className='flex gap-4 items-center mt-10 mb-6'>*/}
               {/*    <Icon svgPath='locationOutline' width={24} height={24} className='fill-transparent' />*/}
@@ -405,12 +407,10 @@ const ProductDetails = memo(() => {
               <PriceCalcCard
                 className={`${isSticky ? 'sticky top-44' : ''} z-[11]`}
                 price={singleProductDetails?.price_gel}
-                startDate={startDate && format(startDate, 'd MMM yyyy', { locale: ka })}
+                startDate={startDate && format(startDate, 'd MMM yyyy', i18n.language === 'ka' ? { locale: ka } : {})}
                 endDate={
                   endDate &&
-                  format(endDate, 'd MMM yyyy', {
-                    locale: ka
-                  })
+                  format(endDate, 'd MMM yyyy', i18n.language === 'ka' ? { locale: ka } : {})
                 }
                 days={
                   startDate && endDate && Math.round((endDate.getTime() - startDate.getTime()) / (24 * 60 * 60 * 1000))
@@ -427,7 +427,7 @@ const ProductDetails = memo(() => {
           <div id='priceCard' data-section></div>
 
           <Typography type='h3' className='text-3md md:text-2lg block mb-6 md:hidden'>
-            გამქირავებელი
+            {t('lessor')}
           </Typography>
 
           <LessorInformationCard
@@ -447,7 +447,7 @@ const ProductDetails = memo(() => {
               <ContentContainer>
                 <>
                   <Typography type='h3' className='text-3md md:text-2lg mb-8'>
-                    მსგავსი შეთავაზებები
+                    {t('similar_offers')}
                   </Typography>
                   <Carousel
                     itemsArray={similarProducts?.map((product: any) => (
@@ -478,12 +478,12 @@ const ProductDetails = memo(() => {
             setIsOpenDrawer={setIsOpenDrawer}
             className={`${isSticky ? 'sticky top-44' : ''} z-[11]`}
             price={singleProductDetails?.price_gel}
-            startDate={startDate && format(startDate, 'd MMM yyyy', { locale: ka })}
+            startDate={startDate && format(startDate, 'd MMM yyyy', i18n.language === 'ka' ? { locale: ka } : {})}
             endDate={
               endDate &&
-              format(endDate, 'd MMM yyyy', {
-                locale: ka
-              })
+              format(endDate, 'd MMM yyyy',
+                i18n.language === 'ka' ? { locale: ka } : {}
+              )
             }
             days={startDate && endDate && Math.round((endDate.getTime() - startDate.getTime()) / (24 * 60 * 60 * 1000))}
             handleDateChange={() => {

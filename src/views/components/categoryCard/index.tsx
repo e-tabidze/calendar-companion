@@ -2,6 +2,8 @@ import { Controller } from 'react-hook-form'
 import Icon from 'src/views/app/Icon'
 import Typography from '../typography'
 import _ from 'lodash'
+import {useTranslation} from "next-i18next";
+import { dynamicTranslateCategories } from 'src/utils/translationUtils'
 
 interface Props {
   border?: boolean
@@ -13,6 +15,8 @@ interface Props {
 }
 
 const CategoryCard: React.FC<Props> = ({ border, name, control, options, append, errors }) => {
+ const {t} = useTranslation()
+
   return (
     <Controller
       name={name}
@@ -24,7 +28,7 @@ const CategoryCard: React.FC<Props> = ({ border, name, control, options, append,
           <>
             {errors && (
               <div id={name} className='text-sm text-red-100 absolute -m-6 ml-2'>
-                {_.get(errors, name)?.message}
+                {t(_.get(errors, name)?.message)}
               </div>
             )}
             {options?.map(option => (
@@ -57,7 +61,7 @@ const CategoryCard: React.FC<Props> = ({ border, name, control, options, append,
                   color={value === option.id ? 'dark' : 'light'}
                   className='text-2sm text-raisin-100'
                 >
-                  {option.title}
+                  {dynamicTranslateCategories(option.title, t)}
                 </Typography>
               </div>
             ))}

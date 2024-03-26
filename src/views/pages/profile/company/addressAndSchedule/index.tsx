@@ -6,6 +6,7 @@ import Typography from 'src/views/components/typography'
 import EditScheduleModal from '../editScheduleModal'
 import CitiesSuggestions from 'src/views/components/citiesSuggestions'
 import { DefaultInput } from 'src/views/components/input'
+import {useTranslation} from "next-i18next";
 
 interface Props {
   index: number
@@ -17,7 +18,7 @@ interface Props {
 
 const AddressAndSchedule: React.FC<Props> = ({ index, control, address, errors, setValue }) => {
   const [openEditModal, setOpenEditModal] = useState(false)
-
+const {t} = useTranslation()
   const toggleEditModal = () => setOpenEditModal(!openEditModal)
 
   const formState = useWatch({ control })
@@ -62,14 +63,14 @@ const AddressAndSchedule: React.FC<Props> = ({ index, control, address, errors, 
           <CitiesSuggestions index={index} control={control} name={`addresses.${index}.city`} border errors={errors} />
 
           <DefaultInput
-            label='მისამართი'
+            label={t('address')}
             name={`addresses.${index}.address`}
             control={control}
             errors={errors}
             disabled={`addresses.${index}.city`.length === 0}
           />
 
-          <DefaultInput label='ტელეფონი' name={`addresses.${index}.phone`} control={control} errors={errors} />
+          <DefaultInput label={t('phone')} name={`addresses.${index}.phone`} control={control} errors={errors} />
         </div>
 
         <div
@@ -111,7 +112,7 @@ const AddressAndSchedule: React.FC<Props> = ({ index, control, address, errors, 
             )}
           </div>
           <Typography type='subtitle' className='underline cursor-pointer' onClick={toggleEditModal}>
-            რედაქტირება
+            {t('edit')}
           </Typography>
         </div>
       </div>

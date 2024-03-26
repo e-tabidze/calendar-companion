@@ -5,10 +5,6 @@ import { appWithTranslation } from 'next-i18next'
 // ** Global css styles
 import '../../styles/globals.css'
 
-// ** Store Imports
-import { store } from '../store'
-import { Provider } from 'react-redux'
-
 import NextNProgress from 'nextjs-progressbar'
 
 // ** Third Party Import
@@ -24,16 +20,14 @@ const App: FC<AppProps> = ({ Component, pageProps }) => {
 
   return (
     <>
-      <Provider store={store}>
-        <NextNProgress showOnShallow={true} options={{ showSpinner: false }} />
+      <NextNProgress showOnShallow={true} options={{ showSpinner: false }} color='#549684' />
 
-        <QueryClientProvider client={queryClient}>
-          <Hydrate state={pageProps.dehydratedState}>
-            <Component {...pageProps} />
-          </Hydrate>
-          <ReactQueryDevtools initialIsOpen={false} />
-        </QueryClientProvider>
-      </Provider>
+      <QueryClientProvider client={queryClient}>
+        <Hydrate state={pageProps.dehydratedState}>
+          <Component {...pageProps} />
+        </Hydrate>
+        <ReactQueryDevtools initialIsOpen={false} />
+      </QueryClientProvider>
       <Toaster position={'top-right'} toastOptions={{ className: 'react-hot-toast' }} />
     </>
   )

@@ -3,6 +3,7 @@ import { DefaultInput } from 'src/views/components/input'
 import { generateTimeOptions } from 'src/utils/timeValues'
 import { useWatch } from 'react-hook-form'
 import dynamic from 'next/dynamic'
+import {useTranslation} from "next-i18next";
 
 const Typography = dynamic(() => import('../../../components/typography'), { ssr: false })
 const Icon = dynamic(() => import('src/views/app/Icon'), { ssr: false })
@@ -17,6 +18,7 @@ interface Props {
 
 const Delivery: React.FC<Props> = ({ control, toggleEditModal, errors, startDate, endDate }) => {
   const formState = useWatch({ control })
+  const {t} = useTranslation()
 
   return (
     <div className='pl-13 mt-4'>
@@ -25,7 +27,7 @@ const Delivery: React.FC<Props> = ({ control, toggleEditModal, errors, startDate
           <Icon svgPath='booking-start' height={24} width={24} className='fill-transparent flex shrink-0' />
           <div className='flex flex-col ml-3 pb-3 md:pb-0'>
             <Typography type='body' color='dark'>
-              წაყვანა
+              {t('take_away')}
             </Typography>
             <Typography type='subtitle' color='light' className='hidden lg:flex'>
               {startDate}
@@ -37,7 +39,7 @@ const Delivery: React.FC<Props> = ({ control, toggleEditModal, errors, startDate
             className='detail-input-placeholder'
             name='start_address'
             control={control}
-            label='შეიყვანე მისამართი'
+            label={t('enter_address')}
           />
         </div>
         <div className='lg:w-2/12 flex items-center pl-9 lg:pl-4 flex-wrap'>
@@ -50,7 +52,7 @@ const Delivery: React.FC<Props> = ({ control, toggleEditModal, errors, startDate
             labelKey='label'
             name='start_time'
             options={generateTimeOptions()}
-            placeholder='დრო*'
+            placeholder={t('time') + '*'}
             className='bg-transparent border-green-100 shrink-0  md:w-full'
             errors={errors}
             errorAbsolute
@@ -63,7 +65,7 @@ const Delivery: React.FC<Props> = ({ control, toggleEditModal, errors, startDate
           <Icon svgPath='booking-stop' width={24} height={24} className='fill-transparent flex shrink-0' />
           <div className='flex flex-col ml-3'>
             <Typography type='body' color='dark'>
-              დაბრუნება
+              {t('return')}
             </Typography>
             <Typography type='body' color='light' className='hidden lg:flex'>
               {endDate}
@@ -85,7 +87,7 @@ const Delivery: React.FC<Props> = ({ control, toggleEditModal, errors, startDate
               icon
               name='end_time'
               options={generateTimeOptions()}
-              placeholder='დრო*'
+              placeholder={t('time') + '*'}
               className='bg-transparent fill-transparent border-green-100 group-color'
               errors={errors}
               errorAbsolute
@@ -97,7 +99,7 @@ const Delivery: React.FC<Props> = ({ control, toggleEditModal, errors, startDate
             onClick={toggleEditModal}
             className='hidden lg:flex border border-black items-center justify-center h-12 rounded-xl text-sm px-6'
           >
-            შეცვლა
+            {t('change')}
           </button>
         </div>
       </div>
@@ -105,7 +107,7 @@ const Delivery: React.FC<Props> = ({ control, toggleEditModal, errors, startDate
         onClick={toggleEditModal}
         className='flex lg:hidden mt-5 ml-auto border border-black items-center justify-center h-6 rounded-lg text-sm px-2'
       >
-        შეცვლა
+        {t('change')}
       </button>
     </div>
   )

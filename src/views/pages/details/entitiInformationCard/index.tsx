@@ -1,5 +1,6 @@
 // import Review from '../../../components/review'
 import dynamic from 'next/dynamic'
+import {useTranslation} from "next-i18next";
 
 const Image = dynamic(() => import('../../../components/image'), { ssr: true })
 const Typography = dynamic(() => import('../../../components/typography'), { ssr: false })
@@ -9,6 +10,8 @@ interface Props {
 }
 
 const EntityInformationCard: React.FC<Props> = ({ name, entityProductsCount }) => {
+    const {t} = useTranslation()
+
   return (
     <div className='my-12 gap-6 md:gap-8 flex items-center'>
       <div className='relative w-fit shadow-sm rounded-xl w-16 h-16 rounded-xl z-0 overflow-hidden'>
@@ -20,7 +23,7 @@ const EntityInformationCard: React.FC<Props> = ({ name, entityProductsCount }) =
           {name}
         </Typography>
         <Typography type='body' color='light'>
-          {entityProductsCount} განცხადება
+          {entityProductsCount} {t('ads')}
         </Typography>
       </div>
     </div>

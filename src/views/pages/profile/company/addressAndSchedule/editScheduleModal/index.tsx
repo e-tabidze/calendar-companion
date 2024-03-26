@@ -6,6 +6,7 @@ import { Divider } from '../../../favourites/listComponent/styles'
 import RoundedTag from 'src/views/components/roundedTag'
 import SwitchField from 'src/views/components/switchField'
 import { Controller, useWatch } from 'react-hook-form'
+import {useTranslation} from "next-i18next";
 
 interface Props {
   open: boolean
@@ -17,6 +18,7 @@ interface Props {
 
 const EditScheduleModal: React.FC<Props> = ({ open, onClose, control, index, data }) => {
   const formState = useWatch({ control })
+  const {t} = useTranslation()
 
   return (
     <Transition appear show={open} as={Fragment}>
@@ -47,7 +49,7 @@ const EditScheduleModal: React.FC<Props> = ({ open, onClose, control, index, dat
               <Dialog.Panel className='w-full max-w-[800px] transform overflow-hidden rounded-2xl bg-white text-left align-middle shadow-xl transition-all'>
                 <Dialog.Title as='h3' className='w-full flex items-center justify-between px-10 py-6'>
                   <Typography type='h5' weight='normal' className='text-2md'>
-                    საათების რედაქტირება
+                    {t('edit_hours')}
                   </Typography>
                   <IconTextButton icon='close' onClick={onClose} width={40} height={40} className='cursor-pointer' />
                 </Dialog.Title>
@@ -56,7 +58,7 @@ const EditScheduleModal: React.FC<Props> = ({ open, onClose, control, index, dat
                   <div className='px-9 grid grid-cols-1 gap-7'>
                     <SwitchField
                       name={`addresses.${index}.is_same_time`}
-                      label='ერთნაირი დროის მონიშვნა'
+                      label={t('same_time')}
                       control={control}
                     />
 
@@ -124,7 +126,7 @@ const EditScheduleModal: React.FC<Props> = ({ open, onClose, control, index, dat
                 </div>
                 <div className='flex justify-end bottom-0 w-full shadow-md'>
                   <DefaultButton
-                    text='დამატება'
+                    text={t('add')}
                     bg='bg-green-100'
                     className='my-4 mr-10'
                     textColor='text-white'

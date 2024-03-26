@@ -1,6 +1,7 @@
 import { IconTextButton } from 'src/views/components/button'
 import useCreateCompany from '../useCreateCompany'
 import BranchInfoComponent from './branchInfoComponent'
+import {useTranslation} from "next-i18next";
 
 interface Props {
   control: any
@@ -13,6 +14,7 @@ interface Props {
 
 const StepTwo: React.FC<Props> = ({ control, addressFields, appendAddress, errors, setValue, removeAddress }) => {
   const { defaultAddress } = useCreateCompany()
+  const {t} = useTranslation()
 
   return (
     <>
@@ -21,7 +23,7 @@ const StepTwo: React.FC<Props> = ({ control, addressFields, appendAddress, error
       ))}
 
       <IconTextButton
-        label='სხვა  მისამართის დამატება'
+        label={t('add_other_address')}
         icon='add'
         width={20}
         className ='my-6'

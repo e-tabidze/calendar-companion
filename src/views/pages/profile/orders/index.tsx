@@ -7,8 +7,10 @@ import Typography from 'src/views/components/typography'
 import ListComponent from './listComponent'
 import OrderDetails from './orderDetails'
 import useOrders from './useOrders'
+import {useTranslation} from "next-i18next";
 
 const Orders = () => {
+  const {t} = useTranslation()
   const router = useRouter()
 
   const { page } = router.query
@@ -30,7 +32,7 @@ const Orders = () => {
         <>
           <div className='md:p-8 lg:p-10 md:border border-raisin-10 rounded-3xl mt-8 lg:mt-0'>
             <Typography type='h3' className='mb-6'>
-              ჩემი შეკვეთები
+              {t('my_orders')}
             </Typography>
 
             <Divider />
@@ -51,7 +53,7 @@ const Orders = () => {
                 </Link>
               ))
             ) : (
-              <DataPlaceHolder label='შეკვეთები ჯერ არ გაქვს' />
+              <DataPlaceHolder label={t('no_orders_yet')} />
             )}
           </div>
           {userOrders?.last_page > 1 && (

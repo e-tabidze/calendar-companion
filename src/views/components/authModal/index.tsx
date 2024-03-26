@@ -4,6 +4,7 @@ import Typography from 'src/views/components/typography'
 import Divider from 'src/views/components/divider'
 import { DefaultButton } from 'src/views/components/button'
 import Icon from 'src/views/app/Icon'
+import {useTranslation} from "next-i18next";
 
 interface Props {
   open: boolean
@@ -12,6 +13,8 @@ interface Props {
 }
 
 const AuthModal: React.FC<Props> = ({ open, close, handleCancel }) => {
+  const {t} = useTranslation()
+  
   return (
     <>
       <Transition show={open} as={Fragment}>
@@ -41,14 +44,14 @@ const AuthModal: React.FC<Props> = ({ open, close, handleCancel }) => {
               <div className='bg-white rounded-lg max-w-lg mx-auto'>
                 <div className='p-6'>
                   <Icon svgPath='cancelOrder' width={84} height={84} className='fill-transparent m-auto pb-6' />
-                  <Typography type='h5'>ნამდვილად გსურთ ჯავშნის გაუქმება?</Typography>
+                  <Typography type='h5'>{t('sure_cancel_booking')}</Typography>
                 </div>
 
                 <Divider />
 
                 <div className='flex justify-end p-4 gap-4'>
-                  <DefaultButton text='უარყოფა' onClick={close} className='border-none' />
-                  <DefaultButton text='გაუქმება' bg='bg-orange-100 hover:bg-orange-110 transition-all' onClick={handleCancel} textColor='text-white' />
+                  <DefaultButton text={t('decline')} onClick={close} className='border-none' />
+                  <DefaultButton text={t('cancel')} bg='bg-orange-100 hover:bg-orange-110 transition-all' onClick={handleCancel} textColor='text-white' />
                 </div>
               </div>
             </Transition.Child>

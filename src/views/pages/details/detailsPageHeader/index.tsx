@@ -3,6 +3,8 @@ import dynamic from 'next/dynamic'
 import useFavourites from 'src/hooks/useFavourites'
 import Link from 'next/link'
 import ShareOptionsPopover from '../shareOptionsPopover'
+import {useTranslation} from "next-i18next";
+import { dynamicTranslateCities } from 'src/utils/translationUtils'
 
 const Icon = dynamic(() => import('src/views/app/Icon'), { ssr: false })
 
@@ -38,13 +40,14 @@ const DetailsPageHeader: React.FC<Props> = ({
   const handlePrint = () => {
     window.print()
   }
+  const {t} = useTranslation()
 
   return (
     <DetailsHeader>
       <ul className='hidden md:flex items-center'>
         <li>
           <Link href='/' className='text-sm flex'>
-            მთავარი
+            {t('main')}
           </Link>
         </li>
         <li>
@@ -52,7 +55,7 @@ const DetailsPageHeader: React.FC<Props> = ({
         </li>
         <li>
           <Link href={`/search/?page=1&location=${city}&sort_by=id&order_by=desc`} className='text-sm flex'>
-            {city}
+            {dynamicTranslateCities(city, t)}
           </Link>
         </li>
         <li>

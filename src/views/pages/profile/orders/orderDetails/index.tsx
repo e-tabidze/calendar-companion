@@ -20,8 +20,10 @@ import { parseISO, format } from 'date-fns'
 import { ka } from 'date-fns/locale'
 import Image from 'src/views/components/image'
 import { useRouter } from 'next/router'
+import {useTranslation} from "next-i18next";
 
 const OrderDetails = () => {
+  const {t} = useTranslation()
   const queryClient = useQueryClient()
 
   const [cancelOrderDialog, setCancelOrderDialog] = useState(false)
@@ -43,13 +45,13 @@ const OrderDetails = () => {
   return (
     <div className='border border-raisin-10 rounded-2xl'>
       <div className='flex items-center md:w-full gap-6 p-4 md:p-8'>
-        <IconTextButton icon='backWithBg' width={38} height={38} label='ჩემი შეკვეთები' onClick={() => router.back()} />
+        <IconTextButton icon='backWithBg' width={38} height={38} label={t('my_orders')} onClick={() => router.back()} />
       </div>
       <Divider />
       <RentalDetailsContainer>
         <RentalDetailsWrapper>
           <Typography type='body' color='light'>
-            შეკვეთის თარიღი
+            {t('order_date')}
           </Typography>
           {userOrderDetails?.created_at && (
             <Typography type='subtitle'>
@@ -59,13 +61,13 @@ const OrderDetails = () => {
         </RentalDetailsWrapper>
         <RentalDetailsWrapper>
           <Typography type='body' color='light'>
-            შეკვეთის ნომერი
+            {t('order_number')}
           </Typography>
           <Typography type='subtitle'>#{userOrderDetails?.id}</Typography>
         </RentalDetailsWrapper>
         <RentalDetailsWrapper>
           <Typography type='body' color='light'>
-            განმცხადებელი
+            {t('publisher')}
           </Typography>
           <Typography type='subtitle'>{userOrderDetails && productData?.company?.information?.name}</Typography>
         </RentalDetailsWrapper>
@@ -86,7 +88,7 @@ const OrderDetails = () => {
                 <TakeAway>
                   <Icon svgPath='booking-start' height={24} width={24} className='fill-transparent' />
                   <Typography type='body' color='light'>
-                    წაყვანა
+                    {t('take_away')}
                   </Typography>
                 </TakeAway>
               </TakeAwayWrapper>
@@ -106,7 +108,7 @@ const OrderDetails = () => {
                 <TakeAway>
                   <Icon svgPath='booking-stop' height={24} width={24} className='fill-transparent' />
                   <Typography type='body' color='light'>
-                    დაბრუნება
+                    {t('return')}
                   </Typography>
                 </TakeAway>
               </TakeAwayWrapper>
@@ -125,7 +127,7 @@ const OrderDetails = () => {
           <Divider />
           <div>
             <PriceDetailsWrapper>
-              <Typography type='subtitle'>ქირაობის ღირებულება x {userOrderDetails?.days} დღე</Typography>
+              <Typography type='subtitle'>{t('rent_price')} x {userOrderDetails?.days} დღე</Typography>
               <Typography type='subtitle'>{productData?.price * userOrderDetails?.days} </Typography>
             </PriceDetailsWrapper>
             {productData?.user_selected_product_services.map((service: any, index: number) => (
@@ -143,7 +145,7 @@ const OrderDetails = () => {
             ))}
 
             <PriceDetailsWrapper>
-              <Typography type='subtitle'>მომსახურების საკომისიო - {userOrderDetails?.fee} %</Typography>
+              <Typography type='subtitle'>{t('service_commission')} - {userOrderDetails?.fee} %</Typography>
               <Typography type='subtitle'>
                 {((productData?.price * userOrderDetails?.days) / 100) * userOrderDetails?.fee}{' '}
               </Typography>
@@ -152,7 +154,7 @@ const OrderDetails = () => {
             <Divider />
             <PriceDetailsWrapper>
               <Typography type='subtitle' className='font-bold'>
-                ჯამი
+                {t('sum')}
               </Typography>
               <Typography type='subtitle' className='font-bold'>
                 {userOrderDetails?.price} ₾
@@ -195,16 +197,16 @@ const OrderDetails = () => {
             } mb-6`}
           >
             {userOrderDetails?.status_id === 0
-              ? 'მოლოდინში'
+              ? t('pending')
               : userOrderDetails?.status_id === 1
-              ? 'დადასტურებული'
+              ? t('approved')
               : userOrderDetails?.status_id === 2
-              ? 'გაუქმებული'
+              ? t('canceled')
               : ''}
           </Typography>
           {userOrderDetails?.status_id === 0 ||
             (userOrderDetails?.status_id === 1 && (
-              <DefaultButton bg='bg-raisin-10' text='ჯავშნის გაუქმება' onClick={toggleCancelOrderDialog} />
+              <DefaultButton bg='bg-raisin-10' text={t('booking_cancel')} onClick={toggleCancelOrderDialog} />
             ))}
         </div>
       </PriceDetailsContainer>
@@ -218,7 +220,7 @@ const OrderDetails = () => {
       />
       <div className='md:hidden flex justify-between items-center fixed w-full bg-white bottom-[75px] left-0 p-4 shadow-sm border-b-1 border-raisin-10'>
         <Typography type='subtitle' className='mr-8'>
-          დარეკვა
+          {t('call')}
         </Typography>
         <a
           href={`tel:${productData?.company?.information?.phone_numbers}`}

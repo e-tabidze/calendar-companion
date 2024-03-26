@@ -1,5 +1,6 @@
 import { ChangeEvent } from 'react'
 import dynamic from 'next/dynamic'
+import {useTranslation} from "next-i18next";
 
 const Typography = dynamic(() => import('src/views/components/typography'), { ssr: false })
 const Divider = dynamic(() => import('src/views/components/divider'), { ssr: false })
@@ -11,11 +12,12 @@ interface Props {
 }
 
 const StepSeven: React.FC<Props> = ({ control }) => {
+  const {t} = useTranslation()
   const Insured = () => (
     <div className='flex flex-col gap-5 m-12'>
       <FileUpload
-        title='სადაზღვევო პოლისი'
-        description='ატვირთეთ დაზღვევის დამადასტურებელი დოკუმენტი'
+        title={t('insurance_police')}
+        description={t('upload_insurance_document')}
         onChange={function (event: ChangeEvent<HTMLInputElement>): void {
           console.log(event)
           throw new Error('Function not implemented.')
@@ -26,8 +28,8 @@ const StepSeven: React.FC<Props> = ({ control }) => {
         value={undefined}
       />
       <FileUpload
-        title='სადაზღვევო პოლისი'
-        description='ატვირთეთ დაზღვევის დამადასტურებელი დოკუმენტი'
+          title={t('insurance_police')}
+          description={t('upload_insurance_document')}
         onChange={function (event: ChangeEvent<HTMLInputElement>): void {
           console.log(event)
           throw new Error('Function not implemented.')
@@ -73,23 +75,25 @@ const StepSeven: React.FC<Props> = ({ control }) => {
 
   const options = [
     {
-      label: 'ავტომობილი დაზღვეულია',
-      value: 'ავტომობილი დაზღვეულია',
+      label: t('car_insured'),
+      value: t('car_insured'),
       children: (
         <div className='mb-12'>
           <Insured /> <Divider />
         </div>
       )
     },
-    { label: 'ავტომობილი არ არის დაზღვეული ', value: 'ავტომობილი არ არის დაზღვეული', children: <NonInsured /> }
+    {
+        label: t('car_not_insured'),
+        value: t('car_not_insured'),
+        children: <NonInsured /> }
   ]
 
   return (
     <div className=''>
-      <Typography type='h5'>ავტომობილის გასაქირავებლად სასურველია დაზღვევა</Typography>
+      <Typography type='h5'>{t('car_should_insured')}</Typography>
       <Typography type='subtitle' color='light' className='my-8'>
-        გთხოვთ მონიშნოთ გყავთ თუ არა ავტომობილი დაზღვეული. იმ შემთხვევაში თუ დაზღვეული არ გყავთ ავტომობილი,
-        რეკომენდირებულია მისი დაზღვევა, რაც თავიდან აგაცილებთ შესაძლო გაუგებრობებ
+          {t('insurance_desc')}
       </Typography>
       <Radio name='name' options={options} control={control} color='bg-green-100' />
     </div>

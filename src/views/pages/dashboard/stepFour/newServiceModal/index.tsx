@@ -2,11 +2,13 @@ import { Fragment } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { DefaultButton, IconButton } from 'src/views/components/button'
 import { DefaultInput } from 'src/views/components/input'
-import SelectField from 'src/views/components/selectField'
 import useNewService from './useNewService'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { NewService } from 'src/types/Product'
 import dynamic from 'next/dynamic'
+import { useTranslation } from 'next-i18next'
+import Tag from 'src/views/components/tag'
+import Typography from 'src/views/components/typography'
 
 const Divider = dynamic(() => import('src/views/components/divider'), { ssr: false })
 
@@ -17,19 +19,31 @@ interface Props {
 
 const NewServiceModal: React.FC<Props> = ({ open, onClose }) => {
   const { control, handleSubmit, createNewService, serviceValues, errors } = useNewService()
+  const { t } = useTranslation()
 
   const options = [
     {
-      value: 1,
-      label: 'დღიურ ფასიანი'
+      id: 1,
+      title: t('daily_priced')
     },
     {
-      value: 2,
-      label: 'ერთჯერად ფასიანი'
+      id: 2,
+      title: t('one_time_price')
     },
     {
-      value: 3,
-      label: 'უფასო'
+      id: 3,
+      title: t('price_free')
+    }
+  ]
+
+  const quantity_options = [
+    {
+      id: 1,
+      title: t('yes')
+    },
+    {
+      id: 0,
+      title: t('no')
     }
   ]
 
@@ -80,27 +94,61 @@ const NewServiceModal: React.FC<Props> = ({ open, onClose }) => {
               <Dialog.Panel className='w-full max-w-[800px] transform overflow-hidden rounded-2xl bg-white text-left align-middle shadow-xl transition-all'>
                 <form onSubmit={handleSubmit(onSubmit)}>
                   <Dialog.Title as='h3' className='w-full flex items-center justify-between px-10 py-6'>
-                    ახალი სერვისის დამატება
+                    {t('add_new_service')}
                     <IconButton icon='close' onClick={onClose} width={40} height={40} className='cursor-pointer' />
                   </Dialog.Title>
                   <Divider />
                   <div className='p-6 mb-40 flex flex-col gap-4'>
-                    <DefaultInput label='სერვისის დასახელება' control={control} name='title' errors={errors} />
-                    <DefaultInput label='აღწერა' control={control} name='description' rows={4} errors={errors} />
-                    <SelectField
-                      options={options}
+                    <DefaultInput
+                      label={t('service_name') + ' (' + t('georgian') + ')'}
                       control={control}
-                      name='type_id'
+                      name='title'
                       errors={errors}
-                      valueKey='value'
-                      placeholder='აირჩიეთ სერვისის ტიპი*'
-                      labelKey='label'
                     />
+                    <DefaultInput
+                      label={t('service_name') + ' (' + t('english') + ')'}
+                      control={control}
+                      name='title_en'
+                      errors={errors}
+                    />
+                    <DefaultInput
+                      label={t('description') + ' (' + t('georgian') + ')'}
+                      control={control}
+                      name='description'
+                      rows={4}
+                      errors={errors}
+                    />
+                    <DefaultInput
+                      label={t('description') + ' (' + t('english') + ')'}
+                      control={control}
+                      name='description_en'
+                      rows={4}
+                      errors={errors}
+                    />
+                    <Typography type='subtitle' className='font-bold'>
+                      {t('price')}
+                    </Typography>
+                    <Tag options={options} name='type_id' height='h-10' control={control} />
+                    {errors.type_id && (
+                      <div className='text-sm text-red-100 pb-2 max-h-max relative'>
+                        {errors.type_id.message && <span>{t(errors.type_id.message)}</span>}
+                      </div>
+                    )}
+                    <Typography type='subtitle' className='font-bold'>
+                      {t('service_quantity')}
+                    </Typography>
+                    <Tag options={quantity_options} name='has_quantity' height='h-10' control={control} />
+
+                    {errors.has_quantity && (
+                      <div className='text-sm text-red-100 pb-2 max-h-max relative'>
+                        {errors.has_quantity.message && <span>{t(errors.has_quantity.message)}</span>}
+                      </div>
+                    )}
                   </div>
                   <div className='flex justify-end absolute bottom-0 w-full shadow-md'>
                     <DefaultButton
                       type='submit'
-                      text='დამატება'
+                      text={t('add')}
                       bg='bg-green-100'
                       className='my-4 mr-10'
                       textColor='text-white'
