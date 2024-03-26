@@ -28,7 +28,7 @@ const SkeletonLoading = dynamic(() => import('src/views/pages/search/skeletonLoa
 const SearchLayout = dynamic(() => import('../../layouts/SearchLayout'), { ssr: false })
 const Icon = dynamic(() => import('src/views/app/Icon'), { ssr: false })
 const Pagination = dynamic(() => import('src/views/components/pagination'), { ssr: false })
-const ProductCard = dynamic(() => import('src/views/components/productCard'), { ssr: true })
+const ProductCard = dynamic(() => import('src/views/components/productCard'), { ssr: false })
 const Tag = dynamic(() => import('src/views/components/tag'), { ssr: false })
 const Typography = dynamic(() => import('src/views/components/typography'), { ssr: true })
 const CategoryPopover = dynamic(() => import('src/views/pages/search/categoryPopover'), { ssr: false })
@@ -79,8 +79,6 @@ const SearchPage = () => {
 
   const router = useRouter()
 
-  console.log(router.locale, 'locale')
-
   const { book_from, book_to } = router.query
 
   const page = router.query.page ? Number(router.query.page) : 1
@@ -125,7 +123,10 @@ const SearchPage = () => {
 
   const onSubmit = () => {
     const updatedSearchValues: any = getValues()
-    searchProductsMutation.mutate(objectToURI(updatedSearchValues))
+
+    // searchProductsMutation.mutate(objectToURI(updatedSearchValues))
+    searchProductsMutation.refetch()
+
     router.push(`/search?${objectToURI(updatedSearchValues)}`)
   }
 
@@ -211,7 +212,7 @@ const SearchPage = () => {
               {/*}`}*/}
               <SearchResultsContainer>
                 <Typography type='body' className='text-md mr-2 mt-6 md:mt-0'>
-                  {t('founded')} {totalProductsCount}  {t('search_results')}
+                  {t('founded')} {totalProductsCount} {t('search_results')}
                 </Typography>
                 <div className='w-full md:w-auto flex items-center'>
                   {/*<span*/}
@@ -303,6 +304,7 @@ const SearchPage = () => {
                       totalPages={totalPages}
                       currentPage={Number(page)}
                       onPageChange={newPage => {
+                        console.log(newPage, 'newPage')
                         onChange(newPage)
                         onSubmit()
                       }}

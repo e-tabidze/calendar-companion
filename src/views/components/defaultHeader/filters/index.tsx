@@ -39,7 +39,10 @@ const Filters: React.FC<Props> = ({ className }) => {
 
   const onClickSearch = async () => {
     const queryString = objectToURI(searchValues)
-    searchProductsMutation.mutate(queryString)
+
+    // searchProductsMutation.mutate(queryString)
+    searchProductsMutation.refetch()
+
     router.push(`/search?${queryString}`)
   }
 

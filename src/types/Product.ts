@@ -51,7 +51,10 @@ export type Product = {
 export type NewService = {
   company_id: string | number
   title: string
+  title_en: string
   description: string
+  description_en: string
   type_id: number | string
   id: number
+  has_quantity: 0 | 1
 }

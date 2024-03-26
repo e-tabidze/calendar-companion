@@ -8,14 +8,18 @@ import { NewServiceSchema } from 'src/@core/validation/newServiceSchema'
 const useNewService = () => {
   const newServiceDefaultValues = {
     title: '',
+    title_en: '',
     description: '',
-    type_id: ''
+    description_en: '',
+    type_id: '',
+    has_quantity: NaN, 
   }
 
   const {
     control,
     handleSubmit,
     formState: { errors, dirtyFields },
+    reset,
     resetField,
     setError,
     clearErrors,
@@ -36,6 +40,7 @@ const useNewService = () => {
       const response: any = await CompanyService.postCompanyServices(service, AccessToken)
 
       await queryClient.invalidateQueries(['companyServices'])
+      reset()
 
       return response.data
     } catch (error) {

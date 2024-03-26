@@ -5,6 +5,7 @@ import EventListener from 'react-event-listener'
 import { registerLocale } from 'react-datepicker'
 import ka from 'date-fns/locale/ka'
 
+
 const Carousel = dynamic(() => import('src/views/components/carousel'), { ssr: false })
 const Image = dynamic(() => import('src/views/components/image'), { ssr: false })
 const Typography = dynamic(() => import('src/views/components/typography'), { ssr: true })
@@ -48,7 +49,8 @@ const Features = dynamic(() => import('src/views/pages/details/features'), { ssr
 import { format } from 'date-fns'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import PageMeta from 'src/@core/meta/PageMeta'
-import {i18n, useTranslation} from "next-i18next";
+import {useTranslation} from "next-i18next";
+import {dynamicTranslateServices} from "src/utils/translationUtils";
 
 registerLocale('ka', ka)
 
@@ -84,7 +86,7 @@ const ProductDetails = memo(() => {
   const { similarProducts } = useMain(singleProductDetails?.man_id, singleProductDetails?.model_id)
 
   const ref = useRef<any>()
-  const {t}= useTranslation()
+  const {t, i18n}= useTranslation()
 
   useEffect(() => {
     if (book_from && book_to) {
@@ -273,7 +275,7 @@ const ProductDetails = memo(() => {
                         ?.filter((feature: any) => feature.company_service_type_id === 3)
                         .map((feature: any) => (
                           <ProductFeature
-                            feature={feature?.title}
+                            feature={dynamicTranslateServices(feature?.title, t)}
                             icon='feature'
                             key={feature.id}
                             description={feature.description}
@@ -292,9 +294,8 @@ const ProductDetails = memo(() => {
                   <div className='flex gap-2'>
                     <Typography type='subtitle' className='text-green-100'>
                       {startDate && endDate
-                        ? `${format(startDate, 'd MMM yyyy', { locale: ka })} - ${format(endDate, 'd MMM yyyy', {
-                            locale: ka
-                          })}`
+                        ? `${format(startDate, 'd MMM yyyy', i18n.language === 'ka' ? { locale: ka } : {})} - ${format(endDate, 'd MMM yyyy', i18n.language === 'ka' ? { locale: ka } : {}
+                          )}`
                         : t('date')}
                     </Typography>
                     {startDate && endDate && (
@@ -307,16 +308,15 @@ const ProductDetails = memo(() => {
                       </Typography>
                     )}
                   </div>
-                  <div className='hidden lg:flex gap-4 cursor-pointer transition-all'>
+                  <div className='hidden lg:flex  items-center gap-4 cursor-pointer transition-all cursor-pointer'  onClick={() => {
+                    resetField('booking')
+                    setDateRange([null, null])
+                  }}>
                     <Icon svgPath='rotate' width={24} height={24} className='fill-transparent' />
                     <Typography
                       type='body'
                       color='light'
-                      className='border-b-[1px] w-fit pb-px'
-                      onClick={() => {
-                        resetField('booking')
-                        setDateRange([null, null])
-                      }}
+                      className='hover:border-b-[1px] w-fit pb-px transition-all'
                     >
                       {t('clear')}
                     </Typography>
@@ -407,12 +407,10 @@ const ProductDetails = memo(() => {
               <PriceCalcCard
                 className={`${isSticky ? 'sticky top-44' : ''} z-[11]`}
                 price={singleProductDetails?.price_gel}
-                startDate={startDate && format(startDate, 'd MMM yyyy', { locale: ka })}
+                startDate={startDate && format(startDate, 'd MMM yyyy', i18n.language === 'ka' ? { locale: ka } : {})}
                 endDate={
                   endDate &&
-                  format(endDate, 'd MMM yyyy', {
-                    locale: ka
-                  })
+                  format(endDate, 'd MMM yyyy', i18n.language === 'ka' ? { locale: ka } : {})
                 }
                 days={
                   startDate && endDate && Math.round((endDate.getTime() - startDate.getTime()) / (24 * 60 * 60 * 1000))
@@ -480,12 +478,12 @@ const ProductDetails = memo(() => {
             setIsOpenDrawer={setIsOpenDrawer}
             className={`${isSticky ? 'sticky top-44' : ''} z-[11]`}
             price={singleProductDetails?.price_gel}
-            startDate={startDate && format(startDate, 'd MMM yyyy', { locale: ka })}
+            startDate={startDate && format(startDate, 'd MMM yyyy', i18n.language === 'ka' ? { locale: ka } : {})}
             endDate={
               endDate &&
-              format(endDate, 'd MMM yyyy', {
-                locale: ka
-              })
+              format(endDate, 'd MMM yyyy',
+                i18n.language === 'ka' ? { locale: ka } : {}
+              )
             }
             days={startDate && endDate && Math.round((endDate.getTime() - startDate.getTime()) / (24 * 60 * 60 * 1000))}
             handleDateChange={() => {

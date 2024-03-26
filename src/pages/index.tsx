@@ -8,7 +8,7 @@ import DefaultLayout from 'src/layouts/DefaultLayout'
 import { LargeContainer, ContentContainer, ResponsiveContainer } from 'src/styled/styles'
 import Divider from 'src/views/components/divider'
 import useMain from 'src/views/pages/main/useMain'
-import { dynamicTranslateCategories} from 'src/utils/translationUtils'
+import { dynamicTranslateCategories } from 'src/utils/translationUtils'
 
 const PageMeta = dynamic(() => import('src/@core/meta/PageMeta'), { ssr: true })
 
@@ -19,7 +19,6 @@ const Hero = dynamic(() => import('src/views/pages/main/hero'), { ssr: false })
 const Cities = dynamic(() => import('src/views/pages/main/cities'), { ssr: true })
 const Typography = dynamic(() => import('src/views/components/typography'), { ssr: true })
 
-// ** Tailwind Styled
 import tw from 'tailwind-styled-components'
 import { queryClient } from './_app'
 
@@ -29,7 +28,6 @@ const pageMeta = {
   img: ''
 }
 
-// ** Styled Components
 const MainPageBox = tw.div<TailwindDiv>`flex w-full items-center flex-col overflow-hidden`
 
 const MainPage = () => {

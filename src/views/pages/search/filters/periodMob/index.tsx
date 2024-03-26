@@ -19,7 +19,7 @@ registerLocale('ka', ka)
 const PeriodMob: React.FC<Props> = ({ control, resetField }) => {
   const [calendar, toggleCalendar] = useState(false)
   const formState = useWatch({ control })
-    const {t} = useTranslation()
+    const {t, i18n} = useTranslation()
 
   return (
     <>
@@ -29,12 +29,12 @@ const PeriodMob: React.FC<Props> = ({ control, resetField }) => {
             {formState?.booking?.book_from?.length > 0 || formState?.booking?.book_to?.length > 0
               ? `  ${
                   formState?.booking?.book_from?.length > 0 &&
-                  `${format(new Date(formState?.booking?.book_from), 'd MMM', { locale: ka })}`
+                  `${format(new Date(formState?.booking?.book_from), 'd MMM', i18n.language === 'ka' ? { locale: ka } : {})}`
                 }
                 -
             ${
               formState?.booking?.book_to?.length > 0 && formState?.booking?.book_to !== t('date')
-                ? `${format(new Date(formState?.booking?.book_to), 'd MMM', { locale: ka })}`
+                ? `${format(new Date(formState?.booking?.book_to), 'd MMM', i18n.language === 'ka' ? { locale: ka } : {})}`
                 : ''
             }`
               : t('rental_period')}
