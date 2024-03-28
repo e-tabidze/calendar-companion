@@ -40,9 +40,8 @@ const ServiceDetails: React.FC<Props> = ({ control, index, label, description, e
             control={control}
             name={`company_services.${index}.currency`}
             options={[
-              { value: 'GEL', icon: 'gel', width: '11', height: '12' }
-
-              // { value: 'USD', icon: 'usd', width: '7', height: '12' }
+              { value: 'GEL', icon: 'gel', width: '11', height: '12' },
+              { value: 'USD', icon: 'usd', width: '7', height: '12' }
             ]}
           />
         </div>
@@ -62,7 +61,9 @@ const ServiceDetails: React.FC<Props> = ({ control, index, label, description, e
             </div>
           </div>
         </>
-      ) : <></>}
+      ) : (
+        <></>
+      )}
     </div>
   )
 }
