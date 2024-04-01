@@ -14,7 +14,7 @@ const Typography = dynamic(() => import('src/views/components/typography'), { ss
 const DeleteProductConfirmationModal = dynamic(() => import('../../products/deleteProductModal'), { ssr: false })
 
 import toast from 'react-hot-toast'
-import {useTranslation} from "next-i18next";
+import { useTranslation } from 'next-i18next'
 
 interface Props {
   price: number
@@ -40,7 +40,7 @@ const VehicleListComponent: React.FC<Props> = ({
   images
 }) => {
   const [deleteProductModal, setDeleteProductModal] = useState(false)
-  const{t} = useTranslation()
+  const { t } = useTranslation()
 
   const { deleteProduct, activeProducts } = useProducts(filter)
 
@@ -123,8 +123,15 @@ const VehicleListComponent: React.FC<Props> = ({
           <div className='hidden lg:flex gap-4'>
             <Action
               bg={active ? 'bg-raisin-10' : 'bg-green-10'}
-              label={active ? t('stop'): t('play')}
+              label={active ? t('stop') : t('play')}
               icon={active ? 'stop' : 'play'}
+              onClick={toggleActivateProduct}
+              disabled={activeProductMutation?.isLoading}
+            />
+            <Action
+              bg={active ? 'bg-raisin-10' : 'bg-green-10'}
+              label={active ? t('stop') : t('play')}
+              icon="calendarSmall"
               onClick={toggleActivateProduct}
               disabled={activeProductMutation?.isLoading}
             />
