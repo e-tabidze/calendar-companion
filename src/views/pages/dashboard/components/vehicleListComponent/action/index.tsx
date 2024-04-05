@@ -19,7 +19,7 @@ const Action: React.FC<Props> = ({ icon, label, bg, onClick, disabled, className
       <div className={`w-7 h-7 md:w-8 md:h-8 flex items-center justify-center rounded-lg ${bg} md:mb-2`}>
         <Icon svgPath={icon} height={20} width={20} />
       </div>
-      <Typography type='body' className="text-2sm">{label}</Typography>
+      <Typography type='body' className="text-2sm whitespace-nowrap">{label}</Typography>
     </div>
   )
 }

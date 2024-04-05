@@ -5,39 +5,7 @@ import _ from 'lodash'
 import Icon from 'src/views/app/Icon'
 import {useTranslation} from "next-i18next";
 
-const customStyles = {
-  indicatorSeparator: () => ({
-    display: 'none'
-  }),
-  control: (provided: any, state: any) => ({
-    ...provided,
-    height: 56,
-    position: 'relative',
-    '&:hover': { border: '1px solid #BEBFC3'},
-    borderRadius: '12px',
-    border: state.isDisabled ? '1px solid #F4F4F5' : state.isFocused ? '1px solid #272A37':'1px solid #E9EAEB',
-    boxShadow: state.isFocused ? '1px solid #272A37' : '1px solid #E9EAEB',
-    transition: 'border 0.2s',
-    cursor: 'pointer',
-    backgroundColor: state.isDisabled ? '#F4F4F5': '#ffffff'
-  }),
-  valueContainer: (provided: any) => ({
-    ...provided
-  }),
 
-  menuList: (provided: any) => ({
-    ...provided,
-    maxHeight: '180px'
-  }),
-
-  placeholder: (defaultStyles: any, state:any) => {
-    return {
-      ...defaultStyles,
-      fontSize: '14px',
-      color: state.isDisabled? '#BEBFC3':'#93959B'
-    }
-  }
-}
 
 interface Option {
   [key: string]: any
@@ -59,6 +27,7 @@ interface Props {
   errorAbsolute?: boolean
   errorRight?: boolean
   setValueLabel?: any
+  hideBorder?: boolean
 }
 
 const Control = ({ children, ...props }: any) => {
@@ -88,7 +57,8 @@ const SelectField: React.FC<Props> = ({
   errorRight,
   isMulti = false,
   handleChange,
-  setValueLabel
+  setValueLabel,
+  hideBorder = false
 }) => {
   const { DropdownIndicator, ClearIndicator } = components
 
@@ -112,6 +82,40 @@ const SelectField: React.FC<Props> = ({
     return null
   }
   const {t} = useTranslation()
+
+  const customStyles = {
+    indicatorSeparator: () => ({
+      display: 'none'
+    }),
+    control: (provided: any, state: any) => ({
+      ...provided,
+      height: 56,
+      position: 'relative',
+      '&:hover': { border: hideBorder ? '' : '1px solid #BEBFC3'},
+      borderRadius: '12px',
+      border: hideBorder ? "none" : state.isDisabled ? '1px solid #F4F4F5' : state.isFocused ? '1px solid #272A37':'1px solid #E9EAEB',
+      boxShadow: state.isFocused ? '1px solid #272A37' : '1px solid #E9EAEB',
+      transition: 'border 0.2s',
+      cursor: 'pointer',
+      backgroundColor: state.isDisabled ? '#F4F4F5': '#ffffff'
+    }),
+    valueContainer: (provided: any) => ({
+      ...provided
+    }),
+  
+    menuList: (provided: any) => ({
+      ...provided,
+      maxHeight: '180px'
+    }),
+  
+    placeholder: (defaultStyles: any, state:any) => {
+      return {
+        ...defaultStyles,
+        fontSize: '14px',
+        color: state.isDisabled? '#BEBFC3':'#93959B'
+      }
+    }
+  }
 
   return (
     <div className={`relative ${className}`}>

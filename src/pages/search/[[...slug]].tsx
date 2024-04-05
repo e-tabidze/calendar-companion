@@ -304,7 +304,6 @@ const SearchPage = () => {
                       totalPages={totalPages}
                       currentPage={Number(page)}
                       onPageChange={newPage => {
-                        console.log(newPage, 'newPage')
                         onChange(newPage)
                         onSubmit()
                       }}

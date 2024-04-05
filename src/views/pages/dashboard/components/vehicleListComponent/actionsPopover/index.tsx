@@ -2,18 +2,25 @@ import { Popover } from '@headlessui/react'
 import Link from 'next/link'
 import Icon from 'src/views/app/Icon'
 import Action from '../action'
-import {useTranslation} from "next-i18next";
+import { useTranslation } from 'next-i18next'
 
 interface Props {
   toggleDeleteProductModal: () => void
   active: number
   toggleActivateProduct: () => void
   id: number
+  toggleBookDatesDialog: () => void
 }
 
-const ActionsPopover: React.FC<Props> = ({ toggleDeleteProductModal, active, toggleActivateProduct, id }) => {
-  const {t} = useTranslation()
-
+const ActionsPopover: React.FC<Props> = ({
+  toggleDeleteProductModal,
+  active,
+  toggleActivateProduct,
+  id,
+  toggleBookDatesDialog
+}) => {
+  const { t } = useTranslation()
+  
   return (
     <div className='absolute right-4 top-4 lg:hidden'>
       <Popover className='relative'>
@@ -29,6 +36,14 @@ const ActionsPopover: React.FC<Props> = ({ toggleDeleteProductModal, active, tog
             onClick={toggleActivateProduct}
             className='mb-4 md:mb-0'
           />
+          <Action
+            bg='bg-raisin-10'
+            label='თარიღის დაკავება'
+            icon='calendarSmall'
+            onClick={toggleBookDatesDialog}
+            className='mb-4 md:mb-0'
+          />
+
           <Link href={`/dashboard/edit-product?id=${id}`} as={`/dashboard/edit-product?id=${id}`}>
             <Action bg='bg-raisin-10' label={t('edit')} icon='edit' className='mb-4 md:mb-0' />
           </Link>

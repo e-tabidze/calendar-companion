@@ -15,6 +15,7 @@ const DeleteProductConfirmationModal = dynamic(() => import('../../products/dele
 
 import toast from 'react-hot-toast'
 import { useTranslation } from 'next-i18next'
+import BookDatesDialog from './bookDatesDialog'
 
 interface Props {
   price: number
@@ -40,6 +41,8 @@ const VehicleListComponent: React.FC<Props> = ({
   images
 }) => {
   const [deleteProductModal, setDeleteProductModal] = useState(false)
+  const [bookDatesDialog, setBookDatesDialog] = useState(false)
+
   const { t } = useTranslation()
 
   const { deleteProduct, activeProducts } = useProducts(filter)
@@ -71,6 +74,8 @@ const VehicleListComponent: React.FC<Props> = ({
   }
 
   const toggleDeleteProductModal = () => setDeleteProductModal(!deleteProductModal)
+
+  const toggleBookDatesDialog = () => setBookDatesDialog(!bookDatesDialog)
 
   return (
     <>
@@ -128,13 +133,7 @@ const VehicleListComponent: React.FC<Props> = ({
               onClick={toggleActivateProduct}
               disabled={activeProductMutation?.isLoading}
             />
-            <Action
-              bg={active ? 'bg-raisin-10' : 'bg-green-10'}
-              label={active ? t('stop') : t('play')}
-              icon="calendarSmall"
-              onClick={toggleActivateProduct}
-              disabled={activeProductMutation?.isLoading}
-            />
+            <Action bg='bg-raisin-10' label='თარიღის დაკავება' icon='calendarSmall' onClick={toggleBookDatesDialog} />
             <Link href={`/dashboard/edit-product?id=${id}`} as={`/dashboard/edit-product?id=${id}`}>
               <Action bg='bg-raisin-10' label={t('edit')} icon='edit' />
             </Link>
@@ -149,6 +148,7 @@ const VehicleListComponent: React.FC<Props> = ({
         </div>
         <ActionsPopover
           toggleDeleteProductModal={toggleDeleteProductModal}
+          toggleBookDatesDialog={toggleBookDatesDialog}
           toggleActivateProduct={toggleActivateProduct}
           active={active}
           id={id}
@@ -160,6 +160,7 @@ const VehicleListComponent: React.FC<Props> = ({
         deleteCompany={deletProduct}
         productId={id}
       />
+      <BookDatesDialog open={bookDatesDialog} setOpen={toggleBookDatesDialog} productId={id} />
     </>
   )
 }
