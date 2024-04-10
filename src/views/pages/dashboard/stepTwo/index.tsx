@@ -22,7 +22,7 @@ const StepTwo: React.FC<Props> = ({ control, appendAdditionalParam, step, errors
   const { width } = useWindowDimensions()
   const { productDetails, additionalParams, isProductDetailsLoading, isAdditionalParamsLoading } = useProductInfo(step)
   const { steeringWheel, suitcases } = useFilters()
-    const {t} = useTranslation()
+   const {t} = useTranslation()
 
   return (
     <div>
@@ -37,7 +37,7 @@ const StepTwo: React.FC<Props> = ({ control, appendAdditionalParam, step, errors
                 options={productDetails?.categories}
                 border
                 errors={errors}
-                title={t('category') + '*'}
+                title={t('category')}
               />
 
           ) : (
@@ -63,7 +63,7 @@ const StepTwo: React.FC<Props> = ({ control, appendAdditionalParam, step, errors
             height='h-12'
             outlined
             errors={errors}
-            title={t('fuel_type') + '*'}
+            title={t('fuel_type')}
           />
         )}
       </div>
@@ -77,7 +77,7 @@ const StepTwo: React.FC<Props> = ({ control, appendAdditionalParam, step, errors
             options={productDetails?.seat_types}
             height='h-10'
             errors={errors}
-            title={t('seat_type') + '*'}
+            title={t('seat_type')}
           />
         )}
       </div>
@@ -88,7 +88,7 @@ const StepTwo: React.FC<Props> = ({ control, appendAdditionalParam, step, errors
             options={suitcases}
             height='h-10'
             errors={errors}
-            title={t('luggage_type') + '*'}
+            title={t('luggage_type')}
           />
       </div>
       <Divider />
@@ -104,7 +104,7 @@ const StepTwo: React.FC<Props> = ({ control, appendAdditionalParam, step, errors
               height='h-12'
               outlined
               errors={errors}
-              title={t('door_types') + '*'}
+              title={t('door_types')}
               fullWidth
             />
           )}
@@ -124,7 +124,7 @@ const StepTwo: React.FC<Props> = ({ control, appendAdditionalParam, step, errors
               options={productDetails?.drive_tires}
               height='h-12'
               errors={errors}
-              title={t('drive_wheels') + '*'}
+              title={t('drive_wheels')}
               fullWidth
             />
           )}
@@ -143,7 +143,7 @@ const StepTwo: React.FC<Props> = ({ control, appendAdditionalParam, step, errors
               options={steeringWheel}
               height='h-12'
               errors={errors}
-              title={t('steering_wheel') + '*'}
+              title={t('steering_wheel')}
               fullWidth
             />
           )}
@@ -162,7 +162,7 @@ const StepTwo: React.FC<Props> = ({ control, appendAdditionalParam, step, errors
               options={productDetails?.transmission_types}
               height='h-12'
               errors={errors}
-              title={t('transmission') + '*'}
+              title={t('transmission')}
               fullWidth
               />
           )}

@@ -59,12 +59,12 @@ const Tag: React.FC<Props> = ({
               <div className={`relative ${fullWidth? 'flex flex-col md:flex-row md:justify-between md:items-center w-full':''}`}>
                 <div className="flex flex-col">
                   {title &&
-                  <Typography type='h4' color='dark' className={`${fullWidth?'text-md mb-6 md:mb-0':'text-md md:text-3md mb-6'}`}>
-                    {title}
+                  <Typography type='h4' color='dark' className={`${fullWidth?'text-md mb-4 md:mb-0':'text-md md:text-3md mb-4 md:mb-6'}`}>
+                    {title} <span className='text-red-100'>*</span>
                   </Typography>
                   }
                   {errors && (
-                      <div id={name} className={`${fullWidth ?'md:-bottom-2 top-0 md:top-auto mt-6 md:mt-0':'top-0 mt-6 md:mt-7' } absolute left-0 text-sm text-red-100`}>
+                      <div id={name} className={`${fullWidth ?'md:-bottom-2 top-0 md:top-auto mt-5 md:mt-0':'top-0 mt-5 md:mt-7' } absolute left-0 text-sm text-red-100`}>
                         {t(_.get(errors, name)?.message)}
                       </div>
                   )}

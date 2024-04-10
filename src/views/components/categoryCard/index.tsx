@@ -30,7 +30,7 @@ const CategoryCard: React.FC<Props> = ({ border, name, control, options, append,
               <div className="flex flex-col relative">
                   {title &&
                   <Typography type='h4' color='dark' className='mb-6'>
-                      {title}
+                      {title} <span className='text-red-100'>*</span>
                   </Typography>
                   }
                   {errors && (
