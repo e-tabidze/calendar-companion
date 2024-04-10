@@ -82,7 +82,7 @@ const Products = () => {
           {t('cars')}
         </Typography>
         <Divider />
-        <div className='flex gap-3 py-8 overflow-x-auto'>
+        <div className='flex gap-2 md:gap-3 py-8 overflow-x-auto'>
           {filters.map(filter => (
             <Tag
               label={t(filter.label)}

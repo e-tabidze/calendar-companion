@@ -101,7 +101,7 @@ const VehicleListComponent: React.FC<Props> = ({
                 type='card'
               />
             </div>
-            <div className='pr-6 md:pr-0'>
+            <div className='w-full'>
               <Typography type='body' color='light'>
                 {dynamicTranslateCities(startCity, t)}
               </Typography>
@@ -109,13 +109,13 @@ const VehicleListComponent: React.FC<Props> = ({
                 <Typography type='subtitle' className='text-sm md:text-2sm'>
                   {manufacturer} {model} {prodYear}
                 </Typography>
-                <div className='flex items-center min-w-[254px] justify-between gap-10 mt-4 md:mt-10'>
+                <div className='flex items-center md:min-w-[254px] justify-between gap-10 mt-4 md:mt-10'>
                   <Typography type='h4' weight='medium' color='dark' className='text-2sm md:text-3md'>
                     {price}₾<span className='text-[14px] pl-3 font-normal text-center'>{t('day')}</span>
                   </Typography>
                   <Typography
                     type='subtitle'
-                    className={`cursor-default py-1 px-2 rounded-lg text-sm md:text-2sm min-w-[120px] text-center ${
+                    className={`cursor-default py-1 px-2 rounded-lg text-sm md:text-2sm md:min-w-[120px] text-center ${
                       active ? 'text-white bg-green-100' : 'text-raisin-100 bg-grey-100'
                     }`}
                   >

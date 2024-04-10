@@ -159,7 +159,7 @@ const SelectField: React.FC<Props> = ({
                 setValueLabel &&
                   setValueLabel(isMulti ? e.map((opt: any) => (labelKey ? opt[labelKey] : opt.value)) : e?.label || '')
               }}
-              className={`${_.get(errors, name)?.message ? `error-border border border-red-100 rounded-[12px]` : ''}`}
+              className={`${_.get(errors, name)?.message && !hideBorder ? `error-border border border-red-100 rounded-[12px]` : ''}`}
               isMulti={isMulti}
               getOptionLabel={option => labelKey && option[labelKey]}
               getOptionValue={option => valueKey && option[valueKey]}

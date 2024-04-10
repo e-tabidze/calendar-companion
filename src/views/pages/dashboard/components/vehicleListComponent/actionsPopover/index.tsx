@@ -38,7 +38,7 @@ const ActionsPopover: React.FC<Props> = ({
           />
           <Action
             bg='bg-raisin-10'
-            label='თარიღის დაკავება'
+            label={t('hold_date')}
             icon='calendarSmall'
             onClick={toggleBookDatesDialog}
             className='mb-4 md:mb-0'
