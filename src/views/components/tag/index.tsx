@@ -64,7 +64,7 @@ const Tag: React.FC<Props> = ({
                   </Typography>
                   }
                   {errors && (
-                      <div id={name} className={`${fullWidth ?'-bottom-2 md:bottom-auto top-0 md:top-auto mt-6 md:mt-0':'top-0 mt-6 md:mt-7' } absolute left-0 text-sm text-red-100`}>
+                      <div id={name} className={`${fullWidth ?'md:-bottom-2 top-0 md:top-auto mt-6 md:mt-0':'top-0 mt-6 md:mt-7' } absolute left-0 text-sm text-red-100`}>
                         {t(_.get(errors, name)?.message)}
                       </div>
                   )}
