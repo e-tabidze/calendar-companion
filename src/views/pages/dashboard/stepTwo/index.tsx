@@ -26,25 +26,21 @@ const StepTwo: React.FC<Props> = ({ control, appendAdditionalParam, step, errors
 
   return (
     <div>
-      <Typography type='h4' color='dark'>
-          {t('category')}*
-      </Typography>
       {isProductDetailsLoading ? (
         <>Loading</>
       ) : (
         <>
           {width > 779 ? (
-            <div className='flex flex-wrap gap-4 my-6'>
               <CategoryCard
                 name='category_id'
                 control={control}
                 options={productDetails?.categories}
                 border
                 errors={errors}
+                title={t('category') + '*'}
               />
-            </div>
+
           ) : (
-            <div className='my-6'>
             <SelectField
               control={control}
               name='category_id'
@@ -53,14 +49,9 @@ const StepTwo: React.FC<Props> = ({ control, appendAdditionalParam, step, errors
               valueKey='id'
               labelKey='title'
             />
-            </div>
           )}
         </>
       )}
-
-      <Typography type='h4' color='dark' className='mt-14'>
-          {t('fuel_type')}*
-      </Typography>
       <div className='flex flex-wrap gap-3 my-6'>
         {isProductDetailsLoading ? (
           <>Loading</>
@@ -72,12 +63,10 @@ const StepTwo: React.FC<Props> = ({ control, appendAdditionalParam, step, errors
             height='h-12'
             outlined
             errors={errors}
+            title={t('fuel_type') + '*'}
           />
         )}
       </div>
-      <Typography type='h5' weight='normal' className=' mt-14'>
-          {t('seat_type')}*
-      </Typography>
       <div className='flex flex-wrap gap-4 my-6'>
         {isProductDetailsLoading ? (
           <>Loading</>
@@ -88,21 +77,23 @@ const StepTwo: React.FC<Props> = ({ control, appendAdditionalParam, step, errors
             options={productDetails?.seat_types}
             height='h-10'
             errors={errors}
+            title={t('seat_type') + '*'}
           />
         )}
       </div>
-      <Typography type='h5' weight='normal' className=' mt-14'>
-          {t('luggage_type')}*
-      </Typography>
       <div className='flex flex-wrap gap-4 my-6'>
-        <Tag name='luggage_numbers' control={control} options={suitcases} height='h-10' errors={errors} />
+        <Tag
+            name='luggage_numbers'
+            control={control}
+            options={suitcases}
+            height='h-10'
+            errors={errors}
+            title={t('luggage_type') + '*'}
+          />
       </div>
       <Divider />
-      <div className='flex justify-between my-10 flex-col items-baseline md:items-center md:flex-row'>
-        <Typography type='h5' weight='normal' className=' mb-4 md:mb-0'>
-            {t('door_types')}*
-        </Typography>
-        <div className='flex w-max gap-2'>
+      <div className='flex justify-between my-6 flex-col items-baseline md:items-center md:flex-row'>
+        <div className='flex w-full gap-2'>
           {isProductDetailsLoading ? (
             <>Loading</>
           ) : (
@@ -113,6 +104,8 @@ const StepTwo: React.FC<Props> = ({ control, appendAdditionalParam, step, errors
               height='h-12'
               outlined
               errors={errors}
+              title={t('door_types') + '*'}
+              fullWidth
             />
           )}
         </div>
@@ -120,11 +113,8 @@ const StepTwo: React.FC<Props> = ({ control, appendAdditionalParam, step, errors
 
       <Divider />
 
-      <div className='flex justify-between my-10 flex-col items-baseline md:items-center md:flex-row'>
-        <Typography type='h5' weight='normal' className='mb-4 md:mb-0'>
-            {t('drive_wheels')}*
-        </Typography>
-        <div className='flex w-max gap-2'>
+      <div className='flex justify-between my-6 flex-col items-baseline md:items-center md:flex-row'>
+        <div className='flex w-full gap-2'>
           {isProductDetailsLoading ? (
             <>Loading</>
           ) : (
@@ -134,17 +124,16 @@ const StepTwo: React.FC<Props> = ({ control, appendAdditionalParam, step, errors
               options={productDetails?.drive_tires}
               height='h-12'
               errors={errors}
+              title={t('drive_wheels') + '*'}
+              fullWidth
             />
           )}
         </div>
       </div>
       <Divider />
 
-      <div className='flex justify-between my-10 flex-col items-baseline md:items-center md:flex-row'>
-        <Typography type='h5' weight='normal' className='mb-4 md:mb-0'>
-            {t('steering_wheel')}*
-        </Typography>
-        <div className='flex w-max gap-2'>
+      <div className='flex justify-between my-6 flex-col items-baseline md:items-center md:flex-row'>
+        <div className='flex w-full gap-2'>
           {isProductDetailsLoading ? (
             <>Loading</>
           ) : (
@@ -154,17 +143,16 @@ const StepTwo: React.FC<Props> = ({ control, appendAdditionalParam, step, errors
               options={steeringWheel}
               height='h-12'
               errors={errors}
+              title={t('steering_wheel') + '*'}
+              fullWidth
             />
           )}
         </div>
       </div>
       <Divider />
 
-      <div className='flex justify-between my-10 flex-col items-baseline md:items-center md:flex-row'>
-        <Typography type='h5' weight='normal' className='mb-4 md:mb-0'>
-            {t('transmission')}*
-        </Typography>
-        <div className='flex w-max gap-2'>
+      <div className='flex justify-between my-6 flex-col items-baseline md:items-center md:flex-row'>
+        <div className='flex w-full gap-2'>
           {isProductDetailsLoading ? (
             <>Loading</>
           ) : (
@@ -174,7 +162,9 @@ const StepTwo: React.FC<Props> = ({ control, appendAdditionalParam, step, errors
               options={productDetails?.transmission_types}
               height='h-12'
               errors={errors}
-            />
+              title={t('transmission') + '*'}
+              fullWidth
+              />
           )}
         </div>
       </div>
