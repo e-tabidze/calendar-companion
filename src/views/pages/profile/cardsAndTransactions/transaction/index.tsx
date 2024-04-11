@@ -12,14 +12,14 @@ interface Props {
 }
 
 const Transaction: React.FC<Props> = ({ date, id, price, status }) => {
-  const {t} = useTranslation()
+  const {t, i18n} = useTranslation()
 
   return (
     <div>
       <div className='flex items-center justify-between my-3'>
         <div className='flex flex-col md:gap-10 md:items-center md:flex-row'>
           <Typography className='min-w-[80px]' type='body' color='light'>
-            {format(parseISO(date), 'd MMM yyyy', { locale: ka })}
+            {format(parseISO(date), 'd MMM yyyy', i18n.language === 'ka' ? { locale: ka } : {})}
           </Typography>
           <Typography className='min-w-[180px]' type='subtitle'>{t('order_id')}: #{id} </Typography>
           <Typography

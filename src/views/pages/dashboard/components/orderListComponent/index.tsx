@@ -40,7 +40,7 @@ const OrderListComponent: React.FC<Props> = ({
   status
 }) => {
   const { width } = useWindowDimensions()
-  const {t} = useTranslation()
+  const {t, i18n} = useTranslation()
 
   return (
     <div className='last:border-none'>
@@ -67,10 +67,10 @@ const OrderListComponent: React.FC<Props> = ({
             </Typography>
             {startDate && endDate && (
               <Typography type='body' color='light' className='text-sm'>
-                {format(parseISO(startDate), 'd MMM yyyy', { locale: ka })}
+                {format(parseISO(startDate), 'd MMM yyyy', i18n.language === 'ka' ? { locale: ka } : {})}
                 {' - '}
                 {format(parseISO(`1970-01-01T${startTime}`), 'HH:mm')} - {'  '}
-                {format(parseISO(endDate), 'd MMM yyyy', { locale: ka })}
+                {format(parseISO(endDate), 'd MMM yyyy', i18n.language === 'ka' ? { locale: ka } : {})}
                 {' - '}
                 {format(parseISO(`1970-01-01T${endTime}`), 'HH:mm')}
               </Typography>

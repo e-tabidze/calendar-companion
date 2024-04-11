@@ -23,7 +23,7 @@ import { useRouter } from 'next/router'
 import {useTranslation} from "next-i18next";
 
 const OrderDetails = () => {
-  const {t} = useTranslation()
+  const {t, i18n} = useTranslation()
   const queryClient = useQueryClient()
 
   const [cancelOrderDialog, setCancelOrderDialog] = useState(false)
@@ -55,7 +55,7 @@ const OrderDetails = () => {
           </Typography>
           {userOrderDetails?.created_at && (
             <Typography type='subtitle'>
-              {format(parseISO(userOrderDetails?.created_at), 'd MMM yyyy HH:mm', { locale: ka })}
+              {format(parseISO(userOrderDetails?.created_at), 'd MMM yyyy HH:mm', i18n.language === 'ka' ? { locale: ka } : {})}
             </Typography>
           )}
         </RentalDetailsWrapper>
@@ -96,7 +96,7 @@ const OrderDetails = () => {
                 <Typography type='subtitle'>{userOrderDetails?.start_address}</Typography>
                 {userOrderDetails?.start_date && userOrderDetails?.start_time && (
                   <Typography type='body' color='light'>
-                    {format(parseISO(userOrderDetails?.start_date), 'd MMM yyyy', { locale: ka })}
+                    {format(parseISO(userOrderDetails?.start_date), 'd MMM yyyy', i18n.language === 'ka' ? { locale: ka } : {})}
                     {' - '}
                     {format(parseISO(`1970-01-01T${userOrderDetails?.start_time}`), 'HH:mm')}
                   </Typography>
@@ -116,7 +116,7 @@ const OrderDetails = () => {
                 <Typography type='subtitle'>{userOrderDetails?.end_address}</Typography>
                 {userOrderDetails?.end_date && userOrderDetails?.end_time && (
                   <Typography type='body' color='light'>
-                    {format(parseISO(userOrderDetails?.end_date), 'd MMM yyyy', { locale: ka })}
+                    {format(parseISO(userOrderDetails?.end_date), 'd MMM yyyy', i18n.language === 'ka' ? { locale: ka } : {})}
                     {' - '}
                     {format(parseISO(`1970-01-01T${userOrderDetails?.end_time}`), 'HH:mm')}
                   </Typography>

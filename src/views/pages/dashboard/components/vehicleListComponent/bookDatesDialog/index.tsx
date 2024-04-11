@@ -10,7 +10,7 @@ import useWindowDimensions from 'src/hooks/useWindowDimensions'
 import { useRouter } from 'next/router'
 import { DefaultButton, IconTextButton } from 'src/views/components/button'
 import Icon from 'src/views/app/Icon'
-import { i18n, useTranslation } from 'next-i18next'
+import { useTranslation } from 'next-i18next'
 import useBooking from 'src/views/pages/booking/useBooking'
 import useProfile from 'src/hooks/useProfile'
 import SelectField from 'src/views/components/selectField'
@@ -46,7 +46,7 @@ const PeriodDialog: React.FC<Props> = ({ open, setOpen, productId }) => {
 
   console.log(bookingValues, 'bookingValues dashboard')
 
-  const { t } = useTranslation()
+  const { t , i18n } = useTranslation()
 
   const queryClient = useQueryClient()
 
@@ -145,7 +145,7 @@ const PeriodDialog: React.FC<Props> = ({ open, setOpen, productId }) => {
                         </Typography>
                         {startDate && (
                             <Typography type='subtitle' className='font-medium'>
-                              {startDate ? format(startDate, 'd MMMM yyyy', { locale: ka }) : ''}
+                              {startDate ? format(startDate, 'd MMMM yyyy', i18n.language === 'ka' ? { locale: ka } : {}) : ''}
                             </Typography>
                         )}
                       </SelectTimeText>
@@ -170,7 +170,7 @@ const PeriodDialog: React.FC<Props> = ({ open, setOpen, productId }) => {
                           {t('end_date')}
                         </Typography>
                         <Typography type='subtitle' className='font-medium'>
-                          {endDate ? format(endDate, 'd MMMM yyyy', { locale: ka }) : ''}
+                          {endDate ? format(endDate, 'd MMMM yyyy', i18n.language === 'ka' ? { locale: ka } : {}) : ''}
                         </Typography>
                       </SelectTimeText>
                       <SelectField
