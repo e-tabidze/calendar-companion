@@ -133,7 +133,7 @@ const VehicleListComponent: React.FC<Props> = ({
               onClick={toggleActivateProduct}
               disabled={activeProductMutation?.isLoading}
             />
-            <Action bg='bg-raisin-10' label='თარიღის დაკავება' icon='calendarSmall' onClick={toggleBookDatesDialog} />
+            <Action bg='bg-raisin-10' label={t('hold_date')} icon='calendarSmall' onClick={toggleBookDatesDialog} />
             <Link href={`/dashboard/edit-product?id=${id}`} as={`/dashboard/edit-product?id=${id}`}>
               <Action bg='bg-raisin-10' label={t('edit')} icon='edit' />
             </Link>

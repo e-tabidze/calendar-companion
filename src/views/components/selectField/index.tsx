@@ -93,7 +93,10 @@ const SelectField: React.FC<Props> = ({
       position: 'relative',
       '&:hover': { border: hideBorder ? '' : '1px solid #BEBFC3'},
       borderRadius: '12px',
-      border: hideBorder ? "none" : state.isDisabled ? '1px solid #F4F4F5' : state.isFocused ? '1px solid #272A37':'1px solid #E9EAEB',
+      border: state.isDisabled ? '1px solid #F4F4F5' : state.isFocused ? '1px solid #272A37':'1px solid #E9EAEB',
+      '@media (min-width: 768px)': {
+        border: hideBorder ? 'none' : ''
+      },
       boxShadow: state.isFocused ? '1px solid #272A37' : '1px solid #E9EAEB',
       transition: 'border 0.2s',
       cursor: 'pointer',
@@ -159,7 +162,7 @@ const SelectField: React.FC<Props> = ({
                 setValueLabel &&
                   setValueLabel(isMulti ? e.map((opt: any) => (labelKey ? opt[labelKey] : opt.value)) : e?.label || '')
               }}
-              className={`${_.get(errors, name)?.message && !hideBorder ? `error-border border border-red-100 rounded-[12px]` : ''}`}
+              className={`${_.get(errors, name)?.message ? `error-border border border-red-100 rounded-[12px]` : ''} ${hideBorder? 'md:border-none':''}`}
               isMulti={isMulti}
               getOptionLabel={option => labelKey && option[labelKey]}
               getOptionValue={option => valueKey && option[valueKey]}

@@ -66,12 +66,12 @@ const PeriodDialog: React.FC<Props> = ({ open, setOpen, productId }) => {
     onError: (ex: any) => {
       ex.response.data.result.message.start_time == 'The start time field is required.' &&
         toast.custom(
-          <Toast type='error' title='გთხოვთ მონიშნოთ დაწყების დრო' description='გთხოვთ მონიშნოთ დაწყების დრო' />
+          <Toast type='error' title={t('choose_start_date')} description={t('choose_start_date')} />
         )
 
       ex.response.data.result.message.end_time == 'The end time field is required.' &&
         toast.custom(
-          <Toast type='error' title='გთხოვთ მონიშნოთ დასრულების დრო' description='გთხოვთ მონიშნოთ დასრულების დრო' />
+          <Toast type='error' title={t('choose_end_date')} description={t('choose_end_date')} />
         )
     }
   })
@@ -136,12 +136,12 @@ const PeriodDialog: React.FC<Props> = ({ open, setOpen, productId }) => {
                         height={40} width={40} className='cursor-pointer flex shrink-0 ml-4' />
                 </div>
               <div className="overflow-auto h-[60vh] md:h-[70vh] 2xl:h-[60vh] w-max-full">
-                <div className='flex flex-col-reverse md:flex-col overflow-auto'>
-                  <div className='md:py-10 py-6 px-6 flex flex-col md:flex-row items-center gap-6'>
+                <div className='overflow-auto'>
+                  <div className='md:py-10 py-6 px-6 flex items-center gap-6'>
                     <SelectTimeContainer>
                       <SelectTimeText>
                         <Typography type='body' color='light'>
-                          {t('start_date')}
+                          {t('start')}
                         </Typography>
                         {startDate && (
                             <Typography type='subtitle' className='font-medium'>
@@ -149,7 +149,7 @@ const PeriodDialog: React.FC<Props> = ({ open, setOpen, productId }) => {
                             </Typography>
                         )}
                       </SelectTimeText>
-                      <Divider vertical className='h-8' />
+                      <Divider vertical className='hidden md:flex !h-8' />
                       <SelectField
                           icon
                           control={control}
@@ -167,12 +167,13 @@ const PeriodDialog: React.FC<Props> = ({ open, setOpen, productId }) => {
                     <SelectTimeContainer>
                       <SelectTimeText>
                         <Typography type='body' color='light'>
-                          {t('end_date')}
+                          {t('finish')}
                         </Typography>
                         <Typography type='subtitle' className='font-medium'>
                           {endDate ? format(endDate, 'd MMMM yyyy', i18n.language === 'ka' ? { locale: ka } : {}) : ''}
                         </Typography>
                       </SelectTimeText>
+                      <Divider vertical className='hidden md:flex !h-8' />
                       <SelectField
                           control={control}
                           icon
@@ -194,7 +195,7 @@ const PeriodDialog: React.FC<Props> = ({ open, setOpen, productId }) => {
                     )}
                   </div>
                   <Divider className='md:hidden'/>
-                  <div className='px-4 md:mb-10'>
+                  <div className='px-4 py-6'>
                     <Controller
                         name='booking'
                         control={control}
@@ -255,7 +256,7 @@ const PeriodDialog: React.FC<Props> = ({ open, setOpen, productId }) => {
 
                 <div className='flex items-center justify-between md:justify-start text-md gap-2'>
                   <DefaultButton
-                      text={t('hold_dates')}
+                      text={t('hold_date')}
                       bg='bg-green-100 transition-all !h-10 md:!h-14 text-sm md:text-md'
                       type='submit'
                       onClick={onSubmit}
