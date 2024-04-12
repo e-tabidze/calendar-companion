@@ -135,67 +135,73 @@ const PeriodDialog: React.FC<Props> = ({ open, setOpen, productId }) => {
                         }}
                         height={40} width={40} className='cursor-pointer flex shrink-0 ml-4' />
                 </div>
-              <div className="overflow-auto h-[60vh] md:h-[70vh] 2xl:h-[60vh] w-max-full">
+              <div className="overflow-auto h-[70vh] 2xl:h-[60vh] w-max-full">
                 <div className='overflow-auto'>
-                  <div className='md:py-10 py-6 px-6 flex md:items-center gap-6'>
-                    <SelectTimeContainer>
-                      <SelectTimeText>
-                        <Typography type='body' color='light' className='mb-8 md:mb-0'>
-                          {t('start')}
-                        </Typography>
-                        {startDate && (
-                            <Typography type='subtitle' className='absolute top-5 md:static font-medium'>
-                              {startDate ? format(startDate, 'd MMMM yyyy', i18n.language === 'ka' ? { locale: ka } : {}) : ''}
-                            </Typography>
-                        )}
-                      </SelectTimeText>
-                      <Divider vertical className='hidden md:flex !h-8' />
-                      <SelectField
-                          icon
-                          control={control}
-                          valueKey='value'
-                          labelKey='label'
-                          name='start_time'
-                          options={generateTimeOptions()}
-                          placeholder={t('time') + '*'}
-                          className='bg-transparent fill-transparent time-select h-full md:flex md:items-center'
-                          errors={errors}
-                          errorAbsolute
-                          timeSelect
-                          hideBorder
-                      />
-                    </SelectTimeContainer>
-                    <SelectTimeContainer>
-                      <SelectTimeText>
-                        <Typography type='body' color='light' className='mb-8 md:mb-0'>
-                          {t('finish')}
-                        </Typography>
-                        <Typography type='subtitle' className='absolute top-5 md:static font-medium'>
-                          {endDate ? format(endDate, 'd MMMM yyyy', i18n.language === 'ka' ? { locale: ka } : {}) : ''}
-                        </Typography>
-                      </SelectTimeText>
-                      <Divider vertical className='hidden md:flex !h-8' />
-                      <SelectField
-                          control={control}
-                          icon
-                          valueKey='value'
-                          labelKey='label'
-                          name='end_time'
-                          options={generateTimeOptions()}
-                          placeholder={t('time') + '*'}
-                          className='bg-transparent fill-transparent time-select h-full md:flex md:items-center'
-                          errors={errors}
-                          errorAbsolute
-                          timeSelect
-                          hideBorder
-                      />
-                    </SelectTimeContainer>
+                  <div className='md:py-10 py-6 px-4 md:px-6 gap-4 flex items-center'>
+                    <div className='flex flex-col md:flex-row md:items-center gap-4'>
+                      <SelectTimeContainer>
+                        <SelectTimeText>
+                          <Typography type='body' color='light'>
+                            {t('start')}
+                          </Typography>
+                          {startDate && (
+                              <Typography type='subtitle' className='font-medium whitespace-nowrap'>
+                                {startDate ? format(startDate, 'd MMMM yyyy', i18n.language === 'ka' ? { locale: ka } : {}) : ''}
+                              </Typography>
+                          )}
+                        </SelectTimeText>
+                        <div className='flex items-center justify-end'>
+                          <Divider vertical className='!h-8 mx-4' />
+                          <SelectField
+                              icon
+                              control={control}
+                              valueKey='value'
+                              labelKey='label'
+                              name='start_time'
+                              options={generateTimeOptions()}
+                              placeholder={t('time') + '*'}
+                              className='bg-transparent fill-transparent time-select'
+                              errors={errors}
+                              errorAbsolute
+                              hideBorder
+                          />
+                        </div>
+
+                      </SelectTimeContainer>
+                      <SelectTimeContainer>
+                        <SelectTimeText>
+                          <Typography type='body' color='light'>
+                            {t('finish')}
+                          </Typography>
+                          <Typography type='subtitle' className='font-medium whitespace-nowrap'>
+                            {endDate ? format(endDate, 'd MMMM yyyy', i18n.language === 'ka' ? { locale: ka } : {}) : ''}
+                          </Typography>
+                        </SelectTimeText>
+                        <div className='flex items-center justify-end'>
+                          <Divider vertical className='!h-8 mx-4' />
+                          <SelectField
+                              control={control}
+                              icon
+                              valueKey='value'
+                              labelKey='label'
+                              name='end_time'
+                              options={generateTimeOptions()}
+                              placeholder={t('time') + '*'}
+                              className='bg-transparent fill-transparent time-select'
+                              errors={errors}
+                              errorAbsolute
+                              hideBorder
+                          />
+                        </div>
+                      </SelectTimeContainer>
+                    </div>
+
                     {startDate && endDate && (
-                        <div className="relative">
-                            <Typography type='body' color='light' className='md:hidden mb-8 md:mb-0'>
+                        <div className='flex flex-col'>
+                            <Typography type='body' color='light' className='md:hidden'>
                               {t('days')}
                             </Typography>
-                          <Typography type='subtitle' className='absolute top-4 md:static whitespace-nowrap font-medium text-md md:text-2md flex shrink-0 text-green-100 md:text-raisin-100'>
+                          <Typography type='subtitle' className='whitespace-nowrap font-medium text-md md:text-2md'>
                             {differenceInDays(endDate, startDate)} {t('days')}
                           </Typography>
                         </div>

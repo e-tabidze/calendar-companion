@@ -1,5 +1,5 @@
 import tw from 'tailwind-styled-components'
 import { TailwindComponent } from 'src/interfaces/tailwind'
 
-export const SelectTimeContainer = tw.div<TailwindComponent>`relative md:h-16  md:border md:border-raisin-10 rounded-xl flex flex-col md:flex-row md:w-full md:w-fit md:px-4 md:justify-between md:items-center`
-export const SelectTimeText = tw.div<TailwindComponent>`flex flex-col justify-center md:pr-4`
+export const SelectTimeContainer = tw.div<TailwindComponent>`border border-raisin-10 rounded-xl flex md:w-full md:w-fit pl-4 pr-1 justify-between items-center`
+export const SelectTimeText = tw.div<TailwindComponent>`flex flex-col justify-center`

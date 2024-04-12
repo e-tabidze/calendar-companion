@@ -286,15 +286,15 @@
 }
 @media(max-width: 767px) {
   .time-select .css-b62m3t-container {
-    width: 100px;
+    width: 80px;
     min-width: unset;
   }
   .time-select .css-1xc3v61-indicatorContainer {
-    padding-left: 2px;
+    padding-left: 0;
     padding-right: 4px;
   }
   .time-select .css-1fdsijx-ValueContainer {
-    padding: 2px 4px;
+    padding: 4px 0 4px 4px;
   }
   .time-select .css-d32dvm-placeholder {
     font-size: 12px;
