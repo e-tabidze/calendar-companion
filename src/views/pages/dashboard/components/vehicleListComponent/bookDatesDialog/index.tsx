@@ -137,14 +137,14 @@ const PeriodDialog: React.FC<Props> = ({ open, setOpen, productId }) => {
                 </div>
               <div className="overflow-auto h-[60vh] md:h-[70vh] 2xl:h-[60vh] w-max-full">
                 <div className='overflow-auto'>
-                  <div className='md:py-10 py-6 px-6 flex items-center gap-6'>
+                  <div className='md:py-10 py-6 px-6 flex md:items-center gap-6'>
                     <SelectTimeContainer>
                       <SelectTimeText>
-                        <Typography type='body' color='light'>
+                        <Typography type='body' color='light' className='mb-8 md:mb-0'>
                           {t('start')}
                         </Typography>
                         {startDate && (
-                            <Typography type='subtitle' className='font-medium'>
+                            <Typography type='subtitle' className='absolute top-5 md:static font-medium'>
                               {startDate ? format(startDate, 'd MMMM yyyy', i18n.language === 'ka' ? { locale: ka } : {}) : ''}
                             </Typography>
                         )}
@@ -158,18 +158,19 @@ const PeriodDialog: React.FC<Props> = ({ open, setOpen, productId }) => {
                           name='start_time'
                           options={generateTimeOptions()}
                           placeholder={t('time') + '*'}
-                          className='bg-transparent fill-transparent border-green-100 group-color'
+                          className='bg-transparent fill-transparent time-select'
                           errors={errors}
                           errorAbsolute
+                          timeSelect
                           hideBorder
                       />
                     </SelectTimeContainer>
                     <SelectTimeContainer>
                       <SelectTimeText>
-                        <Typography type='body' color='light'>
+                        <Typography type='body' color='light' className='mb-8 md:mb-0'>
                           {t('finish')}
                         </Typography>
-                        <Typography type='subtitle' className='font-medium'>
+                        <Typography type='subtitle' className='absolute top-5 md:static font-medium'>
                           {endDate ? format(endDate, 'd MMMM yyyy', i18n.language === 'ka' ? { locale: ka } : {}) : ''}
                         </Typography>
                       </SelectTimeText>
@@ -182,16 +183,22 @@ const PeriodDialog: React.FC<Props> = ({ open, setOpen, productId }) => {
                           name='end_time'
                           options={generateTimeOptions()}
                           placeholder={t('time') + '*'}
-                          className='bg-transparent fill-transparent border-green-100 group-color'
+                          className='bg-transparent fill-transparent time-select'
                           errors={errors}
                           errorAbsolute
+                          timeSelect
                           hideBorder
                       />
                     </SelectTimeContainer>
                     {startDate && endDate && (
-                        <Typography type='subtitle' className='font-medium text-2md flex shrink-0'>
-                          {differenceInDays(endDate, startDate)} {t('day')}
-                        </Typography>
+                        <div className="relative">
+                            <Typography type='body' color='light' className='md:hidden mb-8 md:mb-0'>
+                              {t('days')}
+                            </Typography>
+                          <Typography type='subtitle' className='absolute top-4 md:static whitespace-nowrap font-medium text-md md:text-2md flex shrink-0 text-green-100 md:text-raisin-100'>
+                            {differenceInDays(endDate, startDate)} {t('days')}
+                          </Typography>
+                        </div>
                     )}
                   </div>
                   <Divider className='md:hidden'/>
@@ -203,7 +210,7 @@ const PeriodDialog: React.FC<Props> = ({ open, setOpen, productId }) => {
                             <DatePicker
                                 key={startDate ? startDate.toString() : 'null'}
                                 locale={i18n?.language}
-                                className='p-6 text-center border-l-4 border-red-500 w-full rounded text-sm outline-none focus:ring-0 bg-transparent'
+                                className='p-6 text-center border-l-4 border-red-500 w-full rounded text-sm outline-none focus:ring-0'
                                 inline
                                 selectsRange={true}
                                 startDate={startDate}

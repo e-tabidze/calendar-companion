@@ -27,6 +27,7 @@ interface Props {
   errorAbsolute?: boolean
   errorRight?: boolean
   setValueLabel?: any
+  timeSelect?: boolean
   hideBorder?: boolean
 }
 
@@ -58,7 +59,8 @@ const SelectField: React.FC<Props> = ({
   isMulti = false,
   handleChange,
   setValueLabel,
-  hideBorder = false
+  timeSelect = false,
+  hideBorder
 }) => {
   const { DropdownIndicator, ClearIndicator } = components
 
@@ -89,7 +91,7 @@ const SelectField: React.FC<Props> = ({
     }),
     control: (provided: any, state: any) => ({
       ...provided,
-      height: 56,
+      height: timeSelect ? '40' : '56',
       position: 'relative',
       '&:hover': { border: hideBorder ? '' : '1px solid #BEBFC3'},
       borderRadius: '12px',
@@ -178,7 +180,7 @@ const SelectField: React.FC<Props> = ({
               // @ts-ignore
               emoji={
                 icon && (
-                  <div className='ml-4'>
+                  <div className='ml-2'>
                     <Icon svgPath='clock' width={18} height={18} className='fill-black' />
                   </div>
                 )
