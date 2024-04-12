@@ -158,7 +158,7 @@ const PeriodDialog: React.FC<Props> = ({ open, setOpen, productId }) => {
                           name='start_time'
                           options={generateTimeOptions()}
                           placeholder={t('time') + '*'}
-                          className='bg-transparent fill-transparent time-select'
+                          className='bg-transparent fill-transparent time-select h-full md:flex md:items-center'
                           errors={errors}
                           errorAbsolute
                           timeSelect
@@ -183,7 +183,7 @@ const PeriodDialog: React.FC<Props> = ({ open, setOpen, productId }) => {
                           name='end_time'
                           options={generateTimeOptions()}
                           placeholder={t('time') + '*'}
-                          className='bg-transparent fill-transparent time-select'
+                          className='bg-transparent fill-transparent time-select h-full md:flex md:items-center'
                           errors={errors}
                           errorAbsolute
                           timeSelect
