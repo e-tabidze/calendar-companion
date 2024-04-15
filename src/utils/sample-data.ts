@@ -2,12 +2,12 @@ import { WeekDay } from "src/interfaces";
 
 /** Dummy user data. */
 export const days: WeekDay[] = [
-  { label: 'ორშ', value: 'monday' },
-  { label: 'სამ', value: 'tuesday' },
-  { label: 'ოთხ', value: 'wednesday' },
-  { label: 'ხუთ', value: 'thursday' },
-  { label: 'პარ', value: 'friday' },
-  { label: 'შაბ', value: 'saturday' },
-  { label: 'კვი', value: 'sunday' }
+  { label: 'mon', value: 'monday' },
+  { label: 'tue', value: 'tuesday' },
+  { label: 'wed', value: 'wednesday' },
+  { label: 'thu', value: 'thursday' },
+  { label: 'fri', value: 'friday' },
+  { label: 'sat', value: 'saturday' },
+  { label: 'sun', value: 'sunday' }
 ]
 

@@ -195,7 +195,7 @@ const SearchPage = () => {
                 className='fill-transparent'
                 label={t('clear')}
                 labelClassname='text-red-100'
-                iconFill='fill-red-100'
+                iconFill='!fill-red-100'
                 type='reset'
                 onClick={(e: { preventDefault: () => void }) => {
                   reset()
@@ -304,7 +304,6 @@ const SearchPage = () => {
                       totalPages={totalPages}
                       currentPage={Number(page)}
                       onPageChange={newPage => {
-                        console.log(newPage, 'newPage')
                         onChange(newPage)
                         onSubmit()
                       }}

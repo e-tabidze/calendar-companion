@@ -28,7 +28,7 @@ const Typography = dynamic(() => import('src/views/components/typography'), { ss
 const Divider = dynamic(() => import('src/views/components/divider'), { ssr: false })
 
 const OrderDetails = () => {
-  const {t} = useTranslation()
+  const {t, i18n} = useTranslation()
   const [cancelOrderDialog, setCancelOrderDialog] = useState(false)
 
   const router = useRouter()
@@ -84,7 +84,7 @@ const OrderDetails = () => {
               </Typography>
               {companyOrder?.created_at && (
                 <Typography type='subtitle'>
-                  {format(parseISO(companyOrder?.created_at), 'd MMM yyyy HH:mm', { locale: ka })}
+                  {format(parseISO(companyOrder?.created_at), 'd MMM yyyy HH:mm', i18n.language === 'ka' ? { locale: ka } : {})}
                 </Typography>
               )}
             </RentalDetailsWrapper>
@@ -111,7 +111,7 @@ const OrderDetails = () => {
                   <Icon svgPath='user' width={18} height={20} />
                   {companyOrder?.dob && (
                     <Typography type='subtitle'>
-                      {format(parseISO(companyOrder?.dob), 'd MMM yyyy', { locale: ka })}{' '}
+                      {format(parseISO(companyOrder?.dob), 'd MMM yyyy', i18n.language === 'ka' ? { locale: ka } : {})}{' '}
                     </Typography>
                   )}
                 </li>
@@ -132,7 +132,7 @@ const OrderDetails = () => {
                   <Icon svgPath='calendar' width={24} height={24} className='fill-transparent' />
                   {companyOrder?.driver_license_expiration && (
                     <Typography type='subtitle'>
-                      {format(parseISO(companyOrder?.driver_license_expiration), 'd MMM yyyy', { locale: ka })}
+                      {format(parseISO(companyOrder?.driver_license_expiration), 'd MMM yyyy', i18n.language === 'ka' ? { locale: ka } : {})}
                     </Typography>
                   )}
                 </li>
@@ -152,7 +152,7 @@ const OrderDetails = () => {
                       </div>
                       {companyOrder?.start_date && companyOrder?.start_time && (
                         <Typography type='body' color='light'>
-                          {format(parseISO(companyOrder?.start_date), 'd MMM yyyy', { locale: ka })}
+                          {format(parseISO(companyOrder?.start_date), 'd MMM yyyy', i18n.language === 'ka' ? { locale: ka } : {})}
                           {' - '}
                           {format(parseISO(`1970-01-01T${companyOrder?.start_time}`), 'HH:mm')}
                         </Typography>
@@ -176,7 +176,7 @@ const OrderDetails = () => {
                       </div>
                       {companyOrder?.end_date && companyOrder?.end_time && (
                         <Typography type='body' color='light'>
-                          {format(parseISO(companyOrder?.end_date), 'd MMM yyyy', { locale: ka })}
+                          {format(parseISO(companyOrder?.end_date), 'd MMM yyyy', i18n.language === 'ka' ? { locale: ka } : {})}
                           {' - '}
                           {format(parseISO(`1970-01-01T${companyOrder?.end_time}`), 'HH:mm')}
                         </Typography>

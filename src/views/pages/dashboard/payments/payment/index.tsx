@@ -16,7 +16,7 @@ interface Props {
 }
 
 const Payment: React.FC<Props> = ({ firstName, lastName, date, id, price, status }) => {
-  const {t} = useTranslation()
+  const {t, i18n } = useTranslation()
 
   return (
     <div>
@@ -27,7 +27,7 @@ const Payment: React.FC<Props> = ({ firstName, lastName, date, id, price, status
             </Typography>
 
             <Typography type='body' color='light'>
-              {format(parseISO(date), 'd MMM yyyy', { locale: ka })}
+              {format(parseISO(date), 'd MMM yyyy', i18n.language === 'ka' ? { locale: ka } : {})}
             </Typography>
             <Typography type='subtitle'>{t('invoice')}: #{id} </Typography>
           </div>

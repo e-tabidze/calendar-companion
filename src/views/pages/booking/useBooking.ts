@@ -10,8 +10,8 @@ import { useRouter } from 'next/router'
 import { Service } from 'src/types/Product'
 import OrderService from 'src/services/OrderService'
 
-const useBooking = (id: number | string | string[]) => {
-  const { userInfo } = useProfile()
+const useBooking = (id: number | string | string[], company_id?: any) => {
+  const { userInfo, activeCompanyId } = useProfile()
   const { singleProductDetails } = useSingleProductDetails(id)
 
   const router = useRouter()
@@ -65,20 +65,14 @@ const useBooking = (id: number | string | string[]) => {
   })
 
   useEffect(() => {
-    if (!!userInfo && userInfo?.UserID === userInfo?.active_profile_id) {
-      setValue(
-        'first_name',
-        userInfo?.UserID === userInfo?.active_profile_id ? userInfo?.information?.first_name || userInfo?.FirstName : ''
-      )
-      setValue(
-        'last_name',
-        userInfo?.UserID === userInfo?.active_profile_id ? userInfo?.information?.last_name || userInfo?.LastName : ''
-      )
-      setValue('identification_number', userInfo?.information?.identification_number || '')
-      setValue('email', userInfo?.UserID === userInfo?.active_profile_id ? userInfo?.Email : '')
-      setValue('phone', userInfo?.UserID === userInfo?.active_profile_id ? userInfo?.phone : '')
-      setValue('dob', userInfo?.information?.birth_date || '')
-      setValue('driver_license_expiration', userInfo?.information?.driver_license_expiration || '')
+    if ((!!userInfo && userInfo?.UserID === userInfo?.active_profile_id) || activeCompanyId == company_id) {
+      setValue('first_name', userInfo?.information?.first_name ?? userInfo?.FirstName ?? '')
+      setValue('last_name', userInfo?.information?.last_name ?? userInfo?.LastName ?? '')
+      setValue('identification_number', userInfo?.information?.identification_number ?? '')
+      setValue('email', userInfo?.Email ?? '')
+      setValue('phone', userInfo?.phone ?? '')
+      setValue('dob', userInfo?.information?.birth_date ?? '')
+      setValue('driver_license_expiration', userInfo?.information?.driver_license_expiration ?? '')
 
       setValue('start_address', singleProductDetails ? singleProductDetails?.start_address : '')
       setValue('end_address', singleProductDetails ? singleProductDetails?.end_address : '')
@@ -88,7 +82,7 @@ const useBooking = (id: number | string | string[]) => {
       setValue('booking.book_to', book_to ? book_to : '')
       setValue('product_id', id ? String(id) : null)
     }
-  }, [userInfo, setValue, singleProductDetails, book_from, book_to, id])
+  }, [userInfo, setValue, singleProductDetails, book_from, book_to, id, company_id, activeCompanyId])
 
   const bookingValues: any = useWatch({ control })
 
