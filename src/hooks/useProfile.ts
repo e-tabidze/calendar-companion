@@ -25,7 +25,7 @@ const useProfile = () => {
 
   const queryClient = useQueryClient()
 
-  const postSwitchProfile = async (accessToken = '', active_profile_id: string) => {
+  const postSwitchProfile = async (accessToken = '', active_profile_id: any) => {
     try {
       const response: any = await UserService.postSwitchProfile(accessToken, active_profile_id)
 

@@ -12,7 +12,7 @@ import {useTranslation} from "next-i18next";
 const Notification = () => {
   const { notifictions } = useNotifications()
   const { activeCompany } = useProfile()
-  const {t} = useTranslation()
+  const {t, i18n} = useTranslation()
 
   return (
     <Menu as='div' className='hidden md:flex relative'>
@@ -84,7 +84,7 @@ const Notification = () => {
                               </Link>
                             </Typography>
                             <Typography type='subtitle' className='text-sm font-normal text-raisin-30'>
-                              {format(parseISO(notification?.created_at), 'd MMM yyyy', { locale: ka })}
+                              {format(parseISO(notification?.created_at), 'd MMM yyyy', i18n.language === 'ka' ? { locale: ka } : {})}
                             </Typography>
                           </div>
                         </a>
