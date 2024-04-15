@@ -1,18 +1,21 @@
 import { Menu, Transition } from '@headlessui/react'
-import { Fragment } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 import Typography from '../../typography'
 import { LanPickerContainer } from './styles'
 import Icon from 'src/views/app/Icon'
 import { useRouter } from 'next/router'
-
-// import { useTranslation } from 'next-i18next'
+import Divider from '../../divider'
 
 const langs = [
   { id: 0, title: 'ქართული', locale: 'ka' },
-  { id: 1, title: 'English', locale: 'en' },
-
-  // { id: 2, title: 'Русский', locale: 'ru' }
+  { id: 1, title: 'English', locale: 'en' }
 ]
+
+const currency = [
+  { id: 2, title: 'USD - $', currency: 'USD' },
+  { id: 3, title: 'GEL - ₾', currency: 'GEL' }
+]
+
 interface Props {
   dropdownUp?: boolean
   responsive?: boolean
@@ -21,6 +24,15 @@ interface Props {
 
 const LanguagePicker = ({ dropdownUp, responsive, className }: Props) => {
   const router = useRouter()
+  const [isClient, setIsClient] = useState(false)
+
+  useEffect(() => {
+    setIsClient(true)
+    if (!localStorage.getItem('currency')) {
+      localStorage.setItem('currency', 'GEL')
+    }
+  }, [])
+
   const selectedLang = langs.find(lang => lang.locale === router.locale)
 
   return (
@@ -40,7 +52,7 @@ const LanguagePicker = ({ dropdownUp, responsive, className }: Props) => {
             >
               <Icon svgPath='globe' width={21} height={20} />
               <span className={`${responsive ? 'hidden md:flex' : 'flex'} ml-2`}>
-                {selectedLang?.title}
+                {selectedLang?.title}, {isClient && localStorage.getItem('currency') === "GEL" ? '₾' : '$'}
               </span>
               <Icon
                 svgPath='chevron'
@@ -65,11 +77,14 @@ const LanguagePicker = ({ dropdownUp, responsive, className }: Props) => {
                   dropdownUp ? 'left-0  bottom-full mb-5' : 'top-full mt-5 left-auto right-0 md:right-0'
                 } min-w-[200px] absolute z-[2]  md:left-1/2 md:-translate-x-1/2  bg-white rounded-2xl  shadow-[0px_6px_18px_#000000/10] py-4`}
               >
+                <Typography type='subtitle' color='light' className='px-6 pb-6'>
+                  ენა
+                </Typography>
                 {langs.map(lang => (
                   <Menu.Item key={lang.id}>
                     <button
                       value={lang.title}
-                      type="button"
+                      type='button'
                       onClick={() => router.push(router.asPath, router.asPath, { locale: lang.locale })}
                       className='w-full flex items-center text-raisin-130 text-2sm font-medium py-2 hover:bg-grey-100 px-6 cursor-pointer'
                     >
@@ -79,6 +94,29 @@ const LanguagePicker = ({ dropdownUp, responsive, className }: Props) => {
                         } w-6 h-6 border rounded-full flex mr-4`}
                       ></span>
                       <Typography type='subtitle'>{lang.title}</Typography>
+                    </button>
+                  </Menu.Item>
+                ))}
+                <Divider className='mt-6' />
+                <Typography type='subtitle' color='light' className='p-6'>
+                  ვალუტა
+                </Typography>
+                {currency.map(curr => (
+                  <Menu.Item key={curr.id}>
+                    <button
+                      value={curr.title}
+                      type='button'
+                      onClick={() => localStorage.setItem('currency', curr.currency)}
+                      className='w-full flex items-center text-raisin-130 text-2sm font-medium py-2 hover:bg-grey-100 px-6 cursor-pointer'
+                    >
+                      <span
+                        className={`${
+                          isClient && curr.currency === localStorage.getItem('currency')
+                            ? 'border-[7px] border-green-100'
+                            : 'border-raisin-10'
+                        } w-6 h-6 border rounded-full flex mr-4`}
+                      ></span>
+                      <Typography type='subtitle'>{curr.title}</Typography>
                     </button>
                   </Menu.Item>
                 ))}
