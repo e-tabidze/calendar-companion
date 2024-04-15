@@ -57,6 +57,8 @@ const OrderDetails = () => {
     }
   })
 
+  console.log(companyOrder?.status_id, 'companyOrder')
+
   if (companyOrderLoading) {
     return <OrderDetailsSkeleton />
   }
