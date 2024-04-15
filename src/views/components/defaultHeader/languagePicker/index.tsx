@@ -11,7 +11,7 @@ const langs = [
   { id: 1, title: 'English', locale: 'en' }
 ]
 
-const currency = [
+const currs = [
   { id: 2, title: 'USD - $', currency: 'USD' },
   { id: 3, title: 'GEL - ₾', currency: 'GEL' }
 ]
@@ -34,6 +34,11 @@ const LanguagePicker = ({ dropdownUp, responsive, className }: Props) => {
   }, [])
 
   const selectedLang = langs.find(lang => lang.locale === router.locale)
+
+  const updateCurrency = (newCurrency: string) => {
+    localStorage.setItem('currency', newCurrency)
+    window.dispatchEvent(new Event('currencyChange'))
+  }
 
   return (
     <LanPickerContainer className={className}>
@@ -101,12 +106,12 @@ const LanguagePicker = ({ dropdownUp, responsive, className }: Props) => {
                 <Typography type='subtitle' color='light' className='p-6'>
                   ვალუტა
                 </Typography>
-                {currency.map(curr => (
+                {currs.map((curr: any) => (
                   <Menu.Item key={curr.id}>
                     <button
                       value={curr.title}
                       type='button'
-                      onClick={() => localStorage.setItem('currency', curr.currency)}
+                      onClick={() => updateCurrency(curr.currency)}
                       className='w-full flex items-center text-raisin-130 text-2sm font-medium py-2 hover:bg-grey-100 px-6 cursor-pointer'
                     >
                       <span

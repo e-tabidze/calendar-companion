@@ -290,6 +290,7 @@ const SearchPage = () => {
                       images={product?.images?.split(',')}
                       city={product?.start_city}
                       isProductInFavorites={product.is_favourite}
+                      priceUsd={product?.price_usd}
                     />
                   ))}
                 </div>
