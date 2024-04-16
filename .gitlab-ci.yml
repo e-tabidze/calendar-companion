@@ -55,14 +55,20 @@ build-test:
         - cd ${WORKDIR} && yarn build
         - cd ${WORKDIR} && yarn test:ci
         - cat ${WORKDIR}/coverage/cobertura-coverage.xml | grep "coverage lines-valid" > ${WORKDIR}/coverage.xml
-        - COVERAGE_NUMBER=$(cat ${WORKDIR}/coverage.xml | grep -oP 'line-rate="\K\d+(\.\d+)?' | sed 's/\./\,/')
+        - COVERAGE_NUMBER=$(cat ${WORKDIR}/coverage.xml | grep -oP 'line-rate="\K\d+(\.\d+)?')
         - |
-          if [[ "${COVERAGE_NUMBER}" -le 33 ]]; then
+          if (( $(echo "${COVERAGE_NUMBER} <= 33" | bc -l) )); then
+            echo "${COVERAGE_NUMBER}"
             COVERAGECOL="red"
-          elif [[ "${COVERAGE_NUMBER}" -ge 34 && "${COVERAGE_NUMBER}" -le 66 ]]; then
+            echo "IN -> ${COVERAGECOL}"
+          elif (( $(echo "${COVERAGE_NUMBER} >= 34 && ${COVERAGE_NUMBER} <= 66" | bc -l) )); then
+            echo "${COVERAGE_NUMBER}"
             COVERAGECOL="yellow"
+            echo "IN -> ${COVERAGECOL}"
           else
+            echo ${COVERAGE_NUMBER}
             COVERAGECOL="brightgreen"
+            echo "IN -> ${COVERAGECOL}"
           fi
           echo ${COVERAGECOL}
         - curl -o ${WORKDIR}/public/coverage.svg https://img.shields.io/badge/coverage-${COVERAGE_NUMBER}%25-${COVERAGECOL}.svg
