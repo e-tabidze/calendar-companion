@@ -43,8 +43,8 @@ const useBooking = (id: number | string | string[], company_id?: any) => {
     driver_license_expiration: '',
     additional_services: additionalService,
     supply: '0',
-    start_time: '',
-    end_time: '',
+    start_time: router.asPath.includes('dashboard') ? '09:00' : '',
+    end_time: router.asPath.includes('dashboard') ? '21:00' : '',
     start_address: singleProductDetails?.start_address || '',
     end_address: singleProductDetails?.end_address || ''
   }
