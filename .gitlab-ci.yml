@@ -55,7 +55,7 @@ build-test:
         - cd ${WORKDIR} && yarn build
         - cd ${WORKDIR} && yarn test:ci
         - cat ${WORKDIR}/coverage/cobertura-coverage.xml | grep "coverage lines-valid" > ${WORKDIR}/coverage.xml
-        - COVERAGE_NUMBER=$(cat ${WORKDIR}/coverage.xml | grep -oP 'line-rate="\K\d+(\.\d+)?')
+        - COVERAGE_NUMBER=$(cat ${WORKDIR}/coverage.xml | grep -oP 'line-rate="\K\d+(\.\d+)?' | sed 's/\./\,/')
         - |
           if [[ "${COVERAGE_NUMBER}" -le 33 ]]; then
             COVERAGECOL="red"
