@@ -53,6 +53,19 @@ build-test:
         - echo "${ECOSYSTEM_TEST}" > ${WORKDIR}/ecosystem.config.js
         - cd ${WORKDIR} && yarn
         - cd ${WORKDIR} && yarn build
+        - cd ${WORKDIR} && yarn test:ci
+        - cat ${WORKDIR}/coverage/cobertura-coverage.xml | grep "coverage lines-valid" > ${WORKDIR}/coverage.xml
+        - COVERAGE_NUMBER=$(cat ${WORKDIR}/coverage.xml | grep -oP 'line-rate="\K\d+(\.\d+)?')
+        - |
+          if [[ "${COVERAGE_NUMBER}" -le 33 ]]; then
+            COVERAGECOL="red"
+          elif [[ "${COVERAGE_NUMBER}" -ge 34 && "${COVERAGE_NUMBER}" -le 66 ]]; then
+            COVERAGECOL="yellow"
+          else
+            COVERAGECOL="brightgreen"
+          fi
+          echo ${COVERAGECOL}
+        - curl -o ${WORKDIR}/public/coverage.svg https://img.shields.io/badge/coverage-${COVERAGE_NUMBER}%25-${COVERAGECOL}.svg
         - ln -sfT ${WORKDIR} ${DIR_TEST}
         - cd ${DIR_TEST} && (pm2 reload ecosystem.config.js || pm2 start ecosystem.config.js) && pm2 save
         - cd /var/deploy/${CI_COMMIT_BRANCH} && ls -t | tail -n +3 | sudo xargs -I {} rm -r {}
