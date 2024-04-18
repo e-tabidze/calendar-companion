@@ -33,8 +33,8 @@ const OrderListComponent: React.FC<Props> = ({
 
   return (
     <div>
-      <div className='flex flex-col py-4 md:w-full gap-4 md:gap-10 md:flex-row md:items-center'>
-        <div className='flex items-center gap-4 2xl:gap-6 md:w-5/12 shrink-0'>
+      <div className='flex flex-wrap md:flex-nowrap py-4 md:w-full gap-4 md:gap-10 items-center'>
+        <div className='flex items-center gap-4 2xl:gap-6 w-full md:w-6/12 shrink-0'>
           <div className='w-[64px] shrink-0'>
             <div className='aspect-w-16 aspect-h-9 rounded-lg overflow-hidden'>
               {productDetails?.images && (
@@ -66,14 +66,12 @@ const OrderListComponent: React.FC<Props> = ({
             </Typography>
           </div>
         </div>
-        <div className='flex flex-col items-baseline md:flex-row md:items-center justify-between w-none md:w-full'>
-          <div className='flex items-center gap-2 ml-[90px] md:mx-none md:w-max md:gap-6 2xl:gap-10 md:justify-between md:ml-0'>
-            <Typography type='subtitle' className='flex items-center gap-2'>
+            <Typography type='subtitle' className='flex items-center gap-2 md:w-2/12 pl-20 md:pl-0'>
               {price} <Icon svgPath='gel' width={14} height={14} />
             </Typography>
             <Typography
               type='subtitle'
-              className={`text-sm md:text-2sm ${
+              className={`md:w-3/12 text-sm md:text-2sm ${
                 status === 0
                   ? 'text-yellow-100'
                   : status === 1
@@ -85,9 +83,8 @@ const OrderListComponent: React.FC<Props> = ({
             >
               {status === 0 ? t('pending') : status === 1 ? t('approved') : status === 2 ? t('canceled') : ''}
             </Typography>
-          </div>
-          <IconButton icon='chevronWithBg' height={38} width={38} />
-        </div>
+
+          <IconButton icon='chevronWithBg' height={38} width={38} className="md:w-1/12 flex justify-end ml-auto" />
       </div>
       <Divider />
     </div>

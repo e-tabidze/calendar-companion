@@ -23,7 +23,7 @@ const IncomingOrders = () => {
           {t('incoming_orders')}
       </Typography>
       <Divider />
-      <div className='px-none md:px-6 2xl:px-8'>
+      <div>
         {dashboardData?.orders?.length > 0 ? (
           dashboardData?.orders?.map((order: any) => (
             <OrderListComponent

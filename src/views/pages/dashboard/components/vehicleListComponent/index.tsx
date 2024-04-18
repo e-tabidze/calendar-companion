@@ -82,7 +82,7 @@ const VehicleListComponent: React.FC<Props> = ({
       <div className='relative border-b-1 border-raisin-10 last:border-none'>
         <div className='flex flex-col px-2 py-4 md:w-full justify-between gap-6 md:px-0 md:flex-row md:items-center'>
           <div className='flex gap-6 2xl:gap-6'>
-            <div className='w-[80px] sm:w-[140px] md:w-[150px] lg:w-[200px] xl:w-[250px]'>
+            <div className='w-[80px] sm:w-[140px] md:w-[150px] 2xl:w-[250px]'>
               <Carousel
                 itemsArray={images?.split(',')?.map((imgUrl, index) => (
                   <div className='aspect-w-16 aspect-h-9 rounded-lg overflow-hidden' key={index}>
