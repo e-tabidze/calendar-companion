@@ -44,7 +44,8 @@ const Favourites = () => {
               year={product?.year}
               model={product?.model}
               city={product?.start_city}
-              price={product?.price}
+              priceGel={product?.product?.price_gel}
+              priceUsd={product?.product?.price_usd}
               isDeleted={product?.product === null}
               images={product?.product.images.split(',')}
               luggage={product?.product?.luggage_numbers}

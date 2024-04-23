@@ -16,9 +16,11 @@ const DeleteProductConfirmationModal = dynamic(() => import('../../products/dele
 import toast from 'react-hot-toast'
 import { useTranslation } from 'next-i18next'
 import BookDatesDialog from './bookDatesDialog'
+import useCurrency from 'src/hooks/useCurrency'
 
 interface Props {
-  price: number
+  priceGel: number
+  priceUsd: number
   startCity: string
   model: string
   manufacturer: string
@@ -30,7 +32,8 @@ interface Props {
 }
 
 const VehicleListComponent: React.FC<Props> = ({
-  price,
+  priceGel,
+  priceUsd,
   startCity,
   prodYear,
   model,
@@ -42,6 +45,8 @@ const VehicleListComponent: React.FC<Props> = ({
 }) => {
   const [deleteProductModal, setDeleteProductModal] = useState(false)
   const [bookDatesDialog, setBookDatesDialog] = useState(false)
+
+  const currency = useCurrency()
 
   const { t } = useTranslation()
 
@@ -111,7 +116,8 @@ const VehicleListComponent: React.FC<Props> = ({
                 </Typography>
                 <div className='flex items-center md:min-w-[254px] justify-between gap-10 mt-4 md:mt-10'>
                   <Typography type='h4' weight='medium' color='dark' className='text-2sm md:text-3md'>
-                    {price}₾<span className='text-[14px] pl-3 font-normal text-center'>{t('day')}</span>
+                    {currency === 'GEL' ? priceGel : priceUsd} {currency === 'GEL' ? '₾' : '$'}
+                    <span className='text-[14px] pl-3 font-normal text-center'>{t('day')}</span>
                   </Typography>
                   <Typography
                     type='subtitle'

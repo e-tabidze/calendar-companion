@@ -22,6 +22,7 @@ import {
 import { isMobile } from 'react-device-detect'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'next-i18next'
+import useCurrency from 'src/hooks/useCurrency'
 
 interface Props {
   productId: number
@@ -59,17 +60,7 @@ const ProductCard: React.FC<Props> = ({
   const [isMobileDevice, setIsMobileDevice] = useState(false)
   const [isProductInFavorites, setIsProductInFavorites] = useState(productFav)
 
-  const [currency, setCurrency] = useState(localStorage.getItem('currency') || 'GEL')
-
-  useEffect(() => {
-    const handleCurrencyChange = () => {
-      setCurrency(localStorage.getItem('currency') || 'GEL')
-    }
-
-    window.addEventListener('currencyChange', handleCurrencyChange)
-    
-    return () => window.removeEventListener('currencyChange', handleCurrencyChange)
-  }, [])
+  const currency = useCurrency()
 
   useEffect(() => {
     setIsMobileDevice(isMobile)
@@ -166,9 +157,7 @@ const ProductCard: React.FC<Props> = ({
         <InnerDetailsContainer>
           <PriceContainer>
             {currency === 'GEL' ? priceGel : priceUsd} {currency === 'GEL' ? '₾' : '$'}
-
             {/* <PreviousPrice>47₾</PreviousPrice> */}
-         
             <Typography type='body' className='text-sm'>
               {t('day')}
             </Typography>

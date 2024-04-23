@@ -6,8 +6,9 @@ import Icon from 'src/views/app/Icon'
 import Image from 'src/views/components/image'
 import Carousel from 'src/views/components/carousel'
 import Link from 'next/link'
-import {useTranslation} from "next-i18next";
+import { useTranslation } from 'next-i18next'
 import { dynamicTranslateCities } from 'src/utils/translationUtils'
+import useCurrency from 'src/hooks/useCurrency'
 
 interface Props {
   productId: string | number
@@ -15,7 +16,8 @@ interface Props {
   year: number
   model: string
   city: string
-  price: number
+  priceGel: number
+  priceUsd: number
   isDeleted: boolean
   images: string[]
   id: string
@@ -29,7 +31,8 @@ const ListComponent: React.FC<Props> = ({
   model,
   year,
   city,
-  price,
+  priceGel,
+  priceUsd,
   isDeleted,
   images,
   id,
@@ -38,6 +41,8 @@ const ListComponent: React.FC<Props> = ({
 }) => {
   const { toggleUserFavourites } = useFavourites(productId)
 
+  const currency = useCurrency()
+
   const handleFavorites = async () => {
     try {
       toggleUserFavourites.mutate()
@@ -45,7 +50,7 @@ const ListComponent: React.FC<Props> = ({
       console.log(error, 'error')
     }
   }
-const {t} = useTranslation()
+  const { t } = useTranslation()
 
   return (
     <div className='w-full sm:border-b-1 sm:border-raisin-10 my-3 sm:my-2 last:border-none'>
@@ -96,7 +101,9 @@ const {t} = useTranslation()
           <div className='flex justify-between w-full mt-3 sm:mt-none items-center'>
             <div className='flex items-center gap-6'>
               <Typography type='h4' weight='medium' color='dark'>
-                <PriceContainer className='text-[20px]'>{price} ₾ /{t('day')} </PriceContainer>
+                <PriceContainer className='text-[20px]'>
+                  {currency === 'GEL' ? priceGel : priceUsd} {currency === 'GEL' ? '₾' : '$'} /{t('day')}{' '}
+                </PriceContainer>
               </Typography>
               {isDeleted && (
                 <Typography type='subtitle'>
@@ -110,7 +117,8 @@ const {t} = useTranslation()
                   <Icon svgPath='views' width={20} height={20} className='fill-transparent' /> <span>{seatTypes}</span>
                 </Details>
                 <Details>
-                  <Icon svgPath='briefcase' width={20} height={20} className='fill-transparent' /> <span>{luggage}</span>
+                  <Icon svgPath='briefcase' width={20} height={20} className='fill-transparent' />{' '}
+                  <span>{luggage}</span>
                 </Details>
               </DetailsWrapper>
             </InnerDetailsContainer>
