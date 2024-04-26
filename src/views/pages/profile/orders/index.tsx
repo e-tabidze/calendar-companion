@@ -4,7 +4,7 @@ import DataPlaceHolder from 'src/views/components/dataPlaceholder'
 import Divider from 'src/views/components/divider'
 import Pagination from 'src/views/components/pagination'
 import Typography from 'src/views/components/typography'
-import ListComponent from './listComponent'
+import OrderListComponent from './orderListComponent'
 import OrderDetails from './orderDetails'
 import useOrders from './useOrders'
 import {useTranslation} from "next-i18next";
@@ -24,6 +24,8 @@ const Orders = () => {
     })
   }
 
+  console.log(userOrders, 'userOrders')
+
   return (
     <>
       {router.query.id ? (
@@ -39,7 +41,7 @@ const Orders = () => {
             {userOrders?.data?.length > 0 ? (
               userOrders?.data?.map((order: any) => (
                 <Link href={`/profile/orders/?id=${order?.id}`} as={`/profile/orders/?id=${order?.id}`} key={order?.id}>
-                  <ListComponent
+                  <OrderListComponent
                     key={order?.id}
                     startAddress={order?.start_address}
                     startDate={order?.start_date}

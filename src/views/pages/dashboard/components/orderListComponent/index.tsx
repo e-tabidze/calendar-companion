@@ -2,7 +2,7 @@ import { IconButton } from 'src/views/components/button'
 import { parseISO, format } from 'date-fns'
 import { ka } from 'date-fns/locale'
 import dynamic from 'next/dynamic'
-import {useTranslation} from "next-i18next";
+import { useTranslation } from 'next-i18next'
 
 const Image = dynamic(() => import('src/views/components/image'), { ssr: true })
 const Icon = dynamic(() => import('src/views/app/Icon'), { ssr: false })
@@ -38,9 +38,7 @@ const OrderListComponent: React.FC<Props> = ({
   price,
   status
 }) => {
-  const {t, i18n} = useTranslation()
-
-  console.log(status, 'status')
+  const { t, i18n } = useTranslation()
 
   return (
     <div className='last:border-none'>
@@ -78,34 +76,45 @@ const OrderListComponent: React.FC<Props> = ({
           </div>
         </div>
         <Typography type='subtitle' className='hidden lg:inline-flex text-sm xl:text-2sm lg:w-3/12'>
-              {firstName} {lastName}
-            </Typography>
+          {firstName} {lastName}
+        </Typography>
 
-            {/* <Typography type='subtitle' className='hidden lg:inline-flex text-sm xl:text-2sm'>
+        {/* <Typography type='subtitle' className='hidden lg:inline-flex text-sm xl:text-2sm'>
               ფასდაკლება {discount} %
             </Typography> */}
-            <Typography type='subtitle' className='hidden lg:inline-flex text-sm xl:text-2sm lg:w-1/12'>
-              {days} {t('day')}
-            </Typography>
-            <Typography type='subtitle' className='flex items-center gap-2 md:w-3/12 lg:w-1/12 pl-20 md:pl-0'>
-              {price} <Icon svgPath='gel' width={14} height={14} />
-            </Typography>
-            <Typography
-              type='subtitle'
-              className={`text-sm xl:text-2sm md:w-4/12 lg:w-2/12 ${
-                status === 0
-                  ? 'text-yellow-100'
-                  : status === 1
-                  ? 'text-green-100'
-                  : status === 2
-                  ? 'text-orange-100'
-                  : ''
-              }`}
-            >
-              {status === 0 ? t('pending') : status === 1 ? t('approved') : status === 2 ? t('canceled') : ''}
-            </Typography>
-          <div className='hidden md:flex absolute right-0'> <IconButton icon='chevronWithBg' height={38} width={38} />
-          </div>
+        <Typography type='subtitle' className='hidden lg:inline-flex text-sm xl:text-2sm lg:w-1/12'>
+          {days} {t('day')}
+        </Typography>
+        <Typography type='subtitle' className='flex items-center gap-2 md:w-3/12 lg:w-1/12 pl-20 md:pl-0'>
+          {price} <Icon svgPath='gel' width={14} height={14} />
+        </Typography>
+        <Typography
+          type='subtitle'
+          className={`text-sm xl:text-2sm md:w-4/12 lg:w-2/12 ${
+            status === 0
+              ? 'text-yellow-100'
+              : status === 1
+              ? 'text-green-100'
+              : status === 2
+              ? 'text-orange-100'
+              : status === 5
+              ? 'text-yellow-100'
+              : ''
+          }`}
+        >
+          {status === 0
+            ? t('pending')
+            : status === 1
+            ? t('approved')
+            : status === 2
+            ? t('canceled')
+            : status === 5
+            ? 'დაკავებული'
+            : ''}
+        </Typography>
+        <div className='hidden md:flex absolute right-0'>
+          <IconButton icon='chevronWithBg' height={38} width={38} />
+        </div>
       </div>
     </div>
   )

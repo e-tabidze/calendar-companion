@@ -20,7 +20,8 @@ import OrderDetailsSkeleton from './skeletonLoading'
 import { useRouter } from 'next/router'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
-import {useTranslation} from "next-i18next";
+import { useTranslation } from 'next-i18next'
+import CancelReservationDialog from '../cancelReservationDialog'
 
 const Image = dynamic(() => import('src/views/components/image'), { ssr: true })
 const Icon = dynamic(() => import('src/views/app/Icon'), { ssr: false })
@@ -28,8 +29,9 @@ const Typography = dynamic(() => import('src/views/components/typography'), { ss
 const Divider = dynamic(() => import('src/views/components/divider'), { ssr: false })
 
 const OrderDetails = () => {
-  const {t, i18n} = useTranslation()
+  const { t, i18n } = useTranslation()
   const [cancelOrderDialog, setCancelOrderDialog] = useState(false)
+  const [cancelReservationDialog, setCancelReservationDialog] = useState(false)
 
   const router = useRouter()
 
@@ -40,6 +42,8 @@ const OrderDetails = () => {
   const queryClient = useQueryClient()
 
   const toggleCancelOrderDialog = () => setCancelOrderDialog(!cancelOrderDialog)
+
+  const toggleCancelReservationDialog = () => setCancelReservationDialog(!cancelReservationDialog)
 
   const activeOrderStatusMutation = useMutation(() => postOrderStatus('', String(id)!, 1), {
     onSuccess: () => {
@@ -57,7 +61,7 @@ const OrderDetails = () => {
     }
   })
 
-  console.log(companyOrder?.status_id, 'companyOrder')
+  console.log(companyOrder?.id, 'companyOrder')
 
   if (companyOrderLoading) {
     return <OrderDetailsSkeleton />
@@ -84,7 +88,11 @@ const OrderDetails = () => {
               </Typography>
               {companyOrder?.created_at && (
                 <Typography type='subtitle'>
-                  {format(parseISO(companyOrder?.created_at), 'd MMM yyyy HH:mm', i18n.language === 'ka' ? { locale: ka } : {})}
+                  {format(
+                    parseISO(companyOrder?.created_at),
+                    'd MMM yyyy HH:mm',
+                    i18n.language === 'ka' ? { locale: ka } : {}
+                  )}
                 </Typography>
               )}
             </RentalDetailsWrapper>
@@ -132,7 +140,11 @@ const OrderDetails = () => {
                   <Icon svgPath='calendar' width={24} height={24} className='fill-transparent' />
                   {companyOrder?.driver_license_expiration && (
                     <Typography type='subtitle'>
-                      {format(parseISO(companyOrder?.driver_license_expiration), 'd MMM yyyy', i18n.language === 'ka' ? { locale: ka } : {})}
+                      {format(
+                        parseISO(companyOrder?.driver_license_expiration),
+                        'd MMM yyyy',
+                        i18n.language === 'ka' ? { locale: ka } : {}
+                      )}
                     </Typography>
                   )}
                 </li>
@@ -152,7 +164,11 @@ const OrderDetails = () => {
                       </div>
                       {companyOrder?.start_date && companyOrder?.start_time && (
                         <Typography type='body' color='light'>
-                          {format(parseISO(companyOrder?.start_date), 'd MMM yyyy', i18n.language === 'ka' ? { locale: ka } : {})}
+                          {format(
+                            parseISO(companyOrder?.start_date),
+                            'd MMM yyyy',
+                            i18n.language === 'ka' ? { locale: ka } : {}
+                          )}
                           {' - '}
                           {format(parseISO(`1970-01-01T${companyOrder?.start_time}`), 'HH:mm')}
                         </Typography>
@@ -176,7 +192,11 @@ const OrderDetails = () => {
                       </div>
                       {companyOrder?.end_date && companyOrder?.end_time && (
                         <Typography type='body' color='light'>
-                          {format(parseISO(companyOrder?.end_date), 'd MMM yyyy', i18n.language === 'ka' ? { locale: ka } : {})}
+                          {format(
+                            parseISO(companyOrder?.end_date),
+                            'd MMM yyyy',
+                            i18n.language === 'ka' ? { locale: ka } : {}
+                          )}
                           {' - '}
                           {format(parseISO(`1970-01-01T${companyOrder?.end_time}`), 'HH:mm')}
                         </Typography>
@@ -192,7 +212,9 @@ const OrderDetails = () => {
             <Divider />
             <div>
               <PriceDetailsWrapper>
-                <Typography type='subtitle'>{t('rent_price')} x {companyOrder?.days} {t('day')}</Typography>
+                <Typography type='subtitle'>
+                  {t('rent_price')} x {companyOrder?.days} {t('day')}
+                </Typography>
                 <Typography type='subtitle'>{companyOrderproductData?.price * companyOrder?.days} </Typography>
               </PriceDetailsWrapper>
               {companyOrderproductData?.user_selected_product_services.map((service: any, index: number) => (
@@ -210,7 +232,9 @@ const OrderDetails = () => {
               ))}
 
               <PriceDetailsWrapper>
-                <Typography type='subtitle'>{t('service_commission')} - {companyOrder?.fee} %</Typography>
+                <Typography type='subtitle'>
+                  {t('service_commission')} - {companyOrder?.fee} %
+                </Typography>
                 <Typography type='subtitle'>
                   {((companyOrderproductData?.price * companyOrder?.days) / 100) * companyOrder?.fee}{' '}
                 </Typography>
@@ -237,9 +261,9 @@ const OrderDetails = () => {
                 />
               </div>
             </div>
-            <div>
-              <Link href={`/details/${companyOrderproductData.id}`}>
-                <Typography type='h5' className='font-bold mt-6 hover:text-green-100'>
+            <div className='text-center'>
+              <Link href={`/details/${companyOrderproductData?.id}`}>
+                <Typography type='h5' className='font-bold my-6 hover:text-green-100'>
                   {companyOrderproductData?.manufacturer?.title} {companyOrderproductData?.manufacturer_model?.title}{' '}
                   {companyOrderproductData?.prod_year}
                 </Typography>
@@ -248,6 +272,8 @@ const OrderDetails = () => {
                 type='subtitle'
                 className={`text-bold ${
                   companyOrder?.status_id === 0
+                    ? 'text-yellow-100'
+                    : companyOrder?.status_id === 5
                     ? 'text-yellow-100'
                     : companyOrder?.status_id === 1
                     ? 'text-green-100'
@@ -264,6 +290,8 @@ const OrderDetails = () => {
                   ? t('approved')
                   : companyOrder?.status_id === 2
                   ? t('canceled')
+                  : companyOrder?.status_id === 5
+                  ? 'გაუქმებული'
                   : ''}
               </Typography>
             </div>
@@ -278,6 +306,16 @@ const OrderDetails = () => {
                 <DefaultButton bg='bg-raisin-10' text={t('decline')} onClick={toggleCancelOrderDialog} />
               </div>
             )}
+            {companyOrder?.status_id === 1 && (
+              <IconTextButton
+                icon='infoGrey'
+                width={20}
+                height={20}
+                textColor='text-white'
+                label='გაუქმების პირობები'
+                onClick={toggleCancelReservationDialog}
+              />
+            )}
           </div>
         </PriceDetailsContainer>
       </OrderDetailsContainer>
@@ -285,6 +323,11 @@ const OrderDetails = () => {
         open={cancelOrderDialog}
         toggleModal={toggleCancelOrderDialog}
         handleCancelOrder={() => cancelOrderStatusMutation.mutate()}
+      />
+      <CancelReservationDialog
+        open={cancelReservationDialog}
+        toggleModal={toggleCancelReservationDialog}
+        orderId={companyOrder?.id}
       />
     </>
   )

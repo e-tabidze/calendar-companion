@@ -5,7 +5,7 @@ import Typography from 'src/views/components/typography'
 import { parseISO, format } from 'date-fns'
 import { ka } from 'date-fns/locale'
 import Divider from 'src/views/components/divider'
-import {useTranslation} from "next-i18next";
+import { useTranslation } from 'next-i18next'
 
 interface Props {
   startAddress: string
@@ -28,8 +28,7 @@ const OrderListComponent: React.FC<Props> = ({
   price,
   status
 }) => {
-
-  const {t, i18n} = useTranslation()
+  const { t, i18n } = useTranslation()
 
   return (
     <div>
@@ -66,25 +65,35 @@ const OrderListComponent: React.FC<Props> = ({
             </Typography>
           </div>
         </div>
-            <Typography type='subtitle' className='flex items-center gap-2 md:w-2/12 pl-20 md:pl-0'>
-              {price} <Icon svgPath='gel' width={14} height={14} />
-            </Typography>
-            <Typography
-              type='subtitle'
-              className={`md:w-3/12 text-sm md:text-2sm ${
-                status === 0
-                  ? 'text-yellow-100'
-                  : status === 1
-                  ? 'text-green-100'
-                  : status === 2
-                  ? 'text-orange-100'
-                  : ''
-              }`}
-            >
-              {status === 0 ? t('pending') : status === 1 ? t('approved') : status === 2 ? t('canceled') : ''}
-            </Typography>
+        <Typography type='subtitle' className='flex items-center gap-2 md:w-2/12 pl-20 md:pl-0'>
+          {price} <Icon svgPath='gel' width={14} height={14} />
+        </Typography>
+        <Typography
+          type='subtitle'
+          className={`md:w-3/12 text-sm md:text-2sm ${
+            status === 0
+              ? 'text-yellow-100'
+              : status === 1
+              ? 'text-green-100'
+              : status === 2
+              ? 'text-orange-100'
+              : status === 5
+              ? 'text-yellow-100'
+              : ''
+          }`}
+        >
+          {status === 0
+            ? t('pending')
+            : status === 1
+            ? t('approved')
+            : status === 2
+            ? t('canceled')
+            : status === 5
+            ? 'დაკავებული'
+            : ''}
+        </Typography>
 
-          <IconButton icon='chevronWithBg' height={38} width={38} className="md:w-1/12 flex justify-end ml-auto" />
+        <IconButton icon='chevronWithBg' height={38} width={38} className='md:w-1/12 flex justify-end ml-auto' />
       </div>
       <Divider />
     </div>

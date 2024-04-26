@@ -2,7 +2,7 @@ import { useController } from 'react-hook-form'
 import { RadioGroup } from '@headlessui/react'
 import tw from 'tailwind-styled-components'
 import { ReactComponentElement } from 'react'
-import Icon from "src/views/app/Icon";
+import Icon from 'src/views/app/Icon'
 
 interface Option {
   label: string
@@ -16,9 +16,11 @@ interface Props {
   control?: any
   color: string
   horizontal?: boolean
+  border?: boolean
+  className?: string
 }
 
-const Radio: React.FC<Props> = ({ name, options, control, color, horizontal }) => {
+const Radio: React.FC<Props> = ({ name, options, control, color, horizontal, border = true, className }) => {
   const { field } = useController({
     name,
     control
@@ -43,16 +45,21 @@ const Radio: React.FC<Props> = ({ name, options, control, color, horizontal }) =
                   //   ${horizontal && 'border border-raisin-10 py-4 w-full px-4 rounded-xl'}
                   //  `}
                   className={`'flex justify-between items-center transition-all w-full rounded-xl border p-4 ${
-                    checked ? ' border-orange-100' : 'border-raisin-10 hover:border-raisin-100 cursor-pointer'
-                  } 
+                    border
+                      ? checked
+                        ? ' border-orange-100'
+                        : 'border-raisin-10 hover:border-raisin-100 cursor-pointer'
+                      : 'border-none'
+                  } ${className}
                `}
                 >
-                  <RadioGroup.Label className= {`flex gap-4 items-center ${
-                    checked ? ' cursor-default' : 'cursor-pointer'
-                  } 
-               `} style={{ margin: '0px' }}>
+                  <RadioGroup.Label
+                    className={`flex gap-4 items-center ${checked ? ' cursor-default' : 'cursor-pointer'} 
+               `}
+                    style={{ margin: '0px' }}
+                  >
                     <Circle checked={checked}>
-                      {checked &&  <Icon svgPath='check' width={11} height={9} className='fill-white'/>}
+                      {checked && <Icon svgPath='check' width={11} height={9} className='fill-white' />}
                     </Circle>
                     <span className='text-sm md:text-2sm'>{option.label}</span>
                   </RadioGroup.Label>
