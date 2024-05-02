@@ -25,13 +25,15 @@ const useSingleProductDetails = (id: any) => {
   })
 
   const useOrderDates: any = useQuery({
-    queryKey: ['orderDates'],
+    queryKey: ['orderDates', id],
     queryFn: () => orderDates(),
     staleTime: Infinity,
-    enabled: !!id,
+    enabled: !!id
   })
 
   const orderDatesData = useOrderDates?.data?.result
+
+  console.log(orderDatesData, 'orderDatesData', id, 'id')
 
   return { singleProductDetails, orderDatesData }
 }

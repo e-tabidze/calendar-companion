@@ -16,33 +16,31 @@ interface Props {
 }
 
 const Payment: React.FC<Props> = ({ firstName, lastName, date, id, price, status }) => {
-  const {t} = useTranslation()
+  const {t, i18n } = useTranslation()
 
   return (
     <div>
         <div className='flex flex-col md:gap-10 md:items-center md:flex-row my-3 items-center justify-between'>
-          <div className='flex w-full md:w-1/2 justify-between'>
-            <Typography type='subtitle'>
+
+            <Typography type='subtitle' className='md:w-3/12'>
               {firstName} {lastName}
             </Typography>
 
-            <Typography type='body' color='light'>
-              {format(parseISO(date), 'd MMM yyyy', { locale: ka })}
+            <Typography type='body' color='light' className='md:w-2/12'>
+              {format(parseISO(date), 'd MMM yyyy', i18n.language === 'ka' ? { locale: ka } : {})}
             </Typography>
-            <Typography type='subtitle'>{t('invoice')}: #{id} </Typography>
-          </div>
-          <div className='flex w-full md:w-1/2 justify-between'>
+            <Typography type='subtitle' className='md:w-3/12'>{t('invoice')}: #{id} </Typography>
+
             <Typography
               type='subtitle'
-              className={`text-sm xl:text-2sm ${
+              className={`md:w-3/12 text-sm xl:text-2sm ${
                 status === 0 ? 'text-yellow-100' : status === 1 ? 'text-green-100' : status === 2 ? 'text-orange-100' : ''
               }`}
             >
               {status === 0 ? t('pending') : status === 1 ? t('approved') : status === 2 ? t('canceled') : ''}
             </Typography> 
           
-          <Typography type='h5'>{price} ₾</Typography>
-          </div>
+          <Typography type='h5' className='md:w-1/12 whitespace-nowrap'>{price} ₾</Typography>
       </div>
       <Divider />
     </div>

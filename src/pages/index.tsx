@@ -90,6 +90,7 @@ const MainPage = () => {
                 model={product?.manufacturer_model?.title}
                 prodYear={product?.prod_year}
                 priceGel={product?.price_gel}
+                priceUsd={product?.price_usd}
                 luggageNumbers={product?.luggage_numbers}
                 seats={product?.seat_type?.title}
                 images={product?.images?.split(',')}
@@ -123,6 +124,7 @@ const MainPage = () => {
                 images={product?.product?.images?.split(',')}
                 city={product?.product?.start_city}
                 isProductInFavorites={product?.product?.is_favourite}
+                priceUsd={product?.price_usd}
               />
             ))}
             type='products'

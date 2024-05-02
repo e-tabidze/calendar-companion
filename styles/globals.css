@@ -284,6 +284,26 @@
     min-width: 140px;
   }
 }
+@media(max-width: 767px) {
+  .time-select .css-b62m3t-container {
+    width: 80px;
+    min-width: unset;
+  }
+  .time-select .css-1xc3v61-indicatorContainer {
+    padding-left: 0;
+    padding-right: 4px;
+  }
+  .time-select .css-1fdsijx-ValueContainer {
+    padding: 4px 0 4px 4px;
+  }
+  .time-select .css-d32dvm-placeholder {
+    font-size: 12px;
+  }
+  .time-select .css-1dimb5e-singleValue {
+    font-size: 12px;
+  }
+}
+
 
 /* @media only screen and (max-width: 1024px) {
   .react-datepicker__day-name,

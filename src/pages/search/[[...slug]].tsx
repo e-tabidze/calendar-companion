@@ -195,7 +195,7 @@ const SearchPage = () => {
                 className='fill-transparent'
                 label={t('clear')}
                 labelClassname='text-red-100'
-                iconFill='fill-red-100'
+                iconFill='!fill-red-100'
                 type='reset'
                 onClick={(e: { preventDefault: () => void }) => {
                   reset()
@@ -290,6 +290,7 @@ const SearchPage = () => {
                       images={product?.images?.split(',')}
                       city={product?.start_city}
                       isProductInFavorites={product.is_favourite}
+                      priceUsd={product?.price_usd}
                     />
                   ))}
                 </div>
@@ -304,7 +305,6 @@ const SearchPage = () => {
                       totalPages={totalPages}
                       currentPage={Number(page)}
                       onPageChange={newPage => {
-                        console.log(newPage, 'newPage')
                         onChange(newPage)
                         onSubmit()
                       }}

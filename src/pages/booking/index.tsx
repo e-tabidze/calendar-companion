@@ -37,7 +37,7 @@ import toast from 'react-hot-toast'
 import { DefaultButton, IconTextButton } from 'src/views/components/button'
 import PeriodDialog from 'src/views/pages/booking/periodDialog'
 import PageMeta from 'src/@core/meta/PageMeta'
-import {useTranslation} from "next-i18next";
+import { useTranslation } from 'next-i18next'
 
 const Booking = () => {
   const [additionalServices, toggleAdditionalServices] = useState(true)
@@ -48,7 +48,7 @@ const Booking = () => {
   const [loading, setLoading] = useState(true)
 
   const router = useRouter()
-  const {t, i18n} = useTranslation()
+  const { t, i18n } = useTranslation()
 
   const { book_from, book_to, price_day, company_id, id } = router.query
 
@@ -70,15 +70,12 @@ const Booking = () => {
 
   const { singleProductDetails } = useSingleProductDetails(id)
 
-  console.log(singleProductDetails, 'singleProductDetails booking')
-
-  console.log(company_id, 'company_id')
-
   const { singleCompanyBranches } = useCompanyInfo(company_id && company_id)
 
-  const { control, bookingValues, errors, handleSubmit, postOrder, selfBookProduct, setValue } = useBooking(id)
-
-  console.log(bookingValues, 'bookingValues??')
+  const { control, bookingValues, errors, handleSubmit, postOrder, selfBookProduct, setValue } = useBooking(
+    id,
+    company_id
+  )
 
   const formState = useWatch({ control })
 
@@ -97,10 +94,11 @@ const Booking = () => {
           control={control}
           toggleEditModal={toggleEditModal}
           errors={errors}
-          startDate={book_from && format(new Date(String(book_from)), 'd MMM yyyy', i18n.language === 'ka' ? { locale: ka } : {})}
+          startDate={
+            book_from && format(new Date(String(book_from)), 'd MMM yyyy', i18n.language === 'ka' ? { locale: ka } : {})
+          }
           endDate={
-            book_to &&
-            format(new Date(String(book_to)), 'd MMM yyyy', i18n.language === 'ka' ? { locale: ka } : {})
+            book_to && format(new Date(String(book_to)), 'd MMM yyyy', i18n.language === 'ka' ? { locale: ka } : {})
           }
         />
       )
@@ -113,10 +111,11 @@ const Booking = () => {
           control={control}
           toggleEditModal={toggleEditModal}
           errors={errors}
-          startDate={book_from && format(new Date(String(book_from)), 'd MMM yyyy', i18n.language === 'ka' ? { locale: ka } : {})}
+          startDate={
+            book_from && format(new Date(String(book_from)), 'd MMM yyyy', i18n.language === 'ka' ? { locale: ka } : {})
+          }
           endDate={
-            book_to &&
-            format(new Date(String(book_to)), 'd MMM yyyy', i18n.language === 'ka' ? { locale: ka } : {})
+            book_to && format(new Date(String(book_to)), 'd MMM yyyy', i18n.language === 'ka' ? { locale: ka } : {})
           }
         />
       )
@@ -147,15 +146,8 @@ const Booking = () => {
     },
 
     onError: (ex: any) => {
-      console.log(ex.response?.data?.result?.message, 'error?')
       if (ex.response?.data?.result?.message === 'Already booked') {
-        toast.custom(
-          <Toast
-            type='error'
-            title={t('car_already_booked')}
-            description={t('select_other_date')}
-          />
-        )
+        toast.custom(<Toast type='error' title={t('car_already_booked')} description={t('select_other_date')} />)
       }
     }
   })
@@ -166,13 +158,18 @@ const Booking = () => {
       router.push('/dashboard/orders/?status_id=5&page=1')
     },
     onError: (ex: any) => {
-      ex.response.status === 400 &&
+      ex.response.data.result.message.start_time == 'The start time field is required.' &&
         toast.custom(
           <Toast
             type='error'
-            title={t('car_already_booked')}
-            description={t('select_other_date')}
+            title='The start time field is required.'
+            description='The start time field is required.'
           />
+        )
+
+      ex.response.data.result.message.end_time == 'The end time field is required.' &&
+        toast.custom(
+          <Toast type='error' title='The end time field is required.' description='The end time field is required.' />
         )
     }
   })
@@ -216,10 +213,14 @@ const Booking = () => {
               <div className='flex items-baseline my-8 gap-3'>
                 <Typography type='h3' className='font-bold'>
                   {book_from && book_to
-                    ? `${format(new Date(String(book_from)), 'd MMM yyyy', i18n.language === 'ka' ? { locale: ka } : {})} - ${format(
+                    ? `${format(
+                        new Date(String(book_from)),
+                        'd MMM yyyy',
+                        i18n.language === 'ka' ? { locale: ka } : {}
+                      )} - ${format(
                         new Date(String(book_to)),
                         'd MMM yyyy',
-                          i18n.language === 'ka' ? { locale: ka } : {}
+                        i18n.language === 'ka' ? { locale: ka } : {}
                       )}`
                     : ''}
                 </Typography>
@@ -310,10 +311,12 @@ const Booking = () => {
               year={singleProductDetails?.prod_year}
               price={singleProductDetails?.price}
               control={control}
-              startDate={book_from && format(new Date(String(book_from)), 'd MMM yyyy', i18n.language === 'ka' ? { locale: ka } : {})}
+              startDate={
+                book_from &&
+                format(new Date(String(book_from)), 'd MMM yyyy', i18n.language === 'ka' ? { locale: ka } : {})
+              }
               endDate={
-                book_to &&
-                format(new Date(String(book_to)), 'd MMM yyyy', i18n.language === 'ka' ? { locale: ka } : {})
+                book_to && format(new Date(String(book_to)), 'd MMM yyyy', i18n.language === 'ka' ? { locale: ka } : {})
               }
               days={Math.round(
                 (new Date(Array.isArray(book_to) ? book_to[0] : book_to).getTime() -
@@ -334,10 +337,12 @@ const Booking = () => {
             isOpenDrawer={isOpenDrawer}
             setIsOpenDrawer={setIsOpenDrawer}
             price={singleProductDetails?.price}
-            startDate={book_from && format(new Date(String(book_from)), 'd MMM yyyy', i18n.language === 'ka' ? { locale: ka } : {})}
+            startDate={
+              book_from &&
+              format(new Date(String(book_from)), 'd MMM yyyy', i18n.language === 'ka' ? { locale: ka } : {})
+            }
             endDate={
-              book_to &&
-              format(new Date(String(book_to)), 'd MMM yyyy', i18n.language === 'ka' ? { locale: ka } : {})
+              book_to && format(new Date(String(book_to)), 'd MMM yyyy', i18n.language === 'ka' ? { locale: ka } : {})
             }
             days={Math.round(
               (new Date(Array.isArray(book_to) ? book_to[0] : book_to).getTime() -

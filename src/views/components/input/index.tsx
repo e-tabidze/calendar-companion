@@ -4,7 +4,7 @@ import _ from 'lodash'
 import { Controller } from 'react-hook-form'
 import { InputContainer } from './styles'
 import Icon from 'src/views/app/Icon'
-import {useTranslation} from "next-i18next";
+import { useTranslation } from 'next-i18next'
 
 const styles = {
   disabledInput: 'opacity-80',
@@ -17,7 +17,7 @@ interface Props {
   control?: any
   name: string
   label?: string
-  labelMobile?:string
+  labelMobile?: string
   id?: any
   prefix?: string
   errors?: any
@@ -57,10 +57,9 @@ export const DefaultInput: React.FC<Props> = ({
   type = 'text',
   min
 }) => {
-
   const [isFocused, setIsFocused] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
-   const {t} = useTranslation()
+  const { t } = useTranslation()
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword)
@@ -72,6 +71,27 @@ export const DefaultInput: React.FC<Props> = ({
 
   const handleBlur = () => setIsFocused(false)
 
+  const handleKeyDown = (e: any) => {
+    const { value } = e.target
+    const badChars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-.+,'
+
+    if (value.length === 0 && e.key === '0') {
+
+      return true
+    }
+
+    if ((e.metaKey || e.ctrlKey) && e.key === 'a') {
+      e.target.select()
+      
+      return true
+    }
+
+    if (badChars.indexOf(e.key) !== -1) {
+      e.preventDefault()
+
+      return false
+    }
+  }
 
   return (
     <InputContainer key={index} className={` flex flex-col ${className} ${disabled && styles.disabledInput}`}>
@@ -82,7 +102,9 @@ export const DefaultInput: React.FC<Props> = ({
         render={({ field: { onChange, value } }) => (
           <>
             <label
-              className={`${labelMobile && 'hidden md:flex'} absolute left-3 text-raisin-50 transition-all text-2sm pointer-events-none ${
+              className={`${
+                labelMobile && 'hidden md:flex'
+              } absolute left-3 text-raisin-50 transition-all text-2sm pointer-events-none ${
                 isFocused || value ? 'text-sm top-[3px]' : 'top-[18px] text-raisin-80'
               }`}
             >
@@ -90,9 +112,9 @@ export const DefaultInput: React.FC<Props> = ({
             </label>
 
             <label
-                className={`md:hidden absolute left-3 text-raisin-50 transition-all text-2sm pointer-events-none ${
-                    isFocused || value ? 'text-sm top-[3px]' : 'top-[18px] text-raisin-80'
-                }`}
+              className={`md:hidden absolute left-3 text-raisin-50 transition-all text-2sm pointer-events-none ${
+                isFocused || value ? 'text-sm top-[3px]' : 'top-[18px] text-raisin-80'
+              }`}
             >
               {labelMobile}
             </label>
@@ -110,6 +132,7 @@ export const DefaultInput: React.FC<Props> = ({
               onChange={e => {
                 onChange(e)
               }}
+              onKeyDown={type === 'number' ? handleKeyDown : undefined}
               pattern={pattern}
               rows={rows}
               min={min}
@@ -121,11 +144,7 @@ export const DefaultInput: React.FC<Props> = ({
             )}
 
             {type === 'password' && (
-              <button
-                type='button'
-                onClick={togglePasswordVisibility}
-                className='absolute right-3 transform top-4'
-              >
+              <button type='button' onClick={togglePasswordVisibility} className='absolute right-3 transform top-4'>
                 {showPassword ? (
                   <Icon svgPath='eye' width={24} height={24} />
                 ) : (
@@ -168,7 +187,7 @@ export const InputWithComponent: React.FC<Props> = ({
   const handleFocus = () => setIsFocused(true)
 
   const handleBlur = () => setIsFocused(false)
-  const {t} = useTranslation()
+  const { t } = useTranslation()
 
   return (
     <>

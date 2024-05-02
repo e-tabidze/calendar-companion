@@ -14,7 +14,7 @@ interface Props {
 const Details: React.FC<Props> = ({ id, company }) => {
   const { notifictionDetails } = useNotifications(String(id), String(company))
   const router = useRouter()
-  const {t} = useTranslation()
+  const {t, i18n} = useTranslation()
 
   return (
     <div className='border mt-6 md:mt-0 border-raisin-10 rounded-2xl md:rounded-3xl p-6 md:py-10 md:px-8'>
@@ -34,7 +34,7 @@ const Details: React.FC<Props> = ({ id, company }) => {
           <div className='flex flex-col'>
             <Typography type='subtitle' className='text-sm font-normal text-raisin-30'>
               {notifictionDetails &&
-                format(parseISO(notifictionDetails?.created_at), 'd MMM yyyy HH:mm', { locale: ka })}
+                format(parseISO(notifictionDetails?.created_at), 'd MMM yyyy HH:mm', i18n.language === 'ka' ? { locale: ka } : {})}
             </Typography>
             <Typography type='h5' className='text-2sm md:text-md font-medium text-raisin-100'>
               {notifictionDetails?.data?.text}

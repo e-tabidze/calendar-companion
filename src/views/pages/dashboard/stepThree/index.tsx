@@ -6,7 +6,7 @@ import { DefaultInput } from 'src/views/components/input'
 
 // import DiscountComponent from './discountComponent'
 import {
-
+  
   // DiscountComponentWrapper,
   // DiscountContainer,
   // DiscountInputsWrapper,
@@ -17,7 +17,7 @@ import {
 // import { useWatch } from 'react-hook-form'
 // import useNewProduct from '../newProduct/useNewProduct'
 import dynamic from 'next/dynamic'
-import {useTranslation} from "next-i18next";
+import { useTranslation } from 'next-i18next'
 
 const Typography = dynamic(() => import('src/views/components/typography'), { ssr: false })
 
@@ -39,7 +39,7 @@ interface Props {
 // ]
 
 const StepThree: React.FC<Props> = ({ control, errors }) => {
-    const {t} = useTranslation()
+  const { t } = useTranslation()
 
   // const { discount_item, setValue } = useNewProduct()
   // const { width } = useWindowDimensions()
@@ -67,13 +67,12 @@ const StepThree: React.FC<Props> = ({ control, errors }) => {
           name='daily_price.currency'
           options={[
             { value: 'GEL', icon: 'gel', width: '11', height: '12' },
-            
-            // { value: 'USD', icon: 'usd', width: '7', height: '12' }
+            { value: 'USD', icon: 'usd', width: '7', height: '12' }
           ]}
         />
       </StepThreePriceContainer>
       <Typography type='subtitle' className='my-9'>
-          {t('daily_price_desc')}
+        {t('daily_price_desc')}
       </Typography>
 
       {/* <Typography type='h5' weight='normal' className='text-3md my-6'>

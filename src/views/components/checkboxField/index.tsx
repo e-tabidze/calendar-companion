@@ -12,14 +12,16 @@ interface Option {
 }
 
 interface Props {
-  classList?: string
+
+  // classList?: string
   className?: string
   name?: string
   control?: any
   options?: Option[]
   label?: string
   handleClick?: any
-  multiselect?: boolean
+  
+  // multiselect?: boolean
   append?: any
   width?: string
   height?: string

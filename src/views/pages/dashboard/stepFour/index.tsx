@@ -31,8 +31,6 @@ const StepFour: React.FC<Props> = ({ control, step, errors }) => {
 
   console.log(companyServices, 'companyServices')
 
-  console.log(i18n.language, 'i18n')
-
   const renderServiceDetails = (service: NewService, index: number) => {
     if (service.type_id === 1) {
       return (
