@@ -44,6 +44,7 @@ const CompanyInfoSchema = Yup.object<CompanyInfo>().shape({
   legal_name: Yup.string().required('required_field'),
   logo: Yup.string().required('upload_company_logo'),
   description: Yup.string().required('required_field'),
+  description_en: Yup.string().required('required_field'),
   email: Yup.string().required('required_field').email('email_format_error'),
   phone_numbers: Yup.string().required('required_field').max(9, 'max_9_number')
 })

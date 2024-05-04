@@ -10,7 +10,7 @@ import dynamic from 'next/dynamic'
 import Toast from 'src/views/components/toast'
 
 import toast from 'react-hot-toast'
-import {useTranslation} from "next-i18next";
+import { useTranslation } from 'next-i18next'
 
 const Image = dynamic(() => import('src/views/components/image'), { ssr: false })
 const Typography = dynamic(() => import('src/views/components/typography'), { ssr: true })
@@ -38,7 +38,7 @@ const EditCompany = () => {
   const { companyInfo } = useCompanyInfo(activeCompanyId)
 
   const { isLoading } = useCompanyInfo(activeCompanyId)
-  const {t} = useTranslation()
+  const { t } = useTranslation()
 
   const {
     control,
@@ -64,6 +64,7 @@ const EditCompany = () => {
   const updateCompanyMutation = useMutation(() => updateCompanyInfo(companyValues), {
     onSuccess: data => {
       queryClient.invalidateQueries(['companyInfo'])
+      queryClient.invalidateQueries([activeCompanyId])
       if (data) {
         saveCompanyLogoMutation.mutate({
           logo: data?.result?.data?.information?.logo,
@@ -131,7 +132,6 @@ const EditCompany = () => {
   if (isLoading) {
     return <>Loading...</>
   }
-
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -208,17 +208,17 @@ const EditCompany = () => {
             name='company_information.description'
             control={control}
             errors={errors}
-            label={t('description')+' ('+ t('georgian')+ ')'}
+            label={t('description') + ' (' + t('georgian') + ')'}
             rows={4}
             className='col-span-3 mb-4 md:mb-0'
           />
           <DefaultInput
-              name='company_information.description_en'
-              control={control}
-              errors={errors}
-              label={t('description')+' ('+ t('english')+ ')'}
-              rows={4}
-              className='col-span-3 mb-4 md:mb-0'
+            name='company_information.description_en'
+            control={control}
+            errors={errors}
+            label={t('description') + ' (' + t('english') + ')'}
+            rows={4}
+            className='col-span-3 mb-4 md:mb-0'
           />
         </div>
         <Typography type='h3' className='font-bold text-3md md:text-2lg mt-10 md:mt-16'>
