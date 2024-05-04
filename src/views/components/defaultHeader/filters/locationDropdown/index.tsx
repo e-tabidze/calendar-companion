@@ -4,16 +4,16 @@ import { Controller } from 'react-hook-form'
 import Image from 'src/views/components/image'
 import Typography from 'src/views/components/typography'
 import { FilterContainer, InnerFilterContainer } from './styles'
-import useSearchLocations from './useSearchLocations'
 import {useTranslation} from "next-i18next";
 import { dynamicTranslateCities } from 'src/utils/translationUtils'
+import useFilters from 'src/hooks/useFilters'
 
 interface Props {
   control: any
 }
 
 const LocationDropdown: React.FC<Props> = ({ control }) => {
-  const { cities } = useSearchLocations()
+  const { cities } = useFilters()
   const {t} = useTranslation()
 
   return (

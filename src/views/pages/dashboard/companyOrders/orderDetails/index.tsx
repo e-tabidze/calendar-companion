@@ -225,9 +225,9 @@ const OrderDetails = () => {
             <div>
               <PriceDetailsWrapper>
                 <Typography type='subtitle'>
-                  {t('rent_price')} x {companyOrder?.days} {t('day')}
+                  {t('rent_price')} x {companyOrder?.days} {t('day')} 
                 </Typography>
-                <Typography type='subtitle'>{companyOrderproductData?.price * companyOrder?.days} </Typography>
+                <Typography type='subtitle'>{Number(companyOrderproductData?.price * companyOrder?.days).toFixed(2)} </Typography>
               </PriceDetailsWrapper>
               {companyOrderproductData?.user_selected_product_services.map((service: any, index: number) => (
                 <PriceDetailsWrapper key={index}>
@@ -235,9 +235,9 @@ const OrderDetails = () => {
                     {service?.title} {service?.quantity && 'x'} {service?.quantity}
                   </Typography>
                   <Typography type='subtitle'>
-                    {service?.company_service_type_id == 1
+                    {Number(service?.company_service_type_id == 1
                       ? service?.price * service?.count * companyOrder?.days
-                      : service?.price * service?.count}
+                      : service?.price * service?.count).toFixed(2)} 
                     ₾
                   </Typography>
                 </PriceDetailsWrapper>
@@ -248,7 +248,7 @@ const OrderDetails = () => {
                   {t('service_commission')} - {companyOrder?.fee} %
                 </Typography>
                 <Typography type='subtitle'>
-                  {((companyOrderproductData?.price * companyOrder?.days) / 100) * companyOrder?.fee}{' '}
+                  {Number(((companyOrderproductData?.price * companyOrder?.days) / 100) * companyOrder?.fee).toFixed(2)}
                 </Typography>
               </PriceDetailsWrapper>
               <PriceDetailsWrapper>
@@ -256,7 +256,7 @@ const OrderDetails = () => {
                   {t('sum')}
                 </Typography>
                 <Typography type='subtitle' className='font-bold'>
-                  {companyOrder?.price} ₾
+                  {Number(companyOrder?.price)?.toFixed(2)} ₾
                 </Typography>
               </PriceDetailsWrapper>
             </div>

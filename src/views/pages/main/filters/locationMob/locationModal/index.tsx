@@ -4,9 +4,9 @@ import { Dialog, Transition, Combobox } from '@headlessui/react'
 
 import Icon from 'src/views/app/Icon'
 import { Controller } from 'react-hook-form'
-import useSearchLocations from 'src/views/pages/main/filters/locationDropdown/useSearchLocations'
 import {useTranslation} from "next-i18next";
 import { dynamicTranslateCities } from 'src/utils/translationUtils'
+import useFilters from 'src/hooks/useFilters'
 
 interface Props {
   open: boolean
@@ -15,7 +15,7 @@ interface Props {
 }
 
 const LocationModal: React.FC<Props> = ({ open, toggleModal, control }) => {
-  const { cities } = useSearchLocations()
+  const { cities } = useFilters()
   const {t} = useTranslation()
 
   const modalRef = useRef<HTMLDivElement>(null)

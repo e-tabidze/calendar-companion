@@ -1,7 +1,6 @@
 import { useRouter } from 'next/router'
 import { DefaultButton } from 'src/views/components/button'
 import Typography from 'src/views/components/typography'
-import useSearchLocations from '../filters/locationDropdown/useSearchLocations'
 import BenefitsCard from './benefitsCard'
 import CityCard from './cityCard'
 import {
@@ -16,10 +15,11 @@ import {
 } from './styles'
 import Icon from 'src/views/app/Icon'
 import { useTranslation } from 'next-i18next'
+import useFilters from 'src/hooks/useFilters'
 
 const Cities = () => {
   const { t } = useTranslation()
-  const { cities } = useSearchLocations()
+  const { cities } = useFilters()
 
   const router = useRouter()
 
