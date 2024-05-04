@@ -31,7 +31,8 @@ const useOrders = (orderId?: string | number | undefined, page?: number) => {
     userOrders,
     userOrderDetails,
     productData,
-    cancelUserOrder,
+    
+    // cancelUserOrder,
     useUserOrdersLoading
   }
 }
@@ -60,13 +61,13 @@ export const getUserOrderDetails = async (orderId: number | string | undefined) 
   }
 }
 
-export const cancelUserOrder = async (orderId: number | string, status: number) => {
-  try {
-    const response: any = await OrderService.postUserCancelOrder('', orderId, status)
+// export const cancelUserOrder = async (orderId: number | string, status: number) => {
+//   try {
+//     const response: any = await OrderService.postUserCancelOrder('', orderId, status)
 
-    return response.data
-  } catch (error) {
-    console.error(error)
-    throw error
-  }
-}
+//     return response.data
+//   } catch (error) {
+//     console.error(error)
+//     throw error
+//   }
+// }

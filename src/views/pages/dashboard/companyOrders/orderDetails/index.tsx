@@ -1,7 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useState } from 'react'
 import { DefaultButton, IconTextButton } from 'src/views/components/button'
-import CancelOrderDialog from '../cancelOrderDialog'
 import useCompanyOrders from '../useCompanyOrders'
 import {
   OrderDetailsContainer,
@@ -21,7 +20,8 @@ import { useRouter } from 'next/router'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import { useTranslation } from 'next-i18next'
-import CancelReservationDialog from '../cancelReservationDialog'
+import CancelReservation from '../cancelReservation'
+import CancelOrder from '../cancelOrder'
 
 const Image = dynamic(() => import('src/views/components/image'), { ssr: true })
 const Icon = dynamic(() => import('src/views/app/Icon'), { ssr: false })
@@ -52,8 +52,6 @@ const OrderDetails = () => {
     }
   })
 
-  console.log(companyOrderproductData, 'companyOrderproductData')
-
   const cancelOrderStatusMutation = useMutation(() => postOrderStatus('', String(id)!, 2), {
     onSuccess: () => {
       queryClient.invalidateQueries(['companyOrder'])
@@ -61,7 +59,7 @@ const OrderDetails = () => {
     }
   })
 
-  console.log(companyOrder?.id, 'companyOrder')
+  console.log(companyOrder, 'companyOrder')
 
   if (companyOrderLoading) {
     return <OrderDetailsSkeleton />
@@ -79,7 +77,21 @@ const OrderDetails = () => {
             onClick={() => router.push('/dashboard/orders/?status_id=&page=1')}
           />
         </div>
-        <Divider />
+        {companyOrder.status_id === 7 && (
+          <div className='bg-red-70 w-full px-4 md:px-10 py-7'>
+            <Typography type='subtitle' className='text-white'>
+              ჯავშანი ავტომობილზე{' '}
+              <span className='font-bold'>
+                {companyOrderproductData?.manufacturer?.title} {companyOrderproductData?.manufacturer_model?.title}{' '}
+                {companyOrderproductData?.prod_year}{' '}
+              </span>{' '}
+              გაუქმებულია
+            </Typography>
+            <Typography type='subtitle' className='text-white mt-3'>
+              მიზეზი: {companyOrder?.cancel_reason}
+            </Typography>
+          </div>
+        )}
         <div className='bg-raisin-5 w-full'>
           <RentalDetailsContainer>
             <RentalDetailsWrapper>
@@ -261,16 +273,16 @@ const OrderDetails = () => {
                 />
               </div>
             </div>
-            <div className='text-center'>
+            <div>
               <Link href={`/details/${companyOrderproductData?.id}`}>
-                <Typography type='h5' className='font-bold my-6 hover:text-green-100'>
+                <Typography type='h5' className='font-bold mt-6 hover:text-green-100'>
                   {companyOrderproductData?.manufacturer?.title} {companyOrderproductData?.manufacturer_model?.title}{' '}
                   {companyOrderproductData?.prod_year}
                 </Typography>
               </Link>
               <Typography
                 type='subtitle'
-                className={`text-bold ${
+                className={`${
                   companyOrder?.status_id === 0
                     ? 'text-yellow-100'
                     : companyOrder?.status_id === 5
@@ -279,6 +291,8 @@ const OrderDetails = () => {
                     ? 'text-green-100'
                     : companyOrder?.status_id === 2
                     ? 'text-orange-100'
+                    : companyOrder?.status_id == 7
+                    ? 'text-red-120'
                     : ''
                 } mb-6`}
               >
@@ -290,11 +304,12 @@ const OrderDetails = () => {
                   ? t('approved')
                   : companyOrder?.status_id === 2
                   ? t('canceled')
-                  : companyOrder?.status_id === 5
+                  : companyOrder?.status_id === 7
                   ? 'გაუქმებული'
                   : ''}
               </Typography>
             </div>
+
             {companyOrder?.status_id === 0 && (
               <div className='flex gap-2'>
                 <DefaultButton
@@ -319,12 +334,8 @@ const OrderDetails = () => {
           </div>
         </PriceDetailsContainer>
       </OrderDetailsContainer>
-      <CancelOrderDialog
-        open={cancelOrderDialog}
-        toggleModal={toggleCancelOrderDialog}
-        handleCancelOrder={() => cancelOrderStatusMutation.mutate()}
-      />
-      <CancelReservationDialog
+      <CancelOrder open={cancelOrderDialog} toggleModal={toggleCancelOrderDialog} orderId={companyOrder?.id} />
+      <CancelReservation
         open={cancelReservationDialog}
         toggleModal={toggleCancelReservationDialog}
         orderId={companyOrder?.id}

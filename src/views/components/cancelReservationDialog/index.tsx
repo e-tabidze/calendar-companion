@@ -3,43 +3,32 @@ import { Dialog, Transition } from '@headlessui/react'
 import { DefaultButton } from 'src/views/components/button'
 import Radio from 'src/views/components/radio'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import useCancelReservation from './useCancelReservation'
 import { useWatch } from 'react-hook-form'
 import { DefaultInput } from 'src/views/components/input'
+import useCancelReservation from 'src/views/pages/dashboard/companyOrders/cancelReservation/useCancelReservation'
 
 interface Props {
   open: boolean
   toggleModal: () => void
   orderId: number
+  reasons: any[]
+  orderStatus: number
 }
 
-const CancelReservationDialog: React.FC<Props> = ({ open, toggleModal, orderId }) => {
+const CancelReservationDialog: React.FC<Props> = ({ open, toggleModal, orderId, reasons, orderStatus }) => {
   const { control, cancelReservation, cancelReservationValues, errors, isValid } = useCancelReservation()
 
   const formState = useWatch({ control })
 
-  console.log(errors.custom_cancel_reason, 'errors')
-
-  console.log(formState, 'formState')
-
-  console.log(isValid, 'isValid')
-
-  const options = [
-    { label: 'მიზეზი 1', value: 'მიზეზი 1' },
-    { label: 'მიზეზი 2', value: 'მიზეზი 2' },
-    { label: 'მიზეზი 3', value: 'მიზეზი 3' },
-    { label: 'მიზეზი 4', value: 'მიზეზი 4' },
-    { label: 'სხვა', value: 'სხვა' }
-  ]
-
   const queryClient = useQueryClient()
 
   const cancelReservationMutation = useMutation(
-    () => cancelReservation('', cancelReservationValues.cancel_reason, orderId),
+    () => cancelReservation('', cancelReservationValues.cancel_reason, orderId, orderStatus),
     {
       onSuccess: () => {
         queryClient.invalidateQueries(['companyOrder'])
         queryClient.invalidateQueries(['companyOrders'])
+        queryClient.invalidateQueries(['userOdersDetails'])
       }
     }
   )
@@ -78,14 +67,14 @@ const CancelReservationDialog: React.FC<Props> = ({ open, toggleModal, orderId }
                 </div>
                 <div className='px-none md:px-5'>
                   <Radio
-                    options={options}
+                    options={reasons}
                     control={control}
                     color='bg-green-100 hover:bg-green-110 transition-all'
                     name='cancel_reason'
                     border={false}
                     className='p-none py-2 px-0'
                   />
-                  {formState.cancel_reason === 'სხვა' && (
+                  {formState.cancel_reason === 'სხვა მიზეზი' && (
                     <DefaultInput
                       control={control}
                       name='custom_cancel_reason'
