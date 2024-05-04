@@ -107,6 +107,7 @@ const useCompany = (id: number) => {
       legal_name: companyInfo?.information?.legal_name,
       logo: companyInfo?.information?.logo,
       description: companyInfo?.information?.description,
+      description_en: companyInfo?.information?.description_en,
       email: companyInfo?.information?.email,
       phone_numbers: companyInfo?.information?.phone_numbers
     },
@@ -132,8 +133,9 @@ const useCompany = (id: number) => {
     setValue('identification_number', companyInfo?.identification_number)
     setValue('company_information.name', companyInfo?.information?.name)
     setValue('company_information.description', companyInfo?.information?.description)
+    setValue('company_information.description_en', companyInfo?.information?.description_en)
     setValue('company_information.email', companyInfo?.information?.email)
-    setValue('company_information.logo', companyInfo?.information?.name)
+    setValue('company_information.logo', companyInfo?.information?.logo)
     setValue('company_id', id)
     setValue('addresses', defaultAddress)
   }, [setValue, id, singleCompanyBranches])
