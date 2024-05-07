@@ -111,6 +111,7 @@ const useCompany = (id: number) => {
       legal_name: companyInfo?.information?.legal_name || '',
       logo: companyInfo?.information?.logo || '',
       description: companyInfo?.information?.description,
+      description_en: companyInfo?.information?.description_en,
       email: companyInfo?.information?.email,
       phone_numbers: companyInfo?.information?.phone_numbers
     },
@@ -153,6 +154,7 @@ const useCompany = (id: number) => {
           legal_name: companyInfo.information.legal_name,
           logo: companyInfo.information?.logo || '',
           description: companyInfo.information.description,
+          description_en: companyInfo.information.description_en,
           email: companyInfo.information.email,
           phone_numbers: companyInfo.information.phone_numbers
         },

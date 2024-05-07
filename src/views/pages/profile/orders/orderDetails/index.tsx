@@ -2,7 +2,6 @@ import { useState } from 'react'
 import { DefaultButton, IconTextButton } from 'src/views/components/button'
 import Divider from 'src/views/components/divider'
 import Typography from 'src/views/components/typography'
-import CancelOrderDialog from '../cancelOrderDialog'
 import {
   PriceDetailsContainer,
   PriceDetailsWrapper,
@@ -14,17 +13,17 @@ import {
 } from './styles'
 import Icon from 'src/views/app/Icon'
 import useOrders from '../useOrders'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
 
 import { parseISO, format } from 'date-fns'
 import { ka } from 'date-fns/locale'
 import Image from 'src/views/components/image'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
+import CancelOrder from '../cancelOrder'
+import Link from 'next/link'
 
 const OrderDetails = () => {
   const { t, i18n } = useTranslation()
-  const queryClient = useQueryClient()
 
   const [cancelOrderDialog, setCancelOrderDialog] = useState(false)
 
@@ -33,21 +32,28 @@ const OrderDetails = () => {
   const router = useRouter()
   const { id } = router.query
 
-  const { userOrderDetails, productData, cancelUserOrder } = useOrders(String(id))
-
-  const cancelOrderStatusMutation = useMutation(() => cancelUserOrder(String(id)!, 2), {
-    onSuccess: () => {
-      queryClient.invalidateQueries(['userOders'])
-      queryClient.invalidateQueries(['userOdersDetails'])
-    }
-  })
+  const { userOrderDetails, productData } = useOrders(String(id))
 
   return (
     <div className='border border-raisin-10 rounded-2xl'>
       <div className='flex items-center md:w-full gap-6 p-4 md:p-8'>
         <IconTextButton icon='backWithBg' width={38} height={38} label={t('my_orders')} onClick={() => router.back()} />
       </div>
-      <Divider />
+      {userOrderDetails?.status_id === 7 && (
+        <div className='bg-red-70 w-full px-4 md:px-10 py-7'>
+          <Typography type='subtitle' className='text-white'>
+            ჯავშანი ავტომობილზე{' '}
+            <span className='font-bold'>
+              {productData?.manufacturer?.title} {productData?.manufacturer_model?.title}{' '}
+              {productData?.prod_year}{' '}
+            </span>{' '}
+            გაუქმებულია
+          </Typography>
+          <Typography type='subtitle' className='text-white mt-3'>
+            მიზეზი: {userOrderDetails?.cancel_reason}
+          </Typography>
+        </div>
+      )}
       <RentalDetailsContainer>
         <RentalDetailsWrapper>
           <Typography type='body' color='light'>
@@ -86,7 +92,7 @@ const OrderDetails = () => {
       <Divider />
       <PriceDetailsContainer>
         <div className='w-full lg:w-8/12 xl:w-7/12'>
-          <div className=''>
+          <div>
             <TakeAwayInfoContsiner>
               <TakeAwayWrapper>
                 <TakeAway>
@@ -195,49 +201,51 @@ const OrderDetails = () => {
             </div>
           </div>
 
-          <Typography type='h5' className='font-bold my-6'>
-            {productData?.manufacturer?.title}
-            {productData?.manufacturer_model?.title}
-            {productData?.prod_year}
-          </Typography>
-          <Typography
-            type='subtitle'
-            className={`text-bold ${
-              userOrderDetails?.status_id === 0
-                ? 'text-yellow-100'
-                : userOrderDetails?.status_id === 5
-                ? 'text-yellow-100'
+          <div>
+            <Link href={`/details/${productData?.id}`}>
+              <Typography type='h5' className='font-bold mt-6 hover:text-green-100'>
+                {productData?.manufacturer?.title}
+                {productData?.manufacturer_model?.title}
+                {productData?.prod_year}
+              </Typography>
+            </Link>
+            <Typography
+              type='subtitle'
+              className={`${
+                userOrderDetails?.status_id === 0
+                  ? 'text-yellow-100'
+                  : userOrderDetails?.status_id === 5
+                  ? 'text-yellow-100'
+                  : userOrderDetails?.status_id === 1
+                  ? 'text-green-100'
+                  : userOrderDetails?.status_id === 2
+                  ? 'text-orange-100'
+                  : userOrderDetails?.status_id === 7
+                  ? 'text-red-120'
+                  : ''
+              } mb-6`}
+            >
+              {userOrderDetails?.status_id === 0
+                ? t('pending')
                 : userOrderDetails?.status_id === 1
-                ? 'text-green-100'
+                ? t('approved')
                 : userOrderDetails?.status_id === 2
-                ? 'text-orange-100'
-                : ''
-            } mb-6`}
-          >
-            {userOrderDetails?.status_id === 0
-              ? t('pending')
-              : userOrderDetails?.status_id === 1
-              ? t('approved')
-              : userOrderDetails?.status_id === 2
-              ? t('canceled')
-              : userOrderDetails?.status_id === 5
-              ? 'დაკავებული'
-              : ''}
-          </Typography>
+                ? t('canceled')
+                : userOrderDetails?.status_id === 5
+                ? 'დაკავებული'
+                : userOrderDetails?.status_id === 7
+                ? 'გაუქმებული'
+                : ''}
+            </Typography>
+          </div>
+
           {userOrderDetails?.status_id === 0 ||
             (userOrderDetails?.status_id === 1 && (
               <DefaultButton bg='bg-raisin-10' text={t('booking_cancel')} onClick={toggleCancelOrderDialog} />
             ))}
         </div>
       </PriceDetailsContainer>
-      <CancelOrderDialog
-        open={cancelOrderDialog}
-        close={toggleCancelOrderDialog}
-        handleCancel={() => {
-          cancelOrderStatusMutation.mutate()
-          toggleCancelOrderDialog()
-        }}
-      />
+      <CancelOrder open={cancelOrderDialog} close={toggleCancelOrderDialog} orderId={userOrderDetails?.id} />
       <div className='md:hidden flex justify-between items-center fixed w-full bg-white bottom-[75px] left-0 p-4 shadow-sm border-b-1 border-raisin-10'>
         <Typography type='subtitle' className='mr-8'>
           {t('call')}

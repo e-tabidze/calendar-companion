@@ -1,9 +1,16 @@
 import { useQuery } from '@tanstack/react-query'
 import SearchService from 'src/services/SearchService'
-import {useTranslation} from "next-i18next";
+import { useTranslation } from 'next-i18next'
 
 const useFilters = (open?: any) => {
-  const {t} = useTranslation()
+  const { t } = useTranslation()
+
+  const useLocations: any = useQuery({
+    queryKey: ['searchLocations'],
+    queryFn: () => getCities(),
+    staleTime: Infinity,
+    enabled: true
+  })
 
   const useProductFilters: any = useQuery({
     queryKey: ['searchFilters'],
@@ -25,6 +32,8 @@ const useFilters = (open?: any) => {
     staleTime: Infinity,
     enabled: !!open
   })
+
+  const cities = useLocations?.data?.result?.data
 
   const categoriesFilter = useProductFilters?.data?.result?.data?.categories
 
@@ -91,6 +100,7 @@ const useFilters = (open?: any) => {
   const isLoading = useProductFilters.isLoading
 
   return {
+    cities,
     categoriesFilter,
     fuelTypesFilter,
     seatTypesFilter,
@@ -144,6 +154,17 @@ export const getManufacturerFilters = async () => {
 export const getManufacturerModelFilters = async (querystring: string) => {
   try {
     const response: any = await SearchService.getManufacturerModelsFilters(querystring)
+
+    return response.data
+  } catch (error) {
+    console.error(error)
+    throw error
+  }
+}
+
+export const getCities = async () => {
+  try {
+    const response: any = await SearchService.getCities()
 
     return response.data
   } catch (error) {

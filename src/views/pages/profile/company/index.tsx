@@ -14,7 +14,7 @@ import Image from 'src/views/components/image'
 import Icon from 'src/views/app/Icon'
 import toast from 'react-hot-toast'
 import Toast from 'src/views/components/toast'
-import {useTranslation} from "next-i18next";
+import { useTranslation } from 'next-i18next'
 
 interface Props {
   id: number
@@ -43,6 +43,8 @@ const Company: React.FC<Props> = ({ id, name, productsCount, logo }) => {
     setValue
   } = useCompany(id)
 
+  console.log(errors, 'errors')
+
   const toggleDeleteAddressModal = () => setDeleteAddressModal(!deleteAddresseModal)
 
   const toggleDeleteCompanyModal = () => setDeleteCompanyModal(!deleteCompanyeModal)
@@ -54,12 +56,7 @@ const Company: React.FC<Props> = ({ id, name, productsCount, logo }) => {
   const updateCompanyMutation = useMutation(() => updateCompanyInfo(companyValues), {
     onSuccess: () => {
       queryClient.invalidateQueries(['companyInfo'])
-      toast.custom(
-        <Toast
-          title={t('company_successfully_updated')}
-          type='success'
-        />
-      )
+      toast.custom(<Toast title={t('company_successfully_updated')} type='success' />)
     }
   })
 
@@ -89,12 +86,12 @@ const Company: React.FC<Props> = ({ id, name, productsCount, logo }) => {
   const deletCompanyAddress = () => {
     deleteAddressId ? deleteCompanyAddressMutation.mutate(deleteAddressId) : remove(index)
   }
-  const {t}= useTranslation()
+  const { t } = useTranslation()
 
   console.log(companyValues, 'companyValues edit')
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="mt-6 lg:mt-0">
+    <form onSubmit={handleSubmit(onSubmit)} className='mt-6 lg:mt-0'>
       <div className='md:p-8 lg:p-10 md:border border-raisin-10 rounded-3xl'>
         <div>
           <div className='flex items-center gap-6 md:mb-10'>
@@ -149,7 +146,15 @@ const Company: React.FC<Props> = ({ id, name, productsCount, logo }) => {
               control={control}
               className='col-span-2'
               rows={4}
-              label={t('description') + '(' + t('georgian')+')'}
+              label={t('description') + '(' + t('georgian') + ')'}
+            />
+            <DefaultInput
+              name='company_information.description_en'
+              errors={errors}
+              control={control}
+              className='col-span-2'
+              rows={4}
+              label={t('description') + '(' + t('english') + ')'}
             />
           </div>
           <Typography type='h3' className='font-bold text-3md md:text-2lg'>
@@ -158,7 +163,13 @@ const Company: React.FC<Props> = ({ id, name, productsCount, logo }) => {
 
           {addressFields.map((address: any, index: number) => (
             <div key={address.id}>
-              <AddressAndSchedule index={index} control={control} address={address} errors={errors} setValue={setValue} />
+              <AddressAndSchedule
+                index={index}
+                control={control}
+                address={address}
+                errors={errors}
+                setValue={setValue}
+              />
 
               {addressFields.length > 1 && index > 0 && (
                 <div className='w-full flex justify-end pr-8'>
@@ -231,7 +242,7 @@ const Company: React.FC<Props> = ({ id, name, productsCount, logo }) => {
             icon='trash'
             className='text-orange-130'
             onClick={toggleDeleteCompanyModal}
-            type="button"
+            type='button'
           />
         </div>
       </div>

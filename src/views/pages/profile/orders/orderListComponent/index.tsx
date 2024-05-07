@@ -70,15 +70,17 @@ const OrderListComponent: React.FC<Props> = ({
         </Typography>
         <Typography
           type='subtitle'
-          className={`md:w-3/12 text-sm md:text-2sm ${
+          className={`text-sm xl:text-2sm md:w-4/12 lg:w-2/12 ${
             status === 0
               ? 'text-yellow-100'
               : status === 1
-              ? 'text-green-100'
+              ? 'text-raisin-100'
               : status === 2
               ? 'text-orange-100'
               : status === 5
               ? 'text-yellow-100'
+              : status === 7
+              ? 'text-red-120'
               : ''
           }`}
         >
@@ -90,6 +92,8 @@ const OrderListComponent: React.FC<Props> = ({
             ? t('canceled')
             : status === 5
             ? 'დაკავებული'
+            : status === 7
+            ? 'გაუქმებული'
             : ''}
         </Typography>
 

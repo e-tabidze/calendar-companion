@@ -6,7 +6,8 @@ import OrderService from 'src/services/OrderService'
 const useCancelReservation = () => {
   const defaultValues = {
     cancel_reason: '',
-    custom_cancel_reason: ''
+    custom_cancel_reason: '',
+    status_id: status
   }
 
   const {
@@ -22,9 +23,14 @@ const useCancelReservation = () => {
 
   const cancelReservationValues: any = useWatch({ control })
 
-  const cancelReservation = async (AccessToken = '', cancelReason: string, orderId: string | number) => {
+  const cancelReservation = async (
+    AccessToken = '',
+    cancelReason: string,
+    orderId: string | number,
+    status: number
+  ) => {
     try {
-      const response: any = await OrderService.cancelReservation(AccessToken, cancelReason, orderId)
+      const response: any = await OrderService.cancelReservation(AccessToken, cancelReason, orderId, status)
 
       return response.data
     } catch (error) {
