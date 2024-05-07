@@ -10,7 +10,7 @@ import AdditionalFilters from 'src/views/components/additionalFilters'
 
 import PeriodMob from 'src/views/pages/main/filters/periodMob'
 import LocationMob from 'src/views/pages/main/filters/locationMob'
-import {useTranslation} from "next-i18next";
+import { useTranslation } from 'next-i18next'
 
 const Filters = () => {
   const [filters, toggleFilters] = useState(false)
@@ -28,7 +28,8 @@ const Filters = () => {
   const router = useRouter()
 
   const {
-    searchValues,
+
+    // searchValues,
     control,
     appendFuelType,
     appendCategory,
@@ -40,37 +41,56 @@ const Filters = () => {
     appendAdditionalInformation,
     appendSteeringWheel,
     objectToURI,
-    resetField,
+    
+    // resetField,
     setValue,
-    searchProductsMutation
+    searchProductsMutation,
+    reset,
+    getValues
   } = useSearch()
 
+  // const onClickSearch = async () => {
+  //   // const queryString = objectToURI(searchValues)
+  //   // searchProductsMutation.refetch()
+  //   // router.push(`/search?${queryString}`)
+  //   const updatedSearchValues: any = getValues()
+
+  //   // searchProductsMutation.mutate(objectToURI(updatedSearchValues))
+  //   searchProductsMutation.refetch()
+
+  //   router.push(`/search?${objectToURI(updatedSearchValues)}`)
+  // }
+
   const onClickSearch = async () => {
-    const queryString = objectToURI(searchValues)
+    const updatedSearchValues = getValues()
     searchProductsMutation.refetch()
-    router.push(`/search?${queryString}`)
+    router.push(`/search?${objectToURI(updatedSearchValues)}`)
   }
+  
+
+
   useEffect(() => {
     setIsMobileDevice(isMobile)
   }, [])
 
-  const resetSearchFields = () => {
-    resetField('fuel_types')
-    resetField('category')
-    resetField('seat_types')
-    resetField('luggage_numbers')
-    resetField('drive_tires')
-    resetField('door_types')
-    resetField('steering_wheel')
-    resetField('transmission_types')
-    resetField('additional_information')
-    resetField('price_min')
-    resetField('price_max')
-    resetField('manufacturer_id')
-    resetField('year_from')
-    resetField('year_to')
-  }
-  const {t} = useTranslation()
+  // const resetSearchFields = () => {
+  //   resetField('fuel_types')
+  //   resetField('category')
+  //   resetField('seat_types')
+  //   resetField('luggage_numbers')
+  //   resetField('drive_tires')
+  //   resetField('door_types')
+  //   resetField('steering_wheel')
+  //   resetField('transmission_types')
+  //   resetField('additional_information')
+  //   resetField('price_min')
+  //   resetField('price_max')
+  //   resetField('manufacturer_id')
+  //   resetField('year_from')
+  //   resetField('year_to')
+  // }
+
+  const { t } = useTranslation()
 
   return (
     <form>
@@ -126,7 +146,9 @@ const Filters = () => {
         appendTransmissionType={appendTransmissionType}
         appendAdditionalInformation={appendAdditionalInformation}
         onSubmit={onClickSearch}
-        reset={resetSearchFields}
+
+        // reset={resetSearchFields}
+        reset={reset}
         setValue={setValue}
       />
     </form>

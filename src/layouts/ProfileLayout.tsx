@@ -47,10 +47,10 @@ const ProfileLayout: React.FC<Props> = ({ routes, dividerIndexes, children }) =>
 
   return (
     <main>
-      <HeaderWrapper fullWidth>
+      <HeaderWrapper>
         <DefaultHeader />
       </HeaderWrapper>
-      <div className='w-full m-auto flex gap-none px-5 md:px-10 lg:gap-4 mt-1 lg:mt-10'>
+      <div className='w-full max-w-[1240px] 2xl:max-w-[1470px] m-auto flex gap-none px-5 xl:px-0 lg:gap-6 mt-1 lg:mt-10'>
         {width > 1023 && (
           <ProfileNavigation
             routes={routes}

@@ -27,7 +27,7 @@ const DefaultHeader = () => {
         if (!!activeCompany && router?.pathname.includes('profile')) {
           router.push(`/dashboard/dashboard`)
         } else if (activeCompany === null && router?.pathname.includes('dashboard')) {
-          router.push('/profile/orders')
+          router.push('/profile/orders/?page=1')
         }
       } else if (isAuthenticated === false) {
         if (router?.pathname.includes('profile') || router?.pathname.includes('dashboard')) {

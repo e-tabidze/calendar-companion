@@ -5,7 +5,7 @@ import FileUpload from 'src/views/components/fileUpload'
 import { DefaultInput } from 'src/views/components/input'
 import useCreateCompany from '../useCreateCompany'
 import _ from 'lodash'
-import {useTranslation} from "next-i18next";
+import { useTranslation } from 'next-i18next'
 
 interface Props {
   control: any
@@ -38,7 +38,7 @@ const StepOne: React.FC<Props> = ({ control, errors, clearErrors, setValue }) =>
   }, [uploadCompanyLogoMutation.data?.Data?.FilesList[0]])
 
   const handleRemoveFile = () => setValue('company_information.logo', '')
-    const{t}=useTranslation()
+  const { t } = useTranslation()
 
   return (
     <div>
@@ -49,6 +49,7 @@ const StepOne: React.FC<Props> = ({ control, errors, clearErrors, setValue }) =>
           name='identification_number'
           errors={errors}
           clearErrors={clearErrors}
+          type='number'
         />
         <DefaultInput
           label={t('legal_name') + '*'}
@@ -64,21 +65,21 @@ const StepOne: React.FC<Props> = ({ control, errors, clearErrors, setValue }) =>
           errors={errors}
         />
         <DefaultInput
-          label={t('description')+' ('+ t('georgian')+ ') *'}
+          label={t('description') + ' (' + t('georgian') + ') *'}
           control={control}
           className='md:col-span-2'
           name='company_information.description'
           rows={4}
           errors={errors}
         />
-          <DefaultInput
-              label={t('description')+' ('+ t('english')+ ') *'}
-              control={control}
-              className='md:col-span-2'
-              name='company_information.description_en'
-              rows={4}
-              errors={errors}
-          />
+        <DefaultInput
+          label={t('description') + ' (' + t('english') + ') *'}
+          control={control}
+          className='md:col-span-2'
+          name='company_information.description_en'
+          rows={4}
+          errors={errors}
+        />
       </div>
 
       <Controller

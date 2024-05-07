@@ -53,7 +53,7 @@ const BranchInfoComponent: React.FC<Props> = ({ index, control, errors, setValue
       control={control}
       render={({ field: { value, onChange } }) => (
         <RoundedTag
-          label={day.label}
+          label={t(day.label)}
           handleSelect={() => {
             const updatedValue = {
               ...value,

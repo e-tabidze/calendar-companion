@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react'
 import DataPlaceHolder from 'src/views/components/dataPlaceholder'
 import SkeletonLoading from './skeletorLoading'
 import useCompanyOrders from './useCompanyOrders'
-import {useTranslation} from "next-i18next";
+import { useTranslation } from 'next-i18next'
 
 const Pagination = dynamic(() => import('src/views/components/pagination'), { ssr: false })
 const Typography = dynamic(() => import('src/views/components/typography'), { ssr: true })
@@ -45,7 +45,7 @@ const filters = [
 ]
 
 const CompanyOrders = () => {
-  const {t} = useTranslation()
+  const { t } = useTranslation()
   const router = useRouter()
   const { status_id, page } = router.query
 
@@ -58,10 +58,7 @@ const CompanyOrders = () => {
     }
   }, [status_id])
 
-  const { orders, fetchOrderFilters, companyOrdersLoading } = useCompanyOrders(
-    status_id,
-    Number(page)
-  )
+  const { orders, fetchOrderFilters, companyOrdersLoading } = useCompanyOrders(status_id, Number(page))
 
   const handlePageChange = (newPage: number) => {
     router.push({

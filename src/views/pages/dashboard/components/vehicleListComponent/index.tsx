@@ -14,10 +14,13 @@ const Typography = dynamic(() => import('src/views/components/typography'), { ss
 const DeleteProductConfirmationModal = dynamic(() => import('../../products/deleteProductModal'), { ssr: false })
 
 import toast from 'react-hot-toast'
-import {useTranslation} from "next-i18next";
+import { useTranslation } from 'next-i18next'
+import BookDatesDialog from './bookDatesDialog'
+import useCurrency from 'src/hooks/useCurrency'
 
 interface Props {
-  price: number
+  priceGel: number
+  priceUsd: number
   startCity: string
   model: string
   manufacturer: string
@@ -29,7 +32,8 @@ interface Props {
 }
 
 const VehicleListComponent: React.FC<Props> = ({
-  price,
+  priceGel,
+  priceUsd,
   startCity,
   prodYear,
   model,
@@ -40,7 +44,11 @@ const VehicleListComponent: React.FC<Props> = ({
   images
 }) => {
   const [deleteProductModal, setDeleteProductModal] = useState(false)
-  const{t} = useTranslation()
+  const [bookDatesDialog, setBookDatesDialog] = useState(false)
+
+  const currency = useCurrency()
+
+  const { t } = useTranslation()
 
   const { deleteProduct, activeProducts } = useProducts(filter)
 
@@ -72,12 +80,14 @@ const VehicleListComponent: React.FC<Props> = ({
 
   const toggleDeleteProductModal = () => setDeleteProductModal(!deleteProductModal)
 
+  const toggleBookDatesDialog = () => setBookDatesDialog(!bookDatesDialog)
+
   return (
     <>
       <div className='relative border-b-1 border-raisin-10 last:border-none'>
         <div className='flex flex-col px-2 py-4 md:w-full justify-between gap-6 md:px-0 md:flex-row md:items-center'>
           <div className='flex gap-6 2xl:gap-6'>
-            <div className='w-[80px] sm:w-[140px] md:w-[150px] lg:w-[200px] xl:w-[250px]'>
+            <div className='w-[80px] sm:w-[140px] md:w-[150px] 2xl:w-[250px]'>
               <Carousel
                 itemsArray={images?.split(',')?.map((imgUrl, index) => (
                   <div className='aspect-w-16 aspect-h-9 rounded-lg overflow-hidden' key={index}>
@@ -96,7 +106,7 @@ const VehicleListComponent: React.FC<Props> = ({
                 type='card'
               />
             </div>
-            <div className='pr-6 md:pr-0'>
+            <div className='w-full'>
               <Typography type='body' color='light'>
                 {dynamicTranslateCities(startCity, t)}
               </Typography>
@@ -104,13 +114,14 @@ const VehicleListComponent: React.FC<Props> = ({
                 <Typography type='subtitle' className='text-sm md:text-2sm'>
                   {manufacturer} {model} {prodYear}
                 </Typography>
-                <div className='flex items-center min-w-[254px] justify-between gap-10 mt-4 md:mt-10'>
+                <div className='flex items-center md:min-w-[254px] justify-between gap-10 mt-4 md:mt-10'>
                   <Typography type='h4' weight='medium' color='dark' className='text-2sm md:text-3md'>
-                    {price}₾<span className='text-[14px] pl-3 font-normal text-center'>{t('day')}</span>
+                    {currency === 'GEL' ? priceGel : priceUsd} {currency === 'GEL' ? '₾' : '$'}
+                    <span className='text-[14px] pl-3 font-normal text-center'>{t('day')}</span>
                   </Typography>
                   <Typography
                     type='subtitle'
-                    className={`cursor-default py-1 px-2 rounded-lg text-sm md:text-2sm min-w-[120px] text-center ${
+                    className={`cursor-default py-1 px-2 rounded-lg text-sm md:text-2sm md:min-w-[120px] text-center ${
                       active ? 'text-white bg-green-100' : 'text-raisin-100 bg-grey-100'
                     }`}
                   >
@@ -123,11 +134,12 @@ const VehicleListComponent: React.FC<Props> = ({
           <div className='hidden lg:flex gap-4'>
             <Action
               bg={active ? 'bg-raisin-10' : 'bg-green-10'}
-              label={active ? t('stop'): t('play')}
+              label={active ? t('stop') : t('play')}
               icon={active ? 'stop' : 'play'}
               onClick={toggleActivateProduct}
               disabled={activeProductMutation?.isLoading}
             />
+            <Action bg='bg-raisin-10' label={t('hold_date')} icon='calendarSmall' onClick={toggleBookDatesDialog} />
             <Link href={`/dashboard/edit-product?id=${id}`} as={`/dashboard/edit-product?id=${id}`}>
               <Action bg='bg-raisin-10' label={t('edit')} icon='edit' />
             </Link>
@@ -142,6 +154,7 @@ const VehicleListComponent: React.FC<Props> = ({
         </div>
         <ActionsPopover
           toggleDeleteProductModal={toggleDeleteProductModal}
+          toggleBookDatesDialog={toggleBookDatesDialog}
           toggleActivateProduct={toggleActivateProduct}
           active={active}
           id={id}
@@ -153,6 +166,7 @@ const VehicleListComponent: React.FC<Props> = ({
         deleteCompany={deletProduct}
         productId={id}
       />
+      <BookDatesDialog open={bookDatesDialog} setOpen={toggleBookDatesDialog} productId={id} />
     </>
   )
 }

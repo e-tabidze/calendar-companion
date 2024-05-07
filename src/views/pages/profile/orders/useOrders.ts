@@ -19,7 +19,7 @@ const useOrders = (orderId?: string | number | undefined, page?: number) => {
     queryKey: ['userOdersDetails', orderId],
     queryFn: () => getUserOrderDetails(orderId),
     staleTime: Infinity,
-    enabled: !!isAuthenticated && !!orderId 
+    enabled: !!isAuthenticated && !!orderId
   })
 
   const userOrders = useUserOrders?.data?.result

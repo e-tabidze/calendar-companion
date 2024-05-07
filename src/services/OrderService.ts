@@ -48,6 +48,10 @@ class OrderService extends HttpService {
   orderDates(AccessToken = '', productId: number) {
     return this.get(`/order-dates/${productId}`, {}, AccessToken ? { Authorization: `${AccessToken}` } : {})
   }
+
+  cancelReservation(AccessToken = '', cancelReason: string, orderId: string | number) {
+    return this.post(`/cancel-reservation`, { cancel_reason: cancelReason, order_id: orderId }, AccessToken ? { Authorization: `${AccessToken}` } : {})
+  }
 }
 
 export default new OrderService()

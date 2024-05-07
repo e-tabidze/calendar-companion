@@ -32,8 +32,6 @@ export const dynamicTranslateCategories = (word: string, t: any) => {
       return t('backend_categories.sedan')
     case 'ჯიპი':
       return t('backend_categories.jeep')
-    case 'ეკონომიური':
-      return t('backend_categories.economy')
     case 'კუპე':
       return t('backend_categories.coupe')
     case 'პიკაპი':
@@ -91,6 +89,8 @@ export const dynamicTranslateAdditionalParameters = (word: any, t: any) => {
   switch (word) {
     case 'სსმპ ადაპტირებული':
       return t('backend_additional_parameters.adapted_psn')
+    case 'ეკონომიური':
+      return t('backend_categories.economy')
     case 'პარკინგის სენსორი':
       return t('backend_additional_parameters.parking_control')
     case 'ცხოველების დაშვება':

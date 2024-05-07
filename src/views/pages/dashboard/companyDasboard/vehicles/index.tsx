@@ -23,7 +23,8 @@ const Vehicles = () => {
             <VehicleListComponent
               key={product.id}
               id={product.id}
-              price={product.price}
+              priceGel={product.price_gel}
+              priceUsd={product.price_usd}
               startCity={product.start_city}
               prodYear={product.prod_year}
               model={product?.manufacturer_model?.title}

@@ -21,7 +21,7 @@ const CreateCompany = () => {
 
   const router = useRouter()
 
-  const handleClose = () => router.push('/profile/orders/')
+  const handleClose = () => router.push('/profile/orders/?page=1')
 
   const selectOption = (option: any) => setStep(option)
 

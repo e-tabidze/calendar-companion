@@ -12,6 +12,7 @@ interface Option {
 }
 
 interface Props {
+  title?: any
   component?: any
   height: 'h-10' | 'h-12'
   className?: string
@@ -22,11 +23,13 @@ interface Props {
   handleClick?: any
   multiselect?: boolean
   append?: any
-  outlined?: boolean
+  outlined?: boolean,
+  fullWidth?: boolean,
   errors?: any
 }
 
 const Tag: React.FC<Props> = ({
+  title,
   component,
   height,
   className,
@@ -37,6 +40,7 @@ const Tag: React.FC<Props> = ({
   handleClick,
   append,
   outlined,
+  fullWidth,
   errors
 }) => {
   const {t} = useTranslation()
@@ -52,7 +56,20 @@ const Tag: React.FC<Props> = ({
             const selectedOptions = Array.isArray(value) ? value : [value]
 
             return (
-              <>
+              <div className={`relative ${fullWidth? 'flex flex-col md:flex-row md:justify-between md:items-center w-full':''}`}>
+                <div className="flex flex-col">
+                  {title &&
+                  <Typography type='h4' color='dark' className={`${fullWidth?'text-md mb-4 md:mb-0':'text-md md:text-3md mb-4 md:mb-6'}`}>
+                    {title} <span className='text-red-100'>*</span>
+                  </Typography>
+                  }
+                  {errors && (
+                      <div id={name} className={`${fullWidth ?'md:-bottom-2 top-0 md:top-auto mt-5 md:mt-0':'top-0 mt-5 md:mt-7' } absolute left-0 text-sm text-red-100`}>
+                        {t(_.get(errors, name)?.message)}
+                      </div>
+                  )}
+                </div>
+
                 <div className='flex flex-col'>
                   <div className='flex flex-wrap items-center gap-4'>
                     {options?.map(option => (
@@ -92,13 +109,8 @@ const Tag: React.FC<Props> = ({
                       </div>
                     ))}
                   </div>
-                  {errors && (
-                    <div id={name} className='text-sm text-red-100 my-2 ml-2'>
-                      {t(_.get(errors, name)?.message)}
-                    </div>
-                  )}
                 </div>
-              </>
+              </div>
             )
           }}
         />

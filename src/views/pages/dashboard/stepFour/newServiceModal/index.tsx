@@ -65,6 +65,8 @@ const NewServiceModal: React.FC<Props> = ({ open, onClose }) => {
     createNewServiceMutation.mutate(serviceValues)
   }
 
+  console.log(serviceValues, 'serviceValues')
+
   return (
     <Transition appear show={open} as={Fragment}>
       <Dialog as='div' className='relative z-[111]' onClose={onClose}>
