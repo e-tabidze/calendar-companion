@@ -156,6 +156,7 @@ const PeriodDialog: React.FC<Props> = ({ open, setOpen, productId }) => {
                               errors={errors}
                               errorAbsolute
                               hideBorder
+                              isSearchable={false}
                             />
                           </div>
                         </SelectTimeContainer>
@@ -184,6 +185,7 @@ const PeriodDialog: React.FC<Props> = ({ open, setOpen, productId }) => {
                               errors={errors}
                               errorAbsolute
                               hideBorder
+                              isSearchable={false}
                             />
                           </div>
                         </SelectTimeContainer>

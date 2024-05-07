@@ -3,9 +3,7 @@ import { Controller } from 'react-hook-form'
 import Select, { ClearIndicatorProps, components, DropdownIndicatorProps, GroupBase } from 'react-select'
 import _ from 'lodash'
 import Icon from 'src/views/app/Icon'
-import {useTranslation} from "next-i18next";
-
-
+import { useTranslation } from 'next-i18next'
 
 interface Option {
   [key: string]: any
@@ -28,6 +26,7 @@ interface Props {
   errorRight?: boolean
   setValueLabel?: any
   hideBorder?: boolean
+  isSearchable?: boolean
 }
 
 const Control = ({ children, ...props }: any) => {
@@ -58,7 +57,8 @@ const SelectField: React.FC<Props> = ({
   isMulti = false,
   handleChange,
   setValueLabel,
-  hideBorder
+  hideBorder,
+  isSearchable = true
 }) => {
   const { DropdownIndicator, ClearIndicator } = components
 
@@ -81,7 +81,7 @@ const SelectField: React.FC<Props> = ({
 
     return null
   }
-  const {t} = useTranslation()
+  const { t } = useTranslation()
 
   const customStyles = {
     indicatorSeparator: () => ({
@@ -91,28 +91,34 @@ const SelectField: React.FC<Props> = ({
       ...provided,
       height: 56,
       position: 'relative',
-      '&:hover': { border: hideBorder ? '' : '1px solid #BEBFC3'},
+      '&:hover': { border: hideBorder ? '' : '1px solid #BEBFC3' },
       borderRadius: '12px',
-      border: hideBorder ? 'none' : state.isDisabled ? '1px solid #F4F4F5' : state.isFocused ? '1px solid #272A37':'1px solid #E9EAEB',
+      border: hideBorder
+        ? 'none'
+        : state.isDisabled
+        ? '1px solid #F4F4F5'
+        : state.isFocused
+        ? '1px solid #272A37'
+        : '1px solid #E9EAEB',
       boxShadow: state.isFocused ? '1px solid #272A37' : '1px solid #E9EAEB',
       transition: 'border 0.2s',
       cursor: 'pointer',
-      backgroundColor: state.isDisabled ? '#F4F4F5': '#ffffff'
+      backgroundColor: state.isDisabled ? '#F4F4F5' : '#ffffff'
     }),
     valueContainer: (provided: any) => ({
       ...provided
     }),
-  
+
     menuList: (provided: any) => ({
       ...provided,
       maxHeight: '180px'
     }),
-  
-    placeholder: (defaultStyles: any, state:any) => {
+
+    placeholder: (defaultStyles: any, state: any) => {
       return {
         ...defaultStyles,
         fontSize: '14px',
-        color: state.isDisabled? '#BEBFC3':'#93959B'
+        color: state.isDisabled ? '#BEBFC3' : '#93959B'
       }
     }
   }
@@ -159,7 +165,9 @@ const SelectField: React.FC<Props> = ({
                 setValueLabel &&
                   setValueLabel(isMulti ? e.map((opt: any) => (labelKey ? opt[labelKey] : opt.value)) : e?.label || '')
               }}
-              className={`${_.get(errors, name)?.message && !hideBorder ? `error-border border border-red-100 rounded-[12px]` : ''}`}
+              className={`${
+                _.get(errors, name)?.message && !hideBorder ? `error-border border border-red-100 rounded-[12px]` : ''
+              }`}
               isMulti={isMulti}
               getOptionLabel={option => labelKey && option[labelKey]}
               getOptionValue={option => valueKey && option[valueKey]}
@@ -168,6 +176,7 @@ const SelectField: React.FC<Props> = ({
                 ClearIndicator: customClearIndicator,
                 Control
               }}
+              isSearchable={isSearchable}
               isClearable
               placeholder={placeholder}
               isDisabled={disabled}
@@ -175,7 +184,7 @@ const SelectField: React.FC<Props> = ({
               // @ts-ignore
               emoji={
                 icon && (
-                  <div className={`${hideBorder ? 'hidden md:flex': 'ml-2'}`}>
+                  <div className={`${hideBorder ? 'hidden md:flex' : 'ml-2'}`}>
                     <Icon svgPath='clock' width={18} height={18} className='fill-black' />
                   </div>
                 )
