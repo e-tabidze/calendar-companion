@@ -10,7 +10,7 @@ import Image from '../views/components/image'
 import useProfile from 'src/hooks/useProfile'
 import { useEffect } from 'react'
 import Icon from 'src/views/app/Icon'
-import {useTranslation} from "next-i18next";
+import { useTranslation } from 'next-i18next'
 
 interface Props {
   children: any
@@ -48,7 +48,7 @@ const NewListingLayout: React.FC<Props> = ({
   )
 
   const { isAuthenticated, activeCompany, isLoading } = useProfile()
-  const {t} = useTranslation()
+  const { t } = useTranslation()
 
   useEffect(() => {
     if (!isLoading) {
@@ -90,11 +90,19 @@ const NewListingLayout: React.FC<Props> = ({
         <div className='mt-5  md:mt-20  md:pb-20 pb-5 h-full'>{children}</div>
       </div>
       <div className='sticky w-full bottom-0 bg-white py-5 border border-t-raisin-10 z-10'>
-        <div
-          className='max-w-[850px] m-auto flex justify-between px-4 lg:w-10/12 lg:px-0 2xl:px-0'
-
-        >
-          {selectedOption.step !== 1 ? <DefaultButton text={t('back')} className='' onClick={onPrevStep}></DefaultButton> : <div></div>}
+        <div className='max-w-[850px] m-auto flex justify-between px-4 lg:w-10/12 lg:px-0 2xl:px-0'>
+          {selectedOption.step !== 1 ? (
+            <DefaultButton
+              text={t('back')}
+              className=''
+              onClick={() => {
+                onPrevStep()
+                window.scrollTo(0, 0)
+              }}
+            ></DefaultButton>
+          ) : (
+            <div></div>
+          )}
           <DefaultButton
             bg='bg-green-100 hover:bg-green-90 transition-all'
             type={selectedOption.step === options.length ? 'submit' : 'button'}
