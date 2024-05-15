@@ -18,8 +18,8 @@ const Hero = () => {
       <Image
         src={isMobileDevice ? '/images/banner-mob.png' : '/images/banner.png'}
         alt=''
-        height={'100%'}
-        width={'100%'}
+        height='100%'
+        width='100%'
         className='object-cover absolute w-full h-full top-0 left-0 rounded-2xl'
       />
       <Copy>

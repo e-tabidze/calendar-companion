@@ -22,6 +22,8 @@ import SortListBox from 'src/views/pages/search/sortListBox'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import PageMeta from 'src/@core/meta/PageMeta'
 import { useTranslation } from 'next-i18next'
+import { queryClient } from '../_app'
+import { dehydrate } from '@tanstack/react-query'
 
 // const MapPicker = dynamic(() => import('src/views/components/mapPicker'), { ssr: true })
 const SkeletonLoading = dynamic(() => import('src/views/pages/search/skeletonLoading'), { ssr: false })
@@ -356,12 +358,13 @@ const SearchPage = () => {
   )
 }
 
-export default SearchPage
-
 export async function getServerSideProps({ locale }: any) {
   return {
     props: {
+      rehydratedState: dehydrate(queryClient),
       ...(await serverSideTranslations(locale, ['common', 'searchProducts']))
     }
   }
 }
+
+export default SearchPage
