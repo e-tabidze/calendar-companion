@@ -39,7 +39,6 @@ build-staging:
     - cd ${WORKDIR} && yarn build
     - ln -sfT ${WORKDIR} ${DIR_STAGING}
     - cd ${DIR_STAGING} && (pm2 reload ecosystem.config.js || pm2 start ecosystem.config.js) && pm2 save
-    - pm2 delete all
     - cd /var/deploy/${CI_COMMIT_BRANCH} && ls -t | tail -n +3 | sudo xargs -I {} rm -r {}
 
 build-test:
