@@ -1,17 +1,15 @@
 import { useWatch } from 'react-hook-form'
 
 // import MapPicker from 'src/views/components/mapPicker'
-import SelectField from 'src/views/components/selectField'
-import Typography from 'src/views/components/typography'
 import useProductInfo from '../useProductInfo'
-import {useTranslation} from "next-i18next";
+import ReturnLocations from './returnLocations'
+import CarryAwayLocations from './carryAwayLocations'
 
 interface Props {
   control: any
   errors: any
 }
 const StepSix: React.FC<Props> = ({ control, errors }) => {
-  const {t} = useTranslation()
   const { companyBranches } = useProductInfo()
 
   const formState = useWatch({ control })
@@ -29,56 +27,10 @@ const StepSix: React.FC<Props> = ({ control, errors }) => {
 
   return (
     <div>
-      <Typography type='h4' weight='normal' color='dark' className='mb-4 whitespace-normal'>
-          {t('take_away_from')}*
-      </Typography>
-      <div className='grid gap-6 mb-10 mt-4 grid-cols-1 md:grid-cols-2'>
-        <SelectField
-          control={control}
-          name='start_city'
-          placeholder={t('city')}
-          options={cities()}
-          disabled={false}
-          valueKey='value'
-          labelKey='label'
-          errors={errors}
-        />
-        <SelectField
-          control={control}
-          name='start_address'
-          placeholder={t('branch')}
-          options={renderAddresses('start_city')}
-          disabled={!formState.start_city}
-          valueKey='value'
-          labelKey='label'
-          errors={errors}
-        />
-      </div>
-      <Typography type='h4' weight='normal' color='dark' className='mb-4 whitespace-normal'>
-          {t('return_to')}*
-      </Typography>
-      <div className='grid gap-6 mb-10 mt-4 grid-cols-1 md:grid-cols-2'>
-        <SelectField
-          control={control}
-          name='end_city'
-          placeholder={t('city')}
-          options={cities()}
-          disabled={false}
-          valueKey='value'
-          labelKey='label'
-          errors={errors}
-        />
-        <SelectField
-          control={control}
-          name='end_address'
-          placeholder={t('branch')}
-          options={renderAddresses('end_city')}
-          disabled={!formState.end_city}
-          valueKey='value'
-          labelKey='label'
-          errors={errors}
-        />
-      </div>
+   
+      <CarryAwayLocations control={control} errors={errors} cities={cities()} addresses={renderAddresses('start_city')} />
+
+      <ReturnLocations control={control} errors={errors} cities={cities()} addresses={renderAddresses('end_city')} />
 
       {/* <MapPicker height='275px' borderRadius='16px' /> */}
     </div>
