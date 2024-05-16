@@ -112,7 +112,7 @@ const useSearch = () => {
       setValue('booking.book_to', params?.book_to || '')
 
       // searchProductsMutation.mutate(objectToURI(searchDefaultValues))
-      searchProductsMutation.refetch()
+      searchProductsQuery.refetch()
     }
   }, [router.query])
 
@@ -187,7 +187,7 @@ const useSearch = () => {
   //   }
   // })
 
-  const searchProductsMutation = useQuery(
+  const searchProductsQuery = useQuery(
     ['searchProducts'],
     async () => {
       try {
@@ -212,10 +212,10 @@ const useSearch = () => {
     }
   )
 
-  const productsData = searchProductsMutation?.data?.result?.data
-  const isLoading = searchProductsMutation?.isLoading
-  const totalProductsCount = searchProductsMutation?.data?.result?.total
-  const totalPages = searchProductsMutation?.data?.result?.last_page
+  const productsData = searchProductsQuery?.data?.result?.data
+  const isLoading = searchProductsQuery?.isLoading
+  const totalProductsCount = searchProductsQuery?.data?.result?.total
+  const totalPages = searchProductsQuery?.data?.result?.last_page
 
   const searchProducts = async (AccessToken = '', querystring: string) => {
     try {
@@ -259,7 +259,7 @@ const useSearch = () => {
     steeringWheel,
     appendAdditionalInformation,
     searchProducts,
-    searchProductsMutation,
+    searchProductsQuery,
     productsData,
     isLoading,
     totalProductsCount,

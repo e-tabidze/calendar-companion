@@ -44,7 +44,7 @@ const Filters = () => {
     
     // resetField,
     setValue,
-    searchProductsMutation,
+    searchProductsQuery,
     reset,
     getValues
   } = useSearch()
@@ -63,7 +63,7 @@ const Filters = () => {
 
   const onClickSearch = async () => {
     const updatedSearchValues = getValues()
-    searchProductsMutation.refetch()
+    searchProductsQuery.refetch()
     router.push(`/search?${objectToURI(updatedSearchValues)}`)
   }
   

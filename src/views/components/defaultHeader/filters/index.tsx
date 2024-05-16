@@ -33,7 +33,7 @@ const Filters: React.FC<Props> = ({ className }) => {
     setValue,
     objectToURI,
     searchValues,
-    searchProductsMutation
+    searchProductsQuery
   } = useSearch()
 
 
@@ -41,7 +41,7 @@ const Filters: React.FC<Props> = ({ className }) => {
     const queryString = objectToURI(searchValues)
 
     // searchProductsMutation.mutate(queryString)
-    searchProductsMutation.refetch()
+    searchProductsQuery.refetch()
 
     router.push(`/search?${queryString}`)
   }
