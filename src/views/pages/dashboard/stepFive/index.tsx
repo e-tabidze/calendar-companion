@@ -17,11 +17,11 @@ const options = [
 
 const preparationPeriod = [
   { title: 'no_limits', id: 1 },
-  { title: '12_hours', id: 2 },
-  { title: '1_day', id: 3 },
-  { title: '2_days', id: 4 },
-  { title: '3_days', id: 5 },
-  { title: '7_days', id: 6 }
+  { title: 'half_an_hour', id: 2 },
+  { title: '1_hour', id: 3 },
+  { title: '3_hours', id: 4 },
+  { title: '6_hours', id: 5 },
+  { title: '1_day', id: 6 }
 ]
 
 interface Props {
@@ -86,7 +86,7 @@ const StepFive: React.FC<Props> = ({ control, setValue }) => {
           {t('preparation_period_desc')}
       </Typography>
       <div className='flex flex-wrap gap-2 mt-14 mb-4'>
-        <Tag height={'h-10'} options={preparationPeriod} name='preparation_period_type_id' control={control} />
+        <Tag height='h-10' options={preparationPeriod} name='preparation_period_type_id' control={control} />
       </div>
     </div>
   )
