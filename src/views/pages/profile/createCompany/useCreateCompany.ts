@@ -50,6 +50,7 @@ const useCreateCompany = () => {
       legal_name: '',
       logo: '',
       description: '',
+      description_en: '',
       email: '',
       phone_numbers: ''
     },

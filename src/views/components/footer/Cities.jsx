@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 import Typography from 'src/views/components/typography'
 import Icon from 'src/views/app/Icon'
-import useSearchLocations from 'src/views/components/defaultHeader/filters/locationDropdown/useSearchLocations'
 import { useTranslation } from 'next-i18next'
 import { dynamicTranslateCities } from 'src/utils/translationUtils'
+import useFilters from 'src/hooks/useFilters'
 
 const Cities = () => {
-  const { cities } = useSearchLocations()
+  const { cities } = useFilters()
   const [active, setActive] = useState(false)
 
   const handleSetActive = () => {

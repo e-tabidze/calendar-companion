@@ -3,10 +3,10 @@ import { Fragment, useEffect, useRef } from 'react'
 import { Controller } from 'react-hook-form'
 import Typography from 'src/views/components/typography'
 import { FilterContainer, InnerFilterContainer } from './styles'
-import useSearchLocations from './useSearchLocations'
 import Icon from 'src/views/app/Icon'
 import {useTranslation} from "next-i18next";
 import { dynamicTranslateCities } from 'src/utils/translationUtils'
+import useFilters from 'src/hooks/useFilters'
 
 interface Props {
   control: any
@@ -15,7 +15,7 @@ interface Props {
 }
 
 const LocationDropdown: React.FC<Props> = ({ control, resetField, setOpen }) => {
-  const { cities } = useSearchLocations()
+  const { cities } = useFilters()
   const {t} = useTranslation()
 
   const buttonRef = useRef<HTMLButtonElement>(null)

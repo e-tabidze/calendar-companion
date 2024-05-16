@@ -11,18 +11,19 @@ interface Props {
 }
 
 const SumUp: React.FC<Props> = ({ border, bg, icon, sum, description }) => {
+
   return (
-    <div
-      className={`${bg} border ${border} rounded-3xl  gap-4 p-6 md:p-8`}
-    >
+    <div className={`${bg} border ${border} rounded-3xl  gap-4 p-6 md:p-8`}>
       <div className='flex items-center'>
         <Icon svgPath={icon} height={24} width={24} className='max-w-sm' />
         <Typography type='h3' className='font-bold text-2lg md:text-2xl ml-6'>
-          {sum}
+          {sum?.toString().includes('.') ? sum?.toFixed(2) : sum}
         </Typography>
       </div>
 
-      <Typography type='h5' className="xl:ml-[56px]">{description}</Typography>
+      <Typography type='h5' className='xl:ml-[56px]'>
+        {description}
+      </Typography>
     </div>
   )
 }

@@ -32,57 +32,57 @@ const useSearch = () => {
   }
 
   const searchDefaultValues = {
-    // page:  1,
-    // location: params?.location || '',
-    // fuel_types: convertToNumberArray(params?.fuel_types),
-    // category: convertToNumberArray(params?.category),
-    // seat_types: convertToNumberArray(params?.seat_types),
-    // luggage_numbers: convertToNumberArray(params?.luggage_numbers),
-    // drive_tires: convertToNumberArray(params?.drive_tires),
-    // steering_wheel: convertToNumberArray(params?.steering_wheel),
-    // door_types: convertToNumberArray(params?.door_types),
-    // transmission_types: convertToNumberArray(params?.transmission_types),
-    // additional_information: convertToNumberArray(params?.additional_information),
-    // price_min: params?.price_min || '',
-    // price_max: params?.price_max || '',
-    // manufacturer_id: convertToNumberArray(params?.manufacturer_id),
-    // model_id: convertToNumberArray(params?.model_id),
-
-    // // free_delivery: params?.free_delivery == 'true' ? true : false,
-    // year_from: params?.year_from || '',
-    // year_to: params?.year_to || '',
-    // sort_by: params?.sort_by || 'id',
-    // order_by: params.order_by || 'desc',
-    // booking: {
-    //   book_from: params?.book_from || '',
-    //   book_to: params?.book_to || ''
-    // }
-
     page: 1,
-    location: '',
-    fuel_types: [],
-    category: [],
-    seat_types: [],
-    luggage_numbers: [],
-    drive_tires: [],
-    steering_wheel: [],
-    door_types: [],
-    transmission_types: [],
-    additional_information: [],
-    price_min: '',
-    price_max: '',
-    manufacturer_id: [],
-    model_id: [],
+    location: params?.location || '',
+    fuel_types: convertToNumberArray(params?.fuel_types),
+    category: convertToNumberArray(params?.category),
+    seat_types: convertToNumberArray(params?.seat_types),
+    luggage_numbers: convertToNumberArray(params?.luggage_numbers),
+    drive_tires: convertToNumberArray(params?.drive_tires),
+    steering_wheel: convertToNumberArray(params?.steering_wheel),
+    door_types: convertToNumberArray(params?.door_types),
+    transmission_types: convertToNumberArray(params?.transmission_types),
+    additional_information: convertToNumberArray(params?.additional_information),
+    price_min: params?.price_min || '',
+    price_max: params?.price_max || '',
+    manufacturer_id: convertToNumberArray(params?.manufacturer_id),
+    model_id: convertToNumberArray(params?.model_id),
 
     // free_delivery: params?.free_delivery == 'true' ? true : false,
     year_from: params?.year_from || '',
     year_to: params?.year_to || '',
-    sort_by: 'id',
-    order_by: 'desc',
+    sort_by: params?.sort_by || 'id',
+    order_by: params.order_by || 'desc',
     booking: {
-      book_from: '',
-      book_to: ''
+      book_from: params?.book_from || '',
+      book_to: params?.book_to || ''
     }
+
+    // page: 1,
+    // location: '',
+    // fuel_types: [],
+    // category: [],
+    // seat_types: [],
+    // luggage_numbers: [],
+    // drive_tires: [],
+    // steering_wheel: [],
+    // door_types: [],
+    // transmission_types: [],
+    // additional_information: [],
+    // price_min: '',
+    // price_max: '',
+    // manufacturer_id: [],
+    // model_id: [],
+
+    // // free_delivery: params?.free_delivery == 'true' ? true : false,
+    // year_from: params?.year_from || '',
+    // year_to: params?.year_to || '',
+    // sort_by: 'id',
+    // order_by: 'desc',
+    // booking: {
+    //   book_from: '',
+    //   book_to: ''
+    // }
   }
 
   useEffect(() => {
@@ -112,7 +112,7 @@ const useSearch = () => {
       setValue('booking.book_to', params?.book_to || '')
 
       // searchProductsMutation.mutate(objectToURI(searchDefaultValues))
-      // searchProductsMutation.refetch()
+      searchProductsQuery.refetch()
     }
   }, [router.query])
 
@@ -187,7 +187,7 @@ const useSearch = () => {
   //   }
   // })
 
-  const searchProductsMutation = useQuery(
+  const searchProductsQuery = useQuery(
     ['searchProducts'],
     async () => {
       try {
@@ -212,10 +212,10 @@ const useSearch = () => {
     }
   )
 
-  const productsData = searchProductsMutation?.data?.result?.data
-  const isLoading = searchProductsMutation?.isLoading
-  const totalProductsCount = searchProductsMutation?.data?.result?.total
-  const totalPages = searchProductsMutation?.data?.result?.last_page
+  const productsData = searchProductsQuery?.data?.result?.data
+  const isLoading = searchProductsQuery?.isLoading
+  const totalProductsCount = searchProductsQuery?.data?.result?.total
+  const totalPages = searchProductsQuery?.data?.result?.last_page
 
   const searchProducts = async (AccessToken = '', querystring: string) => {
     try {
@@ -259,7 +259,7 @@ const useSearch = () => {
     steeringWheel,
     appendAdditionalInformation,
     searchProducts,
-    searchProductsMutation,
+    searchProductsQuery,
     productsData,
     isLoading,
     totalProductsCount,

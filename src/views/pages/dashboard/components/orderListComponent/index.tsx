@@ -94,11 +94,13 @@ const OrderListComponent: React.FC<Props> = ({
             status === 0
               ? 'text-yellow-100'
               : status === 1
-              ? 'text-green-100'
+              ? 'text-raisin-100'
               : status === 2
               ? 'text-orange-100'
               : status === 5
               ? 'text-yellow-100'
+              : status === 7
+              ? 'text-red-120'
               : ''
           }`}
         >
@@ -110,6 +112,8 @@ const OrderListComponent: React.FC<Props> = ({
             ? t('canceled')
             : status === 5
             ? 'დაკავებული'
+            : status === 7
+            ? 'გაუქმებული'
             : ''}
         </Typography>
         <div className='hidden md:flex absolute right-0'>

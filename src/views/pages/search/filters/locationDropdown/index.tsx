@@ -1,9 +1,9 @@
 import { Combobox, Transition } from '@headlessui/react'
 import { Controller } from 'react-hook-form'
-import useSearchLocations from './useSearchLocations'
 import dynamic from 'next/dynamic'
 import {useTranslation} from "next-i18next";
 import { dynamicTranslateCities } from 'src/utils/translationUtils'
+import useFilters from 'src/hooks/useFilters';
 
 const Icon = dynamic(() => import('src/views/app/Icon'), { ssr: false })
 interface Props {
@@ -12,7 +12,7 @@ interface Props {
 }
 
 const LocationDropdown: React.FC<Props> = ({ control, resetField }) => {
-  const { cities } = useSearchLocations()
+  const { cities } = useFilters()
     const {t} = useTranslation()
 
   return (

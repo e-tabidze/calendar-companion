@@ -78,6 +78,7 @@ const NewProduct: React.FC = () => {
         ])
         if (isValidStep1) {
           setStep(options[currentIndex + 1])
+          window.scrollTo(0, 0)
         }
         break
       case 1:
@@ -93,6 +94,7 @@ const NewProduct: React.FC = () => {
         ])
         if (isValidStep2) {
           setStep(options[currentIndex + 1])
+          window.scrollTo(0, 0)
         }
         break
       case 2:

@@ -28,9 +28,14 @@ const filters = [
     filterOption: '0'
   },
   {
-    label: 'canceled',
-    id: '4',
-    filterOption: '2'
+    label: 'self_booked',
+    id: '7',
+    filterOption: '5'
+  },
+  {
+    label: 'გაუქმებული',
+    id: '8',
+    filterOption: '7'
   },
   {
     label: 'approved',
@@ -38,9 +43,9 @@ const filters = [
     filterOption: '1'
   },
   {
-    label: 'self_booked',
-    id: '7',
-    filterOption: '5'
+    label: 'canceled',
+    id: '4',
+    filterOption: '2'
   }
 ]
 
