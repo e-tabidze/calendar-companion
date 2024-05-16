@@ -116,7 +116,7 @@
   "supply": "Supply",
   "back": "Return",
   "next": "Next",
-  "approve": "confirm",
+  "approve": "Confirm",
   "switch_account": "Switch account",
   "last_seen": "Last visited",
   "view_all": "View All",
@@ -327,6 +327,7 @@
   "choose_hold_date": "ავტომობილის დარეზერვების თარიღები და დრო",
   "choose_start_date": "Choose start date",
   "choose_end_date": "Choose end date",
+  "sure_book_dates": "Sure about booking dates?",
   "backend_categories": {
     "sedan": "Sedan",
     "jeep": "Jeep",
