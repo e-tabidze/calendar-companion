@@ -327,6 +327,7 @@
   "choose_hold_date": "ავტომობილის დარეზერვების თარიღები და დრო",
   "choose_start_date": "მონიშნე დაწყების დრო",
   "choose_end_date": "მონიშნე დასრულების დრო",
+  "sure_book_dates": "ნამდვილად გსურს თარიღების დაკავება?",
   "backend_categories": {
     "sedan": "სედანი",
     "jeep": "ჯიპი",
