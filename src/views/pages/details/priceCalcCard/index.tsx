@@ -8,7 +8,8 @@ import Typography from 'src/views/components/typography'
 import { registerLocale } from 'react-datepicker'
 
 import ka from 'date-fns/locale/ka'
-import {useTranslation} from "next-i18next";
+import { useTranslation } from 'next-i18next'
+import useCurrency from 'src/hooks/useCurrency'
 
 registerLocale('ka', ka)
 
@@ -52,7 +53,9 @@ const PriceCalcCard: React.FC<Props> = ({
   const { userInfo, activeCompanyId } = useProfile()
 
   const formState = useWatch({ control })
-  const {t} = useTranslation()
+  const { t } = useTranslation()
+
+  const currency = useCurrency()
 
   return (
     <div className={`shadow-2xl w-full rounded-3xl pt-5 px-4 lg:px-6 pb-10 ${className}`}>
@@ -116,7 +119,7 @@ const PriceCalcCard: React.FC<Props> = ({
 
       <div className='flex items-center gap-2'>
         <Typography type='h3' className='font-bold'>
-          {price} ₾
+          {price} {currency === 'GEL' ? '₾' : '$'}
         </Typography>
         <Typography type='h5' weight='normal'>
           / {t('day')}
@@ -163,7 +166,7 @@ const PriceCalcCard: React.FC<Props> = ({
               </Typography>
             </div>
             <Typography type='h5' weight='normal'>
-              {days && days * price + ' ₾'}
+              {days && days * price} {currency === 'GEL' ? '₾' : '$'}
             </Typography>
           </div>
 
@@ -178,7 +181,7 @@ const PriceCalcCard: React.FC<Props> = ({
                 </Typography>
               </div>
               <Typography type='h5' weight='normal'>
-                {service?.type_id == 1 ? service?.count * service?.price * days! : service?.count * service.price} ₾
+                {service?.type_id == 1 ? service?.count * service?.price * days! : service?.count * service.price} {currency === 'GEL' ? '₾' : '$'}
               </Typography>
             </div>
           ))}
@@ -208,7 +211,7 @@ const PriceCalcCard: React.FC<Props> = ({
                         0
                       )
                     : 0)}{' '}
-                ₾
+                {currency === 'GEL' ? '₾' : '$'}
               </Typography>
             )}
           </div>

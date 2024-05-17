@@ -50,12 +50,15 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import PageMeta from 'src/@core/meta/PageMeta'
 import { useTranslation } from 'next-i18next'
 import { dynamicTranslateServices } from 'src/utils/translationUtils'
+import useCurrency from 'src/hooks/useCurrency'
 
 registerLocale('ka', ka)
 
 const ProductDetails = memo(() => {
   const router = useRouter()
   const { slug, book_from, book_to } = router.query
+
+  const currency = useCurrency()
 
   const { control, handleSubmit, bookingValues, resetField, setValue } = useBooking(slug)
 
@@ -311,7 +314,7 @@ const ProductDetails = memo(() => {
                     )}
                   </div>
                   <div
-                    className='hidden lg:flex  items-center gap-4 cursor-pointer transition-all cursor-pointer'
+                    className='hidden lg:flex  items-center gap-4 cursor-pointer transition-all'
                     onClick={() => {
                       resetField('booking')
                       setDateRange([null, null])
@@ -407,7 +410,7 @@ const ProductDetails = memo(() => {
             <div className='hidden md:inline-block w-5/12 lg:w-4/12' ref={ref}>
               <PriceCalcCard
                 className={`${isSticky ? 'sticky top-44' : ''} z-[11]`}
-                price={singleProductDetails?.price_gel}
+                price={currency === 'GEL' ? singleProductDetails?.price_gel : singleProductDetails?.price_usd}
                 startDate={startDate && format(startDate, 'd MMM yyyy', i18n.language === 'ka' ? { locale: ka } : {})}
                 endDate={endDate && format(endDate, 'd MMM yyyy', i18n.language === 'ka' ? { locale: ka } : {})}
                 days={

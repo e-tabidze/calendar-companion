@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 
 const useCurrency = () => {
-  const [currency, setCurrency] = useState(localStorage.getItem('currency') || 'GEL')
+  const [currency, setCurrency] = useState('GEL')
 
   useEffect(() => {
     const handleCurrencyChange = () => {

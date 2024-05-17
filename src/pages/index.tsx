@@ -124,7 +124,7 @@ const MainPage = () => {
                 images={product?.product?.images?.split(',')}
                 city={product?.product?.start_city}
                 isProductInFavorites={product?.product?.is_favourite}
-                priceUsd={product?.price_usd}
+                priceUsd={product?.product?.price_usd}
               />
             ))}
             type='products'
