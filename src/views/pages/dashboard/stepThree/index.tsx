@@ -1,4 +1,3 @@
-import { JSXElementConstructor, ReactElement, useEffect } from 'react'
 import useWindowDimensions from 'src/hooks/useWindowDimensions'
 import { IconTextButton } from 'src/views/components/button'
 import { DefaultInput } from 'src/views/components/input'
@@ -14,6 +13,7 @@ import { useWatch } from 'react-hook-form'
 import useNewProduct from '../newProduct/useNewProduct'
 import dynamic from 'next/dynamic'
 import { useTranslation } from 'next-i18next'
+import { useEffect } from 'react'
 
 const Typography = dynamic(() => import('src/views/components/typography'), { ssr: false })
 const Divider = dynamic(() => import('src/views/components/divider'), { ssr: false })
@@ -45,6 +45,8 @@ const StepThree: React.FC<Props> = ({ control, errors, discountItems, appendDisc
       setValue('apply_discount', false)
     }
   }, [setValue, discountItems])
+
+  console.log(discountItems, 'discountItems')
 
   return (
     <StepThreeContainer>
@@ -84,8 +86,8 @@ const StepThree: React.FC<Props> = ({ control, errors, discountItems, appendDisc
       </DiscountContainer>
       {formState.apply_discount ? (
         <DiscountComponentWrapper>
-          {discountItems.map((component: ReactElement<any, string | JSXElementConstructor<any>>, index: number) => (
-            <DiscountInputsWrapper key={index}>
+          {discountItems.map((component: any, index: number) => (
+            <DiscountInputsWrapper key={component.id}>
               <DiscountComponent
                 index={index}
                 options={options}
@@ -93,7 +95,7 @@ const StepThree: React.FC<Props> = ({ control, errors, discountItems, appendDisc
                 name={`discount.${index}`}
                 errors={errors}
               />
-              {index > 0 && (
+              {discountItems.length > 1 && (
                 <IconTextButton
                   label={width > 779 ? 'წაშლა' : ''}
                   icon='clear'
@@ -102,7 +104,6 @@ const StepThree: React.FC<Props> = ({ control, errors, discountItems, appendDisc
                   labelClassname='text-orange-120'
                   onClick={() => {
                     remove(index)
-                    formState.discount.length === 0 && setValue('apply_discount', false)
                   }}
                   className='p-0 md:p-4'
                   type='button'
