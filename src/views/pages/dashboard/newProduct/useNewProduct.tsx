@@ -26,6 +26,12 @@ const useNewProduct = () => {
     discount_percent: ''
   }
 
+  const other_locations = {
+    city: '',
+    price: '0',
+    currency: 'GEL'
+  }
+
   const newProductDefaultValues = {
     company_id: activeCompanyId,
     daily_price: {
@@ -41,7 +47,11 @@ const useNewProduct = () => {
       has_min_period: false,
       time_interval: 'კვირა',
       time_span: 1
-    }
+    },
+    has_other_delivery_locations: false,
+    has_other_return_locations: false,
+    other_delivery_locations: [other_locations],
+    other_return_locations: [other_locations]
   }
 
   useEffect(() => {
@@ -92,6 +102,24 @@ const useNewProduct = () => {
     name: 'discount'
   })
 
+  const {
+    fields: otherDeliverLocations,
+    append: appendOtherDeliveryLocations,
+    remove: removeOtherDeliveryLocations
+  } = useFieldArray({
+    control,
+    name: 'other_delivery_locations'
+  })
+
+  const {
+    fields: otherReturnLocations,
+    append: appendOtherReturnLocations,
+    remove: removeOtherReturnLocations
+  } = useFieldArray({
+    control,
+    name: 'other_return_locations'
+  })
+
   const productValues: any = useWatch({ control })
 
   const createNewProduct = async (AccessToken = '', product: Product) => {
@@ -128,7 +156,14 @@ const useNewProduct = () => {
     isValid,
     postUploadProductImages,
     postSaveProductImages,
-    trigger
+    trigger,
+    other_locations,
+    otherDeliverLocations, 
+    appendOtherDeliveryLocations,
+    removeOtherDeliveryLocations,
+    otherReturnLocations,
+    appendOtherReturnLocations,
+    removeOtherReturnLocations
   }
 }
 

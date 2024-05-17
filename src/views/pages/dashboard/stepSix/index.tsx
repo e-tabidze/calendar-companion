@@ -8,8 +8,23 @@ import CarryAwayLocations from './carryAwayLocations'
 interface Props {
   control: any
   errors: any
+  otherDeliverLocations: any
+  appendOtherDeliveryLocations: any
+  removeOtherDeliveryLocations: any
+  otherReturnLocations: any
+  appendOtherReturnLocations: any
+  removeOtherReturnLocations: any
 }
-const StepSix: React.FC<Props> = ({ control, errors }) => {
+const StepSix: React.FC<Props> = ({
+  control,
+  errors,
+  otherDeliverLocations,
+  appendOtherDeliveryLocations,
+  removeOtherDeliveryLocations,
+  otherReturnLocations,
+  appendOtherReturnLocations,
+  removeOtherReturnLocations
+}) => {
   const { companyBranches } = useProductInfo()
 
   const formState = useWatch({ control })
@@ -27,10 +42,25 @@ const StepSix: React.FC<Props> = ({ control, errors }) => {
 
   return (
     <div>
-   
-      <CarryAwayLocations control={control} errors={errors} cities={cities()} addresses={renderAddresses('start_city')} />
+      <CarryAwayLocations
+        control={control}
+        errors={errors}
+        cities={cities()}
+        addresses={renderAddresses('start_city')}
+        removeOtherDeliveryLocations={removeOtherDeliveryLocations}
+        otherDeliverLocations={otherDeliverLocations}
+        appendOtherDeliveryLocations={appendOtherDeliveryLocations}
+      />
 
-      <ReturnLocations control={control} errors={errors} cities={cities()} addresses={renderAddresses('end_city')} />
+      <ReturnLocations
+        control={control}
+        errors={errors}
+        cities={cities()}
+        addresses={renderAddresses('end_city')}
+        removeOtherReturnLocations={removeOtherReturnLocations}
+        otherReturnLocations={otherReturnLocations}
+        appendOtherReturnLocations={appendOtherReturnLocations}
+      />
 
       {/* <MapPicker height='275px' borderRadius='16px' /> */}
     </div>

@@ -8,7 +8,7 @@ import { Product } from 'src/types/Product'
 
 import toast from 'react-hot-toast'
 import Toast from 'src/views/components/toast'
-import {useTranslation} from "next-i18next";
+import { useTranslation } from 'next-i18next'
 
 const StepOne = dynamic(() => import('../stepOne'), { ssr: false })
 const StepTwo = dynamic(() => import('../stepTwo'), { ssr: false })
@@ -31,7 +31,7 @@ const options = [
 ]
 
 const NewProduct: React.FC = () => {
-  const{t} = useTranslation()
+  const { t } = useTranslation()
   const [step, setStep] = useState(options[0])
 
   const router = useRouter()
@@ -54,7 +54,13 @@ const NewProduct: React.FC = () => {
     errors,
     postSaveProductImages,
     trigger,
-    removeImage
+    removeImage,
+    otherDeliverLocations,
+    appendOtherDeliveryLocations,
+    removeOtherDeliveryLocations,
+    appendOtherReturnLocations,
+    otherReturnLocations, 
+    removeOtherReturnLocations
   } = useNewProduct()
 
   const queryClient = useQueryClient()
@@ -214,7 +220,18 @@ const NewProduct: React.FC = () => {
       case 5:
         return <StepFive control={control} setValue={setValue} />
       case 6:
-        return <StepSix control={control} errors={errors} />
+        return (
+          <StepSix
+            control={control}
+            errors={errors}
+            otherDeliverLocations={otherDeliverLocations}
+            appendOtherDeliveryLocations={appendOtherDeliveryLocations}
+            removeOtherDeliveryLocations={removeOtherDeliveryLocations}
+            otherReturnLocations={otherReturnLocations}
+            appendOtherReturnLocations={appendOtherReturnLocations}
+            removeOtherReturnLocations={removeOtherReturnLocations}
+          />
+        )
 
       // case 7:
       //   return <StepSeven control={control} />

@@ -41,12 +41,16 @@ const useEditProduct = (id: number) => {
     type_id: service?.type_id
   }))
 
-  console.log(services, 'services')
-
   const discount_item = {
     number: 1,
     period: 'დღე',
     discount_percent: ''
+  }
+
+  const other_locations = {
+    city: '',
+    price: '0',
+    currency: 'GEL'
   }
 
   const productDefaultValues = {
@@ -208,6 +212,24 @@ const useEditProduct = (id: number) => {
     name: 'discount'
   })
 
+  const {
+    fields: otherDeliverLocations,
+    append: appendOtherDeliveryLocations,
+    remove: removeOtherDeliveryLocations
+  } = useFieldArray({
+    control,
+    name: 'other_delivery_locations'
+  })
+
+  const {
+    fields: otherReturnLocations,
+    append: appendOtherReturnLocations,
+    remove: removeOtherReturnLocations
+  } = useFieldArray({
+    control,
+    name: 'other_return_locations'
+  })
+
   const productValues: any = useWatch({ control })
 
   const editProduct = async (AccessToken = '', product: Product) => {
@@ -244,7 +266,14 @@ const useEditProduct = (id: number) => {
     productDefaultValues,
     isValid,
     trigger,
-    services
+    services,
+    other_locations,
+    otherDeliverLocations, 
+    appendOtherDeliveryLocations,
+    removeOtherDeliveryLocations,
+    otherReturnLocations,
+    appendOtherReturnLocations,
+    removeOtherReturnLocations
   }
 }
 
