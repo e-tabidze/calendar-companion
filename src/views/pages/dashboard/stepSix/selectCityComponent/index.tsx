@@ -14,16 +14,16 @@ const SelectCityComponent: React.FC<Props> = ({ control, errors, index, name }) 
   const { t } = useTranslation()
 
   return (
-    <div className='flex w-full justify-between mb-4'>
-      <SelectField control={control} options={[]} name={`${name}.${index}.city`} valueKey={''} labelKey={''} />
-      <StepThreePriceContainer>
+    <div className='flex w-full justify-between mb-4 grid gap-6 grid-cols-1 md:grid-cols-2'>
+      <SelectField className="w-full" control={control} options={[]} name={`${name}.${index}.city`} valueKey={''} labelKey={''} />
+      <StepThreePriceContainer className="justify-between">
         <DefaultInput
           label={t('prices_and_sales') + '*'}
           control={control}
           name={`${name}.${index}.price`}
           errors={errors}
           type='number'
-          className='min-w-[200px]'
+          className='w-full'
         />
         <TwoOptionSelector
           control={control}
