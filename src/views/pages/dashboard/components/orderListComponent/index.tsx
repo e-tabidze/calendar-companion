@@ -4,7 +4,7 @@ import { ka } from 'date-fns/locale'
 import dynamic from 'next/dynamic'
 import { useTranslation } from 'next-i18next'
 
-const Image = dynamic(() => import('src/views/components/image'), { ssr: true })
+const Image = dynamic(() => import('src/views/components/image'), { ssr: false })
 const Icon = dynamic(() => import('src/views/app/Icon'), { ssr: false })
 const Typography = dynamic(() => import('src/views/components/typography'), { ssr: false })
 
@@ -47,11 +47,14 @@ const OrderListComponent: React.FC<Props> = ({
           <div className='w-[64px] shrink-0'>
             <div className='aspect-w-16 aspect-h-12 rounded-lg overflow-hidden'>
               <Image
-                src={productDetails?.images.split(',')[0]}
-                alt={productDetails?.manufacturer.title}
-                height={'100%'}
-                width={'100%'}
+                src={productDetails?.images?.split(',')[0]}
+                alt={productDetails?.manufacturer?.title}
+                height='100%'
+                width='100%'
                 className='object-cover'
+                onError={(ev: any) => {
+                  ev.target.src = `/icons/avatar.svg`
+                }}
               />
             </div>
           </div>

@@ -8,6 +8,10 @@ class MapService extends HttpService {
   getCitiesSuggestions(city: string) {
     return this.get(`livoapi/custom-cities?address=${city}`)
   }
+
+  getAllCities() {
+    return this.get('all-cities')
+  }
 }
 
 export default new MapService()

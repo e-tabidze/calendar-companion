@@ -3,6 +3,7 @@ import { DefaultInput } from 'src/views/components/input'
 import SelectField from 'src/views/components/selectField'
 import TwoOptionSelector from 'src/views/components/twoOptionSelector'
 import { StepThreePriceContainer } from '../../stepThree/styles'
+import useProductInfo from '../../useProductInfo'
 
 interface Props {
   control: any
@@ -13,10 +14,19 @@ interface Props {
 const SelectCityComponent: React.FC<Props> = ({ control, errors, index, name }) => {
   const { t } = useTranslation()
 
+  const { allCitiesData } = useProductInfo(6)
+
   return (
-    <div className='flex w-full justify-between mb-4 grid gap-6 grid-cols-1 md:grid-cols-2'>
-      <SelectField className="w-full" control={control} options={[]} name={`${name}.${index}.city`} valueKey={''} labelKey={''} />
-      <StepThreePriceContainer className="justify-between">
+    <div className='w-full justify-between mb-4 grid gap-6 grid-cols-1 md:grid-cols-2'>
+      <SelectField
+        className='w-full'
+        control={control}
+        options={allCitiesData}
+        name={`${name}.${index}.city`}
+        valueKey='id'
+        labelKey='title'
+      />
+      <StepThreePriceContainer className='justify-between'>
         <DefaultInput
           label={t('prices_and_sales') + '*'}
           control={control}

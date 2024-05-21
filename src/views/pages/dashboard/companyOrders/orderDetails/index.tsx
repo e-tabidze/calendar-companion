@@ -33,6 +33,7 @@ const OrderDetails = () => {
   const [cancelOrderDialog, setCancelOrderDialog] = useState(false)
   const [cancelReservationDialog, setCancelReservationDialog] = useState(false)
 
+
   const router = useRouter()
 
   const { id } = router.query
@@ -60,6 +61,7 @@ const OrderDetails = () => {
   })
 
   console.log(companyOrder, 'companyOrder')
+
 
   if (companyOrderLoading) {
     return <OrderDetailsSkeleton />
@@ -225,9 +227,11 @@ const OrderDetails = () => {
             <div>
               <PriceDetailsWrapper>
                 <Typography type='subtitle'>
-                  {t('rent_price')} x {companyOrder?.days} {t('day')} 
+                  {t('rent_price')} x {companyOrder?.days} {t('day')}
                 </Typography>
-                <Typography type='subtitle'>{Number(companyOrderproductData?.price * companyOrder?.days).toFixed(2)} </Typography>
+                <Typography type='subtitle'>
+                  {Number(companyOrderproductData?.price * companyOrder?.days).toFixed(2)}{' '}
+                </Typography>
               </PriceDetailsWrapper>
               {companyOrderproductData?.user_selected_product_services.map((service: any, index: number) => (
                 <PriceDetailsWrapper key={index}>
@@ -235,9 +239,11 @@ const OrderDetails = () => {
                     {service?.title} {service?.quantity && 'x'} {service?.quantity}
                   </Typography>
                   <Typography type='subtitle'>
-                    {Number(service?.company_service_type_id == 1
-                      ? service?.price * service?.count * companyOrder?.days
-                      : service?.price * service?.count).toFixed(2)} 
+                    {Number(
+                      service?.company_service_type_id == 1
+                        ? service?.price * service?.count * companyOrder?.days
+                        : service?.price * service?.count
+                    ).toFixed(2)}
                     ₾
                   </Typography>
                 </PriceDetailsWrapper>
@@ -267,9 +273,12 @@ const OrderDetails = () => {
                 <Image
                   src={companyOrderproductData?.images.split(',')[0]}
                   alt=''
-                  height={'100%'}
-                  width={'100%'}
+                  height='100%'
+                  width='100%'
                   className='object-cover'
+                  onError={(ev: any) => {
+                    ev.target.src = `/icons/avatar.svg`
+                  }}
                 />
               </div>
             </div>

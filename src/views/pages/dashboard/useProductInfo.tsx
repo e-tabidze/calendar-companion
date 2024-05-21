@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 import useProfile from 'src/hooks/useProfile'
 import CompanyService from 'src/services/CompanyService'
+import MapService from 'src/services/MapService'
 import ProductService from 'src/services/ProductService'
 
 const useProductInfo = (step?: number | undefined) => {
@@ -47,6 +48,13 @@ const useProductInfo = (step?: number | undefined) => {
     enabled: !!isAuthenticated && !!activeCompany
   })
 
+  const useGetAllCities: any = useQuery({
+    queryKey: ['allCities'],
+    queryFn: () => getAllCities(),
+    staleTime: Infinity,
+    enabled: step === 6
+  })
+
   const productDetails = useProductDetails?.data?.result?.data
 
   const manufacturers = useManufacturers?.data?.result?.data
@@ -61,6 +69,8 @@ const useProductInfo = (step?: number | undefined) => {
 
   const dashboardDataLoading = useGetDashboardData.isLoading
 
+  const allCitiesData = useGetAllCities?.data?.result
+
   return {
     productDetails,
     manufacturers,
@@ -72,7 +82,8 @@ const useProductInfo = (step?: number | undefined) => {
     isCompanyServicesLoading: useCompanyServices.isLoading,
     companyBranches,
     dashboardData,
-    dashboardDataLoading
+    dashboardDataLoading,
+    allCitiesData
   }
 }
 
@@ -147,6 +158,17 @@ export const getCompanyBranches = async (accessToken = '') => {
 export const getDashboardData = async (accessToken = '') => {
   try {
     const response: any = await CompanyService.getDashboardData(accessToken)
+
+    return response.data
+  } catch (error) {
+    console.error(error)
+    throw error
+  }
+}
+
+export const getAllCities = async () => {
+  try {
+    const response: any = await MapService.getAllCities()
 
     return response.data
   } catch (error) {
