@@ -25,6 +25,7 @@ const SelectCityComponent: React.FC<Props> = ({ control, errors, index, name }) 
         name={`${name}.${index}.city`}
         valueKey='id'
         labelKey='title'
+        placeholder={t('city')}
       />
       <StepThreePriceContainer className='justify-between'>
         <DefaultInput
