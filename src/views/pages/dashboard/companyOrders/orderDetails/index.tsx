@@ -79,7 +79,7 @@ const OrderDetails = () => {
             onClick={() => router.push('/dashboard/orders/?status_id=&page=1')}
           />
         </div>
-        {companyOrder.status_id === 7 && (
+        {companyOrder?.status_id === 7 && (
           <div className='bg-red-70 w-full px-4 md:px-10 py-7'>
             <Typography type='subtitle' className='text-white'>
               ჯავშანი ავტომობილზე{' '}
@@ -282,7 +282,7 @@ const OrderDetails = () => {
                 />
               </div>
             </div>
-            <div>
+            <div className='text-center'>
               <Link href={`/details/${companyOrderproductData?.id}`}>
                 <Typography type='h5' className='font-bold mt-6 hover:text-green-100'>
                   {companyOrderproductData?.manufacturer?.title} {companyOrderproductData?.manufacturer_model?.title}{' '}
@@ -331,14 +331,8 @@ const OrderDetails = () => {
               </div>
             )}
             {companyOrder?.status_id === 1 && (
-              <IconTextButton
-                icon='infoGrey'
-                width={20}
-                height={20}
-                textColor='text-white'
-                label='გაუქმების პირობები'
-                onClick={toggleCancelReservationDialog}
-              />
+              <DefaultButton bg='bg-raisin-10' text={t('booking_cancel')} className="!text-raisin-100"  onClick={toggleCancelReservationDialog} />
+
             )}
           </div>
         </PriceDetailsContainer>

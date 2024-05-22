@@ -201,7 +201,7 @@ const OrderDetails = () => {
             </div>
           </div>
 
-          <div>
+          <div className='text-center'>
             <Link href={`/details/${productData?.id}`}>
               <Typography type='h5' className='font-bold mt-6 hover:text-green-100'>
                 {productData?.manufacturer?.title}
@@ -241,7 +241,7 @@ const OrderDetails = () => {
 
           {userOrderDetails?.status_id === 0 ||
             (userOrderDetails?.status_id === 1 && (
-              <DefaultButton bg='bg-raisin-10' text={t('booking_cancel')} onClick={toggleCancelOrderDialog} />
+              <DefaultButton bg='bg-raisin-10' text={t('booking_cancel')} className="!text-raisin-100"  onClick={toggleCancelOrderDialog} />
             ))}
         </div>
       </PriceDetailsContainer>
