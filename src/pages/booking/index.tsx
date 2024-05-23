@@ -309,7 +309,7 @@ const Booking = () => {
               manufacturer={singleProductDetails?.manufacturer?.title}
               model={singleProductDetails?.manufacturer_model?.title}
               year={singleProductDetails?.prod_year}
-              price={singleProductDetails?.price}
+              price={singleProductDetails?.price_gel}
               control={control}
               startDate={
                 book_from &&

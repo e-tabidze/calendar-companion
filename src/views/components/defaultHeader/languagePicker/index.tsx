@@ -5,6 +5,7 @@ import { LanPickerContainer } from './styles'
 import Icon from 'src/views/app/Icon'
 import { useRouter } from 'next/router'
 import Divider from '../../divider'
+import useCurrency from 'src/hooks/useCurrency'
 
 const langs = [
   { id: 0, title: 'ქართული', locale: 'ka' },
@@ -26,11 +27,10 @@ const LanguagePicker = ({ dropdownUp, responsive, className }: Props) => {
   const router = useRouter()
   const [isClient, setIsClient] = useState(false)
 
+  const currency = useCurrency()
+
   useEffect(() => {
     setIsClient(true)
-    if (!localStorage.getItem('currency')) {
-      localStorage.setItem('currency', 'GEL')
-    }
   }, [])
 
   const selectedLang = langs.find(lang => lang.locale === router.locale)
@@ -57,7 +57,7 @@ const LanguagePicker = ({ dropdownUp, responsive, className }: Props) => {
             >
               <Icon svgPath='globe' width={21} height={20} />
               <span className={`${responsive ? 'hidden md:flex' : 'flex'} ml-2`}>
-                {selectedLang?.title}, {isClient && localStorage.getItem('currency') === 'GEL' ? '₾' : '$'}
+                {selectedLang?.title}, {isClient && currency === 'GEL' ? '₾' : '$'}
               </span>
               <Icon
                 svgPath='chevron'
@@ -116,9 +116,7 @@ const LanguagePicker = ({ dropdownUp, responsive, className }: Props) => {
                     >
                       <span
                         className={`${
-                          isClient && curr.currency === localStorage.getItem('currency')
-                            ? 'border-[7px] border-green-100'
-                            : 'border-raisin-10'
+                          isClient && curr.currency === currency ? 'border-[7px] border-green-100' : 'border-raisin-10'
                         } w-6 h-6 border rounded-full flex mr-4`}
                       ></span>
                       <Typography type='subtitle'>{curr.title}</Typography>
