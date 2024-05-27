@@ -61,7 +61,7 @@ const PriceCalcCard: React.FC<Props> = ({
   const formState = useWatch({ control })
   const { t } = useTranslation()
 
-  const { currency } = useCurrency()
+  const { currency, updateCurrency, currs } = useCurrency()
 
   const calculateDaysAndServices = () => {
     return (
@@ -142,8 +142,29 @@ const PriceCalcCard: React.FC<Props> = ({
       )}
 
       <div className='flex items-center gap-2'>
-        <Typography type='h3' className='font-bold'>
-          {price} {currency === 'GEL' ? '₾' : '$'}
+        <Typography type='h3' className='font-bold flex gap-3'>
+          {price}{' '}
+          {isBooking ? (
+            <div className='flex'>
+              {currs.map((curr: any) => (
+                <button
+                  value={curr.title}
+                  key={curr.id}
+                  type='button'
+                  onClick={() => updateCurrency(curr.currency)}
+                  className={`flex items-center justify-center hover:bg-grey-100 cursor-pointer rounded-full w-9 h-9 ${
+                    curr.currency === currency ? 'bg-raisin-10' : ''
+                  }`}
+                >
+                  {curr.sign}
+                </button>
+              ))}
+            </div>
+          ) : currency === 'GEL' ? (
+            '₾'
+          ) : (
+            '$'
+          )}
         </Typography>
         <Typography type='h5' weight='normal'>
           / {t('day')}
@@ -206,7 +227,7 @@ const PriceCalcCard: React.FC<Props> = ({
               </div>
               <Typography type='h5' weight='normal'>
                 {service?.type_id == 1 ? service?.count * service?.price * days! : service?.count * service.price}{' '}
-                {isBooking === false ? (currency === 'GEL' ? '₾' : '$') : '₾'}
+                {currency === 'GEL' ? '₾' : '$'}
               </Typography>
             </div>
           ))}
@@ -269,7 +290,7 @@ const PriceCalcCard: React.FC<Props> = ({
             {days && (
               <Typography type='h5' weight='normal' className='font-bold'>
                 {calculateDaysAndServices()}
-                {isBooking === false ? (currency === 'GEL' ? '₾' : '$') : '₾'}
+                {currency === 'GEL' ? '₾' : '$'}
               </Typography>
             )}
           </div>

@@ -3,6 +3,11 @@ import { useEffect, useState } from 'react'
 import CurrencyService from 'src/services/CurrencyService'
 
 const useCurrency = () => {
+  const currs = [
+    { id: 2, title: 'USD - $', currency: 'USD', sign: '$' },
+    { id: 3, title: 'GEL - ₾', currency: 'GEL', sign: '₾' }
+  ]
+
   const [currency, setCurrency] = useState(() => {
     if (typeof window !== 'undefined') {
       const storedCurrency = localStorage.getItem('currency')
@@ -44,7 +49,7 @@ const useCurrency = () => {
     window.dispatchEvent(new Event('currencyChange'))
   }
 
-  return { currency, currencyRates, updateCurrency }
+  return { currency, currencyRates, updateCurrency, currs }
 }
 
 export default useCurrency

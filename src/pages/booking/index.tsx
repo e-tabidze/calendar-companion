@@ -393,7 +393,7 @@ const Booking = () => {
               manufacturer={singleProductDetails?.manufacturer?.title}
               model={singleProductDetails?.manufacturer_model?.title}
               year={singleProductDetails?.prod_year}
-              price={singleProductDetails?.price_gel}
+              price={currency === 'GEL' ? singleProductDetails?.price_gel : singleProductDetails?.price_usd}
               isBooking
               control={control}
               startDate={
@@ -423,7 +423,7 @@ const Booking = () => {
           <Drawer
             isOpenDrawer={isOpenDrawer}
             setIsOpenDrawer={setIsOpenDrawer}
-            price={singleProductDetails?.price}
+            price={currency === 'GEL' ? singleProductDetails?.price_gel : singleProductDetails?.price_usd}
             startDate={
               book_from &&
               format(new Date(String(book_from)), 'd MMM yyyy', i18n.language === 'ka' ? { locale: ka } : {})

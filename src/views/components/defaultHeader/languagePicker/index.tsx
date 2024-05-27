@@ -12,11 +12,6 @@ const langs = [
   { id: 1, title: 'English', locale: 'en' }
 ]
 
-const currs = [
-  { id: 2, title: 'USD - $', currency: 'USD' },
-  { id: 3, title: 'GEL - ₾', currency: 'GEL' }
-]
-
 interface Props {
   dropdownUp?: boolean
   responsive?: boolean
@@ -27,7 +22,7 @@ const LanguagePicker = ({ dropdownUp, responsive, className }: Props) => {
   const router = useRouter()
   const [isClient, setIsClient] = useState(false)
 
-  const { currency, updateCurrency } = useCurrency()
+  const { currency, updateCurrency, currs } = useCurrency()
 
   useEffect(() => {
     setIsClient(true)
