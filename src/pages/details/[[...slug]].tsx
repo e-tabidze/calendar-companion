@@ -58,7 +58,7 @@ const ProductDetails = memo(() => {
   const router = useRouter()
   const { slug, book_from, book_to } = router.query
 
-  const currency = useCurrency()
+  const { currency } = useCurrency()
 
   const { control, handleSubmit, bookingValues, resetField, setValue } = useBooking(slug)
 

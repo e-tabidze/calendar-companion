@@ -46,7 +46,7 @@ const VehicleListComponent: React.FC<Props> = ({
   const [deleteProductModal, setDeleteProductModal] = useState(false)
   const [bookDatesDialog, setBookDatesDialog] = useState(false)
 
-  const currency = useCurrency()
+  const { currency } = useCurrency()
 
   const { t } = useTranslation()
 

@@ -61,7 +61,7 @@ const PriceCalcCard: React.FC<Props> = ({
   const formState = useWatch({ control })
   const { t } = useTranslation()
 
-  const currency = useCurrency()
+  const { currency } = useCurrency()
 
   const calculateDaysAndServices = () => {
     return (
@@ -143,7 +143,7 @@ const PriceCalcCard: React.FC<Props> = ({
 
       <div className='flex items-center gap-2'>
         <Typography type='h3' className='font-bold'>
-          {price} {isBooking === false ? (currency === 'GEL' ? '₾' : '$') : '₾'}
+          {price} {currency === 'GEL' ? '₾' : '$'}
         </Typography>
         <Typography type='h5' weight='normal'>
           / {t('day')}
@@ -190,7 +190,7 @@ const PriceCalcCard: React.FC<Props> = ({
               </Typography>
             </div>
             <Typography type='h5' weight='normal'>
-              {days && days * price} {isBooking === false ? (currency === 'GEL' ? '₾' : '$') : '₾'}
+              {days && days * price} {currency === 'GEL' ? '₾' : '$'}
             </Typography>
           </div>
 

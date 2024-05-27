@@ -41,7 +41,7 @@ const ListComponent: React.FC<Props> = ({
 }) => {
   const { toggleUserFavourites } = useFavourites(productId)
 
-  const currency = useCurrency()
+  const { currency } = useCurrency()
 
   const handleFavorites = async () => {
     try {

@@ -38,6 +38,7 @@ import { useTranslation } from 'next-i18next'
 import AddressesRadio from 'src/views/pages/booking/addressesRadio'
 import OfficeService from 'src/views/pages/booking/officeService'
 import AddressService from 'src/views/pages/booking/addressService'
+import useCurrency from 'src/hooks/useCurrency'
 
 const Booking = () => {
   const [additionalServices, toggleAdditionalServices] = useState(true)
@@ -70,6 +71,8 @@ const Booking = () => {
 
   const { singleProductDetails } = useSingleProductDetails(id)
 
+  const { currencyRates, currency } = useCurrency()
+
   console.log(singleProductDetails, 'singleProductDetails in booking')
 
   const { singleCompanyBranches } = useCompanyInfo(company_id && company_id)
@@ -82,6 +85,8 @@ const Booking = () => {
   const formState = useWatch({ control })
 
   console.log(formState, 'formState')
+
+  console.log(currencyRates, 'currencyRates', currency, 'currency')
 
   const queryClient = useQueryClient()
 
@@ -96,7 +101,7 @@ const Booking = () => {
       const cityData = singleProductDetails?.other_delivery_locations?.find((item: any) => item.id === startCityId)
 
       if (cityData) {
-        return {price: cityData?.price, currency: cityData?.currency}
+        return { price: cityData?.price, currency: cityData?.currency }
       } else {
         return {}
       }
@@ -112,7 +117,7 @@ const Booking = () => {
       const cityData = singleProductDetails?.other_return_locations?.find((item: any) => item.id == startCityId)
 
       if (cityData) {
-        return {price: cityData?.price, currency: cityData?.currency}
+        return { price: cityData?.price, currency: cityData?.currency }
       } else {
         return {}
       }
@@ -121,9 +126,15 @@ const Booking = () => {
     }
   }
 
-  const resultReturnValue = (renderReturnValue().price !== undefined && renderReturnValue().currency !== undefined) ? `${renderReturnValue().price} ${renderReturnValue().currency}` : '';
+  const resultReturnValue =
+    renderReturnValue().price !== undefined && renderReturnValue().currency !== undefined
+      ? `${renderReturnValue().price} ${renderReturnValue().currency}`
+      : ''
 
-  const resultSupplyValue = (renderSupplyValue().price !== undefined && renderSupplyValue().currency !== undefined) ? `${renderSupplyValue().price} ${renderSupplyValue().currency}` : '';
+  const resultSupplyValue =
+    renderSupplyValue().price !== undefined && renderSupplyValue().currency !== undefined
+      ? `${renderSupplyValue().price} ${renderSupplyValue().currency}`
+      : ''
 
   const supplyOptions = [
     {
@@ -149,7 +160,7 @@ const Booking = () => {
           nameCity='other_start_city'
           addressName='other_start_address'
           serviceValue={resultSupplyValue}
-          timeName="start_time"
+          timeName='start_time'
         />
       )
     }
@@ -179,7 +190,7 @@ const Booking = () => {
           nameCity='other_end_city'
           addressName='other_end_address'
           serviceValue={resultReturnValue}
-          timeName="end_time"
+          timeName='end_time'
         />
       )
     }

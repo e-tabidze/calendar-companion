@@ -27,18 +27,13 @@ const LanguagePicker = ({ dropdownUp, responsive, className }: Props) => {
   const router = useRouter()
   const [isClient, setIsClient] = useState(false)
 
-  const currency = useCurrency()
+  const { currency, updateCurrency } = useCurrency()
 
   useEffect(() => {
     setIsClient(true)
   }, [])
 
   const selectedLang = langs.find(lang => lang.locale === router.locale)
-
-  const updateCurrency = (newCurrency: string) => {
-    localStorage.setItem('currency', newCurrency)
-    window.dispatchEvent(new Event('currencyChange'))
-  }
 
   return (
     <LanPickerContainer className={className}>

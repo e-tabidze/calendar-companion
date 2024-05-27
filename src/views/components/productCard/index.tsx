@@ -60,7 +60,7 @@ const ProductCard: React.FC<Props> = ({
   const [isMobileDevice, setIsMobileDevice] = useState(false)
   const [isProductInFavorites, setIsProductInFavorites] = useState(productFav)
 
-  const currency = useCurrency()
+  const { currency } = useCurrency()
 
   useEffect(() => {
     setIsMobileDevice(isMobile)
