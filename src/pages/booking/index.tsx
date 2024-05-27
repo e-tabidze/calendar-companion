@@ -310,6 +310,7 @@ const Booking = () => {
               model={singleProductDetails?.manufacturer_model?.title}
               year={singleProductDetails?.prod_year}
               price={singleProductDetails?.price_gel}
+              gelOnly
               control={control}
               startDate={
                 book_from &&

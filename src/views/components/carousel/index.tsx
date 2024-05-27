@@ -64,7 +64,7 @@ const Carousel = ({ itemsArray, type, onClick, thumbs = false }: Props) => {
   const [reachedLimit, setReachedLimit] = useState(false)
 
 
-  const data = type === 'card' ? itemsArray.slice(0, 4) : itemsArray
+  const data = type === 'card' ? itemsArray?.slice(0, 4) : itemsArray
 
   const router = useRouter()
   const {t} = useTranslation()

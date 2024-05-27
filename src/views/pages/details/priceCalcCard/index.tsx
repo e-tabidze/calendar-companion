@@ -30,6 +30,7 @@ interface Props {
   control: any
   startDate: any
   endDate: any
+  gelOnly: boolean
 }
 
 const PriceCalcCard: React.FC<Props> = ({
@@ -48,7 +49,8 @@ const PriceCalcCard: React.FC<Props> = ({
   companyId,
   control,
   startDate,
-  endDate
+  endDate,
+  gelOnly = false
 }) => {
   const { userInfo, activeCompanyId } = useProfile()
 
@@ -119,7 +121,7 @@ const PriceCalcCard: React.FC<Props> = ({
 
       <div className='flex items-center gap-2'>
         <Typography type='h3' className='font-bold'>
-          {price} {currency === 'GEL' ? '₾' : '$'}
+          {price} {gelOnly === false ? currency === 'GEL' ? '₾' : '$' : '₾'}
         </Typography>
         <Typography type='h5' weight='normal'>
           / {t('day')}
@@ -166,7 +168,7 @@ const PriceCalcCard: React.FC<Props> = ({
               </Typography>
             </div>
             <Typography type='h5' weight='normal'>
-              {days && days * price} {currency === 'GEL' ? '₾' : '$'}
+              {days && days * price} {gelOnly === false ? currency === 'GEL' ? '₾' : '$' : '₾'}
             </Typography>
           </div>
 
@@ -181,7 +183,7 @@ const PriceCalcCard: React.FC<Props> = ({
                 </Typography>
               </div>
               <Typography type='h5' weight='normal'>
-                {service?.type_id == 1 ? service?.count * service?.price * days! : service?.count * service.price} {currency === 'GEL' ? '₾' : '$'}
+                {service?.type_id == 1 ? service?.count * service?.price * days! : service?.count * service.price} {gelOnly === false ? currency === 'GEL' ? '₾' : '$' : '₾'}
               </Typography>
             </div>
           ))}
@@ -211,7 +213,7 @@ const PriceCalcCard: React.FC<Props> = ({
                         0
                       )
                     : 0)}{' '}
-                {currency === 'GEL' ? '₾' : '$'}
+                {gelOnly === false ? currency === 'GEL' ? '₾' : '$' : '₾'}
               </Typography>
             )}
           </div>

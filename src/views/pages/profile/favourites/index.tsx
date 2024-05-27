@@ -38,7 +38,7 @@ const Favourites = () => {
           userFavourites?.data?.map((product: any) => (
             <ListComponent
               key={product?.product_id}
-              id={product?.product.id}
+              id={product?.product?.id}
               productId={product?.product_id}
               manufacturer={product?.manufacturer}
               year={product?.year}
@@ -47,7 +47,7 @@ const Favourites = () => {
               priceGel={product?.product?.price_gel}
               priceUsd={product?.product?.price_usd}
               isDeleted={product?.product === null}
-              images={product?.product.images.split(',')}
+              images={product?.product?.images.split(',')}
               luggage={product?.product?.luggage_numbers}
               seatTypes={product?.product?.seat_type?.title}
             />
