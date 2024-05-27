@@ -14,6 +14,7 @@ interface Option {
   description: string
   price: string
   max: number
+  currency?: string
 }
 
 interface Props {
@@ -70,8 +71,9 @@ const CheckServices: React.FC<Props> = ({ control, options }) => {
                         max={service?.max}
                       />
                     </div>
+                    <> {console.log(service, 'service')} </>
                     <Typography type='body' className='text-2sm md:text-md w-max'>
-                      {service.price} ₾
+                      {service.price} {service?.currency === "USD" ? '$' : '₾'} 
                     </Typography>
                   </>
                 ) : (

@@ -29,7 +29,8 @@ const useNewProduct = () => {
   const other_locations = {
     city: '',
     price: '0',
-    currency: 'GEL'
+    currency: 'GEL',
+    address: ''
   }
 
   const newProductDefaultValues = {

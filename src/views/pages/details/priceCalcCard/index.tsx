@@ -30,7 +30,9 @@ interface Props {
   control: any
   startDate: any
   endDate: any
-  gelOnly: boolean
+  isBooking: boolean
+  carDeliveryPrice?: any
+  carReturnPrice?: any
 }
 
 const PriceCalcCard: React.FC<Props> = ({
@@ -50,7 +52,9 @@ const PriceCalcCard: React.FC<Props> = ({
   control,
   startDate,
   endDate,
-  gelOnly = false
+  isBooking = false,
+  carDeliveryPrice,
+  carReturnPrice
 }) => {
   const { userInfo, activeCompanyId } = useProfile()
 
@@ -58,6 +62,24 @@ const PriceCalcCard: React.FC<Props> = ({
   const { t } = useTranslation()
 
   const currency = useCurrency()
+
+  const calculateDaysAndServices = () => {
+    return (
+      days &&
+      days * price +
+        (services
+          ? services.reduce((accumulator: number, service: { type_id: number; count: number; price: number }) => {
+              if (service.type_id === 1) {
+                accumulator += service.count * service.price * days
+              } else {
+                accumulator += service.count * service.price
+              }
+
+              return accumulator
+            }, 0)
+          : 0)
+    )
+  }
 
   return (
     <div className={`shadow-2xl w-full rounded-3xl pt-5 px-4 lg:px-6 pb-10 ${className}`}>
@@ -121,7 +143,7 @@ const PriceCalcCard: React.FC<Props> = ({
 
       <div className='flex items-center gap-2'>
         <Typography type='h3' className='font-bold'>
-          {price} {gelOnly === false ? currency === 'GEL' ? '₾' : '$' : '₾'}
+          {price} {isBooking === false ? (currency === 'GEL' ? '₾' : '$') : '₾'}
         </Typography>
         <Typography type='h5' weight='normal'>
           / {t('day')}
@@ -168,7 +190,7 @@ const PriceCalcCard: React.FC<Props> = ({
               </Typography>
             </div>
             <Typography type='h5' weight='normal'>
-              {days && days * price} {gelOnly === false ? currency === 'GEL' ? '₾' : '$' : '₾'}
+              {days && days * price} {isBooking === false ? (currency === 'GEL' ? '₾' : '$') : '₾'}
             </Typography>
           </div>
 
@@ -183,10 +205,58 @@ const PriceCalcCard: React.FC<Props> = ({
                 </Typography>
               </div>
               <Typography type='h5' weight='normal'>
-                {service?.type_id == 1 ? service?.count * service?.price * days! : service?.count * service.price} {gelOnly === false ? currency === 'GEL' ? '₾' : '$' : '₾'}
+                {service?.type_id == 1 ? service?.count * service?.price * days! : service?.count * service.price}{' '}
+                {isBooking === false ? (currency === 'GEL' ? '₾' : '$') : '₾'}
               </Typography>
             </div>
           ))}
+
+          {carDeliveryPrice !== undefined && (
+            <div className='flex gap-2 flex-col justify-between py-2 lg:items-center lg:flex-row'>
+              <div className='flex gap-2'>
+                <Typography type='body' className='text-raisin-100'>
+                  ავტომობილის მიწოდება
+                </Typography>
+              </div>
+              <Typography type='h5' weight='normal'>
+                {carDeliveryPrice !== undefined &&
+                Object?.keys(carDeliveryPrice).length === 0 &&
+                carDeliveryPrice.constructor === Object
+                  ? 'უფასო'
+                  : `${carDeliveryPrice?.price} ${carDeliveryPrice?.currency}`}
+              </Typography>
+            </div>
+          )}
+
+          {carReturnPrice !== undefined && (
+            <div className='flex gap-2 flex-col justify-between py-2 lg:items-center lg:flex-row'>
+              <div className='flex gap-2'>
+                <Typography type='body' className='text-raisin-100'>
+                  ავტომობილის მიწოდება
+                </Typography>
+              </div>
+              <Typography type='h5' weight='normal'>
+                {carReturnPrice !== undefined &&
+                Object?.keys(carReturnPrice).length === 0 &&
+                carReturnPrice.constructor === Object
+                  ? 'უფასო'
+                  : `${carReturnPrice?.price} ${carReturnPrice?.currency}`}
+              </Typography>
+            </div>
+          )}
+
+          {isBooking && (
+            <div className='flex gap-2 flex-col justify-between py-2 lg:items-center lg:flex-row'>
+              <div className='flex gap-2'>
+                <Typography type='body' className='text-raisin-100'>
+                  საიტის მომსახურების საკომისიო
+                </Typography>
+              </div>
+              <Typography type='h5' weight='normal'>
+                თანხა
+              </Typography>
+            </div>
+          )}
 
           <Divider className='my-7' />
 
@@ -198,22 +268,8 @@ const PriceCalcCard: React.FC<Props> = ({
             </div>
             {days && (
               <Typography type='h5' weight='normal' className='font-bold'>
-                {days * price +
-                  (services
-                    ? services.reduce(
-                        (accumulator: number, service: { type_id: number; count: number; price: number }) => {
-                          if (service.type_id === 1) {
-                            accumulator += service.count * service.price * days
-                          } else {
-                            accumulator += service.count * service.price
-                          }
-
-                          return accumulator
-                        },
-                        0
-                      )
-                    : 0)}{' '}
-                {gelOnly === false ? currency === 'GEL' ? '₾' : '$' : '₾'}
+                {calculateDaysAndServices()}
+                {isBooking === false ? (currency === 'GEL' ? '₾' : '$') : '₾'}
               </Typography>
             )}
           </div>

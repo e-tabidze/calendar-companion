@@ -9,20 +9,20 @@ interface Props {
 }
 
 const ProductFeature: React.FC<Props> = ({ icon, feature, description, price }) => {
+  
   return (
     <div className='flex items-center justify-between gap-2'>
       <Icon svgPath={icon} width={24} height={24} />
       <div className='flex justify-between w-full'>
-        <div className='flex w-1/2'>
+        <div className='flex w-1/2 gap-4 items-center'>
           <Typography type='subtitle'>{feature}</Typography>
           <Typography type='body' color='light'>
             {description}
           </Typography>
         </div>
         <div className='w-1/2'>
-        <Typography type='subtitle'> {price} </Typography>
+          <Typography type='subtitle'> {price} </Typography>
         </div>
-        
       </div>
     </div>
   )

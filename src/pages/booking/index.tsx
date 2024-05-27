@@ -24,10 +24,7 @@ const Typography = dynamic(() => import('src/views/components/typography'), { ss
 const PriceCalcCard = dynamic(() => import('src/views/pages/details/priceCalcCard'), { ssr: false })
 const Drawer = dynamic(() => import('src/views/pages/details/drawer'), { ssr: false })
 const ResponsivePriceCalcCard = dynamic(() => import('src/views/pages/details/responsivePriceCalcCard'), { ssr: false })
-const BookingRadio = dynamic(() => import('../../views/pages/booking/bookingRadio'), { ssr: false })
 const DateDropdown = dynamic(() => import('src/views/components/dateDropdown'), { ssr: false })
-const TakeAway = dynamic(() => import('src/views/pages/booking/takeAway'), { ssr: false })
-const Delivery = dynamic(() => import('src/views/pages/booking/delivery'), { ssr: false })
 const BookingModal = dynamic(() => import('src/views/pages/booking/bookingModal'), { ssr: false })
 const Icon = dynamic(() => import('src/views/app/Icon'), { ssr: false })
 const CheckServices = dynamic(() => import('src/views/pages/booking/checkServices'), { ssr: false })
@@ -38,6 +35,9 @@ import { DefaultButton, IconTextButton } from 'src/views/components/button'
 import PeriodDialog from 'src/views/pages/booking/periodDialog'
 import PageMeta from 'src/@core/meta/PageMeta'
 import { useTranslation } from 'next-i18next'
+import AddressesRadio from 'src/views/pages/booking/addressesRadio'
+import OfficeService from 'src/views/pages/booking/officeService'
+import AddressService from 'src/views/pages/booking/addressService'
 
 const Booking = () => {
   const [additionalServices, toggleAdditionalServices] = useState(true)
@@ -70,6 +70,8 @@ const Booking = () => {
 
   const { singleProductDetails } = useSingleProductDetails(id)
 
+  console.log(singleProductDetails, 'singleProductDetails in booking')
+
   const { singleCompanyBranches } = useCompanyInfo(company_id && company_id)
 
   const { control, bookingValues, errors, handleSubmit, postOrder, selfBookProduct, setValue } = useBooking(
@@ -79,44 +81,105 @@ const Booking = () => {
 
   const formState = useWatch({ control })
 
+  console.log(formState, 'formState')
+
   const queryClient = useQueryClient()
 
   const onClickLogo = () => {
     router.push('/')
   }
 
-  const options = [
+  const renderSupplyValue = () => {
+    if (formState.supply == '1') {
+      const startCityId = formState.other_start_city
+
+      const cityData = singleProductDetails?.other_delivery_locations?.find((item: any) => item.id === startCityId)
+
+      if (cityData) {
+        return {price: cityData?.price, currency: cityData?.currency}
+      } else {
+        return {}
+      }
+    } else {
+      return {}
+    }
+  }
+
+  const renderReturnValue = () => {
+    if (formState.return_location == '1') {
+      const startCityId = formState.other_end_city
+
+      const cityData = singleProductDetails?.other_return_locations?.find((item: any) => item.id == startCityId)
+
+      if (cityData) {
+        return {price: cityData?.price, currency: cityData?.currency}
+      } else {
+        return {}
+      }
+    } else {
+      return {}
+    }
+  }
+
+  const resultReturnValue = (renderReturnValue().price !== undefined && renderReturnValue().currency !== undefined) ? `${renderReturnValue().price} ${renderReturnValue().currency}` : '';
+
+  const resultSupplyValue = (renderSupplyValue().price !== undefined && renderSupplyValue().currency !== undefined) ? `${renderSupplyValue().price} ${renderSupplyValue().currency}` : '';
+
+  const supplyOptions = [
     {
       label: t('take_away_from_office'),
       value: '0',
       children: (
-        <TakeAway
+        <OfficeService
           control={control}
-          toggleEditModal={toggleEditModal}
           errors={errors}
-          startDate={
-            book_from && format(new Date(String(book_from)), 'd MMM yyyy', i18n.language === 'ka' ? { locale: ka } : {})
-          }
-          endDate={
-            book_to && format(new Date(String(book_to)), 'd MMM yyyy', i18n.language === 'ka' ? { locale: ka } : {})
-          }
+          city={singleProductDetails?.start_city}
+          address={singleProductDetails?.start_address}
         />
       )
     },
     {
-      label: t('supply'),
+      label: 'მიწოდება მისამართზე',
       value: '1',
       children: (
-        <Delivery
+        <AddressService
           control={control}
-          toggleEditModal={toggleEditModal}
           errors={errors}
-          startDate={
-            book_from && format(new Date(String(book_from)), 'd MMM yyyy', i18n.language === 'ka' ? { locale: ka } : {})
-          }
-          endDate={
-            book_to && format(new Date(String(book_to)), 'd MMM yyyy', i18n.language === 'ka' ? { locale: ka } : {})
-          }
+          otherServiceLocations={singleProductDetails?.other_delivery_locations}
+          nameCity='other_start_city'
+          addressName='other_start_address'
+          serviceValue={resultSupplyValue}
+          timeName="start_time"
+        />
+      )
+    }
+  ]
+
+  const returnOptions = [
+    {
+      label: 'ოფისში დაბრუნება',
+      value: '0',
+      children: (
+        <OfficeService
+          control={control}
+          errors={errors}
+          city={singleProductDetails?.end_city}
+          address={singleProductDetails?.end_address}
+        />
+      )
+    },
+    {
+      label: 'მისამართზე დატოვება',
+      value: '1',
+      children: (
+        <AddressService
+          control={control}
+          errors={errors}
+          otherServiceLocations={singleProductDetails?.other_return_locations}
+          nameCity='other_end_city'
+          addressName='other_end_address'
+          serviceValue={resultReturnValue}
+          timeName="end_time"
         />
       )
     }
@@ -177,8 +240,6 @@ const Booking = () => {
   const onSubmit = () => {
     singleProductDetails.company_id === activeCompanyId ? selfBookMutation.mutate() : createOrderMutation.mutate()
   }
-
-  const formsState = useWatch({ control })
 
   if (loading) {
     return <div>Loading...</div>
@@ -263,9 +324,21 @@ const Booking = () => {
               {t('location')} *
             </Typography>
 
-            <BookingRadio name='supply' options={options} control={control} color='bg-green-100' />
+            {/* <BookingRadio name='supply' options={options} control={control} color='bg-green-100' /> */}
 
-            {formsState?.additional_services && formsState?.additional_services?.length > 0 && (
+            <Typography type='subtitle' className='text-md my-6 md:my-10'>
+              მიწოდება
+            </Typography>
+
+            <AddressesRadio name='supply' options={supplyOptions} control={control} color='bg-green-100' />
+
+            <Typography type='subtitle' className='text-md my-6 md:my-10'>
+              დაბრუნება
+            </Typography>
+
+            <AddressesRadio name='return_location' options={returnOptions} control={control} color='bg-green-100' />
+
+            {formState?.additional_services && formState?.additional_services?.length > 0 && (
               <div className='mb-20'>
                 <div
                   className='mt-11 flex items-center justify-between mb-8 cursor-pointer'
@@ -284,7 +357,7 @@ const Booking = () => {
                   />
                 </div>
                 {additionalServices && (
-                  <CheckServices control={control} options={formsState?.additional_services as any} />
+                  <CheckServices control={control} options={formState?.additional_services as any} />
                 )}
               </div>
             )}
@@ -310,7 +383,7 @@ const Booking = () => {
               model={singleProductDetails?.manufacturer_model?.title}
               year={singleProductDetails?.prod_year}
               price={singleProductDetails?.price_gel}
-              gelOnly
+              isBooking
               control={control}
               startDate={
                 book_from &&
@@ -329,6 +402,8 @@ const Booking = () => {
               changeDates={false}
               services={formState?.additional_services?.filter(service => service?.is_selected)}
               companyId={singleProductDetails?.company_id}
+              carDeliveryPrice={renderSupplyValue()}
+              carReturnPrice={renderReturnValue()}
             />
           </div>
         </ContentContainer>

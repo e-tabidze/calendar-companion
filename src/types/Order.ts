@@ -28,8 +28,13 @@ export type Order = {
   driver_license_expiration: string | Date
   additional_services: OrderService[]
   supply: string
+  return_location: string
   start_time: string
   end_time: string
+  start_city: string,
   start_address: string
+  end_city: string
   end_address: string
+  other_end_city: string,
+  other_start_city: string,
 }

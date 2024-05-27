@@ -34,8 +34,10 @@ const BookingSchema = Yup.object<Order>().shape({
 
   start_time: Yup.string().required('required_field').typeError('required_field'),
   end_time: Yup.string().required('required_field').typeError('required_field'),
+  start_city: Yup.string().required('required_field'),
   start_address: Yup.string().required('required_field'),
-  end_address: Yup.string().required('required_field')
+  end_address: Yup.string().required('required_field'),
+  end_city: Yup.string().required('required_field')
 })
 
 export { BookingSchema }

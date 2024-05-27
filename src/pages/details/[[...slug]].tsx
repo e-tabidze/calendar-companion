@@ -411,7 +411,7 @@ const ProductDetails = memo(() => {
               <PriceCalcCard
                 className={`${isSticky ? 'sticky top-44' : ''} z-[11]`}
                 price={currency === 'GEL' ? singleProductDetails?.price_gel : singleProductDetails?.price_usd}
-                gelOnly={false}
+                isBooking={false}
                 startDate={startDate && format(startDate, 'd MMM yyyy', i18n.language === 'ka' ? { locale: ka } : {})}
                 endDate={endDate && format(endDate, 'd MMM yyyy', i18n.language === 'ka' ? { locale: ka } : {})}
                 days={

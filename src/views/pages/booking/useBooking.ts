@@ -25,7 +25,8 @@ const useBooking = (id: number | string | string[], company_id?: any) => {
     title: service?.title,
     type_id: service?.company_service_type_id,
     price: service?.price,
-    max: service?.quantity
+    max: service?.quantity,
+    currency: service?.currency
   }))
 
   const defaultValues: Order = {
@@ -43,10 +44,15 @@ const useBooking = (id: number | string | string[], company_id?: any) => {
     driver_license_expiration: '',
     additional_services: additionalService,
     supply: '0',
+    return_location: '0',
     start_time: router.asPath.includes('dashboard') ? '06:00' : '',
     end_time: router.asPath.includes('dashboard') ? '22:00' : '',
+    start_city: singleProductDetails?.start_city || '',
     start_address: singleProductDetails?.start_address || '',
-    end_address: singleProductDetails?.end_address || ''
+    end_city: singleProductDetails?.end_city || '',
+    end_address: singleProductDetails?.end_address || '',
+    other_end_city: '',
+    other_start_city: ''
   }
 
   const {
@@ -74,7 +80,9 @@ const useBooking = (id: number | string | string[], company_id?: any) => {
       setValue('dob', userInfo?.information?.birth_date ?? '')
       setValue('driver_license_expiration', userInfo?.information?.driver_license_expiration ?? '')
 
+      setValue('start_city', singleProductDetails ? singleProductDetails?.start_city : '')
       setValue('start_address', singleProductDetails ? singleProductDetails?.start_address : '')
+      setValue('end_city', singleProductDetails ? singleProductDetails?.end_city : '')
       setValue('end_address', singleProductDetails ? singleProductDetails?.end_address : '')
       setValue('additional_services', singleProductDetails ? additionalService : [])
 
