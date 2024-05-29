@@ -33,6 +33,7 @@ interface Props {
   isBooking: boolean
   carDeliveryPrice?: any
   carReturnPrice?: any
+  isGelOnly: boolean
 }
 
 const PriceCalcCard: React.FC<Props> = ({
@@ -54,31 +55,74 @@ const PriceCalcCard: React.FC<Props> = ({
   endDate,
   isBooking = false,
   carDeliveryPrice,
-  carReturnPrice
+  carReturnPrice,
+  isGelOnly = false
 }) => {
   const { userInfo, activeCompanyId } = useProfile()
 
   const formState = useWatch({ control })
   const { t } = useTranslation()
 
-  const { currency, updateCurrency, currs } = useCurrency()
+  const { currency, exchangeRate } = useCurrency()
+
+  const convertToGEL = (price: number, currency: string): number => {
+    let convertedPrice = price
+
+    if (currency === 'USD') {
+      convertedPrice = price / exchangeRate
+
+      return parseFloat(convertedPrice?.toFixed(2))
+    } else {
+      
+      return price
+    }
+  }
 
   const calculateDaysAndServices = () => {
-    return (
+    const deliveryPriceInGEL = carDeliveryPrice
+      ? convertToGEL(carDeliveryPrice.price, carDeliveryPrice.currency) || 0
+      : 0
+    const returnPriceInGEL = carReturnPrice ? convertToGEL(carReturnPrice.price, carReturnPrice.currency) || 0 : 0
+
+    const sumPrice =
       days &&
       days * price +
         (services
-          ? services.reduce((accumulator: number, service: { type_id: number; count: number; price: number }) => {
-              if (service.type_id === 1) {
-                accumulator += service.count * service.price * days
-              } else {
-                accumulator += service.count * service.price
-              }
+          ? services.reduce(
+              (accumulator: number, service: { type_id: number; count: number; price: number; currency: string }) => {
+                let servicePriceInGEL = service.price
 
-              return accumulator
-            }, 0)
-          : 0)
-    )
+                if (service.currency === 'USD') {
+                  servicePriceInGEL = service.price / exchangeRate
+                }
+
+                if (service.type_id === 1) {
+                  accumulator += service.count * servicePriceInGEL * days
+                } else {
+                  accumulator += service.count * servicePriceInGEL
+                }
+
+                return accumulator
+              },
+              0
+            )
+          : 0) +
+        Number(deliveryPriceInGEL) +
+        Number(returnPriceInGEL)
+
+    return parseFloat(sumPrice?.toFixed(2))
+  }
+
+  const comission = () => {
+    const comissionPrice = (calculateDaysAndServices() / 100) * 5
+
+    return parseFloat(comissionPrice?.toFixed(2))
+  }
+
+  const calculateSum = () => {
+    const sumPrice = comission() + calculateDaysAndServices()
+
+    return parseFloat(sumPrice?.toFixed(2))
   }
 
   return (
@@ -143,28 +187,7 @@ const PriceCalcCard: React.FC<Props> = ({
 
       <div className='flex items-center gap-2'>
         <Typography type='h3' className='font-bold flex gap-3'>
-          {price}{' '}
-          {isBooking ? (
-            <div className='flex'>
-              {currs.map((curr: any) => (
-                <button
-                  value={curr.title}
-                  key={curr.id}
-                  type='button'
-                  onClick={() => updateCurrency(curr.currency)}
-                  className={`flex items-center justify-center hover:bg-grey-100 cursor-pointer rounded-full w-9 h-9 ${
-                    curr.currency === currency ? 'bg-raisin-10' : ''
-                  }`}
-                >
-                  {curr.sign}
-                </button>
-              ))}
-            </div>
-          ) : currency === 'GEL' ? (
-            '₾'
-          ) : (
-            '$'
-          )}
+          {price}₾
         </Typography>
         <Typography type='h5' weight='normal'>
           / {t('day')}
@@ -211,7 +234,7 @@ const PriceCalcCard: React.FC<Props> = ({
               </Typography>
             </div>
             <Typography type='h5' weight='normal'>
-              {days && days * price} {currency === 'GEL' ? '₾' : '$'}
+              {days && days * price} {isGelOnly ? '₾' : currency === 'GEL' ? '₾' : '$'}
             </Typography>
           </div>
 
@@ -226,8 +249,10 @@ const PriceCalcCard: React.FC<Props> = ({
                 </Typography>
               </div>
               <Typography type='h5' weight='normal'>
-                {service?.type_id == 1 ? service?.count * service?.price * days! : service?.count * service.price}{' '}
-                {currency === 'GEL' ? '₾' : '$'}
+                {service?.type_id === 1
+                  ? convertToGEL(service?.price * days!, service?.currency)
+                  : convertToGEL(service?.count * service?.price, service?.currency)}
+                {isGelOnly ? '₾' : currency === 'GEL' ? '₾' : '$'}
               </Typography>
             </div>
           ))}
@@ -241,10 +266,10 @@ const PriceCalcCard: React.FC<Props> = ({
               </div>
               <Typography type='h5' weight='normal'>
                 {carDeliveryPrice !== undefined &&
-                Object?.keys(carDeliveryPrice).length === 0 &&
+                Object.keys(carDeliveryPrice).length === 0 &&
                 carDeliveryPrice.constructor === Object
                   ? 'უფასო'
-                  : `${carDeliveryPrice?.price} ${carDeliveryPrice?.currency}`}
+                  : `${convertToGEL(carDeliveryPrice?.price, carDeliveryPrice?.currency)} ₾`}
               </Typography>
             </div>
           )}
@@ -258,10 +283,10 @@ const PriceCalcCard: React.FC<Props> = ({
               </div>
               <Typography type='h5' weight='normal'>
                 {carReturnPrice !== undefined &&
-                Object?.keys(carReturnPrice).length === 0 &&
+                Object.keys(carReturnPrice).length === 0 &&
                 carReturnPrice.constructor === Object
                   ? 'უფასო'
-                  : `${carReturnPrice?.price} ${carReturnPrice?.currency}`}
+                  : `${convertToGEL(carReturnPrice?.price, carReturnPrice?.currency)} ₾`}
               </Typography>
             </div>
           )}
@@ -274,7 +299,7 @@ const PriceCalcCard: React.FC<Props> = ({
                 </Typography>
               </div>
               <Typography type='h5' weight='normal'>
-                თანხა
+                {comission()}
               </Typography>
             </div>
           )}
@@ -289,8 +314,8 @@ const PriceCalcCard: React.FC<Props> = ({
             </div>
             {days && (
               <Typography type='h5' weight='normal' className='font-bold'>
-                {calculateDaysAndServices()}
-                {currency === 'GEL' ? '₾' : '$'}
+                {calculateSum()}
+                {isGelOnly ? '₾' : currency === 'GEL' ? '₾' : '$'}
               </Typography>
             )}
           </div>

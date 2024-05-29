@@ -35,21 +35,21 @@ const useCurrency = () => {
     }
   }, [])
 
-  const useCurrencyRates: any = useQuery({
-    queryKey: ['currencyRates'],
+  const useExchangeRate: any = useQuery({
+    queryKey: ['exchangeRate'],
     queryFn: () => getCurrencyRates(''),
     staleTime: Infinity,
     enabled: true
   })
 
-  const currencyRates = useCurrencyRates?.data?.result?.data
+  const exchangeRate = useExchangeRate?.data?.result?.currency_rate
 
   const updateCurrency = (newCurrency: string) => {
     localStorage.setItem('currency', newCurrency)
     window.dispatchEvent(new Event('currencyChange'))
   }
 
-  return { currency, currencyRates, updateCurrency, currs }
+  return { currency, exchangeRate, updateCurrency, currs }
 }
 
 export default useCurrency

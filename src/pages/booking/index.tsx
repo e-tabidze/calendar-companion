@@ -71,7 +71,7 @@ const Booking = () => {
 
   const { singleProductDetails } = useSingleProductDetails(id)
 
-  const { currencyRates, currency } = useCurrency()
+  const { currency, currs, updateCurrency } = useCurrency()
 
   console.log(singleProductDetails, 'singleProductDetails in booking')
 
@@ -85,8 +85,6 @@ const Booking = () => {
   const formState = useWatch({ control })
 
   console.log(formState, 'formState')
-
-  console.log(currencyRates, 'currencyRates', currency, 'currency')
 
   const queryClient = useQueryClient()
 
@@ -331,9 +329,30 @@ const Booking = () => {
               {t('booking_notice')}
             </Typography>
             <Divider />
-            <Typography type='h3' className='text-3md md:text-2lg my-6 md:my-10'>
-              {t('location')} *
-            </Typography>
+
+            <div className='flex items-center gap-3'>
+              <Typography type='h3' className='text-3md md:text-2lg my-6 md:my-10'>
+                {t('location')} *
+              </Typography>
+              <div className='flex gap-1'>
+                {currs.map((curr: any) => (
+                  <button
+                    value={curr.title}
+                    key={curr.id}
+                    type='button'
+                    onClick={(e: any) => {
+                      e.stopPropagation()
+                      updateCurrency(curr.currency)
+                    }}
+                    className={`flex items-center text-3md md:text-2lg justify-center hover:bg-grey-100 cursor-pointer rounded-full w-9 h-9 ${
+                      curr.currency === currency ? 'bg-raisin-10' : ''
+                    }`}
+                  >
+                    {curr.sign}
+                  </button>
+                ))}
+              </div>
+            </div>
 
             {/* <BookingRadio name='supply' options={options} control={control} color='bg-green-100' /> */}
 
@@ -355,9 +374,30 @@ const Booking = () => {
                   className='mt-11 flex items-center justify-between mb-8 cursor-pointer'
                   onClick={() => toggleAdditionalServices(!additionalServices)}
                 >
-                  <Typography type='h3' className='text-3md md:text-2lg'>
-                    {t('services_price')}
-                  </Typography>
+                  <div className='flex items-center gap-3'>
+                    <Typography type='h3' className='text-3md md:text-2lg'>
+                      {t('services_price')}
+                    </Typography>
+
+                    <div className='flex gap-1'>
+                      {currs.map((curr: any) => (
+                        <button
+                          value={curr.title}
+                          key={curr.id}
+                          type='button'
+                          onClick={(e: any) => {
+                            e.stopPropagation()
+                            updateCurrency(curr.currency)
+                          }}
+                          className={`flex items-center text-3md md:text-2lg justify-center hover:bg-grey-100 cursor-pointer rounded-full w-9 h-9 ${
+                            curr.currency === currency ? 'bg-raisin-10' : ''
+                          }`}
+                        >
+                          {curr.sign}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
                   <Icon
                     svgPath='chevron-md'
                     width={16}
@@ -393,7 +433,8 @@ const Booking = () => {
               manufacturer={singleProductDetails?.manufacturer?.title}
               model={singleProductDetails?.manufacturer_model?.title}
               year={singleProductDetails?.prod_year}
-              price={currency === 'GEL' ? singleProductDetails?.price_gel : singleProductDetails?.price_usd}
+              price={singleProductDetails?.price_gel}
+              isGelOnly
               isBooking
               control={control}
               startDate={
