@@ -144,6 +144,7 @@ const Booking = () => {
           errors={errors}
           city={singleProductDetails?.start_city}
           address={singleProductDetails?.start_address}
+          timeName="start_time"
         />
       )
     },
@@ -174,6 +175,7 @@ const Booking = () => {
           errors={errors}
           city={singleProductDetails?.end_city}
           address={singleProductDetails?.end_address}
+          timeName='end_time'
         />
       )
     },

@@ -12,9 +12,10 @@ interface Props {
   errors: any
   city: string
   address: string
+  timeName: string
 }
 
-const OfficeService: React.FC<Props> = ({ control, errors, city, address }) => {
+const OfficeService: React.FC<Props> = ({ control, errors, city, address, timeName }) => {
   const formState = useWatch({ control })
   const { t } = useTranslation()
 
@@ -22,7 +23,7 @@ const OfficeService: React.FC<Props> = ({ control, errors, city, address }) => {
 
   return (
     <div className='pl-13 mt-4'>
-      <div className='flex items-center'>
+      <div className='flex items-center pb-6'>
         <div className='flex items-center lg:items-start'>
           <Icon svgPath='booking-start' height={24} width={24} className='fill-transparent flex shrink-0' />
         </div>
@@ -36,7 +37,7 @@ const OfficeService: React.FC<Props> = ({ control, errors, city, address }) => {
               control={control}
               valueKey='value'
               labelKey='label'
-              name='start_time'
+              name={timeName}
               options={generateTimeOptions()}
               placeholder={t('time') + '*'}
               className='bg-transparent fill-transparent border-green-100 group-color'
