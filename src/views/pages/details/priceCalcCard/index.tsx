@@ -71,7 +71,7 @@ const PriceCalcCard: React.FC<Props> = ({
     if (currency === 'USD') {
       convertedPrice = price / exchangeRate
 
-      return parseFloat(convertedPrice?.toFixed(0))
+      return parseFloat(convertedPrice?.toFixed(2))
     } else {
       return price
     }
@@ -109,7 +109,7 @@ const PriceCalcCard: React.FC<Props> = ({
         Number(deliveryPriceInGEL) +
         Number(returnPriceInGEL)
 
-    return sumPrice.parseFloat(0)
+    return parseFloat(sumPrice?.toFixed(2))
   }
 
   const comission = () => {
@@ -121,7 +121,7 @@ const PriceCalcCard: React.FC<Props> = ({
   const calculateSum = () => {
     const sumPrice = comission() + calculateDaysAndServices()
 
-    return sumPrice?.parseFloat(0)
+    return parseFloat(sumPrice?.toFixed(2))
   }
 
   return (
