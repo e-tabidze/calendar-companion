@@ -71,9 +71,8 @@ const PriceCalcCard: React.FC<Props> = ({
     if (currency === 'USD') {
       convertedPrice = price / exchangeRate
 
-      return parseFloat(convertedPrice?.toFixed(2))
+      return Math.ceil(convertedPrice)
     } else {
-      
       return price
     }
   }
@@ -110,19 +109,19 @@ const PriceCalcCard: React.FC<Props> = ({
         Number(deliveryPriceInGEL) +
         Number(returnPriceInGEL)
 
-    return parseFloat(sumPrice?.toFixed(2))
+    return Math.ceil(sumPrice)
   }
 
   const comission = () => {
-    const comissionPrice = (calculateDaysAndServices() / 100) * 5
+    const comissionPrice: number = (calculateDaysAndServices() / 100) * 5
 
-    return parseFloat(comissionPrice?.toFixed(2))
+    return Math.ceil(comissionPrice)
   }
 
   const calculateSum = () => {
     const sumPrice = comission() + calculateDaysAndServices()
 
-    return parseFloat(sumPrice?.toFixed(2))
+    return Math.ceil(sumPrice)
   }
 
   return (
@@ -187,7 +186,7 @@ const PriceCalcCard: React.FC<Props> = ({
 
       <div className='flex items-center gap-2'>
         <Typography type='h3' className='font-bold flex gap-3'>
-          {price}₾
+          {price} {isBooking ? '₾' : currency === 'GEL' ? '₾' : '$'}
         </Typography>
         <Typography type='h5' weight='normal'>
           / {t('day')}
@@ -314,7 +313,7 @@ const PriceCalcCard: React.FC<Props> = ({
             </div>
             {days && (
               <Typography type='h5' weight='normal' className='font-bold'>
-                {calculateSum()}
+                {isBooking ? calculateSum() : calculateDaysAndServices()}
                 {isGelOnly ? '₾' : currency === 'GEL' ? '₾' : '$'}
               </Typography>
             )}
