@@ -109,19 +109,19 @@ const PriceCalcCard: React.FC<Props> = ({
         Number(deliveryPriceInGEL) +
         Number(returnPriceInGEL)
 
-    return parseFloat(sumPrice?.toFixed(0))
+    return parseFloat(sumPrice?.toFixed(3))
   }
 
   const comission = () => {
     const comissionPrice: number = (calculateDaysAndServices() / 100) * 10
 
-    return parseFloat(comissionPrice?.toFixed(0))
+    return parseFloat(comissionPrice?.toFixed(3))
   }
 
   const calculateSum = () => {
     const sumPrice = comission() + calculateDaysAndServices()
 
-    return parseFloat(sumPrice?.toFixed(0))
+    return parseFloat(sumPrice?.toFixed(3))
   }
 
   return (
