@@ -113,7 +113,7 @@ const PriceCalcCard: React.FC<Props> = ({
   }
 
   const comission = () => {
-    const comissionPrice: number = (calculateDaysAndServices() / 100) * 5
+    const comissionPrice: number = (calculateDaysAndServices() / 100) * 10
 
     return Math.ceil(comissionPrice)
   }
