@@ -262,7 +262,7 @@ const OrderDetails = () => {
                   {t('sum')}
                 </Typography>
                 <Typography type='subtitle' className='font-bold'>
-                  {Number(companyOrder?.price)?.toFixed(2)} ₾
+                  {Number(companyOrder?.price)?.toFixed(3)} ₾
                 </Typography>
               </PriceDetailsWrapper>
             </div>
