@@ -71,7 +71,7 @@ const PriceCalcCard: React.FC<Props> = ({
     if (currency === 'USD') {
       convertedPrice = price / exchangeRate
 
-      return parseFloat(convertedPrice?.toFixed(0))
+      return parseFloat(convertedPrice?.toFixed(3))
     } else {
       return price
     }
