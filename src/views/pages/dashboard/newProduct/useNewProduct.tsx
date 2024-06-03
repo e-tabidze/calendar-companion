@@ -38,6 +38,11 @@ const useNewProduct = () => {
     daily_price: {
       currency: 'GEL'
     },
+    has_deposit: false,
+    deposit: {
+      amount: 0,
+      currency: 'GEL'
+    },
     apply_discount: false,
     is_active: true,
     images: [],

@@ -73,6 +73,43 @@ const StepThree: React.FC<Props> = ({ control, errors, discountItems, appendDisc
       </Typography>
 
       <Typography type='h5' weight='normal' className='text-3md my-6'>
+        დეპოზიტი
+      </Typography>
+      <Divider />
+      <DiscountContainer>
+        <SwitchField
+          label='მიუთითე სადეპოზიტო  თანხა'
+          description='*მოცემულ თანხას მომხმარებელი გადაიხდის ადგილზე'
+          control={control}
+          name='has_deposit'
+          defaultValue={false}
+        />
+      </DiscountContainer>
+
+      {formState.has_deposit ? (
+        <StepThreePriceContainer>
+          <DefaultInput
+            label="დეპოზიტის თანხა"
+            control={control}
+            name='deposit.amount'
+            errors={errors}
+            type='number'
+            className='min-w-[200px]'
+          />
+          <TwoOptionSelector
+            control={control}
+            name='deposit.currency'
+            options={[
+              { value: 'GEL', icon: 'gel', width: '11', height: '12' },
+              { value: 'USD', icon: 'usd', width: '7', height: '12' }
+            ]}
+          />
+        </StepThreePriceContainer>
+      ) : (
+        <></>
+      )}
+
+      <Typography type='h5' weight='normal' className='text-3md my-6'>
         ფასდაკლება
       </Typography>
       <Divider />
@@ -84,6 +121,7 @@ const StepThree: React.FC<Props> = ({ control, errors, discountItems, appendDisc
           defaultValue={false}
         />
       </DiscountContainer>
+
       {formState.apply_discount ? (
         <DiscountComponentWrapper>
           {discountItems.map((component: any, index: number) => (
