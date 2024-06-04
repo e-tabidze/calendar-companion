@@ -39,7 +39,7 @@ const OrderDetails = () => {
   console.log(userOrderDetails, 'userOrderDetails')
 
   return (
-    <div className='border border-raisin-10 rounded-2xl'>
+    <div className='border border-raisin-10 rounded-3xl'>
       <div className='flex items-center md:w-full gap-6 p-4 md:p-8'>
         <IconTextButton icon='backWithBg' width={38} height={38} label={t('my_orders')} onClick={() => router.back()} />
       </div>

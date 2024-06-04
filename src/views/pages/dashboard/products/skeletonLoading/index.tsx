@@ -1,7 +1,7 @@
 import React from 'react'
 
 const SkeletonLoading = () => (
-  <div className='border border-raisin-10 rounded-2xl md:px-8 p-4'>
+  <div className='border border-raisin-10 rounded-3xl md:px-8 p-4'>
     {/* Header Skeleton */}
     <div className='animate-pulse flex justify-between items-center my-4 px-2'>
       <div className='w-3/12 h-12 bg-gray-300 rounded-md mb-2' />
