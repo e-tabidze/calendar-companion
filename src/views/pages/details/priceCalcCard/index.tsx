@@ -10,6 +10,7 @@ import { registerLocale } from 'react-datepicker'
 import ka from 'date-fns/locale/ka'
 import { useTranslation } from 'next-i18next'
 import useCurrency from 'src/hooks/useCurrency'
+import Toast from 'src/views/components/toast'
 
 registerLocale('ka', ka)
 
@@ -34,6 +35,8 @@ interface Props {
   carDeliveryPrice?: any
   carReturnPrice?: any
   isGelOnly: boolean
+  deposit_amount?: number
+  deposit_currency?: string
 }
 
 const PriceCalcCard: React.FC<Props> = ({
@@ -56,7 +59,9 @@ const PriceCalcCard: React.FC<Props> = ({
   isBooking = false,
   carDeliveryPrice,
   carReturnPrice,
-  isGelOnly = false
+  isGelOnly = false,
+  deposit_amount,
+  deposit_currency
 }) => {
   const { userInfo, activeCompanyId } = useProfile()
 
@@ -110,6 +115,17 @@ const PriceCalcCard: React.FC<Props> = ({
         Number(returnPriceInGEL)
 
     return parseFloat(sumPrice?.toFixed(3))
+  }
+
+  const removeLastDigitIfThreeDecimalPlaces = (num: number) => {
+    let numStr = num.toString()
+    const decimalIndex = numStr.indexOf('.')
+
+    if (decimalIndex !== -1 && numStr.length - decimalIndex - 1 === 3) {
+      numStr = numStr.slice(0, -1)
+    }
+
+    return parseFloat(numStr)
   }
 
   const comission = () => {
@@ -233,7 +249,8 @@ const PriceCalcCard: React.FC<Props> = ({
               </Typography>
             </div>
             <Typography type='h5' weight='normal'>
-              {days && days * price} {isGelOnly ? '₾' : currency === 'GEL' ? '₾' : '$'}
+              {days && removeLastDigitIfThreeDecimalPlaces(days * price)}{' '}
+              {isGelOnly ? '₾' : currency === 'GEL' ? '₾' : '$'}
             </Typography>
           </div>
 
@@ -298,9 +315,19 @@ const PriceCalcCard: React.FC<Props> = ({
                 </Typography>
               </div>
               <Typography type='h5' weight='normal'>
+                {/* {removeLastDigitIfThreeDecimalPlaces(comission())} */}
                 {comission()}
               </Typography>
             </div>
+          )}
+
+          {deposit_amount && deposit_currency && (
+            <Toast
+              type={'warning'}
+              title={`გამქირავებლის მოთხოვნის საფუძველზე თანხას დაემატება სადეპოზიტო თანხა ${deposit_amount}${
+                deposit_currency === 'GEL' ? '₾' : '$'
+              }, რომელსაც გადაიხდით ადგილზე `}
+            />
           )}
 
           <Divider className='my-7' />
@@ -313,7 +340,9 @@ const PriceCalcCard: React.FC<Props> = ({
             </div>
             {days && (
               <Typography type='h5' weight='normal' className='font-bold'>
-                {isBooking ? calculateSum() : calculateDaysAndServices()}
+                {isBooking
+                  ? removeLastDigitIfThreeDecimalPlaces(calculateSum())
+                  : removeLastDigitIfThreeDecimalPlaces(calculateDaysAndServices())}
                 {isGelOnly ? '₾' : currency === 'GEL' ? '₾' : '$'}
               </Typography>
             )}

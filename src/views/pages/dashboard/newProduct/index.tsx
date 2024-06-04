@@ -163,7 +163,7 @@ const NewProduct: React.FC = () => {
             toast.custom(<Toast type='success' title={t('new_product_add_success')} />)
 
             setTimeout(() => {
-              router.push(`/dashboard/products/?is_active=1&page=1`)
+              router.push(`/dashboard/products/?is_active=1&page=0`)
             }, 5000)
           } else {
             console.error('Error: Images or productId is missing.')

@@ -82,6 +82,9 @@ const useEditProduct = (id: number) => {
       amount: '',
       currency: ''
     },
+    has_deposit: false,
+    deposit_amount: 0,
+    deposit_currency: 'GEL',
     apply_discount: '',
     identification_number: '',
     is_active: '',
@@ -132,6 +135,9 @@ const useEditProduct = (id: number) => {
       )
       setValue('daily_price.amount', productDetailsData?.price)
       setValue('daily_price.currency', productDetailsData?.currency)
+      setValue('has_deposit', productDetailsData?.has_deposit == 1 ? true : false)
+      setValue('deposit_amount', productDetailsData?.deposit_amount)
+      setValue('deposit_currency', productDetailsData?.deposit_currency)
       setValue('apply_discount', productDetailsData?.apply_discount)
       setValue(
         'company_services',

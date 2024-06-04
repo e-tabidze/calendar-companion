@@ -39,10 +39,9 @@ const useNewProduct = () => {
       currency: 'GEL'
     },
     has_deposit: false,
-    deposit: {
-      amount: 0,
-      currency: 'GEL'
-    },
+ 
+    deposit_amount: 0,
+    deposit_currency: 'GEL',
     apply_discount: false,
     is_active: true,
     images: [],

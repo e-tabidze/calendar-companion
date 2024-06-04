@@ -260,6 +260,7 @@
   "time": "დრო",
   "new_product_add_success": "განცხადება წარმატებით აიტვირთა",
   "new_product_add_error": "განცხადება ვერ დაემატა. ხელახლა სცადე",
+  "edit_product_submit_error": "განცხადება ვერ განახლდა. ხელახლა სცადე",
   "add_other_address": "სხვა მისამართის დამატება",
   "add_address": "მისამართის დამატება",
   "enter_address": "ჩაწერე მისამართი",

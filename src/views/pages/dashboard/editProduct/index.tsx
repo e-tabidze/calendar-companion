@@ -57,7 +57,7 @@ const EditProduct: React.FC = ({}) => {
     removeImage,
     trigger,
     appendImages,
-    otherDeliverLocations, 
+    otherDeliverLocations,
     appendOtherDeliveryLocations,
     removeOtherDeliveryLocations,
     otherReturnLocations,
@@ -172,6 +172,10 @@ const EditProduct: React.FC = ({}) => {
         setTimeout(() => {
           router.push(`/dashboard/products/?is_active=1&page=1`)
         }, 5000)
+      },
+
+      onError: () => {
+        toast.custom(<Toast type='error' title={t('edit_product_submit_error')} />)
       }
     }
   )

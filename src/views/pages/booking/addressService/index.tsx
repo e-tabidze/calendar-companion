@@ -24,7 +24,7 @@ const AddressService: React.FC<Props> = ({
   nameCity,
   addressName,
   serviceValue,
-  timeName
+  timeName,
 }) => {
   const { t } = useTranslation()
 
@@ -32,6 +32,8 @@ const AddressService: React.FC<Props> = ({
     value: item.id,
     label: item.city.title
   }))
+
+  console.log(otherServiceLocations, 'otherServiceLocations')
 
   return (
     <div className='pl-13 mt-4'>

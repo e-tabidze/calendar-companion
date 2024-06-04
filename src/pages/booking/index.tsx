@@ -138,6 +138,7 @@ const Booking = () => {
     {
       label: t('take_away_from_office'),
       value: '0',
+      disabled: false,
       children: (
         <OfficeService
           control={control}
@@ -151,6 +152,7 @@ const Booking = () => {
     {
       label: 'მიწოდება მისამართზე',
       value: '1',
+      disabled: singleProductDetails?.other_delivery_locations?.length === 0,
       children: (
         <AddressService
           control={control}
@@ -169,6 +171,7 @@ const Booking = () => {
     {
       label: 'ოფისში დაბრუნება',
       value: '0',
+      disabled: false,
       children: (
         <OfficeService
           control={control}
@@ -182,6 +185,7 @@ const Booking = () => {
     {
       label: 'მისამართზე დატოვება',
       value: '1',
+      disabled: singleProductDetails?.other_return_locations?.length === 0,
       children: (
         <AddressService
           control={control}
@@ -451,6 +455,8 @@ const Booking = () => {
                   new Date(Array.isArray(book_from) ? book_from[0] : book_from).getTime()) /
                   (24 * 60 * 60 * 1000)
               )}
+              deposit_amount={singleProductDetails?.deposit_amount}
+              deposit_currency={singleProductDetails?.deposit_currency}
               onClick={onSubmit}
               disabled={createOrderMutation?.isLoading}
               changeDates={false}

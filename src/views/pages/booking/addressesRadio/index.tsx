@@ -10,6 +10,7 @@ interface Option {
   label: string
   value: string | number
   children?: ReactComponentElement<any>
+  disabled: boolean
 }
 
 interface Props {
@@ -35,13 +36,13 @@ const AddressesRadio: React.FC<Props> = ({ options, control, color, horizontal, 
     <RadioGroup value={field.value} onChange={field.onChange} name={name}>
       <div className={`${horizontal ? 'flex gap-2 w-full' : ''}`}>
         {options.map((option: Option) => (
-          <RadioGroup.Option key={option.value} value={option.value} className='w-full'>
+          <RadioGroup.Option key={option.value} value={option.value} disabled={option.disabled} className='w-full'>
             {({ checked }) => (
-              <div className='my-3'>
+              <div className={`my-3 ${option.disabled ? 'pointer-events-none' : ''}`}>
                 <div
                   className={`rounded-xl border transition-all py-5 xl:py-8 xl:pl-10 xl:pr-6 px-4 lg:px-5 cursor-pointer ${
                     checked ? ' border-green-100 bg-green-10' : 'border-raisin-10 hover:border-raisin-100'
-                  }`}
+                  } ${option.disabled ? 'opacity-50' : ''}`}
                 >
                   <div className='flex justify-between items-center'>
                     <RadioGroup.Label className='flex items-center cursor-pointer' style={{ margin: '0px' }}>

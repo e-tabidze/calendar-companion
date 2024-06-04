@@ -260,6 +260,7 @@
   "time": "Time",
   "new_product_add_success": "Listing uploaded successfully",
   "new_product_add_error": "Unable to add a listing. Please attempt again later.",
+  "edit_product_submit_error": "Unable to edit a listing. Please attempt again later.",
   "add_other_address": "Add another address",
   "add_address": "Add address",
   "enter_address": "Enter address",

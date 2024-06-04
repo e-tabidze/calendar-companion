@@ -91,14 +91,14 @@ const StepThree: React.FC<Props> = ({ control, errors, discountItems, appendDisc
           <DefaultInput
             label="დეპოზიტის თანხა"
             control={control}
-            name='deposit.amount'
+            name='deposit_amount'
             errors={errors}
             type='number'
             className='min-w-[200px]'
           />
           <TwoOptionSelector
             control={control}
-            name='deposit.currency'
+            name='deposit_currency'
             options={[
               { value: 'GEL', icon: 'gel', width: '11', height: '12' },
               { value: 'USD', icon: 'usd', width: '7', height: '12' }
