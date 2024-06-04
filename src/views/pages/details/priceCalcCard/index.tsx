@@ -11,6 +11,7 @@ import ka from 'date-fns/locale/ka'
 import { useTranslation } from 'next-i18next'
 import useCurrency from 'src/hooks/useCurrency'
 import Toast from 'src/views/components/toast'
+import { removeLastDigitIfThreeDecimalPlaces } from 'src/utils/priceFormat'
 
 registerLocale('ka', ka)
 
@@ -115,17 +116,6 @@ const PriceCalcCard: React.FC<Props> = ({
         Number(returnPriceInGEL)
 
     return parseFloat(sumPrice?.toFixed(3))
-  }
-
-  const removeLastDigitIfThreeDecimalPlaces = (num: number) => {
-    let numStr = num.toString()
-    const decimalIndex = numStr.indexOf('.')
-
-    if (decimalIndex !== -1 && numStr.length - decimalIndex - 1 === 3) {
-      numStr = numStr.slice(0, -1)
-    }
-
-    return parseFloat(numStr)
   }
 
   const comission = () => {
@@ -315,15 +305,15 @@ const PriceCalcCard: React.FC<Props> = ({
                 </Typography>
               </div>
               <Typography type='h5' weight='normal'>
-                {/* {removeLastDigitIfThreeDecimalPlaces(comission())} */}
-                {comission()}
+                {removeLastDigitIfThreeDecimalPlaces(comission())}
               </Typography>
             </div>
           )}
 
           {deposit_amount && deposit_currency && (
             <Toast
-              type={'warning'}
+              className='mt-4'
+              type='warning'
               title={`გამქირავებლის მოთხოვნის საფუძველზე თანხას დაემატება სადეპოზიტო თანხა ${deposit_amount}${
                 deposit_currency === 'GEL' ? '₾' : '$'
               }, რომელსაც გადაიხდით ადგილზე `}

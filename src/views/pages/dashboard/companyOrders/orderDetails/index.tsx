@@ -22,6 +22,8 @@ import Link from 'next/link'
 import { useTranslation } from 'next-i18next'
 import CancelReservation from '../cancelReservation'
 import CancelOrder from '../cancelOrder'
+import { removeLastDigitIfThreeDecimalPlaces } from 'src/utils/priceFormat'
+import Toast from 'src/views/components/toast'
 
 const Image = dynamic(() => import('src/views/components/image'), { ssr: true })
 const Icon = dynamic(() => import('src/views/app/Icon'), { ssr: false })
@@ -32,7 +34,6 @@ const OrderDetails = () => {
   const { t, i18n } = useTranslation()
   const [cancelOrderDialog, setCancelOrderDialog] = useState(false)
   const [cancelReservationDialog, setCancelReservationDialog] = useState(false)
-
 
   const router = useRouter()
 
@@ -61,7 +62,6 @@ const OrderDetails = () => {
   })
 
   console.log(companyOrder, 'companyOrder')
-
 
   if (companyOrderLoading) {
     return <OrderDetailsSkeleton />
@@ -229,9 +229,7 @@ const OrderDetails = () => {
                 <Typography type='subtitle'>
                   {t('rent_price')} x {companyOrder?.days} {t('day')}
                 </Typography>
-                <Typography type='subtitle'>
-                  {Number(companyOrderproductData?.price * companyOrder?.days).toFixed(3)}{' '}
-                </Typography>
+                <Typography type='subtitle'>{Number(companyOrderproductData?.price * companyOrder?.days)}₾</Typography>
               </PriceDetailsWrapper>
               {companyOrderproductData?.user_selected_product_services.map((service: any, index: number) => (
                 <PriceDetailsWrapper key={index}>
@@ -243,7 +241,7 @@ const OrderDetails = () => {
                       service?.company_service_type_id == 1
                         ? service?.price * service?.count * companyOrder?.days
                         : service?.price * service?.count
-                    ).toFixed(3)}
+                    )}
                     ₾
                   </Typography>
                 </PriceDetailsWrapper>
@@ -254,7 +252,7 @@ const OrderDetails = () => {
                   {t('service_commission')} - {companyOrder?.fee} %
                 </Typography>
                 <Typography type='subtitle'>
-                  {Number(((companyOrderproductData?.price * companyOrder?.days) / 100) * companyOrder?.fee).toFixed(3)}
+                  {Number(((companyOrderproductData?.price * companyOrder?.days) / 100) * companyOrder?.fee)}₾
                 </Typography>
               </PriceDetailsWrapper>
               <PriceDetailsWrapper>
@@ -262,7 +260,7 @@ const OrderDetails = () => {
                   {t('sum')}
                 </Typography>
                 <Typography type='subtitle' className='font-bold'>
-                  {Number(companyOrder?.price)?.toFixed(3)} ₾
+                  {removeLastDigitIfThreeDecimalPlaces(Number(companyOrder?.price))} ₾
                 </Typography>
               </PriceDetailsWrapper>
             </div>
@@ -319,6 +317,14 @@ const OrderDetails = () => {
               </Typography>
             </div>
 
+            <Toast
+              type='warning'
+              className='mb-8 max-w-[300px]'
+              title={`გამქირავებლის მოთხოვნის საფუძველზე თანხას დაემატება სადეპოზიტო თანხა ${
+                companyOrder?.deposit_amount
+              }${companyOrder?.deposit_currency === 'GEL' ? '₾' : '$'}, რომელსაც გადაიხდით ადგილზე `}
+            />
+
             {companyOrder?.status_id === 0 && (
               <div className='flex gap-2'>
                 <DefaultButton
@@ -331,8 +337,12 @@ const OrderDetails = () => {
               </div>
             )}
             {companyOrder?.status_id === 1 && (
-              <DefaultButton bg='bg-raisin-10' text={t('booking_cancel')} className="!text-raisin-100"  onClick={toggleCancelReservationDialog} />
-
+              <DefaultButton
+                bg='bg-raisin-10'
+                text={t('booking_cancel')}
+                className='!text-raisin-100'
+                onClick={toggleCancelReservationDialog}
+              />
             )}
           </div>
         </PriceDetailsContainer>

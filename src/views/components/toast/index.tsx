@@ -8,9 +8,10 @@ interface Props {
   path?: string
   permalink?: string
   onClose?: () => void
+  className?: string
 }
 
-const Toast: React.FC<Props> = ({ type, title, description, path, permalink }) => {
+const Toast: React.FC<Props> = ({ type, title, description, path, permalink, className }) => {
   return (
     <div
       className={`${
@@ -23,7 +24,7 @@ const Toast: React.FC<Props> = ({ type, title, description, path, permalink }) =
           : type === 'info'
           ? 'bg-blue-10 border border-blue-100'
           : ''
-      } px-6 py-4 rounded`}
+      } px-6 py-4 rounded ${className}`}
     >
       <Typography type='subtitle' className='text-raisin-100 text-2sm mb-2'>
         {title}

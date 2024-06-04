@@ -6,6 +6,7 @@ import { parseISO, format } from 'date-fns'
 import { ka } from 'date-fns/locale'
 import Divider from 'src/views/components/divider'
 import { useTranslation } from 'next-i18next'
+import { removeLastDigitIfThreeDecimalPlaces } from 'src/utils/priceFormat'
 
 interface Props {
   startAddress: string
@@ -49,7 +50,7 @@ const OrderListComponent: React.FC<Props> = ({
           </div>
           <div>
             <Typography type='subtitle' className='text-md'>
-              {productDetails?.manufacturer.title} {productDetails?.manufacturer_model?.title}
+              {productDetails?.manufacturer.title} {productDetails?.manufacturer_model?.title}{' '}
               {productDetails?.prod_year}
             </Typography>
             <Typography type='body' className='hidden md:flex'>
@@ -58,7 +59,7 @@ const OrderListComponent: React.FC<Props> = ({
             <Typography type='body' color='light' className='text-sm md:text-2sm'>
               {format(parseISO(startDate), 'd MMM yyyy', i18n.language === 'ka' ? { locale: ka } : {})}
               {' - '}
-              {format(parseISO(`1970-01-01T${startTime}`), 'HH:mm')} -
+              {format(parseISO(`1970-01-01T${startTime}`), 'HH:mm')} - {' '}
               {format(parseISO(endDate), 'd MMM yyyy', i18n.language === 'ka' ? { locale: ka } : {})}
               {' - '}
               {format(parseISO(`1970-01-01T${endTime}`), 'HH:mm')}
@@ -66,7 +67,7 @@ const OrderListComponent: React.FC<Props> = ({
           </div>
         </div>
         <Typography type='subtitle' className='flex items-center gap-2 md:w-2/12 pl-20 md:pl-0'>
-          {price} <Icon svgPath='gel' width={14} height={14} />
+          {removeLastDigitIfThreeDecimalPlaces(price)} <Icon svgPath='gel' width={14} height={14} />
         </Typography>
         <Typography
           type='subtitle'

@@ -21,6 +21,8 @@ import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import CancelOrder from '../cancelOrder'
 import Link from 'next/link'
+import Toast from 'src/views/components/toast'
+import { removeLastDigitIfThreeDecimalPlaces } from 'src/utils/priceFormat'
 
 const OrderDetails = () => {
   const { t, i18n } = useTranslation()
@@ -34,6 +36,8 @@ const OrderDetails = () => {
 
   const { userOrderDetails, productData } = useOrders(String(id))
 
+  console.log(userOrderDetails, 'userOrderDetails')
+
   return (
     <div className='border border-raisin-10 rounded-2xl'>
       <div className='flex items-center md:w-full gap-6 p-4 md:p-8'>
@@ -44,8 +48,7 @@ const OrderDetails = () => {
           <Typography type='subtitle' className='text-white'>
             ჯავშანი ავტომობილზე{' '}
             <span className='font-bold'>
-              {productData?.manufacturer?.title} {productData?.manufacturer_model?.title}{' '}
-              {productData?.prod_year}{' '}
+              {productData?.manufacturer?.title} {productData?.manufacturer_model?.title} {productData?.prod_year}{' '}
             </span>{' '}
             გაუქმებულია
           </Typography>
@@ -148,7 +151,9 @@ const OrderDetails = () => {
               <Typography type='subtitle'>
                 {t('rent_price')} x {userOrderDetails?.days} დღე
               </Typography>
-              <Typography type='subtitle'>{productData?.price * userOrderDetails?.days} </Typography>
+              <Typography type='subtitle'>
+                {removeLastDigitIfThreeDecimalPlaces(productData?.price_gel * userOrderDetails?.days)}₾
+              </Typography>
             </PriceDetailsWrapper>
             {productData?.user_selected_product_services.map((service: any, index: number) => (
               <PriceDetailsWrapper key={index}>
@@ -169,7 +174,16 @@ const OrderDetails = () => {
                 {t('service_commission')} - {userOrderDetails?.fee} %
               </Typography>
               <Typography type='subtitle'>
-                {((productData?.price * userOrderDetails?.days) / 100) * userOrderDetails?.fee}{' '}
+                {/* {removeLastDigitIfThreeDecimalPlaces((parseFloat(Number(productData?.price_gel * userOrderDetails?.days / 100) * userOrderDetails?.fee))?.toFixed(3))}₾ */}
+                {removeLastDigitIfThreeDecimalPlaces(
+                  parseFloat(
+                    (productData?.price_gel && userOrderDetails?.days && userOrderDetails?.fee
+                      ? ((Number(productData.price_gel) * Number(userOrderDetails.days)) / 100) *
+                        Number(userOrderDetails.fee)
+                      : 0
+                    ).toFixed(3)
+                  )
+                )}
               </Typography>
             </PriceDetailsWrapper>
 
@@ -179,7 +193,7 @@ const OrderDetails = () => {
                 {t('sum')}
               </Typography>
               <Typography type='subtitle' className='font-bold'>
-                {userOrderDetails?.price} ₾
+                {removeLastDigitIfThreeDecimalPlaces(userOrderDetails?.price)} ₾
               </Typography>
             </PriceDetailsWrapper>
           </div>
@@ -193,8 +207,8 @@ const OrderDetails = () => {
                   alt={
                     productData?.manufacturer?.title + productData?.manufacturer_model?.title + productData?.prod_year
                   }
-                  height={'100%'}
-                  width={'100%'}
+                  height='100%'
+                  width='100%'
                   className='object-cover'
                 />
               )}
@@ -204,9 +218,7 @@ const OrderDetails = () => {
           <div className='text-center'>
             <Link href={`/details/${productData?.id}`}>
               <Typography type='h5' className='font-bold mt-6 hover:text-green-100'>
-                {productData?.manufacturer?.title}
-                {productData?.manufacturer_model?.title}
-                {productData?.prod_year}
+                {productData?.manufacturer?.title} {productData?.manufacturer_model?.title} {productData?.prod_year}
               </Typography>
             </Link>
             <Typography
@@ -237,11 +249,23 @@ const OrderDetails = () => {
                 ? 'გაუქმებული'
                 : ''}
             </Typography>
+            <Toast
+              type='warning'
+              className='mb-8 max-w-[300px]'
+              title={`გამქირავებლის მოთხოვნის საფუძველზე თანხას დაემატება სადეპოზიტო თანხა ${
+                userOrderDetails?.deposit_amount
+              }${userOrderDetails?.deposit_currency === 'GEL' ? '₾' : '$'}, რომელსაც გადაიხდით ადგილზე `}
+            />
           </div>
 
           {userOrderDetails?.status_id === 0 ||
             (userOrderDetails?.status_id === 1 && (
-              <DefaultButton bg='bg-raisin-10' text={t('booking_cancel')} className="!text-raisin-100"  onClick={toggleCancelOrderDialog} />
+              <DefaultButton
+                bg='bg-raisin-10'
+                text={t('booking_cancel')}
+                className='!text-raisin-100'
+                onClick={toggleCancelOrderDialog}
+              />
             ))}
         </div>
       </PriceDetailsContainer>
