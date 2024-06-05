@@ -317,13 +317,15 @@ const OrderDetails = () => {
               </Typography>
             </div>
 
-            <Toast
-              type='warning'
-              className='mb-8 max-w-[300px]'
-              title={`გამქირავებლის მოთხოვნის საფუძველზე თანხას დაემატება სადეპოზიტო თანხა ${
-                companyOrder?.deposit_amount
-              }${companyOrder?.deposit_currency === 'GEL' ? '₾' : '$'}, რომელსაც გადაიხდით ადგილზე `}
-            />
+            {companyOrder?.deposit_amount && companyOrder?.deposit_currency && (
+              <Toast
+                type='warning'
+                className='mb-8 max-w-[300px]'
+                title={`გამქირავებლის მოთხოვნის საფუძველზე თანხას დაემატება სადეპოზიტო თანხა ${
+                  companyOrder?.deposit_amount
+                }${companyOrder?.deposit_currency === 'GEL' ? '₾' : '$'}, რომელსაც გადაიხდით ადგილზე `}
+              />
+            )}
 
             {companyOrder?.status_id === 0 && (
               <div className='flex gap-2'>
@@ -333,7 +335,12 @@ const OrderDetails = () => {
                   text={t('approve')}
                   onClick={() => activeOrderStatusMutation.mutate()}
                 />
-                <DefaultButton bg='bg-raisin-10' text={t('decline')} onClick={toggleCancelOrderDialog} />
+                <DefaultButton
+                  bg='bg-raisin-10'
+                  text={t('decline')}
+                  onClick={toggleCancelOrderDialog}
+                  textColor='!text-raisin-100'
+                />
               </div>
             )}
             {companyOrder?.status_id === 1 && (

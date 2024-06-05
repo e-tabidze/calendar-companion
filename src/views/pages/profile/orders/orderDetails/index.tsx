@@ -249,13 +249,15 @@ const OrderDetails = () => {
                 ? 'გაუქმებული'
                 : ''}
             </Typography>
-            <Toast
-              type='warning'
-              className='mb-8 max-w-[300px]'
-              title={`გამქირავებლის მოთხოვნის საფუძველზე თანხას დაემატება სადეპოზიტო თანხა ${
-                userOrderDetails?.deposit_amount
-              }${userOrderDetails?.deposit_currency === 'GEL' ? '₾' : '$'}, რომელსაც გადაიხდით ადგილზე `}
-            />
+            {userOrderDetails?.deposit_currency && userOrderDetails?.deposit_amount && (
+              <Toast
+                type='warning'
+                className='mb-8 max-w-[300px]'
+                title={`გამქირავებლის მოთხოვნის საფუძველზე თანხას დაემატება სადეპოზიტო თანხა ${
+                  userOrderDetails?.deposit_amount
+                }${userOrderDetails?.deposit_currency === 'GEL' ? '₾' : '$'}, რომელსაც გადაიხდით ადგილზე `}
+              />
+            )}
           </div>
 
           {userOrderDetails?.status_id === 0 ||
