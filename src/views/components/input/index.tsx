@@ -72,17 +72,17 @@ export const DefaultInput: React.FC<Props> = ({
   const handleBlur = () => setIsFocused(false)
 
   const handleKeyDown = (e: any) => {
+    e.stopPropagation()
     const { value } = e.target
     const badChars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-.+,'
 
     if (value.length === 0 && e.key === '0') {
-
       return true
     }
 
     if ((e.metaKey || e.ctrlKey) && e.key === 'a') {
       e.target.select()
-      
+
       return true
     }
 
@@ -132,7 +132,7 @@ export const DefaultInput: React.FC<Props> = ({
               onChange={e => {
                 onChange(e)
               }}
-              onKeyDown={type === 'number' ? handleKeyDown : undefined}
+              onKeyDown={type === 'number' ? handleKeyDown : (e) => e.stopPropagation()}
               pattern={pattern}
               rows={rows}
               min={min}

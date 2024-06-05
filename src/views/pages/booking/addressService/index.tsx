@@ -24,7 +24,7 @@ const AddressService: React.FC<Props> = ({
   nameCity,
   addressName,
   serviceValue,
-  timeName,
+  timeName
 }) => {
   const { t } = useTranslation()
 
@@ -43,7 +43,15 @@ const AddressService: React.FC<Props> = ({
         </div>
         <div className='lg:w-full flex flex-col ml-2 lg:flex-row lg:items-center lg:justify-between'>
           <div className='flex lg:w-8/12 pl-9 lg:pl-0 mb-3 lg:mb-0'>
-            <SelectField control={control} name={nameCity} options={options} valueKey='value' labelKey='label' className='flex-1' placeholder='აირჩიე ქალაქი' />
+            <SelectField
+              control={control}
+              name={nameCity}
+              options={options}
+              valueKey='value'
+              labelKey='label'
+              className='flex-1'
+              placeholder='აირჩიე ქალაქი'
+            />
 
             <DefaultInput
               className='detail-input-placeholder flex-1 ml-3'

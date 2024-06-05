@@ -10,7 +10,7 @@ interface Option {
   label: string
   value: string | number
   children?: ReactComponentElement<any>
-  disabled: boolean
+  disabled?: boolean
 }
 
 interface Props {

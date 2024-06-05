@@ -145,12 +145,15 @@ const Booking = () => {
           errors={errors}
           city={singleProductDetails?.start_city}
           address={singleProductDetails?.start_address}
-          timeName="start_time"
+          timeName='start_time'
         />
       )
     },
     {
-      label: 'მიწოდება მისამართზე',
+      label:
+        singleProductDetails?.other_delivery_locations?.length === 0
+          ? 'კომპანიას არ აქვს ავტომობილის მიწოდების სერვისი'
+          : 'მიწოდება მისამართზე',
       value: '1',
       disabled: singleProductDetails?.other_delivery_locations?.length === 0,
       children: (
@@ -183,7 +186,10 @@ const Booking = () => {
       )
     },
     {
-      label: 'მისამართზე დატოვება',
+      label:
+        singleProductDetails?.other_return_locations?.length === 0
+          ? 'კომპანიას არ აქვს ავტომობილის დატოვების სერვისი მისამართზე'
+          : 'მისამართზე დატოვება',
       value: '1',
       disabled: singleProductDetails?.other_return_locations?.length === 0,
       children: (
