@@ -192,7 +192,7 @@ const PriceCalcCard: React.FC<Props> = ({
 
       <div className='flex items-center gap-2'>
         <Typography type='h3' className='font-bold flex gap-3'>
-          {price} {isBooking ? '₾' : currency === 'GEL' ? '₾' : '$'}
+          {removeLastDigitIfThreeDecimalPlaces(price)} {isBooking ? '₾' : currency === 'GEL' ? '₾' : '$'}
         </Typography>
         <Typography type='h5' weight='normal'>
           / {t('day')}
@@ -239,7 +239,7 @@ const PriceCalcCard: React.FC<Props> = ({
               </Typography>
             </div>
             <Typography type='h5' weight='normal'>
-              {days && removeLastDigitIfThreeDecimalPlaces(days * price)}{' '}
+              {days && removeLastDigitIfThreeDecimalPlaces(parseFloat((days * price).toFixed(3)) )}{' '}
               {isGelOnly ? '₾' : currency === 'GEL' ? '₾' : '$'}
             </Typography>
           </div>
