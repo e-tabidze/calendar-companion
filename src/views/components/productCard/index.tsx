@@ -23,6 +23,7 @@ import { isMobile } from 'react-device-detect'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'next-i18next'
 import useCurrency from 'src/hooks/useCurrency'
+import { removeLastDigitIfThreeDecimalPlaces } from 'src/utils/priceFormat'
 
 interface Props {
   productId: number
@@ -98,6 +99,8 @@ const ProductCard: React.FC<Props> = ({
     }
   }
 
+  console.log(priceGel, 'proceGel', priceUsd, 'priceUsd')
+
   return (
     <ProductCardContainer onClick={handleCardClick}>
       <div className='overflow-hidden cursor-pointer w-full'>
@@ -156,7 +159,10 @@ const ProductCard: React.FC<Props> = ({
         </Typography>
         <InnerDetailsContainer>
           <PriceContainer>
-            {currency === 'GEL' ? priceGel : priceUsd} {currency === 'GEL' ? '₾' : '$'}
+            {currency === 'GEL'
+              ? removeLastDigitIfThreeDecimalPlaces(priceGel)
+              : removeLastDigitIfThreeDecimalPlaces(priceUsd)}{' '}
+            {currency === 'GEL' ? '₾' : '$'}
             {/* <PreviousPrice>47₾</PreviousPrice> */}
             <Typography type='body' className='text-sm'>
               {t('day')}
