@@ -239,7 +239,7 @@ const PriceCalcCard: React.FC<Props> = ({
               </Typography>
             </div>
             <Typography type='h5' weight='normal'>
-              {days && removeLastDigitIfThreeDecimalPlaces(parseFloat((days * price).toFixed(3)) )}{' '}
+              {days && removeLastDigitIfThreeDecimalPlaces(parseFloat((days * price).toFixed(3)))}{' '}
               {isGelOnly ? '₾' : currency === 'GEL' ? '₾' : '$'}
             </Typography>
           </div>
@@ -314,9 +314,15 @@ const PriceCalcCard: React.FC<Props> = ({
             <Toast
               className='mt-4'
               type='warning'
-              title={`გამქირავებლის მოთხოვნის საფუძველზე თანხას დაემატება სადეპოზიტო თანხა ${deposit_amount}${
-                deposit_currency === 'GEL' ? '₾' : '$'
-              }, რომელსაც გადაიხდით ადგილზე `}
+              title={
+                <>
+                  გამქირავებლის მოთხოვნის საფუძველზე თანხას დაემატება{' '}
+                  <span className='font-bold'>
+                    სადეპოზიტო თანხა {deposit_amount}{deposit_currency === 'GEL' ? '₾' : '$'}
+                  </span>
+                  , რომელსაც გადაიხდით ადგილზე
+                </>
+              }
             />
           )}
 

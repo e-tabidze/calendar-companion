@@ -253,9 +253,16 @@ const OrderDetails = () => {
               <Toast
                 type='warning'
                 className='mb-8 max-w-[300px]'
-                title={`გამქირავებლის მოთხოვნის საფუძველზე თანხას დაემატება სადეპოზიტო თანხა ${
-                  userOrderDetails?.deposit_amount
-                }${userOrderDetails?.deposit_currency === 'GEL' ? '₾' : '$'}, რომელსაც გადაიხდით ადგილზე `}
+                title={
+                  <>
+                    გამქირავებლის მოთხოვნის საფუძველზე თანხას დაემატება{' '}
+                    <span className='font-bold'>
+                      სადეპოზიტო თანხა {userOrderDetails?.deposit_amount}
+                      {userOrderDetails?.deposit_currency === 'GEL' ? '₾' : '$'}
+                    </span>
+                    , რომელსაც გადაიხდით ადგილზე
+                  </>
+                }
               />
             )}
           </div>

@@ -3,7 +3,7 @@ import Typography from '../typography'
 
 interface Props {
   type: 'success' | 'warning' | 'error' | 'info'
-  title: string
+  title: string | any
   description?: string
   path?: string
   permalink?: string
