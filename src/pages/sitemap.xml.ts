@@ -21,12 +21,13 @@ function SiteMap() {
   // getServerSideProps will do the heavy lifting
 }
 
-export async function getServerSideProps({ res }) {
+export async function getServerSideProps({ res }: any) {
   // We make an API call to gather the URLs for our site
   const request = await fetch(EXTERNAL_DATA_URL)
   const posts = await request.json()
 
   // We generate the XML sitemap with the posts data
+  // @ts-ignore
   const sitemap = generateSiteMap(posts.main)
 
   res.setHeader('Content-Type', 'text/xml')
