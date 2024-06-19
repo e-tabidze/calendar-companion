@@ -109,7 +109,8 @@ const useCompany = (id: number) => {
       description: companyInfo?.information?.description,
       description_en: companyInfo?.information?.description_en,
       email: companyInfo?.information?.email,
-      phone_numbers: companyInfo?.information?.phone_numbers
+      phone_numbers: companyInfo?.information?.phone_numbers,
+      iban: companyInfo?.information?.iban
     },
     addresses: defaultAddress
   }
@@ -152,7 +153,8 @@ const useCompany = (id: number) => {
           description: companyInfo.information.description,
           description_en: companyInfo.information.description_en,
           email: companyInfo.information.email,
-          phone_numbers: companyInfo.information.phone_numbers
+          phone_numbers: companyInfo.information.phone_numbers,
+          iban: companyInfo.information.iban
         },
         addresses: defaultAddress
       }

@@ -52,7 +52,8 @@ const useCreateCompany = () => {
       description: '',
       description_en: '',
       email: '',
-      phone_numbers: ''
+      phone_numbers: '',
+      iban: ''
     },
     addresses: [defaultAddress]
   }

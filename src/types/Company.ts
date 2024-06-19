@@ -35,9 +35,10 @@ export type CompanyInfo = {
   legal_name: string
   logo: string
   description: string
-  description_en: string,
+  description_en: string
   email: string
   phone_numbers: string
+  iban: ''
 }
 
 export type Company = {
