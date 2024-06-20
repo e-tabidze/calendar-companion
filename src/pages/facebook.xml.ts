@@ -112,7 +112,7 @@ export const getServerSideProps: GetServerSideProps = async ({ res, locale }) =>
   } catch (error: any) {
     console.error('Error generating XML:', error.message, error.stack)
     res.statusCode = 500
-    res.end('Internal Server Error')
+    res.end('Internal Server Error', error.message, error.stack)
     
     return {
       props: {}
