@@ -58,7 +58,7 @@ export const getServerSideProps: GetServerSideProps = async ({ res, locale }) =>
 
     const paginationResponse = await fetch(`${API_URL}/search-products?${query}`, {
       headers: {
-        'X-Website-Key': 'myhome',
+        'X-Website-Key': 'myauto',
         locale
       }
     })
@@ -77,7 +77,7 @@ export const getServerSideProps: GetServerSideProps = async ({ res, locale }) =>
       promises.push(
         fetch(`${API_URL}/search-products?${query}&page=${i}`, {
           headers: {
-            'X-Website-Key': 'myhome',
+            'X-Website-Key': 'myauto',
             locale
           }
         }).then(res => {
