@@ -23,6 +23,7 @@ const SortListBox: React.FC<Props> = ({ control, onClick, setValue }) => {
   const isFirstRender = useRef(true)
   const updateOrderRef = useRef(false)
   const urlSearchParams = new URLSearchParams(window.location.search)
+
   useEffect(() => {
     if (!isFirstRender.current) {
       if (selectedFilter) {
@@ -43,6 +44,8 @@ const SortListBox: React.FC<Props> = ({ control, onClick, setValue }) => {
       isFirstRender.current = false
     }
   }, [selectedFilter, onClick, setValue])
+
+  console.log(sortFilters, 'sortFilters')
 
   return (
     <>
