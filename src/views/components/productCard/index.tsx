@@ -99,8 +99,6 @@ const ProductCard: React.FC<Props> = ({
     }
   }
 
-  console.log(priceGel, 'proceGel', priceUsd, 'priceUsd')
-
   return (
     <ProductCardContainer onClick={handleCardClick}>
       <div className='overflow-hidden cursor-pointer w-full'>

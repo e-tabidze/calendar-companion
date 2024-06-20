@@ -68,7 +68,6 @@ const SearchPage = () => {
     totalPages,
     objectToURI,
     setValue,
-    searchProductsQuery
   } = useSearch()
   const { width } = useWindowDimensions()
 
@@ -127,7 +126,7 @@ const SearchPage = () => {
     const updatedSearchValues: any = getValues()
 
     // searchProductsMutation.mutate(objectToURI(updatedSearchValues))
-    searchProductsQuery.refetch()
+    // searchProductsQuery.refetch()
 
     router.push(`/search?${objectToURI(updatedSearchValues)}`)
   }

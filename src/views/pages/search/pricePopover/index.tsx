@@ -4,7 +4,7 @@ import { DefaultButton, IconTextButton } from 'src/views/components/button'
 import { ActionsWrapper, Divider, TagsWrapper } from './styles'
 import { useEffect, useState } from 'react'
 import { useWatch } from 'react-hook-form'
-import {useTranslation} from "next-i18next";
+import { useTranslation } from 'next-i18next'
 
 interface Props {
   control: any
@@ -16,7 +16,7 @@ const PricePopover: React.FC<Props> = ({ control, handleSubmit, reset }) => {
   const [hasPrice, setPrice] = useState(false)
 
   const formState = useWatch({ control })
-  const {t} =useTranslation()
+  const { t } = useTranslation()
 
   useEffect(() => {
     setPrice(!!formState?.price_min?.length || !!formState?.price_max?.length)
@@ -39,9 +39,7 @@ const PricePopover: React.FC<Props> = ({ control, handleSubmit, reset }) => {
           label={t('clear')}
           className='fill-transparent'
           labelClassname={hasPrice ? 'text-sm text-red-100' : 'text-sm text-raisin-50'}
-          iconFill={
-            hasPrice ? '!fill-red-100' : '!fill-black'
-          }
+          iconFill={hasPrice ? '!fill-red-100' : '!fill-black'}
           disabled={!hasPrice}
           type='button'
           width={24}
