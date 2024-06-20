@@ -16,7 +16,7 @@ interface Props {
 }
 
 const CancelReservationDialog: React.FC<Props> = ({ open, toggleModal, orderId, reasons, orderStatus }) => {
-  const { control, cancelReservation, cancelReservationValues, errors, isValid } = useCancelReservation()
+  const { control, cancelReservation, cancelReservationValues, errors, isValid, reset } = useCancelReservation()
 
   const formState = useWatch({ control })
 
@@ -35,7 +35,14 @@ const CancelReservationDialog: React.FC<Props> = ({ open, toggleModal, orderId, 
 
   return (
     <Transition.Root show={open} as={Fragment}>
-      <Dialog as='div' className='relative z-[111]' onClose={toggleModal}>
+      <Dialog
+        as='div'
+        className='relative z-[111]'
+        onClose={() => {
+          toggleModal()
+          reset()
+        }}
+      >
         <Transition.Child
           as={Fragment}
           enter='ease-out duration-300'

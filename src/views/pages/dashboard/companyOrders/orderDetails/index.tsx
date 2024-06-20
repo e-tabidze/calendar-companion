@@ -334,6 +334,8 @@ const OrderDetails = () => {
               />
             )}
 
+            <> {console.log(companyOrder?.status_id, 'companyOrder?.status_id')} </>
+
             {companyOrder?.status_id === 0 && (
               <div className='flex gap-2'>
                 <DefaultButton
@@ -350,14 +352,15 @@ const OrderDetails = () => {
                 />
               </div>
             )}
-            {companyOrder?.status_id === 1 && (
-              <DefaultButton
-                bg='bg-raisin-10'
-                text={t('booking_cancel')}
-                className='!text-raisin-100'
-                onClick={toggleCancelReservationDialog}
-              />
-            )}
+            {companyOrder?.status_id === 1 ||
+              (companyOrder?.status_id === 5 && (
+                <DefaultButton
+                  bg='bg-raisin-10'
+                  text={t('booking_cancel')}
+                  className='!text-raisin-100'
+                  onClick={toggleCancelReservationDialog}
+                />
+              ))}
           </div>
         </PriceDetailsContainer>
       </OrderDetailsContainer>

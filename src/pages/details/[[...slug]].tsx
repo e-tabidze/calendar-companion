@@ -90,6 +90,8 @@ const ProductDetails = memo(() => {
   const ref = useRef<any>()
   const { t, i18n } = useTranslation()
 
+  console.log(orderDatesData, 'orderDatesData')
+
   useEffect(() => {
     if (book_from && book_to) {
       const fromDate = Array.isArray(book_from)
@@ -269,9 +271,6 @@ const ProductDetails = memo(() => {
                     <Typography type='h3' className='text-3md md:text-2lg'>
                       {t('price_includes')}
                     </Typography>
-
-                    <>{console.log(singleProductDetails?.product_services, 'singleProductDetails?.product_services')}</>
-
                     <div className='mt-8 mb-11 grid grid-cols-1 gap-4'>
                       {singleProductDetails?.product_services
                         ?.filter((feature: any) => feature.company_service_type_id === 3)

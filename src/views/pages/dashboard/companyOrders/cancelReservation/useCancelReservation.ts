@@ -13,7 +13,8 @@ const useCancelReservation = () => {
   const {
     control,
     handleSubmit,
-    formState: { errors, isValid }
+    formState: { errors, isValid },
+    reset
   } = useForm({
     mode: 'onChange',
     reValidateMode: 'onChange',
@@ -44,6 +45,7 @@ const useCancelReservation = () => {
     cancelReservationValues,
     errors,
     isValid,
+    reset,
     handleSubmit,
     cancelReservation
   }
