@@ -201,7 +201,7 @@ const SearchPage = () => {
                 onClick={(e: { preventDefault: () => void }) => {
                   reset()
                   e.preventDefault()
-                  router.push('/search/?free_delivery=false&page=1&order_by=desc')
+                  router.push('/search/?free_delivery=false&page=1&order_by=desc&sort_by=id')
                 }}
               />
             </ClearFiltersWrapper>
