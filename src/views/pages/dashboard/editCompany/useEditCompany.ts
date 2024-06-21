@@ -123,7 +123,7 @@ const useCompany = (id: number) => {
   const {
     control,
     handleSubmit,
-    formState: { errors, dirtyFields, isValid },
+    formState: { errors, dirtyFields },
     resetField,
     setError,
     clearErrors,
@@ -135,8 +135,6 @@ const useCompany = (id: number) => {
     defaultValues,
     resolver: yupResolver(CompanySchema)
   })
-
-  console.log(isValid, 'isValid')
 
   const {
     fields: addressFields,

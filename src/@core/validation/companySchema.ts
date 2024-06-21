@@ -168,6 +168,7 @@ const CompanyInfoSchema = Yup.object<CompanyInfo>().shape({
       const isValid = isValidIBANNumber(value)
       if (isValid !== true) {
         const first4 = value.substring(0, 4)
+        
         return createError({ path, message: `IBAN format error: ${first4}...` })
       }
 
@@ -181,7 +182,7 @@ const CompanySchema = Yup.object<Company>().shape({
     .typeError('identification_number_is_number')
     .test('is-11-digit', 'identification_number_11_digit', value => {
       if (value === null || value === undefined) {
-        
+
         return true
       }
       const numericValue = parseFloat(value.toString())

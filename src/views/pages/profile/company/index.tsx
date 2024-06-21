@@ -220,6 +220,18 @@ const Company: React.FC<Props> = ({ id, name, productsCount, logo }) => {
               className='col-span-2 md:col-span-1'
             />
           </div>
+          <Typography type='h3' className='font-bold mt-10 md:mt-16 text-3md md:text-2lg'>
+            საბანკო ინფორმაცია
+          </Typography>
+          <div className='grid grid-cols-2 gap-4 mt-5 my-10'>
+            <DefaultInput
+              name='company_information.iban'
+              control={control}
+              errors={errors}
+              label='ანგარიშის ნომერი'
+              className='col-span-2 md:col-span-1'
+            />
+          </div>
         </div>
         <Divider />
         <div className='flex justify-between items-center p-2 md:p-6'>
@@ -231,7 +243,7 @@ const Company: React.FC<Props> = ({ id, name, productsCount, logo }) => {
               bg='bg-orange-100 hover:bg-orange-110 transition-all'
               textColor='text-white'
               type='submit'
-              disabled={updateCompanyMutation.isLoading}
+              disabled={updateCompanyMutation.isLoading || Object.keys(errors).length > 0}
             />
           )}
 
