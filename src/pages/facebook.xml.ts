@@ -97,12 +97,13 @@ export const getServerSideProps: GetServerSideProps = async ({ res, locale }) =>
       throw new Error("Invalid data format: listings is not an array");
     }
 
-    const xml = generateFacebookXml(listings)
 
     res.setHeader('Content-Type', 'text/xml')
-
-    //   we send the XML to the browser
-    res.write(xml)
+    res.write(`<?xml version="1.0" encoding="UTF-8"?>
+    <listings>
+    <title>Rent.Myauto.Ge Facebook Listings</title>
+    <link rel="self" href="https://rent.myauto.ge/"/>
+    </listings>`)
     res.end()
 
     return {
