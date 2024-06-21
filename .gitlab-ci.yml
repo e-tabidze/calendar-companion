@@ -54,6 +54,19 @@ build-test:
     - cd ${WORKDIR} && yarn
     - cd ${WORKDIR} && yarn build
     - cd ${WORKDIR} && yarn test:ci
+    - cat ${WORKDIR}/coverage/cobertura-coverage.xml | grep "coverage lines-valid" > ${WORKDIR}/coverage.xml
+    - COVERAGE_NUMBER=$(cat ${WORKDIR}/coverage.xml | grep -oP 'line-rate="\K\d+(\.\d+)?')
+    - echo "Coverage Rate is -> ${COVERAGE_NUMBER}"
+    - |
+      if (( $(echo "${COVERAGE_NUMBER} <= 33" | bc -l) )); then
+        COVERAGECOL="red"
+      elif (( $(echo "${COVERAGE_NUMBER} >= 34 && ${COVERAGE_NUMBER} <= 66" | bc -l) )); then
+        COVERAGECOL="yellow"
+      else
+        COVERAGECOL="brightgreen"
+      fi
+      echo "Coverage Color for Badge will be -> ${COVERAGECOL}"
+    - curl -o ${WORKDIR}/public/coverage.svg https://img.shields.io/badge/coverage-${COVERAGE_NUMBER}%25-${COVERAGECOL}.svg
     - ln -sfT ${WORKDIR} ${DIR_TEST}
     - cd ${DIR_TEST} && (pm2 reload ecosystem.config.js || pm2 start ecosystem.config.js) && pm2 save
-    - cd /var/deploy/${CI_COMMIT_BRANCH} && ls -t | tail -n +3 | sudo xargs -I {} rm -r {}
+    - cd /var/deploy/${CI_COMMIT_BRANCH} && ls -t | tail -n +3 | sudo xargs -I {} rm -r {}x
