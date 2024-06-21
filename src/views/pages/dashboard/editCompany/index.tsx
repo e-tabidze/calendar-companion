@@ -61,6 +61,8 @@ const EditCompany = () => {
 
   console.log(companyValues, 'companyValues')
 
+  console.log(errors, 'errors')
+
   const updateCompanyMutation = useMutation(() => updateCompanyInfo(companyValues), {
     onSuccess: data => {
       queryClient.invalidateQueries(['companyInfo'])
@@ -273,6 +275,19 @@ const EditCompany = () => {
             control={control}
             errors={errors}
             label={t('phone_number')}
+            className='col-span-2 md:col-span-1'
+          />
+        </div>
+
+        <Typography type='h3' className='font-bold mt-10 md:mt-16 text-3md md:text-2lg'>
+          საბანკო ინფორმაცია
+        </Typography>
+        <div className='grid grid-cols-2 gap-4 mt-5 my-10'>
+          <DefaultInput
+            name='company_information.iban'
+            control={control}
+            errors={errors}
+            label='ანგარიშის ნომერი'
             className='col-span-2 md:col-span-1'
           />
         </div>

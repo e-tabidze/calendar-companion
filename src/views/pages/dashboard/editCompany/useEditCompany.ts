@@ -10,10 +10,9 @@ import StaticService from 'src/services/StaticService'
 const useCompany = (id: number) => {
   const { companyInfo } = useCompanyInfo(id)
 
-
   console.log(companyInfo?.addresses, 'addresses')
 
-  const defaultAddress: CompanyAddress[] = companyInfo?.addresses?.map((address: any) => ({
+  const defaultAddress: [] = companyInfo?.addresses?.map((address: any) => ({
     id: address.id,
     dummyAddressId: address.id,
     address: address.address,
@@ -102,6 +101,8 @@ const useCompany = (id: number) => {
     }
   }
 
+  console.log(companyInfo?.information?.logo, 'companyInfo?.information?.logo')
+
   const defaultValues: Company = {
     company_id: id,
     identification_number: companyInfo?.identification_number,
@@ -122,7 +123,7 @@ const useCompany = (id: number) => {
   const {
     control,
     handleSubmit,
-    formState: { errors, dirtyFields },
+    formState: { errors, dirtyFields, isValid },
     resetField,
     setError,
     clearErrors,
@@ -134,6 +135,8 @@ const useCompany = (id: number) => {
     defaultValues,
     resolver: yupResolver(CompanySchema)
   })
+
+  console.log(isValid, 'isValid')
 
   const {
     fields: addressFields,
@@ -148,17 +151,17 @@ const useCompany = (id: number) => {
     if (companyInfo) {
       const updatedDefaultValues: Company = {
         company_id: id,
-        identification_number: companyInfo.identification_number,
-        company_type_id: companyInfo.company_type_id,
+        identification_number: companyInfo?.identification_number,
+        company_type_id: companyInfo?.company_type_id,
         company_information: {
-          name: companyInfo.information.name,
-          legal_name: companyInfo.information.legal_name,
-          logo: companyInfo.information?.logo || '',
-          description: companyInfo.information.description,
-          description_en: companyInfo.information.description_en,
-          email: companyInfo.information.email,
-          phone_numbers: companyInfo.information.phone_numbers,
-          iban: companyInfo.information.iban,
+          name: companyInfo?.information.name,
+          legal_name: companyInfo?.information.legal_name,
+          logo: companyInfo?.information?.logo,
+          description: companyInfo?.information.description,
+          description_en: companyInfo?.information.description_en,
+          email: companyInfo?.information.email,
+          phone_numbers: companyInfo?.information.phone_numbers,
+          iban: companyInfo?.information.iban
         },
         addresses: defaultAddress
       }

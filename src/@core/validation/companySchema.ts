@@ -40,7 +40,7 @@ const CompanyAddressSchema = Yup.object<CompanyAddress>().shape({
 })
 
 function isValidIBANNumber(input: string): boolean | number {
-  const CODE_LENGTHS: any = {
+  const CODE_LENGTHS: { [key: string]: number } = {
     AD: 24,
     AE: 23,
     AT: 20,
@@ -51,7 +51,6 @@ function isValidIBANNumber(input: string): boolean | number {
     BH: 22,
     BR: 29,
     CH: 21,
-    CR: 21,
     CY: 28,
     CZ: 24,
     DE: 22,
@@ -106,6 +105,7 @@ function isValidIBANNumber(input: string): boolean | number {
     TR: 26,
     AL: 28,
     BY: 28,
+    CR: 22,
     EG: 29,
     GE: 22,
     IQ: 23,
@@ -122,41 +122,31 @@ function isValidIBANNumber(input: string): boolean | number {
 
   const iban = String(input)
     .toUpperCase()
-    .replace(/[^A-Z0-9]/g, '')
-  const code = iban.match(/^([A-Z]{2})(\d{2})([A-Z\d]+)$/)
+    .replace(/[^A-Z0-9]/g, '') 
+  const code = iban.match(/^([A-Z]{2})(\d{2})([A-Z\d]+)$/) // match and capture (1) the country code, (2) the check digits, and (3) the rest
 
   if (!code || iban.length !== CODE_LENGTHS[code[1]]) {
     return false
   }
 
-  // const digits = (code[3] + code[1] + code[2]).replace(/[A-Z]/g, function (letter) {
-  //   return (letter.charCodeAt(0) - 55).toString()
-  // })
-
-  const digits = (code[3] + code[1] + code[2]).replace(/[A-Z]/g, letter => {
-    return (letter.charCodeAt(0) - 55).toString()
+ const  digits = (code[3] + code[1] + code[2]).replace(/[A-Z]/g, function (letter: string): any {
+    return letter.charCodeAt(0) - 55
   })
 
+  // final check
   return mod97(digits) === 1
 }
 
-function mod97(string: string): number {
-  // let checksum = string.slice(0, 2)
+function mod97(string: any): number {
+  let checksum = string.slice(0, 2)
   let fragment
 
-  // for (let offset = 2; offset < string.length; offset += 7) {
-  //   fragment = String(checksum) + string.substring(offset, offset + 7)
-  //   checksum = parseInt(fragment, 10) % 97
-  // }
-
-  // return checksum
-  let checksum = '0' // Initialize checksum as a string
   for (let offset = 2; offset < string.length; offset += 7) {
-    fragment = checksum + string.substring(offset, offset + 7) // Ensure checksum is a string
-    checksum = (parseInt(fragment, 10) % 97).toString() // Convert the result back to a string
+    fragment = String(checksum) + string.substring(offset, offset + 7)
+    checksum = parseInt(fragment, 10) % 97
   }
 
-  return parseInt(checksum, 10)
+  return checksum
 }
 
 const CompanyInfoSchema = Yup.object<CompanyInfo>().shape({
@@ -167,11 +157,6 @@ const CompanyInfoSchema = Yup.object<CompanyInfo>().shape({
   description_en: Yup.string().required('required_field'),
   email: Yup.string().required('required_field').email('email_format_error'),
   phone_numbers: Yup.string().required('required_field').max(9, 'max_9_number'),
-
-  // iban: Yup.string()
-  //   .required('required_field')
-  //   .matches(/^[A-Z]{2}[0-9]{2}[A-Z0-9]{1,30}$/, 'საბანკო ანგარიშის არასწორი ფორმატი')
-
   iban: Yup.string()
     .required('required_field')
     .test('is-valid-iban', function (value) {
@@ -183,7 +168,6 @@ const CompanyInfoSchema = Yup.object<CompanyInfo>().shape({
       const isValid = isValidIBANNumber(value)
       if (isValid !== true) {
         const first4 = value.substring(0, 4)
-
         return createError({ path, message: `IBAN format error: ${first4}...` })
       }
 
@@ -197,6 +181,7 @@ const CompanySchema = Yup.object<Company>().shape({
     .typeError('identification_number_is_number')
     .test('is-11-digit', 'identification_number_11_digit', value => {
       if (value === null || value === undefined) {
+        
         return true
       }
       const numericValue = parseFloat(value.toString())
