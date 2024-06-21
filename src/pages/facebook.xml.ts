@@ -48,7 +48,7 @@ function FacebookXml() {
 }
 
 export const getServerSideProps: GetServerSideProps = async ({ res, locale }) => {
-//   try {
+  try {
     console.log("API_URL:", API_URL);
     console.log("DOMAIN:", DOMAIN);
 
@@ -62,7 +62,7 @@ export const getServerSideProps: GetServerSideProps = async ({ res, locale }) =>
         locale
       }
     })
-console.log(paginationResponse.ok)
+
     if (!paginationResponse.ok) {
       throw new Error(`Failed to fetch pagination data: ${paginationResponse.statusText}`)
     }
@@ -100,8 +100,6 @@ console.log(paginationResponse.ok)
 
     const xml = generateFacebookXml(listings)
 
-    console.log(xml, '')
-
     res.setHeader('Content-Type', 'text/xml')
 
     //   we send the XML to the browser
@@ -111,15 +109,15 @@ console.log(paginationResponse.ok)
     return {
       props: {}
     }
-//   } catch (error: any) {
-//     console.error('Error generating XML:', error.message, error.stack)
-//     res.statusCode = 500
-//     res.end('Internal Server Error'+error.message+"   "+error.stack+"     "+API_URL+"   => "+DOMAIN)
+  } catch (error: any) {
+    console.error('Error generating XML:', error.message, error.stack)
+    res.statusCode = 500
+    res.end('Internal Server Error'+error.message+"   "+error.stack+"     "+API_URL+"    "+DOMAIN)
     
-//     return {
-//       props: {}
-//     }
-//   }
+    return {
+      props: {}
+    }
+  }
 }
 
 export default FacebookXml
