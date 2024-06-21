@@ -48,7 +48,6 @@ function FacebookXml() {
 }
 
 export const getServerSideProps: GetServerSideProps = async ({ res, locale }) => {
-//   try {
     console.log("API_URL:", API_URL);
     console.log("DOMAIN:", DOMAIN);
 
@@ -109,15 +108,7 @@ export const getServerSideProps: GetServerSideProps = async ({ res, locale }) =>
     return {
       props: {}
     }
-//   } catch (error: any) {
-//     console.error('Error generating XML:', error.message, error.stack)
-//     res.statusCode = 500
-//     res.end('Internal Server Error'+error.message+"   "+error.stack+"     "+API_URL+"    "+DOMAIN)
-    
-//     return {
-//       props: {}
-//     }
-//   }
+
 }
 
 export default FacebookXml
