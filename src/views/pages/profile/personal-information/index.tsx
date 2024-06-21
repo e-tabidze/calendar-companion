@@ -189,7 +189,7 @@ const PersonalInfo: React.FC<Props> = ({ userData }) => {
           textColor='text-white'
           bg='bg-orange-100 hover:bg-orange-110 transition-all'
         ></DefaultButton>
-        <DefaultButton text={t('decline')} bg='bg-grey-100 hover:bg-raisin-10 transition-all' type='reset'></DefaultButton>
+        <DefaultButton text={t('decline')} bg='bg-grey-100 hover:bg-raisin-10 transition-all text-raisin-100' type='reset' textColor="!text-raisin-100"></DefaultButton>
       </div>
     </form>
   )
