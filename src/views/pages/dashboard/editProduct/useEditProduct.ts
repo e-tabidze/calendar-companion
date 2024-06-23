@@ -1,7 +1,7 @@
 import { useFieldArray, useForm, useWatch } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import ProductService from 'src/services/ProductService'
-import { Product } from 'src/types/Product'
+import { Product, Discount, Location } from 'src/types/Product'
 import { NewProductSchema } from 'src/@core/validation/newProductSchema'
 import useProductInfo from '../useProductInfo'
 import { useEffect } from 'react'
@@ -17,6 +17,8 @@ const useEditProduct = (id: number) => {
   })
 
   const productDetailsData = useProductDetailsData.data?.result?.data
+
+  console.log(productDetailsData, 'productDetailsData')
 
   const services = companyServices?.map((service: any) => ({
     id: service?.id,
@@ -41,15 +43,21 @@ const useEditProduct = (id: number) => {
     type_id: service?.type_id
   }))
 
-  const discount_item = {
-    number: 1,
-    period: 'დღე',
-    discount_percent: ''
-  }
+  // const discount_item = {
+  //   number: 1,
+  //   period: 'დღე',
+  //   discount_percent: ''
+  // }
 
-  const other_locations = {
+  const discount_item = productDetailsData?.discounts?.map((discount: Discount) => ({
+    number: discount?.number,
+    period: discount?.period,
+    discount_percent: discount?.discount_percent
+  }))
+
+  const other_locations: Location = {
     city: '',
-    price: '0',
+    price: '',
     currency: 'GEL'
   }
 
@@ -101,7 +109,11 @@ const useEditProduct = (id: number) => {
     start_city: '',
     start_address: '',
     end_city: '',
-    end_address: ''
+    end_address: '',
+    has_other_delivery_locations: false,
+    other_delivery_locations: [],
+    has_other_return_locations: false,
+    other_return_locations: []
   }
 
   useEffect(() => {
@@ -140,6 +152,14 @@ const useEditProduct = (id: number) => {
       setValue('deposit_currency', productDetailsData?.deposit_currency)
       setValue('apply_discount', productDetailsData?.apply_discount)
       setValue(
+        'discount',
+        productDetailsData?.discounts?.map((discount: Discount) => ({
+          number: discount?.number,
+          period: discount?.period,
+          discount_percent: discount?.discount_percent
+        }))
+      )
+      setValue(
         'company_services',
         companyServices?.map((service: any) => ({
           id: service?.id,
@@ -176,6 +196,24 @@ const useEditProduct = (id: number) => {
 
       setValue('end_city', productDetailsData?.end_city)
       setValue('end_address', productDetailsData?.end_address)
+      setValue('has_other_delivery_locations', productDetailsData?.has_other_delivery_locations === 1 ? true : false)
+      setValue(
+        'other_delivery_locations',
+        productDetailsData?.other_delivery_locations?.map((location: Location) => ({
+          city: '',
+          price: location?.price,
+          currency: location?.currency
+        }))
+      )
+      setValue('has_other_return_locations', productDetailsData?.has_other_return_locations === 1 ? true : false)
+      setValue(
+        'other_return_locations',
+        productDetailsData?.other_return_locations?.map((location: Location) => ({
+          city: '',
+          price: location?.price,
+          currency: location?.currency
+        }))
+      )
     }
   }, [companyServices, productDetailsData])
 
@@ -274,7 +312,7 @@ const useEditProduct = (id: number) => {
     trigger,
     services,
     other_locations,
-    otherDeliverLocations, 
+    otherDeliverLocations,
     appendOtherDeliveryLocations,
     removeOtherDeliveryLocations,
     otherReturnLocations,

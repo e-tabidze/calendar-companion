@@ -17,6 +17,7 @@ import toast from 'react-hot-toast'
 import { useTranslation } from 'next-i18next'
 import BookDatesDialog from './bookDatesDialog'
 import useCurrency from 'src/hooks/useCurrency'
+import { removeLastDigitIfThreeDecimalPlaces } from 'src/utils/priceFormat'
 
 interface Props {
   priceGel: number
@@ -116,7 +117,10 @@ const VehicleListComponent: React.FC<Props> = ({
                 </Typography>
                 <div className='flex items-center md:min-w-[254px] justify-between gap-10 mt-4 md:mt-10'>
                   <Typography type='h4' weight='medium' color='dark' className='text-2sm md:text-3md'>
-                    {currency === 'GEL' ? priceGel : priceUsd} {currency === 'GEL' ? '₾' : '$'}
+                    {currency === 'GEL'
+                      ? removeLastDigitIfThreeDecimalPlaces(priceGel)
+                      : removeLastDigitIfThreeDecimalPlaces(priceUsd)}{' '}
+                    {currency === 'GEL' ? '₾' : '$'} ABC
                     <span className='text-[14px] pl-3 font-normal text-center'>{t('day')}</span>
                   </Typography>
                   <Typography

@@ -37,7 +37,6 @@ const EditProduct: React.FC = ({}) => {
   const router = useRouter()
 
   const { id } = router.query
-  console.log(id, 'router id')
 
   const selectOption = (option: any) => setStep(option)
 

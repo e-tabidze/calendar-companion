@@ -40,13 +40,13 @@ const StepThree: React.FC<Props> = ({ control, errors, discountItems, appendDisc
   const { width } = useWindowDimensions()
   const formState = useWatch({ control })
 
+  console.log(discountItems.length, 'discountItems.length')
+
   useEffect(() => {
     if (discountItems.length === 0) {
       setValue('apply_discount', false)
     }
   }, [setValue, discountItems])
-
-  console.log(discountItems, 'discountItems')
 
   return (
     <StepThreeContainer>
@@ -89,7 +89,7 @@ const StepThree: React.FC<Props> = ({ control, errors, discountItems, appendDisc
       {formState.has_deposit ? (
         <StepThreePriceContainer>
           <DefaultInput
-            label="დეპოზიტის თანხა"
+            label='დეპოზიტის თანხა'
             control={control}
             name='deposit_amount'
             errors={errors}

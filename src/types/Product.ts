@@ -19,6 +19,23 @@ export type Service = {
   company_service_type_id?: any
 }
 
+export type NewService = {
+  company_id: string | number
+  title: string
+  title_en: string
+  description: string
+  description_en: string
+  type_id: number | string
+  id: number
+  has_quantity: 0 | 1
+}
+
+export type Location = {
+  city: string
+  price: number | string
+  currency: string
+}
+
 export type Product = {
   company_id: number
   vin: string
@@ -46,15 +63,4 @@ export type Product = {
   has_min_period: boolean
   min_period: any
   preparation_period_type_id: string
-}
-
-export type NewService = {
-  company_id: string | number
-  title: string
-  title_en: string
-  description: string
-  description_en: string
-  type_id: number | string
-  id: number
-  has_quantity: 0 | 1
 }
