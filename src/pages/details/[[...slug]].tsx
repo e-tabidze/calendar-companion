@@ -85,12 +85,12 @@ const ProductDetails = memo(() => {
 
   const { singleProductDetails, orderDatesData } = useSingleProductDetails(slug)
 
+  console.log(singleProductDetails, 'singleProductDetails')
+
   const { similarProducts } = useMain(singleProductDetails?.man_id, singleProductDetails?.model_id)
 
   const ref = useRef<any>()
   const { t, i18n } = useTranslation()
-
-  console.log(orderDatesData, 'orderDatesData')
 
   useEffect(() => {
     if (book_from && book_to) {

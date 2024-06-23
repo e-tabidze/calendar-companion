@@ -120,7 +120,7 @@ const VehicleListComponent: React.FC<Props> = ({
                     {currency === 'GEL'
                       ? removeLastDigitIfThreeDecimalPlaces(priceGel)
                       : removeLastDigitIfThreeDecimalPlaces(priceUsd)}{' '}
-                    {currency === 'GEL' ? '₾' : '$'} ABC
+                    {currency === 'GEL' ? '₾' : '$'}
                     <span className='text-[14px] pl-3 font-normal text-center'>{t('day')}</span>
                   </Typography>
                   <Typography
