@@ -423,6 +423,7 @@ const ProductDetails = memo(() => {
                 companyId={singleProductDetails?.company_id}
                 changeDates
                 control={control}
+                discounts={singleProductDetails?.discounts}
               />
             </div>
           </div>

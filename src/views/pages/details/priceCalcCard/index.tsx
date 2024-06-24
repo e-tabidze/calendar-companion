@@ -12,6 +12,7 @@ import { useTranslation } from 'next-i18next'
 import useCurrency from 'src/hooks/useCurrency'
 import Toast from 'src/views/components/toast'
 import { removeLastDigitIfThreeDecimalPlaces } from 'src/utils/priceFormat'
+import { Discount } from 'src/types/Product'
 
 registerLocale('ka', ka)
 
@@ -38,6 +39,7 @@ interface Props {
   isGelOnly: boolean
   deposit_amount?: number
   deposit_currency?: string
+  discounts: any[]
 }
 
 const PriceCalcCard: React.FC<Props> = ({
@@ -62,7 +64,8 @@ const PriceCalcCard: React.FC<Props> = ({
   carReturnPrice,
   isGelOnly = false,
   deposit_amount,
-  deposit_currency
+  deposit_currency,
+  discounts
 }) => {
   const { userInfo, activeCompanyId } = useProfile()
 
@@ -70,6 +73,27 @@ const PriceCalcCard: React.FC<Props> = ({
   const { t } = useTranslation()
 
   const { currency, exchangeRate } = useCurrency()
+
+  const transformDiscountsArrayIntoDays = () => {
+    discounts?.forEach((obj: Discount) => {
+      if (obj.period === 'კვირა') {
+        obj.period = 'დღე'
+        obj.number *= 7
+      }
+    })
+    return discounts?.sort((a, b) => b.number - a.number)
+  }
+
+  const selectedDiscountPlan = () => {
+    const discounts = transformDiscountsArrayIntoDays()
+
+    for (let i = 0; i < discounts?.length; i++) {
+      if (discounts && days && days >= discounts[i].number) {
+        return discounts[i].discount_percent
+      }
+    }
+    return 0
+  }
 
   const convertToGEL = (price: number, currency: string): number => {
     let convertedPrice = price
@@ -192,10 +216,11 @@ const PriceCalcCard: React.FC<Props> = ({
 
       <div className='flex items-center gap-2'>
         <Typography type='h3' className='font-bold flex gap-3'>
-          {removeLastDigitIfThreeDecimalPlaces(price)} {isBooking ? '₾' : currency === 'GEL' ? '₾' : '$'}
+          {(removeLastDigitIfThreeDecimalPlaces(price) * (100 - selectedDiscountPlan())) / 100}{' '}
+          {isBooking ? '₾' : currency === 'GEL' ? '₾' : '$'}
         </Typography>
         <Typography type='h5' weight='normal'>
-          / {t('day')}
+          / {t('day')} PERCENT - {selectedDiscountPlan()}
         </Typography>
       </div>
 
@@ -318,7 +343,8 @@ const PriceCalcCard: React.FC<Props> = ({
                 <>
                   გამქირავებლის მოთხოვნის საფუძველზე თანხას დაემატება{' '}
                   <span className='font-bold'>
-                    სადეპოზიტო თანხა {deposit_amount}{deposit_currency === 'GEL' ? '₾' : '$'}
+                    სადეპოზიტო თანხა {deposit_amount}
+                    {deposit_currency === 'GEL' ? '₾' : '$'}
                   </span>
                   , რომელსაც გადაიხდით ადგილზე
                 </>

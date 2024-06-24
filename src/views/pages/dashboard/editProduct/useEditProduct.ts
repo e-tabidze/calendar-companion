@@ -116,6 +116,8 @@ const useEditProduct = (id: number) => {
     other_return_locations: []
   }
 
+  console.log(activeCompanyId, 'activeCompanyId')
+
   useEffect(() => {
     if (productDetailsData) {
       setValue('company_id', activeCompanyId)
@@ -200,7 +202,7 @@ const useEditProduct = (id: number) => {
       setValue(
         'other_delivery_locations',
         productDetailsData?.other_delivery_locations?.map((location: Location) => ({
-          city: '',
+          city: location?.city_id,
           price: location?.price,
           currency: location?.currency
         }))
@@ -209,13 +211,13 @@ const useEditProduct = (id: number) => {
       setValue(
         'other_return_locations',
         productDetailsData?.other_return_locations?.map((location: Location) => ({
-          city: '',
+          city: location?.city_id,
           price: location?.price,
           currency: location?.currency
         }))
       )
     }
-  }, [companyServices, productDetailsData])
+  }, [companyServices, productDetailsData, activeCompanyId])
 
   const {
     control,

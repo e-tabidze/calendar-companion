@@ -470,6 +470,7 @@ const Booking = () => {
               companyId={singleProductDetails?.company_id}
               carDeliveryPrice={renderSupplyValue()}
               carReturnPrice={renderReturnValue()}
+              discounts={singleProductDetails?.discounts}
             />
           </div>
         </ContentContainer>
