@@ -9,8 +9,8 @@ servers:
   web:
    hosts:
     - 10.10.10.247
-  labels:
-    traefik.http.routers.front.rule: Host(`rent.myauto.ge`)
+   labels:
+     traefik.http.routers.front.rule: Host(`rent.myauto.ge`)
 
 # Credentials for your image host.
 registry:
