@@ -78,7 +78,7 @@ const Booking = () => {
   const { singleCompanyBranches } = useCompanyInfo(company_id && company_id)
 
   const { control, bookingValues, errors, handleSubmit, postOrder, selfBookProduct, setValue } = useBooking(
-    id,
+    id!,
     company_id
   )
 

@@ -7,6 +7,26 @@ stages:
   - main
   - staging
   - test
+  - kamal-deploy
+
+
+kamal-deploy:
+  stage: kamal-deploy
+  image:
+    name: gitlab.tnet.ge:5050/devops/docker-base-images:dind-kamal
+  tags:
+    - vendoo-docker
+  script:
+    - mkdir -p ~/.ssh && eval $(ssh-agent -s)
+    - echo $KAMAL_SSH_PRIVATE_KEY
+    - echo $KAMAL_SSH_PRIVATE_KEY | tr -d '\r' > ~/.ssh/id_rsa && chmod 600 ~/.ssh/id_rsa
+    - ssh-add <(echo "$KAMAL_SSH_PRIVATE_KEY")
+    - kamal setup
+  only:
+    refs:
+      - kamal
+
+
 #
 build-main:
   stage: main
