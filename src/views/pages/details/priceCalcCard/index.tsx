@@ -11,7 +11,7 @@ import ka from 'date-fns/locale/ka'
 import { useTranslation } from 'next-i18next'
 import useCurrency from 'src/hooks/useCurrency'
 import Toast from 'src/views/components/toast'
-import { removeLastDigitIfThreeDecimalPlaces } from 'src/utils/priceFormat'
+import { removeExtraDecimalDigits } from 'src/utils/priceFormat'
 import { Discount } from 'src/types/Product'
 
 registerLocale('ka', ka)
@@ -81,6 +81,7 @@ const PriceCalcCard: React.FC<Props> = ({
         obj.number *= 7
       }
     })
+
     return discounts?.sort((a, b) => b.number - a.number)
   }
 
@@ -92,8 +93,21 @@ const PriceCalcCard: React.FC<Props> = ({
         return discounts[i].discount_percent
       }
     }
+
     return 0
   }
+
+  // const convertToGEL = (price: number, currency: string): number => {
+  //   let convertedPrice = price
+
+  //   if (currency === 'USD') {
+  //     convertedPrice = price / exchangeRate
+
+  //     return parseFloat(convertedPrice?.toFixed(3))
+  //   } else {
+  //     return price
+  //   }
+  // }
 
   const convertToGEL = (price: number, currency: string): number => {
     let convertedPrice = price
@@ -101,58 +115,109 @@ const PriceCalcCard: React.FC<Props> = ({
     if (currency === 'USD') {
       convertedPrice = price / exchangeRate
 
-      return parseFloat(convertedPrice?.toFixed(3))
+      return convertedPrice
     } else {
       return price
     }
   }
 
-  const calculateDaysAndServices = () => {
+  // const calculateDaysAndServices = () => {
+  //   const deliveryPriceInGEL = carDeliveryPrice
+  //     ? convertToGEL(carDeliveryPrice.price, carDeliveryPrice.currency) || 0
+  //     : 0
+  //   const returnPriceInGEL = carReturnPrice ? convertToGEL(carReturnPrice.price, carReturnPrice.currency) || 0 : 0
+
+  //   const sumPrice =
+  //     days &&
+  //     (days * price * (100 - selectedDiscountPlan())) / 100 +
+  //       (services
+  //         ? services.reduce(
+  //             (accumulator: number, service: { type_id: number; count: number; price: number; currency: string }) => {
+  //               let servicePriceInGEL = service.price
+
+  //               if (service.currency === 'USD') {
+  //                 servicePriceInGEL = service.price / exchangeRate
+  //               }
+
+  //               if (service.type_id === 1) {
+  //                 accumulator += service.count * servicePriceInGEL * days
+  //               } else {
+  //                 accumulator += service.count * servicePriceInGEL
+  //               }
+
+  //               return accumulator
+  //             },
+  //             0
+  //           )
+  //         : 0) +
+  //       Number(deliveryPriceInGEL) +
+  //       Number(returnPriceInGEL)
+
+  //   // return parseFloat(sumPrice?.toFixed(3))
+  //   return sumPrice
+  // }
+
+  const calculateDailyPrice = () => (price * (100 - selectedDiscountPlan())) / 100
+
+  const calculateRentPrice = () => calculateDailyPrice() * days!
+
+  const calculateServices = () => {
+    const sumPrice =
+      days && services
+        ? services.reduce(
+            (accumulator: number, service: { type_id: number; count: number; price: number; currency: string }) => {
+              let servicePriceInGEL = service.price
+
+              if (service.currency === 'USD') {
+                servicePriceInGEL = service.price / exchangeRate
+              }
+
+              if (service.type_id === 1) {
+                accumulator += service.count * servicePriceInGEL * days
+              } else {
+                accumulator += service.count * servicePriceInGEL
+              }
+
+              return accumulator
+            },
+            0
+          )
+        : 0
+
+    return sumPrice
+  }
+
+  // const comission = () => {
+  //   const comissionPrice: number = (calculateDaysAndServices() / 100) * 10
+
+  //   return comissionPrice
+  // }
+
+  const carDeliveryPriceGeL = () => {
     const deliveryPriceInGEL = carDeliveryPrice
       ? convertToGEL(carDeliveryPrice.price, carDeliveryPrice.currency) || 0
       : 0
+
+    return deliveryPriceInGEL
+  }
+
+  const carReturnPriceGel = () => {
     const returnPriceInGEL = carReturnPrice ? convertToGEL(carReturnPrice.price, carReturnPrice.currency) || 0 : 0
 
-    const sumPrice =
-      days &&
-      (days * price * (100 - selectedDiscountPlan())) / 100 +
-        (services
-          ? services.reduce(
-              (accumulator: number, service: { type_id: number; count: number; price: number; currency: string }) => {
-                let servicePriceInGEL = service.price
-
-                if (service.currency === 'USD') {
-                  servicePriceInGEL = service.price / exchangeRate
-                }
-
-                if (service.type_id === 1) {
-                  accumulator += service.count * servicePriceInGEL * days
-                } else {
-                  accumulator += service.count * servicePriceInGEL
-                }
-
-                return accumulator
-              },
-              0
-            )
-          : 0) +
-        Number(deliveryPriceInGEL) +
-        Number(returnPriceInGEL)
-
-    return parseFloat(sumPrice?.toFixed(3))
+    return returnPriceInGEL
   }
 
-  const comission = () => {
-    const comissionPrice: number = (calculateDaysAndServices() / 100) * 10
-
-    return parseFloat(comissionPrice?.toFixed(3))
+  const calculatePrice = () => {
+    const sumPrice = calculateRentPrice() + calculateServices() + carDeliveryPriceGeL() + carReturnPriceGel()
+    
+    return parseFloat(sumPrice).toFixed(2)
   }
 
-  const calculateSum = () => {
-    const sumPrice = comission() + calculateDaysAndServices()
+  // const calculateSum = () => {
+  //   const sumPrice = comission() + calculateDaysAndServices()
 
-    return parseFloat(sumPrice?.toFixed(3))
-  }
+  //   return parseFloat(sumPrice?.toFixed(3))
+  // }
 
   return (
     <div className={`shadow-2xl w-full rounded-3xl pt-5 px-4 lg:px-6 pb-10 ${className}`}>
@@ -216,11 +281,13 @@ const PriceCalcCard: React.FC<Props> = ({
 
       <div className='flex items-center gap-2'>
         <Typography type='h3' className='font-bold flex gap-3'>
-          {removeLastDigitIfThreeDecimalPlaces(parseFloat((price * (100 - selectedDiscountPlan())) / 100).toFixed(3))}
+          {/* {removeLastDigitIfThreeDecimalPlaces(parseFloat((price * (100 - selectedDiscountPlan())) / 100).toFixed(3))} */}
+          {removeExtraDecimalDigits(parseFloat(calculateDailyPrice().toFixed(4)))}
+          {/* {(price * (100 - selectedDiscountPlan())) / 100} */}
           {isBooking ? '₾' : currency === 'GEL' ? '₾' : '$'}
         </Typography>
         <Typography type='h5' weight='normal'>
-          / {t('day')} PERCENT - {selectedDiscountPlan()}
+          / {t('day')}
         </Typography>
       </div>
 
@@ -264,7 +331,15 @@ const PriceCalcCard: React.FC<Props> = ({
               </Typography>
             </div>
             <Typography type='h5' weight='normal'>
-              {days && price && removeLastDigitIfThreeDecimalPlaces(parseFloat((price * days * (100 - selectedDiscountPlan())) / 100).toFixed(3))}
+              {/* {days &&
+                price &&
+                removeLastDigitIfThreeDecimalPlaces(
+                  parseFloat((price * days * (100 - selectedDiscountPlan())) / 100).toFixed(3)
+                )} */}
+              {/* {calculateRentPrice()} */}
+              {removeExtraDecimalDigits(parseFloat(calculateRentPrice().toFixed(4)))}
+              {/* {days && Math.ceil(((price * (100 - selectedDiscountPlan())) / 100) * days * 100) / 100} */}
+              {/* {days && ((price * (100 - selectedDiscountPlan())) / 100) * days} */}
               {isGelOnly ? '₾' : currency === 'GEL' ? '₾' : '$'}
             </Typography>
           </div>
@@ -300,7 +375,7 @@ const PriceCalcCard: React.FC<Props> = ({
                 Object.keys(carDeliveryPrice).length === 0 &&
                 carDeliveryPrice.constructor === Object
                   ? 'უფასო'
-                  : `${convertToGEL(carDeliveryPrice?.price, carDeliveryPrice?.currency)} ₾`}
+                  : `${parseFloat(carDeliveryPriceGeL().toFixed(2))} ₾`}
               </Typography>
             </div>
           )}
@@ -317,12 +392,12 @@ const PriceCalcCard: React.FC<Props> = ({
                 Object.keys(carReturnPrice).length === 0 &&
                 carReturnPrice.constructor === Object
                   ? 'უფასო'
-                  : `${convertToGEL(carReturnPrice?.price, carReturnPrice?.currency)} ₾`}
+                  : `${parseFloat(Number(carReturnPriceGel()).toFixed(2))} ₾`}
               </Typography>
             </div>
           )}
 
-          {isBooking && (
+          {/* {isBooking && (
             <div className='flex gap-2 flex-col justify-between py-2 lg:items-center lg:flex-row'>
               <div className='flex gap-2'>
                 <Typography type='body' className='text-raisin-100'>
@@ -333,7 +408,7 @@ const PriceCalcCard: React.FC<Props> = ({
                 {removeLastDigitIfThreeDecimalPlaces(comission())}
               </Typography>
             </div>
-          )}
+          )} */}
 
           {deposit_amount && deposit_currency && (
             <Toast
@@ -362,9 +437,10 @@ const PriceCalcCard: React.FC<Props> = ({
             </div>
             {days && (
               <Typography type='h5' weight='normal' className='font-bold'>
-                {isBooking
+                {/* {isBooking
                   ? removeLastDigitIfThreeDecimalPlaces(calculateSum())
-                  : removeLastDigitIfThreeDecimalPlaces(calculateDaysAndServices())}
+                  : removeLastDigitIfThreeDecimalPlaces(calculateDaysAndServices())} */}
+                {calculatePrice()}
                 {isGelOnly ? '₾' : currency === 'GEL' ? '₾' : '$'}
               </Typography>
             )}
