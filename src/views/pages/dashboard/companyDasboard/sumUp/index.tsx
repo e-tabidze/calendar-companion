@@ -11,7 +11,6 @@ interface Props {
 }
 
 const SumUp: React.FC<Props> = ({ border, bg, icon, sum, description }) => {
-  console.log(sum, 'sum')
 
   return (
     <div className={`${bg} border ${border} rounded-3xl  gap-4 p-6 md:p-8`}>
