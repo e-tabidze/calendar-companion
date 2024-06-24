@@ -115,7 +115,7 @@ const PriceCalcCard: React.FC<Props> = ({
 
     const sumPrice =
       days &&
-      days * price +
+      (days * price * (100 - selectedDiscountPlan())) / 100 +
         (services
           ? services.reduce(
               (accumulator: number, service: { type_id: number; count: number; price: number; currency: string }) => {
@@ -216,7 +216,7 @@ const PriceCalcCard: React.FC<Props> = ({
 
       <div className='flex items-center gap-2'>
         <Typography type='h3' className='font-bold flex gap-3'>
-          {(removeLastDigitIfThreeDecimalPlaces(price) * (100 - selectedDiscountPlan())) / 100}{' '}
+          {removeLastDigitIfThreeDecimalPlaces(parseFloat((price * (100 - selectedDiscountPlan())) / 100).toFixed(3))}
           {isBooking ? '₾' : currency === 'GEL' ? '₾' : '$'}
         </Typography>
         <Typography type='h5' weight='normal'>
@@ -264,7 +264,7 @@ const PriceCalcCard: React.FC<Props> = ({
               </Typography>
             </div>
             <Typography type='h5' weight='normal'>
-              {days && removeLastDigitIfThreeDecimalPlaces(parseFloat((days * price).toFixed(3)))}{' '}
+              {days && price && removeLastDigitIfThreeDecimalPlaces(parseFloat((price * days * (100 - selectedDiscountPlan())) / 100).toFixed(3))}
               {isGelOnly ? '₾' : currency === 'GEL' ? '₾' : '$'}
             </Typography>
           </div>
