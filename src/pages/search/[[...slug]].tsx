@@ -67,16 +67,9 @@ const SearchPage = () => {
     totalProductsCount,
     totalPages,
     objectToURI,
-    setValue,
+    setValue
   } = useSearch()
   const { width } = useWindowDimensions()
-
-  // const [mapVisible, setMapVisible] = useState(true)
-  const [filters, toggleFilters] = useState(false)
-  const [pageMeta, setPageMeta] = useState({})
-  const [manufactuterMeta, setManufactuterMeta] = useState('Rent.myauto.ge | მანქანის ქირაობის პლატფორმა')
-  const [yearFromMeta, setYearFromMeta] = useState('')
-  const [yearToMeta, setYearToMeta] = useState('')
 
   const router = useRouter()
 
@@ -89,6 +82,13 @@ const SearchPage = () => {
   const formState = useWatch({ control })
 
   const { t } = useTranslation()
+
+  // const [mapVisible, setMapVisible] = useState(true)
+  const [filters, toggleFilters] = useState(false)
+  const [pageMeta, setPageMeta] = useState({})
+  const [manufactuterMeta, setManufactuterMeta] = useState('Rent.myauto.ge | მანქანის ქირაობის პლატფორმა')
+  const [yearFromMeta, setYearFromMeta] = useState('')
+  const [yearToMeta, setYearToMeta] = useState('')
 
   useEffect(() => {
     setHasFilter(
@@ -292,6 +292,11 @@ const SearchPage = () => {
                       city={product?.start_city}
                       isProductInFavorites={product.is_favourite}
                       priceUsd={product?.price_usd}
+                      days={
+                        (new Date(String(book_to)).getTime() - new Date(String(book_from)).getTime()) /
+                        (1000 * 3600 * 24)
+                      }
+                      discounts={product?.discounts}
                     />
                   ))}
                 </div>

@@ -16,6 +16,7 @@ import {
   DetailsContainer,
   DetailsWrapper,
   InnerDetailsContainer,
+  PreviousPrice,
   PriceContainer,
   ProductCardContainer
 } from './styles'
@@ -23,7 +24,9 @@ import { isMobile } from 'react-device-detect'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'next-i18next'
 import useCurrency from 'src/hooks/useCurrency'
-import { removeLastDigitIfThreeDecimalPlaces } from 'src/utils/priceFormat'
+import { removeExtraDecimalDigits } from 'src/utils/priceFormat'
+import { Discount } from 'src/types/Product'
+import { selectedDiscountPlan } from 'src/utils/discountPlan'
 
 interface Props {
   productId: number
@@ -39,6 +42,8 @@ interface Props {
   images: string[]
   city: string
   isProductInFavorites: boolean
+  days?: number
+  discounts?: Discount[]
 }
 
 const ProductCard: React.FC<Props> = ({
@@ -54,7 +59,9 @@ const ProductCard: React.FC<Props> = ({
   images,
   city,
   isProductInFavorites: productFav,
-  priceUsd
+  priceUsd,
+  days,
+  discounts
 }) => {
   const router = useRouter()
 
@@ -98,6 +105,12 @@ const ProductCard: React.FC<Props> = ({
       console.log(error, 'error')
     }
   }
+
+  console.log(days, 'days')
+
+  const discointPercent = discounts && days ? selectedDiscountPlan(discounts, days) : 0
+
+  console.log(discointPercent, 'discointPercent', productId, 'productId')
 
   return (
     <ProductCardContainer onClick={handleCardClick}>
@@ -158,10 +171,15 @@ const ProductCard: React.FC<Props> = ({
         <InnerDetailsContainer>
           <PriceContainer>
             {currency === 'GEL'
-              ? removeLastDigitIfThreeDecimalPlaces(priceGel)
-              : removeLastDigitIfThreeDecimalPlaces(priceUsd)}{' '}
+              ? removeExtraDecimalDigits(priceGel - (priceGel / 100) * discointPercent)
+              : removeExtraDecimalDigits(priceUsd - (priceUsd / 100) * discointPercent)}{' '}
             {currency === 'GEL' ? '₾' : '$'}
-            {/* <PreviousPrice>47₾</PreviousPrice> */}
+            {discointPercent > 0 && (
+              <PreviousPrice>
+                {currency === 'GEL' ? removeExtraDecimalDigits(priceGel) : removeExtraDecimalDigits(priceUsd)}{' '}
+                {currency === 'GEL' ? '₾' : '$'}
+              </PreviousPrice>
+            )}
             <Typography type='body' className='text-sm'>
               {t('day')}
             </Typography>
