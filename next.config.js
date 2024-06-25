@@ -3,7 +3,7 @@ const { i18n } = require('./next-i18next.config')
 module.exports = {
   trailingSlash: true,
   
-  reactStrictMode: false,
+  reactStrictMode: true,
 
   images: {
     domains: ['static.my.ge', 'test.static.my.ge']
