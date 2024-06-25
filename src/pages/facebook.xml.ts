@@ -166,8 +166,9 @@ export const getServerSideProps: GetServerSideProps = async ({ res, locale }) =>
       }
     }
     console.log(paginationData)
-    const totalStatements = paginationData.result.total
-    const numberOfRequests = Math.trunc(totalStatements / 50) + 1
+    
+    // const totalStatements = paginationData.result.total
+    // const numberOfRequests = Math.trunc(totalStatements / 50) + 1
 
     const promises: any = []
 
