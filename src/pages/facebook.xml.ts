@@ -50,7 +50,7 @@ function FacebookXml() {
 export const getServerSideProps: GetServerSideProps = async ({ res, locale }) => {
   locale = locale === 'default' || locale === undefined ? 'ka' : locale
 
-  const query = 'page=1&sort_by=id&order_by=desc'
+  const query = 'sort_by=id&order_by=desc'
 
   const paginationResponse = await fetch(`${API_URL}/search-products?${query}`, {
     headers: {
