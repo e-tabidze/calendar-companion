@@ -81,7 +81,6 @@ const NewListingLayout: React.FC<Props> = ({
           {width > 781 && renderNewListingSelect()}
           <Icon svgPath='close'
                 onClick={() => toggleClose(!close)}
-                // onClick={onClose}
                 height={40}
                 width={40}
                 className='cursor-pointer' />

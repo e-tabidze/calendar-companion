@@ -3,7 +3,8 @@ import { Fragment, useRef } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 
 import Icon from 'src/views/app/Icon'
-import {useTranslation} from "next-i18next";
+
+// import {useTranslation} from "next-i18next"
 
 interface Props {
     open: boolean
@@ -12,7 +13,8 @@ interface Props {
 }
 
 const CloseModal: React.FC<Props> = ({ open, toggleModal, onClose }) => {
-    const {t} = useTranslation()
+
+    // const {t} = useTranslation()
 
     const modalRef = useRef<HTMLDivElement>(null)
 
