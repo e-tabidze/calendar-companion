@@ -10,7 +10,7 @@ import { generateYearsArray } from 'src/utils/years'
 import ImagesInput from './imagesInput'
 import _ from 'lodash'
 import useProfile from 'src/hooks/useProfile'
-import {useTranslation} from "next-i18next";
+import { useTranslation } from 'next-i18next'
 
 interface Props {
   control: any
@@ -22,7 +22,7 @@ interface Props {
 }
 
 const StepOne: React.FC<Props> = ({ control, productValues, errors, setValue, removeImage, appendImages }) => {
-  const {t} = useTranslation()
+  const { t } = useTranslation()
   const { manufacturers } = useProductInfo()
   const { postUploadProductImages } = useNewProduct()
   const { userId } = useProfile()
@@ -57,15 +57,33 @@ const StepOne: React.FC<Props> = ({ control, productValues, errors, setValue, re
     }
   })
 
-  const handleFileUpload = async (files: any, count: number) => {
-    try {
-      return await uploadProductImagesMutation.mutateAsync({
-        Files: Array.from(files),
-        count,
-        userId
-      })
-    } catch (error) {
-      console.error('Error uploading file:', error)
+  // const handleFileUpload = async (files: any, count: number) => {
+  //   try {
+  //     return await uploadProductImagesMutation.mutateAsync({
+  //       Files: Array.from(files),
+  //       count,
+  //       userId
+  //     })
+  //   } catch (error) {
+  //     console.error('Error uploading file:', error)
+  //   }
+  // }
+
+  const handleFileUpload = async (files: FileList) => {
+    const BATCH_SIZE = 4
+    const fileArray = Array.from(files)
+
+    for (let i = 0; i < fileArray.length; i += BATCH_SIZE) {
+      const batch = fileArray.slice(i, i + BATCH_SIZE)
+      try {
+        await uploadProductImagesMutation.mutateAsync({
+          Files: batch,
+          count: batch.length,
+          userId
+        })
+      } catch (error) {
+        console.error('Error uploading file:', error)
+      }
     }
   }
 
@@ -124,7 +142,7 @@ const StepOne: React.FC<Props> = ({ control, productValues, errors, setValue, re
             control={control}
             name='odometer.measure'
             options={[
-              { value: 'km', label: t('km')},
+              { value: 'km', label: t('km') },
               { value: 'mile', label: t('mile') }
             ]}
           />
@@ -135,29 +153,29 @@ const StepOne: React.FC<Props> = ({ control, productValues, errors, setValue, re
           name='additional_information'
           control={control}
           errors={errors}
-          label={t('additional_info') +' ('+ t('georgian')+ ') *'}
+          label={t('additional_info') + ' (' + t('georgian') + ') *'}
           rows={4}
         />
         <DefaultInput
-            name='additional_information_en'
-            control={control}
-            errors={errors}
-            label={t('additional_info') +' ('+ t('english')+ ') *'}
-            rows={4}
+          name='additional_information_en'
+          control={control}
+          errors={errors}
+          label={t('additional_info') + ' (' + t('english') + ') *'}
+          rows={4}
         />
         <DefaultInput
           name='use_instruction'
           control={control}
           errors={errors}
-          label={t('instruction_for_use') +' ('+ t('georgian')+ ') *'}
+          label={t('instruction_for_use') + ' (' + t('georgian') + ') *'}
           rows={4}
         />
         <DefaultInput
-            name='use_instruction_en'
-            control={control}
-            errors={errors}
-            label={t('instruction_for_use') +' ('+ t('english')+ ') *'}
-            rows={4}
+          name='use_instruction_en'
+          control={control}
+          errors={errors}
+          label={t('instruction_for_use') + ' (' + t('english') + ') *'}
+          rows={4}
         />
       </div>
       <div className='flex flex-col flex-wrap gap-2 mt-4'>
@@ -174,10 +192,12 @@ const StepOne: React.FC<Props> = ({ control, productValues, errors, setValue, re
                 isLoading={uploadProductImagesMutation.isLoading}
                 value={value}
                 onChange={(e: any) => {
-                  handleFileUpload(Array.from(e.target.files), e.target.files.length)
+                  handleFileUpload(e.target.files)
                 }}
               />
-              {errors && <div className={`text-sm text-red-100 whitespace-normal`}>{t(_.get(errors, 'images')?.message)}</div>}
+              {errors && (
+                <div className={`text-sm text-red-100 whitespace-normal`}>{t(_.get(errors, 'images')?.message)}</div>
+              )}
             </>
           )}
         />
