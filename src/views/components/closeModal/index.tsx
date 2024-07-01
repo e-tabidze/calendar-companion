@@ -1,6 +1,8 @@
 import { Fragment, useRef } from 'react'
 
 import { Dialog, Transition } from '@headlessui/react'
+import Typography from 'src/views/components/typography'
+import { DefaultButton } from 'src/views/components/button'
 
 import Icon from 'src/views/app/Icon'
 import {useTranslation} from "next-i18next"
@@ -62,22 +64,20 @@ const CloseModal: React.FC<Props> = ({ open, toggleModal, onClose }) => {
                   </div>
 
                   <div className='flex flex-col justify-center items-center mt-10 mb-20'>
-                    <h3 className='font-medium text-md mb-[12px]'>{t('sure_close')}</h3>
-                    <p className='text-2sm text-black'>{t('all_info_delete')}</p>
+                    <Typography type='h5' className='font-medium text-md mb-[12px]'>{t('sure_close')}</Typography>
+                    <Typography type='body' className='text-2sm text-black'>{t('all_info_delete')}</Typography>
                   </div>
                   <div className='py-6 px-8 w-full flex items-center justify-center border-t-1 border-raisin-10 gap-[16px]'>
-                    <button
-                      className='h-[52px] flex items-center px-8 rounded-xl bg-transparent hover:bg-raisin-5 transition-all text-black text-2sm'
+                    <DefaultButton
+                      className='border-0 h-[52px] flex items-center px-8 rounded-xl bg-transparent hover:bg-raisin-5 transition-all text-black text-2sm'
                       onClick={onClose}
-                    >
-                      {t('close')}
-                    </button>
-                    <button
-                      className='h-[52px] flex items-center px-8 rounded-xl bg-orange-100 hover:bg-orange-110 transition-all text-white text-2sm'
+                      text={t('close')}
+                    />
+                    <DefaultButton
+                      className='border-0 h-[52px] flex items-center px-8 rounded-xl bg-orange-100 hover:bg-orange-110 transition-all text-white text-2sm'
                       onClick={toggleModal}
-                    >
-                      {t('continue')}
-                    </button>
+                      text={t('continue')}
+                    />
                   </div>
                 </div>
               </Dialog.Panel>
