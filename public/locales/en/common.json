@@ -329,6 +329,10 @@
   "choose_start_date": "Choose start date",
   "choose_end_date": "Choose end date",
   "sure_book_dates": "Sure about booking dates?",
+  "sure_close": "ნამდვილად გსურთ გათიშვა?",
+  "all_info_delete": "ყველა შევსებული მონაცემი წაიშლება",
+  "close": "გათიშვა",
+  "continue": "გაგრძელება",
   "backend_categories": {
     "sedan": "Sedan",
     "jeep": "Jeep",

@@ -8,9 +8,10 @@ import HeaderWrapper from 'src/views/components/headerWrapper'
 import { InnerContainer } from '../views/components/defaultHeader/styles'
 import Image from '../views/components/image'
 import useProfile from 'src/hooks/useProfile'
-import { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import Icon from 'src/views/app/Icon'
 import { useTranslation } from 'next-i18next'
+import CloseModal from 'src/views/components/closeModal'
 
 interface Props {
   children: any
@@ -50,6 +51,8 @@ const NewListingLayout: React.FC<Props> = ({
   const { isAuthenticated, activeCompany, isLoading } = useProfile()
   const { t } = useTranslation()
 
+  const [close, toggleClose] = useState(false)
+
   useEffect(() => {
     if (!isLoading) {
       if (isAuthenticated !== false) {
@@ -76,7 +79,7 @@ const NewListingLayout: React.FC<Props> = ({
         <InnerContainer>
           <Image src='/images/logo-rent.svg' alt='' onClick={onClickLogo} className='w-24 md:w-32 cursor-pointer' />
           {width > 781 && renderNewListingSelect()}
-          <Icon svgPath='close' onClick={onClose} height={40} width={40} className='cursor-pointer' />
+          <Icon svgPath='close' onClick={() => toggleClose(!close)} height={40} width={40} className='cursor-pointer' />
         </InnerContainer>
         <ProgressBar color='green-100' progress={selectedOption.step / options.length} className='md:mt-2' />
       </HeaderWrapper>
@@ -113,6 +116,7 @@ const NewListingLayout: React.FC<Props> = ({
           ></DefaultButton>
         </div>
       </div>
+      <CloseModal open={close} toggleModal={() => toggleClose(!close)} onClose={onClose} />
     </MaxWidthContainer>
   )
 }
