@@ -3,8 +3,7 @@ import { Fragment, useRef } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 
 import Icon from 'src/views/app/Icon'
-
-// import {useTranslation} from "next-i18next"
+import {useTranslation} from "next-i18next"
 
 interface Props {
   open: boolean
@@ -13,15 +12,9 @@ interface Props {
 }
 
 const CloseModal: React.FC<Props> = ({ open, toggleModal, onClose }) => {
-  // const {t} = useTranslation()
+  const {t} = useTranslation()
 
   const modalRef = useRef<HTMLDivElement>(null)
-
-  const handleOutsideClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    if (modalRef.current && !modalRef.current.contains(e.target as Node)) {
-      toggleModal()
-    }
-  }
 
   const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
     const touchY = e.touches[0].clientY
@@ -61,7 +54,6 @@ const CloseModal: React.FC<Props> = ({ open, toggleModal, onClose }) => {
               <Dialog.Panel className='relative transform overflow-hidden rounded-tl-3xl rounded-tr-3xl md:rounded-bl-3xl md:rounded-br-3xl bg-white text-left shadow-xl transition-all w-full md:my-4 md:max-w-[400px]'>
                 <span
                   onTouchStart={handleTouchStart}
-                  onClick={handleOutsideClick}
                   className='md:hidden absolute top-2 left-1/2 -translate-x-1/2 h-[3px] w-[50px] bg-raisin-20'
                 />
                 <div>
@@ -70,21 +62,21 @@ const CloseModal: React.FC<Props> = ({ open, toggleModal, onClose }) => {
                   </div>
 
                   <div className='flex flex-col justify-center items-center mt-10 mb-20'>
-                    <h3 className='font-medium text-md mb-[12px]'>ნამდვილად გსურთ გათიშვა? </h3>
-                    <p className='text-2sm text-black'>ყველა შევსებული მონაცემი წაიშლება</p>
+                    <h3 className='font-medium text-md mb-[12px]'>{t('sure_close')}</h3>
+                    <p className='text-2sm text-black'>{t('all_info_delete')}</p>
                   </div>
                   <div className='py-6 px-8 w-full flex items-center justify-center border-t-1 border-raisin-10 gap-[16px]'>
                     <button
                       className='h-[52px] flex items-center px-8 rounded-xl bg-transparent hover:bg-raisin-5 transition-all text-black text-2sm'
                       onClick={onClose}
                     >
-                      გათიშვა
+                      {t('close')}
                     </button>
                     <button
                       className='h-[52px] flex items-center px-8 rounded-xl bg-orange-100 hover:bg-orange-110 transition-all text-white text-2sm'
                       onClick={toggleModal}
                     >
-                      გაგრძელება
+                      {t('continue')}
                     </button>
                   </div>
                 </div>
