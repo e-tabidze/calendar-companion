@@ -251,9 +251,9 @@ const ProductDetails = memo(() => {
                     {singleProductDetails?.start_city}, {singleProductDetails?.start_address}
                   </Typography>
                 </div>
-                <Typography type='subtitle'>{singleProductDetails?.additional_information}</Typography>
+                <Typography type='subtitle'>{i18n.language === 'ka' ? singleProductDetails?.additional_information : singleProductDetails?.additional_information_en}</Typography>
                 <Typography type='subtitle' className='mt-8'>
-                  {singleProductDetails?.use_instruction}
+                  {i18n.language === 'ka' ? singleProductDetails?.use_instruction : singleProductDetails?.use_instruction_en}
                 </Typography>
                 <EntityInformationCard
                   name={singleProductDetails?.company_user?.company?.information?.name}
