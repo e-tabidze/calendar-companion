@@ -59,7 +59,7 @@ const NewProduct: React.FC = () => {
     appendOtherDeliveryLocations,
     removeOtherDeliveryLocations,
     appendOtherReturnLocations,
-    otherReturnLocations, 
+    otherReturnLocations,
     removeOtherReturnLocations
   } = useNewProduct()
 
@@ -162,17 +162,15 @@ const NewProduct: React.FC = () => {
             })
 
             toast.custom(<Toast type='success' title={t('new_product_add_success')} />)
+            queryClient.invalidateQueries(['companyProducts'])
 
             setTimeout(() => {
-              router.push(`/dashboard/products/?is_active=1&page=0`)
+              router.push(`/dashboard/products/?is_active=&page=1`)
             }, 5000)
           } else {
             console.error('Error: Images or productId is missing.')
           }
         }
-
-        queryClient.invalidateQueries(['companyProducts'])
-        queryClient.invalidateQueries(['latestProducts'])
       },
 
       onError: () => {
