@@ -43,12 +43,6 @@ const useEditProduct = (id: number) => {
     type_id: service?.type_id
   }))
 
-  // const discount_item = {
-  //   number: 1,
-  //   period: 'დღე',
-  //   discount_percent: ''
-  // }
-
   const discount_item = productDetailsData?.discounts?.map((discount: Discount) => ({
     number: discount?.number,
     period: discount?.period,
