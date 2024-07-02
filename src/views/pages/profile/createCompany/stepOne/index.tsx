@@ -1,5 +1,4 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { useEffect } from 'react'
 import { Controller } from 'react-hook-form'
 import FileUpload from 'src/views/components/fileUpload'
 import { DefaultInput } from 'src/views/components/input'
@@ -20,7 +19,10 @@ const StepOne: React.FC<Props> = ({ control, errors, clearErrors, setValue }) =>
   const queryClient = useQueryClient()
 
   const uploadCompanyLogoMutation: any = useMutation(uploadCompanyLogo, {
-    onSettled: () => {
+    onSuccess: data => {
+      const uploadedFile = data?.Data?.FilesList[0]
+      setValue('company_information.logo', uploadedFile)
+      clearErrors('company_information.logo')
       queryClient.invalidateQueries(['companyLogo'])
     }
   })
@@ -32,10 +34,6 @@ const StepOne: React.FC<Props> = ({ control, errors, clearErrors, setValue }) =>
       console.error('Error uploading file:', error)
     }
   }
-
-  useEffect(() => {
-    setValue('company_information.logo', uploadCompanyLogoMutation.data?.Data?.FilesList[0])
-  }, [uploadCompanyLogoMutation.data?.Data?.FilesList[0]])
 
   const handleRemoveFile = () => setValue('company_information.logo', '')
   const { t } = useTranslation()

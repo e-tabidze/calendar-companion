@@ -122,14 +122,14 @@ function isValidIBANNumber(input: string): boolean | number {
 
   const iban = String(input)
     .toUpperCase()
-    .replace(/[^A-Z0-9]/g, '') 
+    .replace(/[^A-Z0-9]/g, '')
   const code = iban.match(/^([A-Z]{2})(\d{2})([A-Z\d]+)$/) // match and capture (1) the country code, (2) the check digits, and (3) the rest
 
   if (!code || iban.length !== CODE_LENGTHS[code[1]]) {
     return false
   }
 
- const  digits = (code[3] + code[1] + code[2]).replace(/[A-Z]/g, function (letter: string): any {
+  const digits = (code[3] + code[1] + code[2]).replace(/[A-Z]/g, function (letter: string): any {
     return letter.charCodeAt(0) - 55
   })
 
@@ -168,7 +168,7 @@ const CompanyInfoSchema = Yup.object<CompanyInfo>().shape({
       const isValid = isValidIBANNumber(value)
       if (isValid !== true) {
         const first4 = value.substring(0, 4)
-        
+
         return createError({ path, message: `IBAN format error: ${first4}...` })
       }
 
@@ -182,7 +182,6 @@ const CompanySchema = Yup.object<Company>().shape({
     .typeError('identification_number_is_number')
     .test('is-11-digit', 'identification_number_11_digit', value => {
       if (value === null || value === undefined) {
-
         return true
       }
       const numericValue = parseFloat(value.toString())
