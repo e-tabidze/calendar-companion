@@ -88,7 +88,7 @@ const useSearch = () => {
   useEffect(() => {
     if (Object.keys(router.query).length > 0) {
       setValue('page', 1)
-      setValue('location', params?.location)
+      setValue('location', params?.location || '')
       setValue('fuel_types', convertToNumberArray(params?.fuel_types))
       setValue('category', convertToNumberArray(params?.category))
       setValue('seat_types', convertToNumberArray(params?.seat_types))
