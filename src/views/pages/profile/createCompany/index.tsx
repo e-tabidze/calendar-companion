@@ -1,29 +1,32 @@
 import { useState } from 'react'
 import { useRouter } from 'next/router'
 import NewListingLayout from 'src/layouts/NewListingLayout'
-import StepOne from './stepOne'
-import StepThree from './stepThree'
-import StepTwo from './stepTwo'
 import useCreateCompany from './useCreateCompany'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import Toast from 'src/views/components/toast'
 import toast from 'react-hot-toast'
-import {useTranslation} from "next-i18next";
+import { useTranslation } from 'next-i18next'
+import dynamic from 'next/dynamic'
+
+const StepOne = dynamic(() => import('./stepOne'), { ssr: false })
+const StepTwo = dynamic(() => import('./stepTwo'), { ssr: false })
+const StepThree = dynamic(() => import('./stepThree'), { ssr: false })
+
+const options = [
+  { value: '1/3_step', label: 'company_add', step: 1 },
+  { value: '2/3_step', label: 'addresses_and_hours', step: 2 },
+  { value: '3/3_step', label: 'addresses_and_hours', step: 3 }
+]
 
 const CreateCompany = () => {
-  const {t} = useTranslation()
-  const options = [
-    { value: t('1/3_step'), label: t('company_add'), step: 1 },
-    { value: t('2/3_step'), label: t('addresses_and_hours'), step: 2 },
-    { value: t('3/3_step'), label: t('addresses_and_hours'), step: 3 }
-  ]
+  const { t } = useTranslation()
   const [step, setStep] = useState(options[0])
 
   const router = useRouter()
 
-  const handleClose = () => router.push('/profile/orders/?page=1')
-
   const selectOption = (option: any) => setStep(option)
+
+  const handleClose = () => router.push('/profile/orders/?page=1')
 
   const {
     control,
@@ -57,12 +60,14 @@ const CreateCompany = () => {
         ])
         if (isValidStep1) {
           setStep(options[currentIndex + 1])
+          window.scrollTo(0, 0)
         }
         break
       case 1:
         const isValidStep2 = await trigger(['addresses'])
         if (isValidStep2) {
           setStep(options[currentIndex + 1])
+          window.scrollTo(0, 0)
         }
         break
       case 2:
@@ -79,12 +84,17 @@ const CreateCompany = () => {
         break
     }
   }
+
   const handleGoPrevStep = () => {
     const currentIndex = options.findIndex(option => option.step === step.step)
     if (currentIndex > 0) {
       setStep(options[currentIndex - 1])
     }
   }
+
+  const saveCompanyLogoMutation = useMutation((variables: any) =>
+    saveCompanyLogo('', variables.logo, variables.companyId)
+  )
 
   const createCompanyMutation = useMutation(() => createCompany('', companyValues), {
     onSuccess: data => {
@@ -103,10 +113,6 @@ const CreateCompany = () => {
     }
   })
 
-  const saveCompanyLogoMutation = useMutation((variables: any) =>
-    saveCompanyLogo('', variables.logo, variables.companyId)
-  )
-
   const onSubmit = () => {
     createCompanyMutation.mutate(companyValues)
   }
@@ -114,28 +120,12 @@ const CreateCompany = () => {
   console.log(errors, 'errors')
   console.log(companyValues, 'companyValues')
 
-  return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <NewListingLayout
-        options={options}
-        onChange={selectOption}
-        selectedOption={step}
-        onNextStep={handleGoNextStep}
-        onPrevStep={handleGoPrevStep}
-        onClose={handleClose}
-        onSubmit={handleSubmit(onSubmit)}
-        submitLabel={t('add')}
-        disabled={createCompanyMutation.isLoading || saveCompanyLogoMutation.isLoading}
-      >
-        {step.step === 1 && (
-          <StepOne
-            control={control}
-            errors={errors}
-            clearErrors={clearErrors}
-            setValue={setValue}
-          />
-        )}
-        {step.step === 2 && (
+  const renderStepComponent = () => {
+    switch (step.step) {
+      case 1:
+        return <StepOne control={control} errors={errors} clearErrors={clearErrors} setValue={setValue} />
+      case 2:
+        return (
           <StepTwo
             control={control}
             addressFields={addressFields}
@@ -144,10 +134,29 @@ const CreateCompany = () => {
             errors={errors}
             setValue={setValue}
           />
-        )}
-        {step.step === 3 && <StepThree control={control} errors={errors} />}
-      </NewListingLayout>
-    </form>
+        )
+      case 3:
+        return <StepThree control={control} errors={errors} />
+
+      default:
+        return null
+    }
+  }
+
+  return (
+    <NewListingLayout
+      options={options}
+      onChange={selectOption}
+      selectedOption={step}
+      onNextStep={handleGoNextStep}
+      onPrevStep={handleGoPrevStep}
+      onClose={handleClose}
+      onSubmit={handleSubmit(onSubmit)}
+      submitLabel={t('add')}
+      disabled={createCompanyMutation.isLoading || saveCompanyLogoMutation.isLoading}
+    >
+      <form onSubmit={handleSubmit(onSubmit)}>{renderStepComponent()}</form>
+    </NewListingLayout>
   )
 }
 
