@@ -167,9 +167,9 @@ const CompanyInfoSchema = Yup.object<CompanyInfo>().shape({
 
       const isValid = isValidIBANNumber(value)
       if (isValid !== true) {
-        const first4 = value.substring(0, 4)
+        // const first4 = value.substring(0, 4)
 
-        return createError({ path, message: `IBAN format error: ${first4}...` })
+        return createError({ path, message: 'error_format' })
       }
 
       return true

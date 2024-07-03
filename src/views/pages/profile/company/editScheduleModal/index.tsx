@@ -33,13 +33,13 @@ const EditScheduleModal: React.FC<Props> = ({ open, onClose, control, address, i
 
   const workDayData = () => {
     const customLabels: Record<string, string> = {
-      monday: t('monday'),
-      tuesday: t('tuesday'),
-      wednesday: t('wednesday'),
-      thursday: t('thursday'),
-      friday: t('friday'),
-      saturday: t('saturday'),
-      sunday: t('sunday')
+      monday: t('mon'),
+      tuesday: t('tue'),
+      wednesday: t('wed'),
+      thursday: t('thu'),
+      friday: t('fri'),
+      saturday: t('sat'),
+      sunday: t('sun')
     }
 
     return Object.keys(address.working_hours).map(day => ({

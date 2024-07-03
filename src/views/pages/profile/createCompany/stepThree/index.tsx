@@ -1,5 +1,7 @@
 import { DefaultInput } from 'src/views/components/input'
 import { useTranslation } from 'next-i18next'
+import CheckboxField from "src/views/components/checkboxField";
+import Link from 'next/link'
 
 interface Props {
   control: any
@@ -8,6 +10,21 @@ interface Props {
 
 const StepThree: React.FC<Props> = ({ control, errors }) => {
   const { t } = useTranslation()
+
+  const options = [
+    {
+      id: 'id',
+      title: (
+          <>
+              {t('agree')}
+            <Link href="/rules" target="_blank" className="ml-2 text-blue-100" >
+              {t('rules')}
+            </Link>
+          </>
+
+      )
+    }
+  ]
 
   return (
     <div className='grid'>
@@ -32,6 +49,7 @@ const StepThree: React.FC<Props> = ({ control, errors }) => {
           errors={errors}
           name='company_information.phone_numbers'
         />
+          <CheckboxField control={control} name='terms_and_conditions'  options={options}/>
       </div>
     </div>
   )

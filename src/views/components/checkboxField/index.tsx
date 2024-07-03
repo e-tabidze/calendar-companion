@@ -7,7 +7,7 @@ import { dynamicTranslateAdditionalParameters } from 'src/utils/translationUtils
 
 interface Option {
   id: string | number
-  title: string | number
+  title: string | number | any
   icon?: string
 }
 

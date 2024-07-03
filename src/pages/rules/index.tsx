@@ -1,5 +1,8 @@
 import React from 'react'
 import DefaultLayout from 'src/layouts/DefaultLayout'
+import {serverSideTranslations} from "next-i18next/serverSideTranslations";
+import {dehydrate} from "@tanstack/react-query";
+import {queryClient} from "src/pages/_app";
 
 const Rules = () => {
     return (
@@ -322,3 +325,14 @@ const Rules = () => {
 }
 
 export default Rules
+
+export async function getStaticProps({ locale }: { locale: string }) {
+    const [translations] = await Promise.all([serverSideTranslations(locale)])
+
+    return {
+        props: {
+            dehydratedState: dehydrate(queryClient),
+            ...translations
+        }
+    }
+}
