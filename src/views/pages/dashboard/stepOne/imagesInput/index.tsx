@@ -1,5 +1,6 @@
 import React, { ChangeEvent } from 'react'
 import dynamic from 'next/dynamic'
+import {useTranslation} from "next-i18next";
 
 const Typography = dynamic(() => import('src/views/components/typography'), { ssr: false })
 const Image = dynamic(() => import('src/views/components/image'), { ssr: true })
@@ -24,6 +25,8 @@ const ImagesInput: React.FC<Props> = ({
   handleMoveToFront,
   isLoading
 }) => {
+  const {t} = useTranslation()
+
   return (
     <div className='flex items-center gap-8 flex-wrap'>
       {isLoading ? <div className='w-100 h-100 flex items-center justify-center rounded-12'>
@@ -35,7 +38,12 @@ const ImagesInput: React.FC<Props> = ({
         <div className='flex gap-4 flex-wrap'>
           {value?.map((image: string, index: number) => (
             <div className='relative' key={index}>
-              <Image src={image} alt='' className='w-24 h-24 rounded-2xl' />
+              <div key={index} className="relative group">
+                <Image src={image} alt='' className='w-24 h-24 rounded-2xl'  />
+
+                {index === 0 && <span className="transition-all opacity-0 group-hover:opacity-100 absolute rounded-md bg-green-100/90 text-white text-sm bottom-3 left-2 right-2 flex items-center justify-center h-6">{t('main')}</span>}
+
+              </div>
               <Icon
                 svgPath='remove'
                 width={27}

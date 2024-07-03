@@ -297,14 +297,14 @@ const PriceCalcCard: React.FC<Props> = ({
             <div className='flex gap-2 flex-col justify-between py-2 lg:items-center lg:flex-row'>
               <div className='flex gap-2'>
                 <Typography type='body' className='text-raisin-100'>
-                  ავტომობილის მიწოდება
+                  {t('vehicle_supply')}
                 </Typography>
               </div>
               <Typography type='h5' weight='normal'>
                 {carDeliveryPrice !== undefined &&
                 Object.keys(carDeliveryPrice).length === 0 &&
                 carDeliveryPrice.constructor === Object
-                  ? 'უფასო'
+                  ? t('price_free')
                   : `${parseFloat(carDeliveryPriceGeL().toFixed(2))} ₾`}
               </Typography>
             </div>
@@ -314,14 +314,14 @@ const PriceCalcCard: React.FC<Props> = ({
             <div className='flex gap-2 flex-col justify-between py-2 lg:items-center lg:flex-row'>
               <div className='flex gap-2'>
                 <Typography type='body' className='text-raisin-100'>
-                  ავტომობილის მიწოდება
+                  {t('vehicle_supply')}
                 </Typography>
               </div>
               <Typography type='h5' weight='normal'>
                 {carReturnPrice !== undefined &&
                 Object.keys(carReturnPrice).length === 0 &&
                 carReturnPrice.constructor === Object
-                  ? 'უფასო'
+                  ? t('price_free')
                   : `${parseFloat(Number(carReturnPriceGel()).toFixed(2))} ₾`}
               </Typography>
             </div>
@@ -333,12 +333,12 @@ const PriceCalcCard: React.FC<Props> = ({
               type='warning'
               title={
                 <>
-                  გამქირავებლის მოთხოვნის საფუძველზე თანხას დაემატება{' '}
+                  {t('renter_request_amount')}{' '}
                   <span className='font-bold'>
-                    სადეპოზიტო თანხა {deposit_amount}
+                  {t('deposit_amount')} {deposit_amount}
                     {deposit_currency === 'GEL' ? '₾' : '$'}
                   </span>
-                  , რომელსაც გადაიხდით ადგილზე
+                  , {t('which_play_at_place')}
                 </>
               }
             />

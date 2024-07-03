@@ -5,16 +5,15 @@ import { useTranslation } from 'next-i18next'
 const Typography = dynamic(() => import('src/views/components/typography'), { ssr: false })
 const Radio = dynamic(() => import('src/views/components/radio'), { ssr: false })
 
-const options = [
-  { label: 'ოფისიდან წაყვანა', value: 'ოფისიდან წაყვანა', info: '$0.00' },
-  { label: 'მიწოდება', value: 'მიწოდება', info: '$0.00' }
-]
-
 interface Props {
   control: any
 }
 const AdditionalServices: React.FC<Props> = ({ control }) => {
   const { t } = useTranslation()
+    const options = [
+        { label: t('take_away_from_office'), value: t('take_away_from_office'), info: '$0.00' },
+        { label: t('supply'), value: t('supply'), info: '$0.00' }
+    ]
 
   return (
     <div className='border border-raisin-20 rounded-xl p-9'>

@@ -92,9 +92,9 @@ const OrderListComponent: React.FC<Props> = ({
             : status === 2
             ? t('canceled')
             : status === 5
-            ? 'დაკავებული'
+            ? t('busy')
             : status === 7
-            ? 'გაუქმებული'
+            ? t('canceled_status')
             : ''}
         </Typography>
 

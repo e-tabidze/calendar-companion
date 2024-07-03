@@ -112,7 +112,8 @@ const useCompany = (id: number) => {
       phone_numbers: companyInfo?.information?.phone_numbers,
       iban: companyInfo?.information?.iban,
     },
-    addresses: defaultAddress
+    addresses: defaultAddress,
+    terms_and_conditions: '1'
   }
 
   const {
@@ -139,6 +140,7 @@ const useCompany = (id: number) => {
     setValue('company_information.logo', companyInfo?.information?.logo)
     setValue('company_id', id)
     setValue('addresses', defaultAddress)
+    setValue('terms_and_conditions', companyInfo?.terms_and_conditions)
   }, [setValue, id, singleCompanyBranches])
 
   const {

@@ -4,10 +4,11 @@ import Divider from '../divider'
 import Typography from '../typography'
 import {useTranslation} from "next-i18next";
 import { dynamicTranslateAdditionalParameters } from 'src/utils/translationUtils'
+import _ from "lodash";
 
 interface Option {
   id: string | number
-  title: string | number
+  title: string | number | any
   icon?: string
 }
 
@@ -28,6 +29,7 @@ interface Props {
   divider?: boolean
   cols?: boolean
   categoryCheckbox?:boolean
+  errors?: any
 }
 
 const CheckboxField: React.FC<Props> = ({
@@ -42,7 +44,8 @@ const CheckboxField: React.FC<Props> = ({
   height,
   divider,
   cols,
-  categoryCheckbox
+  categoryCheckbox,
+  errors
 }) => {
   const {t} = useTranslation()
 
@@ -69,7 +72,12 @@ const CheckboxField: React.FC<Props> = ({
                             onChange([...selectedOptions, option.id])
                           }
                         } else {
-                          onChange(option.id)
+                          // onChange(option.id)
+                          if (selectedOptions.includes(option.id)) {
+                            onChange('')
+                          } else {
+                            onChange(option.id)
+                          }
                         }
                       }}
                     >
@@ -104,6 +112,12 @@ const CheckboxField: React.FC<Props> = ({
                         {dynamicTranslateAdditionalParameters(option.title, t)}
                       </Typography>
                     </div>
+                    {_.get(errors, name)?.message && (
+                        <div  className='text-sm text-red-100 py-2 max-h-max relative'>
+                          {t(_.get(errors, name)?.message)}
+                        </div>
+                    )}
+
                     {divider && index !== options.length - 1 && <Divider />}
                   </div>
                 ))}

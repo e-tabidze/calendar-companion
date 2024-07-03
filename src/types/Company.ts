@@ -47,4 +47,5 @@ export type Company = {
   company_information: CompanyInfo
   addresses: CompanyAddress[]
   company_id?: number
+  terms_and_conditions: string
 }

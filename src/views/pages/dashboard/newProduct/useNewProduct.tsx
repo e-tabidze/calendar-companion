@@ -7,8 +7,10 @@ import useProductInfo from '../useProductInfo'
 import { useEffect } from 'react'
 import StaticService from 'src/services/StaticService'
 import useProfile from 'src/hooks/useProfile'
+import {useTranslation} from "next-i18next";
 
 const useNewProduct = () => {
+  const {t} = useTranslation()
   const { companyServices } = useProductInfo()
   const { activeCompanyId } = useProfile()
 
@@ -22,7 +24,7 @@ const useNewProduct = () => {
 
   const discount_item = {
     number: 1,
-    period: 'დღე',
+    period: t('day'),
     discount_percent: ''
   }
 
@@ -50,7 +52,7 @@ const useNewProduct = () => {
     any_period: true,
     min_period: {
       has_min_period: false,
-      time_interval: 'კვირა',
+      time_interval: t('week'),
       time_span: 1
     },
     has_other_delivery_locations: false,
