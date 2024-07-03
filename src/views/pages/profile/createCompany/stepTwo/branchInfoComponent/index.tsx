@@ -8,7 +8,7 @@ import SwitchField from 'src/views/components/switchField'
 import TimeRangeComponent from './timeRangeComponent'
 import CitiesSuggestions from 'src/views/components/citiesSuggestions'
 import { IconTextButton } from 'src/views/components/button'
-import {useTranslation} from "next-i18next";
+import { useTranslation } from 'next-i18next'
 
 interface Props {
   index: number
@@ -22,7 +22,7 @@ interface Props {
 
 const BranchInfoComponent: React.FC<Props> = ({ index, control, errors, setValue, removeAddress }) => {
   const formState = useWatch({ control })
-  const {t} = useTranslation()
+  const { t } = useTranslation()
 
   useEffect(() => {
     if (formState.addresses[index].is_same_time) {
@@ -96,12 +96,7 @@ const BranchInfoComponent: React.FC<Props> = ({ index, control, errors, setValue
           </div>
         </div>
 
-        <SwitchField
-          name={`addresses.${index}.is_same_time`}
-          label={t('same_time')}
-          control={control}
-          reversed
-        />
+        <SwitchField name={`addresses.${index}.is_same_time`} label={t('same_time')} control={control} reversed />
 
         {formState.addresses[index]?.is_same_time ? (
           <div className='flex flex-col gap-2 lg:items-center lg:flex-row justify-between' key={index}>
@@ -125,6 +120,7 @@ const BranchInfoComponent: React.FC<Props> = ({ index, control, errors, setValue
                     startTimeName={`addresses.${index}.working_hours.${day.value}.start_time`}
                     endTimeName={`addresses.${index}.working_hours.${day.value}.end_time`}
                     isDisabled={!formState.addresses[index]?.working_hours[day.value]?.is_selected}
+                    errors={errors}
                   />
                 </div>
               ))}
@@ -138,6 +134,7 @@ const BranchInfoComponent: React.FC<Props> = ({ index, control, errors, setValue
                     startTimeName={`addresses.${index}.working_hours.${day.value}.start_time`}
                     endTimeName={`addresses.${index}.working_hours.${day.value}.end_time`}
                     isDisabled={!formState.addresses[index]?.working_hours[day.value]?.is_selected}
+                    errors={errors}
                   />
                 </div>
               ))}

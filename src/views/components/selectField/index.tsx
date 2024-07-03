@@ -151,7 +151,7 @@ const SelectField: React.FC<Props> = ({
                 const selectedValues = isMulti
                   ? e.map((opt: any) => (valueKey ? opt[valueKey] : opt.value))
                   : valueKey
-                  ? e?.[valueKey] || []
+                  ? e?.[valueKey] || ''
                   : e?.value || []
 
                 onChange(selectedValues)
