@@ -46,14 +46,14 @@ const OrderDetails = () => {
       {userOrderDetails?.status_id === 7 && (
         <div className='bg-red-70 w-full px-4 md:px-10 py-7'>
           <Typography type='subtitle' className='text-white'>
-            ჯავშანი ავტომობილზე{' '}
+            {t('vehicle_order')} {' '}
             <span className='font-bold'>
               {productData?.manufacturer?.title} {productData?.manufacturer_model?.title} {productData?.prod_year}{' '}
             </span>{' '}
-            გაუქმებულია
+            {t('is_canceled')}
           </Typography>
           <Typography type='subtitle' className='text-white mt-3'>
-            მიზეზი: {userOrderDetails?.cancel_reason}
+            {t('reason')} : {userOrderDetails?.cancel_reason}
           </Typography>
         </div>
       )}
@@ -149,7 +149,7 @@ const OrderDetails = () => {
           <div>
             <PriceDetailsWrapper>
               <Typography type='subtitle'>
-                {t('rent_price')} x {userOrderDetails?.days} დღე
+                {t('rent_price')} x {userOrderDetails?.days} {t('day')}
               </Typography>
               <Typography type='subtitle'>
                 {removeLastDigitIfThreeDecimalPlaces(productData?.price_gel * userOrderDetails?.days)}₾
@@ -244,9 +244,9 @@ const OrderDetails = () => {
                 : userOrderDetails?.status_id === 2
                 ? t('canceled')
                 : userOrderDetails?.status_id === 5
-                ? 'დაკავებული'
+                ? t('busy')
                 : userOrderDetails?.status_id === 7
-                ? 'გაუქმებული'
+                ? 'canceled_status'
                 : ''}
             </Typography>
             {userOrderDetails?.deposit_currency && userOrderDetails?.deposit_amount && (
@@ -255,12 +255,12 @@ const OrderDetails = () => {
                 className='mb-8 max-w-[300px]'
                 title={
                   <>
-                    გამქირავებლის მოთხოვნის საფუძველზე თანხას დაემატება{' '}
+                  {t('renter_request_amount')} {' '}
                     <span className='font-bold'>
-                      სადეპოზიტო თანხა {userOrderDetails?.deposit_amount}
+                      {t('deposit_amount')} {userOrderDetails?.deposit_amount}
                       {userOrderDetails?.deposit_currency === 'GEL' ? '₾' : '$'}
                     </span>
-                    , რომელსაც გადაიხდით ადგილზე
+                    , {t('which_play_at_place')}
                   </>
                 }
               />

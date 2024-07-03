@@ -28,13 +28,14 @@ interface Props {
   errors: any
 }
 
-const options = [
-  { value: 'დღე', label: 'დღე', id: '1' },
-  { value: 'კვირა', label: 'კვირა', id: '2' }
-]
+
 
 const StepThree: React.FC<Props> = ({ control, errors, discountItems, appendDiscountItem, remove }) => {
   const { t } = useTranslation()
+    const options = [
+        { value: t('day'), label: t('day'), id: '1' },
+        { value: t('week'), label: t('week'), id: '2' }
+    ]
 
   const { discount_item, setValue } = useNewProduct()
   const { width } = useWindowDimensions()
@@ -73,13 +74,13 @@ const StepThree: React.FC<Props> = ({ control, errors, discountItems, appendDisc
       </Typography>
 
       <Typography type='h5' weight='normal' className='text-3md my-6'>
-        დეპოზიტი
+          {t('deposit')}
       </Typography>
       <Divider />
       <DiscountContainer>
         <SwitchField
-          label='მიუთითე სადეპოზიტო  თანხა'
-          description='*მოცემულ თანხას მომხმარებელი გადაიხდის ადგილზე'
+          label={t('enter_deposit_amount')}
+          description={t('play_at_place')}
           control={control}
           name='has_deposit'
           defaultValue={false}
@@ -89,7 +90,7 @@ const StepThree: React.FC<Props> = ({ control, errors, discountItems, appendDisc
       {formState.has_deposit ? (
         <StepThreePriceContainer>
           <DefaultInput
-            label='დეპოზიტის თანხა'
+            label={t('deposit_amount')}
             control={control}
             name='deposit_amount'
             errors={errors}
@@ -110,12 +111,12 @@ const StepThree: React.FC<Props> = ({ control, errors, discountItems, appendDisc
       )}
 
       <Typography type='h5' weight='normal' className='text-3md my-6'>
-        ფასდაკლება
+          {t('sale')}
       </Typography>
       <Divider />
       <DiscountContainer>
         <SwitchField
-          label='ფასდაკლება გაქირავების ხანგრძლივობის მიხედვით'
+          label={t('duration_sale')}
           control={control}
           name='apply_discount'
           defaultValue={false}
@@ -135,7 +136,7 @@ const StepThree: React.FC<Props> = ({ control, errors, discountItems, appendDisc
               />
               {discountItems.length > 1 && (
                 <IconTextButton
-                  label={width > 779 ? 'წაშლა' : ''}
+                  label={width > 779 ? t('remove') : ''}
                   icon='clear'
                   width={24}
                   height={24}
@@ -151,7 +152,7 @@ const StepThree: React.FC<Props> = ({ control, errors, discountItems, appendDisc
           ))}
           <IconTextButton
             className='mt-6 mb-8'
-            label='ახალი ფასდაკლების დამატება'
+            label={t('add_new_sale')}
             icon='add'
             width={20}
             height={20}

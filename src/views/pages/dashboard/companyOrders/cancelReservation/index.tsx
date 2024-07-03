@@ -1,4 +1,5 @@
 import CancelReservationDialog from 'src/views/components/cancelReservationDialog'
+import {useTranslation} from "next-i18next";
 
 interface Props {
   open: boolean
@@ -7,12 +8,14 @@ interface Props {
 }
 
 const CancelReservation: React.FC<Props> = ({ open, toggleModal, orderId }) => {
+  const {t} = useTranslation()
+
   const options = [
-    { label: 'მომხმარებელმა ჯავშანი გააუქმა', value: 'მომხმარებელმა ჯავშანი გააუქმა' },
-    { label: 'ავტომობილი შესაკეთებელია', value: 'ავტომობილი შესაკეთებელია' },
-    { label: 'სხვა ჯავშანი მივიღე', value: 'სხვა ჯავშანი მივიღე' },
-    { label: 'არასწორი თარიღი მოინიშნა', value: 'არასწორი თარიღი მოინიშნა' },
-    { label: 'სხვა მიზეზი', value: 'სხვა მიზეზი' }
+    { label: t('user_canceled_order'), value: t('user_canceled_order') },
+    { label: t('vehicle_damaged'), value: t('vehicle_damaged') },
+    { label: t('another_order'), value: t('another_order') },
+    { label: t('incorrect_amount'), value: t('incorrect_amount')},
+    { label: t('other_reason'), value: t('other_reason')}
   ]
 
   return (

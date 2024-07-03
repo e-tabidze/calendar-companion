@@ -28,7 +28,7 @@ const ReturnLocations: React.FC<Props> = ({
   appendOtherReturnLocations
 }) => {
   const formState = useWatch({ control })
-  const { t, i18n } = useTranslation()
+  const { t} = useTranslation()
 
   const { other_locations } = useNewProduct()
 
@@ -37,7 +37,7 @@ const ReturnLocations: React.FC<Props> = ({
   return (
     <div className='md:border md:border-raisin-10 rounded-3xl md:py-10 md:px-9 mb-3'>
       <Typography type='h4' weight='medium' color='dark' className='mb-4 whitespace-normal'>
-        დაბრუნება
+          {t('return')}
       </Typography>
       <Typography type='subtitle' color='dark' className='text-md mb-4 whitespace-normal'>
         {t('return_to')}
@@ -65,7 +65,7 @@ const ReturnLocations: React.FC<Props> = ({
         />
       </div>
       <SwitchField
-        label={i18n.language === 'en' ? 'ABC' : 'მიწოდების სერვისი სხვადასხვა ქალაქში'}
+        label={t('supply_other_city')}
         className='my-8'
         control={control}
         name='has_other_return_locations'
@@ -83,7 +83,7 @@ const ReturnLocations: React.FC<Props> = ({
               />
               {otherReturnLocations.length > 1 && (
                 <IconTextButton
-                  label={width > 779 ? 'წაშლა' : ''}
+                  label={width > 779 ? t('remove') : ''}
                   icon='clear'
                   width={24}
                   height={24}
@@ -100,7 +100,7 @@ const ReturnLocations: React.FC<Props> = ({
 
           <IconTextButton
             className='mt-6 mb-8'
-            label='ქალაქის დამატება'
+            label={t('add_city')}
             icon='add'
             width={20}
             height={20}

@@ -152,8 +152,8 @@ const Booking = () => {
     {
       label:
         singleProductDetails?.other_delivery_locations?.length === 0
-          ? 'კომპანიას არ აქვს ავტომობილის მიწოდების სერვისი'
-          : 'მიწოდება მისამართზე',
+          ? t('no_supply_service')
+          : t('address_supply'),
       value: '1',
       disabled: singleProductDetails?.other_delivery_locations?.length === 0,
       children: (
@@ -172,7 +172,7 @@ const Booking = () => {
 
   const returnOptions = [
     {
-      label: 'ოფისში დაბრუნება',
+      label: t('return_to_office'),
       value: '0',
       disabled: false,
       children: (
@@ -188,8 +188,8 @@ const Booking = () => {
     {
       label:
         singleProductDetails?.other_return_locations?.length === 0
-          ? 'კომპანიას არ აქვს ავტომობილის დატოვების სერვისი მისამართზე'
-          : 'მისამართზე დატოვება',
+          ? t('no_leave_service')
+          : t('leave_at_place'),
       value: '1',
       disabled: singleProductDetails?.other_return_locations?.length === 0,
       children: (
@@ -253,7 +253,7 @@ const Booking = () => {
 
       ex.response.data.result.message.end_time == 'The end time field is required.' &&
         toast.custom(
-          <Toast type='error' title='The end time field is required.' description='The end time field is required.' />
+          <Toast type='error' title={t('end_time_required')} description={t('end_time_required')} />
         )
     }
   })
@@ -369,13 +369,13 @@ const Booking = () => {
             {/* <BookingRadio name='supply' options={options} control={control} color='bg-green-100' /> */}
 
             <Typography type='subtitle' className='text-md my-6 md:my-10'>
-              მიწოდება
+              {t('supply')}
             </Typography>
 
             <AddressesRadio name='supply' options={supplyOptions} control={control} color='bg-green-100' />
 
             <Typography type='subtitle' className='text-md my-6 md:my-10'>
-              დაბრუნება
+              {t('return')}
             </Typography>
 
             <AddressesRadio name='return_location' options={returnOptions} control={control} color='bg-green-100' />

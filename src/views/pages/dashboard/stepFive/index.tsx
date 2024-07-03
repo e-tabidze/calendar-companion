@@ -9,21 +9,6 @@ const SwitchField = dynamic(() => import('src/views/components/switchField'), { 
 const Tag = dynamic(() => import('src/views/components/tag'), { ssr: false })
 const Typography = dynamic(() => import('src/views/components/typography'), { ssr: false })
 
-
-const options = [
-  { value: 'დღე', label: 'დღე', id: '1' },
-  { value: 'კვირა', label: 'კვირა', id: '2' }
-]
-
-const preparationPeriod = [
-  { title: 'no_limits', id: 1 },
-  { title: 'half_an_hour', id: 2 },
-  { title: '1_hour', id: 3 },
-  { title: '3_hours', id: 4 },
-  { title: '6_hours', id: 5 },
-  { title: '1_day', id: 6 }
-]
-
 interface Props {
   control: any
   setValue: any
@@ -31,6 +16,19 @@ interface Props {
 
 const StepFive: React.FC<Props> = ({ control, setValue }) => {
   const {t} = useTranslation()
+    const options = [
+        { value: t('day'), label: t('day'), id: '1' },
+        { value: t('week'), label: t('week'), id: '2' }
+    ]
+
+    const preparationPeriod = [
+        { title: 'no_limits', id: 1 },
+        { title: 'half_an_hour', id: 2 },
+        { title: '1_hour', id: 3 },
+        { title: '3_hours', id: 4 },
+        { title: '6_hours', id: 5 },
+        { title: '1_day', id: 6 }
+    ]
   const formState = useWatch({ control })
 
   useEffect(() => {

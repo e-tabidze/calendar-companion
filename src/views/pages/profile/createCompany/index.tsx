@@ -14,7 +14,7 @@ const StepThree = dynamic(() => import('./stepThree'), { ssr: false })
 
 const options = [
   { value: '1/3_step', label: 'company_add', step: 1 },
-  { value: '2/3_step', label: 'addresses_and_hours', step: 2 },
+  { value: '2/3_step', label: 'contact_info', step: 2 },
   { value: '3/3_step', label: 'addresses_and_hours', step: 3 }
 ]
 

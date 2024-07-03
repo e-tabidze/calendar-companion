@@ -82,15 +82,15 @@ const OrderDetails = () => {
         {companyOrder?.status_id === 7 && (
           <div className='bg-red-70 w-full px-4 md:px-10 py-7'>
             <Typography type='subtitle' className='text-white'>
-              ჯავშანი ავტომობილზე{' '}
+              {t('vehicle_order')} {' '}
               <span className='font-bold'>
                 {companyOrderproductData?.manufacturer?.title} {companyOrderproductData?.manufacturer_model?.title}{' '}
                 {companyOrderproductData?.prod_year}{' '}
               </span>{' '}
-              გაუქმებულია
+              {t('is_canceled')}
             </Typography>
             <Typography type='subtitle' className='text-white mt-3'>
-              მიზეზი: {companyOrder?.cancel_reason}
+              {t('reason')} : {companyOrder?.cancel_reason}
             </Typography>
           </div>
         )}
@@ -312,7 +312,7 @@ const OrderDetails = () => {
                   : companyOrder?.status_id === 2
                   ? t('canceled')
                   : companyOrder?.status_id === 7
-                  ? 'გაუქმებული'
+                  ? t('canceled_status')
                   : ''}
               </Typography>
             </div>
@@ -323,12 +323,12 @@ const OrderDetails = () => {
                 className='mb-8 max-w-[300px]'
                 title={
                   <>
-                    გამქირავებლის მოთხოვნის საფუძველზე თანხას დაემატება{' '}
+                  {t('renter_request_amount')} {' '}
                     <span className='font-bold'>
-                      სადეპოზიტო თანხა {companyOrder?.deposit_amount}
+                      {t('deposit_amount')} {companyOrder?.deposit_amount}
                       {companyOrder?.deposit_currency === 'GEL' ? '₾' : '$'}
                     </span>
-                    , რომელსაც გადაიხდით ადგილზე
+                    , {t('which_play_at_place')}
                   </>
                 }
               />
