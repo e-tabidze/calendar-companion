@@ -368,9 +368,11 @@
   "busy": "დაკავებული",
   "canceled_status": "გაუქმებული",
   "end_time_required": "The end time field is required.",
+  "start_time_required": "The start time field is required",
   "agree": "Agree",
   "terms_and_conditions":"Terms and conditions",
   "error_format": "არასწორი ფორმატი",
+  "already_booked": "Already booked",
   "backend_categories": {
     "sedan": "Sedan",
     "jeep": "Jeep",

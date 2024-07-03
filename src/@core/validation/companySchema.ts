@@ -189,11 +189,13 @@ const CompanySchema = Yup.object<Company>().shape({
       return !isNaN(numericValue) && numericValue.toString().length === 11
     }),
 
-  company_type_id: Yup.mixed().required('Company type is required'),
+  company_type_id: Yup.mixed().required('required_field'),
 
   company_information: CompanyInfoSchema,
 
   addresses: Yup.array<CompanyAddress>().of(CompanyAddressSchema),
+
+  terms_and_conditions: Yup.string().required('required_field').min(1),
 
   company_id: Yup.mixed()
 })

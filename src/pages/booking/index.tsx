@@ -244,11 +244,7 @@ const Booking = () => {
     onError: (ex: any) => {
       ex.response.data.result.message.start_time == 'The start time field is required.' &&
         toast.custom(
-          <Toast
-            type='error'
-            title='The start time field is required.'
-            description='The start time field is required.'
-          />
+          <Toast type='error' title={t('start_time_required')} description={t('start_time_required')} />
         )
 
       ex.response.data.result.message.end_time == 'The end time field is required.' &&

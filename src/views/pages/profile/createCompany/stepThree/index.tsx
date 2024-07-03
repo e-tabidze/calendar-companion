@@ -13,17 +13,17 @@ const StepThree: React.FC<Props> = ({ control, errors }) => {
 
   const options = [
     {
-      id: 'id',
+      id: 1,
       title: (
           <>
               {t('agree')}
             <Link href="/rules" target="_blank" className="ml-2 text-blue-100" >
-              {t('rules')}
+              {t('terms_and_conditions')}
             </Link>
           </>
 
       )
-    }
+    },
   ]
 
   return (
@@ -49,7 +49,7 @@ const StepThree: React.FC<Props> = ({ control, errors }) => {
           errors={errors}
           name='company_information.phone_numbers'
         />
-          <CheckboxField control={control} name='terms_and_conditions'  options={options}/>
+          <CheckboxField control={control} name='terms_and_conditions'  options={options} errors={errors} />
       </div>
     </div>
   )

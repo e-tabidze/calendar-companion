@@ -368,9 +368,11 @@
   "busy": "დაკავებული",
   "canceled_status": "გაუქმებული",
   "end_time_required": "დასრულების დრო სავალდებულოა",
+  "start_time_required": "დაწყების დრო სავალდებულოა",
   "agree": "ვეთანხმები",
   "terms_and_conditions":"წესებს და პირობებს",
   "error_format": "არასწორი ფორმატი",
+  "already_booked": "უკვე დაჯავშნილია",
   "backend_categories": {
     "sedan": "სედანი",
     "jeep": "ჯიპი",
