@@ -35,6 +35,7 @@ export type Location = {
   price: number | string
   currency: string
   city_id?: string | number
+  address: ''
 }
 
 export type Product = {

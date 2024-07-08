@@ -1,7 +1,7 @@
 import { useFieldArray, useForm, useWatch } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import ProductService from 'src/services/ProductService'
-import { Product } from 'src/types/Product'
+import { Location, Product } from 'src/types/Product'
 import { NewProductSchema } from 'src/@core/validation/newProductSchema'
 import useProductInfo from '../useProductInfo'
 import { useEffect } from 'react'
@@ -28,7 +28,7 @@ const useNewProduct = () => {
     discount_percent: ''
   }
 
-  const other_locations = {
+  const other_locations: Location = {
     city: '',
     price: '0',
     currency: 'GEL',

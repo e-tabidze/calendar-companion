@@ -52,7 +52,8 @@ const useEditProduct = (id: number) => {
   const other_locations: Location = {
     city: '',
     price: '',
-    currency: 'GEL'
+    currency: 'GEL',
+    address: ''
   }
 
   const productDefaultValues = {
