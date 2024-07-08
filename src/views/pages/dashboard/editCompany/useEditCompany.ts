@@ -118,7 +118,7 @@ const useCompany = (id: number) => {
       iban: companyInfo?.information?.iban
     },
     addresses: defaultAddress,
-    terms_and_conditions: '1'
+    terms_and_conditions: ''
   }
 
   const {
