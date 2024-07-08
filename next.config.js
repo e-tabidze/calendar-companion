@@ -46,8 +46,8 @@ module.exports = withSentryConfig(
     // https://github.com/getsentry/sentry-webpack-plugin#options
 
     org: "tnet",
-    project: "rent-front",
-    sentryUrl: "https://tnet.sentry.io/",
+    project: "4507492249894912",
+    sentryUrl: "https://tnet.sentry.io",
 
     // Only print logs for uploading source maps in CI
     silent: !process.env.CI,
