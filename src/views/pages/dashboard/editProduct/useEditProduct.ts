@@ -113,8 +113,6 @@ const useEditProduct = (id: number) => {
 
   console.log(activeCompanyId, 'activeCompanyId')
 
-  console.log(productDetailsData?.other_delivery_locations, 'productDetailsData?.other_delivery_locations')
-
   useEffect(() => {
     if (productDetailsData) {
       setValue('company_id', activeCompanyId)

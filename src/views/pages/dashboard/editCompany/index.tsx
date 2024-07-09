@@ -11,6 +11,7 @@ import Toast from 'src/views/components/toast'
 
 import toast from 'react-hot-toast'
 import { useTranslation } from 'next-i18next'
+import { useRouter } from 'next/router'
 
 const Image = dynamic(() => import('src/views/components/image'), { ssr: false })
 const Typography = dynamic(() => import('src/views/components/typography'), { ssr: true })
@@ -63,6 +64,8 @@ const EditCompany = () => {
 
   console.log(errors, 'errors')
 
+  const router = useRouter()
+
   const updateCompanyMutation = useMutation(() => updateCompanyInfo(companyValues), {
     onSuccess: data => {
       queryClient.invalidateQueries(['companyInfo'])
@@ -75,6 +78,10 @@ const EditCompany = () => {
       }
 
       toast.custom(<Toast type='success' title={t('company_successfully_updated')} />)
+
+      setTimeout(() => {
+        router.push(`/dashboard/dashboard`)
+      }, 3000)
     },
 
     onError: () => {
