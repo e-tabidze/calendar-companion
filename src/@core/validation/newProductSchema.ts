@@ -16,7 +16,7 @@ const CompanyService = Yup.object().shape({
 })
 
 const NewProductSchema = Yup.object().shape({
-  vin: Yup.string().max(17, 'max_symbol_length_17'),
+  vin: Yup.string().max(17, 'max_symbol_length_17').nullable(),
   plate: Yup.string().required('required_field'),
   man_id: Yup.number().required('required_field').typeError('required_field'),
   model_id: Yup.number().required('required_field').typeError('required_field'),
