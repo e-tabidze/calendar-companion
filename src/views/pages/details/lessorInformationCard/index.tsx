@@ -9,9 +9,10 @@ interface Props {
   lessor: string
   description: string
   count: number
+  logo: string
 }
 
-const LessorInformationCard: React.FC<Props> = ({ id, lessor, description, count }) => {
+const LessorInformationCard: React.FC<Props> = ({ id, lessor, description, count, logo }) => {
     const {t} = useTranslation()
 
   return (
@@ -29,7 +30,7 @@ const LessorInformationCard: React.FC<Props> = ({ id, lessor, description, count
       <div className='flex gap-20 mb-6 items-center'>
         <div className='flex items-center gap-4'>
             <div className="flex h-16 w-16 shrink-0 rounded-xl overflow-hidden">
-                <Image src='/images/avatar.png' alt='' className='w-full h-full object-cover' />
+                <Image src={logo} alt='' className='w-full h-full object-cover' />
             </div>
           <div>
             <div className='flex items-center gap-3'>

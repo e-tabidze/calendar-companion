@@ -439,6 +439,7 @@ const ProductDetails = memo(() => {
             lessor={singleProductDetails?.company_user?.company?.information?.name}
             description={singleProductDetails?.company_user?.company?.information?.description}
             count={singleProductDetails?.company_user?.company?.count_company_poduct}
+            logo={singleProductDetails?.company_user?.company?.information?.logo}
           />
         </ContentContainer>
         {similarProducts?.length > 1 && (
