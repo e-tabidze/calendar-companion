@@ -3,7 +3,7 @@ import { parseISO, format } from 'date-fns'
 import { ka } from 'date-fns/locale'
 import dynamic from 'next/dynamic'
 import { useTranslation } from 'next-i18next'
-import { removeLastDigitIfThreeDecimalPlaces } from 'src/utils/priceFormat'
+import { removeExtraDecimalDigits } from 'src/utils/priceFormat'
 
 const Image = dynamic(() => import('src/views/components/image'), { ssr: false })
 const Icon = dynamic(() => import('src/views/app/Icon'), { ssr: false })
@@ -22,6 +22,7 @@ interface Props {
   price: number
   discount: number
   status: number
+  startCity: string
 }
 
 const OrderListComponent: React.FC<Props> = ({
@@ -37,7 +38,8 @@ const OrderListComponent: React.FC<Props> = ({
 
   // discount,
   price,
-  status
+  status,
+  startCity
 }) => {
   const { t, i18n } = useTranslation()
 
@@ -65,7 +67,7 @@ const OrderListComponent: React.FC<Props> = ({
               {productDetails?.prod_year}
             </Typography>
             <Typography type='body' className='hidden md:flex text-sm mt-1'>
-              {startAddress}
+              {startCity}, {startAddress}
             </Typography>
             {startDate && endDate && (
               <Typography type='body' color='light' className='text-sm'>
@@ -90,7 +92,7 @@ const OrderListComponent: React.FC<Props> = ({
           {days} {t('day')}
         </Typography>
         <Typography type='subtitle' className='flex items-center gap-2 md:w-3/12 lg:w-1/12 pl-20 md:pl-0'>
-          {removeLastDigitIfThreeDecimalPlaces(price)} <Icon svgPath='gel' width={14} height={14} />
+          {removeExtraDecimalDigits(price)} <Icon svgPath='gel' width={14} height={14} />
         </Typography>
         <Typography
           type='subtitle'

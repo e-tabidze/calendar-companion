@@ -125,6 +125,7 @@ const CompanyOrders = () => {
                       >
                         <OrderListComponent
                           startAddress={order?.start_address}
+                          startCity={order?.start_city}
                           startDate={order?.start_date}
                           startTime={order?.start_time}
                           endDate={order?.end_date}

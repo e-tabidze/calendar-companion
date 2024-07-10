@@ -41,8 +41,7 @@ const IncomingOrders = () => {
                 productDetails={JSON.parse(order?.product_data)}
                 price={order?.price}
                 discount={order?.discount_percent}
-                status={order?.status_id}
-              />
+                status={order?.status_id} startCity={order?.start_city}              />
             </Link>
           ))
         ) : (

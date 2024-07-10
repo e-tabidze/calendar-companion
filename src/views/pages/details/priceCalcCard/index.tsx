@@ -144,16 +144,17 @@ const PriceCalcCard: React.FC<Props> = ({
       ? convertToGEL(carDeliveryPrice.price, carDeliveryPrice.currency) || 0
       : 0
 
-    return deliveryPriceInGEL
+    return Number(deliveryPriceInGEL)
   }
 
   const carReturnPriceGel = () => {
     const returnPriceInGEL = carReturnPrice ? convertToGEL(carReturnPrice.price, carReturnPrice.currency) || 0 : 0
 
-    return returnPriceInGEL
+    return Number(returnPriceInGEL)
   }
 
   const calculatePrice = () => {
+    console.log(carReturnPriceGel(), 'carReturnPriceGel()')
     const sumPrice = calculateRentPrice() + calculateServices() + carDeliveryPriceGeL() + carReturnPriceGel()
 
     return parseFloat(sumPrice).toFixed(2)
@@ -286,8 +287,10 @@ const PriceCalcCard: React.FC<Props> = ({
               </div>
               <Typography type='h5' weight='normal'>
                 {service?.type_id === 1
-                  ? convertToGEL(service?.price * days!, service?.currency)
-                  : convertToGEL(service?.count * service?.price, service?.currency)}
+                  ? removeExtraDecimalDigits(
+                      parseFloat(convertToGEL(service?.price * days! * service?.count, service?.currency).toFixed(4))
+                    )
+                  : parseFloat(convertToGEL(service?.price * service?.count, service?.currency).toFixed(4))}
                 {isGelOnly ? '₾' : currency === 'GEL' ? '₾' : '$'}
               </Typography>
             </div>
@@ -297,7 +300,7 @@ const PriceCalcCard: React.FC<Props> = ({
             <div className='flex gap-2 flex-col justify-between py-2 lg:items-center lg:flex-row'>
               <div className='flex gap-2'>
                 <Typography type='body' className='text-raisin-100'>
-                  {t('vehicle_supply')}
+                  {t('vehicle_supply')} 
                 </Typography>
               </div>
               <Typography type='h5' weight='normal'>
@@ -314,7 +317,7 @@ const PriceCalcCard: React.FC<Props> = ({
             <div className='flex gap-2 flex-col justify-between py-2 lg:items-center lg:flex-row'>
               <div className='flex gap-2'>
                 <Typography type='body' className='text-raisin-100'>
-                  {t('vehicle_supply')}
+                  {t('vehicle_return')}
                 </Typography>
               </div>
               <Typography type='h5' weight='normal'>
@@ -335,7 +338,7 @@ const PriceCalcCard: React.FC<Props> = ({
                 <>
                   {t('renter_request_amount')}{' '}
                   <span className='font-bold'>
-                  {t('deposit_amount')} {deposit_amount}
+                    {t('deposit_amount')} {deposit_amount}
                     {deposit_currency === 'GEL' ? '₾' : '$'}
                   </span>
                   , {t('which_play_at_place')}

@@ -71,7 +71,7 @@ const Booking = () => {
 
   const { singleProductDetails } = useSingleProductDetails(id)
 
-  const { currency, currs, updateCurrency } = useCurrency()
+  const { currency } = useCurrency()
 
   console.log(singleProductDetails, 'singleProductDetails in booking')
 
@@ -151,9 +151,7 @@ const Booking = () => {
     },
     {
       label:
-        singleProductDetails?.other_delivery_locations?.length === 0
-          ? t('no_supply_service')
-          : t('address_supply'),
+        singleProductDetails?.other_delivery_locations?.length === 0 ? t('no_supply_service') : t('address_supply'),
       value: '1',
       disabled: singleProductDetails?.other_delivery_locations?.length === 0,
       children: (
@@ -186,10 +184,7 @@ const Booking = () => {
       )
     },
     {
-      label:
-        singleProductDetails?.other_return_locations?.length === 0
-          ? t('no_leave_service')
-          : t('leave_at_place'),
+      label: singleProductDetails?.other_return_locations?.length === 0 ? t('no_leave_service') : t('leave_at_place'),
       value: '1',
       disabled: singleProductDetails?.other_return_locations?.length === 0,
       children: (
@@ -243,14 +238,10 @@ const Booking = () => {
     },
     onError: (ex: any) => {
       ex.response.data.result.message.start_time == 'The start time field is required.' &&
-        toast.custom(
-          <Toast type='error' title={t('start_time_required')} description={t('start_time_required')} />
-        )
+        toast.custom(<Toast type='error' title={t('start_time_required')} description={t('start_time_required')} />)
 
       ex.response.data.result.message.end_time == 'The end time field is required.' &&
-        toast.custom(
-          <Toast type='error' title={t('end_time_required')} description={t('end_time_required')} />
-        )
+        toast.custom(<Toast type='error' title={t('end_time_required')} description={t('end_time_required')} />)
     }
   })
 
@@ -342,7 +333,7 @@ const Booking = () => {
               <Typography type='h3' className='text-3md md:text-2lg my-6 md:my-10'>
                 {t('location')} *
               </Typography>
-              <div className='flex gap-1'>
+              {/* <div className='flex gap-1'>
                 {currs.map((curr: any) => (
                   <button
                     value={curr.title}
@@ -359,7 +350,7 @@ const Booking = () => {
                     {curr.sign}
                   </button>
                 ))}
-              </div>
+              </div> */}
             </div>
 
             {/* <BookingRadio name='supply' options={options} control={control} color='bg-green-100' /> */}
@@ -387,7 +378,7 @@ const Booking = () => {
                       {t('services_price')}
                     </Typography>
 
-                    <div className='flex gap-1'>
+                    {/* <div className='flex gap-1'>
                       {currs.map((curr: any) => (
                         <button
                           value={curr.title}
@@ -404,7 +395,7 @@ const Booking = () => {
                           {curr.sign}
                         </button>
                       ))}
-                    </div>
+                    </div> */}
                   </div>
                   <Icon
                     svgPath='chevron-md'

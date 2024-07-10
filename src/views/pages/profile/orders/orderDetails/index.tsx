@@ -22,7 +22,7 @@ import { useTranslation } from 'next-i18next'
 import CancelOrder from '../cancelOrder'
 import Link from 'next/link'
 import Toast from 'src/views/components/toast'
-import { removeLastDigitIfThreeDecimalPlaces } from 'src/utils/priceFormat'
+import { removeExtraDecimalDigits } from 'src/utils/priceFormat'
 
 const OrderDetails = () => {
   const { t, i18n } = useTranslation()
@@ -46,7 +46,7 @@ const OrderDetails = () => {
       {userOrderDetails?.status_id === 7 && (
         <div className='bg-red-70 w-full px-4 md:px-10 py-7'>
           <Typography type='subtitle' className='text-white'>
-            {t('vehicle_order')} {' '}
+            {t('vehicle_order')}{' '}
             <span className='font-bold'>
               {productData?.manufacturer?.title} {productData?.manufacturer_model?.title} {productData?.prod_year}{' '}
             </span>{' '}
@@ -106,7 +106,9 @@ const OrderDetails = () => {
                 </TakeAway>
               </TakeAwayWrapper>
               <div className='lg:w-7/12 pl-9 lg:pl-0'>
-                <Typography type='subtitle'>{userOrderDetails?.start_address}</Typography>
+                <Typography type='subtitle'>
+                  {userOrderDetails?.start_city}, {userOrderDetails?.start_address}
+                </Typography>
                 {userOrderDetails?.start_date && userOrderDetails?.start_time && (
                   <Typography type='body' color='light'>
                     {format(
@@ -130,7 +132,9 @@ const OrderDetails = () => {
                 </TakeAway>
               </TakeAwayWrapper>
               <div className='lg:w-7/12 pl-9 lg:pl-0'>
-                <Typography type='subtitle'>{userOrderDetails?.end_address}</Typography>
+                <Typography type='subtitle'>
+                  {userOrderDetails?.end_city}, {userOrderDetails?.end_address}
+                </Typography>
                 {userOrderDetails?.end_date && userOrderDetails?.end_time && (
                   <Typography type='body' color='light'>
                     {format(
@@ -152,13 +156,13 @@ const OrderDetails = () => {
                 {t('rent_price')} x {userOrderDetails?.days} {t('day')}
               </Typography>
               <Typography type='subtitle'>
-                {removeLastDigitIfThreeDecimalPlaces(productData?.price_gel * userOrderDetails?.days)}₾
+                {removeExtraDecimalDigits(productData?.price_gel * userOrderDetails?.days)}₾
               </Typography>
             </PriceDetailsWrapper>
             {productData?.user_selected_product_services.map((service: any, index: number) => (
               <PriceDetailsWrapper key={index}>
                 <Typography type='subtitle'>
-                  {service?.title} {service?.quantity && 'x'} {service?.quantity}
+                  {service?.title} {service?.count > 0 ? `x ${service?.count}` : ''}
                 </Typography>
                 <Typography type='subtitle'>
                   {service?.company_service_type_id == 1
@@ -170,21 +174,13 @@ const OrderDetails = () => {
             ))}
 
             <PriceDetailsWrapper>
-              <Typography type='subtitle'>
-                {t('service_commission')} - {userOrderDetails?.fee} %
-              </Typography>
-              <Typography type='subtitle'>
-                {/* {removeLastDigitIfThreeDecimalPlaces((parseFloat(Number(productData?.price_gel * userOrderDetails?.days / 100) * userOrderDetails?.fee))?.toFixed(3))}₾ */}
-                {removeLastDigitIfThreeDecimalPlaces(
-                  parseFloat(
-                    (productData?.price_gel && userOrderDetails?.days && userOrderDetails?.fee
-                      ? ((Number(productData.price_gel) * Number(userOrderDetails.days)) / 100) *
-                        Number(userOrderDetails.fee)
-                      : 0
-                    ).toFixed(3)
-                  )
-                )}
-              </Typography>
+              <Typography type='subtitle'>ავტომობილის მიწოდების ღირებულება</Typography>
+              <Typography type='subtitle'>{removeExtraDecimalDigits(userOrderDetails?.supply_price_pay)}₾</Typography>
+            </PriceDetailsWrapper>
+
+            <PriceDetailsWrapper>
+              <Typography type='subtitle'>ავტომობილის მისამართზე დატოვების ღირებულება</Typography>
+              <Typography type='subtitle'>{removeExtraDecimalDigits(userOrderDetails?.return_location_price_pay)}₾</Typography>
             </PriceDetailsWrapper>
 
             <Divider />
@@ -193,7 +189,7 @@ const OrderDetails = () => {
                 {t('sum')}
               </Typography>
               <Typography type='subtitle' className='font-bold'>
-                {removeLastDigitIfThreeDecimalPlaces(userOrderDetails?.price)} ₾
+                {removeExtraDecimalDigits(userOrderDetails?.price)} ₾
               </Typography>
             </PriceDetailsWrapper>
           </div>
@@ -255,7 +251,7 @@ const OrderDetails = () => {
                 className='mb-8 max-w-[300px]'
                 title={
                   <>
-                  {t('renter_request_amount')} {' '}
+                    {t('renter_request_amount')}{' '}
                     <span className='font-bold'>
                       {t('deposit_amount')} {userOrderDetails?.deposit_amount}
                       {userOrderDetails?.deposit_currency === 'GEL' ? '₾' : '$'}

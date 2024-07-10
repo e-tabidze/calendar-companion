@@ -51,6 +51,7 @@ const Orders = () => {
                     productDetails={JSON.parse(order?.product_data)}
                     price={order?.price}
                     status={order?.status_id}
+                    startCity={order?.start_city}
                   />
                 </Link>
               ))
