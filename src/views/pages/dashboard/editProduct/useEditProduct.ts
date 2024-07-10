@@ -18,7 +18,9 @@ const useEditProduct = (id: number) => {
 
   const productDetailsData = useProductDetailsData.data?.result?.data
 
-  console.log(productDetailsData, 'productDetailsData')
+  console.log(productDetailsData?.product_services, 'productDetailsData')
+
+  console.log(companyServices, 'companyServices')
 
   const services = companyServices?.map((service: any) => ({
     id: service?.id,
@@ -28,7 +30,12 @@ const useEditProduct = (id: number) => {
         (otherService: any) => otherService?.company_service_id === service?.id
       )?.price ||
       '',
-    currency: service?.currency || 'GEL',
+    currency:
+      service?.currency ||
+      productDetailsData?.product_services?.find(
+        (otherService: any) => otherService?.company_service_id === service?.id
+      )?.currency ||
+      '',
     quantity:
       productDetailsData?.product_services?.find(
         (otherService: any) => otherService?.company_service_id === service?.id
@@ -166,7 +173,12 @@ const useEditProduct = (id: number) => {
               (otherService: any) => otherService?.company_service_id === service?.id
             )?.price ||
             '',
-          currency: service?.currency || 'GEL',
+          currency:
+            service?.currency ||
+            productDetailsData?.product_services?.find(
+              (otherService: any) => otherService?.company_service_id === service?.id
+            )?.currency ||
+            '',
           quantity:
             productDetailsData?.product_services?.find(
               (otherService: any) => otherService?.company_service_id === service?.id
