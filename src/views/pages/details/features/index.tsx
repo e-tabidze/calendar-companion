@@ -24,7 +24,7 @@ const Features: React.FC<Props> = ({ id, singleProductDetails }) => {
         <ProductFeature feature={dynamicTranslateTag(singleProductDetails?.fuel_type?.title,t)} icon='feature' />
         <ProductFeature feature={`${t('suitcase') + ' – ' + singleProductDetails?.luggage_numbers || 0 + t('suitcase')}`} icon='feature' />
         <ProductFeature
-          feature={`${t('run') + ' — ' + singleProductDetails?.car_run} ${singleProductDetails?.measure}`}
+          feature={`${t('run') + ' — ' + singleProductDetails?.car_run} ${t(singleProductDetails?.measure)}`}
           icon='feature'
         />
         <ProductFeature feature={`${t('passenger') + ' – ' + singleProductDetails?.seat_type?.title}`} icon='feature' />
