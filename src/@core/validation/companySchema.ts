@@ -186,7 +186,7 @@ const CompanySchema = Yup.object<Company>().shape({
       }
       const numericValue = parseFloat(value.toString())
 
-      return !isNaN(numericValue) && numericValue.toString().length === 11
+      return !isNaN(numericValue) && numericValue.toString().length === 11 ||  numericValue.toString().length === 9
     }),
 
   company_type_id: Yup.mixed().required('required_field'),

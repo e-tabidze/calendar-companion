@@ -308,7 +308,7 @@
   "price_is_number": "Enter price in numbers",
   "personal_number_is_number": "Enter personal ID in numbers",
   "identification_number_is_number": "Enter identification N in numbers",
-  "identification_number_11_digit": "Enter 11-digit identification number",
+  "identification_number_11_digit": "Enter 9 or 11-digit identification number",
   "phone_is_number": "Enter number using digits",
   "phone_is_9_digit": "Enter 9-digit number",
   "run_is_number": "Enter the mileage as a number",
