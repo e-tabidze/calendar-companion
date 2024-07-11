@@ -94,7 +94,7 @@ export const DefaultInput: React.FC<Props> = ({
   }
 
   return (
-    <InputContainer key={index} className={` flex flex-col ${className} ${disabled && styles.disabledInput}`}>
+    <InputContainer key={index} className={`flex flex-col ${className} ${disabled && styles.disabledInput}`}>
       <Controller
         control={control}
         name={name}
@@ -104,16 +104,16 @@ export const DefaultInput: React.FC<Props> = ({
             <label
               className={`${
                 labelMobile && 'hidden md:flex'
-              } absolute left-3 text-raisin-50 transition-all text-2sm pointer-events-none ${
-                isFocused || value ? 'text-sm top-[3px]' : 'top-[18px] text-raisin-80'
+              } bg-white w-[calc(100%-24px)] absolute left-3 text-raisin-50 transition-all text-2sm pointer-events-none ${
+                isFocused || value ? 'text-sm top-[1px] pt-[2px]' : 'top-[18px] text-raisin-80'
               }`}
             >
               {label}
             </label>
 
             <label
-              className={`md:hidden absolute left-3 text-raisin-50 transition-all text-2sm pointer-events-none ${
-                isFocused || value ? 'text-sm top-[3px]' : 'top-[18px] text-raisin-80'
+              className={`md:hidden bg-white w-[calc(100%-24px)] absolute left-3 text-raisin-50 transition-all text-2sm pointer-events-none ${
+                isFocused || value ? 'text-sm top-[1px] pt-[2px]' : 'top-[18px] text-raisin-80'
               }`}
             >
               {labelMobile}
