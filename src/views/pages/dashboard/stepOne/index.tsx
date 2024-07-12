@@ -162,6 +162,7 @@ const StepOne: React.FC<Props> = ({ control, productValues, errors, setValue, re
           errors={errors}
           label={t('additional_info') + ' (' + t('english') + ') *'}
           rows={4}
+          type='english'
         />
         <DefaultInput
           name='use_instruction'
@@ -176,6 +177,7 @@ const StepOne: React.FC<Props> = ({ control, productValues, errors, setValue, re
           errors={errors}
           label={t('instruction_for_use') + ' (' + t('english') + ') *'}
           rows={4}
+          type='english'
         />
       </div>
       <div className='flex flex-col flex-wrap gap-2 mt-4'>
