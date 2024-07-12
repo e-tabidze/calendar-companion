@@ -99,8 +99,8 @@ const StepOne: React.FC<Props> = ({ control, productValues, errors, setValue, re
   return (
     <>
       <div className='grid gap-4 grid-cold-1 md:grid-cols-2'>
-        <DefaultInput name='vin' control={control} errors={errors} label={t('vin_code')} />
-        <DefaultInput name='plate' control={control} errors={errors} label={t('legal_number') + '*'} />
+        <DefaultInput name='vin' control={control} errors={errors} label={t('vin_code')}  type='english' />
+        <DefaultInput name='plate' control={control} errors={errors} label={t('legal_number') + '*'}  type='english' />
         <SelectField
           name='man_id'
           control={control}
