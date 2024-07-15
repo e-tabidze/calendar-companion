@@ -112,6 +112,7 @@ const NewServiceModal: React.FC<Props> = ({ open, onClose }) => {
                       control={control}
                       name='title_en'
                       errors={errors}
+                      type='english'
                     />
                     <DefaultInput
                       label={t('description') + ' (' + t('georgian') + ')'}
@@ -126,6 +127,7 @@ const NewServiceModal: React.FC<Props> = ({ open, onClose }) => {
                       name='description_en'
                       rows={4}
                       errors={errors}
+                      type='english'
                     />
                     <Typography type='subtitle' className='font-bold'>
                       {t('price')}
