@@ -1,9 +1,9 @@
 import { useTranslation } from 'react-i18next'
+import useAllCities from 'src/hooks/useAllCities'
 import { DefaultInput } from 'src/views/components/input'
 import SelectField from 'src/views/components/selectField'
 import TwoOptionSelector from 'src/views/components/twoOptionSelector'
 import { StepThreePriceContainer } from '../../stepThree/styles'
-import useProductInfo from '../../useProductInfo'
 
 interface Props {
   control: any
@@ -14,7 +14,7 @@ interface Props {
 const SelectCityComponent: React.FC<Props> = ({ control, errors, index, name }) => {
   const { t } = useTranslation()
 
-  const { allCitiesData } = useProductInfo(6)
+  const { allCitiesData } = useAllCities()
 
   return (
     <div className='w-full justify-between mb-4 grid gap-6 grid-cols-1 md:grid-cols-2'>

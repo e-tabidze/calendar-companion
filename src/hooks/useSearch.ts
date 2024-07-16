@@ -5,11 +5,13 @@ import { useFieldArray, useForm, useWatch } from 'react-hook-form'
 import { queryClient } from 'src/pages/_app'
 import SearchService from 'src/services/SearchService'
 import { objectToURI } from 'src/utils/objectToURI'
+import useCurrency from './useCurrency'
 
 const useSearch = () => {
   const urlSearchParams = typeof window !== 'undefined' ? new URLSearchParams(window?.location.search) : null
   const params: any = {}
   const router = useRouter()
+  const { currency } = useCurrency()
 
   if (urlSearchParams) {
     for (const [key, value] of urlSearchParams.entries()) {
@@ -45,6 +47,7 @@ const useSearch = () => {
     additional_information: convertToNumberArray(params?.additional_information),
     price_min: params?.price_min || '',
     price_max: params?.price_max || '',
+    currency: currency,
     manufacturer_id: convertToNumberArray(params?.manufacturer_id),
     model_id: convertToNumberArray(params?.model_id),
 
@@ -91,6 +94,7 @@ const useSearch = () => {
       setValue('location', params?.location || '')
       setValue('fuel_types', convertToNumberArray(params?.fuel_types))
       setValue('category', convertToNumberArray(params?.category))
+      setValue('currency', currency)
       setValue('seat_types', convertToNumberArray(params?.seat_types))
       setValue('luggage_numbers', convertToNumberArray(params?.luggage_numbers))
       setValue('drive_tires', convertToNumberArray(params?.drive_tires))
@@ -114,7 +118,7 @@ const useSearch = () => {
       // searchProductsMutation.mutate(objectToURI(searchDefaultValues))
       searchProductsQuery.refetch()
     }
-  }, [router.query])
+  }, [router.query, currency])
 
   const {
     control,

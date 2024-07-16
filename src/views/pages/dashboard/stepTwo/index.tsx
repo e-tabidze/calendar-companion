@@ -3,7 +3,7 @@ import CategoryCard from 'src/views/components/categoryCard'
 import useProductInfo from '../useProductInfo'
 import dynamic from 'next/dynamic'
 import useFilters from 'src/hooks/useFilters'
-import {useTranslation} from "next-i18next";
+import { useTranslation } from 'next-i18next'
 
 const Typography = dynamic(() => import('src/views/components/typography'), { ssr: false })
 const Divider = dynamic(() => import('src/views/components/divider'), { ssr: false })
@@ -22,7 +22,7 @@ const StepTwo: React.FC<Props> = ({ control, appendAdditionalParam, step, errors
   const { width } = useWindowDimensions()
   const { productDetails, additionalParams, isProductDetailsLoading, isAdditionalParamsLoading } = useProductInfo(step)
   const { steeringWheel, suitcases } = useFilters()
-   const {t} = useTranslation()
+  const { t } = useTranslation()
 
   return (
     <div>
@@ -31,15 +31,14 @@ const StepTwo: React.FC<Props> = ({ control, appendAdditionalParam, step, errors
       ) : (
         <>
           {width > 779 ? (
-              <CategoryCard
-                name='category_id'
-                control={control}
-                options={productDetails?.categories}
-                border
-                errors={errors}
-                title={t('category')}
-              />
-
+            <CategoryCard
+              name='category_id'
+              control={control}
+              options={productDetails?.categories}
+              border
+              errors={errors}
+              title={t('category')}
+            />
           ) : (
             <SelectField
               control={control}
@@ -83,13 +82,13 @@ const StepTwo: React.FC<Props> = ({ control, appendAdditionalParam, step, errors
       </div>
       <div className='flex flex-wrap gap-4 my-6'>
         <Tag
-            name='luggage_numbers'
-            control={control}
-            options={suitcases}
-            height='h-10'
-            errors={errors}
-            title={t('luggage_type')}
-          />
+          name='luggage_numbers'
+          control={control}
+          options={suitcases}
+          height='h-10'
+          errors={errors}
+          title={t('luggage_type')}
+        />
       </div>
       <Divider />
       <div className='flex justify-between my-6 flex-col items-baseline md:items-center md:flex-row'>
@@ -164,17 +163,17 @@ const StepTwo: React.FC<Props> = ({ control, appendAdditionalParam, step, errors
               errors={errors}
               title={t('transmission')}
               fullWidth
-              />
+            />
           )}
         </div>
       </div>
       <Divider />
 
       <Typography type='h5' weight='normal' className='mt-6'>
-          {t('additional_parameters')}
+        {t('additional_parameters')}
       </Typography>
       <Typography type='body' color='light'>
-          {t('select_one_or_more_parameter')}
+        {t('select_one_or_more_parameter')}
       </Typography>
       <div className='py-9 grid grid-cols-1'>
         {isAdditionalParamsLoading ? (

@@ -6,9 +6,10 @@ import RoundedTag from 'src/views/components/roundedTag'
 import SwitchField from 'src/views/components/switchField'
 
 import TimeRangeComponent from './timeRangeComponent'
-import CitiesSuggestions from 'src/views/components/citiesSuggestions'
 import { IconTextButton } from 'src/views/components/button'
 import { useTranslation } from 'next-i18next'
+import useAllCities from 'src/hooks/useAllCities'
+import SelectField from 'src/views/components/selectField'
 
 interface Props {
   index: number
@@ -22,7 +23,11 @@ interface Props {
 
 const BranchInfoComponent: React.FC<Props> = ({ index, control, errors, setValue, removeAddress }) => {
   const formState = useWatch({ control })
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
+
+  const { allCitiesData } = useAllCities()
+
+  console.log(allCitiesData, 'allCitiesData')
 
   useEffect(() => {
     if (formState.addresses[index].is_same_time) {
@@ -76,12 +81,22 @@ const BranchInfoComponent: React.FC<Props> = ({ index, control, errors, setValue
       <div className='md:border md:border-raisin-10 rounded-3xl md:py-10 md:px-9 mb-3'>
         <div className='mb-6 grid grid-cols-1 gap-7'>
           <div className='w-full grid grid-cols-1 lg:grid-cols-3 gap-4 relative'>
-            <CitiesSuggestions
+            {/* <CitiesSuggestions
               index={index}
               control={control}
               name={`addresses.${index}.city`}
               border
               errors={errors}
+            /> */}
+
+            <SelectField
+              className='w-full'
+              control={control}
+              options={allCitiesData}
+              name={`addresses.${index}.city`}
+              valueKey='id'
+              labelKey={i18n.language === 'ka' ? 'title' : 'title_en'}
+              placeholder={t('city')}
             />
 
             <DefaultInput
