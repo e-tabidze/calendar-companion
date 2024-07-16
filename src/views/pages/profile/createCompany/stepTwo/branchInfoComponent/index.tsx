@@ -27,8 +27,6 @@ const BranchInfoComponent: React.FC<Props> = ({ index, control, errors, setValue
 
   const { allCitiesData } = useAllCities()
 
-  console.log(allCitiesData, 'allCitiesData')
-
   useEffect(() => {
     if (formState.addresses[index].is_same_time) {
       const selectedWorkDays = Object.keys(formState.addresses[index].working_hours).filter(

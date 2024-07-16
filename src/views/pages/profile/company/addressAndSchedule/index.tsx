@@ -4,9 +4,10 @@ import { days } from 'src/utils/sample-data'
 import RoundedTag from 'src/views/components/roundedTag'
 import Typography from 'src/views/components/typography'
 import EditScheduleModal from '../editScheduleModal'
-import CitiesSuggestions from 'src/views/components/citiesSuggestions'
 import { DefaultInput } from 'src/views/components/input'
-import {useTranslation} from "next-i18next";
+import { useTranslation } from 'next-i18next'
+import SelectField from 'src/views/components/selectField'
+import useAllCities from 'src/hooks/useAllCities'
 
 interface Props {
   index: number
@@ -18,8 +19,10 @@ interface Props {
 
 const AddressAndSchedule: React.FC<Props> = ({ index, control, address, errors, setValue }) => {
   const [openEditModal, setOpenEditModal] = useState(false)
-const {t} = useTranslation()
+  const { t, i18n } = useTranslation()
   const toggleEditModal = () => setOpenEditModal(!openEditModal)
+
+  const { allCitiesData } = useAllCities()
 
   const formState = useWatch({ control })
 
@@ -60,7 +63,16 @@ const {t} = useTranslation()
         {/* <LocationSuggestions  index={index} control={control} name={`addresses.${index}.address`}/> */}
 
         <div className='w-full grid grid-cols-1 lg:grid-cols-3 gap-4 relative mb-8'>
-          <CitiesSuggestions index={index} control={control} name={`addresses.${index}.city`} border errors={errors} />
+          {/* <CitiesSuggestions index={index} control={control} name={`addresses.${index}.city`} border errors={errors} /> */}
+          <SelectField
+            className='w-full'
+            control={control}
+            options={allCitiesData}
+            name={`addresses.${index}.city`}
+            valueKey='id'
+            labelKey={i18n.language === 'ka' ? 'title' : 'title_en'}
+            placeholder={t('city')}
+          />
 
           <DefaultInput
             label={t('address')}

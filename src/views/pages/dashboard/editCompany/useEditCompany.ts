@@ -18,7 +18,7 @@ const useCompany = (id: number) => {
     address: address.address,
     phone: address.phone,
     email: address.email,
-    city: address.city,
+    city: address.city.id,
     state: address.state,
     postal_code: address.postal_code,
     lat: address.lat || '',

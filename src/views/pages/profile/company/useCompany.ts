@@ -9,13 +9,15 @@ import { useEffect } from 'react'
 const useCompany = (id: number) => {
   const { companyInfo, singleCompanyBranches } = useCompanyInfo(id)
 
+  console.log(companyInfo?.addresses, 'companyInfo?.addresses')
+
   const defaultAddress: CompanyAddress[] = companyInfo?.addresses?.map((address: any) => ({
     id: address.id,
     dummyAddressId: address.id,
     address: address.address,
     phone: address.phone,
     email: address.email,
-    city: address.city,
+    city: address.city.id,
     state: address.state,
     postal_code: address.postal_code,
     lat: address.lat || '',
