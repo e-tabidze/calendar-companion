@@ -12,7 +12,7 @@ interface Props {
   name: string
 }
 const SelectCityComponent: React.FC<Props> = ({ control, errors, index, name }) => {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
 
   const { allCitiesData } = useAllCities()
 
@@ -24,7 +24,7 @@ const SelectCityComponent: React.FC<Props> = ({ control, errors, index, name }) 
         options={allCitiesData}
         name={`${name}.${index}.city`}
         valueKey='id'
-        labelKey='title'
+        labelKey={i18n.language === 'ka' ? 'title' : 'title_en'}
         placeholder={t('city')}
       />
       <StepThreePriceContainer className='justify-between'>

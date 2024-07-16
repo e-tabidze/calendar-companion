@@ -26,11 +26,11 @@ const AddressService: React.FC<Props> = ({
   serviceValue,
   timeName
 }) => {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
 
   const options = otherServiceLocations?.map((item: any) => ({
     value: item.id,
-    label: item.city.title
+    label: i18n.language === 'ka' ? item.city.title : item.city.title_en
   }))
 
   console.log(otherServiceLocations, 'otherServiceLocations')

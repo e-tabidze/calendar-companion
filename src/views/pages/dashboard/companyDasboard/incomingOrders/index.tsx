@@ -28,6 +28,7 @@ const IncomingOrders = () => {
         {dashboardData?.orders?.length > 0 ? (
           dashboardData?.orders?.map((order: any) => (
             <Link href={`/dashboard/orders/?id=${order?.id}`} as={`/dashboard/orders/?id=${order?.id}`} key={order?.id}>
+              <> {console.log(order, 'order?')} </>
               <OrderListComponent
                 key={order?.id}
                 startAddress={order?.start_address}
