@@ -92,9 +92,30 @@ export const DefaultInput: React.FC<Props> = ({
       return false
     }
   }
+  const handleEnglishLetters = (e: any) => {
+    e.stopPropagation()
+    const { value } = e.target
+    const georgianChars = 'აბგდევზთიკლმნოპჟრსტუფქღყშჩცძწჭხჯჰ'
+
+    if (value.length === 0 && e.key === '0') {
+      return true
+    }
+
+    if ((e.metaKey || e.ctrlKey) && e.key === 'a') {
+      e.target.select()
+
+      return true
+    }
+
+    if (georgianChars.indexOf(e.key) !== -1) {
+      e.preventDefault()
+
+      return false
+    }
+  }
 
   return (
-    <InputContainer key={index} className={` flex flex-col ${className} ${disabled && styles.disabledInput}`}>
+    <InputContainer key={index} className={`flex flex-col ${className} ${disabled && styles.disabledInput}`}>
       <Controller
         control={control}
         name={name}
@@ -104,16 +125,16 @@ export const DefaultInput: React.FC<Props> = ({
             <label
               className={`${
                 labelMobile && 'hidden md:flex'
-              } absolute left-3 text-raisin-50 transition-all text-2sm pointer-events-none ${
-                isFocused || value ? 'text-sm top-[3px]' : 'top-[18px] text-raisin-80'
+              } bg-white w-[calc(100%-24px)] absolute left-3 text-raisin-50 transition-all text-2sm pointer-events-none ${
+                isFocused || value ? 'text-sm top-[1px] pt-[2px]' : 'top-[18px] text-raisin-80'
               }`}
             >
               {label}
             </label>
 
             <label
-              className={`md:hidden absolute left-3 text-raisin-50 transition-all text-2sm pointer-events-none ${
-                isFocused || value ? 'text-sm top-[3px]' : 'top-[18px] text-raisin-80'
+              className={`md:hidden bg-white w-[calc(100%-24px)] absolute left-3 text-raisin-50 transition-all text-2sm pointer-events-none ${
+                isFocused || value ? 'text-sm top-[1px] pt-[2px]' : 'top-[18px] text-raisin-80'
               }`}
             >
               {labelMobile}
@@ -132,7 +153,7 @@ export const DefaultInput: React.FC<Props> = ({
               onChange={e => {
                 onChange(e)
               }}
-              onKeyDown={type === 'number' ? handleKeyDown : (e) => e.stopPropagation()}
+              onKeyDown={type === 'number' ? handleKeyDown : type ==='english' ? handleEnglishLetters: (e) => e.stopPropagation()}
               pattern={pattern}
               rows={rows}
               min={min}

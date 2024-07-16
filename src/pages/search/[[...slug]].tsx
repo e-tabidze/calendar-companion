@@ -213,7 +213,7 @@ const SearchPage = () => {
               {/*}`}*/}
               <SearchResultsContainer>
                 <Typography type='body' className='text-md mr-2 mt-6 md:mt-0'>
-                  {t('founded')} {totalProductsCount} {t('search_results')}
+                  {totalProductsCount} {t('search_results')} {t('founded')}
                 </Typography>
                 <div className='w-full md:w-auto flex items-center'>
                   {/*<span*/}

@@ -308,7 +308,7 @@
   "price_is_number": "ჩაწერე თანხა ციფრებით",
   "personal_number_is_number": "ჩაწერე პირადი ნომერი ციფრებით",
   "identification_number_is_number": "ჩაწერე საინდეთიფიკაციო ნომერი ციფრებით",
-  "identification_number_11_digit": "ჩაწერე 11-ნიშნა საიდენტიფიკაციო ნომერი",
+  "identification_number_11_digit": "ჩაწერე 9 ან 11-ნიშნა საიდენტიფიკაციო ნომერი",
   "phone_is_number": "ჩაწერე ნომერი ციფრებით",
   "phone_is_9_digit": "ჩაწერე 9-ნიშნა ნომერი",
   "run_is_number": "ჩაწერე გარბენი ციფრებით",

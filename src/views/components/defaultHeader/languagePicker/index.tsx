@@ -70,7 +70,7 @@ const LanguagePicker = ({ dropdownUp, responsive, className }: Props) => {
               <Menu.Items
                 className={`${
                   dropdownUp ? 'left-0  bottom-full mb-5' : 'top-full mt-5 left-auto right-0 md:right-0'
-                } min-w-[200px] absolute z-[2]  md:left-1/2 md:-translate-x-1/2  bg-white rounded-2xl  shadow-[0px_6px_18px_#000000/10] py-4`}
+                } min-w-[200px] absolute z-[2]  md:left-1/2 md:-translate-x-1/2 bg-white rounded-2xl shadow-sm py-4`}
               >
                 <Typography type='subtitle' color='light' className='px-6 pb-6'>
                   ენა

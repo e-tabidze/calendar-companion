@@ -99,8 +99,8 @@ const StepOne: React.FC<Props> = ({ control, productValues, errors, setValue, re
   return (
     <>
       <div className='grid gap-4 grid-cold-1 md:grid-cols-2'>
-        <DefaultInput name='vin' control={control} errors={errors} label={t('vin_code')} />
-        <DefaultInput name='plate' control={control} errors={errors} label={t('legal_number') + '*'} />
+        <DefaultInput name='vin' control={control} errors={errors} label={t('vin_code')}  type='english' />
+        <DefaultInput name='plate' control={control} errors={errors} label={t('legal_number') + '*'}  type='english' />
         <SelectField
           name='man_id'
           control={control}
@@ -162,6 +162,7 @@ const StepOne: React.FC<Props> = ({ control, productValues, errors, setValue, re
           errors={errors}
           label={t('additional_info') + ' (' + t('english') + ') *'}
           rows={4}
+          type='english'
         />
         <DefaultInput
           name='use_instruction'
@@ -176,6 +177,7 @@ const StepOne: React.FC<Props> = ({ control, productValues, errors, setValue, re
           errors={errors}
           label={t('instruction_for_use') + ' (' + t('english') + ') *'}
           rows={4}
+          type='english'
         />
       </div>
       <div className='flex flex-col flex-wrap gap-2 mt-4'>
