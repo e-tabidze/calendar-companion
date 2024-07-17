@@ -258,6 +258,7 @@ const ProductDetails = memo(() => {
                 <EntityInformationCard
                   name={singleProductDetails?.company_user?.company?.information?.name}
                   entityProductsCount={singleProductDetails?.company_user?.company?.count_company_poduct}
+                  logoUrl={singleProductDetails?.company_user?.company?.information?.logo}
                 />
               </div>
               <Divider className='mb-8' />
