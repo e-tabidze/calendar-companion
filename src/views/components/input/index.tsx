@@ -149,7 +149,7 @@ export const DefaultInput: React.FC<Props> = ({
               } ${!disabled ? 'hover:border-raisin-30' : ''} ${
                 _.get(errors, name)?.ref.name === name ? 'border border-red-100' : ''
               }`}
-              type={type === 'password' ? (showPassword ? 'text' : 'password') : type}
+              type={type === 'password' ? showPassword ? 'text' : 'password' : ''}
               onChange={e => {
                 onChange(e)
               }}
