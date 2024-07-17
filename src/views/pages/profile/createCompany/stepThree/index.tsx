@@ -48,6 +48,7 @@ const StepThree: React.FC<Props> = ({ control, errors }) => {
           control={control}
           errors={errors}
           name='company_information.phone_numbers'
+          type="number"
         />
           <CheckboxField control={control} name='terms_and_conditions'  options={options} errors={errors} />
       </div>

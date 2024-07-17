@@ -105,7 +105,7 @@ const BranchInfoComponent: React.FC<Props> = ({ index, control, errors, setValue
               disabled={formState.addresses[index].city.length < 3}
             />
 
-            <DefaultInput label={t('phone')} name={`addresses.${index}.phone`} control={control} errors={errors} />
+            <DefaultInput label={t('phone')} name={`addresses.${index}.phone`} type="number" control={control} errors={errors} />
           </div>
         </div>
 
