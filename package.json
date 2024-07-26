@@ -9,7 +9,7 @@
     "test:ci": "jest --config ./jest.config.js --collectCoverage --coverageDirectory=\"./coverage\" --ci --reporters=default --reporters=jest-junit --watchAll=false"
   },
   "dependencies": {
-    "@headlessui/react": "^1.7.10",
+    "@headlessui/react": "^2.1.0",
     "@hookform/resolvers": "^3.2.0",
     "@reduxjs/toolkit": "^1.9.1",
     "@sentry/cli": "^2.32.1",
