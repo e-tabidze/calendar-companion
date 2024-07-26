@@ -33,8 +33,8 @@ const CurrentTimeThread = () => {
           className='absolute ml-9 flex h-[1px] flex-row items-center bg-red-500 w-[calc(100vw-36px)] z-50'
           style={{ top: currentHourOffset }}
         >
-          <div className='h-2 w-2 rounded-full bg-red-500' />
-          <div className='flex h-[1px] flex-grow bg-red-500' />
+          <div className='h-2 w-2 rounded-full bg-red-100' />
+          <div className='flex h-[1px] flex-grow bg-red-100' />
         </div>
       )}
     </>

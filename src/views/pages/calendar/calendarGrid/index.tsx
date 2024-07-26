@@ -9,6 +9,7 @@ interface Event {
   startTime: string
   endTime: string
   color: string
+  dayIndex: number
 }
 
 const googleEvents = [
@@ -20,7 +21,7 @@ const googleEvents = [
     htmlLink: 'https://www.google.com/calendar/event?eid=abcd1234efgh5678ijkl9012mnop3456qrstuvwx',
     created: '2023-07-01T00:00:00.000Z',
     updated: '2023-07-01T01:00:00.000Z',
-    summary: 'Sample Event',
+    summary: '1',
     description: 'This is a sample event description.',
     location: '123 Sample St, Sample City, SC 12345',
     colorId: '7',
@@ -60,10 +61,10 @@ const googleEvents = [
     htmlLink: 'https://www.google.com/calendar/event?eid=abcd1234efgh5678ijkl9012mnop3456qrstuvwx',
     created: '2023-07-01T00:00:00.000Z',
     updated: '2023-07-01T01:00:00.000Z',
-    summary: 'Sample Event',
+    summary: '2',
     description: 'This is a sample event description.',
     location: '123 Sample St, Sample City, SC 12345',
-    colorId: '2',
+    colorId: '7',
     creator: {
       email: 'example@domain.com',
       displayName: 'John Doe'
@@ -73,11 +74,11 @@ const googleEvents = [
       displayName: 'John Doe'
     },
     start: {
-      dateTime: '2024-07-05T02:45:00-07:00',
+      dateTime: '2024-07-01T02:45:00-07:00',
       timeZone: 'America/Los_Angeles'
     },
     end: {
-      dateTime: '2024-07-05T03:00:00-07:00',
+      dateTime: '2024-07-01T10:30:00-07:00',
       timeZone: 'America/Los_Angeles'
     },
     attendees: [
@@ -100,7 +101,7 @@ const googleEvents = [
     htmlLink: 'https://www.google.com/calendar/event?eid=abcd1234efgh5678ijkl9012mnop3456qrstuvwx',
     created: '2023-07-01T00:00:00.000Z',
     updated: '2023-07-01T01:00:00.000Z',
-    summary: 'Sample Event',
+    summary: '3',
     description: 'This is a sample event description.',
     location: '123 Sample St, Sample City, SC 12345',
     colorId: '7',
@@ -113,11 +114,11 @@ const googleEvents = [
       displayName: 'John Doe'
     },
     start: {
-      dateTime: '2024-07-05T02:30:00-07:00',
+      dateTime: '2024-07-01T02:45:00-07:00',
       timeZone: 'America/Los_Angeles'
     },
     end: {
-      dateTime: '2024-07-05T02:45:00-07:00',
+      dateTime: '2024-07-01T10:30:00-07:00',
       timeZone: 'America/Los_Angeles'
     },
     attendees: [
@@ -140,7 +141,7 @@ const googleEvents = [
     htmlLink: 'https://www.google.com/calendar/event?eid=abcd1234efgh5678ijkl9012mnop3456qrstuvwx',
     created: '2023-07-01T00:00:00.000Z',
     updated: '2023-07-01T01:00:00.000Z',
-    summary: 'Sample Event',
+    summary: '4',
     description: 'This is a sample event description.',
     location: '123 Sample St, Sample City, SC 12345',
     colorId: '7',
@@ -153,11 +154,11 @@ const googleEvents = [
       displayName: 'John Doe'
     },
     start: {
-      dateTime: '2024-07-05T02:30:00-07:00',
+      dateTime: '2024-07-01T02:45:00-07:00',
       timeZone: 'America/Los_Angeles'
     },
     end: {
-      dateTime: '2024-07-05T02:45:00-07:00',
+      dateTime: '2024-07-01T10:30:00-07:00',
       timeZone: 'America/Los_Angeles'
     },
     attendees: [
@@ -189,62 +190,118 @@ const CalendarGrid = () => {
 
   console.log(currentPeriod, 'currentPeriod')
 
-  // Process and map events to grid cells
-  const mappedEvents = useMemo(() => {
-    return googleEvents.map(event => {
-      const startDate = parseISO(event.start.dateTime);
-      const endDate = parseISO(event.end.dateTime);
-      const dayIndex = getDay(startDate) - 1;
-      const startHour = getHours(startDate);
-      const startMinutes = getMinutes(startDate);
-      const durationInMinutes = differenceInMinutes(endDate, startDate);
-      const eventHeight = (durationInMinutes / 60) * GridConstants.hourCellHeight;
-      const topOffset = (startMinutes / 60) * GridConstants.hourCellHeight;
+  // const mappedEvents = useMemo(() => {
+  //   const groupedEvents: any = {}
 
-      return {
+  //   googleEvents.forEach(event => {
+  //     const startDate = parseISO(event.start.dateTime)
+  //     const endDate = parseISO(event.end.dateTime)
+  //     const dayIndex = getDay(startDate) - 1
+  //     const startHour = getHours(startDate)
+  //     const startMinutes = getMinutes(startDate)
+  //     const durationInMinutes = differenceInMinutes(endDate, startDate)
+  //     const eventHeight = (durationInMinutes / 60) * GridConstants.hourCellHeight
+  //     const topOffset = (startMinutes / 60) * GridConstants.hourCellHeight
+
+  //     const key = `${dayIndex}-${startHour}`
+
+  //     if (!groupedEvents[key]) {
+  //       groupedEvents[key] = []
+  //     }
+
+  //     groupedEvents[key].push({
+  //       ...event,
+  //       dayIndex,
+  //       startHour,
+  //       topOffset,
+  //       eventHeight
+  //     })
+  //   })
+
+  //   console.log(groupedEvents, 'groupedEvents')
+
+  //   return groupedEvents
+  // }, [])
+
+  const mappedEvents = useMemo(() => {
+    const groupedEvents: { [key: string]: any[] } = {}
+
+    googleEvents.forEach(event => {
+      const startDate = parseISO(event.start.dateTime)
+      const endDate = parseISO(event.end.dateTime)
+      const dayIndex = getDay(startDate) - 1
+      const startHour = getHours(startDate)
+      const startMinutes = getMinutes(startDate)
+      const durationInMinutes = differenceInMinutes(endDate, startDate)
+      const eventHeight = (durationInMinutes / 60) * GridConstants.hourCellHeight
+      const topOffset = (startMinutes / 60) * GridConstants.hourCellHeight
+
+      const key = `${dayIndex}-${startHour}`
+
+      if (!groupedEvents[key]) {
+        groupedEvents[key] = []
+      }
+
+      groupedEvents[key].push({
         ...event,
         dayIndex,
         startHour,
         topOffset,
         eventHeight
-      };
-    });
-  }, []);
+      })
+    })
+
+    return groupedEvents
+  }, [])
 
   return (
     <>
       <div className='flex flex-grow flex-col z-0'>
         {new Array(GridConstants.rowsCount).fill(0).map((_, i) => (
           <div key={i} className={`flex flex-grow ${i === 0 ? 'z-10 bg-white' : ''}`}>
-            {new Array(7).fill(0).map((_, index) => (
-              <div
-                onClick={toggleEventModal}
-                key={index}
-                className='relative flex flex-1 flex-grow cursor-pointer border-b border-r border-solid border-r-strokes-1'
-                style={{ height: `${GridConstants.hourCellHeight}vhh` }}
-              >
-                {/* events */}
-                {mappedEvents.map(event => {
-                  if (event.dayIndex === index && event.startHour === i) {
-                    return (
-                      <div
-                        key={event.id}
-                        className='absolute bg-blue-500 text-white rounded p-1 z-10'
-                        style={{ height: `${event.eventHeight}px`, top: `${event.topOffset}px`, left: 0, right: 0 }}
-                      >
-                        {event.summary}
-                      </div>
-                    );
-                  }
-                  return null;
-                })}
-                {/* events */}
-              </div>
-            ))}
+            {new Array(7).fill(0).map((_, index) => {
+              const key = `${index}-${i}`
+              const events = mappedEvents[key] || []
+
+              return (
+                <div
+                  onClick={toggleEventModal}
+                  key={index}
+                  className='relative flex flex-1 flex-grow cursor-pointer border-b border-r border-solid border-strokes-1'
+                  style={{ height: `${GridConstants.hourCellHeight}vhh` }}
+                >
+                  {events.slice(0, 3).map((event: any, idx: number) => (
+                    <div
+                      key={event.id}
+                      className='absolute bg-blue-500 text-white rounded p-1 z-10'
+                      style={{
+                        height: `${event.eventHeight}px`,
+                        top: `${event.topOffset}px`,
+                        left: `${idx * (100 / Math.min(events.length, 3))}%`,
+                        width: `${100 / Math.min(events.length, 3)}%`
+                      }}
+                    >
+                      {event.summary}
+                    </div>
+                  ))}
+
+                  {events.length > 3 && (
+                    <span
+                      className='absolute top-0 right-0 bg-red-100 text-white px-1 text-xs z-20 more-indicator'
+                      style={{ top: `calc(${events[0].topOffset}px - 14px)` }}
+                  
+                    >
+                      {events.length - 3} more
+                    </span>
+                  )}
+                </div>
+              )
+            })}
           </div>
         ))}
       </div>
-      <EventModal isOpen={eventModal} toggleIsOpen={toggleEventModal} onSaveEvent={handleSaveEvent} />
+      {/*  */}
+      {/* <EventModal isOpen={eventModal} toggleIsOpen={toggleEventModal} onSaveEvent={handleSaveEvent} /> */}
     </>
   )
 }
