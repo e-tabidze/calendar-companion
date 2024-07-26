@@ -9,7 +9,7 @@ type Props = {
 
 const PageMeta = ({
   meta = {
-    title: 'Rent.myauto.ge | მანქანის ქირაობის პლატფორმა',
+    title: '',
     desc: ''
   }
 }: Props) => {

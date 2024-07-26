@@ -11,7 +11,7 @@ import NextNProgress from 'nextjs-progressbar'
 import { Toaster } from 'react-hot-toast'
 
 import { Hydrate, QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+// import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
 export const queryClient = new QueryClient()
 
@@ -26,7 +26,7 @@ const App: FC<AppProps> = ({ Component, pageProps }) => {
         <Hydrate state={pageProps.dehydratedState}>
           <Component {...pageProps} />
         </Hydrate>
-        <ReactQueryDevtools initialIsOpen={false} />
+        {/* <ReactQueryDevtools initialIsOpen={false} /> */}
       </QueryClientProvider>
       <Toaster position={'top-right'} toastOptions={{ className: 'react-hot-toast' }} />
     </>

@@ -9,44 +9,24 @@ type SvgProps = {
   onClick?: (event: React.MouseEvent<SVGSVGElement, MouseEvent>) => void
 }
 
-function Icon({ svgPath, width = 'auto', height = 'auto', className, color, onClick }: SvgProps) {
-  const [svgContent, setSvgContent] = useState(null)
+const Icon: React.FC<SvgProps> = ({ svgPath, width = 'auto', height = 'auto', className, color, onClick }) => {
+  const [SvgComponent, setSvgComponent] = useState<React.FC<React.SVGProps<SVGSVGElement>> | null>(null)
 
   useEffect(() => {
-    // Dynamically import the SVG file as a React component
     import(`public/icons/${svgPath}.svg`)
       .then(module => {
-        // Module.default is the imported SVG component
-        setSvgContent(module.default)
+        setSvgComponent(() => module.default)
       })
       .catch(error => {
         console.error('Error loading SVG:', error)
       })
   }, [svgPath])
 
-  if (!svgContent) {
-    return null // SVG is still loading
+  if (!SvgComponent) {
+    return null
   }
 
-  // Clone the imported SVG element and apply the fill color
-  const modifiedSvg = React.cloneElement(svgContent, {
-    fill: color,
-    width: width,
-    height: height,
-    className: `${className}`,
-    onClick: onClick
-  })
-
-  return <>{modifiedSvg}</>
+  return <SvgComponent width={width} height={height} className={className} fill={color} onClick={onClick} />
 }
 
 export default Icon
-
-// ** usage example **
-
-{
-  /* <Typography type='h5' weight='medium' className='sm:text-sm flex lg:text-sd xl:text-2sm group hover:text-blue-500 '>
-     <Icon svgPath='lunch_dining' className='fill-black group-hover:fill-blue-500' />
-     კვება
-</Typography> */
-}
