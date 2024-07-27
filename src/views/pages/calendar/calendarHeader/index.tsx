@@ -57,7 +57,7 @@ const CalendarHeader: React.FC<Props> = ({ handlePrevWeek, handleNextWeek, handl
             />
             <DefaultButton text='0 Calendars' bg='bg-purple-100' className='rounded-full py-1 text-2sm' />
             <DefaultButton text='Share Calendar' bg='bg-purple-100' className='rounded-full py-1 text-2sm' />
-            <SettingsDropdownMenu />
+            <SettingsDropdownMenu visibleDays={visibleDays} />
           </div>
         </div>
       </div>

@@ -1,4 +1,5 @@
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
+import useCalendar from '../../../useCalendar'
 
 const visibleDaysMenuItems = [
   {
@@ -31,7 +32,15 @@ const visibleDaysMenuItems = [
   }
 ]
 
-const VisibleDaysMenu = () => {
+interface Props {
+  visibleDays: number
+}
+
+const VisibleDaysMenu: React.FC<Props> = ({ visibleDays }) => {
+  const { handleVisibleDaysChange } = useCalendar()
+
+  console.log(visibleDays, 'visibleDays')
+
   return (
     <div className='text-left relative'>
       <Menu>
@@ -44,8 +53,11 @@ const VisibleDaysMenu = () => {
           className='absolute right-[230px] w-52 !bg-white shadow-lg origin-top-right rounded-xl border border-white/5 bg-white/5 p-1 text-sm/6 text-white transition duration-100 ease-out [--anchor-gap:var(--spacing-1)] focus:outline-none data-[closed]:scale-95 data-[closed]:opacity-0'
         >
           {visibleDaysMenuItems.map(menuItem => (
-            <MenuItem>
-              <button className='group flex w-full items-center justify-between gap-2 text-raisin-90 font-medium rounded py-1.5 px-3 hover:bg-purple-10'>
+            <MenuItem key={menuItem?.value}>
+              <button
+                className='group flex w-full items-center justify-between gap-2 text-raisin-90 font-medium rounded py-1.5 px-3 hover:bg-purple-10'
+                onClick={() => handleVisibleDaysChange(menuItem.value)}
+              >
                 <span>{menuItem?.label}</span>
                 <span>{menuItem?.value}</span>
               </button>

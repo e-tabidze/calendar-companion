@@ -2,7 +2,11 @@ import { Popover, PopoverButton, PopoverPanel } from '@headlessui/react'
 import Icon from 'src/views/app/Icon'
 import VisibleDaysMenu from './visibleDaysMenu'
 
-const SettingsDropdownMenu = () => {
+interface Props {
+  visibleDays: number
+}
+
+const SettingsDropdownMenu: React.FC<Props> = ({ visibleDays }) => {
   return (
     <div className='relative'>
       <Popover>
@@ -14,7 +18,7 @@ const SettingsDropdownMenu = () => {
           className='bg-white z-40 w-60 shadow-lg absolute right-0 top-10 rounded-xl  transition duration-200 ease-in-out  data-[closed]:opacity-0'
         >
           <div className='p-3'>
-            <VisibleDaysMenu />
+            <VisibleDaysMenu visibleDays={visibleDays} />
             <a className='block rounded py-2 px-3 transition font-medium hover:bg-purple-10' href='#'>
               <p className='font-semibold text-raisin-80'>Automations</p>
             </a>
