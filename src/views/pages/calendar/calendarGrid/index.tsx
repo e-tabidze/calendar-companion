@@ -1,8 +1,9 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { GridConstants } from 'src/@core/configs/calendarConstants'
 import EventModal from './eventModal'
 import useCalendar from '../useCalendar'
-import { addDays, differenceInMinutes, getDay, getHours, getMinutes, parseISO, startOfDay, startOfWeek } from 'date-fns'
+import { differenceInMinutes, getDay, getHours, getMinutes, parseISO } from 'date-fns'
+import { useCalendarContext } from 'src/contexts/CalendarContext'
 
 interface Event {
   title: string
@@ -175,24 +176,27 @@ const googleEvents = [
   }
 ]
 
-interface Props {
-  visibleDays: number
-}
+// interface Props {
+//   visibleDays: number
+// }
 
-const CalendarGrid: React.FC<Props> = ({ visibleDays }) => {
-  const { currentPeriod, handlePrevWeek, handleNextWeek, handleToday } = useCalendar()
+const CalendarGrid = () => {
   const [eventModal, setEventModal] = useState(false)
   const [events, setEvents] = useState<Event[]>([])
+
+  const { visibleDays } = useCalendarContext()
+
+  console.log(visibleDays, 'visibleDays context')
+
+  // useEffect(() => {
+  //   console.log('Visible days updated in CalendarGrid:', visibleDays)
+  // }, [visibleDays])
 
   const toggleEventModal = () => setEventModal(!eventModal)
 
   const handleSaveEvent = (event: Event) => {
     setEvents(prevEvents => [...prevEvents, event])
   }
-
-  console.log(events, 'events')
-
-  console.log(currentPeriod, 'currentPeriod')
 
   // const mappedEvents = useMemo(() => {
   //   const groupedEvents: any = {}
@@ -222,12 +226,10 @@ const CalendarGrid: React.FC<Props> = ({ visibleDays }) => {
   //     })
   //   })
 
-  //   console.log(groupedEvents, 'groupedEvents')
-
   //   return groupedEvents
   // }, [])
 
-  const mappedEvents = useMemo(() => {
+  const mappedEvents: any = () => {
     const groupedEvents: { [key: string]: any[] } = {}
 
     googleEvents.forEach(event => {
@@ -256,7 +258,7 @@ const CalendarGrid: React.FC<Props> = ({ visibleDays }) => {
     })
 
     return groupedEvents
-  }, [])
+  }
 
   return (
     <>

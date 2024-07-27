@@ -3,10 +3,10 @@ import Icon from 'src/views/app/Icon'
 import VisibleDaysMenu from './visibleDaysMenu'
 
 interface Props {
-  visibleDays: number
+  // visibleDays: number
 }
 
-const SettingsDropdownMenu: React.FC<Props> = ({ visibleDays }) => {
+const SettingsDropdownMenu: React.FC<Props> = () => {
   return (
     <div className='relative'>
       <Popover>
@@ -18,7 +18,7 @@ const SettingsDropdownMenu: React.FC<Props> = ({ visibleDays }) => {
           className='bg-white z-40 w-60 shadow-lg absolute right-0 top-10 rounded-xl  transition duration-200 ease-in-out  data-[closed]:opacity-0'
         >
           <div className='p-3'>
-            <VisibleDaysMenu visibleDays={visibleDays} />
+            <VisibleDaysMenu />
             <a className='block rounded py-2 px-3 transition font-medium hover:bg-purple-10' href='#'>
               <p className='font-semibold text-raisin-80'>Automations</p>
             </a>

@@ -3,16 +3,17 @@ import CurrentDays from './currentDays'
 import CurrentWeekCount from './currentWeekCount'
 import { DefaultButton, IconButton } from 'src/views/components/button'
 import SettingsDropdownMenu from './settingsDropdownMenu'
+import { useCalendarContext } from 'src/contexts/CalendarContext'
 
 interface Props {
   handlePrevWeek: () => void
   handleNextWeek: () => void
   handleToday: () => void
   currentPeriod: Date
-  visibleDays: number
+  // visibleDays: number
 }
 
-const CalendarHeader: React.FC<Props> = ({ handlePrevWeek, handleNextWeek, handleToday, currentPeriod, visibleDays }) => {
+const CalendarHeader: React.FC<Props> = ({ handlePrevWeek, handleNextWeek, handleToday, currentPeriod }) => {
   return (
     <>
       <div className='top-0 z-20 w-full bg-white'>
@@ -20,7 +21,7 @@ const CalendarHeader: React.FC<Props> = ({ handlePrevWeek, handleNextWeek, handl
           <div className='flex items-center gap-4'>
             <Icon svgPath='calendar' width={24} height={24} />
 
-            <CurrentDays currentPeriod={currentPeriod} visibleDays={visibleDays} />
+            <CurrentDays currentPeriod={currentPeriod} />
 
             <CurrentWeekCount currentPeriod={currentPeriod} />
 
@@ -57,7 +58,7 @@ const CalendarHeader: React.FC<Props> = ({ handlePrevWeek, handleNextWeek, handl
             />
             <DefaultButton text='0 Calendars' bg='bg-purple-100' className='rounded-full py-1 text-2sm' />
             <DefaultButton text='Share Calendar' bg='bg-purple-100' className='rounded-full py-1 text-2sm' />
-            <SettingsDropdownMenu visibleDays={visibleDays} />
+            <SettingsDropdownMenu />
           </div>
         </div>
       </div>

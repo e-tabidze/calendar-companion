@@ -38,6 +38,10 @@ const useCalendar = () => {
     setVisibleDays(days)
   }
 
+  useEffect(() => {
+    console.log('visibleDays updated:', visibleDays);
+  }, [visibleDays]);
+
   return {
     headerHeight,
     cellHeight,

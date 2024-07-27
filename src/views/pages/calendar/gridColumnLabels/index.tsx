@@ -1,11 +1,13 @@
 import { addDays, format, startOfWeek } from 'date-fns'
+import { useCalendarContext } from 'src/contexts/CalendarContext'
 
 interface Props {
   currentPeriod: any
-  visibleDays: number
 }
 
-const GridColumnLabels: React.FC<Props> = ({ currentPeriod, visibleDays }) => {
+const GridColumnLabels: React.FC<Props> = ({ currentPeriod }) => {
+  const { visibleDays } = useCalendarContext()
+
   const now = new Date()
   const startOfWeekDate = startOfWeek(currentPeriod, { weekStartsOn: 1 })
   const startOfPeriod = addDays(currentPeriod, 0)

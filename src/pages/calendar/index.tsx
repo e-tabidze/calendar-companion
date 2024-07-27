@@ -15,15 +15,15 @@ const Calendar = () => {
           handleNextWeek={handleNextWeek}
           handleToday={handleToday}
           currentPeriod={currentPeriod}
-          visibleDays={visibleDays}
+          // visibleDays={visibleDays}
         />
-        <GridColumnLabels currentPeriod={currentPeriod} visibleDays={visibleDays} />
+        <GridColumnLabels currentPeriod={currentPeriod} />
       </div>
 
       <div style={{ marginTop: headerHeight }}>
         <div className='flex min-w-full max-w-full flex-1'>
           <CalendarGridTimeline />
-          <CalendarGrid visibleDays={visibleDays} />
+          <CalendarGrid />
         </div>
       </div>
     </>
