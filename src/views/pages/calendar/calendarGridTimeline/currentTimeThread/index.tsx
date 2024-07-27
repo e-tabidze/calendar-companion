@@ -30,7 +30,7 @@ const CurrentTimeThread = () => {
     <>
       {currentHourOffset !== null && (
         <div
-          className='absolute ml-9 flex h-[1px] flex-row items-center bg-red-500 w-[calc(100vw-36px)] z-50'
+          className='absolute ml-9 flex h-[1px] flex-row items-center bg-red-500 w-[calc(100vw-36px)] z-30'
           style={{ top: currentHourOffset }}
         >
           <div className='h-2 w-2 rounded-full bg-red-100' />

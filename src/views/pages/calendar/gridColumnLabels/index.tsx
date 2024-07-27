@@ -9,7 +9,7 @@ const GridColumnLabels: React.FC<Props> = ({ currentPeriod }) => {
   const startOfWeekDate = startOfWeek(currentPeriod, { weekStartsOn: 1 })
 
   return (
-    <div className='flex border-b pl-12 lg:pl-16'>
+    <div className='flex w-full bg-white border-b pl-12 lg:pl-16'>
       {new Array(7).fill(0).map((_, index) => {
         // const date = addDays(new Date(), index)
         const date = addDays(startOfWeekDate, index)

@@ -3,7 +3,7 @@ import { useState, useRef } from 'react'
 import { GridConstants } from 'src/@core/configs/calendarConstants'
 
 const useCalendar = () => {
-  const [headerHeight, setHeaderHeight] = useState(0)
+  const [headerHeight, setHeaderHeight] = useState('99px')
   const [cellHeight, setCellHeight] = useState(GridConstants.hourCellHeight)
   const [currentPeriod, setCurrentPeriod] = useState(new Date())
   const currentHourCellRef = useRef<HTMLDivElement>(null)

@@ -9,8 +9,15 @@ const Calendar = () => {
 
   return (
     <>
-      <CalendarHeader handlePrevWeek={handlePrevWeek} handleNextWeek={handleNextWeek} handleToday={handleToday} currentPeriod={currentPeriod} />
-      <GridColumnLabels currentPeriod={currentPeriod} />
+      <div className='fixed top-0 w-full z-40'>
+        <CalendarHeader
+          handlePrevWeek={handlePrevWeek}
+          handleNextWeek={handleNextWeek}
+          handleToday={handleToday}
+          currentPeriod={currentPeriod}
+        />
+        <GridColumnLabels currentPeriod={currentPeriod} />
+      </div>
 
       <div style={{ marginTop: headerHeight }}>
         <div className='flex min-w-full max-w-full flex-1'>
