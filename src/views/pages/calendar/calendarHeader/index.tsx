@@ -9,9 +9,10 @@ interface Props {
   handleNextWeek: () => void
   handleToday: () => void
   currentPeriod: Date
+  visibleDays: number
 }
 
-const CalendarHeader: React.FC<Props> = ({ handlePrevWeek, handleNextWeek, handleToday, currentPeriod }) => {
+const CalendarHeader: React.FC<Props> = ({ handlePrevWeek, handleNextWeek, handleToday, currentPeriod, visibleDays }) => {
   return (
     <>
       <div className='top-0 z-20 w-full bg-white'>
@@ -19,7 +20,7 @@ const CalendarHeader: React.FC<Props> = ({ handlePrevWeek, handleNextWeek, handl
           <div className='flex items-center gap-4'>
             <Icon svgPath='calendar' width={24} height={24} />
 
-            <CurrentDays currentPeriod={currentPeriod} />
+            <CurrentDays currentPeriod={currentPeriod} visibleDays={visibleDays} />
 
             <CurrentWeekCount currentPeriod={currentPeriod} />
 

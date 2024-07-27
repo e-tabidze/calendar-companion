@@ -175,7 +175,11 @@ const googleEvents = [
   }
 ]
 
-const CalendarGrid = () => {
+interface Props {
+  visibleDays: number
+}
+
+const CalendarGrid: React.FC<Props> = ({ visibleDays }) => {
   const { currentPeriod, handlePrevWeek, handleNextWeek, handleToday } = useCalendar()
   const [eventModal, setEventModal] = useState(false)
   const [events, setEvents] = useState<Event[]>([])
@@ -259,7 +263,7 @@ const CalendarGrid = () => {
       <div className='flex flex-grow flex-col z-0'>
         {new Array(GridConstants.rowsCount).fill(0).map((_, i) => (
           <div key={i} className={`flex flex-grow ${i === 0 ? 'z-10 bg-white' : ''}`}>
-            {new Array(7).fill(0).map((_, index) => {
+            {new Array(visibleDays).fill(0).map((_, index) => {
               const key = `${index}-${i}`
               const events = mappedEvents[key] || []
 
@@ -289,7 +293,6 @@ const CalendarGrid = () => {
                     <span
                       className='absolute top-0 right-0 bg-red-100 text-white px-1 text-xs z-20 more-indicator'
                       style={{ top: `calc(${events[0].topOffset}px - 14px)` }}
-                  
                     >
                       {events.length - 3} more
                     </span>

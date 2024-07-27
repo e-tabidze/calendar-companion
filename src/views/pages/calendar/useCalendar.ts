@@ -6,14 +6,15 @@ const useCalendar = () => {
   const [headerHeight, setHeaderHeight] = useState('99px')
   const [cellHeight, setCellHeight] = useState(GridConstants.hourCellHeight)
   const [currentPeriod, setCurrentPeriod] = useState(new Date())
+  const [visibleDays, setVisibleDays] = useState(7)
   const currentHourCellRef = useRef<HTMLDivElement>(null)
 
   const handlePrevWeek = () => {
-    setCurrentPeriod(prevDate => subDays(prevDate, 7))
+    setCurrentPeriod(prevDate => subDays(prevDate, visibleDays))
   }
 
   const handleNextWeek = () => {
-    setCurrentPeriod(prevDate => addDays(prevDate, 7))
+    setCurrentPeriod(prevDate => addDays(prevDate, visibleDays))
   }
 
   const handleToday = () => {
@@ -29,7 +30,8 @@ const useCalendar = () => {
     setCellHeight,
     handlePrevWeek,
     handleNextWeek,
-    handleToday
+    handleToday,
+    visibleDays
   }
 }
 

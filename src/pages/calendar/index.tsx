@@ -5,7 +5,7 @@ import GridColumnLabels from 'src/views/pages/calendar/gridColumnLabels'
 import useCalendar from 'src/views/pages/calendar/useCalendar'
 
 const Calendar = () => {
-  const { headerHeight, currentPeriod, handlePrevWeek, handleNextWeek, handleToday } = useCalendar()
+  const { headerHeight, currentPeriod, handlePrevWeek, handleNextWeek, handleToday, visibleDays } = useCalendar()
 
   return (
     <>
@@ -15,14 +15,15 @@ const Calendar = () => {
           handleNextWeek={handleNextWeek}
           handleToday={handleToday}
           currentPeriod={currentPeriod}
+          visibleDays={visibleDays}
         />
-        <GridColumnLabels currentPeriod={currentPeriod} />
+        <GridColumnLabels currentPeriod={currentPeriod} visibleDays={visibleDays} />
       </div>
 
       <div style={{ marginTop: headerHeight }}>
         <div className='flex min-w-full max-w-full flex-1'>
           <CalendarGridTimeline />
-          <CalendarGrid />
+          <CalendarGrid visibleDays={visibleDays} />
         </div>
       </div>
     </>
