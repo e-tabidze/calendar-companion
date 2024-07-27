@@ -1,5 +1,4 @@
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
-import useCalendar from '../../../useCalendar'
 import { useCalendarContext } from 'src/contexts/CalendarContext'
 
 const visibleDaysMenuItems = [
@@ -34,9 +33,7 @@ const visibleDaysMenuItems = [
 ]
 
 const VisibleDaysMenu = () => {
-  // const { handleVisibleDaysChange, visibleDays } = useCalendar()
-
-  const { visibleDays, setVisibleDays } = useCalendarContext()
+  const { setVisibleDays, visibleDays } = useCalendarContext()
 
   return (
     <div className='text-left relative'>
@@ -52,7 +49,7 @@ const VisibleDaysMenu = () => {
           {visibleDaysMenuItems.map(menuItem => (
             <MenuItem key={menuItem?.value}>
               <button
-                className='group flex w-full items-center justify-between gap-2 text-raisin-90 font-medium rounded py-1.5 px-3 hover:bg-purple-10'
+                className={`group flex w-full items-center justify-between gap-2 text-raisin-90 font-medium rounded py-1.5 px-3 hover:bg-purple-10 ${visibleDays === menuItem.value ? 'bg-purple-10 pointer-events-none' : '' }`}
                 onClick={() => setVisibleDays(menuItem.value)}
               >
                 <span>{menuItem?.label}</span>

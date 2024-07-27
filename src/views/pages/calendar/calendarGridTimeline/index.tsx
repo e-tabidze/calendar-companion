@@ -1,10 +1,10 @@
 import { GridConstants } from 'src/@core/configs/calendarConstants'
-import useCalendar from '../useCalendar'
 import { useRef } from 'react'
 import CurrentTimeThread from './currentTimeThread'
+import { useCalendarContext } from 'src/contexts/CalendarContext'
 
 const CalendarGridTimeline = () => {
-  const { cellHeight } = useCalendar()
+  const { cellHeight } = useCalendarContext()
   const currentHourCellRef = useRef<HTMLDivElement | null>(null)
   const currentHour = new Date().getHours()
 

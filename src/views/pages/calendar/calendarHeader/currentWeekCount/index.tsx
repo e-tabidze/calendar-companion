@@ -1,10 +1,9 @@
 import { getWeek } from 'date-fns'
+import { useCalendarContext } from 'src/contexts/CalendarContext'
 
-interface Props {
-  currentPeriod: Date
-}
+const CurrentWeekCount = () => {
+  const { currentPeriod } = useCalendarContext()
 
-const CurrentWeekCount: React.FC<Props> = ({ currentPeriod }) => {
   const weekNumber = getWeek(currentPeriod)
 
   return (

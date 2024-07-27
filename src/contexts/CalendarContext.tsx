@@ -52,9 +52,9 @@ export const CalendarProvider: React.FC<{ children: ReactNode }> = ({ children }
     setVisibleDays(days);
   };
 
-  useEffect(() => {
-    console.log('visibleDays updated in context:', visibleDays);
-  }, [visibleDays]);
+//   useEffect(() => {
+//     console.log('visibleDays updated in context:', visibleDays);
+//   }, [visibleDays]);
 
   return (
     <CalendarContext.Provider

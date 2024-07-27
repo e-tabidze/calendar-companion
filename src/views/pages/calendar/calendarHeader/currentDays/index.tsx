@@ -2,12 +2,8 @@ import Typography from 'src/views/components/typography'
 import { format, startOfWeek, endOfWeek, addDays } from 'date-fns'
 import { useCalendarContext } from 'src/contexts/CalendarContext'
 
-interface Props {
-  currentPeriod: Date
-}
-
-const CurrentDays: React.FC<Props> = ({ currentPeriod }) => {
-  const { visibleDays } = useCalendarContext()
+const CurrentDays = () => {
+  const { visibleDays, currentPeriod } = useCalendarContext()
 
   // const startOfWeekDate = startOfWeek(currentPeriod, { weekStartsOn: 1 })
   // const endOfWeekDate = endOfWeek(currentPeriod, { weekStartsOn: 1 })

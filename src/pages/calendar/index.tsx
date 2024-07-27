@@ -1,23 +1,17 @@
+import { useCalendarContext } from 'src/contexts/CalendarContext'
 import CalendarGrid from 'src/views/pages/calendar/calendarGrid'
 import CalendarGridTimeline from 'src/views/pages/calendar/calendarGridTimeline'
 import CalendarHeader from 'src/views/pages/calendar/calendarHeader'
 import GridColumnLabels from 'src/views/pages/calendar/gridColumnLabels'
-import useCalendar from 'src/views/pages/calendar/useCalendar'
 
 const Calendar = () => {
-  const { headerHeight, currentPeriod, handlePrevWeek, handleNextWeek, handleToday, visibleDays } = useCalendar()
+  const { headerHeight } = useCalendarContext()
 
   return (
     <>
       <div className='fixed top-0 w-full z-40'>
-        <CalendarHeader
-          handlePrevWeek={handlePrevWeek}
-          handleNextWeek={handleNextWeek}
-          handleToday={handleToday}
-          currentPeriod={currentPeriod}
-          // visibleDays={visibleDays}
-        />
-        <GridColumnLabels currentPeriod={currentPeriod} />
+        <CalendarHeader />
+        <GridColumnLabels />
       </div>
 
       <div style={{ marginTop: headerHeight }}>

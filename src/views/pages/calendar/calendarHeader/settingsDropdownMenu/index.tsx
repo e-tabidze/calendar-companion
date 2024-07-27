@@ -2,11 +2,7 @@ import { Popover, PopoverButton, PopoverPanel } from '@headlessui/react'
 import Icon from 'src/views/app/Icon'
 import VisibleDaysMenu from './visibleDaysMenu'
 
-interface Props {
-  // visibleDays: number
-}
-
-const SettingsDropdownMenu: React.FC<Props> = () => {
+const SettingsDropdownMenu = () => {
   return (
     <div className='relative'>
       <Popover>

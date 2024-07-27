@@ -1,7 +1,6 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { GridConstants } from 'src/@core/configs/calendarConstants'
 import EventModal from './eventModal'
-import useCalendar from '../useCalendar'
 import { differenceInMinutes, getDay, getHours, getMinutes, parseISO } from 'date-fns'
 import { useCalendarContext } from 'src/contexts/CalendarContext'
 
@@ -176,27 +175,16 @@ const googleEvents = [
   }
 ]
 
-// interface Props {
-//   visibleDays: number
-// }
-
 const CalendarGrid = () => {
   const [eventModal, setEventModal] = useState(false)
-  const [events, setEvents] = useState<Event[]>([])
 
   const { visibleDays } = useCalendarContext()
 
-  console.log(visibleDays, 'visibleDays context')
-
-  // useEffect(() => {
-  //   console.log('Visible days updated in CalendarGrid:', visibleDays)
-  // }, [visibleDays])
-
   const toggleEventModal = () => setEventModal(!eventModal)
 
-  const handleSaveEvent = (event: Event) => {
-    setEvents(prevEvents => [...prevEvents, event])
-  }
+  // const handleSaveEvent = (event: Event) => {
+  //   setEvents(prevEvents => [...prevEvents, event])
+  // }
 
   // const mappedEvents = useMemo(() => {
   //   const groupedEvents: any = {}

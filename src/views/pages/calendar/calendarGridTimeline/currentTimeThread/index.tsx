@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
-import useCalendar from '../../useCalendar'
+import { useCalendarContext } from 'src/contexts/CalendarContext'
 
 const CurrentTimeThread = () => {
-  const { cellHeight } = useCalendar()
+  const { cellHeight } = useCalendarContext()
   const [currentHourOffset, setCurrentHourOffset] = useState<number | null>(null)
 
   useEffect(() => {

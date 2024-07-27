@@ -1,13 +1,12 @@
 import { parseISO, format, addDays } from 'date-fns'
-import useCalendar from 'src/views/pages/calendar/useCalendar'
+import { useCalendarContext } from 'src/contexts/CalendarContext'
 
-const { visibleDays } = useCalendar()
+const { visibleDays } = useCalendarContext()
 
 export const convertEventToGridFormat = (event: any, currentPeriod: Date) => {
   const start = parseISO(event.start.dateTime)
   const end = parseISO(event.end.dateTime)
 
-  // Adjust start and end times to fit within the current view period
   const startTime = start > currentPeriod ? start : currentPeriod
   const endTime = end < addDays(currentPeriod, 7) ? end : addDays(currentPeriod, visibleDays)
 
