@@ -9,14 +9,14 @@ import { useTranslation } from 'next-i18next'
 const styles = {
   disabledInput: 'opacity-80',
   input:
-    'w-full rounded-xl px-3 text-2sm text-raisin-100 border border-raisin-10 focus:border-raisin-100 focus:outline-none placeholder:text-raisin-100 placeholder:text-2sm placeholder:text-raisin-50 placeholder:text-2sm focus:placeholder-opacity-0',
+    'w-full bg-grey-70 rounded-xl px-3 text-2sm text-raisin-100 focus:outline-none placeholder:text-raisin-100 placeholder:text-2sm placeholder:text-raisin-50 placeholder:text-2sm focus:placeholder-opacity-0',
   label: 'text-sm absolute left-3 text-raisin-50 focus:top-2'
 }
 
 interface Props {
   control?: any
   name: string
-  label?: string
+  label: string
   labelMobile?: string
   id?: any
   prefix?: string
@@ -125,15 +125,15 @@ export const DefaultInput: React.FC<Props> = ({
             <label
               className={`${
                 labelMobile && 'hidden md:flex'
-              } bg-white w-[calc(100%-24px)] absolute left-3 text-raisin-50 transition-all text-2sm pointer-events-none ${
-                isFocused || value ? 'text-sm top-[1px] pt-[2px]' : 'top-[18px] text-raisin-80'
+              } bg-grey-70 w-[calc(100%-24px)] absolute left-3 text-raisin-40 font-medium tracking-wide transition-all text-md pointer-events-none ${
+                isFocused || value ? 'text-sm top-[1px] pt-[2px]' : 'top-[18px] text-raisin-40'
               }`}
             >
               {label}
             </label>
 
             <label
-              className={`md:hidden bg-white w-[calc(100%-24px)] absolute left-3 text-raisin-50 transition-all text-2sm pointer-events-none ${
+              className={`md:hidden bg-white w-[calc(100%-24px)] absolute left-3 text-raisin-40 font-medium tracking-wide transition-all text-2sm pointer-events-none ${
                 isFocused || value ? 'text-sm top-[1px] pt-[2px]' : 'top-[18px] text-raisin-80'
               }`}
             >

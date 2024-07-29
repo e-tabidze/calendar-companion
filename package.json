@@ -44,7 +44,8 @@
     "react-select": "^5.7.0",
     "tailwind-styled-components": "^2.2.0",
     "transform-loader": "^0.2.4",
-    "webworkify-webpack": "1.0.6"
+    "webworkify-webpack": "1.0.6",
+    "yup": "^1.2.0"
   },
   "devDependencies": {
     "@svgr/webpack": "^8.1.0",
