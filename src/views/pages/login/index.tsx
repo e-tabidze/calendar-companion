@@ -18,9 +18,9 @@ const LoginPage = () => {
     {
       id: 1,
       title: (
-        <Typography type='subtitle' color='light'>
+        <span className='text-raisin-70'>
           Remember for 30 days
-        </Typography>
+        </span>
       )
     }
   ]
@@ -81,9 +81,9 @@ const LoginPage = () => {
             />
             <div className='flex gap-1'>
               <Typography type='subtitle' color='light'>
-                New to Companion AI
+                New to Companion AI?
               </Typography>{' '}
-              <Link href='/signin' className='text-2sm'>
+              <Link href='/signin' className='text-2sm hover:underline'>
                 Create Account
               </Link>
             </div>

@@ -89,7 +89,7 @@ const RegisterPage = () => {
               <Typography type='subtitle' color='light'>
                 Already have a companion?
               </Typography>{' '}
-              <Link href='/signin' className='text-2sm'>
+              <Link href='/signin' className='text-2sm hover:underline'>
                 Sign in
               </Link>
             </div>

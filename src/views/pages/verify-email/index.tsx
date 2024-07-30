@@ -2,6 +2,7 @@ import { useTranslation } from 'react-i18next'
 import UnauthorizedLayout from 'src/layouts/UnauthorizedLayout'
 import Icon from 'src/views/app/Icon'
 import { DefaultButton } from 'src/views/components/button'
+import Typography from 'src/views/components/typography'
 
 const VerifyEmailPage = () => {
   const { t } = useTranslation()
@@ -9,9 +10,9 @@ const VerifyEmailPage = () => {
   return (
     <UnauthorizedLayout>
       <div className='flex flex-col items-center gap-8 text-center'>
-        <div className='text-3xl font-bold text-dark-1'>{t('verifyEmail')}</div>
-
-        {/* <div className="h-40 w-[184px] bg-[url('/email-sent-bot.svg')] bg-cover" /> */}
+        <Typography type='h1'>
+          {t('verifyEmail')}
+        </Typography>
 
         <Icon svgPath='emailSentBot' width={136} height={120} />
 
@@ -26,7 +27,7 @@ const VerifyEmailPage = () => {
 
       <div className='mt-8 flex flex-col items-center'>
         <div className='flex w-full flex-col gap-3 text-center lg:w-96'>
-          <DefaultButton text={t('resend')} bg="bg-purple-100" className="p-4 rounded-lg" />
+          <DefaultButton text={t('resend')} bg='bg-purple-100' className='p-4 rounded-lg' />
         </div>
       </div>
     </UnauthorizedLayout>
