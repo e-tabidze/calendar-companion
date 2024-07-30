@@ -18,7 +18,7 @@ type TypographyProps = (
   | {
       type: 'h5'
       weight?: 'medium' | 'normal'
-      color?: never
+      color: 'dark' | 'light'
     }
   | {
       type: 'body'
@@ -64,7 +64,7 @@ const Typography = ({ type, weight, color, children, className, onClick }: Typog
       )
     case 'h5':
       return (
-        <H5Typography weight={weight} className={className} onClick={onClick}>
+        <H5Typography weight={weight} color={color} className={className} onClick={onClick}>
           {children}
         </H5Typography>
       )
@@ -114,8 +114,8 @@ text-3md
 const H5Typography = tw.h5<TextComponent>`
 ${(props: any) => (props.className ? props.className : '')}
 ${(props: any) => (props.className ? props.className : '')}
+${(props: any) => (props.color === 'light' ? 'text-raisin-80' : 'text-raisin-130')}
 ${(props: any) => (props.weight === 'medium' ? 'font-medium' : 'font-normal')}
-text-base-100
 text-md
 whitespace-normal
 `

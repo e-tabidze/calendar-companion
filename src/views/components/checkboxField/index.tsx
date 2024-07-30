@@ -118,9 +118,9 @@ const CheckboxField: React.FC<Props> = ({
                       </Typography>
                     </div>
                     {_.get(errors, name)?.message && (
-                      <div className='text-sm text-red-100 py-2 max-h-max relative'>
-                        {t(_.get(errors, name)?.message)}
-                      </div>
+                      <ul className='list-disc ml-6 text-sm text-red-100 py-2 max-h-max relative'>
+                        <li>{t(_.get(errors, name)?.message)}</li>
+                      </ul>
                     )}
 
                     {divider && index !== options.length - 1 && <Divider />}
