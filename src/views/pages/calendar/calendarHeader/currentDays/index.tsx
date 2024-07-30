@@ -1,5 +1,5 @@
 import Typography from 'src/views/components/typography'
-import { format, startOfWeek, endOfWeek, addDays } from 'date-fns'
+import { format, addDays } from 'date-fns'
 import { useCalendarContext } from 'src/contexts/CalendarContext'
 
 const CurrentDays = () => {

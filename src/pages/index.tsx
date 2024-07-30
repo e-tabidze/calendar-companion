@@ -1,6 +1,5 @@
 import { dehydrate } from '@tanstack/react-query'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { useTranslation } from 'next-i18next'
 
 import { queryClient } from './_app'
 

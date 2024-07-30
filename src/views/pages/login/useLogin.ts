@@ -1,13 +1,10 @@
 import { useForm, useWatch } from 'react-hook-form'
-import { yupResolver } from '@hookform/resolvers/yup'
-import { RegisterSchema } from 'src/@core/validation/RegisterSchema'
 
-const useRegister = () => {
-  const registerDefaultValues = {
+const useLogin = () => {
+  const loginDefaultValues = {
     email: '',
     password: '',
-    repeat_password: '',
-    terms_and_conditions: '',
+    remember_account: '',
   }
   const {
     control,
@@ -21,11 +18,10 @@ const useRegister = () => {
   } = useForm({
     mode: 'onSubmit',
     reValidateMode: 'onSubmit',
-    defaultValues: registerDefaultValues,
-    resolver: yupResolver(RegisterSchema)
+    defaultValues: loginDefaultValues,
   })
 
-  const registerValues: any = useWatch({ control })
+  const loginValues: any = useWatch({ control })
 
   return {
     control,
@@ -38,8 +34,8 @@ const useRegister = () => {
     clearErrors,
     setValue,
     trigger,
-    registerValues
+    loginValues
   }
 }
 
-export default useRegister
+export default useLogin

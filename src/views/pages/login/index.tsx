@@ -1,16 +1,16 @@
 import { useTranslation } from 'react-i18next'
 import UnauthorizedLayout from 'src/layouts/UnauthorizedLayout'
-import useRegister from './useRegister'
+import useLogin from './useLogin'
 import { DefaultInput } from 'src/views/components/input'
 import CheckboxField from 'src/views/components/checkboxField'
 import Link from 'next/link'
 import { DefaultButton } from 'src/views/components/button'
 import Typography from 'src/views/components/typography'
 
-const RegisterPage = () => {
+const LoginPage = () => {
   const { t } = useTranslation()
 
-  const { control, errors, handleSubmit, registerValues } = useRegister()
+  const { control, errors, handleSubmit, loginValues } = useLogin()
 
   console.log(errors, 'errors')
 
@@ -18,17 +18,14 @@ const RegisterPage = () => {
     {
       id: 1,
       title: (
-        <>
-          {t('agree')}
-          <Link href='/rules' target='_blank' className='ml-2 text-blue-100'>
-            {t('terms_and_conditions')}
-          </Link>
-        </>
+        <Typography type='subtitle' color='light'>
+          Remember for 30 days
+        </Typography>
       )
     }
   ]
 
-  console.log(registerValues, 'registerValues')
+  console.log(loginValues, 'registerValues')
 
   const onSubmit = (data: any) => {
     console.log('Form Data:', data)
@@ -42,8 +39,10 @@ const RegisterPage = () => {
     <UnauthorizedLayout>
       <div className='flex flex-col items-center gap-8 pb-8'>
         <div className='text-center lg:mx-9'>
-          <Typography type="h1">{t('register.createAccount')}</Typography>
-          <Typography type="h5" color="light">{t('register.createAccountCaption')}</Typography >
+          <Typography type='h1'>{t('register.createAccount')}</Typography>
+          <Typography type='h5' color='light'>
+            {t('register.createAccountCaption')}
+          </Typography>
         </div>
 
         <button
@@ -64,17 +63,12 @@ const RegisterPage = () => {
 
           <DefaultInput name='password' type='password' control={control} label='Password' errors={errors} />
 
-          <DefaultInput
-            name='repeat_password'
-            type='password'
-            control={control}
-            label='Repeat Password'
-            errors={errors}
-          />
-
-          <CheckboxField control={control} name='terms_and_conditions' options={options} errors={errors} />
-
-          <div className='flex items-center gap-2'></div>
+          <div className='flex justify-between items-center '>
+            <CheckboxField control={control} name='remember_account' options={options} errors={errors} />
+            <Link href='' className='text-blue-110 text-2sm hover:underline'>
+              Forgot password?
+            </Link>
+          </div>
         </div>
 
         <div className='mt-10 flex w-full justify-center'>
@@ -87,10 +81,10 @@ const RegisterPage = () => {
             />
             <div className='flex gap-1'>
               <Typography type='subtitle' color='light'>
-                Already have a companion?
+                New to Companion AI
               </Typography>{' '}
               <Link href='/signin' className='text-2sm'>
-                Sign in
+                Create Account
               </Link>
             </div>
           </div>
@@ -100,4 +94,4 @@ const RegisterPage = () => {
   )
 }
 
-export default RegisterPage
+export default LoginPage

@@ -6,6 +6,7 @@ const GridColumnLabels = () => {
 
   // const now = new Date()
   // const startOfWeekDate = startOfWeek(currentPeriod, { weekStartsOn: 1 })
+  
   const startOfPeriod = addDays(currentPeriod, 0)
 
   return (
@@ -14,6 +15,7 @@ const GridColumnLabels = () => {
         const date = addDays(startOfPeriod, index)
         const isTodayDate = isToday(date)
         const labelClass = isTodayDate ? 'text-purple-100' : 'text-gray-700'
+        
         return (
           <div key={index} className={`flex-1 text-center text-2sm font-medium my-1 ${labelClass}`}>
             {format(date, 'd')} {format(date, 'EEE')}

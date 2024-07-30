@@ -1,9 +1,6 @@
 import { parseISO, format, addDays } from 'date-fns'
-import { useCalendarContext } from 'src/contexts/CalendarContext'
 
-const { visibleDays } = useCalendarContext()
-
-export const convertEventToGridFormat = (event: any, currentPeriod: Date) => {
+export const convertEventToGridFormat = (event: any, currentPeriod: Date, visibleDays: number) => {
   const start = parseISO(event.start.dateTime)
   const end = parseISO(event.end.dateTime)
 
@@ -19,8 +16,9 @@ export const convertEventToGridFormat = (event: any, currentPeriod: Date) => {
   }
 }
 
-export const isEventVisible = (event: any, currentPeriod: Date) => {
+export const isEventVisible = (event: any, currentPeriod: Date, visibleDays: number) => {
   const start = parseISO(event.start.dateTime)
   const end = parseISO(event.end.dateTime)
+
   return start >= currentPeriod && end <= addDays(currentPeriod, visibleDays)
 }

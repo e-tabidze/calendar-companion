@@ -2,7 +2,6 @@ import { useTranslation } from 'react-i18next'
 import UnauthorizedLayout from 'src/layouts/UnauthorizedLayout'
 import Icon from 'src/views/app/Icon'
 import { DefaultButton } from 'src/views/components/button'
-import Typography from 'src/views/components/typography'
 
 const VerifyEmailPage = () => {
   const { t } = useTranslation()
@@ -13,12 +12,12 @@ const VerifyEmailPage = () => {
         <div className='text-3xl font-bold text-dark-1'>{t('verifyEmail')}</div>
 
         {/* <div className="h-40 w-[184px] bg-[url('/email-sent-bot.svg')] bg-cover" /> */}
+
         <Icon svgPath='emailSentBot' width={136} height={120} />
 
         <div className='text-sm text-secondary-2'>
           {t('verifyEmailCaption1')}{' '}
           <a href='' className='text-link'>
-            {/* {registerStore.fields.values.email} */}
             email value
           </a>{' '}
           {t('verifyEmailCaption2')}

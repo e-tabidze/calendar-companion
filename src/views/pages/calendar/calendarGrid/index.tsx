@@ -182,9 +182,9 @@ const CalendarGrid = () => {
 
   const toggleEventModal = () => setEventModal(!eventModal)
 
-  // const handleSaveEvent = (event: Event) => {
-  //   setEvents(prevEvents => [...prevEvents, event])
-  // }
+  const handleSaveEvent = (event: Event) => {
+    console.log(event)
+  }
 
   // const mappedEvents = useMemo(() => {
   //   const groupedEvents: any = {}
@@ -294,7 +294,7 @@ const CalendarGrid = () => {
         ))}
       </div>
       {/*  */}
-      {/* <EventModal isOpen={eventModal} toggleIsOpen={toggleEventModal} onSaveEvent={handleSaveEvent} /> */}
+      <EventModal isOpen={eventModal} toggleIsOpen={toggleEventModal} onSaveEvent={() => handleSaveEvent} />
     </>
   )
 }
