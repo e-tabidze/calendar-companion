@@ -1,6 +1,4 @@
-import { useForm } from 'react-hook-form'
-import { useTranslation } from 'react-i18next'
-import RegisterPage from 'src/views/pages/register/registerPage'
+import RegisterPage from "src/views/pages/register"
 
 const Register = () => {
   return (

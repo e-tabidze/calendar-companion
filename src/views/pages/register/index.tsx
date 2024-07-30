@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next'
 import UnauthorizedLayout from 'src/layouts/UnauthorizedLayout'
-import useRegister from '../useRegister'
+import useRegister from './useRegister'
 import { DefaultInput } from 'src/views/components/input'
 import CheckboxField from 'src/views/components/checkboxField'
 import Link from 'next/link'
