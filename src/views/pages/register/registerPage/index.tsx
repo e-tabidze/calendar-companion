@@ -10,7 +10,9 @@ import Typography from 'src/views/components/typography'
 const RegisterPage = () => {
   const { t } = useTranslation()
 
-  const { control, errors } = useRegister()
+  const { control, errors, handleSubmit, registerValues } = useRegister()
+
+  console.log(errors, 'errors')
 
   const options = [
     {
@@ -25,6 +27,18 @@ const RegisterPage = () => {
       )
     }
   ]
+
+  console.log(registerValues, 'registerValues')
+
+  const onSubmit = (data: any) => {
+    console.log('Form Data:', data);
+    // Handle form submission
+  };
+
+  const onError = (errors: any) => {
+    console.log('Errors:', errors);
+  };
+
 
   return (
     <UnauthorizedLayout>
@@ -43,28 +57,41 @@ const RegisterPage = () => {
         </button>
 
         <div className='text-center font-medium text-secondary-1'>{t('register.or')}</div>
+      </div>
 
+      <form onSubmit={handleSubmit(onSubmit, onError)}>
         <div className='flex flex-col gap-6'>
           <DefaultInput name='email' control={control} label='Email Address' errors={errors} />
 
-          <DefaultInput name='password' control={control} label='Password' errors={errors} />
+          <DefaultInput name='password' type='password' control={control} label='Password' errors={errors} />
 
-          <DefaultInput name='repeat_password' control={control} label='Repeat Password' errors={errors} />
+          <DefaultInput
+            name='repeat_password'
+            type='password'
+            control={control}
+            label='Repeat Password'
+            errors={errors}
+          />
 
           <CheckboxField control={control} name='terms_and_conditions' options={options} errors={errors} />
 
           <div className='flex items-center gap-2'></div>
         </div>
-      </div>
 
-      <div className='mt-10 flex w-full justify-center'>
-        <div className='flex w-full flex-col items-center gap-4 lg:w-[364px]'>
-          <DefaultButton text='Create new account' bg='bg-purple-100' className='w-full h-12 rounded-lg' />
-          <div className='flex gap-1'>
-            <Typography type='subtitle' color='light'>Already have a companion?</Typography> <Link href='/sign-in' className='text-2sm'>Sign in</Link>
+        <div className='mt-10 flex w-full justify-center'>
+          <div className='flex w-full flex-col items-center gap-4 lg:w-[364px]'>
+            <DefaultButton text='Create new account' bg='bg-purple-100' className='w-full h-12 rounded-lg' type="submit" />
+            <div className='flex gap-1'>
+              <Typography type='subtitle' color='light'>
+                Already have a companion?
+              </Typography>{' '}
+              <Link href='/signin' className='text-2sm'>
+                Sign in
+              </Link>
+            </div>
           </div>
         </div>
-      </div>
+      </form>
     </UnauthorizedLayout>
   )
 }

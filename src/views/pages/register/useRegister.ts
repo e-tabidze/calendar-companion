@@ -8,7 +8,6 @@ const useRegister = () => {
     password: '',
     repeat_password: '',
     terms_and_conditions: '',
-    confirmation_url: ''
   }
   const {
     control,
@@ -20,13 +19,26 @@ const useRegister = () => {
     clearErrors,
     setValue
   } = useForm({
-    mode: 'onChange',
-    reValidateMode: 'onChange',
+    mode: 'onSubmit',
+    reValidateMode: 'onSubmit',
     defaultValues: registerDefaultValues,
     resolver: yupResolver(RegisterSchema)
   })
 
-  return { control, handleSubmit, errors, dirtyFields, resetField, setError, clearErrors, setValue, trigger }
+  const registerValues: any = useWatch({ control })
+
+  return {
+    control,
+    handleSubmit,
+    errors,
+    dirtyFields,
+    resetField,
+    setError,
+    clearErrors,
+    setValue,
+    trigger,
+    registerValues
+  }
 }
 
 export default useRegister

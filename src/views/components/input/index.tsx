@@ -8,8 +8,7 @@ import { useTranslation } from 'next-i18next'
 
 const styles = {
   disabledInput: 'opacity-80',
-  input:
-    'w-full bg-grey-70 rounded-xl px-3 text-2sm text-raisin-100 focus:outline-none placeholder:text-raisin-100 placeholder:text-2sm placeholder:text-raisin-50 placeholder:text-2sm focus:placeholder-opacity-0',
+  input: 'w-full bg-grey-70 rounded-xl px-3 text-md text-raisin-130 focus:outline-none font-medium tracking-wider',
   label: 'text-sm absolute left-3 text-raisin-50 focus:top-2'
 }
 
@@ -125,7 +124,7 @@ export const DefaultInput: React.FC<Props> = ({
             <label
               className={`${
                 labelMobile && 'hidden md:flex'
-              } bg-grey-70 w-[calc(100%-24px)] absolute left-3 text-raisin-40 font-medium tracking-wide transition-all text-md pointer-events-none ${
+              } bg-transparent w-[calc(100%-24px)] absolute left-3 text-raisin-40 font-medium tracking-wide transition-all text-md pointer-events-none ${
                 isFocused || value ? 'text-sm top-[1px] pt-[2px]' : 'top-[18px] text-raisin-40'
               }`}
             >
@@ -147,21 +146,23 @@ export const DefaultInput: React.FC<Props> = ({
               className={`placeholder:text-[13px] ${rows ? 'pt-5 min-h-[80px]' : 'h-14'} ${styles.input} ${
                 value || isFocused ? 'pb-1 pt-3' : 'pt-2 pb-2'
               } ${!disabled ? 'hover:border-raisin-30' : ''} ${
-                _.get(errors, name)?.ref.name === name ? 'border border-red-100' : ''
+                _.get(errors, name)?.ref.name === name ? 'bg-red-10' : ''
               }`}
-              type={type === 'password' ? showPassword ? 'text' : 'password' : ''}
+              type={type === 'password' ? (showPassword ? 'text' : 'password') : ''}
               onChange={e => {
                 onChange(e)
               }}
-              onKeyDown={type === 'number' ? handleKeyDown : type ==='english' ? handleEnglishLetters: (e) => e.stopPropagation()}
+              onKeyDown={
+                type === 'number' ? handleKeyDown : type === 'english' ? handleEnglishLetters : e => e.stopPropagation()
+              }
               pattern={pattern}
               rows={rows}
               min={min}
             />
             {_.get(errors, name)?.message && (
-              <div id={id} className='text-sm text-red-100 py-2 max-h-max relative'>
-                {t(_.get(errors, name)?.message)}
-              </div>
+              <ul id={id} className='list-disc ml-6 text-sm text-red-100 py-2 max-h-max relative'>
+                <li>{t(_.get(errors, name)?.message)}</li>
+              </ul>
             )}
 
             {type === 'password' && (
