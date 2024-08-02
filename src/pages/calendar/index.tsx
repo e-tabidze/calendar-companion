@@ -1,4 +1,5 @@
 import { useCalendarContext } from 'src/contexts/CalendarContext'
+import authHOC from 'src/hoc/authHOC'
 import CalendarGrid from 'src/views/pages/calendar/calendarGrid'
 import CalendarGridTimeline from 'src/views/pages/calendar/calendarGridTimeline'
 import CalendarHeader from 'src/views/pages/calendar/calendarHeader'
@@ -24,4 +25,4 @@ const Calendar = () => {
   )
 }
 
-export default Calendar
+export default authHOC(Calendar)
