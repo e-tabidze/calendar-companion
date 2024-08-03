@@ -1,4 +1,4 @@
-import ResetPasswordPage from 'src/views/pages/resetPassword'
+import ResetPasswordPage from 'src/views/pages/reset-password'
 
 const ResetPassword = () => {
   return (

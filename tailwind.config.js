@@ -22,7 +22,7 @@ module.exports = {
         '3md': ['20px'],
         lg: ['22px'],
         '2lg': ['24px'],
-        '3lg': ['32px'],
+        '3lg': ['30px'],
         xl: ['38px'],
         '2xl': ['40px']
       },

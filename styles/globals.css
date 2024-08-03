@@ -72,3 +72,11 @@
   outline: none;
 }
 
+body {
+  overflow-y: hidden;
+  overflow-x: hidden;
+}
+
+.example::-webkit-scrollbar {
+  display: none;
+}

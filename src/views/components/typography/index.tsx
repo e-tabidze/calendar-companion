@@ -7,7 +7,7 @@ import tw from 'tailwind-styled-components'
 type TypographyProps = (
   | {
       type: 'h1' | 'h2' | 'h3' | 'subtitle'
-      weight?: never
+      weight?: 'medium' | 'normal'
       color?: 'dark' | 'light'
     }
   | {
@@ -97,7 +97,7 @@ interface TextComponent extends React.HTMLAttributes<HTMLElement> {
 }
 
 const H1Typography = tw.h1<TextComponent>`${(props: any) =>
-  props.className ? props.className : ''} whitespace-normal font-bold text-2xl text-secondary-title-100`
+  props.className ? props.className : ''} whitespace-normal font-bold text-2lg lg:text-3lg text-secondary-title-100`
 
 const H2Typography = tw.h2<TextComponent>`${(props: any) =>
   props.className ? props.className : ''} whitespace-normal font-normal text-2lg text-secondary-title-100`
@@ -123,7 +123,8 @@ whitespace-normal
 const SubtitleTypography = tw.p<TextComponent>`
 ${(props: any) => (props.className ? props.className : '')}
 ${(props: any) => (props.color === 'light' ? 'text-raisin-80' : 'text-raisin-130')}
-font-medium text-2sm whitespace-normal`
+${(props: any) => (props.weight === 'medium' ? 'font-medium' : 'font-normal')}
+text-2sm whitespace-normal`
 
 const BodyTypography = tw.p<TextComponent>`whitespace-normal font-normal text-sm 
 ${(props: any) => (props.color === 'light' ? 'text-raisin-50' : 'text-raisin-130')}

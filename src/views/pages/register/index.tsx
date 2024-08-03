@@ -59,6 +59,8 @@ const RegisterPage = () => {
 
   return (
     <UnauthorizedLayout>
+      <div className='h-full flex flex-col'>
+
       <div className='flex flex-col items-center gap-8 pb-8'>
         <div className='text-center lg:mx-9'>
           <Typography type='h1'>{t('register.createAccount')}</Typography>
@@ -77,7 +79,7 @@ const RegisterPage = () => {
         </Typography>
       </div>
 
-      <form onSubmit={handleSubmit(onSubmit, onError)}>
+      <form onSubmit={handleSubmit(onSubmit, onError)} className='flex-1 shrink-0 flex flex-col justify-between'>
         <div className='flex flex-col gap-6'>
           <DefaultInput name='username' control={control} label='Email Address' errors={errors} />
 
@@ -115,6 +117,7 @@ const RegisterPage = () => {
           </div>
         </div>
       </form>
+      </div>
     </UnauthorizedLayout>
   )
 }

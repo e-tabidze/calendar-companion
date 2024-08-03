@@ -17,11 +17,7 @@ const LoginPage = () => {
   const options = [
     {
       id: 1,
-      title: (
-        <span className='text-raisin-70'>
-          Remember for 30 days
-        </span>
-      )
+      title: <span className='text-raisin-70'>Remember for 30 days</span>
     }
   ]
 
@@ -37,59 +33,59 @@ const LoginPage = () => {
 
   return (
     <UnauthorizedLayout>
-      <div className='flex flex-col items-center gap-8 pb-8'>
-        <div className='text-center lg:mx-9'>
-          <Typography type='h1'>{t('register.createAccount')}</Typography>
-          <Typography type='h5' color='light'>
-            {t('register.createAccountCaption')}
+      <div className='h-full flex flex-col'>
+        <div className='flex flex-col items-center gap-8 pb-8'>
+          <div className='text-center lg:mx-9'>
+            <Typography type='h1'>{t('register.createAccount')}</Typography>
+            <Typography type='h5' color='light'>
+              {t('register.createAccountCaption')}
+            </Typography>
+          </div>
+
+          <button className='relative w-full rounded-lg bg-grey-70 p-4 text-center'>
+            <div className="h-8 w-8 absolute top-3 bg-[url('/images/google-sign-in-icon.png')]" />
+            {t('register.signInWithGoogle')}
+          </button>
+
+          <Typography type='subtitle' color='light'>
+            {t('register.or')}
           </Typography>
         </div>
 
-        <button
-          className='relative w-full rounded-lg bg-grey-70 p-4 text-center'
-        >
-          <div className="h-8 w-8 absolute top-3 bg-[url('/images/google-sign-in-icon.png')]" />
-          {t('register.signInWithGoogle')}
-        </button>
+        <form onSubmit={handleSubmit(onSubmit, onError)} className='flex-1 shrink-0 flex flex-col justify-between'>
+          <div className='flex flex-col gap-6'>
+            <DefaultInput name='email' control={control} label='Email Address' errors={errors} />
 
-        <Typography type='subtitle' color='light'>
-          {t('register.or')}
-        </Typography>
-      </div>
+            <DefaultInput name='password' type='password' control={control} label='Password' errors={errors} />
 
-      <form onSubmit={handleSubmit(onSubmit, onError)}>
-        <div className='flex flex-col gap-6'>
-          <DefaultInput name='email' control={control} label='Email Address' errors={errors} />
-
-          <DefaultInput name='password' type='password' control={control} label='Password' errors={errors} />
-
-          <div className='flex justify-between items-center '>
-            <CheckboxField control={control} name='remember_account' options={options} errors={errors} />
-            <Link href='' className='text-blue-110 text-2sm hover:underline'>
-              Forgot password?
-            </Link>
-          </div>
-        </div>
-
-        <div className='mt-10 flex w-full justify-center'>
-          <div className='flex w-full flex-col items-center gap-4 lg:w-[364px]'>
-            <DefaultButton
-              text='Create new account'
-              bg='bg-purple-100'
-              className='w-full h-12 rounded-lg'
-              type='submit'
-            />
-            <div className='flex gap-1'>
-              <Typography type='subtitle' color='light'>
-                New to Companion AI?
-              </Typography>{' '}
-              <Link href='/signin' className='text-2sm hover:underline'>
-                Create Account
+            <div className='flex justify-between items-center '>
+              <CheckboxField control={control} name='remember_account' options={options} errors={errors} />
+              <Link href='' className='text-blue-110 text-2sm hover:underline'>
+                Forgot password?
               </Link>
             </div>
           </div>
-        </div>
-      </form>
+
+          <div className='mt-10 flex w-full justify-center'>
+            <div className='flex w-full flex-col items-center gap-4 lg:w-[364px]'>
+              <DefaultButton
+                text='Create new account'
+                bg='bg-purple-100'
+                className='w-full h-12 rounded-lg'
+                type='submit'
+              />
+              <div className='flex gap-1'>
+                <Typography type='subtitle' color='light'>
+                  New to Companion AI?
+                </Typography>{' '}
+                <Link href='/signin' className='text-2sm hover:underline'>
+                  Create Account
+                </Link>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
     </UnauthorizedLayout>
   )
 }
