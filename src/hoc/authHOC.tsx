@@ -6,7 +6,7 @@ import Cookies from 'js-cookie'
 const authHOC = <P extends object>(WrappedComponent: React.ComponentType<P>): React.FC<P> => {
   const Wrapper: React.FC<P> = props => {
     const router = useRouter()
-    const accessToken = Cookies.get('accessToken')
+    const accessToken = Cookies.get('AccessToken')
 
     useEffect(() => {
       if (!accessToken) {
