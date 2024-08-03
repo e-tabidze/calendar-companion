@@ -6,11 +6,16 @@ import CheckboxField from 'src/views/components/checkboxField'
 import Link from 'next/link'
 import { DefaultButton } from 'src/views/components/button'
 import Typography from 'src/views/components/typography'
+import { useMutation } from '@tanstack/react-query'
+import { RegisterUser } from 'src/types/auth'
+import { useRouter } from 'next/router'
 
 const RegisterPage = () => {
   const { t } = useTranslation()
 
-  const { control, errors, handleSubmit, registerValues } = useRegister()
+  const { control, errors, handleSubmit, registerValues, registerUser } = useRegister()
+
+  const router = useRouter()
 
   console.log(errors, 'errors')
 
@@ -28,10 +33,24 @@ const RegisterPage = () => {
     }
   ]
 
-  console.log(registerValues, 'registerValues')
+  const registerUserMutation = useMutation(
+    (user: RegisterUser) => {
+      return registerUser('', user)
+    },
+    {
+      onSuccess: (response: any) => {
+        router.push(`verify?email=${response.result.data.username}`)
+      },
+      onError: (response: any) => {
+        if (response.response.status === 400 && response.response.data.result.message === 'User Already Exists') {
+          console.log('User Already Exists')
+        }
+      }
+    }
+  )
 
-  const onSubmit = (data: any) => {
-    console.log('Form Data:', data)
+  const onSubmit = () => {
+    registerUserMutation.mutate(registerValues)
   }
 
   const onError = (errors: any) => {
@@ -42,13 +61,13 @@ const RegisterPage = () => {
     <UnauthorizedLayout>
       <div className='flex flex-col items-center gap-8 pb-8'>
         <div className='text-center lg:mx-9'>
-          <Typography type="h1">{t('register.createAccount')}</Typography>
-          <Typography type="h5" color="light">{t('register.createAccountCaption')}</Typography >
+          <Typography type='h1'>{t('register.createAccount')}</Typography>
+          <Typography type='h5' color='light'>
+            {t('register.createAccountCaption')}
+          </Typography>
         </div>
 
-        <button
-          className='relative w-full rounded-lg bg-grey-70 p-4 text-center'
-        >
+        <button className='relative w-full rounded-lg bg-grey-70 p-4 text-center'>
           <div className="h-8 w-8 absolute top-3 bg-[url('/images/google-sign-in-icon.png')]" />
           {t('register.signInWithGoogle')}
         </button>
@@ -60,7 +79,7 @@ const RegisterPage = () => {
 
       <form onSubmit={handleSubmit(onSubmit, onError)}>
         <div className='flex flex-col gap-6'>
-          <DefaultInput name='email' control={control} label='Email Address' errors={errors} />
+          <DefaultInput name='username' control={control} label='Email Address' errors={errors} />
 
           <DefaultInput name='password' type='password' control={control} label='Password' errors={errors} />
 

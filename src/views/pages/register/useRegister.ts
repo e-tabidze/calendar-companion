@@ -1,13 +1,15 @@
 import { useForm, useWatch } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { RegisterSchema } from 'src/@core/validation/RegisterSchema'
+import { RegisterUser } from 'src/types/auth'
+import AuthService from 'src/services/AuthService'
 
 const useRegister = () => {
   const registerDefaultValues = {
-    email: '',
+    username: '',
     password: '',
     repeat_password: '',
-    terms_and_conditions: '',
+    terms_and_conditions: ''
   }
   const {
     control,
@@ -27,6 +29,17 @@ const useRegister = () => {
 
   const registerValues: any = useWatch({ control })
 
+  const registerUser = async (AccessToken = '', registerUserData: RegisterUser) => {
+    try {
+      const response: any = await AuthService.postRegister(AccessToken, registerUserData)
+
+      return response.data
+    } catch (error) {
+      console.error('Error creating product:', error)
+      throw error
+    }
+  }
+
   return {
     control,
     handleSubmit,
@@ -38,7 +51,8 @@ const useRegister = () => {
     clearErrors,
     setValue,
     trigger,
-    registerValues
+    registerValues,
+    registerUser
   }
 }
 
