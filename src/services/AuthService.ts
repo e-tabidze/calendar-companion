@@ -21,6 +21,17 @@ class AuthService extends HttpService {
   postWorkspace(AccessToken = '', workspaceData: Workspace) {
     return this.post(`/companies`, workspaceData, AccessToken ? { Authorization: `${AccessToken}` } : {})
   }
+
+  getGoogleListCalendars(AccessToken = '', account_id: string) {
+    return this.get(
+      `/list-google-calendars?account_id=${account_id}`,
+      AccessToken ? { Authorization: `${AccessToken}` } : {}
+    )
+  }
+
+  postGoogleCalendars(AccessToken = '', calendar: any) {
+    return this.post(`/google-calendars`, calendar, AccessToken ? { Authorization: `${AccessToken}` } : {})
+  }
 }
 
 export default new AuthService()
