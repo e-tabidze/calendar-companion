@@ -53,7 +53,7 @@ const GettingStartedPage = () => {
       case 1:
         return <StepOne control={control} errors={errors} goNextStep={goNextStep} />
       case 2:
-        return <StepTwo control={control} errors={errors} goNextStep={goNextStep} onSubmit={onSubmit} />
+        return <StepTwo control={control} onSubmit={onSubmit} />
       default:
         return null
     }

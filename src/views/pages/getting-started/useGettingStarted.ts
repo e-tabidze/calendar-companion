@@ -15,15 +15,6 @@ const useGettingStarted = (userData: any) => {
     is_active: 1
   }
 
-  useEffect(() => {
-    setValue('user_information.nickname', userData ? userData?.information?.nickname : '')
-    setValue('user_information.source', userData ? userData?.information?.source : '')
-    setValue('user_information.your_role', userData ? userData?.information?.your_role : '')
-    setValue('user_information.use_this_app', userData ? userData?.information?.use_this_app : '')
-    setValue('user_information.secret_code', userData ? userData?.information?.secret_code : '')
-    setValue('username', userData ? userData?.username : '')
-  }, [userData])
-
   const {
     control,
     handleSubmit,
@@ -38,6 +29,15 @@ const useGettingStarted = (userData: any) => {
     reValidateMode: 'onSubmit',
     defaultValues: gettingStartedDefaultValues
   })
+
+  useEffect(() => {
+    setValue('user_information.nickname', userData ? userData?.information?.nickname : '')
+    setValue('user_information.source', userData ? userData?.information?.source : '')
+    setValue('user_information.your_role', userData ? userData?.information?.your_role : '')
+    setValue('user_information.use_this_app', userData ? userData?.information?.use_this_app : '')
+    setValue('user_information.secret_code', userData ? userData?.information?.secret_code : '')
+    setValue('username', userData ? userData?.username : '')
+  }, [userData, setValue])
 
   const gettingStartedValues: any = useWatch({ control })
 

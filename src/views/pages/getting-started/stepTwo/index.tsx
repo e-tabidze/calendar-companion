@@ -1,17 +1,14 @@
 import { DefaultButton } from 'src/views/components/button'
-import { DefaultInput } from 'src/views/components/input'
 import Typography from 'src/views/components/typography'
 import Options from './options'
 import SelectField from 'src/views/components/selectField'
 
 interface Props {
   control: any
-  errors: any
-  goNextStep: () => void
   onSubmit: () => void
 }
 
-const StepTwo: React.FC<Props> = ({ control, errors, goNextStep, onSubmit }) => {
+const StepTwo: React.FC<Props> = ({ control, onSubmit }) => {
   const options_role = [
     { value: 'work', label: 'Work' },
     { value: 'school', label: 'School' },

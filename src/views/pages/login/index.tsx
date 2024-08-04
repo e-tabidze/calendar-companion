@@ -12,8 +12,6 @@ const LoginPage = () => {
 
   const { control, errors, handleSubmit, loginValues } = useLogin()
 
-  console.log(errors, 'errors')
-
   const options = [
     {
       id: 1,

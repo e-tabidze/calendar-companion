@@ -1,7 +1,3 @@
-import { useForm, useWatch } from 'react-hook-form'
-import { yupResolver } from '@hookform/resolvers/yup'
-import { RegisterSchema } from 'src/@core/validation/RegisterSchema'
-import { RegisterUser } from 'src/types/auth'
 import AuthService from 'src/services/AuthService'
 
 const useEmailVerify = () => {

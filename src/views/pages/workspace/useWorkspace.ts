@@ -14,10 +14,6 @@ const useWorkspace = (userData: any) => {
     }
   }
 
-  useEffect(() => {
-    setValue('identification_number', userData ? userData?.active_profile?.identification_number : '')
-  }, [userData])
-
   const isIdentificationNumberSet = Boolean(userData?.active_profile?.identification_number)
 
   const {
@@ -35,6 +31,10 @@ const useWorkspace = (userData: any) => {
     defaultValues: workspaceDefaultValues,
     resolver: yupResolver(WorkspaceSchema)
   })
+
+  useEffect(() => {
+    setValue('identification_number', userData ? userData?.active_profile?.identification_number : '')
+  }, [userData, setValue])
 
   const workspaceValues: any = useWatch({ control })
 

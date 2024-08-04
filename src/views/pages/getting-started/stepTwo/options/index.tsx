@@ -11,25 +11,26 @@ const Options: React.FC<Props> = ({ control, name }) => {
     { value: 'school', label: 'School' },
     { value: 'personal', label: 'Personal' }
   ]
+  
   return (
     <Controller
       control={control}
       name={name}
       render={({ field: { onChange, value } }) => (
-        <div className="flex gap-2">
-        {options?.map(option => (
-          <div
-            key={option.value}
-            onClick={() => onChange(option.value)}
-            className={`flex-grow py-2 text-center cursor-pointer ${
-              value === option.value ? 'bg-purple-10 text-purple-100' : 'bg-grey-70 text-raisin-80'
-            }`}
-            style={{ minWidth: '0' }} // Ensures they are equal width
-          >
-            {option.label}
-          </div>
-        ))}
-      </div>
+        <div className='flex gap-2'>
+          {options?.map(option => (
+            <div
+              key={option.value}
+              onClick={() => onChange(option.value)}
+              className={`flex-grow py-2 text-center cursor-pointer ${
+                value === option.value ? 'bg-purple-10 text-purple-100' : 'bg-grey-70 text-raisin-80'
+              }`}
+              style={{ minWidth: '0' }}
+            >
+              {option.label}
+            </div>
+          ))}
+        </div>
       )}
     />
   )

@@ -52,8 +52,6 @@ const SelectField: React.FC<Props> = ({
   labelKey,
   placeholder,
   errors,
-  errorAbsolute,
-  errorRight,
   isMulti = false,
   handleChange,
   setValueLabel,
@@ -191,6 +189,7 @@ const SelectField: React.FC<Props> = ({
               isClearable
               placeholder={placeholder}
               isDisabled={disabled}
+              
               // @ts-ignore
               emoji={
                 icon && (
