@@ -1,5 +1,5 @@
 import HttpService from './HttpService'
-import { RegisterUser } from 'src/types/auth'
+import { RegisterUser, Workspace } from 'src/types/auth'
 
 class AuthService extends HttpService {
   postRegister(AccessToken = '', registerUserData: RegisterUser) {
@@ -16,6 +16,10 @@ class AuthService extends HttpService {
 
   putUsers(AccessToken = '', id: string | number, userData: any) {
     return this.put(`/users/${id}`, userData, AccessToken ? { Authorization: `${AccessToken}` } : {})
+  }
+
+  postWorkspace(AccessToken = '', workspaceData: Workspace) {
+    return this.post(`/companies`, workspaceData, AccessToken ? { Authorization: `${AccessToken}` } : {})
   }
 }
 

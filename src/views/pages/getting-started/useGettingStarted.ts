@@ -1,20 +1,8 @@
 import { useForm, useWatch } from 'react-hook-form'
-import { RegisterUser } from 'src/types/auth'
 import AuthService from 'src/services/AuthService'
-import { useQuery } from '@tanstack/react-query'
-import Cookie from 'src/helpers/Cookie'
 import { useEffect } from 'react'
 
-const useGettingStarted = () => {
-  const useCheckUser: any = useQuery({
-    queryKey: ['userInfo'],
-    queryFn: () => getCheckUser(''),
-    staleTime: Infinity,
-    enabled: !!Cookie.get('AccessToken')
-  })
-
-  const userData = useCheckUser.data
-
+const useGettingStarted = (userData: any) => {
   const gettingStartedDefaultValues = {
     user_information: {
       nickname: '',
@@ -37,7 +25,7 @@ const useGettingStarted = () => {
   }, [userData])
 
   const {
-    control: gettingStartedControl,
+    control,
     handleSubmit,
     formState: { errors, dirtyFields, isValid },
     trigger,
@@ -51,18 +39,7 @@ const useGettingStarted = () => {
     defaultValues: gettingStartedDefaultValues
   })
 
-  const gettingStartedValues: any = useWatch({ control: gettingStartedControl })
-
-  const getCheckUser = async (AccessToken = '') => {
-    try {
-      const response: any = await AuthService.getCheckUser(AccessToken)
-
-      return response.data
-    } catch (error) {
-      console.error('Error creating product:', error)
-      throw error
-    }
-  }
+  const gettingStartedValues: any = useWatch({ control })
 
   const putUsers = async (AccessToken = '', id: string, userData: any) => {
     try {
@@ -76,7 +53,7 @@ const useGettingStarted = () => {
   }
 
   return {
-    gettingStartedControl,
+    control,
     handleSubmit,
     errors,
     dirtyFields,
@@ -87,8 +64,7 @@ const useGettingStarted = () => {
     setValue,
     trigger,
     gettingStartedValues,
-    putUsers,
-    userData
+    putUsers
   }
 }
 

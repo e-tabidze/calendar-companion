@@ -4,18 +4,20 @@ import StepOne from './stepOne'
 import ProgressBar from './progressBar'
 import StepTwo from './stepTwo'
 import { useState } from 'react'
-import StepThree from './stepThree'
 import { useMutation } from '@tanstack/react-query'
+import { useRouter } from 'next/router'
+import useUserData from 'src/hooks/useUserData'
 
 const GettingStartedPage = () => {
   const [currentStep, setCurrentStep] = useState(1)
-  const { gettingStartedControl, errors, gettingStartedValues, putUsers, userData } = useGettingStarted()
+  const { userData } = useUserData()
+  const { control, errors, gettingStartedValues, putUsers } = useGettingStarted(userData)
 
   const goNextStep = () => {
     setCurrentStep(prevStep => Math.min(prevStep + 1, 5))
   }
 
-  console.log(gettingStartedValues, 'gettingStartedValues')
+  const router = useRouter()
 
   const putUsersMutation = useMutation(
     () => {
@@ -23,7 +25,16 @@ const GettingStartedPage = () => {
     },
     {
       onSuccess: () => {
-        setCurrentStep(3)
+        if (userData) {
+          console.log(userData, 'userdata')
+          if (userData.active_profile === null) {
+            router.push('/workspace')
+          } else if (userData?.account_connection.length === 0) {
+            router.push('/connect-account')
+          } else {
+            router.push('/calendar')
+          }
+        }
       },
       onError: (response: any) => {
         if (response.response.status === 400 && response.response.data.result.message === 'User Already Exists') {
@@ -40,11 +51,9 @@ const GettingStartedPage = () => {
   const renderStepComponent = () => {
     switch (currentStep) {
       case 1:
-        return <StepOne control={gettingStartedControl} errors={errors} goNextStep={goNextStep} />
+        return <StepOne control={control} errors={errors} goNextStep={goNextStep} />
       case 2:
-        return <StepTwo control={gettingStartedControl} errors={errors} goNextStep={goNextStep} onSubmit={onSubmit} />
-      case 2:
-        return <StepThree control={gettingStartedControl} errors={errors} goNextStep={goNextStep} />
+        return <StepTwo control={control} errors={errors} goNextStep={goNextStep} onSubmit={onSubmit} />
       default:
         return null
     }
