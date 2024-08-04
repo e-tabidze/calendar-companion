@@ -8,7 +8,7 @@ import { useTranslation } from 'next-i18next'
 
 const styles = {
   disabledInput: 'opacity-80',
-  input: 'w-full bg-grey-70 rounded-xl px-3 text-md text-raisin-130 focus:outline-none font-medium tracking-wider',
+  input: 'w-full bg-grey-70 rounded-xl px-3 text-md font-medium text-raisin-130 focus:outline-none  tracking-wider',
   label: 'text-sm absolute left-3 text-raisin-50 focus:top-2'
 }
 

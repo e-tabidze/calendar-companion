@@ -80,3 +80,8 @@ body {
 .example::-webkit-scrollbar {
   display: none;
 }
+
+.css-lkh0o5-menu {
+  border: none !important;
+  border-radius: 8px !important;
+}

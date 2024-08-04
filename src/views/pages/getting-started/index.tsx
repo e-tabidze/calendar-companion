@@ -1,8 +1,11 @@
 import UnauthorizedLayout from 'src/layouts/UnauthorizedLayout'
 import useGettingStarted from './useGettingStarted'
+import StepOne from './stepOne'
+import ProgressBar from './progressBar'
+import StepTwo from './stepTwo'
 
 const GettingStartedPage = () => {
-  const { userData } = useGettingStarted()
+  const { control, errors, userData } = useGettingStarted()
 
   console.log(userData, 'userData')
 
@@ -28,7 +31,15 @@ const GettingStartedPage = () => {
     // }
   }
 
-  return <UnauthorizedLayout>Getting started</UnauthorizedLayout>
+  return (
+    <UnauthorizedLayout>
+      <div className='h-[calc(100%-50px)]'>
+        <ProgressBar currentStep={2} totalSteps={5} />
+        {/* <StepOne control={control} errors={errors} /> */}
+        <StepTwo control={control} errors={errors} />
+      </div>
+    </UnauthorizedLayout>
+  )
 }
 
 export default GettingStartedPage
