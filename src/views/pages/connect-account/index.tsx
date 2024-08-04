@@ -51,24 +51,9 @@ const ConnectAccountPage = () => {
     }
   }, [accountId, refetchGoogleCalendarList])
 
-  // const postCalendarMutation = useMutation(
-  //   (calendars: any[]) => {
-  //     return Promise.all(calendars.map(calendar => postGoogleCalendars('', accountId, calendar)))
-  //   },
-  //   {
-  //     onSuccess: (response: any) => {
-  //       console.log(response, 'response')
-  //       router.push('/calendar')
-  //     },
-  //     onError: (response: any) => {
-  //       console.log(response)
-  //     }
-  //   }
-  // )
-
   const postCalendarMutation = useMutation(() => postGoogleCalendars('', accountId, selectedEvents), {
     onSuccess: (response: any) => {
-      router.push(`verify?email=${response.result.data.username}`)
+      router.push(`/calendar`)
     },
     onError: (response: any) => {
       if (response.response.status === 400 && response.response.data.result.message === 'User Already Exists') {
