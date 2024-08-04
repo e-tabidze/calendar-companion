@@ -7,9 +7,11 @@ import SelectField from 'src/views/components/selectField'
 interface Props {
   control: any
   errors: any
+  goNextStep: () => void
+  onSubmit: () => void
 }
 
-const StepTwo: React.FC<Props> = ({ control, errors }) => {
+const StepTwo: React.FC<Props> = ({ control, errors, goNextStep, onSubmit }) => {
   const options_role = [
     { value: 'work', label: 'Work' },
     { value: 'school', label: 'School' },
@@ -29,10 +31,10 @@ const StepTwo: React.FC<Props> = ({ control, errors }) => {
 
       <div className='flex-1 shrink-0 flex flex-col justify-between'>
         <div className='flex flex-col gap-6'>
-          <Options control={control} name='information.source' />
+          <Options control={control} name='user_information.source' />
           <SelectField
             control={control}
-            name='information.your_role'
+            name='user_information.your_role'
             options={options_role}
             valueKey='value'
             labelKey='label'
@@ -40,7 +42,7 @@ const StepTwo: React.FC<Props> = ({ control, errors }) => {
           />
           <SelectField
             control={control}
-            name='information.use_this_app'
+            name='user_information.use_this_app'
             options={options_role}
             valueKey='value'
             labelKey='label'
@@ -50,8 +52,8 @@ const StepTwo: React.FC<Props> = ({ control, errors }) => {
 
         <div className='mt-10 flex w-full justify-center'>
           <div className='flex w-full flex-col items-center gap-4 lg:w-[364px]'>
-            <DefaultButton text='Next Step' bg='bg-purple-100' className='w-full h-12 rounded-lg' type='submit' />
-            <DefaultButton text='Skip for now' className='border-none text-raisin-80' />
+            <DefaultButton text='Next Step' bg='bg-purple-100' className='w-full h-12 rounded-lg' onClick={onSubmit} />
+            <DefaultButton text='Skip for now' className='border-none text-raisin-80' onClick={onSubmit} />
           </div>
         </div>
       </div>

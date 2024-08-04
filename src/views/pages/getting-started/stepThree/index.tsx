@@ -8,23 +8,23 @@ interface Props {
   goNextStep: () => void
 }
 
-const StepOne: React.FC<Props> = ({ control, errors, goNextStep }) => {
+const StepThree: React.FC<Props> = ({ control, errors, goNextStep }) => {
   return (
     <div className='h-full flex flex-col mt-16'>
       <div className='flex flex-col items-center gap-8 pb-8'>
         <div className='text-center lg:mx-9'>
-          <Typography type='h1'>It's nice to meet you!</Typography>
+          <Typography type='h1'>Create your workspace</Typography>
           <Typography type='h5' color='light'>
-            This is how your teammates will know you on our platform
+            Workspaces are essential on our platform. This is how you collaborate and share information with your team
           </Typography>
         </div>
       </div>
 
       <div className='flex-1 shrink-0 flex flex-col justify-between'>
         <DefaultInput
-          name='user_information.nickname'
+          name='workspace_name'
           control={control}
-          label='What would you like to be called'
+          label='Workspace name'
           errors={errors}
         />
 
@@ -44,4 +44,4 @@ const StepOne: React.FC<Props> = ({ control, errors, goNextStep }) => {
   )
 }
 
-export default StepOne
+export default StepThree

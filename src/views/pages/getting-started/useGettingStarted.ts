@@ -3,6 +3,7 @@ import { RegisterUser } from 'src/types/auth'
 import AuthService from 'src/services/AuthService'
 import { useQuery } from '@tanstack/react-query'
 import Cookie from 'src/helpers/Cookie'
+import { useEffect } from 'react'
 
 const useGettingStarted = () => {
   const useCheckUser: any = useQuery({
@@ -14,22 +15,29 @@ const useGettingStarted = () => {
 
   const userData = useCheckUser.data
 
-  console.log(userData, 'checkuserData')
-
   const gettingStartedDefaultValues = {
-    information: {
-      nickname: userData ? userData?.information?.nickname : '',
-      secret_code: userData ? userData?.information?.secret_code : '',
+    user_information: {
+      nickname: '',
+      secret_code: '',
       source: '',
       your_role: '',
       use_this_app: ''
     },
-    username: userData?.username,
+    username: '',
     is_active: 1
   }
 
+  useEffect(() => {
+    setValue('user_information.nickname', userData ? userData?.information?.nickname : '')
+    setValue('user_information.source', userData ? userData?.information?.source : '')
+    setValue('user_information.your_role', userData ? userData?.information?.your_role : '')
+    setValue('user_information.use_this_app', userData ? userData?.information?.use_this_app : '')
+    setValue('user_information.secret_code', userData ? userData?.information?.secret_code : '')
+    setValue('username', userData ? userData?.username : '')
+  }, [userData])
+
   const {
-    control,
+    control: gettingStartedControl,
     handleSubmit,
     formState: { errors, dirtyFields, isValid },
     trigger,
@@ -43,7 +51,7 @@ const useGettingStarted = () => {
     defaultValues: gettingStartedDefaultValues
   })
 
-  const gettingStartedValues: any = useWatch({ control })
+  const gettingStartedValues: any = useWatch({ control: gettingStartedControl })
 
   const getCheckUser = async (AccessToken = '') => {
     try {
@@ -56,9 +64,9 @@ const useGettingStarted = () => {
     }
   }
 
-  const registerUser = async (AccessToken = '', registerUserData: RegisterUser) => {
+  const putUsers = async (AccessToken = '', id: string, userData: any) => {
     try {
-      const response: any = await AuthService.postRegister(AccessToken, registerUserData)
+      const response: any = await AuthService.putUsers(AccessToken, id, userData)
 
       return response.data
     } catch (error) {
@@ -68,7 +76,7 @@ const useGettingStarted = () => {
   }
 
   return {
-    control,
+    gettingStartedControl,
     handleSubmit,
     errors,
     dirtyFields,
@@ -79,7 +87,7 @@ const useGettingStarted = () => {
     setValue,
     trigger,
     gettingStartedValues,
-    registerUser,
+    putUsers,
     userData
   }
 }

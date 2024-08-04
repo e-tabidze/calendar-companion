@@ -3,40 +3,58 @@ import useGettingStarted from './useGettingStarted'
 import StepOne from './stepOne'
 import ProgressBar from './progressBar'
 import StepTwo from './stepTwo'
+import { useState } from 'react'
+import StepThree from './stepThree'
+import { useMutation } from '@tanstack/react-query'
 
 const GettingStartedPage = () => {
-  const { control, errors, userData } = useGettingStarted()
+  const [currentStep, setCurrentStep] = useState(1)
+  const { gettingStartedControl, errors, gettingStartedValues, putUsers, userData } = useGettingStarted()
 
-  console.log(userData, 'userData')
+  const goNextStep = () => {
+    setCurrentStep(prevStep => Math.min(prevStep + 1, 5))
+  }
+
+  console.log(gettingStartedValues, 'gettingStartedValues')
+
+  const putUsersMutation = useMutation(
+    () => {
+      return putUsers('', userData.id, gettingStartedValues)
+    },
+    {
+      onSuccess: () => {
+        setCurrentStep(3)
+      },
+      onError: (response: any) => {
+        if (response.response.status === 400 && response.response.data.result.message === 'User Already Exists') {
+          console.log('User Already Exists')
+        }
+      }
+    }
+  )
+
+  const onSubmit = () => {
+    putUsersMutation.mutate(gettingStartedValues)
+  }
 
   const renderStepComponent = () => {
-    // switch (step.step) {
-    //   case 1:
-    //     return <StepOne control={control} errors={errors} clearErrors={clearErrors} setValue={setValue} />
-    //   case 2:
-    //     return (
-    //       <StepTwo
-    //         control={control}
-    //         addressFields={addressFields}
-    //         appendAddress={appendAddress}
-    //         removeAddress={removeAddress}
-    //         errors={errors}
-    //         setValue={setValue}
-    //       />
-    //     )
-    //   case 3:
-    //     return <StepThree control={control} errors={errors} />
-    //   default:
-    //     return null
-    // }
+    switch (currentStep) {
+      case 1:
+        return <StepOne control={gettingStartedControl} errors={errors} goNextStep={goNextStep} />
+      case 2:
+        return <StepTwo control={gettingStartedControl} errors={errors} goNextStep={goNextStep} onSubmit={onSubmit} />
+      case 2:
+        return <StepThree control={gettingStartedControl} errors={errors} goNextStep={goNextStep} />
+      default:
+        return null
+    }
   }
 
   return (
     <UnauthorizedLayout>
       <div className='h-[calc(100%-50px)]'>
-        <ProgressBar currentStep={2} totalSteps={5} />
-        {/* <StepOne control={control} errors={errors} /> */}
-        <StepTwo control={control} errors={errors} />
+        <ProgressBar currentStep={currentStep} totalSteps={5} />
+        {renderStepComponent()}
       </div>
     </UnauthorizedLayout>
   )
