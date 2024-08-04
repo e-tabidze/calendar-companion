@@ -1,6 +1,6 @@
 import UnauthorizedLayout from 'src/layouts/UnauthorizedLayout'
 import ProgressBar from '../getting-started/progressBar'
-import { DefaultButton } from 'src/views/components/button'
+import { DefaultButton, IconButton } from 'src/views/components/button'
 import Typography from 'src/views/components/typography'
 import Link from 'next/link'
 import Icon from 'src/views/app/Icon'
@@ -16,6 +16,9 @@ const ConnectAccountPage = () => {
   const { userData } = useUserData()
   const { refetchGoogleCalendarList, googleCalendarList, postGoogleCalendars } = useConnectGoogleAccount(accountId)
   const [googleConnected, setGoogleConnected] = useState(false)
+  const [selectedEvents, setSelectedEvents] = useState<any[]>([])
+
+  console.log(selectedEvents, 'selectedEvents')
 
   const router = useRouter()
 
@@ -49,12 +52,15 @@ const ConnectAccountPage = () => {
   }, [accountId, refetchGoogleCalendarList])
 
   const postCalendarMutation = useMutation(
-    calendar => {
-      return postGoogleCalendars('', calendar)
+    (calendars: any[]) => {
+      return Promise.all(calendars.map(calendar => 
+        postGoogleCalendars('', calendar)
+      ))
     },
     {
       onSuccess: (response: any) => {
         console.log(response, 'response')
+        router.push('/calendar')
       },
       onError: (response: any) => {
         console.log(response)
@@ -62,16 +68,30 @@ const ConnectAccountPage = () => {
     }
   )
 
-  const handleCalendarClick = (calendarEvent: any) => {
-    postCalendarMutation.mutate({
-      ...calendarEvent,
-      account_id: accountId,
-      is_private: false
+  const handleCalendarClick = (event: any) => {
+    setSelectedEvents(prevState => {
+      const index = prevState.findIndex(e => e.id === event.id)
+      if (index === -1) {
+        return [...prevState, {
+          ...event,
+          account_id: accountId,
+          is_private: false // Default value
+        }]
+      }
+      return prevState.filter(e => e.id !== event.id)
     })
   }
 
-  const redirectToCalendar = () => {
-    router.push('/calendar')
+  const togglePrivacy = (event: any) => {
+    setSelectedEvents(prevState => 
+      prevState.map(e => 
+        e.id === event.id ? { ...e, is_private: !e.is_private } : e
+      )
+    )
+  }
+
+  const handleSubmit = () => {
+    postCalendarMutation.mutate(selectedEvents)
   }
 
   return (
@@ -82,8 +102,8 @@ const ConnectAccountPage = () => {
           <div className='text-center lg:mx-9'>
             <Typography type='h1'>Connect your platforms</Typography>
             <Typography type='h5' color='light'>
-              Connecting your Google account will let you to view your calendar, schedule meetings, collaborate with
-              your team members and use our bot
+              Connecting your Google account will let you view your calendar, schedule meetings, collaborate with
+              your team members and use our bot.
             </Typography>
           </div>
         </div>
@@ -108,22 +128,34 @@ const ConnectAccountPage = () => {
             </Link>
           </Typography>
         </div>
-        {googleCalendarList?.map((listItem: any) => (
-          <div
-            key={listItem.id}
-            onClick={() => handleCalendarClick(listItem)}
-            className='cursor-pointer p-2 border-b border-gray-300'
-          >
-            {listItem?.summary}
-          </div>
-        ))}
+
+        <div className='max-h-[200px] overflow-auto mt-12'>
+          {googleCalendarList?.map((listItem: any) => (
+            <div
+              key={listItem.id}
+              className='cursor-pointer p-3 bg-grey-70 mb-2 rounded-md flex justify-between'
+              onClick={() => handleCalendarClick(listItem)}
+            >
+              {listItem?.summary}
+              <IconButton
+                icon={selectedEvents.find(e => e.id === listItem.id)?.is_private ? 'padlock' : 'padlockOpen'}
+                width={24}
+                height={24}
+                onClick={e => {
+                  e.stopPropagation()
+                  togglePrivacy(listItem)
+                }}
+              />
+            </div>
+          ))}
+        </div>
       </div>
       <DefaultButton
         text='Ok! Lets jump in'
         bg='bg-purple-100'
         className='w-full h-12 rounded-lg'
         type='button'
-        onClick={redirectToCalendar}
+        onClick={handleSubmit}
       />
     </UnauthorizedLayout>
   )
