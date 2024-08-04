@@ -12,7 +12,7 @@ import { useMutation } from '@tanstack/react-query'
 import { useRouter } from 'next/router'
 
 const ConnectAccountPage = () => {
-  const [accountId, setAccountId] = useState(null)
+  const [accountId, setAccountId] = useState('')
   const { userData } = useUserData()
   const { refetchGoogleCalendarList, googleCalendarList, postGoogleCalendars } = useConnectGoogleAccount(accountId)
   const [googleConnected, setGoogleConnected] = useState(false)
@@ -51,47 +51,55 @@ const ConnectAccountPage = () => {
     }
   }, [accountId, refetchGoogleCalendarList])
 
-  const postCalendarMutation = useMutation(
-    (calendars: any[]) => {
-      return Promise.all(calendars.map(calendar => 
-        postGoogleCalendars('', calendar)
-      ))
+  // const postCalendarMutation = useMutation(
+  //   (calendars: any[]) => {
+  //     return Promise.all(calendars.map(calendar => postGoogleCalendars('', accountId, calendar)))
+  //   },
+  //   {
+  //     onSuccess: (response: any) => {
+  //       console.log(response, 'response')
+  //       router.push('/calendar')
+  //     },
+  //     onError: (response: any) => {
+  //       console.log(response)
+  //     }
+  //   }
+  // )
+
+  const postCalendarMutation = useMutation(() => postGoogleCalendars('', accountId, selectedEvents), {
+    onSuccess: (response: any) => {
+      router.push(`verify?email=${response.result.data.username}`)
     },
-    {
-      onSuccess: (response: any) => {
-        console.log(response, 'response')
-        router.push('/calendar')
-      },
-      onError: (response: any) => {
-        console.log(response)
+    onError: (response: any) => {
+      if (response.response.status === 400 && response.response.data.result.message === 'User Already Exists') {
+        console.log('User Already Exists')
       }
     }
-  )
+  })
 
   const handleCalendarClick = (event: any) => {
     setSelectedEvents(prevState => {
       const index = prevState.findIndex(e => e.id === event.id)
       if (index === -1) {
-        return [...prevState, {
-          ...event,
-          account_id: accountId,
-          is_private: false // Default value
-        }]
+        return [
+          ...prevState,
+          {
+            ...event,
+            account_id: accountId,
+            is_private: false
+          }
+        ]
       }
       return prevState.filter(e => e.id !== event.id)
     })
   }
 
   const togglePrivacy = (event: any) => {
-    setSelectedEvents(prevState => 
-      prevState.map(e => 
-        e.id === event.id ? { ...e, is_private: !e.is_private } : e
-      )
-    )
+    setSelectedEvents(prevState => prevState.map(e => (e.id === event.id ? { ...e, is_private: !e.is_private } : e)))
   }
 
   const handleSubmit = () => {
-    postCalendarMutation.mutate(selectedEvents)
+    postCalendarMutation.mutate()
   }
 
   return (
@@ -102,8 +110,8 @@ const ConnectAccountPage = () => {
           <div className='text-center lg:mx-9'>
             <Typography type='h1'>Connect your platforms</Typography>
             <Typography type='h5' color='light'>
-              Connecting your Google account will let you view your calendar, schedule meetings, collaborate with
-              your team members and use our bot.
+              Connecting your Google account will let you view your calendar, schedule meetings, collaborate with your
+              team members and use our bot.
             </Typography>
           </div>
         </div>
@@ -133,7 +141,11 @@ const ConnectAccountPage = () => {
           {googleCalendarList?.map((listItem: any) => (
             <div
               key={listItem.id}
-              className='cursor-pointer p-3 bg-grey-70 mb-2 rounded-md flex justify-between'
+              className={`cursor-pointer p-3 mb-2 rounded-md flex justify-between ${
+                selectedEvents.some(id => id.id === listItem.id)
+                  ? 'bg-purple-10 text-purple-100'
+                  : 'bg-grey-70 text-raisin-80'
+              }`}
               onClick={() => handleCalendarClick(listItem)}
             >
               {listItem?.summary}
@@ -141,7 +153,7 @@ const ConnectAccountPage = () => {
                 icon={selectedEvents.find(e => e.id === listItem.id)?.is_private ? 'padlock' : 'padlockOpen'}
                 width={24}
                 height={24}
-                onClick={e => {
+                onClick={(e: any) => {
                   e.stopPropagation()
                   togglePrivacy(listItem)
                 }}

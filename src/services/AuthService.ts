@@ -29,8 +29,8 @@ class AuthService extends HttpService {
     )
   }
 
-  postGoogleCalendars(AccessToken = '', calendar: any) {
-    return this.post(`/google-calendars`, calendar, AccessToken ? { Authorization: `${AccessToken}` } : {})
+  postGoogleCalendars(AccessToken = '', account_id: string, calendar: any) {
+    return this.post(`/google-calendars?account_id=${account_id}`, calendar, AccessToken ? { Authorization: `${AccessToken}` } : {})
   }
 }
 

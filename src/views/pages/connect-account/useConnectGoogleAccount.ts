@@ -13,10 +13,9 @@ const useConnectGoogleAccount = (account_id: string | null) => {
     }
   }
 
-
-  const postGoogleCalendars = async (AccessToken = '', calendar: any) => {
+  const postGoogleCalendars = async (AccessToken = '', account_id: string, calendar: any) => {
     try {
-      const response: any = await AuthService.postGoogleCalendars(AccessToken, calendar)
+      const response: any = await AuthService.postGoogleCalendars(AccessToken, account_id, calendar)
 
       return response.data
     } catch (error) {
