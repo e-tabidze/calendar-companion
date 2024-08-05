@@ -52,7 +52,7 @@ const ConnectAccountPage = () => {
   }, [accountId, refetchGoogleCalendarList])
 
   const postCalendarMutation = useMutation(() => postGoogleCalendars('', accountId, selectedEvents), {
-    onSuccess: (response: any) => {
+    onSuccess: () => {
       router.push(`/calendar`)
     },
     onError: (response: any) => {
@@ -152,7 +152,7 @@ const ConnectAccountPage = () => {
         bg='bg-purple-100'
         className='w-full h-12 rounded-lg'
         type='button'
-        onClick={handleSubmit}
+        onClick={googleConnected ? handleSubmit() : () => router.push('/calendar')}
       />
     </UnauthorizedLayout>
   )

@@ -1,9 +1,13 @@
 import HttpService from './HttpService'
-import { RegisterUser, Workspace } from 'src/types/auth'
+import { AuthUser, Workspace } from 'src/types/auth'
 
 class AuthService extends HttpService {
-  postRegister(AccessToken = '', registerUserData: RegisterUser) {
+  postRegister(AccessToken = '', registerUserData: AuthUser) {
     return this.post('/signup', registerUserData, AccessToken ? { Authorization: `${AccessToken}` } : {})
+  }
+
+  postSignIn(AccessToken = '', loginData: AuthUser) {
+    return this.post('/signin', loginData, AccessToken ? { Authorization: `${AccessToken}` } : {})
   }
 
   postVerifyEmail(AccessToken = '', code: string) {

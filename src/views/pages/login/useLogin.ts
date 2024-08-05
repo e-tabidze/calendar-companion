@@ -1,10 +1,12 @@
 import { useForm, useWatch } from 'react-hook-form'
+import AuthService from 'src/services/AuthService'
+import { AuthUser } from 'src/types/auth'
 
 const useLogin = () => {
   const loginDefaultValues = {
-    email: '',
+    username: '',
     password: '',
-    remember_account: '',
+    remember_account: ''
   }
   const {
     control,
@@ -18,10 +20,21 @@ const useLogin = () => {
   } = useForm({
     mode: 'onSubmit',
     reValidateMode: 'onSubmit',
-    defaultValues: loginDefaultValues,
+    defaultValues: loginDefaultValues
   })
 
   const loginValues: any = useWatch({ control })
+
+  const signin = async (signInData: AuthUser) => {
+    try {
+      const response: any = await AuthService.postSignIn('', signInData)
+
+      return response.data
+    } catch (error) {
+      console.error('Error creating product:', error)
+      throw error
+    }
+  }
 
   return {
     control,
@@ -34,7 +47,8 @@ const useLogin = () => {
     clearErrors,
     setValue,
     trigger,
-    loginValues
+    loginValues,
+    signin
   }
 }
 
