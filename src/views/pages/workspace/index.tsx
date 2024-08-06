@@ -1,4 +1,4 @@
-import { useMutation } from '@tanstack/react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { DefaultButton } from 'src/views/components/button'
 import { DefaultInput } from 'src/views/components/input'
 import Typography from 'src/views/components/typography'
@@ -12,6 +12,8 @@ const WorkspacePage = () => {
   const { userData } = useUserData()
   const { control, postWorkspace, workspaceValues, errors, isIdentificationNumberSet } = useWorkspace(userData)
 
+  const queryClient = useQueryClient()
+
   const router = useRouter()
 
   const postWorkspaceMutation = useMutation(
@@ -20,9 +22,12 @@ const WorkspacePage = () => {
     },
     {
       onSuccess: () => {
+        queryClient.invalidateQueries(['userInfo'])
+
         if (userData) {
-          console.log(userData, 'userdata')
-          if (userData?.account_connection.length === 0) {
+          if (userData?.active_profile === null) {
+            router.push('/workspace')
+          } else if (userData?.account_connection.length === 0 || userData?.active_profile?.calendars?.length === 0) {
             router.push('/connect-account')
           } else {
             router.push('/calendar')
@@ -44,7 +49,7 @@ const WorkspacePage = () => {
   return (
     <UnauthorizedLayout>
       <div className='h-full flex flex-col'>
-        <ProgressBar currentStep={3} totalSteps={5}  />
+        <ProgressBar currentStep={3} totalSteps={5} />
         <div className='flex flex-col items-center gap-8 pb-8 mt-16'>
           <div className='text-center lg:mx-9'>
             <Typography type='h1'>Create your workspace</Typography>
@@ -55,7 +60,13 @@ const WorkspacePage = () => {
         </div>
 
         <div className='flex-1 shrink-0 flex flex-col justify-between'>
-          <DefaultInput name='identification_number' control={control} label='Workspace name' errors={errors} disabled={isIdentificationNumberSet} />
+          <DefaultInput
+            name='identification_number'
+            control={control}
+            label='Workspace name'
+            errors={errors}
+            disabled={isIdentificationNumberSet}
+          />
 
           <div className='mt-10 flex w-full justify-center'>
             <div className='flex w-full flex-col items-center gap-4 lg:w-[364px]'>

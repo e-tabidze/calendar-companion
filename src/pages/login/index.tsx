@@ -1,3 +1,4 @@
+import authHOC from 'src/hoc/authHOC'
 import useUserData from 'src/hooks/useUserData'
 import LoginPage from 'src/views/pages/login'
 
@@ -14,4 +15,4 @@ const Login = () => {
   )
 }
 
-export default Login
+export default authHOC(Login)

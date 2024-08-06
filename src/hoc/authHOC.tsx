@@ -1,24 +1,40 @@
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
-import Cookies from 'js-cookie'
+import useUserData from 'src/hooks/useUserData'
+import Cookie from 'src/helpers/Cookie'
 
 const authHOC = <P extends object>(WrappedComponent: React.ComponentType<P>): React.FC<P> => {
-  const Wrapper: React.FC<P> = (props) => {
+  const Wrapper: React.FC<P> = props => {
     const router = useRouter()
     const [isAuthenticated, setIsAuthenticated] = useState(false)
+    const { userData, isLoading } = useUserData()
 
     useEffect(() => {
-      const accessToken = Cookies.get('AccessToken')
+      const accessToken = Cookie.get('AccessToken')
       if (!accessToken) {
         router.replace('/login')
       } else {
         setIsAuthenticated(true)
       }
-    }, [router])
+    }, [])
 
-    if (!isAuthenticated) {
-      return null
-    }
+    useEffect(() => {
+      // if (isAuthenticated && !isLoading) {
+        if (userData) {
+          if (userData.active_profile === null) {
+            router.replace('/workspace')
+          } else if (userData.account_connection.length === 0 || userData.active_profile.calendars.length === 0) {
+            router.replace('/connect-account')
+          } else {
+            router.replace('/calendar')
+          }
+        }
+      // }
+    }, [userData, isAuthenticated, isLoading])
+
+    // if (!isAuthenticated || isLoading) {
+    //   return null
+    // }
 
     return <WrappedComponent {...props} />
   }

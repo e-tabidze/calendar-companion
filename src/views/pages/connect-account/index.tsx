@@ -8,7 +8,7 @@ import { API_URL } from 'src/env'
 import useUserData from 'src/hooks/useUserData'
 import { useEffect, useState } from 'react'
 import useConnectGoogleAccount from './useConnectGoogleAccount'
-import { useMutation } from '@tanstack/react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useRouter } from 'next/router'
 
 const ConnectAccountPage = () => {
@@ -18,9 +18,9 @@ const ConnectAccountPage = () => {
   const [googleConnected, setGoogleConnected] = useState(false)
   const [selectedEvents, setSelectedEvents] = useState<any[]>([])
 
-  console.log(selectedEvents, 'selectedEvents')
-
   const router = useRouter()
+
+  const queryClient = useQueryClient()
 
   const handleGoogleLogin = () => {
     window.open(
@@ -53,6 +53,18 @@ const ConnectAccountPage = () => {
 
   const postCalendarMutation = useMutation(() => postGoogleCalendars('', accountId, selectedEvents), {
     onSuccess: () => {
+      queryClient.invalidateQueries(['userInfo'])
+
+      if (userData) {
+        if (userData?.active_profile === null) {
+          router.push('/workspace')
+        } else if (userData?.account_connection.length === 0 || userData?.active_profile?.calendars?.length === 0) {
+          router.push('/connect-account')
+        } else {
+          router.push('/calendar')
+        }
+      }
+
       router.push(`/calendar`)
     },
     onError: (response: any) => {
@@ -152,7 +164,8 @@ const ConnectAccountPage = () => {
         bg='bg-purple-100'
         className='w-full h-12 rounded-lg'
         type='button'
-        onClick={googleConnected ? handleSubmit() : () => router.push('/calendar')}
+        onClick={handleSubmit}
+        disabled={!googleConnected}
       />
     </UnauthorizedLayout>
   )

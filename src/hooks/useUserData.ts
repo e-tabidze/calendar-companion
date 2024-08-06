@@ -6,11 +6,12 @@ const useUserData = () => {
   const useCheckUser: any = useQuery({
     queryKey: ['userInfo'],
     queryFn: () => getCheckUser(''),
-    staleTime: Infinity,
-    enabled: !!Cookie.get('AccessToken')
+    // staleTime: Infinity,
+    enabled: true
   })
 
   const userData = useCheckUser.data
+  const isLoading = useCheckUser.isLoading
 
   const getCheckUser = async (AccessToken = '') => {
     try {
@@ -24,7 +25,8 @@ const useUserData = () => {
   }
 
   return {
-    userData
+    userData,
+    isLoading
   }
 }
 

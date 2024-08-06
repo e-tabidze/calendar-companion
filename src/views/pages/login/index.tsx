@@ -6,7 +6,7 @@ import Link from 'next/link'
 import { DefaultButton } from 'src/views/components/button'
 import Typography from 'src/views/components/typography'
 import { AuthUser } from 'src/types/auth'
-import { useMutation } from '@tanstack/react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useRouter } from 'next/router'
 import useUserData from 'src/hooks/useUserData'
 import Cookie from 'src/helpers/Cookie'
@@ -14,6 +14,8 @@ import { ACCESS_TOKEN_NAME, TOKEN_TIME_MINUTES } from 'src/env'
 
 const LoginPage = () => {
   const { control, errors, handleSubmit, loginValues, signin } = useLogin()
+
+  const queryClient = useQueryClient()
 
   const { userData } = useUserData()
 
@@ -32,7 +34,6 @@ const LoginPage = () => {
     },
     {
       onSuccess: (response: any) => {
-        console.log(response, 'response')
         const date = new Date()
         const minutes = TOKEN_TIME_MINUTES
         const token = response.result.data.bearer
@@ -41,8 +42,10 @@ const LoginPage = () => {
           Cookie.set(ACCESS_TOKEN_NAME, token, { expires: date, secure: true })
         }
 
+        queryClient.invalidateQueries(['userInfo'])
+
         if (userData) {
-          if (userData.active_profile === null) {
+          if (userData?.active_profile === null) {
             router.push('/workspace')
           } else if (userData?.account_connection.length === 0 || userData?.active_profile?.calendars?.length === 0) {
             router.push('/connect-account')
@@ -58,6 +61,23 @@ const LoginPage = () => {
       }
     }
   )
+
+  const authWithGoogle = () => {
+    window.location.href = 'https://api.companyon.ai/api/auth/login/google'
+
+    console.log(Cookie.get('AccessToken'), 'Cookie.get')
+    queryClient.invalidateQueries(['userInfo'])
+
+    if (userData) {
+      if (userData?.active_profile === null) {
+        router.push('/workspace')
+      } else if (userData?.account_connection.length === 0 || userData?.active_profile?.calendars?.length === 0) {
+        router.push('/connect-account')
+      } else {
+        router.push('/calendar')
+      }
+    }
+  }
 
   const onSubmit = () => {
     registerUserMutation.mutate(loginValues)
@@ -79,7 +99,7 @@ const LoginPage = () => {
             </Typography>
           </div>
 
-          <button className='relative w-full rounded-lg bg-grey-70 p-4 text-center'>
+          <button className='relative w-full rounded-lg bg-grey-70 p-4 text-center' onClick={authWithGoogle}>
             <div className="h-8 w-8 absolute top-3 bg-[url('/images/google-sign-in-icon.png')]" />
             Sign in with Google
           </button>
