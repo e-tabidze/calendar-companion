@@ -87,6 +87,7 @@ const ConnectAccountPage = () => {
           }
         ]
       }
+      
       return prevState.filter(e => e.id !== event.id)
     })
   }

@@ -6,6 +6,7 @@ const useConnectGoogleAccount = (account_id: string | null) => {
     const [, AccessToken, id] = queryKey
     try {
       const response: any = await AuthService.getGoogleListCalendars(AccessToken, id)
+      
       return response.data
     } catch (error) {
       console.error('Error fetching Google Calendars:', error)

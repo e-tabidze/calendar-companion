@@ -19,22 +19,16 @@ const authHOC = <P extends object>(WrappedComponent: React.ComponentType<P>): Re
     }, [])
 
     useEffect(() => {
-      // if (isAuthenticated && !isLoading) {
-        if (userData) {
-          if (userData.active_profile === null) {
-            router.replace('/workspace')
-          } else if (userData.account_connection.length === 0 || userData.active_profile.calendars.length === 0) {
-            router.replace('/connect-account')
-          } else {
-            router.replace('/calendar')
-          }
+      if (userData) {
+        if (userData.active_profile === null) {
+          router.replace('/workspace')
+        } else if (userData.account_connection.length === 0 || userData.active_profile.calendars.length === 0) {
+          router.replace('/connect-account')
+        } else {
+          router.replace('/calendar')
         }
-      // }
+      }
     }, [userData, isAuthenticated, isLoading])
-
-    // if (!isAuthenticated || isLoading) {
-    //   return null
-    // }
 
     return <WrappedComponent {...props} />
   }

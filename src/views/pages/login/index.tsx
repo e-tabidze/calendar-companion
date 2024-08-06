@@ -28,7 +28,7 @@ const LoginPage = () => {
     }
   ]
 
-  const registerUserMutation = useMutation(
+  const loginUserMutation = useMutation(
     (user: AuthUser) => {
       return signin(user)
     },
@@ -80,7 +80,7 @@ const LoginPage = () => {
   }
 
   const onSubmit = () => {
-    registerUserMutation.mutate(loginValues)
+    loginUserMutation.mutate(loginValues)
   }
 
   const onError = (errors: any) => {

@@ -10,6 +10,8 @@ import { useMutation } from '@tanstack/react-query'
 import { AuthUser } from 'src/types/auth'
 import { useRouter } from 'next/router'
 import useUserData from 'src/hooks/useUserData'
+import Cookie from 'src/helpers/Cookie'
+import { queryClient } from 'src/pages/_app'
 
 const RegisterPage = () => {
   const { t } = useTranslation()
@@ -59,7 +61,23 @@ const RegisterPage = () => {
   const onError = (errors: any) => {
     console.log('Errors:', errors)
   }
+  const authWithGoogle = () => {
+    window.location.href = 'https://api.companyon.ai/api/auth/login/google'
 
+    console.log(Cookie.get('AccessToken'), 'Cookie.get')
+    queryClient.invalidateQueries(['userInfo'])
+
+    if (userData) {
+      if (userData?.active_profile === null) {
+        router.push('/workspace')
+      } else if (userData?.account_connection.length === 0 || userData?.active_profile?.calendars?.length === 0) {
+        router.push('/connect-account')
+      } else {
+        router.push('/calendar')
+      }
+    }
+  }
+  
   return (
     <UnauthorizedLayout>
       <div className='h-full flex flex-col'>
@@ -71,9 +89,9 @@ const RegisterPage = () => {
             </Typography>
           </div>
 
-          <button className='relative w-full rounded-lg bg-grey-70 p-4 text-center'>
+          <button className='relative w-full rounded-lg bg-grey-70 p-4 text-center' onClick={authWithGoogle}>
             <div className="h-8 w-8 absolute top-3 bg-[url('/images/google-sign-in-icon.png')]" />
-            {t('register.signInWithGoogle')}
+            Sign up with Google
           </button>
 
           <Typography type='subtitle' color='light'>
