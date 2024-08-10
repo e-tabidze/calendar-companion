@@ -7,6 +7,7 @@ import { useState } from 'react'
 import { useMutation } from '@tanstack/react-query'
 import { useRouter } from 'next/router'
 import useUserData from 'src/hooks/useUserData'
+import { handleUserRedirection } from 'src/utils/handleUserRedirection'
 
 const GettingStartedPage = () => {
   const [currentStep, setCurrentStep] = useState(1)
@@ -25,16 +26,7 @@ const GettingStartedPage = () => {
     },
     {
       onSuccess: () => {
-        if (userData) {
-          console.log(userData, 'userdata')
-          if (userData.active_profile === null) {
-            router.push('/workspace')
-          } else if (userData?.account_connection.length === 0) {
-            router.push('/connect-account')
-          } else {
-            router.push('/calendar')
-          }
-        }
+        handleUserRedirection(userData, router)
       },
       onError: (response: any) => {
         if (response.response.status === 400 && response.response.data.result.message === 'User Already Exists') {

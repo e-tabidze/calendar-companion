@@ -10,6 +10,7 @@ import { useEffect, useState } from 'react'
 import useConnectGoogleAccount from './useConnectGoogleAccount'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useRouter } from 'next/router'
+import { handleUserRedirection } from 'src/utils/handleUserRedirection'
 
 const ConnectAccountPage = () => {
   const [accountId, setAccountId] = useState('')
@@ -55,17 +56,9 @@ const ConnectAccountPage = () => {
     onSuccess: () => {
       queryClient.invalidateQueries(['userInfo'])
 
-      if (userData) {
-        if (userData?.active_profile === null) {
-          router.push('/workspace')
-        } else if (userData?.account_connection.length === 0 || userData?.active_profile?.calendars?.length === 0) {
-          router.push('/connect-account')
-        } else {
-          router.push('/calendar')
-        }
-      }
+      handleUserRedirection(userData, router)
 
-      router.push(`/calendar`)
+      // router.push(`/calendar`)
     },
     onError: (response: any) => {
       if (response.response.status === 400 && response.response.data.result.message === 'User Already Exists') {
@@ -87,7 +80,7 @@ const ConnectAccountPage = () => {
           }
         ]
       }
-      
+
       return prevState.filter(e => e.id !== event.id)
     })
   }

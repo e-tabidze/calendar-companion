@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import useUserData from 'src/hooks/useUserData'
 import Cookie from 'src/helpers/Cookie'
+import { handleUserRedirection } from 'src/utils/handleUserRedirection'
 
 const authHOC = <P extends object>(WrappedComponent: React.ComponentType<P>): React.FC<P> => {
   const Wrapper: React.FC<P> = props => {
@@ -19,15 +20,7 @@ const authHOC = <P extends object>(WrappedComponent: React.ComponentType<P>): Re
     }, [])
 
     useEffect(() => {
-      if (userData) {
-        if (userData.active_profile === null) {
-          router.replace('/workspace')
-        } else if (userData.account_connection.length === 0 || userData.active_profile.calendars.length === 0) {
-          router.replace('/connect-account')
-        } else {
-          router.replace('/calendar')
-        }
-      }
+      handleUserRedirection(userData, router)
     }, [userData, isAuthenticated, isLoading])
 
     return <WrappedComponent {...props} />

@@ -170,7 +170,7 @@ export const DefaultInput: React.FC<Props> = ({
                 {showPassword ? (
                   <Icon svgPath='eye' width={24} height={24} />
                 ) : (
-                  <Icon svgPath='eye' width={24} height={24} />
+                  <Icon svgPath='eyeHidden' width={24} height={24} />
                 )}
               </button>
             )}

@@ -1,3 +1,4 @@
+import authHOC from "src/hoc/authHOC";
 import GettingStartedPage from "src/views/pages/getting-started";
 
 const GettingStarted = () => {
@@ -6,4 +7,4 @@ const GettingStarted = () => {
      );
 }
  
-export default GettingStarted;
+export default authHOC(GettingStarted);

@@ -7,6 +7,7 @@ import { useRouter } from 'next/router'
 import useUserData from 'src/hooks/useUserData'
 import UnauthorizedLayout from 'src/layouts/UnauthorizedLayout'
 import ProgressBar from '../getting-started/progressBar'
+import { handleUserRedirection } from 'src/utils/handleUserRedirection'
 
 const WorkspacePage = () => {
   const { userData } = useUserData()
@@ -24,15 +25,7 @@ const WorkspacePage = () => {
       onSuccess: () => {
         queryClient.invalidateQueries(['userInfo'])
 
-        if (userData) {
-          if (userData?.active_profile === null) {
-            router.push('/workspace')
-          } else if (userData?.account_connection.length === 0 || userData?.active_profile?.calendars?.length === 0) {
-            router.push('/connect-account')
-          } else {
-            router.push('/calendar')
-          }
-        }
+        handleUserRedirection(userData, router)
       },
       onError: (response: any) => {
         if (response.response.status === 400 && response.response.data.result.message === 'User Already Exists') {

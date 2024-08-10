@@ -12,6 +12,7 @@ import { useRouter } from 'next/router'
 import useUserData from 'src/hooks/useUserData'
 import Cookie from 'src/helpers/Cookie'
 import { queryClient } from 'src/pages/_app'
+import { handleUserRedirection } from 'src/utils/handleUserRedirection'
 
 const RegisterPage = () => {
   const { t } = useTranslation()
@@ -67,17 +68,9 @@ const RegisterPage = () => {
     console.log(Cookie.get('AccessToken'), 'Cookie.get')
     queryClient.invalidateQueries(['userInfo'])
 
-    if (userData) {
-      if (userData?.active_profile === null) {
-        router.push('/workspace')
-      } else if (userData?.account_connection.length === 0 || userData?.active_profile?.calendars?.length === 0) {
-        router.push('/connect-account')
-      } else {
-        router.push('/calendar')
-      }
-    }
+    handleUserRedirection(userData, router)
   }
-  
+
   return (
     <UnauthorizedLayout>
       <div className='h-full flex flex-col'>
