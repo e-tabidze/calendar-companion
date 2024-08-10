@@ -15,12 +15,10 @@ import { handleUserRedirection } from 'src/utils/handleUserRedirection'
 const ConnectAccountPage = () => {
   const [accountId, setAccountId] = useState('')
   const { userData } = useUserData()
-  const { refetchGoogleCalendarList, googleCalendarList, postGoogleCalendars } = useConnectGoogleAccount(accountId)
+  const { googleCalendarList, postGoogleCalendars } = useConnectGoogleAccount(accountId)
   const [googleConnected, setGoogleConnected] = useState(false)
   const [selectedCalendars, setSelectedCalendars] = useState<any[]>([])
   const [googleCalendars, setGoogleCalendars] = useState<any[]>([])
-
-  console.log(googleCalendars, 'googleCalendars')
 
   const router = useRouter()
 
@@ -28,7 +26,7 @@ const ConnectAccountPage = () => {
 
   const handleGoogleLogin = () => {
     window.open(
-      `${API_URL}/auth/connect/google?secret_code=${userData.information.secret_code}`,
+      `${API_URL}/auth/connect/google?secret_code=${userData?.information?.secret_code}`,
       'GoogleOAuth',
       'width=600,height=700'
     )
@@ -48,12 +46,6 @@ const ConnectAccountPage = () => {
       setAccountId(account_id)
     }
   }
-
-  // useEffect(() => {
-  //   if (accountId) {
-  //     refetchGoogleCalendarList()
-  //   }
-  // }, [accountId, refetchGoogleCalendarList])
 
   useEffect(() => {
     if (googleCalendarList) {
@@ -76,18 +68,6 @@ const ConnectAccountPage = () => {
       queryClient.invalidateQueries(['userInfo'])
 
       handleUserRedirection(userData, router)
-
-      // if (userData) {
-      //   if (userData?.active_profile === null) {
-      //     router.push('/workspace')
-      //   } else if (userData?.account_connection.length === 0 || userData?.active_profile?.calendars?.length === 0) {
-      //     router.push('/connect-account')
-      //   } else {
-      //     router.push('/calendar')
-      //   }
-      // }
-
-      // router.push(`/calendar`)
     },
     onError: (response: any) => {
       if (response.response.status === 400 && response.response.data.result.message === 'User Already Exists') {
@@ -104,16 +84,18 @@ const ConnectAccountPage = () => {
           ...prevState,
           {
             ...event,
-            account_id: accountId,
-            is_private: false
+            account_id: accountId
           }
         ]
       }
+
       return prevState.filter(e => e.id !== event.id)
     })
   }
 
   const togglePrivacy = (event: any) => {
+    setGoogleCalendars(prevState => prevState.map(e => (e.id === event.id ? { ...e, is_private: !e.is_private } : e)))
+
     setSelectedCalendars(prevState => prevState.map(e => (e.id === event.id ? { ...e, is_private: !e.is_private } : e)))
   }
 
@@ -174,7 +156,6 @@ const ConnectAccountPage = () => {
             >
               {listItem?.summary}
               <IconButton
-                // icon={selectedCalendars.find(e => e.id === listItem.id)?.is_private ? 'eyeHidden' : 'eye'}
                 icon={listItem.is_private ? 'eyeHidden' : 'eye'}
                 width={24}
                 height={24}

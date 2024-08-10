@@ -7,7 +7,6 @@ import { useState } from 'react'
 import { useMutation } from '@tanstack/react-query'
 import { useRouter } from 'next/router'
 import useUserData from 'src/hooks/useUserData'
-import { handleUserRedirection } from 'src/utils/handleUserRedirection'
 
 const GettingStartedPage = () => {
   const [currentStep, setCurrentStep] = useState(1)
@@ -26,7 +25,6 @@ const GettingStartedPage = () => {
     },
     {
       onSuccess: () => {
-        // handleUserRedirection(userData, router)
         router.push('/workspace')
       },
       onError: (response: any) => {

@@ -1,4 +1,3 @@
-import { useTranslation } from 'react-i18next'
 import UnauthorizedLayout from 'src/layouts/UnauthorizedLayout'
 import useRegister from './useRegister'
 import { DefaultInput } from 'src/views/components/input'
@@ -16,17 +15,13 @@ import toast from 'react-hot-toast'
 import Toast from 'src/views/components/toast'
 
 const RegisterPage = () => {
-  const { t } = useTranslation()
-
   const { control, errors, handleSubmit, registerValues, registerUser } = useRegister()
 
   const { userData } = useUserData()
 
   const router = useRouter()
 
-  console.log(errors, 'errors')
-
-  const options = [
+    const options = [
     {
       id: 1,
       title: (

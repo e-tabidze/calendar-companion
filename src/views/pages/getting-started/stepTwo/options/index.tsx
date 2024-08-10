@@ -1,17 +1,21 @@
 import { Controller } from 'react-hook-form'
 
+// src/types/optionsTypes.ts
+
+export interface OptionType {
+  value: string
+  label: string
+}
+
 interface Props {
   control: any
   name: string
+  options: OptionType[]
 }
 
-const Options: React.FC<Props> = ({ control, name }) => {
-  const options = [
-    { value: 'work', label: 'Work' },
-    { value: 'school', label: 'School' },
-    { value: 'personal', label: 'Personal' }
-  ]
-  
+const Options: React.FC<Props> = ({ control, name, options }) => {
+
+
   return (
     <Controller
       control={control}
