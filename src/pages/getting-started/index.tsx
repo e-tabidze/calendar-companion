@@ -1,10 +1,9 @@
-import authHOC from "src/hoc/authHOC";
-import GettingStartedPage from "src/views/pages/getting-started";
+import authHOC from 'src/hoc/authHOC'
+import GettingStartedPage from 'src/views/pages/getting-started'
 
 const GettingStarted = () => {
-    return ( 
-        <GettingStartedPage />
-     );
+    
+  return <GettingStartedPage />
 }
- 
-export default authHOC(GettingStarted);
+
+export default authHOC(GettingStarted)
