@@ -115,7 +115,7 @@ const RegisterPage = () => {
             <div className='flex w-full flex-col items-center gap-4 lg:w-[364px]'>
               <DefaultButton
                 text='Create new account'
-                bg='bg-purple-100'
+                bg='bg-primary-100'
                 className='w-full h-12 rounded-lg'
                 type='submit'
               />

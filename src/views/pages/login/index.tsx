@@ -111,7 +111,7 @@ const LoginPage = () => {
 
           <div className='mt-10 flex w-full justify-center'>
             <div className='flex w-full flex-col items-center gap-4 lg:w-[364px]'>
-              <DefaultButton text='Sign in' bg='bg-purple-100' className='w-full h-12 rounded-lg' type='submit' />
+              <DefaultButton text='Sign in' bg='bg-primary-100' className='w-full h-12 rounded-lg' type='submit' />
               <div className='flex gap-1'>
                 <Typography type='subtitle' color='light'>
                   New to Companion AI?

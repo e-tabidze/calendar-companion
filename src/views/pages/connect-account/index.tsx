@@ -122,7 +122,7 @@ const ConnectAccountPage = () => {
         <div className='flex gap-1'>
           <Typography type='subtitle' color='light' className='text-center mt-8'>
             By clicking "Connect with Google", you acknowledge that you have read and understood, and agree to{' '}
-            <Link href='/terms_and_conditions' className='text-2sm hover:underline text-purple-100'>
+            <Link href='/terms_and_conditions' className='text-2sm hover:underline text-primary-100'>
               Companion AI's Terms & Conditions and Privacy Policy
             </Link>
           </Typography>
@@ -134,7 +134,7 @@ const ConnectAccountPage = () => {
               key={listItem.id}
               className={`cursor-pointer p-3 mb-2 rounded-md flex justify-between ${
                 selectedEvents.some(id => id.id === listItem.id)
-                  ? 'bg-purple-10 text-purple-100'
+                  ? 'bg-primary-10 text-primary-100'
                   : 'bg-grey-70 text-raisin-80'
               }`}
               onClick={() => handleCalendarClick(listItem)}
@@ -155,7 +155,7 @@ const ConnectAccountPage = () => {
       </div>
       <DefaultButton
         text='Ok! Lets jump in'
-        bg='bg-purple-100'
+        bg='bg-primary-100'
         className='w-full h-12 rounded-lg'
         type='button'
         onClick={handleSubmit}

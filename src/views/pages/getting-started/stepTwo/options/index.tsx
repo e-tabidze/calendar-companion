@@ -23,7 +23,7 @@ const Options: React.FC<Props> = ({ control, name }) => {
               key={option.value}
               onClick={() => onChange(option.value)}
               className={`flex-grow py-2 text-center cursor-pointer ${
-                value === option.value ? 'bg-purple-10 text-purple-100' : 'bg-grey-70 text-raisin-80'
+                value === option.value ? 'bg-primary-10 text-primary-100' : 'bg-grey-70 text-raisin-80'
               }`}
               style={{ minWidth: '0' }}
             >

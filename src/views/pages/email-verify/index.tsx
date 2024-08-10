@@ -55,7 +55,7 @@ const EmailVerifyPage = () => {
         <div className='flex w-full flex-col gap-3 text-center lg:w-96'>
           <DefaultButton
             text='You are verified! Click to continue'
-            bg='bg-purple-100'
+            bg='bg-primary-100'
             className='p-4 rounded-lg'
             onClick={() => registerUserMutation.mutate()}
           />

@@ -38,8 +38,8 @@ const CalendarHeader = () => {
             <DefaultButton
               text='Today'
               className='text-xs w-[12] h-6 '
-              bg='bg-purple-10'
-              textColor='!text-purple-100'
+              bg='bg-primary-15'
+              textColor='!text-primary-100'
               onClick={handleToday}
             />
           </div>
@@ -47,11 +47,11 @@ const CalendarHeader = () => {
           <div className='flex items-center gap-4 text-sm'>
             <DefaultButton
               text='Invite companion now'
-              bg='bg-purple-10'
-              className='rounded-full py-1 text-2sm !text-purple-100'
+              bg='bg-primary-15'
+              className='rounded-full py-1 text-2sm !text-primary-100'
             />
-            <DefaultButton text='0 Calendars' bg='bg-purple-100' className='rounded-full py-1 text-2sm' />
-            <DefaultButton text='Share Calendar' bg='bg-purple-100' className='rounded-full py-1 text-2sm' />
+            <DefaultButton text='0 Calendars' bg='bg-primary-100' className='rounded-full py-1 text-2sm' />
+            <DefaultButton text='Share Calendar' bg='bg-primary-100' className='rounded-full py-1 text-2sm' />
             <SettingsDropdownMenu />
           </div>
         </div>

@@ -1,16 +1,21 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   mode: 'jit',
-  content: ['./src/pages/**/*.{js,ts,jsx,tsx}', './src/@core/**/*.{js,ts,jsx,tsx}', './src/views/**/*.{js,ts,jsx,tsx}', './src/layouts/**/*.{js,ts,jsx,tsx}'],
+  content: [
+    './src/pages/**/*.{js,ts,jsx,tsx}',
+    './src/@core/**/*.{js,ts,jsx,tsx}',
+    './src/views/**/*.{js,ts,jsx,tsx}',
+    './src/layouts/**/*.{js,ts,jsx,tsx}'
+  ],
   theme: {
     extend: {
       fontFamily: {
         // tbcx: ['TBCXRegular', 'sans-serif'],
-        'light': ['TBCXLight', 'sans-serif'],
-        'normal': ['TBCXRegular', 'sans-serif'],
-        'medium': ['TBCXMedium', 'sans-serif'],
-        'bold': ['TBCXBold', 'sans-serif'],
-        'black': ['TBCXBlack', 'sans-serif'],
+        light: ['TBCXLight', 'sans-serif'],
+        normal: ['TBCXRegular', 'sans-serif'],
+        medium: ['TBCXMedium', 'sans-serif'],
+        bold: ['TBCXBold', 'sans-serif'],
+        black: ['TBCXBlack', 'sans-serif'],
         sans: ['TBCXRegular', 'sans-serif']
       },
       fontSize: {
@@ -38,16 +43,21 @@ module.exports = {
         '2xl': '1536px'
       },
       colors: {
+        primary: {
+          100: '#FE5F0A', //#
+          15: '#FE5F0A26' //#
+        },
         orange: {
           130: '#B12E00',
           120: '#CA3400',
           110: '#E43B00',
-          100: '#FD4100',
+          100: '#FE5F0A', //#
           90: '#FD541A',
           80: '#FD6733',
           70: '#FE7A4D',
           30: '#FEC6B3',
           20: '#FFD9CC',
+          15: '#FE5F0A26', //#
           10: '#FFECE6'
         },
         green: {
@@ -71,7 +81,7 @@ module.exports = {
           110: '#232632',
           100: '#272A37', //#
           90: '#3D3F4B', //#
-          80: '#575e73', //#
+          80: '#575E73', //#
           70: '#686A73',
           60: '#7D7F87',
           50: '#93959B', //#
@@ -136,7 +146,7 @@ module.exports = {
           40: '#FC9999',
           30: '#FDB3B3',
           20: '#FDCCCC',
-          10: '#EA433526' //#
+          15: '#EA433526' //#
         },
         purple: {
           130: '#AD0000',
@@ -169,8 +179,5 @@ module.exports = {
       }
     }
   },
-  plugins: [
-    require('@tailwindcss/aspect-ratio'),
-    require('@tailwindcss/line-clamp'),
-  ]
+  plugins: [require('@tailwindcss/aspect-ratio'), require('@tailwindcss/line-clamp')]
 }

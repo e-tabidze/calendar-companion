@@ -10,7 +10,7 @@ const AuthSideWrapper: React.FC<Props> = ({ children }: Props) => {
 
   return (
     <div className='flex min-h-full flex-1 overflow-y-auto h-screen'>
-      <div className="fixed hidden h-full flex-col items-start justify-between gap-5 overflow-y-visible bg-purple-100 bg-[url('/icons/authBgPattern.svg')] bg-cover p-8 lg:flex lg:w-[506px]">
+      <div className="fixed hidden h-full flex-col items-start justify-between gap-5 overflow-y-visible bg-primary-100 bg-[url('/icons/authBgPattern.svg')] bg-cover p-8 lg:flex lg:w-[506px]">
         <button className='flex items-center gap-4 rounded-[30px] bg-[#00000042] px-6 py-4 font-semibold text-white backdrop-blur-2xl'>
           <Icon svgPath='linearArrowLeft' className='fill-transparent' width={20} height={20} />
           <div>{t('backToHome')}</div>

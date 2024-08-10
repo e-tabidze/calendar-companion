@@ -15,13 +15,13 @@ const SettingsDropdownMenu = () => {
         >
           <div className='p-3'>
             <VisibleDaysMenu />
-            <a className='block rounded py-2 px-3 transition font-medium hover:bg-purple-10' href='#'>
+            <a className='block rounded py-2 px-3 transition font-medium hover:bg-primary-15' href='#'>
               <p className='font-semibold text-raisin-80'>Automations</p>
             </a>
-            <a className='block rounded py-2 px-3 transition font-medium hover:bg-purple-10' href='#'>
+            <a className='block rounded py-2 px-3 transition font-medium hover:bg-primary-15' href='#'>
               <p className='font-semibold text-raisin-80'>Reports</p>
             </a>
-            <a className='block rounded py-2 px-3 transition font-medium hover:bg-purple-10' href='#'>
+            <a className='block rounded py-2 px-3 transition font-medium hover:bg-primary-15' href='#'>
               <p className='font-semibold text-raisin-80'>Log out</p>
             </a>
           </div>

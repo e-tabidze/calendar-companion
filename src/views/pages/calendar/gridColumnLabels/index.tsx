@@ -14,7 +14,7 @@ const GridColumnLabels = () => {
       {new Array(visibleDays).fill(0).map((_, index) => {
         const date = addDays(startOfPeriod, index)
         const isTodayDate = isToday(date)
-        const labelClass = isTodayDate ? 'text-purple-100' : 'text-gray-700'
+        const labelClass = isTodayDate ? 'text-primary-100' : 'text-gray-700'
         
         return (
           <div key={index} className={`flex-1 text-center text-2sm font-medium my-1 ${labelClass}`}>

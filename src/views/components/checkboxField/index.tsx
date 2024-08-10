@@ -85,7 +85,7 @@ const CheckboxField: React.FC<Props> = ({
                       <span
                         className={`flex items-center justify-center w-5 h-5 rounded border ${
                           selectedOptions.includes(option.id)
-                            ? 'border-purple-100 bg-purple-100 !fill-red-100'
+                            ? 'border-primary-100 bg-primary-100 !fill-red-100'
                             : 'border-raisin-10'
                         }`}
                       >

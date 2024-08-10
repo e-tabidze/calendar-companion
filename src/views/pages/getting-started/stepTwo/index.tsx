@@ -49,7 +49,7 @@ const StepTwo: React.FC<Props> = ({ control, onSubmit }) => {
 
         <div className='mt-10 flex w-full justify-center'>
           <div className='flex w-full flex-col items-center gap-4 lg:w-[364px]'>
-            <DefaultButton text='Next Step' bg='bg-purple-100' className='w-full h-12 rounded-lg' onClick={onSubmit} />
+            <DefaultButton text='Next Step' bg='bg-primary-100' className='w-full h-12 rounded-lg' onClick={onSubmit} />
             <DefaultButton text='Skip for now' className='border-none text-raisin-80' onClick={onSubmit} />
           </div>
         </div>

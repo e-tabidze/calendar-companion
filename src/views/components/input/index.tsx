@@ -146,7 +146,7 @@ export const DefaultInput: React.FC<Props> = ({
               className={`placeholder:text-[13px] ${rows ? 'pt-5 min-h-[80px]' : 'h-14'} ${styles.input} ${
                 value || isFocused ? 'pb-1 pt-3' : 'pt-2 pb-2'
               } ${!disabled ? 'hover:border-raisin-30' : ''} ${
-                _.get(errors, name)?.ref.name === name ? 'bg-red-10' : ''
+                _.get(errors, name)?.ref.name === name ? 'bg-red-15' : ''
               }`}
               type={type === 'password' ? (showPassword ? 'text' : 'password') : ''}
               onChange={e => {

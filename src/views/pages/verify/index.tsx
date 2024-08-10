@@ -35,7 +35,7 @@ const VerifyPage = () => {
 
       <div className='mt-8 flex flex-col items-center'>
         <div className='flex w-full flex-col gap-3 text-center lg:w-96'>
-          <DefaultButton text={t('resend')} bg='bg-purple-100' className='p-4 rounded-lg' />
+          <DefaultButton text={t('resend')} bg='bg-primary-100' className='p-4 rounded-lg' />
         </div>
       </div>
     </UnauthorizedLayout>

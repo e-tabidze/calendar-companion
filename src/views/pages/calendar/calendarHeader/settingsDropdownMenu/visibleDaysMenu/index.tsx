@@ -38,7 +38,7 @@ const VisibleDaysMenu = () => {
   return (
     <div className='text-left relative'>
       <Menu>
-        <MenuButton className='inline-flex items-center hover:bg-purple-10 w-full rounded gap-2 py-1.5 px-3 text-raisin-80 font-medium focus:outline-none data-[focus]:outline-1 data-[focus]:outline-white'>
+        <MenuButton className='inline-flex items-center hover:bg-primary-10 w-full rounded gap-2 py-1.5 px-3 text-raisin-80 font-medium focus:outline-none data-[focus]:outline-1 data-[focus]:outline-white'>
           Visible days
         </MenuButton>
 
@@ -49,7 +49,7 @@ const VisibleDaysMenu = () => {
           {visibleDaysMenuItems.map(menuItem => (
             <MenuItem key={menuItem?.value}>
               <button
-                className={`group flex w-full items-center justify-between gap-2 text-raisin-90 font-medium rounded py-1.5 px-3 hover:bg-purple-10 ${visibleDays === menuItem.value ? 'bg-purple-10 pointer-events-none' : '' }`}
+                className={`group flex w-full items-center justify-between gap-2 text-raisin-90 font-medium rounded py-1.5 px-3 hover:bg-primary-10 ${visibleDays === menuItem.value ? 'bg-primary-10 pointer-events-none' : '' }`}
                 onClick={() => setVisibleDays(menuItem.value)}
               >
                 <span>{menuItem?.label}</span>
