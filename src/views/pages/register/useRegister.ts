@@ -22,9 +22,9 @@ const useRegister = () => {
     setValue
   } = useForm({
     mode: 'onSubmit',
-    reValidateMode: 'onSubmit',
+    reValidateMode: 'onChange',
     defaultValues: registerDefaultValues,
-    resolver: yupResolver(RegisterSchema)
+    resolver: yupResolver(RegisterSchema, { abortEarly: false })
   })
 
   const registerValues: any = useWatch({ control })

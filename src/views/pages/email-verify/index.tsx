@@ -36,19 +36,13 @@ const EmailVerifyPage = () => {
   return (
     <UnauthorizedLayout>
       <div className='flex flex-col items-center gap-12 text-center'>
-        <Typography type='h1'>Please verify your email address by following link in your inbox</Typography>
+        <Typography type='h1'>Great news! Your account has been successfully verified</Typography>
 
-        <Icon svgPath='emailSentBot' width={136} height={120} />
+        <Icon svgPath='winkBot' width={185} height={164} />
 
         <Typography type='h5' color='light'>
-          {/* {t('verifyEmailCaption1')}{' '} */}
-          {`Thank you for signing up with us! We are almost there. To complete your account setup and enjoy all our
-          services, please check your  email inbox. We've sent you a verification link. Just click on it to verify your
-          account and get started. If you don't see the email, please check your spam folder. We're excited to have you
-          on board!`}
+          You're so close to starting your adventure with us! Just a few more steps and you'll be all set to go
         </Typography>
-
-        <div className='text-sm text-secondary-2'></div>
       </div>
 
       <div className='mt-8 flex flex-col items-center'>

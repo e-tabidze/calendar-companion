@@ -1,4 +1,6 @@
+import { yupResolver } from '@hookform/resolvers/yup'
 import { useForm, useWatch } from 'react-hook-form'
+import { LoginSchema } from 'src/@core/validation/LoginSchema'
 import AuthService from 'src/services/AuthService'
 import { AuthUser } from 'src/types/auth'
 
@@ -20,7 +22,8 @@ const useLogin = () => {
   } = useForm({
     mode: 'onSubmit',
     reValidateMode: 'onSubmit',
-    defaultValues: loginDefaultValues
+    defaultValues: loginDefaultValues,
+    resolver: yupResolver(LoginSchema, { abortEarly: false })
   })
 
   const loginValues: any = useWatch({ control })

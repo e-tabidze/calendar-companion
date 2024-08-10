@@ -11,6 +11,8 @@ import useConnectGoogleAccount from './useConnectGoogleAccount'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useRouter } from 'next/router'
 import { handleUserRedirection } from 'src/utils/handleUserRedirection'
+import toast from 'react-hot-toast'
+import Toast from 'src/views/components/toast'
 
 const ConnectAccountPage = () => {
   const [accountId, setAccountId] = useState('')
@@ -40,17 +42,26 @@ const ConnectAccountPage = () => {
 
     const { status, account_id } = event.data
 
-    if (status === '1') {
-      setGoogleConnected(true)
+    if (status === '1' && account_id) {
       setAccountId(account_id)
+
+      const result = await refetchGoogleCalendarList()
+
+      console.log(result, 'result')
+
+      if (result.status === 'success') {
+        setGoogleConnected(true)
+      } else if (result.status === 'error') {
+        toast.custom(<Toast type='error' title='Error detected' />)
+      }
     }
   }
 
-  useEffect(() => {
-    if (accountId) {
-      refetchGoogleCalendarList()
-    }
-  }, [accountId, refetchGoogleCalendarList])
+  // useEffect(() => {
+  //   if (accountId) {
+  //     refetchGoogleCalendarList()
+  //   }
+  // }, [accountId, refetchGoogleCalendarList])
 
   const postCalendarMutation = useMutation(() => postGoogleCalendars('', accountId, selectedEvents), {
     onSuccess: () => {
@@ -126,7 +137,11 @@ const ConnectAccountPage = () => {
               Companion AI's Terms & Conditions and Privacy Policy
             </Link>
           </Typography>
-          {googleConnected && <Typography type='subtitle' weight='medium'>Select calendars to import</Typography>}
+          {googleConnected && (
+            <Typography type='subtitle' weight='medium'>
+              Select calendars to import
+            </Typography>
+          )}
         </div>
 
         <div className='max-h-[200px] overflow-auto mt-12'>

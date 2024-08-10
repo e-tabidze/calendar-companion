@@ -12,7 +12,6 @@ interface Option {
 }
 
 interface Props {
-  
   // classList?: string
   className?: string
   name?: string
@@ -83,7 +82,7 @@ const CheckboxField: React.FC<Props> = ({
                       }}
                     >
                       <span
-                        className={`flex items-center justify-center w-5 h-5 rounded border ${
+                        className={`flex-shrink-0 flex items-center justify-center w-5 h-5 rounded border ${
                           selectedOptions.includes(option.id)
                             ? 'border-primary-100 bg-primary-100 !fill-red-100'
                             : 'border-raisin-10'

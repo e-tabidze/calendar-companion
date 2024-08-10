@@ -12,6 +12,8 @@ import useUserData from 'src/hooks/useUserData'
 import Cookie from 'src/helpers/Cookie'
 import { ACCESS_TOKEN_NAME, TOKEN_TIME_MINUTES } from 'src/env'
 import { handleUserRedirection } from 'src/utils/handleUserRedirection'
+import toast from 'react-hot-toast'
+import Toast from 'src/views/components/toast'
 
 const LoginPage = () => {
   const { control, errors, handleSubmit, loginValues, signin } = useLogin()
@@ -48,8 +50,8 @@ const LoginPage = () => {
         handleUserRedirection(userData, router)
       },
       onError: (response: any) => {
-        if (response.response.status === 400 && response.response.data.result.message === 'Incorrect Credentials') {
-          console.log('Incorrect Credentials')
+        if (response.response.status === 400) {
+          toast.custom(<Toast type='error' title={response.response.data.result.message} />)
         }
       }
     }
@@ -62,15 +64,10 @@ const LoginPage = () => {
     queryClient.invalidateQueries(['userInfo'])
 
     handleUserRedirection(userData, router)
-
   }
 
   const onSubmit = () => {
     loginUserMutation.mutate(loginValues)
-  }
-
-  const onError = (errors: any) => {
-    console.log('Errors:', errors)
   }
 
   return (
@@ -95,7 +92,7 @@ const LoginPage = () => {
           </Typography>
         </div>
 
-        <form onSubmit={handleSubmit(onSubmit, onError)} className='flex-1 shrink-0 flex flex-col justify-between'>
+        <form onSubmit={handleSubmit(onSubmit)} className='flex-1 shrink-0 flex flex-col justify-between'>
           <div className='flex flex-col gap-6'>
             <DefaultInput name='username' control={control} label='Email Address' errors={errors} />
 

@@ -10,9 +10,10 @@ import { useMutation } from '@tanstack/react-query'
 import { AuthUser } from 'src/types/auth'
 import { useRouter } from 'next/router'
 import useUserData from 'src/hooks/useUserData'
-import Cookie from 'src/helpers/Cookie'
 import { queryClient } from 'src/pages/_app'
 import { handleUserRedirection } from 'src/utils/handleUserRedirection'
+import toast from 'react-hot-toast'
+import Toast from 'src/views/components/toast'
 
 const RegisterPage = () => {
   const { t } = useTranslation()
@@ -30,9 +31,9 @@ const RegisterPage = () => {
       id: 1,
       title: (
         <>
-          {t('agree')}
-          <Link href='/rules' target='_blank' className='ml-2 text-blue-100'>
-            {t('terms_and_conditions')}
+          By clicking “Create account” you automatically agree to our
+          <Link href='/rules' target='_blank' className='ml-2 text-orange-100'>
+            Terms of Service and Privacy Policy
           </Link>
         </>
       )
@@ -49,7 +50,7 @@ const RegisterPage = () => {
       },
       onError: (response: any) => {
         if (response.response.status === 400 && response.response.data.result.message === 'User Already Exists') {
-          console.log('User Already Exists')
+          toast.custom(<Toast type='error' title='User with this email already exists' />)
         }
       }
     }
@@ -59,13 +60,8 @@ const RegisterPage = () => {
     registerUserMutation.mutate(registerValues)
   }
 
-  const onError = (errors: any) => {
-    console.log('Errors:', errors)
-  }
   const authWithGoogle = () => {
     window.location.href = 'https://api.companyon.ai/api/auth/login/google'
-
-    console.log(Cookie.get('AccessToken'), 'Cookie.get')
     queryClient.invalidateQueries(['userInfo'])
 
     handleUserRedirection(userData, router)
@@ -76,9 +72,9 @@ const RegisterPage = () => {
       <div className='h-full flex flex-col'>
         <div className='flex flex-col items-center gap-8 pb-8'>
           <div className='text-center lg:mx-9'>
-            <Typography type='h1'>{t('register.createAccount')}</Typography>
+            <Typography type='h1'>Create new account</Typography>
             <Typography type='h5' color='light'>
-              {t('register.createAccountCaption')}
+              Unlock the full potential of your meetings with Companion AI.
             </Typography>
           </div>
 
@@ -88,11 +84,11 @@ const RegisterPage = () => {
           </button>
 
           <Typography type='subtitle' color='light'>
-            {t('register.or')}
+            or
           </Typography>
         </div>
 
-        <form onSubmit={handleSubmit(onSubmit, onError)} className='flex-1 shrink-0 flex flex-col justify-between'>
+        <form onSubmit={handleSubmit(onSubmit)} className='flex-1 shrink-0 flex flex-col justify-between'>
           <div className='flex flex-col gap-6'>
             <DefaultInput name='username' control={control} label='Email Address' errors={errors} />
 
@@ -119,7 +115,7 @@ const RegisterPage = () => {
                 className='w-full h-12 rounded-lg'
                 type='submit'
               />
-              <div className='flex gap-1'>
+              <div className='flex gap-1 text-raisin-80'>
                 <Typography type='subtitle' color='light'>
                   Already have a companion?
                 </Typography>{' '}
