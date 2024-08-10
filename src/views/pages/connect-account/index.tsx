@@ -11,8 +11,6 @@ import useConnectGoogleAccount from './useConnectGoogleAccount'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useRouter } from 'next/router'
 import { handleUserRedirection } from 'src/utils/handleUserRedirection'
-import toast from 'react-hot-toast'
-import Toast from 'src/views/components/toast'
 
 const ConnectAccountPage = () => {
   const [accountId, setAccountId] = useState('')
@@ -42,20 +40,9 @@ const ConnectAccountPage = () => {
 
     const { status, account_id } = event.data
 
-    console.log(account_id, 'account_id')
-
-    if (status === '1' && account_id) {
+    if (status === '1') {
+      setGoogleConnected(true)
       setAccountId(account_id)
-
-      if (accountId) {
-        const result = await refetchGoogleCalendarList()
-
-        if (result.status === 'success') {
-          setGoogleConnected(true)
-        } else if (result.status === 'error') {
-          toast.custom(<Toast type='error' title='Error detected' />)
-        }
-      }
     }
   }
 
@@ -70,6 +57,16 @@ const ConnectAccountPage = () => {
       queryClient.invalidateQueries(['userInfo'])
 
       handleUserRedirection(userData, router)
+
+      // if (userData) {
+      //   if (userData?.active_profile === null) {
+      //     router.push('/workspace')
+      //   } else if (userData?.account_connection.length === 0 || userData?.active_profile?.calendars?.length === 0) {
+      //     router.push('/connect-account')
+      //   } else {
+      //     router.push('/calendar')
+      //   }
+      // }
 
       // router.push(`/calendar`)
     },
@@ -89,11 +86,10 @@ const ConnectAccountPage = () => {
           {
             ...event,
             account_id: accountId,
-            is_private: true
+            is_private: false
           }
         ]
       }
-
       return prevState.filter(e => e.id !== event.id)
     })
   }
@@ -135,7 +131,7 @@ const ConnectAccountPage = () => {
         <div className='flex flex-col text-center gap-1'>
           <Typography type='subtitle' color='light' className='text-center my-8'>
             By clicking "Connect with Google", you acknowledge that you have read and understood, and agree to{' '}
-            <Link href='/terms_and_conditions' className='text-2sm hover:underline text-primary-100'>
+            <Link href='/terms_and_conditions' className='text-2sm hover:underline text-purple-100'>
               Companion AI's Terms & Conditions and Privacy Policy
             </Link>
           </Typography>
@@ -146,21 +142,18 @@ const ConnectAccountPage = () => {
           )}
         </div>
 
-        <div className='max-h-[200px] overflow-auto mt-12 hide-scrollbar'>
+        <div className='max-h-[200px] overflow-auto mt-12'>
           {googleCalendarList?.map((listItem: any) => (
             <div
               key={listItem.id}
-              className={`cursor-pointer relative text-2sm h-[58px] px-4 flex items-center mb-2 rounded-md justify-between ${
+              className={`cursor-pointer p-3 mb-2 rounded-md flex justify-between ${
                 selectedEvents.some(id => id.id === listItem.id)
-                  ? 'bg-primary-15 text-primary-100 border border-primary-100'
-                  : 'bg-grey-70 text-raisin-80 border border-grey-70'
+                  ? 'bg-purple-10 text-purple-100'
+                  : 'bg-grey-70 text-raisin-80'
               }`}
               onClick={() => handleCalendarClick(listItem)}
             >
-              <div className='flex flex-col'>
-                {listItem.primary && <span className='inline-block text-xs text-primary-100 top-2'>Primary</span>}
-                {listItem?.summary}
-              </div>
+              {listItem?.summary}
               <IconButton
                 icon={selectedEvents.find(e => e.id === listItem.id)?.is_private ? 'eyeHidden' : 'eye'}
                 width={24}
