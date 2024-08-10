@@ -131,7 +131,7 @@ const ConnectAccountPage = () => {
         </button>
 
         <div className='flex flex-col text-center gap-1'>
-          <Typography type='subtitle' color='light' className='text-center mt-8'>
+          <Typography type='subtitle' color='light' className='text-center my-8'>
             By clicking "Connect with Google", you acknowledge that you have read and understood, and agree to{' '}
             <Link href='/terms_and_conditions' className='text-2sm hover:underline text-primary-100'>
               Companion AI's Terms & Conditions and Privacy Policy
@@ -144,23 +144,26 @@ const ConnectAccountPage = () => {
           )}
         </div>
 
-        <div className='max-h-[200px] overflow-auto mt-12'>
+        <div className='max-h-[200px] overflow-auto mt-12 hide-scrollbar'>
           {googleCalendarList?.map((listItem: any) => (
             <>
               {console.log(listItem, 'listItem')}
 
               <div
                 key={listItem.id}
-                className={`cursor-pointer p-3 mb-2 rounded-md flex justify-between ${
+                className={`cursor-pointer relative text-2sm h-[58px] px-4 flex items-center mb-2 rounded-md justify-between ${
                   selectedEvents.some(id => id.id === listItem.id)
-                    ? 'bg-primary-10 text-primary-100'
-                    : 'bg-grey-70 text-raisin-80'
+                    ? 'bg-primary-15 text-primary-100 border border-primary-100'
+                    : 'bg-grey-70 text-raisin-80 border border-grey-70'
                 }`}
                 onClick={() => handleCalendarClick(listItem)}
               >
-                {listItem?.summary}
+                <div className='flex flex-col'>
+                  {listItem.primary && <span className='inline-block text-xs text-primary-100 top-2'>Primary</span>}
+                  {listItem?.summary}
+                </div>
                 <IconButton
-                  icon={selectedEvents.find(e => e.id === listItem.id)?.is_private ? 'padlock' : 'padlockOpen'}
+                  icon={selectedEvents.find(e => e.id === listItem.id)?.is_private ? 'eyeHidden' : 'eye'}
                   width={24}
                   height={24}
                   onClick={(e: any) => {
@@ -176,7 +179,7 @@ const ConnectAccountPage = () => {
       <DefaultButton
         text='Ok! Lets jump in'
         bg='bg-primary-100'
-        className='w-full h-12 rounded-lg'
+        className='w-full h-12 rounded-lg flex-shrink-0'
         type='button'
         onClick={handleSubmit}
         disabled={!googleConnected}
