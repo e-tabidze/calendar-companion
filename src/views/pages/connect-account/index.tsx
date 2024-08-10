@@ -17,7 +17,10 @@ const ConnectAccountPage = () => {
   const { userData } = useUserData()
   const { refetchGoogleCalendarList, googleCalendarList, postGoogleCalendars } = useConnectGoogleAccount(accountId)
   const [googleConnected, setGoogleConnected] = useState(false)
-  const [selectedEvents, setSelectedEvents] = useState<any[]>([])
+  const [selectedCalendars, setSelectedCalendars] = useState<any[]>([])
+  const [googleCalendars, setGoogleCalendars] = useState<any[]>([])
+
+  console.log(googleCalendars, 'googleCalendars')
 
   const router = useRouter()
 
@@ -52,7 +55,23 @@ const ConnectAccountPage = () => {
   //   }
   // }, [accountId, refetchGoogleCalendarList])
 
-  const postCalendarMutation = useMutation(() => postGoogleCalendars('', accountId, selectedEvents), {
+  useEffect(() => {
+    if (googleCalendarList) {
+      // Map over the googleCalendarList to set the is_private key based on the primary property
+      const updatedEvents = googleCalendarList.map((item: any) => ({
+        ...item,
+        is_private: item.primary === true ? false : item.primary === null ? true : false
+      }))
+
+      setGoogleCalendars(updatedEvents)
+
+      const primaryEvents = updatedEvents.filter((item: any) => item.primary)
+
+      setSelectedCalendars(prevState => [...prevState, ...primaryEvents])
+    }
+  }, [googleCalendarList])
+
+  const postCalendarMutation = useMutation(() => postGoogleCalendars('', accountId, selectedCalendars), {
     onSuccess: () => {
       queryClient.invalidateQueries(['userInfo'])
 
@@ -78,7 +97,7 @@ const ConnectAccountPage = () => {
   })
 
   const handleCalendarClick = (event: any) => {
-    setSelectedEvents(prevState => {
+    setSelectedCalendars(prevState => {
       const index = prevState.findIndex(e => e.id === event.id)
       if (index === -1) {
         return [
@@ -95,7 +114,7 @@ const ConnectAccountPage = () => {
   }
 
   const togglePrivacy = (event: any) => {
-    setSelectedEvents(prevState => prevState.map(e => (e.id === event.id ? { ...e, is_private: !e.is_private } : e)))
+    setSelectedCalendars(prevState => prevState.map(e => (e.id === event.id ? { ...e, is_private: !e.is_private } : e)))
   }
 
   const handleSubmit = () => {
@@ -143,19 +162,20 @@ const ConnectAccountPage = () => {
         </div>
 
         <div className='max-h-[200px] overflow-auto mt-12'>
-          {googleCalendarList?.map((listItem: any) => (
+          {googleCalendars?.map((listItem: any) => (
             <div
               key={listItem.id}
               className={`cursor-pointer p-3 mb-2 rounded-md flex justify-between ${
-                selectedEvents.some(id => id.id === listItem.id)
-                  ? 'bg-purple-10 text-purple-100'
-                  : 'bg-grey-70 text-raisin-80'
+                selectedCalendars.some(id => id.id === listItem.id)
+                  ? 'bg-primary-15 text-primary-100 border border-primary-100'
+                  : 'bg-grey-70 text-raisin-80 border-grey-70'
               }`}
               onClick={() => handleCalendarClick(listItem)}
             >
               {listItem?.summary}
               <IconButton
-                icon={selectedEvents.find(e => e.id === listItem.id)?.is_private ? 'eyeHidden' : 'eye'}
+                // icon={selectedCalendars.find(e => e.id === listItem.id)?.is_private ? 'eyeHidden' : 'eye'}
+                icon={listItem.is_private ? 'eyeHidden' : 'eye'}
                 width={24}
                 height={24}
                 onClick={(e: any) => {

@@ -35,8 +35,6 @@ const useConnectGoogleAccount = (account_id: string | null) => {
   const googleCalendarList = fetchListGoogleCalendar.data?.result?.data?.items
   const refetchGoogleCalendarList = fetchListGoogleCalendar.refetch
 
-  console.log(googleCalendarList, 'googleCalendarList')
-
   return {
     googleCalendarList,
     refetchGoogleCalendarList,
