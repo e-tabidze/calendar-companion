@@ -119,37 +119,42 @@ const ConnectAccountPage = () => {
           />
         </button>
 
-        <div className='flex gap-1'>
+        <div className='flex flex-col text-center gap-1'>
           <Typography type='subtitle' color='light' className='text-center mt-8'>
             By clicking "Connect with Google", you acknowledge that you have read and understood, and agree to{' '}
             <Link href='/terms_and_conditions' className='text-2sm hover:underline text-primary-100'>
               Companion AI's Terms & Conditions and Privacy Policy
             </Link>
           </Typography>
+          {googleConnected && <Typography type='subtitle' weight='medium'>Select calendars to import</Typography>}
         </div>
 
         <div className='max-h-[200px] overflow-auto mt-12'>
           {googleCalendarList?.map((listItem: any) => (
-            <div
-              key={listItem.id}
-              className={`cursor-pointer p-3 mb-2 rounded-md flex justify-between ${
-                selectedEvents.some(id => id.id === listItem.id)
-                  ? 'bg-primary-10 text-primary-100'
-                  : 'bg-grey-70 text-raisin-80'
-              }`}
-              onClick={() => handleCalendarClick(listItem)}
-            >
-              {listItem?.summary}
-              <IconButton
-                icon={selectedEvents.find(e => e.id === listItem.id)?.is_private ? 'padlock' : 'padlockOpen'}
-                width={24}
-                height={24}
-                onClick={(e: any) => {
-                  e.stopPropagation()
-                  togglePrivacy(listItem)
-                }}
-              />
-            </div>
+            <>
+              {console.log(listItem, 'listItem')}
+
+              <div
+                key={listItem.id}
+                className={`cursor-pointer p-3 mb-2 rounded-md flex justify-between ${
+                  selectedEvents.some(id => id.id === listItem.id)
+                    ? 'bg-primary-10 text-primary-100'
+                    : 'bg-grey-70 text-raisin-80'
+                }`}
+                onClick={() => handleCalendarClick(listItem)}
+              >
+                {listItem?.summary}
+                <IconButton
+                  icon={selectedEvents.find(e => e.id === listItem.id)?.is_private ? 'padlock' : 'padlockOpen'}
+                  width={24}
+                  height={24}
+                  onClick={(e: any) => {
+                    e.stopPropagation()
+                    togglePrivacy(listItem)
+                  }}
+                />
+              </div>
+            </>
           ))}
         </div>
       </div>

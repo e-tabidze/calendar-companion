@@ -126,8 +126,8 @@ const SelectField: React.FC<Props> = ({
       ...provided,
       padding: '10px 20px',
       cursor: 'pointer',
-      backgroundColor: state.isSelected ? '#434CE626' : state.isFocused ? '#434CE626' : '#F6F7F9',
-      color: state.isSelected ? '#434CE6' : '#000',
+      backgroundColor: state.isSelected ? '#FE5F0A26' : state.isFocused ? '#FE5F0A26' : '#F6F7F9',
+      color: state.isSelected ? '#FE5F0A' : '#000',
       fontWeight: state.isSelected ? '600' : '400'
     })
   }
@@ -147,8 +147,8 @@ const SelectField: React.FC<Props> = ({
                 borderRadius: 0,
                 colors: {
                   ...theme.colors,
-                  primary: '#434CE626',
-                  primary25: '#434CE626'
+                  primary: '#FE5F0A26',
+                  primary25: '#FE5F0A26'
                 }
               })}
               value={

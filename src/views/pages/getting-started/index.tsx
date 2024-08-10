@@ -26,7 +26,8 @@ const GettingStartedPage = () => {
     },
     {
       onSuccess: () => {
-        handleUserRedirection(userData, router)
+        // handleUserRedirection(userData, router)
+        router.push('/workspace')
       },
       onError: (response: any) => {
         if (response.response.status === 400 && response.response.data.result.message === 'User Already Exists') {

@@ -36,7 +36,7 @@ const StepOne: React.FC<Props> = ({ control, errors, goNextStep }) => {
               className='w-full h-12 rounded-lg'
               onClick={goNextStep}
             />
-            <DefaultButton text='Skip for now' className='border-none text-raisin-80' />
+            <DefaultButton text='Skip for now' className='border-none text-raisin-80' onClick={goNextStep} />
           </div>
         </div>
       </div>
