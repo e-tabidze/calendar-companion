@@ -1,11 +1,8 @@
-import RegisterPage from "src/views/pages/register"
+import RegisterPage from 'src/views/pages/register'
 
 const Register = () => {
-  return (
-    <>
-      <RegisterPage />
-    </>
-  )
+  
+  return <RegisterPage />
 }
 
 export default Register

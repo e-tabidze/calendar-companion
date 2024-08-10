@@ -123,7 +123,7 @@ const RegisterPage = () => {
                 <Typography type='subtitle' color='light'>
                   Already have a companion?
                 </Typography>{' '}
-                <Link href='/login' className='text-2sm hover:underline'>
+                <Link href='/login' className='text-2sm text-primary-100 hover:underline'>
                   Sign in
                 </Link>
               </div>
