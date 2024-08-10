@@ -42,17 +42,19 @@ const ConnectAccountPage = () => {
 
     const { status, account_id } = event.data
 
+    console.log(account_id, 'account_id')
+
     if (status === '1' && account_id) {
       setAccountId(account_id)
 
-      const result = await refetchGoogleCalendarList()
+      if (accountId) {
+        const result = await refetchGoogleCalendarList()
 
-      console.log(result, 'result')
-
-      if (result.status === 'success') {
-        setGoogleConnected(true)
-      } else if (result.status === 'error') {
-        toast.custom(<Toast type='error' title='Error detected' />)
+        if (result.status === 'success') {
+          setGoogleConnected(true)
+        } else if (result.status === 'error') {
+          toast.custom(<Toast type='error' title='Error detected' />)
+        }
       }
     }
   }
@@ -87,7 +89,7 @@ const ConnectAccountPage = () => {
           {
             ...event,
             account_id: accountId,
-            is_private: false
+            is_private: true
           }
         ]
       }
@@ -146,33 +148,29 @@ const ConnectAccountPage = () => {
 
         <div className='max-h-[200px] overflow-auto mt-12 hide-scrollbar'>
           {googleCalendarList?.map((listItem: any) => (
-            <>
-              {console.log(listItem, 'listItem')}
-
-              <div
-                key={listItem.id}
-                className={`cursor-pointer relative text-2sm h-[58px] px-4 flex items-center mb-2 rounded-md justify-between ${
-                  selectedEvents.some(id => id.id === listItem.id)
-                    ? 'bg-primary-15 text-primary-100 border border-primary-100'
-                    : 'bg-grey-70 text-raisin-80 border border-grey-70'
-                }`}
-                onClick={() => handleCalendarClick(listItem)}
-              >
-                <div className='flex flex-col'>
-                  {listItem.primary && <span className='inline-block text-xs text-primary-100 top-2'>Primary</span>}
-                  {listItem?.summary}
-                </div>
-                <IconButton
-                  icon={selectedEvents.find(e => e.id === listItem.id)?.is_private ? 'eyeHidden' : 'eye'}
-                  width={24}
-                  height={24}
-                  onClick={(e: any) => {
-                    e.stopPropagation()
-                    togglePrivacy(listItem)
-                  }}
-                />
+            <div
+              key={listItem.id}
+              className={`cursor-pointer relative text-2sm h-[58px] px-4 flex items-center mb-2 rounded-md justify-between ${
+                selectedEvents.some(id => id.id === listItem.id)
+                  ? 'bg-primary-15 text-primary-100 border border-primary-100'
+                  : 'bg-grey-70 text-raisin-80 border border-grey-70'
+              }`}
+              onClick={() => handleCalendarClick(listItem)}
+            >
+              <div className='flex flex-col'>
+                {listItem.primary && <span className='inline-block text-xs text-primary-100 top-2'>Primary</span>}
+                {listItem?.summary}
               </div>
-            </>
+              <IconButton
+                icon={selectedEvents.find(e => e.id === listItem.id)?.is_private ? 'eyeHidden' : 'eye'}
+                width={24}
+                height={24}
+                onClick={(e: any) => {
+                  e.stopPropagation()
+                  togglePrivacy(listItem)
+                }}
+              />
+            </div>
           ))}
         </div>
       </div>
