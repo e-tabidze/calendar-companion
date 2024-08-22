@@ -7,34 +7,34 @@ class AuthService extends HttpService {
   }
 
   postSignIn(AccessToken = '', loginData: AuthUser) {
-    return this.post('/signin', loginData, AccessToken ? { Authorization: `${AccessToken}` } : {})
+    return this.post('/api/signin', loginData, AccessToken ? { Authorization: `${AccessToken}` } : {})
   }
 
   postVerifyEmail(AccessToken = '', code: string) {
-    return this.post(`/verify-email/${code}`, code, AccessToken ? { Authorization: `${AccessToken}` } : {})
+    return this.post(`/api/verify-email/${code}`, code, AccessToken ? { Authorization: `${AccessToken}` } : {})
   }
 
   getCheckUser(AccessToken = '') {
-    return this.get(`/auth/check`, AccessToken ? { Authorization: `${AccessToken}` } : {})
+    return this.get(`/api/auth/check`, AccessToken ? { Authorization: `${AccessToken}` } : {})
   }
 
   putUsers(AccessToken = '', id: string | number, userData: any) {
-    return this.put(`/users/${id}`, userData, AccessToken ? { Authorization: `${AccessToken}` } : {})
+    return this.put(`/api/users/${id}`, userData, AccessToken ? { Authorization: `${AccessToken}` } : {})
   }
 
   postWorkspace(AccessToken = '', workspaceData: Workspace) {
-    return this.post(`/companies`, workspaceData, AccessToken ? { Authorization: `${AccessToken}` } : {})
+    return this.post(`/api/companies`, workspaceData, AccessToken ? { Authorization: `${AccessToken}` } : {})
   }
 
   getGoogleListCalendars(AccessToken = '', account_id: string) {
     return this.get(
-      `/list-google-calendars?account_id=${account_id}`,
+      `/api/list-google-calendars?account_id=${account_id}`,
       AccessToken ? { Authorization: `${AccessToken}` } : {}
     )
   }
 
   postGoogleCalendars(AccessToken = '', account_id: string, calendar: any) {
-    return this.post(`/google-calendars?account_id=${account_id}`, calendar, AccessToken ? { Authorization: `${AccessToken}` } : {})
+    return this.post(`/api/google-calendars?account_id=${account_id}`, calendar, AccessToken ? { Authorization: `${AccessToken}` } : {})
   }
 }
 

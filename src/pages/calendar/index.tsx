@@ -4,9 +4,13 @@ import CalendarGrid from 'src/views/pages/calendar/calendarGrid'
 import CalendarGridTimeline from 'src/views/pages/calendar/calendarGridTimeline'
 import CalendarHeader from 'src/views/pages/calendar/calendarHeader'
 import GridColumnLabels from 'src/views/pages/calendar/gridColumnLabels'
+import useCalendar from 'src/views/pages/calendar/useCalendar'
 
 const Calendar = () => {
   const { headerHeight } = useCalendarContext()
+  const { googleEventsData } = useCalendar()
+
+  console.log(googleEventsData, 'googleEventsData')
 
   return (
     <>
