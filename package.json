@@ -42,8 +42,6 @@
     "react-hot-toast": "^2.4.0",
     "react-i18next": "^13.5.0",
     "react-select": "^5.7.0",
-    "socket.io": "^4.7.5",
-    "socket.io-client": "^4.7.5",
     "tailwind-styled-components": "^2.2.0",
     "transform-loader": "^0.2.4",
     "webworkify-webpack": "1.0.6",
