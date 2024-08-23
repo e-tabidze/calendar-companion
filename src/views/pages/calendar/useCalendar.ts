@@ -2,8 +2,9 @@ import { useQuery } from '@tanstack/react-query'
 import CalendarService from 'src/services/CalendarService'
 import { useEffect, useState } from 'react'
 
-const useCalendar = () => {
+const useCalendar = (workspaceId: any) => {
   const [socket, setSocket] = useState<WebSocket | null>(null)
+  const [syncing, setSyncing] = useState(false)
 
   const getGoogleEvents = async (AccessToken = '', workspaceId: string, start_date: string, end_date: string) => {
     try {
@@ -16,28 +17,44 @@ const useCalendar = () => {
     }
   }
 
+  console.log(syncing, 'syncing')
+
   const useGetGoogleEvents = useQuery({
-    queryKey: ['userInfo'],
-    queryFn: () => getGoogleEvents('', '737b740e-8b0f-4034-87b2-5af4bd4d1dba', '2024-01-01', '2024-02-02'),
-    enabled: true
+    queryKey: ['calendarEvents'],
+    queryFn: () => workspaceId ?  getGoogleEvents('', workspaceId, '', '') : Promise.resolve({ data: null }),
+    enabled: !!workspaceId
   })
 
-  const googleEventsData = useGetGoogleEvents.data
+  const googleEventsData = useGetGoogleEvents.data?.result?.data
+  const isLoading = useGetGoogleEvents.isLoading
 
   useEffect(() => {
-    if (useGetGoogleEvents.isSuccess && googleEventsData) {
-      const ws = new WebSocket(`ws://localhost:5000/ws?workspace_id=737b740e-8b0f-4034-87b2-5af4bd4d1dba`)
+    if (useGetGoogleEvents.isSuccess && googleEventsData && !!workspaceId) {
+      const ws = new WebSocket(`wss://api.companyon.ai/ws?workspace_id=${workspaceId}`)
 
       ws.onopen = () => {
         console.log('Connected to WebSocket server')
       }
 
-      ws.onmessage = (event) => {
-        console.log('Received data from WebSocket:', event.data)
-        useGetGoogleEvents.refetch()
+      ws.onmessage = event => {
+        if (event.data) {
+          try {
+            const data = JSON.parse(event.data) // Parse the JSON data
+
+            if (data.message == 'sync') {
+              setSyncing(true) // Assuming you have a `setSyncing` state handler
+            } else if (data.message == 'refetch') {
+              useGetGoogleEvents.refetch()
+              setSyncing(false) // Assuming you have a `setSyncing` state handler
+              // Refetch the events if message is 'refetch'
+            }
+          } catch (error) {
+            console.error('Failed to parse WebSocket message:', error)
+          }
+        }
       }
 
-      ws.onerror = (error) => {
+      ws.onerror = error => {
         console.error('WebSocket error:', error)
       }
 
@@ -55,7 +72,7 @@ const useCalendar = () => {
     }
   }, [useGetGoogleEvents.isSuccess, googleEventsData])
 
-  return { googleEventsData, socket }
+  return { googleEventsData, socket, isLoading }
 }
 
 export default useCalendar
