@@ -116,7 +116,12 @@ const ConnectAccountPage = () => {
           </div>
         </div>
 
-        <button className={`relative w-full rounded-lg bg-grey-70 p-4 text-center border ${googleConnected ? 'border-green-100' : 'border-grey-70'} `} onClick={handleGoogleLogin}>
+        <button
+          className={`relative w-full rounded-lg bg-grey-70 p-4 text-center border ${
+            googleConnected ? 'border-green-100' : 'border-grey-70'
+          } `}
+          onClick={handleGoogleLogin}
+        >
           <div className="h-8 w-8 absolute top-3 bg-[url('/images/google-meet.png')]" />
           {googleConnected ? 'Google Account is Connected' : 'Connect with Google'}
           <Icon
@@ -144,26 +149,32 @@ const ConnectAccountPage = () => {
 
         <div className='max-h-[200px] overflow-auto mt-12'>
           {googleCalendars?.map((listItem: any) => (
-            <div
-              key={listItem.id}
-              className={`cursor-pointer p-3 mb-2 rounded-md flex justify-between ${
-                selectedCalendars.some(id => id.id === listItem.id)
-                  ? 'bg-primary-15 text-primary-100 border border-primary-100'
-                  : 'bg-grey-70 text-raisin-80 border-grey-70'
-              }`}
-              onClick={() => handleCalendarClick(listItem)}
-            >
-              {listItem?.summary}
-              <IconButton
-                icon={listItem.is_private ? 'eyeHidden' : 'eye'}
-                width={24}
-                height={24}
-                onClick={(e: any) => {
-                  e.stopPropagation()
-                  togglePrivacy(listItem)
-                }}
-              />
-            </div>
+            <>
+              {console.log(listItem, 'listItem')}
+              <button
+                key={listItem.id}
+                className={`w-full border p-3 mb-2 rounded-md flex justify-between ${
+                  selectedCalendars.some(id => id.id === listItem.id)
+                    ? 'bg-primary-15 text-primary-100 border-primary-100'
+                    : 'bg-grey-70 text-raisin-80 border-grey-70'
+                } ${listItem?.primary === true ? 'cursor-not-allowed' : 'cursor-pointer'}`}
+                disabled={listItem?.primary === true}
+                onClick={() => handleCalendarClick(listItem)}
+              >
+                {listItem?.summary}
+                {listItem?.primary !== true && (
+                  <IconButton
+                    icon={listItem.is_private ? 'eyeHidden' : 'eye'}
+                    width={24}
+                    height={24}
+                    onClick={(e: any) => {
+                      e.stopPropagation()
+                      togglePrivacy(listItem)
+                    }}
+                  />
+                )}
+              </button>
+            </>
           ))}
         </div>
       </div>
