@@ -147,21 +147,28 @@ const ConnectAccountPage = () => {
           )}
         </div>
 
-        <div className='max-h-[200px] overflow-auto mt-12'>
+        <div className='max-h-[180px] overflow-auto mt-12'>
           {googleCalendars?.map((listItem: any) => (
             <>
               {console.log(listItem, 'listItem')}
               <button
                 key={listItem.id}
-                className={`w-full border p-3 mb-2 rounded-md flex justify-between ${
-                  selectedCalendars.some(id => id.id === listItem.id)
-                    ? 'bg-primary-15 text-primary-100 border-primary-100'
-                    : 'bg-grey-70 text-raisin-80 border-grey-70'
-                } ${listItem?.primary === true ? 'cursor-not-allowed' : 'cursor-pointer'}`}
+                className={`w-full border text-raisin-130 px-3 py-2 h-16 mb-2 rounded-md flex items-center justify-between ${
+                  selectedCalendars.some(id => id.id === listItem.id) ? 'bg-primary-15 ' : 'bg-grey-70 '
+                } ${
+                  listItem?.primary === true ? 'border-primary-100 cursor-not-allowed' : 'border-grey-70 cursor-pointer'
+                }`}
                 disabled={listItem?.primary === true}
                 onClick={() => handleCalendarClick(listItem)}
               >
-                {listItem?.summary}
+                <div className='text-left flex flex-col h-full justify-center'>
+                  {listItem?.primary === true && (
+                    <Typography type='body' className='text-primary-100'>
+                      Primary
+                    </Typography>
+                  )}
+                  {listItem?.summary}
+                </div>
                 {listItem?.primary !== true && (
                   <IconButton
                     icon={listItem.is_private ? 'eyeHidden' : 'eye'}
