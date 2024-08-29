@@ -15,13 +15,13 @@ import toast from 'react-hot-toast'
 import Toast from 'src/views/components/toast'
 
 const RegisterPage = () => {
-  const { control, errors, handleSubmit, registerValues, registerUser } = useRegister()
+  const { control, errors, handleSubmit, registerValues, registerUser, trigger } = useRegister()
 
   const { userData } = useUserData()
 
   const router = useRouter()
 
-    const options = [
+  const options = [
     {
       id: 1,
       title: (
@@ -87,7 +87,7 @@ const RegisterPage = () => {
           <div className='flex flex-col gap-6'>
             <DefaultInput name='username' control={control} label='Email Address' errors={errors} />
 
-            <DefaultInput name='password' type='password' control={control} label='Password' errors={errors} />
+            <DefaultInput name='password' type='password' control={control} label='Password' errors={errors} onBlur={() => trigger('password')} />
 
             <DefaultInput
               name='repeat_password'

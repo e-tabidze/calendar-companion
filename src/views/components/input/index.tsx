@@ -39,6 +39,7 @@ interface Props {
   placeholder?: string
   inputValue?: string
   min?: number
+  onBlur?: any
 }
 
 export const DefaultInput: React.FC<Props> = ({
@@ -54,7 +55,8 @@ export const DefaultInput: React.FC<Props> = ({
   className,
   index,
   type = 'text',
-  min
+  min,
+  onBlur
 }) => {
   const [isFocused, setIsFocused] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
@@ -140,7 +142,7 @@ export const DefaultInput: React.FC<Props> = ({
             </label>
             <InputComponent
               onFocus={handleFocus}
-              onBlur={handleBlur}
+              onBlur={() => {handleBlur(); onBlur && onBlur()}}
               disabled={disabled}
               value={value || ''}
               className={`placeholder:text-md placeholder:text-raisin-40 placeholder:font-medium ${
