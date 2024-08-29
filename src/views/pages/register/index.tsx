@@ -85,7 +85,7 @@ const RegisterPage = () => {
 
         <form onSubmit={handleSubmit(onSubmit)} className='flex-1 shrink-0 flex flex-col justify-between'>
           <div className='flex flex-col gap-6'>
-            <DefaultInput name='username' control={control} label='Email Address' errors={errors} />
+            <DefaultInput name='username' control={control} label='Email Address' errors={errors} onBlur={() => trigger('username')} />
 
             <DefaultInput name='password' type='password' control={control} label='Password' errors={errors} onBlur={() => trigger('password')} />
 

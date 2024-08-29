@@ -38,7 +38,7 @@ const EmailVerifyPage = () => {
       <div className='flex flex-col items-center gap-12 text-center'>
         <Typography type='h1'>Great news! Your account has been successfully verified</Typography>
 
-        <Icon svgPath='winkBot' width={185} height={164} />
+        <Icon svgPath='winkBot' width={185} height={164} color="#FE5F0A" />
 
         <Typography type='h5' color='light'>
           You're so close to starting your adventure with us! Just a few more steps and you'll be all set to go
