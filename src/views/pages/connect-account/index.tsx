@@ -26,7 +26,7 @@ const ConnectAccountPage = () => {
 
   const handleGoogleLogin = () => {
     window.open(
-      `${API_URL}/auth/connect/google?secret_code=${userData?.information?.secret_code}`,
+      `${API_URL}/api/auth/connect/google?secret_code=${userData?.information?.secret_code}`,
       'GoogleOAuth',
       'width=600,height=700'
     )

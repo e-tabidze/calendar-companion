@@ -3,7 +3,7 @@ import { AuthUser, Workspace } from 'src/types/auth'
 
 class AuthService extends HttpService {
   postRegister(AccessToken = '', registerUserData: AuthUser) {
-    return this.post('/signup', registerUserData, AccessToken ? { Authorization: `${AccessToken}` } : {})
+    return this.post('/api/signup', registerUserData, AccessToken ? { Authorization: `${AccessToken}` } : {})
   }
 
   postSignIn(AccessToken = '', loginData: AuthUser) {
