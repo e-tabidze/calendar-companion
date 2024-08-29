@@ -49,7 +49,6 @@ const ConnectAccountPage = () => {
 
   useEffect(() => {
     if (googleCalendarList) {
-      // Map over the googleCalendarList to set the is_private key based on the primary property
       const updatedEvents = googleCalendarList.map((item: any) => ({
         ...item,
         is_private: item.primary === true ? false : item.primary === null ? true : false
@@ -117,7 +116,7 @@ const ConnectAccountPage = () => {
           </div>
         </div>
 
-        <button className='relative w-full rounded-lg bg-grey-70 p-4 text-center' onClick={handleGoogleLogin}>
+        <button className={`relative w-full rounded-lg bg-grey-70 p-4 text-center border ${googleConnected ? 'border-green-100' : 'border-grey-70'} `} onClick={handleGoogleLogin}>
           <div className="h-8 w-8 absolute top-3 bg-[url('/images/google-meet.png')]" />
           {googleConnected ? 'Google Account is Connected' : 'Connect with Google'}
           <Icon
