@@ -116,6 +116,10 @@ const ConnectAccountPage = () => {
           </div>
         </div>
 
+        {/* <CustomTooltip id='tooltip1' place='top' effect='solid'>
+          <button>Hover over me</button>
+        </CustomTooltip> */}
+
         <button
           className={`relative w-full rounded-lg bg-grey-70 p-4 text-center border ${
             googleConnected ? 'border-green-100' : 'border-grey-70'
