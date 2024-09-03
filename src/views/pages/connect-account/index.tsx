@@ -162,6 +162,14 @@ const ConnectAccountPage = () => {
         <div className='max-h-[180px] overflow-auto mt-12'>
           {googleCalendars?.map((listItem: any) => (
             <>
+              <CustomTooltip
+                id={`tooltip-${listItem.id}`}
+                place='top'
+                currentPage={1}
+                totalPages={3}
+                onNext={handleNext}
+                onDone={handleDone}
+              />
               <button
                 key={listItem.id}
                 className={`w-full border text-raisin-130 px-3 py-2 h-16 mb-2 rounded-md flex items-center justify-between ${
@@ -180,36 +188,7 @@ const ConnectAccountPage = () => {
                   )}
                   {listItem?.summary}
                 </div>
-                {/* {listItem?.primary !== true && ( */}
                 <div className='relative'>
-                  {/* Attach the tooltip to the IconButton */}
-                  <CustomTooltip
-                    id={`tooltip-${listItem.id}`}
-                    place='top'
-                    currentPage={currentPage}
-                    totalPages={totalPages}
-                    onNext={handleNext}
-                    onDone={handleDone}
-                  >
-                    {currentPage === 1 && (
-                      <p>
-                        The primary calendar associated with your Gmail account is automatically imported and will be
-                        visible to your workspace members.
-                      </p>
-                    )}
-                    {currentPage === 2 && (
-                      <p>
-                        You can also import other calendars from your Gmail account and choose to make them either
-                        private or public.
-                      </p>
-                    )}
-                    {currentPage === 3 && (
-                      <p>
-                        Private calendars will be visible only to you, while public calendars can be seen by your
-                        teammates as well.
-                      </p>
-                    )}
-                  </CustomTooltip>
                   <IconButton
                     icon={listItem.is_private ? 'eyeHidden' : 'eye'}
                     width={24}
@@ -218,7 +197,7 @@ const ConnectAccountPage = () => {
                       e.stopPropagation()
                       togglePrivacy(listItem)
                     }}
-                    data-tooltip-id={`tooltip-${listItem.id}`} // Attach the tooltip to this button
+                    data-tooltip-id={`tooltip-${listItem.id}`}
                   />
                 </div>
               </button>
