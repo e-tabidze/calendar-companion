@@ -11,7 +11,7 @@ import useConnectGoogleAccount from './useConnectGoogleAccount'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useRouter } from 'next/router'
 import { handleUserRedirection } from 'src/utils/handleUserRedirection'
-import CustomTooltip from 'src/views/components/tooltip'
+import Tooltip from './tooltip'
 
 const ConnectAccountPage = () => {
   const [accountId, setAccountId] = useState('')
@@ -20,17 +20,6 @@ const ConnectAccountPage = () => {
   const [googleConnected, setGoogleConnected] = useState(false)
   const [selectedCalendars, setSelectedCalendars] = useState<any[]>([])
   const [googleCalendars, setGoogleCalendars] = useState<any[]>([])
-  const [currentPage, setCurrentPage] = useState(1)
-  const totalPages = 3
-
-  const handleNext = () => {
-    setCurrentPage(prev => Math.min(prev + 1, totalPages))
-  }
-
-  const handleDone = () => {
-    // Logic for when the tooltip sequence is complete
-    console.log('Tooltip sequence completed')
-  }
 
   const router = useRouter()
 
@@ -162,14 +151,7 @@ const ConnectAccountPage = () => {
         <div className='max-h-[180px] overflow-auto mt-12'>
           {googleCalendars?.map((listItem: any) => (
             <>
-              <CustomTooltip
-                id={`tooltip-${listItem.id}`}
-                place='top'
-                currentPage={1}
-                totalPages={3}
-                onNext={handleNext}
-                onDone={handleDone}
-              />
+              <Tooltip id={`tooltip-${listItem.id}`} />
               <button
                 key={listItem.id}
                 className={`w-full border text-raisin-130 px-3 py-2 h-16 mb-2 rounded-md flex items-center justify-between ${
