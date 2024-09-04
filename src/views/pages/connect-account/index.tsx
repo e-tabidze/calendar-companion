@@ -1,6 +1,6 @@
 import UnauthorizedLayout from 'src/layouts/UnauthorizedLayout'
 import ProgressBar from '../getting-started/progressBar'
-import { DefaultButton, IconButton } from 'src/views/components/button'
+import { DefaultButton } from 'src/views/components/button'
 import Typography from 'src/views/components/typography'
 import Link from 'next/link'
 import Icon from 'src/views/app/Icon'
@@ -150,7 +150,7 @@ const ConnectAccountPage = () => {
 
         <div className='max-h-[180px] overflow-auto mt-12'>
           {googleCalendars?.map((listItem: any) => (
-            <>
+            <div key={listItem.id}>
               <Tooltip id={`tooltip-${listItem.id}`} />
               <button
                 key={listItem.id}
@@ -171,19 +171,20 @@ const ConnectAccountPage = () => {
                   {listItem?.summary}
                 </div>
                 <div className='relative'>
-                  <IconButton
-                    icon={listItem.is_private ? 'eyeHidden' : 'eye'}
-                    width={24}
-                    height={24}
-                    onClick={(e: any) => {
-                      e.stopPropagation()
-                      togglePrivacy(listItem)
-                    }}
-                    data-tooltip-id={`tooltip-${listItem.id}`}
-                  />
+                  <div data-tooltip-id={`tooltip-${listItem.id}`}>
+                    <Icon
+                      svgPath={listItem.is_private ? 'eyeHidden' : 'eye'}
+                      width={24}
+                      height={24}
+                      onClick={(e: any) => {
+                        e.stopPropagation()
+                        togglePrivacy(listItem)
+                      }}
+                    />
+                  </div>
                 </div>
               </button>
-            </>
+            </div>
           ))}
         </div>
       </div>

@@ -17,7 +17,7 @@ const useCalendar = (workspaceId: any) => {
     }
   }
 
-  console.log(syncing, 'syncing')
+  console.log(syncing, 'workspaceId')
 
   const useGetGoogleEvents = useQuery({
     queryKey: ['calendarEvents'],
