@@ -4,25 +4,16 @@ import { useState } from 'react'
 interface Props {
   isOpen: boolean
   toggleIsOpen: () => void
-  onSaveEvent: (event: Event) => void
 }
 
-interface Event {
-  title: string
-  startTime: string
-  endTime: string
-  color: string
-}
-
-const EventModal: React.FC<Props> = ({ isOpen, toggleIsOpen, onSaveEvent }) => {
+const EventModal: React.FC<Props> = ({ isOpen, toggleIsOpen }) => {
   const [title, setTitle] = useState('')
   const [startTime, setStartTime] = useState('')
   const [endTime, setEndTime] = useState('')
-  const [color, setColor] = useState('#ff0000') // Default color
+  const [color, setColor] = useState('#ff0000')
 
   const handleSave = () => {
     if (title && startTime && endTime) {
-      onSaveEvent({ title, startTime, endTime, color })
       toggleIsOpen()
     }
   }

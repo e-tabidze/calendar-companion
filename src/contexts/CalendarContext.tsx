@@ -1,8 +1,6 @@
-import { addDays, subDays } from 'date-fns'
+import { addDays, subDays, isBefore, getDate, isEqual } from 'date-fns'
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react'
 import { GridConstants } from 'src/@core/configs/calendarConstants'
-import { QueryClient } from '@tanstack/react-query'
-import useCalendar from 'src/views/pages/calendar/useCalendar'
 
 interface CalendarContextProps {
   visibleDays: number
@@ -18,6 +16,7 @@ interface CalendarContextProps {
   handleToday: () => void
   startOfPeriod: Date
   endOfPeriod: Date
+  daysArray: number[]
 }
 
 const CalendarContext = createContext<CalendarContextProps | undefined>(undefined)
@@ -27,7 +26,6 @@ export const CalendarProvider: React.FC<{ children: ReactNode }> = ({ children }
   const [cellHeight, setCellHeight] = useState(GridConstants.hourCellHeight)
   const [currentPeriod, setCurrentPeriod] = useState(new Date())
   const [visibleDays, setVisibleDays] = useState<number>(7)
-
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -57,13 +55,22 @@ export const CalendarProvider: React.FC<{ children: ReactNode }> = ({ children }
     setVisibleDays(days)
   }
 
-  console.log(visibleDays, 'visibleDays')
-
-  // const startDate = currentPeriod
-  // const endDate = addDays(currentPeriod, visibleDays - 1)
-
   const startOfPeriod = addDays(currentPeriod, 0)
   const endOfPeriod = addDays(currentPeriod, visibleDays - 1)
+
+  const getDaysArray = (startDate: Date, endDate: Date): number[] => {
+    const days = []
+    let currentDate = startDate
+
+    while (isBefore(currentDate, endDate) || isEqual(currentDate, endDate)) {
+      days.push(getDate(currentDate))
+      currentDate = addDays(currentDate, 1)
+    }
+
+    return days
+  }
+
+  const daysArray = getDaysArray(startOfPeriod, endOfPeriod)
 
   return (
     <CalendarContext.Provider
@@ -80,7 +87,8 @@ export const CalendarProvider: React.FC<{ children: ReactNode }> = ({ children }
         handleNextWeek,
         handleToday,
         startOfPeriod,
-        endOfPeriod
+        endOfPeriod,
+        daysArray
       }}
     >
       {children}

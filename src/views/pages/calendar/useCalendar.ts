@@ -1,14 +1,10 @@
-import { QueryClient, useQuery } from '@tanstack/react-query'
+import { useQuery } from '@tanstack/react-query'
 import CalendarService from 'src/services/CalendarService'
 import { useEffect, useState } from 'react'
 import { useCalendarContext } from 'src/contexts/CalendarContext'
 
 const useCalendar = (workspaceId?: any) => {
   const { startOfPeriod, endOfPeriod, currentPeriod, visibleDays } = useCalendarContext()
-
-  const queryClient = new QueryClient()
-
-  console.log(startOfPeriod, endOfPeriod, 'startOfPeriod, endOfPeriod')
 
   const [socket, setSocket] = useState<WebSocket | null>(null)
   const [syncing, setSyncing] = useState(false)
@@ -86,7 +82,6 @@ const useCalendar = (workspaceId?: any) => {
   }, [useGetGoogleEvents.isSuccess, googleEventsData])
 
   useEffect(() => {
-    // queryClient.invalidateQueries(['calendarEvents'])
     refetchEvents()
   }, [currentPeriod, visibleDays])
 

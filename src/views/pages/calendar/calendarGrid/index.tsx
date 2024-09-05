@@ -1,198 +1,19 @@
 import { useMemo, useState } from 'react'
 import { GridConstants } from 'src/@core/configs/calendarConstants'
 import EventModal from './eventModal'
-import { differenceInMinutes, getDay, getHours, getMinutes, parseISO } from 'date-fns'
+import { differenceInMinutes, getDate, getHours, getMinutes, isEqual, parseISO } from 'date-fns'
 import { useCalendarContext } from 'src/contexts/CalendarContext'
 import useUserData from 'src/hooks/useUserData'
 import useCalendar from '../useCalendar'
 
-interface Event {
-  title: string
-  startTime: string
-  endTime: string
-  color: string
-  dayIndex: number
-}
-
-const googleEvents = [
-  {
-    kind: 'calendar#event',
-    etag: '"p33m87p3j8gqj0"',
-    id: 'abcd1234efgh5678ijkl9012mnop3456qrstuvwx4',
-    status: 'confirmed',
-    htmlLink: 'https://www.google.com/calendar/event?eid=abcd1234efgh5678ijkl9012mnop3456qrstuvwx',
-    created: '2023-07-01T00:00:00.000Z',
-    updated: '2023-07-01T01:00:00.000Z',
-    summary: '1',
-    description: 'This is a sample event description.',
-    location: '123 Sample St, Sample City, SC 12345',
-    colorId: '7',
-    creator: {
-      email: 'example@domain.com',
-      displayName: 'John Doe'
-    },
-    organizer: {
-      email: 'example@domain.com',
-      displayName: 'John Doe'
-    },
-    start: {
-      dateTime: '2024-09-10T02:45:00-07:00',
-      timeZone: 'America/Los_Angeles'
-    },
-    end: {
-      dateTime: '2024-09-10T10:30:00-07:00',
-      timeZone: 'America/Los_Angeles'
-    },
-    attendees: [
-      {
-        email: 'attendee1@domain.com',
-        displayName: 'Attendee One',
-        responseStatus: 'accepted'
-      }
-    ],
-    reminders: {
-      useDefault: true
-    },
-    eventType: 'default'
-  },
-  {
-    kind: 'calendar#event',
-    etag: '"p33m87p3j8gqj0"',
-    id: 'abcd1234efgh5678ijkl9012mnop3456qrstuvwx3',
-    status: 'confirmed',
-    htmlLink: 'https://www.google.com/calendar/event?eid=abcd1234efgh5678ijkl9012mnop3456qrstuvwx',
-    created: '2023-07-01T00:00:00.000Z',
-    updated: '2023-07-01T01:00:00.000Z',
-    summary: '2',
-    description: 'This is a sample event description.',
-    location: '123 Sample St, Sample City, SC 12345',
-    colorId: '7',
-    creator: {
-      email: 'example@domain.com',
-      displayName: 'John Doe'
-    },
-    organizer: {
-      email: 'example@domain.com',
-      displayName: 'John Doe'
-    },
-    start: {
-      dateTime: '2024-09-10T02:45:00-07:00',
-      timeZone: 'America/Los_Angeles'
-    },
-    end: {
-      dateTime: '2024-09-10T10:30:00-07:00',
-      timeZone: 'America/Los_Angeles'
-    },
-    attendees: [
-      {
-        email: 'attendee1@domain.com',
-        displayName: 'Attendee One',
-        responseStatus: 'accepted'
-      }
-    ],
-    reminders: {
-      useDefault: true
-    },
-    eventType: 'default'
-  },
-  {
-    kind: 'calendar#event',
-    etag: '"p33m87p3j8gqj0"',
-    id: 'abcd1234efgh5678ijkl9012mnop3456qrstuvwx2',
-    status: 'confirmed',
-    htmlLink: 'https://www.google.com/calendar/event?eid=abcd1234efgh5678ijkl9012mnop3456qrstuvwx',
-    created: '2023-07-01T00:00:00.000Z',
-    updated: '2023-07-01T01:00:00.000Z',
-    summary: '3',
-    description: 'This is a sample event description.',
-    location: '123 Sample St, Sample City, SC 12345',
-    colorId: '7',
-    creator: {
-      email: 'example@domain.com',
-      displayName: 'John Doe'
-    },
-    organizer: {
-      email: 'example@domain.com',
-      displayName: 'John Doe'
-    },
-    start: {
-      dateTime: '2024-09-10T02:45:00-07:00',
-      timeZone: 'America/Los_Angeles'
-    },
-    end: {
-      dateTime: '2024-09-10T10:30:00-07:00',
-      timeZone: 'America/Los_Angeles'
-    },
-    attendees: [
-      {
-        email: 'attendee1@domain.com',
-        displayName: 'Attendee One',
-        responseStatus: 'accepted'
-      }
-    ],
-    reminders: {
-      useDefault: true
-    },
-    eventType: 'default'
-  },
-  {
-    kind: 'calendar#event',
-    etag: '"p33m87p3j8gqj0"',
-    id: 'abcd1234efgh5678ijkl9012mnop3456qrstuvwx1',
-    status: 'confirmed',
-    htmlLink: 'https://www.google.com/calendar/event?eid=abcd1234efgh5678ijkl9012mnop3456qrstuvwx',
-    created: '2023-07-01T00:00:00.000Z',
-    updated: '2023-07-01T01:00:00.000Z',
-    summary: '4',
-    description: 'This is a sample event description.',
-    location: '123 Sample St, Sample City, SC 12345',
-    colorId: '7',
-    creator: {
-      email: 'example@domain.com',
-      displayName: 'John Doe'
-    },
-    organizer: {
-      email: 'example@domain.com',
-      displayName: 'John Doe'
-    },
-    start: {
-      dateTime: '2024-09-10T02:45:00-07:00',
-      timeZone: 'America/Los_Angeles'
-    },
-    end: {
-      dateTime: '2024-09-10T10:30:00-07:00',
-      timeZone: 'America/Los_Angeles'
-    },
-    attendees: [
-      {
-        email: 'attendee1@domain.com',
-        displayName: 'Attendee One',
-        responseStatus: 'accepted'
-      }
-    ],
-    reminders: {
-      useDefault: true
-    },
-    eventType: 'default'
-  }
-]
-
 const CalendarGrid = () => {
   const [eventModal, setEventModal] = useState(false)
 
-  const { visibleDays } = useCalendarContext()
-
+  const { visibleDays, startOfPeriod, daysArray } = useCalendarContext()
   const { userData } = useUserData()
   const { googleEventsData } = useCalendar(userData?.active_profile?.id)
 
-  console.log(googleEventsData, 'googleEventsData')
-  console.log(userData, 'userData id')
-
   const toggleEventModal = () => setEventModal(!eventModal)
-
-  const handleSaveEvent = (event: Event) => {
-    console.log(event)
-  }
 
   const mappedEvents = useMemo(() => {
     const groupedEvents: any = {}
@@ -200,7 +21,7 @@ const CalendarGrid = () => {
     googleEventsData?.forEach((event: any) => {
       const startDate = parseISO(event.start.dateTime)
       const endDate = parseISO(event.end.dateTime)
-      const dayIndex = getDay(startDate) - 1
+      const dayIndex = daysArray.findIndex(day => isEqual(getDate(startDate), day))
       const startHour = getHours(startDate)
       const startMinutes = getMinutes(startDate)
       const durationInMinutes = differenceInMinutes(endDate, startDate)
@@ -223,38 +44,7 @@ const CalendarGrid = () => {
     })
 
     return groupedEvents
-  }, [])
-
-  // const mappedEvents: any = () => {
-  //   const groupedEvents: { [key: string]: any[] } = {}
-
-  //   googleEvents.forEach(event => {
-  //     const startDate = parseISO(event.start.dateTime)
-  //     const endDate = parseISO(event.end.dateTime)
-  //     const dayIndex = getDay(startDate) - 1
-  //     const startHour = getHours(startDate)
-  //     const startMinutes = getMinutes(startDate)
-  //     const durationInMinutes = differenceInMinutes(endDate, startDate)
-  //     const eventHeight = (durationInMinutes / 60) * GridConstants.hourCellHeight
-  //     const topOffset = (startMinutes / 60) * GridConstants.hourCellHeight
-
-  //     const key = `${dayIndex}-${startHour}`
-
-  //     if (!groupedEvents[key]) {
-  //       groupedEvents[key] = []
-  //     }
-
-  //     groupedEvents[key].push({
-  //       ...event,
-  //       dayIndex,
-  //       startHour,
-  //       topOffset,
-  //       eventHeight
-  //     })
-  //   })
-
-  //   return groupedEvents
-  // }
+  }, [googleEventsData, visibleDays, startOfPeriod, daysArray])
 
   return (
     <>
@@ -301,8 +91,7 @@ const CalendarGrid = () => {
           </div>
         ))}
       </div>
-      {/*  */}
-      <EventModal isOpen={eventModal} toggleIsOpen={toggleEventModal} onSaveEvent={() => handleSaveEvent} />
+      <EventModal isOpen={eventModal} toggleIsOpen={toggleEventModal} />
     </>
   )
 }
