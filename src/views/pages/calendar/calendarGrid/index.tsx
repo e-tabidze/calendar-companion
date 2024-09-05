@@ -5,7 +5,7 @@ import { differenceInMinutes, getDate, getHours, getMinutes, isEqual, parseISO }
 import { useCalendarContext } from 'src/contexts/CalendarContext'
 import useUserData from 'src/hooks/useUserData'
 import useCalendar from '../useCalendar'
-
+  
 const CalendarGrid = () => {
   const [eventModal, setEventModal] = useState(false)
 
