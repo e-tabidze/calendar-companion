@@ -1,8 +1,10 @@
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import { GridConstants } from 'src/@core/configs/calendarConstants'
 import EventModal from './eventModal'
 import { differenceInMinutes, getDay, getHours, getMinutes, parseISO } from 'date-fns'
 import { useCalendarContext } from 'src/contexts/CalendarContext'
+import useUserData from 'src/hooks/useUserData'
+import useCalendar from '../useCalendar'
 
 interface Event {
   title: string
@@ -34,11 +36,11 @@ const googleEvents = [
       displayName: 'John Doe'
     },
     start: {
-      dateTime: '2024-07-01T02:45:00-07:00',
+      dateTime: '2024-09-10T02:45:00-07:00',
       timeZone: 'America/Los_Angeles'
     },
     end: {
-      dateTime: '2024-07-01T10:30:00-07:00',
+      dateTime: '2024-09-10T10:30:00-07:00',
       timeZone: 'America/Los_Angeles'
     },
     attendees: [
@@ -74,11 +76,11 @@ const googleEvents = [
       displayName: 'John Doe'
     },
     start: {
-      dateTime: '2024-07-01T02:45:00-07:00',
+      dateTime: '2024-09-10T02:45:00-07:00',
       timeZone: 'America/Los_Angeles'
     },
     end: {
-      dateTime: '2024-07-01T10:30:00-07:00',
+      dateTime: '2024-09-10T10:30:00-07:00',
       timeZone: 'America/Los_Angeles'
     },
     attendees: [
@@ -114,11 +116,11 @@ const googleEvents = [
       displayName: 'John Doe'
     },
     start: {
-      dateTime: '2024-07-01T02:45:00-07:00',
+      dateTime: '2024-09-10T02:45:00-07:00',
       timeZone: 'America/Los_Angeles'
     },
     end: {
-      dateTime: '2024-07-01T10:30:00-07:00',
+      dateTime: '2024-09-10T10:30:00-07:00',
       timeZone: 'America/Los_Angeles'
     },
     attendees: [
@@ -154,11 +156,11 @@ const googleEvents = [
       displayName: 'John Doe'
     },
     start: {
-      dateTime: '2024-07-01T02:45:00-07:00',
+      dateTime: '2024-09-10T02:45:00-07:00',
       timeZone: 'America/Los_Angeles'
     },
     end: {
-      dateTime: '2024-07-01T10:30:00-07:00',
+      dateTime: '2024-09-10T10:30:00-07:00',
       timeZone: 'America/Los_Angeles'
     },
     attendees: [
@@ -180,14 +182,51 @@ const CalendarGrid = () => {
 
   const { visibleDays } = useCalendarContext()
 
+  const { userData } = useUserData()
+  const { googleEventsData } = useCalendar(userData?.active_profile?.id)
+
+  console.log(googleEventsData, 'googleEventsData')
+  console.log(userData, 'userData id')
+
   const toggleEventModal = () => setEventModal(!eventModal)
 
   const handleSaveEvent = (event: Event) => {
     console.log(event)
   }
 
-  // const mappedEvents = useMemo(() => {
-  //   const groupedEvents: any = {}
+  const mappedEvents = useMemo(() => {
+    const groupedEvents: any = {}
+
+    googleEventsData?.forEach((event: any) => {
+      const startDate = parseISO(event.start.dateTime)
+      const endDate = parseISO(event.end.dateTime)
+      const dayIndex = getDay(startDate) - 1
+      const startHour = getHours(startDate)
+      const startMinutes = getMinutes(startDate)
+      const durationInMinutes = differenceInMinutes(endDate, startDate)
+      const eventHeight = (durationInMinutes / 60) * GridConstants.hourCellHeight
+      const topOffset = (startMinutes / 60) * GridConstants.hourCellHeight
+
+      const key = `${dayIndex}-${startHour}`
+
+      if (!groupedEvents[key]) {
+        groupedEvents[key] = []
+      }
+
+      groupedEvents[key].push({
+        ...event,
+        dayIndex,
+        startHour,
+        topOffset,
+        eventHeight
+      })
+    })
+
+    return groupedEvents
+  }, [])
+
+  // const mappedEvents: any = () => {
+  //   const groupedEvents: { [key: string]: any[] } = {}
 
   //   googleEvents.forEach(event => {
   //     const startDate = parseISO(event.start.dateTime)
@@ -215,38 +254,7 @@ const CalendarGrid = () => {
   //   })
 
   //   return groupedEvents
-  // }, [])
-
-  const mappedEvents: any = () => {
-    const groupedEvents: { [key: string]: any[] } = {}
-
-    googleEvents.forEach(event => {
-      const startDate = parseISO(event.start.dateTime)
-      const endDate = parseISO(event.end.dateTime)
-      const dayIndex = getDay(startDate) - 1
-      const startHour = getHours(startDate)
-      const startMinutes = getMinutes(startDate)
-      const durationInMinutes = differenceInMinutes(endDate, startDate)
-      const eventHeight = (durationInMinutes / 60) * GridConstants.hourCellHeight
-      const topOffset = (startMinutes / 60) * GridConstants.hourCellHeight
-
-      const key = `${dayIndex}-${startHour}`
-
-      if (!groupedEvents[key]) {
-        groupedEvents[key] = []
-      }
-
-      groupedEvents[key].push({
-        ...event,
-        dayIndex,
-        startHour,
-        topOffset,
-        eventHeight
-      })
-    })
-
-    return groupedEvents
-  }
+  // }
 
   return (
     <>
