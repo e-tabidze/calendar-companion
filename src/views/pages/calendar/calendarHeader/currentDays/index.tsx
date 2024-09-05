@@ -1,15 +1,9 @@
 import Typography from 'src/views/components/typography'
-import { format, addDays } from 'date-fns'
+import { format } from 'date-fns'
 import { useCalendarContext } from 'src/contexts/CalendarContext'
 
 const CurrentDays = () => {
-  const { visibleDays, currentPeriod } = useCalendarContext()
-
-  // const startOfWeekDate = startOfWeek(currentPeriod, { weekStartsOn: 1 })
-  // const endOfWeekDate = endOfWeek(currentPeriod, { weekStartsOn: 1 })
-
-  const startOfPeriod = addDays(currentPeriod, 0)
-  const endOfPeriod = addDays(currentPeriod, visibleDays - 1)
+  const { startOfPeriod, endOfPeriod } = useCalendarContext()
 
   return (
     <div className='flex items-center gap-4 w-[210px]'>

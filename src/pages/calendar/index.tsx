@@ -12,7 +12,6 @@ const Calendar = () => {
   const { userData } = useUserData()
   const { googleEventsData } = useCalendar(userData?.active_profile?.id)
 
-  
   console.log(googleEventsData, 'googleEventsData')
   console.log(userData, 'userData id')
 

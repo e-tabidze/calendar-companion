@@ -1,6 +1,8 @@
 import { addDays, subDays } from 'date-fns'
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react'
 import { GridConstants } from 'src/@core/configs/calendarConstants'
+import { QueryClient } from '@tanstack/react-query'
+import useCalendar from 'src/views/pages/calendar/useCalendar'
 
 interface CalendarContextProps {
   visibleDays: number
@@ -14,6 +16,8 @@ interface CalendarContextProps {
   handlePrevWeek: () => void
   handleNextWeek: () => void
   handleToday: () => void
+  startOfPeriod: Date
+  endOfPeriod: Date
 }
 
 const CalendarContext = createContext<CalendarContextProps | undefined>(undefined)
@@ -23,6 +27,7 @@ export const CalendarProvider: React.FC<{ children: ReactNode }> = ({ children }
   const [cellHeight, setCellHeight] = useState(GridConstants.hourCellHeight)
   const [currentPeriod, setCurrentPeriod] = useState(new Date())
   const [visibleDays, setVisibleDays] = useState<number>(7)
+
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -52,6 +57,14 @@ export const CalendarProvider: React.FC<{ children: ReactNode }> = ({ children }
     setVisibleDays(days)
   }
 
+  console.log(visibleDays, 'visibleDays')
+
+  // const startDate = currentPeriod
+  // const endDate = addDays(currentPeriod, visibleDays - 1)
+
+  const startOfPeriod = addDays(currentPeriod, 0)
+  const endOfPeriod = addDays(currentPeriod, visibleDays - 1)
+
   return (
     <CalendarContext.Provider
       value={{
@@ -65,7 +78,9 @@ export const CalendarProvider: React.FC<{ children: ReactNode }> = ({ children }
         setVisibleDays: handleVisibleDaysChange,
         handlePrevWeek,
         handleNextWeek,
-        handleToday
+        handleToday,
+        startOfPeriod,
+        endOfPeriod
       }}
     >
       {children}
@@ -78,6 +93,6 @@ export const useCalendarContext = () => {
   if (context === undefined) {
     throw new Error('useCalendarContext must be used within a CalendarProvider')
   }
-  
+
   return context
 }

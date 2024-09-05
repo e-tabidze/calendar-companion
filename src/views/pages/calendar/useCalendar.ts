@@ -1,8 +1,15 @@
-import { useQuery } from '@tanstack/react-query'
+import { QueryClient, useQuery } from '@tanstack/react-query'
 import CalendarService from 'src/services/CalendarService'
 import { useEffect, useState } from 'react'
+import { useCalendarContext } from 'src/contexts/CalendarContext'
 
-const useCalendar = (workspaceId: any) => {
+const useCalendar = (workspaceId?: any) => {
+  const { startOfPeriod, endOfPeriod, currentPeriod, visibleDays } = useCalendarContext()
+
+  const queryClient = new QueryClient()
+
+  console.log(startOfPeriod, endOfPeriod, 'startOfPeriod, endOfPeriod')
+
   const [socket, setSocket] = useState<WebSocket | null>(null)
   const [syncing, setSyncing] = useState(false)
 
@@ -21,12 +28,21 @@ const useCalendar = (workspaceId: any) => {
 
   const useGetGoogleEvents = useQuery({
     queryKey: ['calendarEvents'],
-    queryFn: () => workspaceId ?  getGoogleEvents('', workspaceId, '', '') : Promise.resolve({ data: null }),
+    queryFn: () =>
+      workspaceId
+        ? getGoogleEvents(
+            '',
+            workspaceId,
+            startOfPeriod.toISOString().split('T')[0],
+            endOfPeriod.toISOString().split('T')[0]
+          )
+        : Promise.resolve({ data: null }),
     enabled: !!workspaceId
   })
 
   const googleEventsData = useGetGoogleEvents.data?.result?.data
   const isLoading = useGetGoogleEvents.isLoading
+  const refetchEvents = useGetGoogleEvents.refetch
 
   useEffect(() => {
     if (useGetGoogleEvents.isSuccess && googleEventsData && !!workspaceId) {
@@ -39,14 +55,13 @@ const useCalendar = (workspaceId: any) => {
       ws.onmessage = event => {
         if (event.data) {
           try {
-            const data = JSON.parse(event.data) // Parse the JSON data
+            const data = JSON.parse(event.data)
 
             if (data.message == 'sync') {
-              setSyncing(true) // Assuming you have a `setSyncing` state handler
+              setSyncing(true)
             } else if (data.message == 'refetch') {
               useGetGoogleEvents.refetch()
-              setSyncing(false) // Assuming you have a `setSyncing` state handler
-              // Refetch the events if message is 'refetch'
+              setSyncing(false)
             }
           } catch (error) {
             console.error('Failed to parse WebSocket message:', error)
@@ -62,17 +77,20 @@ const useCalendar = (workspaceId: any) => {
         console.log('Disconnected from WebSocket server')
       }
 
-      // Save the socket connection to the state
       setSocket(ws)
 
-      // Cleanup on component unmount
       return () => {
         ws.close()
       }
     }
   }, [useGetGoogleEvents.isSuccess, googleEventsData])
 
-  return { googleEventsData, socket, isLoading }
+  useEffect(() => {
+    // queryClient.invalidateQueries(['calendarEvents'])
+    refetchEvents()
+  }, [currentPeriod, visibleDays])
+
+  return { googleEventsData, socket, isLoading, refetchEvents }
 }
 
 export default useCalendar
