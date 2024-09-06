@@ -8,10 +8,13 @@ import useUserData from 'src/hooks/useUserData'
 import UnauthorizedLayout from 'src/layouts/UnauthorizedLayout'
 import ProgressBar from '../getting-started/progressBar'
 import { handleUserRedirection } from 'src/utils/handleUserRedirection'
+import { useWatch } from 'react-hook-form'
 
 const WorkspacePage = () => {
   const { userData } = useUserData()
   const { control, postWorkspace, workspaceValues, errors, isIdentificationNumberSet } = useWorkspace(userData)
+
+  const { identification_number } = useWatch({ control })
 
   const queryClient = useQueryClient()
 
@@ -68,7 +71,7 @@ const WorkspacePage = () => {
                 bg='bg-primary-100'
                 className='w-full h-12 rounded-lg'
                 onClick={onSubmit}
-                disabled={isIdentificationNumberSet}
+                disabled={isIdentificationNumberSet || !identification_number}
               />
             </div>
           </div>

@@ -194,7 +194,7 @@ const ConnectAccountPage = () => {
         className='w-full h-12 rounded-lg flex-shrink-0'
         type='button'
         onClick={handleSubmit}
-        disabled={!googleConnected}
+        disabled={!googleConnected || postCalendarMutation.isLoading}
       />
     </UnauthorizedLayout>
   )
