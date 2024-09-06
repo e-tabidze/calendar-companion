@@ -3,6 +3,7 @@ import authHOC from 'src/hoc/authHOC'
 import CalendarGrid from 'src/views/pages/calendar/calendarGrid'
 import CalendarGridTimeline from 'src/views/pages/calendar/calendarGridTimeline'
 import CalendarHeader from 'src/views/pages/calendar/calendarHeader'
+import Dock from 'src/views/pages/calendar/dock'
 import GridColumnLabels from 'src/views/pages/calendar/gridColumnLabels'
 
 const Calendar = () => {
@@ -21,6 +22,7 @@ const Calendar = () => {
           <CalendarGrid />
         </div>
       </div>
+      <Dock />
     </>
   )
 }
