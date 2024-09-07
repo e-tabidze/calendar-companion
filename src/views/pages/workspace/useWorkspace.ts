@@ -7,14 +7,14 @@ import { useEffect } from 'react'
 
 const useWorkspace = (userData: any) => {
   const workspaceDefaultValues = {
-    identification_number: '',
-    company_type_id: 1,
-    company_information: {
+    title: '',
+    workspace_type_id: 1,
+    workspace_information: {
       title: ''
     }
   }
 
-  const isIdentificationNumberSet = Boolean(userData?.active_profile?.identification_number)
+  const isIdentificationNumberSet = Boolean(userData?.active_profile?.title)
 
   const {
     control,
@@ -33,7 +33,7 @@ const useWorkspace = (userData: any) => {
   })
 
   useEffect(() => {
-    setValue('identification_number', userData ? userData?.active_profile?.identification_number : '')
+    setValue('title', userData ? userData?.active_profile?.title : '')
   }, [userData, setValue])
 
   const workspaceValues: any = useWatch({ control })

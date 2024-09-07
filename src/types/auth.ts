@@ -4,9 +4,9 @@ export type AuthUser = {
 }
 
 export type Workspace = {
-  identification_number: string
-  company_type_id: number
-  company_information?: {
+  title: string
+  Workspace_type_id: number
+  workspace_information?: {
     title?: string
   }
 }

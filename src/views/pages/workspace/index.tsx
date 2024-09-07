@@ -14,7 +14,7 @@ const WorkspacePage = () => {
   const { userData } = useUserData()
   const { control, postWorkspace, workspaceValues, errors, isIdentificationNumberSet } = useWorkspace(userData)
 
-  const { identification_number } = useWatch({ control })
+  const { title } = useWatch({ control })
 
   const queryClient = useQueryClient()
 
@@ -57,7 +57,7 @@ const WorkspacePage = () => {
 
         <div className='flex-1 shrink-0 flex flex-col justify-between'>
           <DefaultInput
-            name='identification_number'
+            name='title'
             control={control}
             label='Workspace name'
             errors={errors}
@@ -71,7 +71,7 @@ const WorkspacePage = () => {
                 bg='bg-primary-100'
                 className='w-full h-12 rounded-lg'
                 onClick={onSubmit}
-                disabled={isIdentificationNumberSet || !identification_number}
+                disabled={isIdentificationNumberSet || !title}
               />
             </div>
           </div>
