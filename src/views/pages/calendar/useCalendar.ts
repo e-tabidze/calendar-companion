@@ -20,10 +20,10 @@ const useCalendar = (workspaceId?: any) => {
     }
   }
 
-  console.log(syncing, 'workspaceId')
+  console.log(syncing, 'syncing')
 
   const useGetGoogleEvents = useQuery({
-    queryKey: ['calendarEvents'],
+    queryKey: ['calendarEvents', startOfPeriod, endOfPeriod, visibleDays, currentPeriod],
     queryFn: () =>
       workspaceId
         ? getGoogleEvents(
@@ -33,7 +33,8 @@ const useCalendar = (workspaceId?: any) => {
             endOfPeriod.toISOString().split('T')[0]
           )
         : Promise.resolve({ data: null }),
-    enabled: !!workspaceId
+    enabled: !!workspaceId,
+    staleTime: Infinity
   })
 
   const googleEventsData = useGetGoogleEvents.data?.result?.data
@@ -80,10 +81,6 @@ const useCalendar = (workspaceId?: any) => {
       }
     }
   }, [useGetGoogleEvents.isSuccess, googleEventsData])
-
-  useEffect(() => {
-    refetchEvents()
-  }, [currentPeriod, visibleDays])
 
   return { googleEventsData, socket, isLoading, refetchEvents }
 }

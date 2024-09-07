@@ -31,6 +31,7 @@ const Dock = () => {
               </button>
             )
           }
+
           return null
         })}
       </div>

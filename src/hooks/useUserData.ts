@@ -10,6 +10,8 @@ const useUserData = () => {
 
   const userData = useCheckUser.data
   const isLoading = useCheckUser.isLoading
+  const workspaces = useCheckUser.data?.workspaces
+  const activeWorkspace = useCheckUser.data?.active_profile
 
   const getCheckUser = async (AccessToken = '') => {
     try {
@@ -17,14 +19,15 @@ const useUserData = () => {
 
       return response.data
     } catch (error) {
-      console.error('Error creating product:', error)
       throw error
     }
   }
 
   return {
     userData,
-    isLoading
+    isLoading,
+    workspaces,
+    activeWorkspace
   }
 }
 

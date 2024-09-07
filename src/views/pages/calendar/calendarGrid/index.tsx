@@ -5,13 +5,14 @@ import { differenceInMinutes, getDate, getHours, getMinutes, isEqual, parseISO }
 import { useCalendarContext } from 'src/contexts/CalendarContext'
 import useUserData from 'src/hooks/useUserData'
 import useCalendar from '../useCalendar'
-  
+
 const CalendarGrid = () => {
   const [eventModal, setEventModal] = useState(false)
 
   const { visibleDays, startOfPeriod, daysArray } = useCalendarContext()
-  const { userData } = useUserData()
-  const { googleEventsData } = useCalendar(userData?.active_profile?.id)
+
+  const { activeWorkspace } = useUserData()
+  const { googleEventsData } = useCalendar(activeWorkspace?.id)
 
   const toggleEventModal = () => setEventModal(!eventModal)
 

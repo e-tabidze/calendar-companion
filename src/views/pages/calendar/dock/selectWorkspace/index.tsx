@@ -1,37 +1,43 @@
 import { Popover, PopoverButton, PopoverPanel } from '@headlessui/react'
-import { useState } from 'react'
 import Icon from 'src/views/app/Icon'
 import Typography from 'src/views/components/typography'
 import useWorkspace from './useWorkspace'
-import { QueryClient, useMutation } from '@tanstack/react-query'
+import { useMutation } from '@tanstack/react-query'
+import useUserData from 'src/hooks/useUserData'
+import { useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
 
 const SelectWorkspace = () => {
-  const [selectedWorkspace, setSelectedWorkspace] = useState('')
+  const { workspaces, activeWorkspace } = useUserData()
 
-  const { workspacesData, postSwitchWorkspace } = useWorkspace()
+  const [selectedWorkspace, setSelectedWorkspace] = useState<string | null>(null)
 
-  const queryClient = new QueryClient()
+  const router = useRouter()
+
+  const { postSwitchWorkspace } = useWorkspace()
 
   const postSwitchWorkspaceMutation = useMutation(
     (active_profile_id: string) => postSwitchWorkspace('', active_profile_id),
     {
       onSuccess: () => {
-        queryClient.invalidateQueries(['activeWorkspace'])
+        router.reload()
       },
-      onError: (response: any) => {}
+      onError: (response: any) => {
+        console.log(response, 'response error')
+      },
     }
   )
 
-  const handleWorkspaceSwitch = async (id: string) => {
-    console.log(id, 'id')
-    try {
-      postSwitchWorkspaceMutation.mutate(id)
-    } catch (error) {
-      console.log(error, 'error')
+  useEffect(() => {
+    if (activeWorkspace) {
+      setSelectedWorkspace(activeWorkspace.id)
     }
-  }
+  }, [activeWorkspace])
 
-  console.log(workspacesData, 'workspacesData')
+  const handleWorkspaceSelect = (workspaceId: string) => {
+    setSelectedWorkspace(workspaceId)
+    postSwitchWorkspaceMutation.mutate(workspaceId)
+  }
 
   return (
     <div className='flex gap-8 relative'>
@@ -62,20 +68,22 @@ const SelectWorkspace = () => {
                 </Typography>
               </div>
               <div className='w-full h-px bg-grey-10' />
-              {workspacesData?.map((workspace: any) => (
+              {workspaces?.map((workspace: any) => (
                 <div
                   key={workspace.id}
-                  className='flex items-center gap-3 p-2 hover:bg-grey-20 rounded cursor-pointer px-3 py-2'
-                  onClick={() => handleWorkspaceSwitch(workspace.id)}
+                  className='flex items-center gap-3 p-2 hover:bg-gray-100 rounded cursor-pointer'
+                  onClick={() => handleWorkspaceSelect(workspace.id)}
                 >
                   <div
-                    className={`w-4 h-4 rounded-full border-1 ${
-                      selectedWorkspace === workspace.id ? 'border-primary-100' : 'border-grey-10'
+                    className={`w-4 h-4 rounded-full border-2 ${
+                      selectedWorkspace === workspace.id ? 'border-orange-500' : 'border-gray-300'
                     } flex items-center justify-center`}
                   >
-                    {selectedWorkspace === workspace.id && <div className='w-3 h-3 rounded-full bg-primary-100'></div>}
+                    {selectedWorkspace === workspace.id && <div className='w-2 h-2 rounded-full bg-orange-500'></div>}
                   </div>
-                  <Typography type='subtitle'>{workspace.title}</Typography>
+                  <span className={`text-sm ${selectedWorkspace === workspace.id ? 'text-black' : 'text-gray-600'}`}>
+                    {workspace.title}
+                  </span>
                 </div>
               ))}
             </PopoverPanel>
