@@ -70,8 +70,8 @@ const CalendarGrid = () => {
                       style={{
                         height: `${event.eventHeight}px`,
                         top: `${event.topOffset}px`,
-                        left: `${idx * (100 / Math.min(events.length, 3))}%`,
-                        width: `${100 / Math.min(events.length, 3)}%`
+                        left: `${idx * (95 / Math.min(events.length, 3))}%`,
+                        width: `${95 / Math.min(events.length, 3)}%`
                       }}
                     >
                       {event.summary}
