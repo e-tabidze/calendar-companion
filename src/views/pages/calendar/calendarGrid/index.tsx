@@ -8,7 +8,7 @@ import useCalendar from '../useCalendar'
 import { GOOGLE_EVENT_COLORS } from 'src/@core/configs/googleEventColors'
 import Typography from 'src/views/components/typography'
 import { convertToAMPM } from 'src/utils/convertAMPM'
-import { getRadiantBackground } from 'src/utils/applyTransparency'
+import { getRadiantBackground } from 'src/utils/getRadiantBackground'
 
 const CalendarGrid = () => {
   const [eventModal, setEventModal] = useState(false)
@@ -35,29 +35,27 @@ const CalendarGrid = () => {
 
       const key = `${dayIndex}-${startHour}`
 
-      console.log(event.start.dateTime, 'event.start.dateTime')
-
       if (!groupedEvents[key]) {
         groupedEvents[key] = []
       }
 
       const eventBgSolid = event.colorId
-        ? // @ts-ignore
-          GOOGLE_EVENT_COLORS[event.colorId]?.solid || GOOGLE_EVENT_COLORS[0].solid
+        ? GOOGLE_EVENT_COLORS[event.colorId]?.solid || GOOGLE_EVENT_COLORS[0].solid
         : GOOGLE_EVENT_COLORS[0].solid
 
       const eventBgRadiant = getRadiantBackground(
         GOOGLE_EVENT_COLORS[event.colorId]?.id || GOOGLE_EVENT_COLORS[0].id
       ).background
 
-    
-
       const eventTitleColor = event.colorId
-        ? // @ts-ignore
-          GOOGLE_EVENT_COLORS[event.colorId]?.color || GOOGLE_EVENT_COLORS[0].color
+        ? GOOGLE_EVENT_COLORS[event.colorId]?.color || GOOGLE_EVENT_COLORS[0].color
         : GOOGLE_EVENT_COLORS[0].color
 
       const startTime = convertToAMPM(event.start.dateTime)
+
+      const organizerSelf = event?.attendees?.find(
+        (item: { organizer: boolean; self: boolean }) => item.organizer === true && item.self === true
+      )
 
       groupedEvents[key].push({
         ...event,
@@ -68,7 +66,8 @@ const CalendarGrid = () => {
         eventBgSolid,
         eventBgRadiant,
         eventTitleColor,
-        startTime
+        startTime,
+        organizerSelf
       })
     })
 
@@ -92,24 +91,24 @@ const CalendarGrid = () => {
                   style={{ height: `${GridConstants.hourCellHeight}vhh` }}
                 >
                   {events.slice(0, 3).map((event: any, idx: number) => (
-                    <div>
-                      <>
-                        {console.log(
-                          getRadiantBackground(event.eventBgSolid),
-                          'getRadiantBackground(event.eventBgSolid)'
-                        )}
-                      </>
+                    <div key={event.id}>
                       <div
-                        key={event.id}
                         className='absolute text-2sm rounded p-1 z-10 flex gap-2'
                         style={{
                           height: `${event.eventHeight}px`,
                           top: `${event.topOffset}px`,
                           left: `${idx * (95 / Math.min(events.length, 3))}%`,
                           width: `${95 / Math.min(events.length, 3)}%`,
-                          // background: event.eventBgSolid,
-                          background: event.eventBgRadiant,
-                          color: event.eventTitleColor
+                          background:
+                            event.organizerSelf?.responseStatus === 'declined'
+                              ? event.eventBgSolid
+                              : event.organizerSelf?.responseStatus === 'accepted'
+                              ? event.eventBgSolid
+                              : event.organizerSelf?.responseStatus === 'tentative'
+                              ? event.eventBgRadiant
+                              : '#fff',
+                          color: event.eventTitleColor,
+                          opacity: event.organizerSelf?.responseStatus === 'declined' ? 0.6 : 1
                         }}
                       >
                         <div
@@ -123,7 +122,12 @@ const CalendarGrid = () => {
                           }}
                         />
                         <div className='flex flex-col justify-between'>
-                          <Typography type='body' className={`text-[${event.eventTitleColor}]`}>
+                          <Typography
+                            type='body'
+                            className={`text-[${event.eventTitleColor}] ${
+                              event.organizerSelf?.responseStatus === 'declined' ? 'line-through' : ''
+                            } `}
+                          >
                             {event.summary || 'No Title'}
                           </Typography>
                           <Typography type='body' className={`text-[${event.eventTitleColor}] text-xs`}>
