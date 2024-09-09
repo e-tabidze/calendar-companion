@@ -6,8 +6,9 @@ import { useCalendarContext } from 'src/contexts/CalendarContext'
 import useUserData from 'src/hooks/useUserData'
 import useCalendar from '../useCalendar'
 import { GOOGLE_EVENT_COLORS } from 'src/@core/configs/googleEventColors'
-import { applyTransparency, blendColors } from 'src/utils/applyTransparency'
 import Typography from 'src/views/components/typography'
+import { convertToAMPM } from 'src/utils/convertAMPM'
+import { getRadiantBackground } from 'src/utils/applyTransparency'
 
 const CalendarGrid = () => {
   const [eventModal, setEventModal] = useState(false)
@@ -18,23 +19,6 @@ const CalendarGrid = () => {
   const { googleEventsData } = useCalendar(activeWorkspace?.id)
 
   const toggleEventModal = () => setEventModal(!eventModal)
-
-  const convertToAMPM = (dateTimeStr: string | number | Date) => {
-    const date = new Date(dateTimeStr)
-
-    let hours = date.getHours()
-    const minutes = date.getMinutes()
-    const ampm = hours >= 12 ? 'PM' : 'AM'
-
-    // Convert 24-hour time to 12-hour format
-    hours = hours % 12
-    hours = hours ? hours : 12 // If hours is 0, make it 12
-
-    // Format minutes to always show two digits
-    const minutesStr = minutes < 10 ? '0' + minutes : minutes
-
-    return `${hours}:${minutesStr} ${ampm}`
-  }
 
   const mappedEvents = useMemo(() => {
     const groupedEvents: any = {}
@@ -57,12 +41,20 @@ const CalendarGrid = () => {
         groupedEvents[key] = []
       }
 
-      const eventBgColor = event.colorId
-        ? GOOGLE_EVENT_COLORS[event.colorId]?.solid || GOOGLE_EVENT_COLORS[0].solid
+      const eventBgSolid = event.colorId
+        ? // @ts-ignore
+          GOOGLE_EVENT_COLORS[event.colorId]?.solid || GOOGLE_EVENT_COLORS[0].solid
         : GOOGLE_EVENT_COLORS[0].solid
 
+      const eventBgRadiant = getRadiantBackground(
+        GOOGLE_EVENT_COLORS[event.colorId]?.id || GOOGLE_EVENT_COLORS[0].id
+      ).background
+
+    
+
       const eventTitleColor = event.colorId
-        ? GOOGLE_EVENT_COLORS[event.colorId]?.color || GOOGLE_EVENT_COLORS[0].color
+        ? // @ts-ignore
+          GOOGLE_EVENT_COLORS[event.colorId]?.color || GOOGLE_EVENT_COLORS[0].color
         : GOOGLE_EVENT_COLORS[0].color
 
       const startTime = convertToAMPM(event.start.dateTime)
@@ -73,7 +65,8 @@ const CalendarGrid = () => {
         startHour,
         topOffset,
         eventHeight,
-        eventBgColor,
+        eventBgSolid,
+        eventBgRadiant,
         eventTitleColor,
         startTime
       })
@@ -100,6 +93,12 @@ const CalendarGrid = () => {
                 >
                   {events.slice(0, 3).map((event: any, idx: number) => (
                     <div>
+                      <>
+                        {console.log(
+                          getRadiantBackground(event.eventBgSolid),
+                          'getRadiantBackground(event.eventBgSolid)'
+                        )}
+                      </>
                       <div
                         key={event.id}
                         className='absolute text-2sm rounded p-1 z-10 flex gap-2'
@@ -108,7 +107,8 @@ const CalendarGrid = () => {
                           top: `${event.topOffset}px`,
                           left: `${idx * (95 / Math.min(events.length, 3))}%`,
                           width: `${95 / Math.min(events.length, 3)}%`,
-                          backgroundColor: event.eventBgColor,
+                          // background: event.eventBgSolid,
+                          background: event.eventBgRadiant,
                           color: event.eventTitleColor
                         }}
                       >
@@ -124,7 +124,7 @@ const CalendarGrid = () => {
                         />
                         <div className='flex flex-col justify-between'>
                           <Typography type='body' className={`text-[${event.eventTitleColor}]`}>
-                            {event.summary || 'No Title'} 
+                            {event.summary || 'No Title'}
                           </Typography>
                           <Typography type='body' className={`text-[${event.eventTitleColor}] text-xs`}>
                             {event.startTime}

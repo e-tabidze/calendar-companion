@@ -87,11 +87,21 @@
 
 /* Hide scrollbar for IE, Edge, and Firefox */
 .hide-scrollbar {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }
 
 .bg-orange-500 {
   position: relative; /* Ensure button is positioned above other elements */
   z-index: 10; /* Adjust z-index as needed */
+}
+
+.radiant {
+  background: repeating-linear-gradient(
+    45deg,
+    rgba(0, 123, 255, 0.1),
+    rgba(0, 123, 255, 0.1) 10px,
+    rgba(0, 123, 255, 0.3) 10px,
+    rgba(0, 123, 255, 0.3) 20px
+  );
 }
