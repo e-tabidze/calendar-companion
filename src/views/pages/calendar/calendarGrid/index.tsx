@@ -57,8 +57,6 @@ const CalendarGrid = () => {
         (item: { organizer: boolean; self: boolean }) => item.organizer === true && item.self === true
       )
 
-      console.log(startHour, 'startHour')
-
       groupedEvents[key].push({
         ...event,
         dayIndex,
@@ -76,6 +74,49 @@ const CalendarGrid = () => {
     return groupedEvents
   }, [googleEventsData, visibleDays, startOfPeriod, daysArray])
 
+  const calculateEventPositions = (events: any[]) => {
+    const sortedEvents = [...events].sort(
+      (a, b) => new Date(a.start.dateTime).getTime() - new Date(b.start.dateTime).getTime()
+    )
+
+    const columns: any = []
+
+    sortedEvents.forEach(event => {
+      let placed = false
+      for (let i = 0; i < columns.length; i++) {
+        if (!doEventsOverlap(columns[i][columns[i].length - 1], event)) {
+          columns[i].push(event)
+          placed = true
+          break
+        }
+      }
+      if (!placed) {
+        columns.push([event])
+      }
+    })
+
+    const totalColumns = columns.length
+
+    return sortedEvents.map(event => {
+      const columnIndex = columns.findIndex((column: any) => column.includes(event))
+
+      return {
+        ...event,
+        width: `${95 / totalColumns}%`,
+        left: `${(columnIndex * 95) / totalColumns}%`
+      }
+    })
+  }
+
+  const doEventsOverlap = (event1: any, event2: any) => {
+    const start1 = new Date(event1.start.dateTime).getTime()
+    const end1 = new Date(event1.end.dateTime).getTime()
+    const start2 = new Date(event2.start.dateTime).getTime()
+    const end2 = new Date(event2.end.dateTime).getTime()
+    
+    return start1 < end2 && end1 > start2
+  }
+
   return (
     <>
       <div className='flex flex-grow flex-col z-0'>
@@ -84,6 +125,7 @@ const CalendarGrid = () => {
             {new Array(visibleDays).fill(0).map((_, index) => {
               const key = `${index}-${i}`
               const events = mappedEvents[key] || []
+              const positionedEvents = calculateEventPositions(events)
 
               return (
                 <div
@@ -92,72 +134,61 @@ const CalendarGrid = () => {
                   className='relative flex flex-1 flex-grow cursor-pointer border-b border-r border-solid border-strokes-1'
                   style={{ height: `${GridConstants.hourCellHeight}vhh` }}
                 >
-                  {events.slice(0, 3).map((event: any, idx: number) => (
-                    <div key={event.id}>
-                      <div
-                        className={'absolute text-2sm rounded p-1 z-10 flex gap-2  '}
-                        style={{
-                          height: `${event.eventHeight}px`,
-                          top: `${event.topOffset}px`,
-                          left: `${idx * (95 / Math.min(events.length, 3))}%`,
-                          // left: '0px',
-                          width: `${95 / Math.min(events.length, 3)}%`,
-                          background:
-                            event.organizerSelf?.responseStatus === 'declined'
-                              ? event.eventBgSolid
-                              : event.organizerSelf?.responseStatus === 'accepted'
-                              ? event.eventBgSolid
-                              : event.organizerSelf?.responseStatus === 'tentative'
-                              ? event.eventBgRadiant
-                              : '#fff',
-                          border: `1px solid ${
-                            event.organizerSelf?.responseStatus === 'declined'
-                              ? event.eventBgSolid
-                              : event.organizerSelf?.responseStatus === 'accepted'
-                              ? event.eventBgSolid
-                              : event.organizerSelf?.responseStatus === 'tentative'
-                              ? event.eventBgRadiant
-                              : event.eventBgSolid
-                          }`,
-                          color: event.eventTitleColor,
-                          opacity: event.organizerSelf?.responseStatus === 'declined' ? 0.6 : 1
-                        }}
-                      >
-                        <div
-                          className='w-full h-1 rounded-2xl'
-                          style={{
-                            height: `${event.eventHeight - 8}px`,
-                            top: `${event.topOffset}px`,
-                            left: `${idx * (95 / Math.min(events.length, 3))}%`,
-                            width: '3px',
-                            backgroundColor: event.eventTitleColor
-                          }}
-                        />
-                        <div className='flex flex-col justify-between'>
-                          <Typography
-                            type='body'
-                            className={`text-[${event.eventTitleColor}] ${
-                              event.organizerSelf?.responseStatus === 'declined' ? 'line-through' : ''
-                            } `}
-                          >
-                            {event.summary || 'No Title'}
-                          </Typography>
-                          <Typography type='body' className={`text-[${event.eventTitleColor}] text-xs`}>
-                            {event.startTime}
-                          </Typography>
-                        </div>
+                  {positionedEvents.map((event, eventIndex) => (
+                    <div
+                      key={event.id}
+                      className='absolute rounded-sm overflow-hidden'
+                      style={{
+                        height: `${event.eventHeight}px`,
+                        top: `${event.topOffset}px`,
+                        left: event.left,
+                        width: event.width,
+                        background:
+                          event.organizerSelf?.responseStatus === 'declined'
+                            ? event.eventBgSolid
+                            : event.organizerSelf?.responseStatus === 'accepted'
+                            ? event.eventBgSolid
+                            : event.organizerSelf?.responseStatus === 'tentative'
+                            ? event.eventBgRadiant
+                            : '#fff',
+                            border: `1px solid ${
+                              event.organizerSelf?.responseStatus === 'declined'
+                                ? event.eventBgSolid
+                                : event.organizerSelf?.responseStatus === 'accepted'
+                                ? event.eventBgSolid
+                                : event.organizerSelf?.responseStatus === 'tentative'
+                                ? event.eventBgRadiant
+                                : event.eventBgSolid
+                            }`,
+                        color: event.eventTitleColor,
+                        opacity: event.organizerSelf?.responseStatus === 'declined' ? 0.6 : 1,
+                        zIndex: eventIndex + 10
+                      }}
+                    >
+                      <div className='flex flex-col justify-between h-full p-1'>
+                        <Typography
+                          type='body'
+                          className={`text-xs font-bold truncate ${
+                            event.organizerSelf?.responseStatus === 'declined' ? 'line-through' : ''
+                          } ${`text-$[event.eventTitleColor]`}`}
+                        >
+                          {event.summary || 'No Title'}
+                        </Typography>
+                        <Typography type='body' className='text-xs'>
+                          {event.startTime}
+                        </Typography>
                       </div>
                     </div>
                   ))}
 
-                  {events.length > 3 && (
+                  {/* {events.length > 3 && (
                     <span
-                      className='absolute top-0 right-0 bg-red-100 text-white px-1 text-xs z-20 more-indicator'
+                      className='absolute top-0 right-0 bg-red-500 text-white px-1 text-xs z-50 more-indicator'
                       style={{ top: `calc(${events[0].topOffset}px - 14px)` }}
                     >
                       {events.length - 3} more
                     </span>
-                  )}
+                  )} */}
                 </div>
               )
             })}
