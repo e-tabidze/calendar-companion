@@ -57,6 +57,8 @@ const CalendarGrid = () => {
         (item: { organizer: boolean; self: boolean }) => item.organizer === true && item.self === true
       )
 
+      console.log(startHour, 'startHour')
+
       groupedEvents[key].push({
         ...event,
         dayIndex,
@@ -93,11 +95,12 @@ const CalendarGrid = () => {
                   {events.slice(0, 3).map((event: any, idx: number) => (
                     <div key={event.id}>
                       <div
-                        className='absolute text-2sm rounded p-1 z-10 flex gap-2'
+                        className={'absolute text-2sm rounded p-1 z-10 flex gap-2  '}
                         style={{
                           height: `${event.eventHeight}px`,
                           top: `${event.topOffset}px`,
                           left: `${idx * (95 / Math.min(events.length, 3))}%`,
+                          // left: '0px',
                           width: `${95 / Math.min(events.length, 3)}%`,
                           background:
                             event.organizerSelf?.responseStatus === 'declined'
@@ -107,6 +110,15 @@ const CalendarGrid = () => {
                               : event.organizerSelf?.responseStatus === 'tentative'
                               ? event.eventBgRadiant
                               : '#fff',
+                          border: `1px solid ${
+                            event.organizerSelf?.responseStatus === 'declined'
+                              ? event.eventBgSolid
+                              : event.organizerSelf?.responseStatus === 'accepted'
+                              ? event.eventBgSolid
+                              : event.organizerSelf?.responseStatus === 'tentative'
+                              ? event.eventBgRadiant
+                              : event.eventBgSolid
+                          }`,
                           color: event.eventTitleColor,
                           opacity: event.organizerSelf?.responseStatus === 'declined' ? 0.6 : 1
                         }}

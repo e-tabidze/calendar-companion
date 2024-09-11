@@ -1,5 +1,5 @@
 export const GridConstants = {
-    hourCellHeight: 46,
+    hourCellHeight: 60,
     rowsCount: 25,
     columnsCount: 7,
   }
