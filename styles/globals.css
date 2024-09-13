@@ -105,3 +105,32 @@
     rgba(0, 123, 255, 0.3) 20px
   );
 }
+
+
+.dock-enter-active, .dock-exit-active {
+  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+.dock-enter {
+  opacity: 0;
+  transform: translateY(20%);
+}
+
+.dock-exit {
+  opacity: 1;
+  transform: translateY(0%);
+}
+
+.eventModal-enter-active, .eventModal-exit-active {
+  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+.eventModal-enter {
+  opacity: 0;
+  transform: translateY(100%);
+}
+
+.eventModal-exit {
+  opacity: 1;
+  transform: translateY(0%);
+}

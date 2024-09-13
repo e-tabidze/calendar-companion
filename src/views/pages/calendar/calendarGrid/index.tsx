@@ -10,15 +10,15 @@ import Typography from 'src/views/components/typography'
 import { convertToAMPM } from 'src/utils/convertAMPM'
 import { getRadiantBackground } from 'src/utils/getRadiantBackground'
 
-const CalendarGrid = () => {
-  const [eventModal, setEventModal] = useState(false)
+interface Props {
+  toggleEventModal: () => void
+}
 
+const CalendarGrid: React.FC<Props> = ({ toggleEventModal }) => {
   const { visibleDays, startOfPeriod, daysArray } = useCalendarContext()
 
   const { activeWorkspace } = useUserData()
   const { googleEventsData } = useCalendar(activeWorkspace?.id)
-
-  const toggleEventModal = () => setEventModal(!eventModal)
 
   const mappedEvents = useMemo(() => {
     const groupedEvents: any = {}
@@ -113,7 +113,7 @@ const CalendarGrid = () => {
     const end1 = new Date(event1.end.dateTime).getTime()
     const start2 = new Date(event2.start.dateTime).getTime()
     const end2 = new Date(event2.end.dateTime).getTime()
-    
+
     return start1 < end2 && end1 > start2
   }
 
@@ -129,7 +129,7 @@ const CalendarGrid = () => {
 
               return (
                 <div
-                  onClick={toggleEventModal}
+                  onDoubleClick={() => toggleEventModal()}
                   key={index}
                   className='relative flex flex-1 flex-grow cursor-pointer border-b border-r border-solid border-strokes-1'
                   style={{ height: `${GridConstants.hourCellHeight}vhh` }}
@@ -151,15 +151,15 @@ const CalendarGrid = () => {
                             : event.organizerSelf?.responseStatus === 'tentative'
                             ? event.eventBgRadiant
                             : '#fff',
-                            border: `1px solid ${
-                              event.organizerSelf?.responseStatus === 'declined'
-                                ? event.eventBgSolid
-                                : event.organizerSelf?.responseStatus === 'accepted'
-                                ? event.eventBgSolid
-                                : event.organizerSelf?.responseStatus === 'tentative'
-                                ? event.eventBgRadiant
-                                : event.eventBgSolid
-                            }`,
+                        border: `1px solid ${
+                          event.organizerSelf?.responseStatus === 'declined'
+                            ? event.eventBgSolid
+                            : event.organizerSelf?.responseStatus === 'accepted'
+                            ? event.eventBgSolid
+                            : event.organizerSelf?.responseStatus === 'tentative'
+                            ? event.eventBgRadiant
+                            : event.eventBgSolid
+                        }`,
                         color: event.eventTitleColor,
                         opacity: event.organizerSelf?.responseStatus === 'declined' ? 0.6 : 1,
                         zIndex: eventIndex + 10
@@ -195,7 +195,6 @@ const CalendarGrid = () => {
           </div>
         ))}
       </div>
-      <EventModal isOpen={eventModal} toggleIsOpen={toggleEventModal} />
     </>
   )
 }
