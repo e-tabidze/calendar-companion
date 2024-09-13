@@ -45,7 +45,7 @@ const SelectWorkspace = () => {
         {({ open }) => (
           <>
             <PopoverButton
-              className={`flex flex-col items-center text-xs group ${open ? 'text-raisin-110' : 'text-gray-600'}`}
+              className={`flex w-[80px] flex-col items-center text-xs group ${open ? 'text-raisin-110' : 'text-gray-600'}`}
             >
               <Icon
                 svgPath='dockWorkspace'

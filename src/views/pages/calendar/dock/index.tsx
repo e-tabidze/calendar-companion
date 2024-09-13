@@ -12,14 +12,14 @@ const Dock = () => {
   ]
 
   return (
-    <div className='w-1/2 mx-auto'>
-      <div className='fixed bottom-6 w-1/2 bg-white shadow-md flex justify-around items-center h-16 z-40 rounded-xl'>
+    <div className='mx-auto w-1/3'>
+      <div className='w-max fixed bottom-6 bg-white shadow-md flex justify-around items-center h-16 z-40 rounded-xl'>
         {dockItems.map((item, index) => {
           if (item.type === 'workspace') {
             return <SelectWorkspace key={index} />
           } else if (item.type === 'button' && item.icon) {
             return (
-              <button key={index} className='flex flex-col items-center text-gray-600 hover:text-raisin-110 group'>
+              <button key={index} className='w-[80px] flex flex-col items-center text-gray-600 hover:text-raisin-110 group'>
                 <Icon
                   svgPath={item.icon}
                   width={24}

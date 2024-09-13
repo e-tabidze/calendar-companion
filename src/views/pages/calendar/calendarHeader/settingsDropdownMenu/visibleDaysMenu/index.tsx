@@ -1,5 +1,6 @@
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 import { useCalendarContext } from 'src/contexts/CalendarContext'
+import Icon from 'src/views/app/Icon'
 
 const visibleDaysMenuItems = [
   {
@@ -49,11 +50,13 @@ const VisibleDaysMenu = () => {
           {visibleDaysMenuItems.map(menuItem => (
             <MenuItem key={menuItem?.value}>
               <button
-                className={`group flex w-full items-center justify-between gap-2 text-raisin-90 font-medium rounded py-1.5 px-3 hover:bg-primary-10 ${visibleDays === menuItem.value ? 'bg-primary-10 pointer-events-none' : '' }`}
+                className={`group flex w-full items-center justify-between gap-2 text-raisin-90 font-medium rounded py-1.5 px-3 hover:bg-primary-10 ${
+                  visibleDays === menuItem.value ? 'bg-primary-10 pointer-events-none' : ''
+                }`}
                 onClick={() => setVisibleDays(menuItem.value)}
               >
                 <span>{menuItem?.label}</span>
-                <span>{menuItem?.value}</span>
+                {visibleDays == menuItem?.value ? <Icon svgPath='tick' width={16} height={16} /> : <span>{menuItem?.value}</span>}
               </button>
             </MenuItem>
           ))}
