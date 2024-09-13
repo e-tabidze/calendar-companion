@@ -33,6 +33,7 @@ export const IconButton = ({
   innerRef,
   bg,
   className,
+  disabled,
   onClick,
   height,
   width,
@@ -44,6 +45,7 @@ export const IconButton = ({
       {...props}
       type={type}
       onClick={onClick}
+      disabled={disabled}
       ref={innerRef}
       className={`flex shrink-0 group items-center cursor-pointer ${bg ? 'p-4 xl:p-5' : ''} rounded-2xl ${
         bg ? `bg-${bg}` : ''

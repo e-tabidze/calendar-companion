@@ -149,43 +149,52 @@ const ConnectAccountPage = () => {
         </div>
 
         <div className='max-h-[180px] overflow-auto mt-12'>
-          {googleCalendars?.map((listItem: any) => (
-            <div key={listItem.id}>
-              <Tooltip id={`tooltip-${listItem.id}`} />
-              <button
-                key={listItem.id}
-                className={`w-full border text-raisin-130 px-3 py-2 h-16 mb-2 rounded-md flex items-center justify-between ${
-                  selectedCalendars.some(id => id.id === listItem.id) ? 'bg-primary-15 ' : 'bg-grey-70 '
-                } ${
-                  listItem?.primary === true ? 'border-primary-100 cursor-not-allowed' : 'border-grey-70 cursor-pointer'
-                }`}
-                disabled={listItem?.primary === true}
-                onClick={() => handleCalendarClick(listItem)}
-              >
-                <div className='text-left flex flex-col h-full justify-center'>
-                  {listItem?.primary === true && (
-                    <Typography type='body' className='text-primary-100'>
-                      Primary
-                    </Typography>
-                  )}
-                  {listItem?.summary}
-                </div>
-                <div className='relative'>
-                  <div data-tooltip-id={`tooltip-${listItem.id}`}>
-                    <Icon
-                      svgPath={listItem.is_private ? 'eyeHidden' : 'eye'}
-                      width={24}
-                      height={24}
-                      onClick={(e: any) => {
-                        e.stopPropagation()
-                        togglePrivacy(listItem)
-                      }}
-                    />
+          {googleCalendars
+            ?.sort((a: any, b: any) => {
+              if (a.primary === true && b.primary !== true) return -1
+              if (a.primary !== true && b.primary === true) return 1
+              
+              return 0
+            })
+            .map((listItem: any) => (
+              <div key={listItem.id}>
+                <Tooltip id={`tooltip-${listItem.id}`} />
+                <button
+                  key={listItem.id}
+                  className={`w-full border text-raisin-130 px-3 py-2 h-16 mb-2 rounded-md flex items-center justify-between ${
+                    selectedCalendars.some(id => id.id === listItem.id) ? 'bg-primary-15 ' : 'bg-grey-70 '
+                  } ${
+                    listItem?.primary === true
+                      ? 'border-primary-100 cursor-not-allowed'
+                      : 'border-grey-70 cursor-pointer'
+                  }`}
+                  disabled={listItem?.primary === true}
+                  onClick={() => handleCalendarClick(listItem)}
+                >
+                  <div className='text-left flex flex-col h-full justify-center'>
+                    {listItem?.primary === true && (
+                      <Typography type='body' className='text-primary-100'>
+                        Primary
+                      </Typography>
+                    )}
+                    {listItem?.summary}
                   </div>
-                </div>
-              </button>
-            </div>
-          ))}
+                  <div className='relative'>
+                    <div data-tooltip-id={`tooltip-${listItem.id}`}>
+                      <Icon
+                        svgPath={listItem.is_private ? 'eyeHidden' : 'eye'}
+                        width={24}
+                        height={24}
+                        onClick={(e: any) => {
+                          e.stopPropagation()
+                          selectedCalendars.some(id => id.id === listItem.id) ? togglePrivacy(listItem) : null
+                        }}
+                      />
+                    </div>
+                  </div>
+                </button>
+              </div>
+            ))}
         </div>
       </div>
       <DefaultButton

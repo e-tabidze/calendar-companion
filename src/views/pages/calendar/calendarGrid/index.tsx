@@ -1,6 +1,5 @@
-import { useMemo, useState } from 'react'
+import { useMemo } from 'react'
 import { GridConstants } from 'src/@core/configs/calendarConstants'
-import EventModal from './eventModal'
 import { differenceInMinutes, getDate, getHours, getMinutes, isEqual, parseISO } from 'date-fns'
 import { useCalendarContext } from 'src/contexts/CalendarContext'
 import useUserData from 'src/hooks/useUserData'

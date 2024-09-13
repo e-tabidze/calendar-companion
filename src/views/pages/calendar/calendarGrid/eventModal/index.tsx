@@ -1,5 +1,6 @@
 import { Dialog, DialogPanel, DialogTitle, Description } from '@headlessui/react'
 import { useState } from 'react'
+import { Transition } from '@headlessui/react'
 
 interface Props {
   isOpen: boolean
@@ -19,10 +20,20 @@ const EventModal: React.FC<Props> = ({ isOpen, toggleIsOpen }) => {
   }
 
   return (
+    <Transition
+      show={isOpen}
+      enter='transition-transform transition-opacity duration-600'
+      enterFrom='transform translate-y-10 opacity-0'
+      enterTo='transform translate-y-0 opacity-100'
+      leave='transition-transform transition-opacity duration-600'
+      leaveFrom='transform translate-y-0 opacity-100'
+      leaveTo='transform translate-y-10 opacity-0'
+    >
       <Dialog
         open={isOpen}
         onClose={toggleIsOpen}
-        className='fixed w-1/2 mx-auto inset-x-0 bottom-6 z-50 flex items-center justify-center transition duration-300 ease-out'
+        className='fixed w-3/4 mx-auto inset-x-0 bottom-6 z-50 flex items-center justify-center transition duration-800 ease-out'
+        transition
       >
         <DialogPanel className='max-w-lg w-full rounded-lg bg-white p-8 shadow-xl'>
           <DialogTitle className='text-2xl font-semibold text-gray-800'>Create Event</DialogTitle>
@@ -76,6 +87,7 @@ const EventModal: React.FC<Props> = ({ isOpen, toggleIsOpen }) => {
           </div>
         </DialogPanel>
       </Dialog>
+    </Transition>
   )
 }
 
