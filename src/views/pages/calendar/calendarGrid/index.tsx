@@ -32,7 +32,7 @@ const CalendarGrid: React.FC<Props> = ({ toggleEventModal }) => {
       const eventHeight = (durationInMinutes / 60) * cellHeight
       const topOffset = (startMinutes / 60) * cellHeight
 
-      const key = `${dayIndex}-${startHour}`
+      const key = `${dayIndex}`
 
       if (!groupedEvents[key]) {
         groupedEvents[key] = []
@@ -96,17 +96,52 @@ const CalendarGrid: React.FC<Props> = ({ toggleEventModal }) => {
 
     const totalColumns = columns.length
 
+    let groupsss = groupOverlappingEvents(sortedEvents)
     return sortedEvents.map(event => {
       const columnIndex = columns.findIndex((column: any) => column.includes(event))
-
+      const group = groupsss.find(g => g.includes(event))!
+      console.log(group,"vava")
       return {
         ...event,
-        width: `${95 / totalColumns}%`,
-        left: `${(columnIndex * 95) / totalColumns}%`
+        width: `${group?.length ? 95 / group?.length : 95}%`,
+        left: `${group?.length ?  (columnIndex * 95) /  group?.length : (columnIndex * 95) }%`
       }
     })
   }
-
+  function groupOverlappingEvents(events: any[]) {
+    let overlappingGroups = [];
+  
+    const toDate = (event: any) => ({
+      start: new Date(event.start.dateTime),
+      end: new Date(event.end.dateTime),
+      original: event
+    });
+  
+    const sortedEvents = events.map(toDate).sort((a: any, b: any) => a.startHour - b.startHour);
+  
+    let currentGroup = [sortedEvents[0]?.original];
+  
+    for (let i = 1; i < sortedEvents.length; i++) {
+      const currentEvent = sortedEvents[i];
+      const lastEventInGroup = toDate(currentGroup[currentGroup.length - 1]);
+  
+      if (currentEvent.start < lastEventInGroup.end) {
+        currentGroup.push(currentEvent.original);
+      } else {
+        if (currentGroup.length > 1) {
+          overlappingGroups.push(currentGroup);
+        }
+        currentGroup = [currentEvent.original];
+      }
+    }
+  
+    if (currentGroup.length > 1) {
+      overlappingGroups.push(currentGroup);
+    }
+  
+    return overlappingGroups;
+  }
+  
   const doEventsOverlap = (event1: any, event2: any) => {
     const start1 = new Date(event1.start.dateTime).getTime()
     const end1 = new Date(event1.end.dateTime).getTime()
@@ -122,7 +157,7 @@ const CalendarGrid: React.FC<Props> = ({ toggleEventModal }) => {
         {new Array(GridConstants.rowsCount).fill(0).map((_, i) => (
           <div key={i} className={`flex flex-grow ${i === 0 ? 'z-10 bg-white' : ''}`}>
             {new Array(visibleDays).fill(0).map((_, index) => {
-              const key = `${index}-${i}`
+              const key = `${index}`
               const events = mappedEvents[key] || []
               const positionedEvents = calculateEventPositions(events)
 
@@ -133,7 +168,7 @@ const CalendarGrid: React.FC<Props> = ({ toggleEventModal }) => {
                   className='relative flex flex-1 flex-grow cursor-pointer border-b border-r border-solid border-strokes-1'
                   style={{ height: `${GridConstants.hourCellHeight}vhh` }}
                 >
-                  {positionedEvents.map((event, eventIndex) => (
+                  {positionedEvents.filter(googleEvent => i === googleEvent.startHour).map((event, eventIndex) => (
                     <div
                       key={event.id}
                       className='absolute rounded-sm overflow-hidden'
