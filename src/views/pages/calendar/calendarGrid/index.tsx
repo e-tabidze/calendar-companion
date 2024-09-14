@@ -53,7 +53,7 @@ const CalendarGrid: React.FC<Props> = ({ toggleEventModal }) => {
       const startTime = convertToAMPM(event.start.dateTime)
 
       const organizerSelf = event?.attendees?.find(
-        (item: { organizer: boolean; self: boolean }) => item.organizer === true && item.self === true
+        (item: { organizer: boolean; self: boolean }) =>  item.self === true
       )
 
       groupedEvents[key].push({
