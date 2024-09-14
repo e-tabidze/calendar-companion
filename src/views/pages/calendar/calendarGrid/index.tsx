@@ -14,7 +14,7 @@ interface Props {
 }
 
 const CalendarGrid: React.FC<Props> = ({ toggleEventModal }) => {
-  const { visibleDays, startOfPeriod, daysArray } = useCalendarContext()
+  const { visibleDays, startOfPeriod, daysArray, cellHeight } = useCalendarContext()
 
   const { activeWorkspace } = useUserData()
   const { googleEventsData } = useCalendar(activeWorkspace?.id)
@@ -29,8 +29,8 @@ const CalendarGrid: React.FC<Props> = ({ toggleEventModal }) => {
       const startHour = getHours(startDate)
       const startMinutes = getMinutes(startDate)
       const durationInMinutes = differenceInMinutes(endDate, startDate)
-      const eventHeight = (durationInMinutes / 60) * GridConstants.hourCellHeight
-      const topOffset = (startMinutes / 60) * GridConstants.hourCellHeight
+      const eventHeight = (durationInMinutes / 60) * cellHeight
+      const topOffset = (startMinutes / 60) * cellHeight
 
       const key = `${dayIndex}-${startHour}`
 

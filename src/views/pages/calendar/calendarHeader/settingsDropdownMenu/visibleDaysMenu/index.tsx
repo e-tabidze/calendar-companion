@@ -37,12 +37,12 @@ const VisibleDaysMenu = () => {
   const { setVisibleDays, visibleDays } = useCalendarContext()
 
   return (
-    <div className='text-left relative'>
+    <div className='text-left relative mx-3 my-2'>
       <Menu>
         {({ open }) => (
           <>
             <MenuButton
-              className={`inline-flex items-center hover:bg-primary-10 w-full rounded gap-2 py-1.5 px-3  font-medium focus:outline-none data-[focus]:outline-1 data-[focus]:outline-white transition ${
+              className={`inline-flex items-center hover:bg-primary-10 w-full rounded gap-2 py-1.5 px-2  font-medium focus:outline-none data-[focus]:outline-1 data-[focus]:outline-white transition ${
                 open ? 'bg-primary-15 text-primary-100' : 'text-raisin-80'
               }`}
             >

@@ -17,6 +17,8 @@ interface CalendarContextProps {
   startOfPeriod: Date
   endOfPeriod: Date
   daysArray: number[]
+  zoomLevel: number
+  setZoomLevel: (zoom: number) => void
 }
 
 const CalendarContext = createContext<CalendarContextProps | undefined>(undefined)
@@ -26,6 +28,7 @@ export const CalendarProvider: React.FC<{ children: ReactNode }> = ({ children }
   const [cellHeight, setCellHeight] = useState(GridConstants.hourCellHeight)
   const [currentPeriod, setCurrentPeriod] = useState(new Date())
   const [visibleDays, setVisibleDays] = useState<number>(7)
+  const [zoomLevel, setZoomLevel] = useState<number>(100)
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -37,6 +40,18 @@ export const CalendarProvider: React.FC<{ children: ReactNode }> = ({ children }
       }
     }
   }, [])
+
+  useEffect(() => {
+    if (zoomLevel === 50) {
+      const windowHeight = window.innerHeight
+      const remainingHeight = windowHeight - parseInt(headerHeight)
+      setCellHeight(remainingHeight / GridConstants.rowsCount)
+    } else {
+      const baseCellHeight = GridConstants.hourCellHeight
+      const newHeight = baseCellHeight * (zoomLevel / 100)
+      setCellHeight(newHeight)
+    }
+  }, [zoomLevel, headerHeight])
 
   const handlePrevWeek = () => {
     setCurrentPeriod(prevDate => subDays(prevDate, visibleDays))
@@ -88,7 +103,9 @@ export const CalendarProvider: React.FC<{ children: ReactNode }> = ({ children }
         handleToday,
         startOfPeriod,
         endOfPeriod,
-        daysArray
+        daysArray,
+        zoomLevel,
+        setZoomLevel
       }}
     >
       {children}

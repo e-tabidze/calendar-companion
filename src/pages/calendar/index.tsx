@@ -30,7 +30,6 @@ const Calendar = () => {
           <CalendarGrid toggleEventModal={toggleEventModal} />
         </div>
       </div>
-      {/* {showDock ? <Dock /> : <EventModal isOpen={eventModal} toggleIsOpen={toggleEventModal} />} */}
       <Dock />
       <EventModal isOpen={eventModal} toggleIsOpen={toggleEventModal} />
     </>
