@@ -94,13 +94,12 @@ const CalendarGrid: React.FC<Props> = ({ toggleEventModal }) => {
       }
     })
 
-    const totalColumns = columns.length
-
-    let groupsss = groupOverlappingEvents(sortedEvents)
+    const groupsss = groupOverlappingEvents(sortedEvents)
+    
     return sortedEvents.map(event => {
       const columnIndex = columns.findIndex((column: any) => column.includes(event))
       const group = groupsss.find(g => g.includes(event))!
-      console.log(group,"vava")
+
       return {
         ...event,
         width: `${group?.length ? 95 / group?.length : 95}%`,
@@ -109,7 +108,7 @@ const CalendarGrid: React.FC<Props> = ({ toggleEventModal }) => {
     })
   }
   function groupOverlappingEvents(events: any[]) {
-    let overlappingGroups = [];
+    const overlappingGroups = [];
   
     const toDate = (event: any) => ({
       start: new Date(event.start.dateTime),

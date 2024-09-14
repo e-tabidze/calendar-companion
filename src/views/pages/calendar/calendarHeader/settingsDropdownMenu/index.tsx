@@ -9,13 +9,13 @@ const SettingsDropdownMenu = () => {
 
   const handleZoomIn = () => {
     if (zoomLevel < 150) {
-      setZoomLevel((prev: number) => prev + 10)
+      setZoomLevel(zoomLevel + 10)
     }
   }
 
   const handleZoomOut = () => {
     if (zoomLevel > 50) {
-      setZoomLevel((prev: number) => prev - 10)
+      setZoomLevel(zoomLevel - 10)
     }
   }
 
