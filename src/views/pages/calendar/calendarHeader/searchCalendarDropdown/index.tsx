@@ -1,35 +1,30 @@
 import { Fragment, useState } from 'react'
 import { Transition, Popover, PopoverButton, PopoverPanel } from '@headlessui/react'
 import useSearchCalendarDropdown from './useSearchCalendarDropdown'
-import CheckboxField from 'src/views/components/checkboxField'
 import Icon from 'src/views/app/Icon'
 import Typography from 'src/views/components/typography'
 import useCalendar from '../../useCalendar'
 import useUserData from 'src/hooks/useUserData'
+import { useCalendarContext } from 'src/contexts/CalendarContext'
 
 const SearchCalendarDropdown = () => {
   const [searchTerm, setSearchTerm] = useState('')
 
-  const {
-    googleCalendarsDataLoading,
-    googleCalendarsData,
-    control,
-    selectedCalendarsValues
-  } = useSearchCalendarDropdown()
+  const { googleCalendarsDataLoading, googleCalendarsData } = useSearchCalendarDropdown()
 
-  console.log(selectedCalendarsValues, 'selectedCalendarsValues')
-
-  
-  // const filteredCalendars = googleCalendarsData?.filter((calendar: any) =>
-  //   calendar.summary.toLowerCase().includes(searchTerm.toLowerCase())
-  // )
+  const { selectedCalendars, addCalendar, removeCalendar } = useCalendarContext()
 
   const { activeWorkspace } = useUserData()
 
-  const { refetchEvents } = useCalendar(activeWorkspace?.id, selectedCalendarsValues.selected_calendars)
+  const { refetchEvents } = useCalendar(activeWorkspace?.id, selectedCalendars)
 
-  const handleCheckboxClick = () => {
-    refetchEvents() // Trigger refetch of .events when a calendar is selected or deselected
+  const handleCheckboxClick = (calendar: any) => {
+    if (selectedCalendars.find(c => c === calendar)) {
+      removeCalendar(calendar)
+    } else {
+      addCalendar(calendar)
+    }
+    refetchEvents()
   }
 
   return (
@@ -85,16 +80,40 @@ const SearchCalendarDropdown = () => {
                         <Typography type='subtitle' weight='medium' className='text-raisin-70 font-semibold mt-2 mb-1'>
                           {data[0]}
                         </Typography>
-                        <div className='flex w-max items-center'>
-                          <CheckboxField
-                            name={`selected_calendars`}
-                            control={control}
-                            options={data[1]}
-                            append={handleCheckboxClick}
-                            svgPath='calendarSmall'
-                            handleClick={() => console.log('CLICK')}
-                          />
-                        </div>
+
+                        {data[1]?.map((calendar: any) => (
+                          <div key={calendar.id} className='flex items-center gap-3 cursor-pointer transition-all py-2'>
+                            <span
+                              className={`flex-shrink-0 flex items-center justify-center w-5 h-5 rounded border cursor-pointer ${
+                                selectedCalendars.includes(calendar.id)
+                                  ? 'border-primary-100 bg-primary-100 !fill-red-100'
+                                  : 'border-raisin-10'
+                              }`}
+                            >
+                              <Icon
+                                svgPath='check'
+                                height={11}
+                                width={11}
+                                className={`fill-transparent cursor-pointer ${
+                                  selectedCalendars.includes(calendar.id) ? 'fill-white' : ''
+                                }`}
+                              />
+                            </span>
+                            <input
+                              type='checkbox'
+                              id={calendar.id}
+                              checked={selectedCalendars.includes(calendar.id)}
+                              onChange={() => handleCheckboxClick(calendar.id)}
+                              className='absolute opacity-0 w-5 h-5 cursor-pointer'
+                            />
+                            <label htmlFor={calendar.id} className='flex items-center cursor-pointer'>
+                              <Icon svgPath='calendarSmall' width={18} height={18} color={calendar.backgroundColor} />
+                              <Typography type='body' className='w-max text-sm lg:text-2sm ml-2'>
+                                {calendar.summary}
+                              </Typography>
+                            </label>
+                          </div>
+                        ))}
                       </div>
                     ))
                   )}

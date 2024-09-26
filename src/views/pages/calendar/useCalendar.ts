@@ -41,8 +41,6 @@ const useCalendar = (workspaceId?: any, selectedCalendars: string[] = []) => {
   const isLoading = useGetGoogleEvents.isLoading
   const refetchEvents = useGetGoogleEvents.refetch
 
-  console.log(googleEventsData, 'googleEventsData')
-
   useEffect(() => {
     if (useGetGoogleEvents.isSuccess && googleEventsData && !!workspaceId) {
       const ws = new WebSocket(`wss://api.companyon.ai/ws?workspace_id=${workspaceId}`)

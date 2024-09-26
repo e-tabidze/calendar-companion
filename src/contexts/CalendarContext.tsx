@@ -19,6 +19,11 @@ interface CalendarContextProps {
   daysArray: number[]
   zoomLevel: number
   setZoomLevel: (zoom: number) => void
+  selectedCalendars: any[]
+  setSelectedCalendars: (calendars: any[]) => void
+  addCalendar: (calendar: any) => void
+  removeCalendar: (calendarId: string) => void
+  clearSelectedCalendars: () => void
 }
 
 const CalendarContext = createContext<CalendarContextProps | undefined>(undefined)
@@ -29,6 +34,16 @@ export const CalendarProvider: React.FC<{ children: ReactNode }> = ({ children }
   const [currentPeriod, setCurrentPeriod] = useState(new Date())
   const [visibleDays, setVisibleDays] = useState<number>(7)
   const [zoomLevel, setZoomLevel] = useState<number>(100)
+  const [selectedCalendars, setSelectedCalendars] = useState<any[]>(() => {
+    const savedCalendars = typeof window !== 'undefined' && localStorage.getItem('selectedCalendars')
+    return savedCalendars ? JSON.parse(savedCalendars) : []
+  })
+
+  console.log(selectedCalendars, 'selectedCalendars')
+
+  useEffect(() => {
+    localStorage.setItem('selectedCalendars', JSON.stringify(selectedCalendars))
+  }, [selectedCalendars])
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -70,6 +85,18 @@ export const CalendarProvider: React.FC<{ children: ReactNode }> = ({ children }
     setVisibleDays(days)
   }
 
+  const addCalendar = (calendar: any) => {
+    setSelectedCalendars(prevCalendars => [...prevCalendars, calendar])
+  }
+
+  const removeCalendar = (calendarId: string) => {
+    setSelectedCalendars(prevCalendars => prevCalendars.filter(cal => cal !== calendarId))
+  }
+
+  const clearSelectedCalendars = () => {
+    setSelectedCalendars([])
+  }
+
   const startOfPeriod = addDays(currentPeriod, 0)
   const endOfPeriod = addDays(currentPeriod, visibleDays - 1)
 
@@ -105,7 +132,12 @@ export const CalendarProvider: React.FC<{ children: ReactNode }> = ({ children }
         endOfPeriod,
         daysArray,
         zoomLevel,
-        setZoomLevel
+        setZoomLevel,
+        selectedCalendars,
+        setSelectedCalendars,
+        addCalendar,
+        removeCalendar,
+        clearSelectedCalendars
       }}
     >
       {children}

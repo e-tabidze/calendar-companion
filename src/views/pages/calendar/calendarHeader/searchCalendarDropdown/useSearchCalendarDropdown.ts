@@ -1,10 +1,11 @@
-import { useFieldArray, useForm, useWatch } from 'react-hook-form'
 import CalendarService from 'src/services/CalendarService'
 import { useQuery } from '@tanstack/react-query'
 import useUserData from 'src/hooks/useUserData'
+import { useCalendarContext } from 'src/contexts/CalendarContext'
 
 const useSearchCalendarDropdown = () => {
   const { activeWorkspace } = useUserData()
+  const { selectedCalendars, addCalendar, removeCalendar } = useCalendarContext()
 
   const useGetGoogleCalendars = useQuery({
     queryKey: ['googleCalendars'],
@@ -16,47 +17,14 @@ const useSearchCalendarDropdown = () => {
   const googleCalendarsData = useGetGoogleCalendars.data?.result?.data
   const googleCalendarsDataLoading = useGetGoogleCalendars.isLoading
 
-  const selectCalendarsDefaultValues = {
-    selected_calendars: [] as any
-  }
-
-  const {
-    control,
-    handleSubmit,
-    formState: { errors, dirtyFields, isValid },
-    trigger,
-    resetField,
-    setError,
-    clearErrors,
-    setValue
-  } = useForm({
-    mode: 'onChange',
-    reValidateMode: 'onChange',
-    defaultValues: selectCalendarsDefaultValues
-  })
-
   // const { fields: selectedCalendars, append: appendSelectedCalendar } = useFieldArray({
   //   control,
   //   name: 'selected_calendars'
   // })
 
-  const selectedCalendarsValues: any = useWatch({ control })
-
   return {
-    control,
-    handleSubmit,
-    errors,
-    dirtyFields,
-    resetField,
-    setError,
-    clearErrors,
-    setValue,
     googleCalendarsData,
-    selectedCalendarsValues,
-    // selectedCalendars,
-    // appendSelectedCalendar,
-    isValid,
-    trigger,
+
     googleCalendarsDataLoading
   }
 }

@@ -8,14 +8,13 @@ import { GOOGLE_EVENT_COLORS } from 'src/@core/configs/googleEventColors'
 import Typography from 'src/views/components/typography'
 import { convertToAMPM } from 'src/utils/convertAMPM'
 import { getRadiantBackground } from 'src/utils/getRadiantBackground'
-import useSearchCalendarDropdown from '../calendarHeader/searchCalendarDropdown/useSearchCalendarDropdown'
 
 interface Props {
   toggleEventModal: () => void
 }
 
 const CalendarGrid: React.FC<Props> = ({ toggleEventModal }) => {
-  const { visibleDays, startOfPeriod, daysArray, cellHeight } = useCalendarContext()
+  const { visibleDays, startOfPeriod, daysArray, cellHeight, selectedCalendars } = useCalendarContext()
 
   const sl = {
     selected_calendars: [
@@ -26,10 +25,9 @@ const CalendarGrid: React.FC<Props> = ({ toggleEventModal }) => {
     ]
   }
 
-  const { selectedCalendarsValues } = useSearchCalendarDropdown()
 
   const { activeWorkspace } = useUserData()
-  const { googleEventsData } = useCalendar(activeWorkspace?.id, sl.selected_calendars)
+  const { googleEventsData } = useCalendar(activeWorkspace?.id, selectedCalendars)
 
   console.log(googleEventsData, 'googleEventsData????')
 
