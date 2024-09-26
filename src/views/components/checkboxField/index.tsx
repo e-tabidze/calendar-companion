@@ -5,17 +5,12 @@ import { useTranslation } from 'next-i18next'
 import _ from 'lodash'
 import Divider from '../divider'
 
-interface Option {
-  id: string | number
-  summary: string | number | any
-  icon?: string
-  backgroundColor?: string
-}
+
 
 interface Props {
   name: string
   control?: any
-  options?: Option[]
+  options?: any[]
   append?: any
   width?: string
   height?: string
@@ -42,7 +37,6 @@ const CheckboxField: React.FC<Props> = ({
 }) => {
   const { t } = useTranslation()
 
-  console.log(options, 'options')
 
   return (
     <>

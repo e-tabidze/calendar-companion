@@ -1,4 +1,4 @@
-import { Fragment, useState } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 import { Transition, Popover, PopoverButton, PopoverPanel } from '@headlessui/react'
 import useSearchCalendarDropdown from './useSearchCalendarDropdown'
 import Icon from 'src/views/app/Icon'
@@ -6,6 +6,12 @@ import Typography from 'src/views/components/typography'
 import { useCalendarContext } from 'src/contexts/CalendarContext'
 
 const SearchCalendarDropdown = () => {
+  const [isMounted, setIsMounted] = useState(false)
+
+  useEffect(() => {
+    setIsMounted(true)
+  }, [])
+
   const [searchTerm, setSearchTerm] = useState('')
 
   const { googleCalendarsDataLoading, googleCalendarsData } = useSearchCalendarDropdown()
@@ -22,29 +28,30 @@ const SearchCalendarDropdown = () => {
 
   return (
     <div className='w-fit'>
+  
       <Popover>
         {({ open }) => (
           <>
-            <PopoverButton className='h-[29px] border border-solid relative w-max flex items-center cursor-default rounded-full bg-white text-left focus:outline-none'>
-              {/* <span className='flex items-center space-x-2'>
-                {selectedCalendars
-                  .filter((c: any) => c.selected)
-                  .map((calendar: any) => (
-                    <span key={calendar.id} className={`h-4 w-4 rounded-full ${calendar.color}`} />
+            {selectedCalendars && (
+              <PopoverButton className='h-[29px] border border-solid relative w-max flex items-center cursor-default rounded-full bg-white text-left focus:outline-none pl-3'>
+                {isMounted &&
+                  selectedCalendars?.map((calendar: any) => (
+                    <span
+                      key={calendar.id}
+                      className={`h-4 w-4 rounded-full border-2 border-[#fff] -ml-[6px]`}
+                      style={{ backgroundColor: calendar.backgroundColor }}
+                    />
                   ))}
-                <span className='block truncate'>
-                  {selectedCalendars.filter((c: any) => c.selected).length} calendars
-                </span>
-              </span> */}
-              <span className='ml-3 '>5 Calendars</span>
-              <div className='h-full w-px bg-raisin-10 mx-2' />
-              <Icon
-                svgPath='chevron'
-                width={10}
-                height={8}
-                className={`mr-3 transform transition-all ${open ? 'rotate-180' : ''}`}
-              />
-            </PopoverButton>
+                {isMounted && <span className='block truncate'>{selectedCalendars?.length} calendars</span>}
+                <div className='h-full w-px bg-raisin-10 mx-2' />
+                <Icon
+                  svgPath='chevron'
+                  width={10}
+                  height={8}
+                  className={`mr-3 transform transition-all ${open ? 'rotate-180' : ''}`}
+                />
+              </PopoverButton>
+            )}
             <Transition
               as={Fragment}
               leave='transition ease-in duration-100'
@@ -68,8 +75,8 @@ const SearchCalendarDropdown = () => {
                     <>Loading</>
                   ) : (
                     googleCalendarsData &&
-                    Object.entries(googleCalendarsData)?.map((data: any[]) => (
-                      <div>
+                    Object.entries(googleCalendarsData)?.map((data: any[], index: number) => (
+                      <div key={index}>
                         <Typography type='subtitle' weight='medium' className='text-raisin-70 font-semibold mt-2 mb-1'>
                           {data[0]}
                         </Typography>

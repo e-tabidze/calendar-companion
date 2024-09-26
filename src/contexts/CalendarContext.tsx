@@ -36,10 +36,9 @@ export const CalendarProvider: React.FC<{ children: ReactNode }> = ({ children }
   const [zoomLevel, setZoomLevel] = useState<number>(100)
   const [selectedCalendars, setSelectedCalendars] = useState<any[]>(() => {
     const savedCalendars = typeof window !== 'undefined' && localStorage.getItem('selectedCalendars')
+
     return savedCalendars ? JSON.parse(savedCalendars) : []
   })
-
-  console.log(selectedCalendars, 'selectedCalendars')
 
   useEffect(() => {
     localStorage.setItem('selectedCalendars', JSON.stringify(selectedCalendars))

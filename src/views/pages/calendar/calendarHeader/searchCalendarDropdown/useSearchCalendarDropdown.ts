@@ -1,11 +1,9 @@
 import CalendarService from 'src/services/CalendarService'
 import { useQuery } from '@tanstack/react-query'
 import useUserData from 'src/hooks/useUserData'
-import { useCalendarContext } from 'src/contexts/CalendarContext'
 
 const useSearchCalendarDropdown = () => {
   const { activeWorkspace } = useUserData()
-  const { selectedCalendars, addCalendar, removeCalendar } = useCalendarContext()
 
   const useGetGoogleCalendars = useQuery({
     queryKey: ['googleCalendars'],
@@ -17,10 +15,6 @@ const useSearchCalendarDropdown = () => {
   const googleCalendarsData = useGetGoogleCalendars.data?.result?.data
   const googleCalendarsDataLoading = useGetGoogleCalendars.isLoading
 
-  // const { fields: selectedCalendars, append: appendSelectedCalendar } = useFieldArray({
-  //   control,
-  //   name: 'selected_calendars'
-  // })
 
   return {
     googleCalendarsData,
@@ -36,7 +30,6 @@ const getGoogleCalendars = async (AccessToken = '', workspaceId: string) => {
 
     return response.data
   } catch (error) {
-    console.error('Error fetching Google events:', error)
     throw error
   }
 }

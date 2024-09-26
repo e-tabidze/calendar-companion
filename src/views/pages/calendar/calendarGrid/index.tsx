@@ -16,20 +16,12 @@ interface Props {
 const CalendarGrid: React.FC<Props> = ({ toggleEventModal }) => {
   const { visibleDays, startOfPeriod, daysArray, cellHeight, selectedCalendars } = useCalendarContext()
 
-  const sl = {
-    selected_calendars: [
-      'ad857fcf98a49d4c53cf7ecf9dea0851fb5a9b16a4c69d80152c500b530606b9@group.calendar.google.com',
-      'beka.supertramp@gmail.com',
-      'giorgi.gogitidze164@gmail.com',
-      'ac24d09eedffeb4ed9e7ab3a74b842f5bf2e6dd83783ee6679cd7f0c6e9bb480@group.calendar.google.com'
-    ]
-  }
+
 
 
   const { activeWorkspace } = useUserData()
   const { googleEventsData } = useCalendar(activeWorkspace?.id, selectedCalendars)
 
-  console.log(googleEventsData, 'googleEventsData????')
 
   const mappedEvents = useMemo(() => {
     const groupedEvents: any = {}
