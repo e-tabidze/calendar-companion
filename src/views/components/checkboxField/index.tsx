@@ -24,6 +24,7 @@ interface Props {
   errors?: any
   color?: string
   svgPath?: string
+  handleClick?: () => void
 }
 
 const CheckboxField: React.FC<Props> = ({
@@ -36,7 +37,8 @@ const CheckboxField: React.FC<Props> = ({
   divider,
   cols,
   errors,
-  svgPath
+  svgPath,
+  handleClick
 }) => {
   const { t } = useTranslation()
 
@@ -70,6 +72,7 @@ const CheckboxField: React.FC<Props> = ({
                           onChange(option.id)
                         }
                       }
+                      handleClick && handleClick()
                     }}
                   >
                     <span

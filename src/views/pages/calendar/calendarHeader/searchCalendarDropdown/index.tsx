@@ -77,15 +77,14 @@ const SearchCalendarDropdown = () => {
                           {data[0]}
                         </Typography>
                         <div className='flex w-max items-center'>
-
                           <CheckboxField
                             name={`selected_calendars`}
                             control={control}
                             options={data[1]}
                             append={() => appendSelectedCalendar(selectedCalendars)}
-                            svgPath="calendarSmall"
+                            svgPath='calendarSmall'
+                            handleClick={() => console.log('CLICK')}
                           />
-
                         </div>
                       </div>
                     ))
