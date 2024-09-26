@@ -8,6 +8,7 @@ import { GOOGLE_EVENT_COLORS } from 'src/@core/configs/googleEventColors'
 import Typography from 'src/views/components/typography'
 import { convertToAMPM } from 'src/utils/convertAMPM'
 import { getRadiantBackground } from 'src/utils/getRadiantBackground'
+import useSearchCalendarDropdown from '../calendarHeader/searchCalendarDropdown/useSearchCalendarDropdown'
 
 interface Props {
   toggleEventModal: () => void
@@ -16,8 +17,21 @@ interface Props {
 const CalendarGrid: React.FC<Props> = ({ toggleEventModal }) => {
   const { visibleDays, startOfPeriod, daysArray, cellHeight } = useCalendarContext()
 
+  const sl = {
+    selected_calendars: [
+      'ad857fcf98a49d4c53cf7ecf9dea0851fb5a9b16a4c69d80152c500b530606b9@group.calendar.google.com',
+      'beka.supertramp@gmail.com',
+      'giorgi.gogitidze164@gmail.com',
+      'ac24d09eedffeb4ed9e7ab3a74b842f5bf2e6dd83783ee6679cd7f0c6e9bb480@group.calendar.google.com'
+    ]
+  }
+
+  const { selectedCalendarsValues } = useSearchCalendarDropdown()
+
   const { activeWorkspace } = useUserData()
-  const { googleEventsData } = useCalendar(activeWorkspace?.id)
+  const { googleEventsData } = useCalendar(activeWorkspace?.id, sl.selected_calendars)
+
+  console.log(googleEventsData, 'googleEventsData????')
 
   const mappedEvents = useMemo(() => {
     const groupedEvents: any = {}
@@ -52,9 +66,7 @@ const CalendarGrid: React.FC<Props> = ({ toggleEventModal }) => {
 
       const startTime = convertToAMPM(event.start.dateTime)
 
-      const organizerSelf = event?.attendees?.find(
-        (item: { organizer: boolean; self: boolean }) =>  item.self === true
-      )
+      const organizerSelf = event?.attendees?.find((item: { organizer: boolean; self: boolean }) => item.self === true)
 
       groupedEvents[key].push({
         ...event,
@@ -95,7 +107,7 @@ const CalendarGrid: React.FC<Props> = ({ toggleEventModal }) => {
     })
 
     const groupsss = groupOverlappingEvents(sortedEvents)
-    
+
     return sortedEvents.map(event => {
       const columnIndex = columns.findIndex((column: any) => column.includes(event))
       const group = groupsss.find(g => g.includes(event))!
@@ -103,44 +115,44 @@ const CalendarGrid: React.FC<Props> = ({ toggleEventModal }) => {
       return {
         ...event,
         width: `${group?.length ? 95 / group?.length : 95}%`,
-        left: `${group?.length ?  (columnIndex * 95) /  group?.length : (columnIndex * 95) }%`
+        left: `${group?.length ? (columnIndex * 95) / group?.length : columnIndex * 95}%`
       }
     })
   }
   function groupOverlappingEvents(events: any[]) {
-    const overlappingGroups = [];
-  
+    const overlappingGroups = []
+
     const toDate = (event: any) => ({
       start: new Date(event.start.dateTime),
       end: new Date(event.end.dateTime),
       original: event
-    });
-  
-    const sortedEvents = events.map(toDate).sort((a: any, b: any) => a.startHour - b.startHour);
-  
-    let currentGroup = [sortedEvents[0]?.original];
-  
+    })
+
+    const sortedEvents = events.map(toDate).sort((a: any, b: any) => a.startHour - b.startHour)
+
+    let currentGroup = [sortedEvents[0]?.original]
+
     for (let i = 1; i < sortedEvents.length; i++) {
-      const currentEvent = sortedEvents[i];
-      const lastEventInGroup = toDate(currentGroup[currentGroup.length - 1]);
-  
+      const currentEvent = sortedEvents[i]
+      const lastEventInGroup = toDate(currentGroup[currentGroup.length - 1])
+
       if (currentEvent.start < lastEventInGroup.end) {
-        currentGroup.push(currentEvent.original);
+        currentGroup.push(currentEvent.original)
       } else {
         if (currentGroup.length > 1) {
-          overlappingGroups.push(currentGroup);
+          overlappingGroups.push(currentGroup)
         }
-        currentGroup = [currentEvent.original];
+        currentGroup = [currentEvent.original]
       }
     }
-  
+
     if (currentGroup.length > 1) {
-      overlappingGroups.push(currentGroup);
+      overlappingGroups.push(currentGroup)
     }
-  
-    return overlappingGroups;
+
+    return overlappingGroups
   }
-  
+
   const doEventsOverlap = (event1: any, event2: any) => {
     const start1 = new Date(event1.start.dateTime).getTime()
     const end1 = new Date(event1.end.dateTime).getTime()
@@ -167,52 +179,54 @@ const CalendarGrid: React.FC<Props> = ({ toggleEventModal }) => {
                   className='relative flex flex-1 flex-grow cursor-pointer border-b border-r border-solid border-strokes-1'
                   style={{ height: `${GridConstants.hourCellHeight}vhh` }}
                 >
-                  {positionedEvents.filter(googleEvent => i === googleEvent.startHour).map((event, eventIndex) => (
-                    <div
-                      key={event.id}
-                      className='absolute rounded-sm overflow-hidden'
-                      style={{
-                        height: `${event.eventHeight}px`,
-                        top: `${event.topOffset}px`,
-                        left: event.left,
-                        width: event.width,
-                        background:
-                          event.organizerSelf?.responseStatus === 'declined'
-                            ? event.eventBgSolid
-                            : event.organizerSelf?.responseStatus === 'accepted'
-                            ? event.eventBgSolid
-                            : event.organizerSelf?.responseStatus === 'tentative'
-                            ? event.eventBgRadiant
-                            : '#fff',
-                        border: `1px solid ${
-                          event.organizerSelf?.responseStatus === 'declined'
-                            ? event.eventBgSolid
-                            : event.organizerSelf?.responseStatus === 'accepted'
-                            ? event.eventBgSolid
-                            : event.organizerSelf?.responseStatus === 'tentative'
-                            ? event.eventBgRadiant
-                            : event.eventBgSolid
-                        }`,
-                        color: event.eventTitleColor,
-                        opacity: event.organizerSelf?.responseStatus === 'declined' ? 0.6 : 1,
-                        zIndex: eventIndex + 10
-                      }}
-                    >
-                      <div className='flex flex-col justify-between h-full p-1'>
-                        <Typography
-                          type='body'
-                          className={`text-xs font-bold truncate ${
-                            event.organizerSelf?.responseStatus === 'declined' ? 'line-through' : ''
-                          } ${`text-$[event.eventTitleColor]`}`}
-                        >
-                          {event.summary || 'No Title'}
-                        </Typography>
-                        <Typography type='body' className='text-xs'>
-                          {event.startTime}
-                        </Typography>
+                  {positionedEvents
+                    .filter(googleEvent => i === googleEvent.startHour)
+                    .map((event, eventIndex) => (
+                      <div
+                        key={event.id}
+                        className='absolute rounded-sm overflow-hidden'
+                        style={{
+                          height: `${event.eventHeight}px`,
+                          top: `${event.topOffset}px`,
+                          left: event.left,
+                          width: event.width,
+                          background:
+                            event.organizerSelf?.responseStatus === 'declined'
+                              ? event.eventBgSolid
+                              : event.organizerSelf?.responseStatus === 'accepted'
+                              ? event.eventBgSolid
+                              : event.organizerSelf?.responseStatus === 'tentative'
+                              ? event.eventBgRadiant
+                              : '#fff',
+                          border: `1px solid ${
+                            event.organizerSelf?.responseStatus === 'declined'
+                              ? event.eventBgSolid
+                              : event.organizerSelf?.responseStatus === 'accepted'
+                              ? event.eventBgSolid
+                              : event.organizerSelf?.responseStatus === 'tentative'
+                              ? event.eventBgRadiant
+                              : event.eventBgSolid
+                          }`,
+                          color: event.eventTitleColor,
+                          opacity: event.organizerSelf?.responseStatus === 'declined' ? 0.6 : 1,
+                          zIndex: eventIndex + 10
+                        }}
+                      >
+                        <div className='flex flex-col justify-between h-full p-1'>
+                          <Typography
+                            type='body'
+                            className={`text-xs font-bold truncate ${
+                              event.organizerSelf?.responseStatus === 'declined' ? 'line-through' : ''
+                            } ${`text-$[event.eventTitleColor]`}`}
+                          >
+                            {event.summary || 'No Title'}
+                          </Typography>
+                          <Typography type='body' className='text-xs'>
+                            {event.startTime}
+                          </Typography>
+                        </div>
                       </div>
-                    </div>
-                  ))}
+                    ))}
 
                   {/* {events.length > 3 && (
                     <span

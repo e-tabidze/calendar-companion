@@ -51,7 +51,6 @@ const CalendarHeader = () => {
               bg='bg-primary-15'
               className='rounded-full py-1 text-2sm !text-primary-100'
             />
-            {/* <DefaultButton text='0 Calendars' bg='bg-primary-100' className='rounded-full py-1 text-2sm' /> */}
             <SearchCalendarDropdown />
             <DefaultButton text='Share Calendar' bg='bg-primary-100' className='rounded-full py-1 text-2sm' />
             <SettingsDropdownMenu />

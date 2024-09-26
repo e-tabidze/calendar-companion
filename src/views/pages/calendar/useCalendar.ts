@@ -3,19 +3,18 @@ import CalendarService from 'src/services/CalendarService'
 import { useEffect, useState } from 'react'
 import { useCalendarContext } from 'src/contexts/CalendarContext'
 
-const useCalendar = (workspaceId?: any) => {
+const useCalendar = (workspaceId?: any, selectedCalendars: string[] = []) => {
   const { startOfPeriod, endOfPeriod, currentPeriod, visibleDays } = useCalendarContext()
 
   const [socket, setSocket] = useState<WebSocket | null>(null)
   const [syncing, setSyncing] = useState(false)
 
-  const getGoogleEvents = async (AccessToken = '', workspaceId: string, start_date: string, end_date: string) => {
+  const getGoogleEvents = async (AccessToken = '', workspaceId: string, start_date: string, end_date: string, calendarIds: string[] = []) => {
     try {
-      const response: any = await CalendarService.getGoogleEvents(AccessToken, workspaceId, start_date, end_date)
+      const response: any = await CalendarService.getGoogleEvents(AccessToken, workspaceId, start_date, end_date, calendarIds)
 
       return response.data
     } catch (error) {
-      console.error('Error fetching Google events:', error)
       throw error
     }
   }
@@ -23,14 +22,15 @@ const useCalendar = (workspaceId?: any) => {
   console.log(syncing, 'syncing')
 
   const useGetGoogleEvents = useQuery({
-    queryKey: ['calendarEvents', startOfPeriod, endOfPeriod, visibleDays, currentPeriod],
+    queryKey: ['calendarEvents', startOfPeriod, endOfPeriod, visibleDays, currentPeriod, selectedCalendars],
     queryFn: () =>
       workspaceId
         ? getGoogleEvents(
             '',
             workspaceId,
             startOfPeriod.toISOString().split('T')[0],
-            endOfPeriod.toISOString().split('T')[0]
+            endOfPeriod.toISOString().split('T')[0],
+            selectedCalendars
           )
         : Promise.resolve({ data: null }),
     enabled: !!workspaceId,
@@ -40,6 +40,8 @@ const useCalendar = (workspaceId?: any) => {
   const googleEventsData = useGetGoogleEvents.data?.result?.data
   const isLoading = useGetGoogleEvents.isLoading
   const refetchEvents = useGetGoogleEvents.refetch
+
+  console.log(googleEventsData, 'googleEventsData')
 
   useEffect(() => {
     if (useGetGoogleEvents.isSuccess && googleEventsData && !!workspaceId) {

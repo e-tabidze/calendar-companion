@@ -4,6 +4,8 @@ import useSearchCalendarDropdown from './useSearchCalendarDropdown'
 import CheckboxField from 'src/views/components/checkboxField'
 import Icon from 'src/views/app/Icon'
 import Typography from 'src/views/components/typography'
+import useCalendar from '../../useCalendar'
+import useUserData from 'src/hooks/useUserData'
 
 const SearchCalendarDropdown = () => {
   const [searchTerm, setSearchTerm] = useState('')
@@ -12,16 +14,23 @@ const SearchCalendarDropdown = () => {
     googleCalendarsDataLoading,
     googleCalendarsData,
     control,
-    selectedCalendars,
-    appendSelectedCalendar,
     selectedCalendarsValues
   } = useSearchCalendarDropdown()
 
   console.log(selectedCalendarsValues, 'selectedCalendarsValues')
 
+  
   // const filteredCalendars = googleCalendarsData?.filter((calendar: any) =>
   //   calendar.summary.toLowerCase().includes(searchTerm.toLowerCase())
   // )
+
+  const { activeWorkspace } = useUserData()
+
+  const { refetchEvents } = useCalendar(activeWorkspace?.id, selectedCalendarsValues.selected_calendars)
+
+  const handleCheckboxClick = () => {
+    refetchEvents() // Trigger refetch of .events when a calendar is selected or deselected
+  }
 
   return (
     <div className='w-fit'>
@@ -81,7 +90,7 @@ const SearchCalendarDropdown = () => {
                             name={`selected_calendars`}
                             control={control}
                             options={data[1]}
-                            append={() => appendSelectedCalendar(selectedCalendars)}
+                            append={handleCheckboxClick}
                             svgPath='calendarSmall'
                             handleClick={() => console.log('CLICK')}
                           />

@@ -16,7 +16,7 @@ const useSearchCalendarDropdown = () => {
   const googleCalendarsData = useGetGoogleCalendars.data?.result?.data
   const googleCalendarsDataLoading = useGetGoogleCalendars.isLoading
 
-  const selectCalendarsDefauktValues = {
+  const selectCalendarsDefaultValues = {
     selected_calendars: [] as any
   }
 
@@ -32,13 +32,13 @@ const useSearchCalendarDropdown = () => {
   } = useForm({
     mode: 'onChange',
     reValidateMode: 'onChange',
-    defaultValues: selectCalendarsDefauktValues
+    defaultValues: selectCalendarsDefaultValues
   })
 
-  const { fields: selectedCalendars, append: appendSelectedCalendar } = useFieldArray({
-    control,
-    name: 'selected_calendars'
-  })
+  // const { fields: selectedCalendars, append: appendSelectedCalendar } = useFieldArray({
+  //   control,
+  //   name: 'selected_calendars'
+  // })
 
   const selectedCalendarsValues: any = useWatch({ control })
 
@@ -53,8 +53,8 @@ const useSearchCalendarDropdown = () => {
     setValue,
     googleCalendarsData,
     selectedCalendarsValues,
-    selectedCalendars,
-    appendSelectedCalendar,
+    // selectedCalendars,
+    // appendSelectedCalendar,
     isValid,
     trigger,
     googleCalendarsDataLoading
