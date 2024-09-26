@@ -3,8 +3,6 @@ import { Transition, Popover, PopoverButton, PopoverPanel } from '@headlessui/re
 import useSearchCalendarDropdown from './useSearchCalendarDropdown'
 import Icon from 'src/views/app/Icon'
 import Typography from 'src/views/components/typography'
-import useCalendar from '../../useCalendar'
-import useUserData from 'src/hooks/useUserData'
 import { useCalendarContext } from 'src/contexts/CalendarContext'
 
 const SearchCalendarDropdown = () => {
@@ -14,17 +12,12 @@ const SearchCalendarDropdown = () => {
 
   const { selectedCalendars, addCalendar, removeCalendar } = useCalendarContext()
 
-  const { activeWorkspace } = useUserData()
-
-  const { refetchEvents } = useCalendar(activeWorkspace?.id, selectedCalendars)
-
   const handleCheckboxClick = (calendar: any) => {
-    if (selectedCalendars.find(c => c === calendar)) {
-      removeCalendar(calendar)
+    if (selectedCalendars.some(c => c.id === calendar.id)) {
+      removeCalendar(calendar.id)
     } else {
       addCalendar(calendar)
     }
-    refetchEvents()
   }
 
   return (
@@ -85,7 +78,7 @@ const SearchCalendarDropdown = () => {
                           <div key={calendar.id} className='flex items-center gap-3 cursor-pointer transition-all py-2'>
                             <span
                               className={`flex-shrink-0 flex items-center justify-center w-5 h-5 rounded border cursor-pointer ${
-                                selectedCalendars.includes(calendar.id)
+                                selectedCalendars.some(c => c.id === calendar.id)
                                   ? 'border-primary-100 bg-primary-100 !fill-red-100'
                                   : 'border-raisin-10'
                               }`}
@@ -95,15 +88,15 @@ const SearchCalendarDropdown = () => {
                                 height={11}
                                 width={11}
                                 className={`fill-transparent cursor-pointer ${
-                                  selectedCalendars.includes(calendar.id) ? 'fill-white' : ''
+                                  selectedCalendars.some(c => c.id === calendar.id) ? 'fill-white' : ''
                                 }`}
                               />
                             </span>
                             <input
                               type='checkbox'
                               id={calendar.id}
-                              checked={selectedCalendars.includes(calendar.id)}
-                              onChange={() => handleCheckboxClick(calendar.id)}
+                              checked={selectedCalendars.some(c => c.id === calendar.id)}
+                              onChange={() => handleCheckboxClick(calendar)}
                               className='absolute opacity-0 w-5 h-5 cursor-pointer'
                             />
                             <label htmlFor={calendar.id} className='flex items-center cursor-pointer'>

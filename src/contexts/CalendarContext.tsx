@@ -90,7 +90,7 @@ export const CalendarProvider: React.FC<{ children: ReactNode }> = ({ children }
   }
 
   const removeCalendar = (calendarId: string) => {
-    setSelectedCalendars(prevCalendars => prevCalendars.filter(cal => cal !== calendarId))
+    setSelectedCalendars(prevCalendars => prevCalendars.filter(cal => cal.id !== calendarId))
   }
 
   const clearSelectedCalendars = () => {

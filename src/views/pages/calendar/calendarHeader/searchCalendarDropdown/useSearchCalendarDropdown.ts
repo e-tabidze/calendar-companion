@@ -24,7 +24,6 @@ const useSearchCalendarDropdown = () => {
 
   return {
     googleCalendarsData,
-
     googleCalendarsDataLoading
   }
 }
