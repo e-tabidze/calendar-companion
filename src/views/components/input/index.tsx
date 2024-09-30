@@ -15,7 +15,7 @@ const styles = {
 interface Props {
   control?: any
   name: string
-  label: string
+  label?: string
   labelMobile?: string
   id?: any
   prefix?: string
@@ -40,6 +40,7 @@ interface Props {
   inputValue?: string
   min?: number
   onBlur?: any
+  boldPlaceholder?: boolean
 }
 
 export const DefaultInput: React.FC<Props> = ({
@@ -62,9 +63,7 @@ export const DefaultInput: React.FC<Props> = ({
   const [showPassword, setShowPassword] = useState(false)
   const { t } = useTranslation()
 
-  const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword)
-  }
+  const togglePasswordVisibility = () => setShowPassword(!showPassword)
 
   const InputComponent = rows ? 'textarea' : 'input'
 
@@ -142,14 +141,162 @@ export const DefaultInput: React.FC<Props> = ({
             </label>
             <InputComponent
               onFocus={handleFocus}
-              onBlur={() => {handleBlur(); onBlur && onBlur()}}
+              onBlur={() => {
+                handleBlur()
+                onBlur && onBlur()
+              }}
               disabled={disabled}
               value={value || ''}
               className={`placeholder:text-md placeholder:text-raisin-40 placeholder:font-medium ${
                 rows ? 'pt-5 min-h-[80px]' : 'h-14'
               } ${styles.input} ${value || isFocused ? 'pb-1 pt-3' : 'pt-2 pb-2'} ${
                 !disabled ? 'hover:border-raisin-30' : ''
-              } ${_.get(errors, name)?.ref.name === name ? 'bg-red-15' : ''}`}
+              } ${_.get(errors, name)?.ref?.name === name ? 'bg-red-15' : ''}`}
+              type={type === 'password' ? (showPassword ? 'text' : 'password') : ''}
+              onChange={e => {
+                onChange(e)
+              }}
+              onKeyDown={
+                type === 'number' ? handleKeyDown : type === 'english' ? handleEnglishLetters : e => e.stopPropagation()
+              }
+              pattern={pattern}
+              rows={rows}
+              min={min}
+            />
+            {_.get(errors, name)?.message && (
+              <ul id={id} className='list-disc ml-6 text-sm text-red-100 py-2 max-h-max relative'>
+                <li>{t(_.get(errors, name)?.message)}</li>
+              </ul>
+            )}
+
+            {type === 'password' && (
+              <button type='button' onClick={togglePasswordVisibility} className='absolute right-3 transform top-4'>
+                {showPassword ? (
+                  <Icon svgPath='eye' width={24} height={24} />
+                ) : (
+                  <Icon svgPath='eyeHidden' width={24} height={24} />
+                )}
+              </button>
+            )}
+          </>
+        )}
+      />
+    </InputContainer>
+  )
+}
+
+export const EventInput: React.FC<Props> = ({
+  control,
+  name = '',
+  label,
+  labelMobile,
+  id,
+  errors,
+  pattern,
+  disabled = false,
+  rows,
+  className,
+  index,
+  type = 'text',
+  min,
+  onBlur,
+  placeholder,
+  boldPlaceholder
+}) => {
+  const [isFocused, setIsFocused] = useState(false)
+  const [showPassword, setShowPassword] = useState(false)
+  const { t } = useTranslation()
+
+  const togglePasswordVisibility = () => setShowPassword(!showPassword)
+
+  const InputComponent = rows ? 'textarea' : 'input'
+
+  const handleFocus = () => setIsFocused(true)
+
+  const handleBlur = () => setIsFocused(false)
+
+  const handleKeyDown = (e: any) => {
+    e.stopPropagation()
+    const { value } = e.target
+    const badChars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-.+,'
+
+    if (value.length === 0 && e.key === '0') {
+      return true
+    }
+
+    if ((e.metaKey || e.ctrlKey) && e.key === 'a') {
+      e.target.select()
+
+      return true
+    }
+
+    if (badChars.indexOf(e.key) !== -1) {
+      e.preventDefault()
+
+      return false
+    }
+  }
+  const handleEnglishLetters = (e: any) => {
+    e.stopPropagation()
+    const { value } = e.target
+    const georgianChars = 'აბგდევზთიკლმნოპჟრსტუფქღყშჩცძწჭხჯჰ'
+
+    if (value.length === 0 && e.key === '0') {
+      return true
+    }
+
+    if ((e.metaKey || e.ctrlKey) && e.key === 'a') {
+      e.target.select()
+
+      return true
+    }
+
+    if (georgianChars.indexOf(e.key) !== -1) {
+      e.preventDefault()
+
+      return false
+    }
+  }
+
+  return (
+    <InputContainer key={index} className={`flex flex-col ${className} ${disabled && styles.disabledInput}`}>
+      <Controller
+        control={control}
+        name={name}
+        rules={{ required: true }}
+        render={({ field: { onChange, value } }) => (
+          <>
+            {/* <label
+              className={`${
+                labelMobile && 'hidden md:flex'
+              } bg-transparent w-[calc(100%-24px)] absolute left-3 text-raisin-40 font-medium tracking-wide transition-all text-md pointer-events-none ${
+                isFocused || value ? 'text-sm top-[1px] pt-[2px]' : 'top-[18px] text-raisin-40'
+              }`}
+            >
+              {label}
+            </label>
+
+            <label
+              className={`md:hidden bg-white w-[calc(100%-24px)] absolute left-3 text-raisin-40 font-medium tracking-wide transition-all text-2sm pointer-events-none ${
+                isFocused || value ? 'text-sm top-[1px] pt-[2px]' : 'top-[18px] text-raisin-80'
+              }`}
+            >
+              {labelMobile}
+            </label> */}
+            <InputComponent
+              onFocus={handleFocus}
+              onBlur={() => {
+                handleBlur()
+                onBlur && onBlur()
+              }}
+              placeholder={placeholder}
+              disabled={disabled}
+              value={value || ''}
+              className={`placeholder:text-md placeholder:text-raisin-40 ${boldPlaceholder ? 'placeholder:font-bold placeholder:text-3md' : ''}  ${
+                rows ? 'pt-5 min-h-[80px]' : 'h-14'
+              } ${
+                !disabled ? 'hover:border-raisin-30' : ''
+              } ${_.get(errors, name)?.ref?.name === name ? 'bg-red-15' : ''}`}
               type={type === 'password' ? (showPassword ? 'text' : 'password') : ''}
               onChange={e => {
                 onChange(e)

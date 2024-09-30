@@ -1,6 +1,9 @@
-import { Dialog, DialogPanel, DialogTitle, Description } from '@headlessui/react'
+import { Dialog, DialogPanel, DialogTitle, Description, DialogBackdrop } from '@headlessui/react'
 import { useState } from 'react'
 import { Transition } from '@headlessui/react'
+import { DefaultInput, EventInput } from 'src/views/components/input'
+import { useForm } from 'react-hook-form'
+import Typography from 'src/views/components/typography'
 
 interface Props {
   isOpen: boolean
@@ -12,6 +15,8 @@ const EventModal: React.FC<Props> = ({ isOpen, toggleIsOpen }) => {
   const [startTime, setStartTime] = useState('')
   const [endTime, setEndTime] = useState('')
   const [color, setColor] = useState('#ff0000')
+
+  const { register, handleSubmit, control } = useForm()
 
   const handleSave = () => {
     if (title && startTime && endTime) {
@@ -35,7 +40,39 @@ const EventModal: React.FC<Props> = ({ isOpen, toggleIsOpen }) => {
         className='fixed w-3/4 mx-auto inset-x-0 bottom-6 z-50 flex items-center justify-center transition duration-800 ease-out'
         transition
       >
-        <DialogPanel className='max-w-lg w-full rounded-lg bg-white p-8 shadow-xl'>
+        {/* <DialogBackdrop className='fixed inset-0 bg-black/30' /> */}
+        <DialogPanel className='max-w-lg w-full rounded-lg bg-white shadow-xl'>
+          <div className="px-8 pt-4">
+            <div className='flex gap-3'>
+              <div className='h-[51px] w-1 bg-red-100' />
+              <div>
+                <Typography type='subtitle' color='light'>
+                  In 1h and 15 minutes
+                </Typography>
+                <EventInput
+                  control={control}
+                  name='title'
+                  className='h-[30px] bg-white mt-1'
+                  placeholder='Add title'
+                  boldPlaceholder
+                />
+              </div>
+            </div>
+            <div className='flex gap-3'>
+              <div className='h-[51px] w-1 bg-white' />
+              <div>
+                <EventInput
+                  control={control}
+                  name='description'
+                  className='h-[30px] bg-white'
+                  placeholder='Add description'
+                />
+              </div>
+            </div>
+          </div>
+
+          <div className='w-full h-px bg-grey-10' />
+
           <DialogTitle className='text-2xl font-semibold text-gray-800'>Create Event</DialogTitle>
           <Description className='text-sm text-gray-600 mt-2 mb-6'>Enter event details below:</Description>
           <div className='flex flex-col space-y-4'>
