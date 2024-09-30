@@ -4,6 +4,9 @@ import { Transition } from '@headlessui/react'
 import { DefaultInput, EventInput } from 'src/views/components/input'
 import { useForm } from 'react-hook-form'
 import Typography from 'src/views/components/typography'
+import Icon from 'src/views/app/Icon'
+import DateDropdown from 'src/views/components/dateDropdown'
+import useCreateEvent from './useCreateEvent'
 
 interface Props {
   isOpen: boolean
@@ -16,7 +19,7 @@ const EventModal: React.FC<Props> = ({ isOpen, toggleIsOpen }) => {
   const [endTime, setEndTime] = useState('')
   const [color, setColor] = useState('#ff0000')
 
-  const { register, handleSubmit, control } = useForm()
+  const { handleSubmit, control } = useCreateEvent()
 
   const handleSave = () => {
     if (title && startTime && endTime) {
@@ -42,7 +45,7 @@ const EventModal: React.FC<Props> = ({ isOpen, toggleIsOpen }) => {
       >
         {/* <DialogBackdrop className='fixed inset-0 bg-black/30' /> */}
         <DialogPanel className='max-w-lg w-full rounded-lg bg-white shadow-xl'>
-          <div className="px-8 pt-4">
+          <div className='px-8 pt-4'>
             <div className='flex gap-3'>
               <div className='h-[51px] w-1 bg-red-100' />
               <div>
@@ -73,8 +76,17 @@ const EventModal: React.FC<Props> = ({ isOpen, toggleIsOpen }) => {
 
           <div className='w-full h-px bg-grey-10' />
 
-          <DialogTitle className='text-2xl font-semibold text-gray-800'>Create Event</DialogTitle>
-          <Description className='text-sm text-gray-600 mt-2 mb-6'>Enter event details below:</Description>
+          <div className='bg-grey-70 rounded-xl'>
+            <div className='w-11 h-11 rounded-full bg-white flex justify-center items-center'>
+              <Icon svgPath='googleMeet' width={25} height={25} />
+            </div>
+            <div>
+              <div>
+                <DateDropdown name='date' control={control} label='date' errors={undefined} />
+              </div>
+            </div>
+          </div>
+
           <div className='flex flex-col space-y-4'>
             <input
               type='text'
