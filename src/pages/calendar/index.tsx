@@ -11,12 +11,16 @@ import GridColumnLabels from 'src/views/pages/calendar/gridColumnLabels'
 const Calendar = () => {
   const [eventModal, setEventModal] = useState(false)
   const [showDock, setShowDock] = useState(true)
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null)
+
 
   const toggleEventModal = () => {
     setShowDock(!showDock)
     setEventModal(!eventModal)
   }
   const { headerHeight } = useCalendarContext()
+
+  console.log(selectedDate, 'selectedDate')
 
   return (
     <>
@@ -27,11 +31,11 @@ const Calendar = () => {
       <div style={{ marginTop: headerHeight }}>
         <div className='flex min-w-full max-w-full flex-1'>
           <CalendarGridTimeline />
-          <CalendarGrid toggleEventModal={toggleEventModal} />
+          <CalendarGrid toggleEventModal={toggleEventModal} setSelectedDate={setSelectedDate} />
         </div>
       </div>
       <Dock />
-      <EventModal isOpen={eventModal} toggleIsOpen={toggleEventModal} />
+      <EventModal isOpen={eventModal} toggleIsOpen={toggleEventModal} selectedDate={selectedDate} />
     </>
   )
 }

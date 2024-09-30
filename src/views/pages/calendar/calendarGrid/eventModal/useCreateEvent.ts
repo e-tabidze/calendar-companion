@@ -1,65 +1,18 @@
-import { useFieldArray, useForm, useWatch } from 'react-hook-form'
-import { yupResolver } from '@hookform/resolvers/yup'
+import { useForm, useWatch } from 'react-hook-form'
+import { useEffect } from 'react'
 
-import { CompanySchema } from 'src/@core/validation/companySchema'
-import { Company, CompanyAddress, WorkingTime } from 'src/types/Company'
-import CompanyService from 'src/services/CompanyService'
-import StaticService from 'src/services/StaticService'
-
-const useCreateEvent = () => {
-  const defaultWorkDayWorkingTime: WorkingTime = {
-    start_time: '09:00',
-    end_time: '18:00',
-    is_selected: true
-  }
-
-  const defaultWeekendWorkingTime: WorkingTime = {
-    start_time: '',
-    end_time: '',
-    is_selected: false
-  }
-
-  const defaultAddress: CompanyAddress = {
-    address: '',
-    phone: 0,
-    email: '',
-    city: '',
-    state: '',
-    postal_code: '',
-    lat: '',
-    long: '',
-    is_same_time: true,
-    start_time: '09:00',
-    end_time: '18:00',
-    working_hours: {
-      monday: defaultWorkDayWorkingTime,
-      tuesday: defaultWorkDayWorkingTime,
-      wednesday: defaultWorkDayWorkingTime,
-      thursday: defaultWorkDayWorkingTime,
-      friday: defaultWorkDayWorkingTime,
-      saturday: defaultWeekendWorkingTime,
-      sunday: defaultWeekendWorkingTime
-    }
-  }
-
-  const createEventDefaultValues: Company = {
+const useCreateEvent = (selectedDate: Date | null) => {
+  const createEventDefaultValues = {
     title: '',
     description: '',
-    identification_number: 0,
-    company_type_id: '1',
-    company_information: {
-      name: '',
-      legal_name: '',
-      logo: '',
-      description: '',
-      description_en: '',
-      email: '',
-      phone_numbers: '',
-      iban: ''
-    },
-    addresses: [defaultAddress],
-    terms_and_conditions: ''
+    selected_date: new Date()
   }
+
+  useEffect(() => {
+    if (selectedDate) {
+      setValue('selected_date', selectedDate)
+    }
+  }, [selectedDate])
 
   const {
     control,
@@ -73,70 +26,21 @@ const useCreateEvent = () => {
   } = useForm({
     mode: 'onChange',
     reValidateMode: 'onChange',
-    defaultValues: createEventDefaultValues,
-    resolver: yupResolver(CompanySchema)
+    defaultValues: createEventDefaultValues
   })
 
-  const { fields: addressFields, append: appendAddress, remove: removeAddress } = useFieldArray({
-    control,
-    name: 'addresses',
-    rules: { minLength: 1 }
-  })
-
-  const companyValues: any = useWatch({ control })
-
-  const createCompany = async (AccessToken = '', company: Company) => {
-    try {
-      const response: any = await CompanyService.createCompany(AccessToken, company)
-
-      return response.data
-    } catch (error) {
-      console.error('Error creating company:', error)
-      throw error
-    }
-  }
-
-
-
-  const uploadCompanyLogo = async (File: any) => {
-    try {
-      const response: any = await StaticService.postUploadCompanyLogo('', File)
-
-      return response.data
-    } catch (error) {
-      console.error('Error fetching location suggestions:', error)
-      throw error
-    }
-  }
-
-  const saveCompanyLogo = async (AccessToken: string, Logo: any, companyId: number | string) => {
-    try {
-      const response: any = await StaticService.postSaveCompanyLogo(AccessToken, Logo, companyId)
-
-      return response.data
-    } catch (error) {
-      console.error('Error fetching location suggestions:', error)
-      throw error
-    }
-  }
+  const createEventValues: any = useWatch({ control })
 
   return {
     control,
     handleSubmit,
     errors,
-    companyValues,
+    createEventValues,
     dirtyFields,
     resetField,
     setError,
     clearErrors,
     setValue,
-    addressFields,
-    appendAddress,
-    removeAddress,
-    defaultAddress,
-    createCompany,
-    uploadCompanyLogo,
-    saveCompanyLogo,
     isValid,
     trigger
   }

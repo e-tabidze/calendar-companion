@@ -4,9 +4,8 @@ import ka from 'date-fns/locale/ka'
 import 'react-datepicker/dist/react-datepicker.css'
 import { Controller } from 'react-hook-form'
 import { format } from 'date-fns'
-import Icon from 'src/views/app/Icon'
 import _ from 'lodash'
-import {i18n, useTranslation} from "next-i18next";
+import { i18n } from 'next-i18next'
 
 interface Props {
   name: string
@@ -43,32 +42,13 @@ const CustomDateInput: React.FC<CalendarInputProps> = ({
   onFocus,
   onChange
 }) => (
-  <div className='relative w-full h-14'>
-    <div className='absolute inset-y-0 left-0 flex items-center pl-3'>
-      {/* <Icon svgPath='calendar' width={24} height={24} className='fill-transparent' /> */}
-    </div>
+  <div className='relative'>
     <Input className={className} value={value} onClick={onClick} onFocus={onFocus} onChange={onChange} />
-    {/* <label
-      className={`absolute left-12 transition-all text-[13px] pointer-events-none ${
-        value ? 'text-sm text-raisin-50 top-[3px]' : 'top-[16px]'
-      }`}
-    >
-      {label}
-    </label> */}
-    {/* <div className='absolute inset-y-0 right-0 flex items-center pr-3'>
-      <Icon
-        svgPath='chevron'
-        height={6}
-        width={10}
-        className={`fill-transparent transform ${isCalendarOpen ? 'rotate-0' : 'rotate-180'}`}
-      />
-    </div> */}
   </div>
 )
 
 const DateDropdown: React.FC<Props> = ({ name, control, label, errors }) => {
   const [isCalendarOpen, setIsCalendarOpen] = useState(false)
-    const {t} = useTranslation()
 
   return (
     <>
@@ -76,31 +56,24 @@ const DateDropdown: React.FC<Props> = ({ name, control, label, errors }) => {
         name={name}
         control={control}
         render={({ field: { onChange, value, onChange: onInputChange } }) => (
-          <div className='relative w-full'>
-            <DatePicker
-              locale={i18n?.language}
-              selected={value ? new Date(value) : null}
-              onChange={date => onChange(date && format(date, 'yyyy-MM-dd'))}
-              dateFormat="MMM d"
-              customInput={
-                <CustomDateInput
-                  className='text-grey-90 w-full h-full text-[13px] outline-none focus:ring-0 bg-transparent transition-all hover:border-raisin-30'
-                  value={value || ''}
-                  onClick={() => setIsCalendarOpen(!isCalendarOpen)}
-                  isCalendarOpen={isCalendarOpen}
-                  label={label}
-                  onChange={onInputChange}
-                />
-              }
-              onCalendarOpen={() => setIsCalendarOpen(true)}
-              onCalendarClose={() => setIsCalendarOpen(false)}
-            />
-            {_.get(errors, name)?.message && (
-              <div id={name} className='absolute text-sm text-red-100 ml-2 my-2'>
-                {t(_.get(errors, name)?.message)}
-              </div>
-            )}
-          </div>
+          <DatePicker
+            locale={i18n?.language}
+            selected={value ? new Date(value) : null}
+            onChange={date => onChange(date && format(date, 'yyyy-MM-dd'))}
+            dateFormat='MMM d'
+            customInput={
+              <CustomDateInput
+                className='text-grey-90 text-[13px] max-w-[40px] outline-none focus:ring-0 bg-transparent transition-all hover:border-raisin-30'
+                value={value || ''}
+                onClick={() => setIsCalendarOpen(!isCalendarOpen)}
+                isCalendarOpen={isCalendarOpen}
+                label={label}
+                onChange={onInputChange}
+              />
+            }
+            onCalendarOpen={() => setIsCalendarOpen(true)}
+            onCalendarClose={() => setIsCalendarOpen(false)}
+          />
         )}
       />
     </>

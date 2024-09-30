@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 import { GridConstants } from 'src/@core/configs/calendarConstants'
-import { differenceInMinutes, getDate, getHours, getMinutes, isEqual, parseISO } from 'date-fns'
+import { differenceInMinutes, getDate, getHours, getMinutes, isEqual, parseISO, addDays } from 'date-fns'
 import { useCalendarContext } from 'src/contexts/CalendarContext'
 import useUserData from 'src/hooks/useUserData'
 import useCalendar from '../useCalendar'
@@ -11,9 +11,10 @@ import { getRadiantBackground } from 'src/utils/getRadiantBackground'
 
 interface Props {
   toggleEventModal: () => void
+  setSelectedDate: (date: any) => void
 }
 
-const CalendarGrid: React.FC<Props> = ({ toggleEventModal }) => {
+const CalendarGrid: React.FC<Props> = ({ toggleEventModal, setSelectedDate }) => {
   const { visibleDays, startOfPeriod, daysArray, cellHeight, selectedCalendars } = useCalendarContext()
 
   const { activeWorkspace } = useUserData()
@@ -148,6 +149,14 @@ const CalendarGrid: React.FC<Props> = ({ toggleEventModal }) => {
     return start1 < end2 && end1 > start2
   }
 
+  const handleCellClick = (day: any) => {
+    const clickedDate = new Date(startOfPeriod)
+    const date = addDays(clickedDate, day)
+
+    setSelectedDate(date)
+    toggleEventModal() 
+  }
+
   return (
     <>
       <div className='flex flex-grow flex-col z-0'>
@@ -160,7 +169,7 @@ const CalendarGrid: React.FC<Props> = ({ toggleEventModal }) => {
 
               return (
                 <div
-                  onDoubleClick={() => toggleEventModal()}
+                  onDoubleClick={() => handleCellClick(index)}
                   key={index}
                   className='relative flex flex-1 flex-grow cursor-pointer border-b border-r border-solid border-strokes-1'
                   style={{ height: `${GridConstants.hourCellHeight}vhh` }}
