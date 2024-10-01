@@ -15,6 +15,7 @@ const SearchCalendarDropdown: React.FC<Props> = ({ control }) => {
 
   const { googleCalendarsDataLoading, googleCalendarsData } = useSearchCalendarDropdown()
 
+
   return (
     <div className='w-fit'>
       <Popover>
@@ -27,7 +28,7 @@ const SearchCalendarDropdown: React.FC<Props> = ({ control }) => {
           className='divide-y shadow-md divide-white/5 w-fit h-fit rounded-xl bg-white text-sm/6 transition duration-200 ease-in-out [--anchor-gap:var(--spacing-5)] data-[closed]:-translate-y-1 data-[closed]:opacity-0'
         >
           <div className='flex items-center pl-3 pt-3 pb-1 pr-[50px]'>
-            <Icon svgPath='calendar' width={13} height={13} className='fill-transparent' />
+            <Icon svgPath='calendar' width={18} height={18} className='fill-transparent' />
             <input
               placeholder='Select calendar'
               className='ml-2 w-full'
