@@ -12,9 +12,10 @@ import { getRadiantBackground } from 'src/utils/getRadiantBackground'
 interface Props {
   toggleEventModal: () => void
   setSelectedDate: (date: any) => void
+  setSelectedStartHour: (hour: any) => void
 }
 
-const CalendarGrid: React.FC<Props> = ({ toggleEventModal, setSelectedDate }) => {
+const CalendarGrid: React.FC<Props> = ({ toggleEventModal, setSelectedDate, setSelectedStartHour }) => {
   const { visibleDays, startOfPeriod, daysArray, cellHeight, selectedCalendars } = useCalendarContext()
 
   const { activeWorkspace } = useUserData()
@@ -149,12 +150,13 @@ const CalendarGrid: React.FC<Props> = ({ toggleEventModal, setSelectedDate }) =>
     return start1 < end2 && end1 > start2
   }
 
-  const handleCellClick = (day: any) => {
+  const handleCellClick = (day: any, hour: any) => {
     const clickedDate = new Date(startOfPeriod)
     const date = addDays(clickedDate, day)
 
     setSelectedDate(date)
-    toggleEventModal() 
+    setSelectedStartHour(hour)
+    toggleEventModal()
   }
 
   return (
@@ -169,7 +171,7 @@ const CalendarGrid: React.FC<Props> = ({ toggleEventModal, setSelectedDate }) =>
 
               return (
                 <div
-                  onDoubleClick={() => handleCellClick(index)}
+                  onDoubleClick={() => handleCellClick(index, i)}
                   key={index}
                   className='relative flex flex-1 flex-grow cursor-pointer border-b border-r border-solid border-strokes-1'
                   style={{ height: `${GridConstants.hourCellHeight}vhh` }}

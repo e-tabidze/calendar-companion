@@ -12,6 +12,7 @@ const Calendar = () => {
   const [eventModal, setEventModal] = useState(false)
   const [showDock, setShowDock] = useState(true)
   const [selectedDate, setSelectedDate] = useState<Date | null>(null)
+  const [selectedStartHour, setSelectedStartHour] = useState(null)
 
 
   const toggleEventModal = () => {
@@ -19,8 +20,6 @@ const Calendar = () => {
     setEventModal(!eventModal)
   }
   const { headerHeight } = useCalendarContext()
-
-  console.log(selectedDate, 'selectedDate')
 
   return (
     <>
@@ -31,11 +30,11 @@ const Calendar = () => {
       <div style={{ marginTop: headerHeight }}>
         <div className='flex min-w-full max-w-full flex-1'>
           <CalendarGridTimeline />
-          <CalendarGrid toggleEventModal={toggleEventModal} setSelectedDate={setSelectedDate} />
+          <CalendarGrid toggleEventModal={toggleEventModal} setSelectedDate={setSelectedDate} setSelectedStartHour={setSelectedStartHour} />
         </div>
       </div>
       <Dock />
-      <EventModal isOpen={eventModal} toggleIsOpen={toggleEventModal} selectedDate={selectedDate} />
+      <EventModal isOpen={eventModal} toggleIsOpen={toggleEventModal} selectedDate={selectedDate} selectedStartHour={selectedStartHour} />
     </>
   )
 }

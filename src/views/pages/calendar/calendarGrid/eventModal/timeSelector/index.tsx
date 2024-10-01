@@ -1,13 +1,15 @@
 import React, { useState } from 'react'
 import { Popover, PopoverButton, PopoverPanel } from '@headlessui/react'
-import { Controller } from 'react-hook-form'
+import { Controller, useWatch } from 'react-hook-form'
 import Icon from 'src/views/app/Icon'
 
 const generateTimeSlots = (startHour: number, endHour: number, interval: number): string[] => {
   const slots: string[] = []
   for (let hour = startHour; hour <= endHour; hour++) {
     for (let minutes = 0; minutes < 60; minutes += interval) {
-      const timeString = `${hour.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')} AM`
+      const period = hour < 12 ? 'AM' : 'PM'
+      const displayHour = hour % 12 === 0 ? 12 : hour % 12
+      const timeString = `${displayHour.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')} ${period}`
       slots.push(timeString)
     }
   }
@@ -19,26 +21,22 @@ interface Props {
 }
 
 const TimeSelector: React.FC<Props> = ({ control }) => {
-  const [fromTime, setFromTime] = useState<string | null>(null)
-  const [toTime, setToTime] = useState<string | null>(null)
   const [searchTerm, setSearchTerm] = useState<string>('')
 
   const times = generateTimeSlots(3, 16, 15)
 
-  const handleFromSelect = (time: string) => {
-    setFromTime(time)
-  }
-
-  const handleToSelect = (time: string) => {
-    setToTime(time)
-  }
-
   const filteredTimes = times.filter(time => time.includes(searchTerm))
+
+  const { selected_start_hour, selected_end_hour } = useWatch({ control })
+
+  const formState = useWatch({ control })
+
+  console.log(formState, 'formState')
 
   return (
     <Popover>
-      <PopoverButton className='block mt-px text-[13px] font-semibold text-grey-90 focus:outline-none data-[focus]:outline-1 data-[focus]:outline-white'>
-        Solutions
+      <PopoverButton className='block mt-px text-[13px] w-[140px] font-semibold text-grey-90 focus:outline-none data-[focus]:outline-1 data-[focus]:outline-white'>
+        {selected_start_hour && selected_end_hour ? `${selected_start_hour} - ${selected_end_hour}` : 'Select time'}
       </PopoverButton>
       <PopoverPanel
         transition
@@ -50,7 +48,7 @@ const TimeSelector: React.FC<Props> = ({ control }) => {
           <div className='flex justify-between space-x-4 overflow-y-auto'>
             <Controller
               control={control}
-              name='start_time'
+              name='selected_start_hour'
               render={({ field: { onChange, value } }) => (
                 <div className=''>
                   <div className='gap-3 flex items-center'>
@@ -58,7 +56,7 @@ const TimeSelector: React.FC<Props> = ({ control }) => {
                     <input
                       type='text'
                       placeholder='From'
-                      value={searchTerm}
+                      value={value || searchTerm}
                       onChange={e => setSearchTerm(e.target.value)}
                       className='w-8'
                     />
@@ -67,11 +65,13 @@ const TimeSelector: React.FC<Props> = ({ control }) => {
                     {filteredTimes.map(time => (
                       <button
                         key={time}
-                        onClick={() => handleFromSelect(time)}
+                        onClick={() => {
+                          setSearchTerm('') // Reset search term
+                          onChange(time) // Pass selected time to react-hook-form
+                        }}
                         className={`py-1 w-[102px] rounded ${
-                          fromTime === time ? 'bg-primary-15 text-primary-100' : 'bg-grey-70 text-raisin-100 mb-1'
+                          value === time ? 'bg-primary-15 text-primary-100' : 'bg-grey-70 text-raisin-100 mb-1'
                         } hover:bg-orange-200`}
-                        disabled={fromTime && time < fromTime}
                       >
                         {time}
                       </button>
@@ -82,7 +82,7 @@ const TimeSelector: React.FC<Props> = ({ control }) => {
             />
             <Controller
               control={control}
-              name='end_time'
+              name='selected_end_hour'
               render={({ field: { onChange, value } }) => (
                 <div className=''>
                   <div className='gap-3 flex items-center'>
@@ -90,7 +90,7 @@ const TimeSelector: React.FC<Props> = ({ control }) => {
                     <input
                       type='text'
                       placeholder='To'
-                      value={searchTerm}
+                      value={value || searchTerm}
                       onChange={e => setSearchTerm(e.target.value)}
                       className='w-8'
                     />
@@ -99,11 +99,13 @@ const TimeSelector: React.FC<Props> = ({ control }) => {
                     {filteredTimes.map(time => (
                       <button
                         key={time}
-                        onClick={() => handleFromSelect(time)}
+                        onClick={() => {
+                          setSearchTerm('') // Reset search term
+                          onChange(time) // Pass selected time to react-hook-form
+                        }}
                         className={`py-1 w-[102px] rounded ${
-                          fromTime === time ? 'bg-primary-15 text-primary-100' : 'bg-grey-70 text-raisin-100 mb-1'
+                          value === time ? 'bg-primary-15 text-primary-100' : 'bg-grey-70 text-raisin-100 mb-1'
                         } hover:bg-orange-200`}
-                        disabled={fromTime && time < fromTime}
                       >
                         {time}
                       </button>

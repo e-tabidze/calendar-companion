@@ -11,10 +11,11 @@ interface Props {
   isOpen: boolean
   toggleIsOpen: () => void
   selectedDate: Date | null
+  selectedStartHour: null | number
 }
 
-const EventModal: React.FC<Props> = ({ isOpen, toggleIsOpen, selectedDate }) => {
-  const { handleSubmit, control, createEventValues } = useCreateEvent(selectedDate)
+const EventModal: React.FC<Props> = ({ isOpen, toggleIsOpen, selectedDate, selectedStartHour }) => {
+  const { handleSubmit, control, createEventValues } = useCreateEvent(selectedDate, selectedStartHour)
 
   console.log(createEventValues, 'createEventValues')
 

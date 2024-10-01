@@ -1,6 +1,6 @@
 export const GridConstants = {
     hourCellHeight: 46,
-    rowsCount: 25,
+    rowsCount: 24,
     columnsCount: 7,
   }
   
