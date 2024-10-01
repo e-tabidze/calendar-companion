@@ -7,10 +7,10 @@ import DateDropdown from 'src/views/components/dateDropdown'
 import useCreateEvent from './useCreateEvent'
 import TimeSelectorPopover from './timeSelectorPopover'
 import RepeatEventPopover from './repeatEventPopover'
-import CheckboxField from 'src/views/components/checkboxField'
 import SwitchField from 'src/views/components/switchField'
 import { IconButton } from 'src/views/components/button'
 import EventColorPopover from './eventColorPopover'
+import SelectCalendarPopover from './selectCalendarPopover'
 
 interface Props {
   isOpen: boolean
@@ -40,7 +40,7 @@ const EventModal: React.FC<Props> = ({ isOpen, toggleIsOpen, selectedDate, selec
         className='fixed w-3/4 mx-auto inset-x-0 bottom-6 z-50 flex items-center justify-center transition duration-800 ease-out'
         transition
       >
-        <DialogPanel className='max-w-lg w-full rounded-lg bg-white shadow-xl'>
+        <DialogPanel className='max-w-lg w-full rounded-lg bg-white shadow-lg'>
           <div className='px-[18px] pt-[18px]'>
             <div className='flex gap-3'>
               <div className='h-[51px] w-1 bg-red-100' />
@@ -124,7 +124,8 @@ const EventModal: React.FC<Props> = ({ isOpen, toggleIsOpen, selectedDate, selec
 
           <div className='w-full h-px bg-grey-10' />
 
-          <div className='m-[18px]'>
+          <div className='m-[18px] flex gap-4 items-center'>
+            <SelectCalendarPopover control={control}  />
             <EventColorPopover control={control} />
           </div>
         </DialogPanel>

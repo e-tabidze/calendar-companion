@@ -46,8 +46,6 @@ const EventColorPopover: React.FC<Props> = ({ control }) => {
 
   const { event_color } = useWatch({ control })
 
-  console.log(event_color, 'event_color')
-
   return (
     <Popover>
       <PopoverButton className='mt-px text-[13px] flex items-center gap-1 font-semibold text-grey-90 focus:outline-none data-[focus]:outline-1 data-[focus]:outline-white'>
