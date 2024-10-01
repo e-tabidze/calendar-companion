@@ -10,6 +10,7 @@ import RepeatEventPopover from './repeatEventPopover'
 import CheckboxField from 'src/views/components/checkboxField'
 import SwitchField from 'src/views/components/switchField'
 import { IconButton } from 'src/views/components/button'
+import EventColorPopover from './eventColorPopover'
 
 interface Props {
   isOpen: boolean
@@ -119,6 +120,12 @@ const EventModal: React.FC<Props> = ({ isOpen, toggleIsOpen, selectedDate, selec
             <Typography type='subtitle' color='light' className='mb-3'>
               No documents added yet
             </Typography>
+          </div>
+
+          <div className='w-full h-px bg-grey-10' />
+
+          <div className='m-[18px]'>
+            <EventColorPopover control={control} />
           </div>
         </DialogPanel>
       </Dialog>

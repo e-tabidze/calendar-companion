@@ -7,7 +7,8 @@ const useCreateEvent = (selectedDate: Date | null, selectedStartHour: null | num
     description: '',
     selected_date: new Date(),
     selected_start_hour: '',
-    selected_end_hour: ''
+    selected_end_hour: '',
+    event_color: "#9747FF"
   }
 
   useEffect(() => {
