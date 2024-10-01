@@ -5,7 +5,11 @@ import Typography from 'src/views/components/typography'
 import Icon from 'src/views/app/Icon'
 import DateDropdown from 'src/views/components/dateDropdown'
 import useCreateEvent from './useCreateEvent'
-import TimeSelector from './timeSelector'
+import TimeSelectorPopover from './timeSelectorPopover'
+import RepeatEventPopover from './repeatEventPopover'
+import CheckboxField from 'src/views/components/checkboxField'
+import SwitchField from 'src/views/components/switchField'
+import { IconButton } from 'src/views/components/button'
 
 interface Props {
   isOpen: boolean
@@ -36,7 +40,7 @@ const EventModal: React.FC<Props> = ({ isOpen, toggleIsOpen, selectedDate, selec
         transition
       >
         <DialogPanel className='max-w-lg w-full rounded-lg bg-white shadow-xl'>
-          <div className='px-8 pt-4'>
+          <div className='px-[18px] pt-[18px]'>
             <div className='flex gap-3'>
               <div className='h-[51px] w-1 bg-red-100' />
               <div>
@@ -67,19 +71,54 @@ const EventModal: React.FC<Props> = ({ isOpen, toggleIsOpen, selectedDate, selec
 
           <div className='w-full h-px bg-grey-10' />
 
-          <div className='bg-grey-70 rounded-xl flex'>
+          <div className='bg-grey-70 rounded-xl flex m-[18px] p-3'>
             <div className='w-11 h-11 rounded-full bg-white flex justify-center items-center'>
               <Icon svgPath='googleMeet' width={25} height={25} />
             </div>
-            <div>
-              <div className='flex items-center'>
-                <DateDropdown name='selected_date' control={control} label='date' errors={undefined} />
-                <TimeSelector control={control} />
+            <div className='w-full'>
+              <div className='flex items-center justify-between'>
+                <div className='flex items-center gap-2'>
+                  <DateDropdown name='selected_date' control={control} label='date' errors={undefined} />
+                  <TimeSelectorPopover control={control} />
+                  <div className='w-1 h-1 rounded-full bg-raisin-80' />
+                  <RepeatEventPopover control={control} />
+                </div>
+                <SwitchField name='all_day' label='All day' control={control} reversed height='h-[14px]' />
               </div>
               <Typography type='subtitle' className='text-primary-100'>
                 Add meeting link
               </Typography>
             </div>
+          </div>
+
+          <div className='mx-[18px] flex gap-[18px] mb-[18px]'>
+            <div className='border border-grey-70 rounded-xl p-3 flex-grow'>
+              <Typography type='subtitle' color='light'>
+                Participants
+              </Typography>
+              <div className='flex items-center justify-between'>
+                <Typography type='subtitle' color='light'>
+                  No participants yet
+                </Typography>
+                <IconButton icon='add' width={24} height={24} />
+              </div>
+            </div>
+
+            <div className='border border-grey-70 rounded-xl p-3 min-w-[180px]'>
+              <Typography type='subtitle' color='light' className='mb-3'>
+                Companion bot
+              </Typography>
+              <SwitchField name='companion_bot' label='Attend' control={control} reversed height='h-[17px]' />
+            </div>
+          </div>
+
+          <div className='mx-[18px] border border-grey-70 rounded-xl p-3 mb-[18px]'>
+            <Typography type='subtitle' color='light' className='mb-3 text-[13px]'>
+              Documents
+            </Typography>
+            <Typography type='subtitle' color='light' className='mb-3'>
+              No documents added yet
+            </Typography>
           </div>
         </DialogPanel>
       </Dialog>

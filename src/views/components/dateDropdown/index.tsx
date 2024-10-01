@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import DatePicker, { registerLocale } from 'react-datepicker'
 import ka from 'date-fns/locale/ka'
 import 'react-datepicker/dist/react-datepicker.css'
@@ -24,9 +24,30 @@ interface InputProps {
   onChange: () => void
 }
 
-const Input: React.FC<InputProps> = ({ className, value, onClick, onFocus, onChange }) => (
-  <input className={className} type='text' value={value} onFocus={onFocus} onChange={onChange} onClick={onClick} />
-)
+const Input: React.FC<InputProps> = ({ className, value, onClick, onFocus, onChange }) => {
+  const inputRef = useRef<HTMLInputElement>(null)
+  const [inputWidth, setInputWidth] = useState<string>('auto')
+
+  useEffect(() => {
+    if (inputRef.current) {
+      const textLength = value.length || 1 
+      setInputWidth(`${textLength + 1}ch`)
+    }
+  }, [value])
+
+  return (
+    <input
+      ref={inputRef}
+      className={className}
+      type='text'
+      value={value}
+      onFocus={onFocus}
+      onChange={onChange}
+      onClick={onClick}
+      style={{ width: inputWidth }}
+    />
+  )
+}
 
 interface CalendarInputProps extends InputProps {
   isCalendarOpen: boolean
@@ -43,7 +64,7 @@ const CustomDateInput: React.FC<CalendarInputProps> = ({
   onChange
 }) => (
   <div className='relative'>
-    <Input className={className} value={value} onClick={onClick} onFocus={onFocus} onChange={onChange} />
+    <Input className={className} value={value} onClick={onClick} onFocus={onFocus} onChange={onChange} />,
   </div>
 )
 

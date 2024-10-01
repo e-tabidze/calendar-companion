@@ -7,9 +7,10 @@ const generateTimeSlots = (startHour: number, endHour: number, interval: number)
   const slots: string[] = []
   for (let hour = startHour; hour <= endHour; hour++) {
     for (let minutes = 0; minutes < 60; minutes += interval) {
-      const period = hour < 12 ? 'AM' : 'PM'
-      const displayHour = hour % 12 === 0 ? 12 : hour % 12
-      const timeString = `${displayHour.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')} ${period}`
+      if (hour === 24 && minutes > 0) break
+      const timeString = `${hour === 24 ? '24' : hour.toString().padStart(2, '0')}:${minutes
+        .toString()
+        .padStart(2, '0')}`
       slots.push(timeString)
     }
   }
@@ -20,22 +21,20 @@ interface Props {
   control: any
 }
 
-const TimeSelector: React.FC<Props> = ({ control }) => {
-  const [searchTerm, setSearchTerm] = useState<string>('')
+const TimeSelectorPopover: React.FC<Props> = ({ control }) => {
+  const [searchTermStart, setSearchTermStart] = useState<string>('')
+  const [searchTermEnd, setSearchTermEnd] = useState<string>('')
 
-  const times = generateTimeSlots(3, 16, 15)
+  const times = generateTimeSlots(0, 24, 15)
 
-  const filteredTimes = times.filter(time => time.includes(searchTerm))
+  const filteredTimesStart = times.filter(time => time.includes(searchTermStart))
+  const filteredTimesEnd = times.filter(time => time.includes(searchTermEnd))
 
   const { selected_start_hour, selected_end_hour } = useWatch({ control })
 
-  const formState = useWatch({ control })
-
-  console.log(formState, 'formState')
-
   return (
     <Popover>
-      <PopoverButton className='block mt-px text-[13px] w-[140px] font-semibold text-grey-90 focus:outline-none data-[focus]:outline-1 data-[focus]:outline-white'>
+      <PopoverButton className='block mt-px text-[13px] w-[84px] text-left font-semibold text-grey-90 focus:outline-none data-[focus]:outline-1 data-[focus]:outline-white'>
         {selected_start_hour && selected_end_hour ? `${selected_start_hour} - ${selected_end_hour}` : 'Select time'}
       </PopoverButton>
       <PopoverPanel
@@ -56,21 +55,21 @@ const TimeSelector: React.FC<Props> = ({ control }) => {
                     <input
                       type='text'
                       placeholder='From'
-                      value={value || searchTerm}
-                      onChange={e => setSearchTerm(e.target.value)}
+                      value={searchTermStart}
+                      onChange={e => setSearchTermStart(e.target.value)}
                       className='w-8'
                     />
                   </div>
                   <div className='flex flex-col h-[140px] overflow-y-auto mt-2'>
-                    {filteredTimes.map(time => (
+                    {filteredTimesStart.map(time => (
                       <button
                         key={time}
                         onClick={() => {
-                          setSearchTerm('') // Reset search term
-                          onChange(time) // Pass selected time to react-hook-form
+                          setSearchTermStart('')
+                          onChange(time)
                         }}
-                        className={`py-1 w-[102px] rounded ${
-                          value === time ? 'bg-primary-15 text-primary-100' : 'bg-grey-70 text-raisin-100 mb-1'
+                        className={`py-1 w-[102px] rounded mb-1 ${
+                          value === time ? 'bg-primary-15 text-primary-100' : 'bg-grey-70 text-raisin-100'
                         } hover:bg-orange-200`}
                       >
                         {time}
@@ -80,6 +79,7 @@ const TimeSelector: React.FC<Props> = ({ control }) => {
                 </div>
               )}
             />
+
             <Controller
               control={control}
               name='selected_end_hour'
@@ -90,22 +90,22 @@ const TimeSelector: React.FC<Props> = ({ control }) => {
                     <input
                       type='text'
                       placeholder='To'
-                      value={value || searchTerm}
-                      onChange={e => setSearchTerm(e.target.value)}
+                      value={searchTermEnd}
+                      onChange={e => setSearchTermEnd(e.target.value)}
                       className='w-8'
                     />
                   </div>
                   <div className='flex flex-col h-[140px] overflow-y-auto mt-2'>
-                    {filteredTimes.map(time => (
+                    {filteredTimesEnd.map(time => (
                       <button
                         key={time}
                         onClick={() => {
-                          setSearchTerm('') // Reset search term
-                          onChange(time) // Pass selected time to react-hook-form
+                          setSearchTermEnd('')
+                          onChange(time)
                         }}
-                        className={`py-1 w-[102px] rounded ${
-                          value === time ? 'bg-primary-15 text-primary-100' : 'bg-grey-70 text-raisin-100 mb-1'
-                        } hover:bg-orange-200`}
+                        className={`py-1 w-[102px] rounded mb-1 ${
+                          value === time ? 'bg-primary-15 text-primary-100' : 'bg-grey-70 text-raisin-100'
+                        } hover:bg-primary-15`}
                       >
                         {time}
                       </button>
@@ -114,36 +114,6 @@ const TimeSelector: React.FC<Props> = ({ control }) => {
                 </div>
               )}
             />
-
-            {/* <Controller
-              control={control}
-              name='start_time'
-              render={({ field: { onChange, value } }) => (
-                <div className='flex flex-col overflow-y-auto'>
-                  <Icon svgPath='clock' width={14} height={14} />
-                  <input
-                    type='text'
-                    placeholder='Search time'
-                    value={searchTerm}
-                    onChange={e => setSearchTerm(e.target.value)}
-                    className='mb-2 p-1 border border-gray-300 rounded w-full'
-                  />
-                  <label className='mb-2 font-semibold'>From</label>
-                  {filteredTimes.map(time => (
-                    <button
-                      key={time}
-                      onClick={() => handleFromSelect(time)}
-                      className={`p-2 rounded ${
-                        fromTime === time ? 'bg-orange-500 text-white' : 'bg-white border border-gray-300'
-                      } hover:bg-orange-200`}
-                      disabled={fromTime && time < fromTime} // Disable times before selected fromTime
-                    >
-                      {time}
-                    </button>
-                  ))}
-                </div>
-              )}
-            /> */}
           </div>
         </div>
       </PopoverPanel>
@@ -151,4 +121,4 @@ const TimeSelector: React.FC<Props> = ({ control }) => {
   )
 }
 
-export default TimeSelector
+export default TimeSelectorPopover
