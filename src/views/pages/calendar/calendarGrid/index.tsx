@@ -42,12 +42,11 @@ const CalendarGrid: React.FC<Props> = ({ toggleEventModal, setSelectedDate, setS
       const startHour = getHours(startDateTime)
       const startMinutes = getMinutes(startDateTime)
       const durationInMinutes = differenceInMinutes(endDateTime, startDateTime)
-      const eventHeight = (durationInMinutes / 60) * cellHeight
+      const daysExtended = differenceInDays(endDateTime, startDateTime) + 1
+      const eventHeight = daysExtended > 1 ? cellHeight - 20 : (durationInMinutes / 60) * cellHeight
       const topOffset = (startMinutes / 60) * cellHeight
 
       const hasValidDateTime = startDateTime.toString() !== 'Invalid Date' && endDateTime.toString() !== 'Invalid Date'
-
-      const daysExtended = differenceInDays(endDateTime, startDateTime) + 1
 
       console.log(daysExtended, event.summary, 'extendsMoreThanOneDay')
 
@@ -120,8 +119,9 @@ const CalendarGrid: React.FC<Props> = ({ toggleEventModal, setSelectedDate, setS
 
       return {
         ...event,
-        width: `${group?.length ? 95 / group?.length : 95}%`,
-        left: `${group?.length ? (columnIndex * 95) / group?.length : columnIndex * 95}%`
+        width: event.daysExtended > 1 ? `${event.daysExtended * 100 - 5}%` : `${group?.length ? 95 / group?.length : 95}%`,
+        left: `${group?.length ? (columnIndex * 95) / group?.length : columnIndex * 95}%`,
+        row: event.daysExtended > 1 ? 0 : event.startHour
       }
     })
   }
@@ -181,13 +181,13 @@ const CalendarGrid: React.FC<Props> = ({ toggleEventModal, setSelectedDate, setS
     <>
       <div className='flex flex-grow flex-col z-0'>
         {new Array(GridConstants.rowsCount).fill(0).map((_, i) => (
-          <div key={i} className={`flex flex-grow ${i === 0 ? 'z-10 bg-red-100' : ''}`}>
+          <div key={i} className={`flex flex-grow ${i === 0 ? 'z-10 bg-white' : ''}`}>
             {new Array(visibleDays).fill(0).map((_, index) => {
               const key = `${index}`
               const events = mappedEvents[key] || []
               const positionedEvents = calculateEventPositions(events)
 
-              console.log(events, 'events')
+              console.log(i, 'events')
 
               return (
                 <div
@@ -197,7 +197,9 @@ const CalendarGrid: React.FC<Props> = ({ toggleEventModal, setSelectedDate, setS
                   style={{ height: `${GridConstants.hourCellHeight}vhh` }}
                 >
                   {positionedEvents
-                    .filter(googleEvent => i === googleEvent.startHour)
+                    .filter(googleEvent => {
+                      return googleEvent.row === 0 ? (i === 0 && googleEvent.row === 0) : i === googleEvent.startHour 
+                    })
                     .map((event, eventIndex) => (
                       <div
                         key={event.id}
