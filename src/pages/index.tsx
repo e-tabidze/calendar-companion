@@ -1,49 +1,27 @@
-'use client';
-import { useEffect, useState } from 'react';
+'use client'
+import { useEffect, useState } from 'react'
+import FooterSection from 'src/views/footerSection'
+import Header from 'src/views/header'
+import MeetCompanyon from 'src/views/meetCompanyon'
+import MeetingsRedefined from 'src/views/meetingsRedefined'
+import PremiumSection from 'src/views/premiumSection'
+import PrivateItems from 'src/views/privateItems'
+import Workspaces from 'src/views/workspaces'
 
 const MainPage = () => {
-  const [message, setMessage] = useState('');
-  const [input, setInput] = useState('');
-  const workspaceID = 'myWorkspace1';
-  
-  useEffect(() => {
-    const socket = new WebSocket(`ws://localhost:5000/ws?workspace_id=${workspaceID}`);
-
-    socket.onopen = () => {
-      console.log('WebSocket connection established');
-    };
-
-    socket.onmessage = (event) => {
-      setMessage(event.data);
-    };
-
-    socket.onclose = () => {
-      console.log('WebSocket connection closed');
-    };
-
-    return () => {
-      socket.close();
-    };
-  }, [workspaceID]);
-
-  const sendMessage = () => {
-    const socket = new WebSocket(`ws://localhost:5000/ws?workspace_id=${workspaceID}`);
-    socket.onopen = () => {
-      socket.send(input);
-    };
-  };
-
   return (
     <div>
-      <p>Status: {message}</p>
-      <input 
-        type="text" 
-        value={input} 
-        onChange={(e) => setInput(e.target.value)} 
-      />
-      <button onClick={sendMessage}>Send Message</button>
+      <div className='max-w-[1440px] w-full mx-auto'>
+        <Header />
+        <MeetCompanyon />
+        <Workspaces />
+        <MeetingsRedefined />
+      </div>
+      <PremiumSection />
+      <PrivateItems />  
+      <FooterSection />
     </div>
-  );
-};
+  )
+}
 
-export default MainPage;
+export default MainPage
