@@ -1,6 +1,15 @@
 import { useMemo } from 'react'
 import { GridConstants } from 'src/@core/configs/calendarConstants'
-import { differenceInMinutes, getDate, getHours, getMinutes, isEqual, parseISO, addDays } from 'date-fns'
+import {
+  differenceInMinutes,
+  getDate,
+  getHours,
+  getMinutes,
+  isEqual,
+  parseISO,
+  addDays,
+  differenceInDays
+} from 'date-fns'
 import { useCalendarContext } from 'src/contexts/CalendarContext'
 import useUserData from 'src/hooks/useUserData'
 import useCalendar from '../useCalendar'
@@ -36,6 +45,12 @@ const CalendarGrid: React.FC<Props> = ({ toggleEventModal, setSelectedDate, setS
       const eventHeight = (durationInMinutes / 60) * cellHeight
       const topOffset = (startMinutes / 60) * cellHeight
 
+      const hasValidDateTime = startDateTime.toString() !== 'Invalid Date' && endDateTime.toString() !== 'Invalid Date'
+
+      const daysExtended = differenceInDays(endDateTime, startDateTime) + 1
+
+      console.log(daysExtended, event.summary, 'extendsMoreThanOneDay')
+
       const key = `${dayIndex}`
 
       if (!groupedEvents[key]) {
@@ -56,8 +71,6 @@ const CalendarGrid: React.FC<Props> = ({ toggleEventModal, setSelectedDate, setS
 
       const startTime = convertToAMPM(event.start.dateTime)
 
-      console.log(startDateTime, endDateTime, event.summary, startDate, endtDate, 'EVENT??')
-
       const organizerSelf = event?.attendees?.find((item: { organizer: boolean; self: boolean }) => item.self === true)
 
       groupedEvents[key].push({
@@ -70,7 +83,8 @@ const CalendarGrid: React.FC<Props> = ({ toggleEventModal, setSelectedDate, setS
         eventBgRadiant,
         eventTitleColor,
         startTime,
-        organizerSelf
+        organizerSelf,
+        daysExtended
       })
     })
 
@@ -167,11 +181,13 @@ const CalendarGrid: React.FC<Props> = ({ toggleEventModal, setSelectedDate, setS
     <>
       <div className='flex flex-grow flex-col z-0'>
         {new Array(GridConstants.rowsCount).fill(0).map((_, i) => (
-          <div key={i} className={`flex flex-grow ${i === 0 ? 'z-10 bg-white' : ''}`}>
+          <div key={i} className={`flex flex-grow ${i === 0 ? 'z-10 bg-red-100' : ''}`}>
             {new Array(visibleDays).fill(0).map((_, index) => {
               const key = `${index}`
               const events = mappedEvents[key] || []
               const positionedEvents = calculateEventPositions(events)
+
+              console.log(events, 'events')
 
               return (
                 <div
