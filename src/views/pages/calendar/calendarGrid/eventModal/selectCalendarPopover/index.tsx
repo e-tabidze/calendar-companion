@@ -15,6 +15,8 @@ const SearchCalendarDropdown: React.FC<Props> = ({ control }) => {
 
   const { googleCalendarsDataLoading, googleCalendarsData } = useSearchCalendarDropdown()
 
+  console.log(googleCalendarsData, 'googleCalendarsData')
+
 
   return (
     <div className='w-fit'>

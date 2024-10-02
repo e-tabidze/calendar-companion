@@ -82,7 +82,7 @@ export const IconTextButton = ({
       disabled={disabled}
     >
       <Icon svgPath={icon} width={width} height={height} className={`fill-transparent ${iconFill}`} />
-      <span className={`text-2sm ml-3 ${labelClassname} `}>{label}</span>
+      <span className={`text-2sm ml-1 ${labelClassname} `}>{label}</span>
     </button>
   )
 }

@@ -8,7 +8,7 @@ import useCreateEvent from './useCreateEvent'
 import TimeSelectorPopover from './timeSelectorPopover'
 import RepeatEventPopover from './repeatEventPopover'
 import SwitchField from 'src/views/components/switchField'
-import { IconButton } from 'src/views/components/button'
+import { DefaultButton, IconButton, IconTextButton } from 'src/views/components/button'
 import EventColorPopover from './eventColorPopover'
 import SelectCalendarPopover from './selectCalendarPopover'
 
@@ -20,9 +20,11 @@ interface Props {
 }
 
 const EventModal: React.FC<Props> = ({ isOpen, toggleIsOpen, selectedDate, selectedStartHour }) => {
-  const { handleSubmit, control, createEventValues } = useCreateEvent(selectedDate, selectedStartHour)
+  const { handleSubmit, control, createEventValues, setValue } = useCreateEvent(selectedDate, selectedStartHour)
 
   console.log(createEventValues, 'createEventValues')
+
+  console.log(createEventValues.meeting_link, 'createEventValues.meeting_link')
 
   return (
     <Transition
@@ -76,7 +78,7 @@ const EventModal: React.FC<Props> = ({ isOpen, toggleIsOpen, selectedDate, selec
             <div className='w-11 h-11 rounded-full bg-white flex justify-center items-center'>
               <Icon svgPath='googleMeet' width={25} height={25} />
             </div>
-            <div className='w-full'>
+            <div className='w-full ml-2'>
               <div className='flex items-center justify-between'>
                 <div className='flex items-center gap-2'>
                   <DateDropdown name='selected_date' control={control} label='date' errors={undefined} />
@@ -86,9 +88,12 @@ const EventModal: React.FC<Props> = ({ isOpen, toggleIsOpen, selectedDate, selec
                 </div>
                 <SwitchField name='all_day' label='All day' control={control} reversed height='h-[14px]' />
               </div>
-              <Typography type='subtitle' className='text-primary-100'>
-                Add meeting link
-              </Typography>
+              <DefaultButton
+                text='Add meeting link'
+                className={`border-none text-2sm px-0 ${createEventValues.meeting_link ? '!text-primary-100' : ''} `}
+                type='button'
+                onClick={() => setValue('meeting_link', !createEventValues.meeting_link)}
+              />
             </div>
           </div>
 
@@ -125,8 +130,24 @@ const EventModal: React.FC<Props> = ({ isOpen, toggleIsOpen, selectedDate, selec
           <div className='w-full h-px bg-grey-10' />
 
           <div className='m-[18px] flex gap-4 items-center'>
-            <SelectCalendarPopover control={control}  />
+            <SelectCalendarPopover control={control} />
             <EventColorPopover control={control} />
+
+            <IconButton
+              icon={createEventValues.is_private ? 'padlock' : 'padlockOpen'}
+              width={22}
+              height={22}
+              type='button'
+              onClick={() => setValue('is_private', !createEventValues.is_private)}
+            />
+            <IconTextButton
+              icon={createEventValues.busy ? 'busy' : 'free'}
+              width={16}
+              height={16}
+              onClick={() => setValue('busy', !createEventValues.busy)}
+              type='button'
+              label={createEventValues.busy ? 'Busy' : 'Free'}
+            />
           </div>
         </DialogPanel>
       </Dialog>

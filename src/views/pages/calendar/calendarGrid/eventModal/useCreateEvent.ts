@@ -6,9 +6,15 @@ const useCreateEvent = (selectedDate: Date | null, selectedStartHour: null | num
     title: '',
     description: '',
     selected_date: new Date(),
+    meeting_link: false,
     selected_start_hour: '',
     selected_end_hour: '',
-    event_color: "#9747FF"
+    event_color: '#9747FF',
+    all_day: false,
+    companion_bot: false,
+    selected_calendar: '',
+    is_private: false,
+    busy: false
   }
 
   useEffect(() => {
@@ -16,7 +22,7 @@ const useCreateEvent = (selectedDate: Date | null, selectedStartHour: null | num
     if (selectedStartHour) {
       const formattedHour = String(selectedStartHour).padStart(2, '0') + ':00'
       setValue('selected_start_hour', formattedHour)
-      const selectedEndHour = (selectedStartHour + 1) % 24 // Ensure it wraps around after 23
+      const selectedEndHour = (selectedStartHour + 1) % 24 
       const formattedEndHour = String(selectedEndHour).padStart(2, '0') + ':00'
       setValue('selected_end_hour', formattedEndHour)
     }
