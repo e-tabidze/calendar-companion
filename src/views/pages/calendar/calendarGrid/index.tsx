@@ -25,12 +25,14 @@ const CalendarGrid: React.FC<Props> = ({ toggleEventModal, setSelectedDate, setS
     const groupedEvents: any = {}
 
     googleEventsData?.forEach((event: any) => {
-      const startDate = parseISO(event.start.dateTime)
-      const endDate = parseISO(event.end.dateTime)
-      const dayIndex = daysArray.findIndex(day => isEqual(getDate(startDate), day))
-      const startHour = getHours(startDate)
-      const startMinutes = getMinutes(startDate)
-      const durationInMinutes = differenceInMinutes(endDate, startDate)
+      const startDateTime = parseISO(event.start.dateTime)
+      const endDateTime = parseISO(event.end.dateTime)
+      const startDate = event.start.date && parseISO(event.start.date)
+      const endtDate = event.end.date && parseISO(event.end.date)
+      const dayIndex = daysArray.findIndex(day => isEqual(getDate(startDateTime), day))
+      const startHour = getHours(startDateTime)
+      const startMinutes = getMinutes(startDateTime)
+      const durationInMinutes = differenceInMinutes(endDateTime, startDateTime)
       const eventHeight = (durationInMinutes / 60) * cellHeight
       const topOffset = (startMinutes / 60) * cellHeight
 
@@ -53,6 +55,8 @@ const CalendarGrid: React.FC<Props> = ({ toggleEventModal, setSelectedDate, setS
         : GOOGLE_EVENT_COLORS[0].color
 
       const startTime = convertToAMPM(event.start.dateTime)
+
+      console.log(startDateTime, endDateTime, event.summary, startDate, endtDate, 'EVENT??')
 
       const organizerSelf = event?.attendees?.find((item: { organizer: boolean; self: boolean }) => item.self === true)
 
