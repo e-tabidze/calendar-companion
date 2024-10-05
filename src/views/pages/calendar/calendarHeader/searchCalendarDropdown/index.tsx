@@ -35,9 +35,9 @@ const SearchCalendarDropdown = () => {
             {selectedCalendars && (
               <PopoverButton className='h-[29px] border border-solid relative w-max flex items-center cursor-default rounded-full bg-white text-left focus:outline-none pl-3'>
                 {isMounted &&
-                  selectedCalendars?.map((calendar: any) => (
+                  selectedCalendars?.map((calendar: any, index: number) => (
                     <span
-                      key={calendar.id}
+                      key={index}
                       className={`h-4 w-4 rounded-full border-2 border-[#fff] -ml-[6px]`}
                       style={{ backgroundColor: calendar.backgroundColor }}
                     />
@@ -81,8 +81,8 @@ const SearchCalendarDropdown = () => {
                           {data[0]}
                         </Typography>
 
-                        {data[1]?.map((calendar: any) => (
-                          <div key={calendar.id} className='flex items-center gap-3 cursor-pointer transition-all py-2'>
+                        {data[1]?.map((calendar: any, index: number) => (
+                          <div key={index} className='flex items-center gap-3 cursor-pointer transition-all py-2'>
                             <span
                               className={`flex-shrink-0 flex items-center justify-center w-5 h-5 rounded border cursor-pointer ${
                                 selectedCalendars.some(c => c.id === calendar.id)

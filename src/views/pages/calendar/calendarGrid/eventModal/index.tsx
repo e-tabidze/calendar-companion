@@ -24,19 +24,18 @@ interface Props {
 const EventModal: React.FC<Props> = ({ isOpen, toggleIsOpen, selectedDate, selectedStartHour }) => {
   const { handleSubmit, control, createEventValues, setValue } = useCreateEvent(selectedDate, selectedStartHour)
 
-  console.log(createEventValues, 'createEventValues')
-
   const timeDifferenceString = selectedDate ? formatTimeDifference(selectedDate, selectedStartHour) : ''
 
-  const onSubmit = (e) => {
-    console.log('Submit', e)
+  const onSubmit = (data: any) => {
+    console.log('submit', data)
   }
 
   const handleCloseAndSubmit = () => {
-    onSubmit()
-      toggleIsOpen(); // Close modal after form submission
-  };
-
+    if (createEventValues.title) {
+      onSubmit(createEventValues)
+    }
+    toggleIsOpen()
+  }
 
   return (
     <Transition
@@ -48,14 +47,15 @@ const EventModal: React.FC<Props> = ({ isOpen, toggleIsOpen, selectedDate, selec
       leaveFrom='transform translate-y-0 opacity-100'
       leaveTo='transform translate-y-10 opacity-0'
     >
-      <Dialog
-        open={isOpen}
-        onClose={handleCloseAndSubmit}
-        className='fixed mx-auto inset-x-0 bottom-6 z-50 flex items-center justify-center transition duration-800 ease-out bg-red-100 w-full h-full'
-        transition
-      >
-        <DialogPanel className='max-w-lg w-full rounded-lg bg-white shadow-lg absolute bottom-0'>
-          <form>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <Dialog
+          open={isOpen}
+          onClose={handleCloseAndSubmit}
+          className='fixed mx-auto inset-x-0 bottom-6 z-50 flex items-center justify-center transition duration-800 ease-out w-full h-full'
+          transition
+          onClick={handleCloseAndSubmit}
+        >
+          <DialogPanel className='max-w-lg w-full rounded-lg bg-white shadow-lg absolute bottom-0'>
             <div className='px-[18px] pt-[18px]'>
               <div className='flex gap-3'>
                 <div className='h-[51px] w-1 bg-red-100' />
@@ -103,7 +103,7 @@ const EventModal: React.FC<Props> = ({ isOpen, toggleIsOpen, selectedDate, selec
                 </div>
                 <DefaultButton
                   text='Add meeting link'
-                  className={`border-none text-2sm px-0 ${createEventValues.meeting_link ? '!text-primary-100' : ''} `}
+                  className={`border-none text-2sm !px-0 ${createEventValues.meeting_link ? '!text-primary-100' : ''} `}
                   type='button'
                   onClick={() => setValue('meeting_link', !createEventValues.meeting_link)}
                 />
@@ -166,11 +166,9 @@ const EventModal: React.FC<Props> = ({ isOpen, toggleIsOpen, selectedDate, selec
               </div>
               <GoingPopover control={control} />
             </div>
-
-            <DefaultButton type='submit' text='create' />
-          </form>
-        </DialogPanel>
-      </Dialog>
+          </DialogPanel>
+        </Dialog>
+      </form>
     </Transition>
   )
 }

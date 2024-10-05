@@ -58,8 +58,6 @@ const CustomDateInput: React.FC<CalendarInputProps> = ({
   className,
   value,
   onClick,
-  isCalendarOpen,
-  label,
   onFocus,
   onChange
 }) => (
