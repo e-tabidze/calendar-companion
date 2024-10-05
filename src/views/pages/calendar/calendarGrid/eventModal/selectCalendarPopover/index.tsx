@@ -1,8 +1,7 @@
-import { Fragment, useEffect, useRef, useState } from 'react'
-import { Transition, Popover, PopoverButton, PopoverPanel } from '@headlessui/react'
+import {  useRef, useState } from 'react'
+import {  Popover, PopoverButton, PopoverPanel } from '@headlessui/react'
 import Icon from 'src/views/app/Icon'
 import Typography from 'src/views/components/typography'
-import { useCalendarContext } from 'src/contexts/CalendarContext'
 import useSearchCalendarDropdown from '../../../calendarHeader/searchCalendarDropdown/useSearchCalendarDropdown'
 import { Controller } from 'react-hook-form'
 

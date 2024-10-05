@@ -30,12 +30,12 @@ const TimeSelectorPopover: React.FC<Props> = ({ control }) => {
   const filteredTimesStart = times.filter(time => time.includes(searchTermStart))
   const filteredTimesEnd = times.filter(time => time.includes(searchTermEnd))
 
-  const { selected_start_hour, selected_end_hour } = useWatch({ control })
+  const { selected_start_hour, selected_end_hour, all_day } = useWatch({ control })
 
   return (
     <Popover>
       <PopoverButton className='block mt-px text-[13px] w-[84px] text-left font-semibold text-grey-90 focus:outline-none data-[focus]:outline-1 data-[focus]:outline-white'>
-        {selected_start_hour && selected_end_hour ? `${selected_start_hour} - ${selected_end_hour}` : 'Select time'}
+        {all_day ? "All Day" : selected_start_hour && selected_end_hour ? `${selected_start_hour} - ${selected_end_hour}` : 'Select time'}
       </PopoverButton>
       <PopoverPanel
         transition

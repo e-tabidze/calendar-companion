@@ -25,8 +25,6 @@ const EventModal: React.FC<Props> = ({ isOpen, toggleIsOpen, selectedDate, selec
 
   console.log(createEventValues, 'createEventValues')
 
-  console.log(createEventValues.meeting_link, 'createEventValues.meeting_link')
-
   return (
     <Transition
       show={isOpen}
@@ -130,7 +128,9 @@ const EventModal: React.FC<Props> = ({ isOpen, toggleIsOpen, selectedDate, selec
 
           <div className='w-full h-px bg-grey-10' />
 
-          <div className='m-[18px] flex gap-4 items-center'>
+          <div className='m-[18px] flex gap-4 items-center justify-between'>
+            <div className="flex gap-4 items-center">
+
             <SelectCalendarPopover control={control} />
             <EventColorPopover control={control} />
 
@@ -150,6 +150,7 @@ const EventModal: React.FC<Props> = ({ isOpen, toggleIsOpen, selectedDate, selec
               label={createEventValues.busy ? 'Busy' : 'Free'}
               className="w-[52px]"
             />
+            </div>
             <GoingPopover control={control} />
           </div>
         </DialogPanel>
