@@ -24,6 +24,86 @@ interface Props {
   setSelectedStartHour: (hour: any) => void
 }
 
+const doEventsOverlap = (event1: any, event2: any) => {
+  const start1 = new Date(event1.start.dateTime).getTime()
+  const end1 = new Date(event1.end.dateTime).getTime()
+  const start2 = new Date(event2.start.dateTime).getTime()
+  const end2 = new Date(event2.end.dateTime).getTime()
+
+  return start1 < end2 && end1 > start2
+}
+
+function groupOverlappingEvents(events: any[]) {
+  const overlappingGroups = []
+
+  const toDate = (event: any) => ({
+    start: new Date(event.start.dateTime),
+    end: new Date(event.end.dateTime),
+    original: event
+  })
+
+  const sortedEvents = events.map(toDate).sort((a: any, b: any) => a.startHour - b.startHour)
+
+  let currentGroup = [sortedEvents[0]?.original]
+
+  for (let i = 1; i < sortedEvents.length; i++) {
+    const currentEvent = sortedEvents[i]
+    const lastEventInGroup = toDate(currentGroup[currentGroup.length - 1])
+
+    if (currentEvent.start < lastEventInGroup.end) {
+      currentGroup.push(currentEvent.original)
+    } else {
+      if (currentGroup.length > 1) {
+        overlappingGroups.push(currentGroup)
+      }
+      currentGroup = [currentEvent.original]
+    }
+  }
+
+  if (currentGroup.length > 1) {
+    overlappingGroups.push(currentGroup)
+  }
+
+  return overlappingGroups
+}
+
+const calculateEventPositions = (events: any[]) => {
+  const sortedEvents = [...events].sort(
+    (a, b) => new Date(a.start.dateTime).getTime() - new Date(b.start.dateTime).getTime()
+  )
+
+  const columns: any = []
+
+  sortedEvents.forEach(event => {
+    let placed = false
+    for (let i = 0; i < columns.length; i++) {
+      if (!doEventsOverlap(columns[i][columns[i].length - 1], event)) {
+        columns[i].push(event)
+        placed = true
+        break
+      }
+    }
+    if (!placed) {
+      columns.push([event])
+    }
+  })
+
+  const groupsss = groupOverlappingEvents(sortedEvents)
+
+  return sortedEvents.map(event => {
+    const columnIndex = columns.findIndex((column: any) => column.includes(event))
+    const group = groupsss.find(g => g.includes(event))!
+
+    return {
+      ...event,
+      width:
+        event.daysExtended > 1 ? `${event.daysExtended * 100 - 5}%` : `${group?.length ? 95 / group?.length : 95}%`,
+      left: `${event.daysExtended ? '0' : group?.length ? (columnIndex * 95) / group?.length : 0}%`,
+      row: event.daysExtended > 1 ? 0 : event.startHour + 1
+    }
+  })
+}
+
 const CalendarGrid: React.FC<Props> = ({ toggleEventModal, setSelectedDate, setSelectedStartHour }) => {
   const { visibleDays, startOfPeriod, daysArray, cellHeight, selectedCalendars } = useCalendarContext()
 
@@ -47,8 +127,6 @@ const CalendarGrid: React.FC<Props> = ({ toggleEventModal, setSelectedDate, setS
       const topOffset = (startMinutes / 60) * cellHeight
 
       const hasValidDateTime = startDateTime.toString() !== 'Invalid Date' && endDateTime.toString() !== 'Invalid Date'
-
-      console.log(daysExtended, event.summary, 'extendsMoreThanOneDay')
 
       const key = `${dayIndex + 1}`
 
@@ -89,87 +167,6 @@ const CalendarGrid: React.FC<Props> = ({ toggleEventModal, setSelectedDate, setS
 
     return groupedEvents
   }, [googleEventsData, visibleDays, startOfPeriod, daysArray])
-
-  const calculateEventPositions = (events: any[]) => {
-    const sortedEvents = [...events].sort(
-      (a, b) => new Date(a.start.dateTime).getTime() - new Date(b.start.dateTime).getTime()
-    )
-
-    const columns: any = []
-
-    sortedEvents.forEach(event => {
-      let placed = false
-      for (let i = 0; i < columns.length; i++) {
-        if (!doEventsOverlap(columns[i][columns[i].length - 1], event)) {
-          columns[i].push(event)
-          placed = true
-          break
-        }
-      }
-        if (!placed) {
-          columns.push([event])
-        }
-    })
-
-    const groupsss = groupOverlappingEvents(sortedEvents)
-
-    return sortedEvents.map(event => {
-      const columnIndex = columns.findIndex((column: any) => column.includes(event))
-      const group = groupsss.find(g => g.includes(event))!
-
-
-      return {
-        ...event,
-        width:
-          event.daysExtended > 1 ? `${event.daysExtended * 100 - 5}%` : `${group?.length ? 95 / group?.length : 95}%`,
-        left: `${event.daysExtended ? '0' : group?.length ? (columnIndex * 95) / group?.length : 0}%`,
-        row: event.daysExtended > 1 ? 0 : event.startHour + 1
-      }
-    })
-  }
-
-  function groupOverlappingEvents(events: any[]) {
-    const overlappingGroups = []
-
-    const toDate = (event: any) => ({
-      start: new Date(event.start.dateTime),
-      end: new Date(event.end.dateTime),
-      original: event
-    })
-
-    const sortedEvents = events.map(toDate).sort((a: any, b: any) => a.startHour - b.startHour)
-
-    let currentGroup = [sortedEvents[0]?.original]
-
-    for (let i = 1; i < sortedEvents.length; i++) {
-      const currentEvent = sortedEvents[i]
-      const lastEventInGroup = toDate(currentGroup[currentGroup.length - 1])
-
-      if (currentEvent.start < lastEventInGroup.end) {
-        currentGroup.push(currentEvent.original)
-      } else {
-        if (currentGroup.length > 1) {
-          overlappingGroups.push(currentGroup)
-        }
-        currentGroup = [currentEvent.original]
-      }
-    }
-
-    if (currentGroup.length > 1) {
-      overlappingGroups.push(currentGroup)
-    }
-
-    return overlappingGroups
-  }
-
-  const doEventsOverlap = (event1: any, event2: any) => {
-    const start1 = new Date(event1.start.dateTime).getTime()
-    const end1 = new Date(event1.end.dateTime).getTime()
-    const start2 = new Date(event2.start.dateTime).getTime()
-    const end2 = new Date(event2.end.dateTime).getTime()
-
-    return start1 < end2 && end1 > start2
-  }
 
   const handleCellClick = (day: any, hour: any) => {
     const clickedDate = new Date(startOfPeriod)
