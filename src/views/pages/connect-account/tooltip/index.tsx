@@ -59,14 +59,14 @@ const Tooltip: React.FC<Props> = ({ id }) => {
             {page < totalPages ? (
               <div
                 onClick={handleNext}
-                className='bg-orange-500 !z-50 text-white px-4 py-2 rounded-md hover:bg-orange-600 cursor-pointer'
+                className='bg-orange-500 !z-50 text-white px-4 py-2 rounded-md hover:bg-primary-100 cursor-pointer'
               >
                 Next
               </div>
             ) : (
               <div
                 onClick={handleDone}
-                className='bg-orange-500 !z-50 text-white px-4 py-2 rounded-md hover:bg-orange-600 cursor-pointer'
+                className='bg-orange-500 !z-50 text-white px-4 py-2 rounded-md hover:bg-primary-100 cursor-pointer'
               >
                 Got it!
               </div>

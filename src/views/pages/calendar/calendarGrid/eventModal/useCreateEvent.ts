@@ -14,7 +14,8 @@ const useCreateEvent = (selectedDate: Date | null, selectedStartHour: null | num
     companion_bot: false,
     selected_calendar: '',
     is_private: false,
-    busy: false
+    busy: false,
+    going: "yes"
   }
 
   useEffect(() => {

@@ -11,6 +11,7 @@ import SwitchField from 'src/views/components/switchField'
 import { DefaultButton, IconButton, IconTextButton } from 'src/views/components/button'
 import EventColorPopover from './eventColorPopover'
 import SelectCalendarPopover from './selectCalendarPopover'
+import GoingPopover from './goingPopover'
 
 interface Props {
   isOpen: boolean
@@ -147,7 +148,9 @@ const EventModal: React.FC<Props> = ({ isOpen, toggleIsOpen, selectedDate, selec
               onClick={() => setValue('busy', !createEventValues.busy)}
               type='button'
               label={createEventValues.busy ? 'Busy' : 'Free'}
+              className="w-[52px]"
             />
+            <GoingPopover control={control} />
           </div>
         </DialogPanel>
       </Dialog>

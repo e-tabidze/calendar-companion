@@ -106,9 +106,9 @@ const CalendarGrid: React.FC<Props> = ({ toggleEventModal, setSelectedDate, setS
           break
         }
       }
-      if (!placed) {
-        columns.push([event])
-      }
+        if (!placed) {
+          columns.push([event])
+        }
     })
 
     const groupsss = groupOverlappingEvents(sortedEvents)
@@ -117,11 +117,9 @@ const CalendarGrid: React.FC<Props> = ({ toggleEventModal, setSelectedDate, setS
       const columnIndex = columns.findIndex((column: any) => column.includes(event))
       const group = groupsss.find(g => g.includes(event))!
 
-
       console.log(columns, 'columns')
 
-
-      console.log(group?.length , 'group?.length ')
+      console.log(group?.length, 'group?.length ')
 
       console.log(columnIndex, 'columnIndex')
 
@@ -129,7 +127,7 @@ const CalendarGrid: React.FC<Props> = ({ toggleEventModal, setSelectedDate, setS
         ...event,
         width:
           event.daysExtended > 1 ? `${event.daysExtended * 100 - 5}%` : `${group?.length ? 95 / group?.length : 95}%`,
-        left: `${ event.daysExtended ? '0' : group?.length ? (columnIndex * 95) / group?.length : 0}%`,
+        left: `${event.daysExtended ? '0' : group?.length ? (columnIndex * 95) / group?.length : 0}%`,
         row: event.daysExtended > 1 ? 0 : event.startHour + 1
       }
     })
@@ -191,7 +189,6 @@ const CalendarGrid: React.FC<Props> = ({ toggleEventModal, setSelectedDate, setS
     <>
       <div className='flex flex-grow flex-col z-0'>
         {new Array(GridConstants.rowsCount).fill(0).map((_, i) => {
-
           return (
             <div key={i} className={`flex flex-grow ${i === 0 ? 'z-10 bg-white' : ''}`}>
               {new Array(visibleDays).fill(0).map((_, index) => {
