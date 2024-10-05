@@ -12,6 +12,7 @@ import { DefaultButton, IconButton, IconTextButton } from 'src/views/components/
 import EventColorPopover from './eventColorPopover'
 import SelectCalendarPopover from './selectCalendarPopover'
 import GoingPopover from './goingPopover'
+import { formatTimeDifference } from 'src/utils/timeFormatter'
 
 interface Props {
   isOpen: boolean
@@ -23,7 +24,16 @@ interface Props {
 const EventModal: React.FC<Props> = ({ isOpen, toggleIsOpen, selectedDate, selectedStartHour }) => {
   const { handleSubmit, control, createEventValues, setValue } = useCreateEvent(selectedDate, selectedStartHour)
 
+  console.log(selectedDate, 'selectedDate')
+
   console.log(createEventValues, 'createEventValues')
+
+  console.log(selectedStartHour, 'selectedStartHour ')
+
+  const timeDifferenceString = selectedDate
+    ? formatTimeDifference(selectedDate, selectedStartHour)
+    : '';
+
 
   return (
     <Transition
@@ -47,7 +57,8 @@ const EventModal: React.FC<Props> = ({ isOpen, toggleIsOpen, selectedDate, selec
               <div className='h-[51px] w-1 bg-red-100' />
               <div>
                 <Typography type='subtitle' color='light'>
-                  In 1h and 15 minutes
+                  {/* In 1h and 15 minutes */}
+                  {timeDifferenceString}
                 </Typography>
                 <EventInput
                   control={control}
