@@ -117,13 +117,20 @@ const CalendarGrid: React.FC<Props> = ({ toggleEventModal, setSelectedDate, setS
       const columnIndex = columns.findIndex((column: any) => column.includes(event))
       const group = groupsss.find(g => g.includes(event))!
 
+
+      console.log(columns, 'columns')
+
+
+      console.log(group?.length , 'group?.length ')
+
+      console.log(columnIndex, 'columnIndex')
+
       return {
         ...event,
         width:
           event.daysExtended > 1 ? `${event.daysExtended * 100 - 5}%` : `${group?.length ? 95 / group?.length : 95}%`,
-        // width: `${(group?.length ? 95 / group?.length : 95)}%`,
-        left: `${group?.length ? (columnIndex * 95) / group?.length : columnIndex * 95}%`,
-        row: event.daysExtended > 1 ? 0 : event.startHour
+        left: `${ event.daysExtended ? '0' : group?.length ? (columnIndex * 95) / group?.length : 0}%`,
+        row: event.daysExtended > 1 ? 0 : event.startHour + 1
       }
     })
   }
@@ -183,93 +190,91 @@ const CalendarGrid: React.FC<Props> = ({ toggleEventModal, setSelectedDate, setS
   return (
     <>
       <div className='flex flex-grow flex-col z-0'>
-        {new Array(GridConstants.rowsCount).fill(0).map((_, i) => (
-          <div key={i} className={`flex flex-grow ${i === 0 ? 'z-10 bg-white' : ''}`}>
-            {new Array(visibleDays).fill(0).map((_, index) => {
-              const key = `${index + 1}`
-              const events = mappedEvents[key] || []
-              const positionedEvents = calculateEventPositions(events)
+        {new Array(GridConstants.rowsCount).fill(0).map((_, i) => {
 
-              return (
-                <div
-                  onDoubleClick={() => handleCellClick(index, i)}
-                  key={index}
-                  className='relative flex flex-1 flex-grow cursor-pointer border-b border-r border-solid border-strokes-1'
-                  style={{ height: `${GridConstants.hourCellHeight}vhh` }}
-                >
-                  {positionedEvents
-                    .filter(googleEvent => {
-                      {
-                        console.log(googleEvent.summary, 'title', googleEvent.startHour, 'googleEvent.startHour', i)
-                      }
-                      return googleEvent.row === 0
-                        ? i === 0 && googleEvent.daysExtended == 1
-                        : i === googleEvent.startHour + 1
-                    })
-                    // .filter(googleEvent => {
-                    //   return i === googleEvent.startHour + 1
-                    // })
-                    .map((event, eventIndex) => (
-                      <div
-                        key={event.id}
-                        className='absolute rounded-sm overflow-hidden'
-                        style={{
-                          height: `${event.eventHeight}px`,
-                          top: `${event.topOffset}px`,
-                          left: event.left,
-                          width: event.width,
-                          background:
-                            event.organizerSelf?.responseStatus === 'declined'
-                              ? event.eventBgSolid
-                              : event.organizerSelf?.responseStatus === 'accepted'
-                              ? event.eventBgSolid
-                              : event.organizerSelf?.responseStatus === 'tentative'
-                              ? event.eventBgRadiant
-                              : event.eventBgSolid,
-                          border: `1px solid ${
-                            event.organizerSelf?.responseStatus === 'declined'
-                              ? event.eventBgSolid
-                              : event.organizerSelf?.responseStatus === 'accepted'
-                              ? event.eventBgSolid
-                              : event.organizerSelf?.responseStatus === 'tentative'
-                              ? event.eventBgRadiant
-                              : '#fff'
-                          }`,
-                          borderRadius: '4px',
-                          color: event.eventTitleColor,
-                          opacity: event.organizerSelf?.responseStatus === 'declined' ? 0.6 : 1,
-                          zIndex: eventIndex + 10
-                        }}
-                      >
-                        <div className='flex flex-col justify-between h-full p-1'>
-                          <Typography
-                            type='body'
-                            className={`text-xs font-bold truncate ${
-                              event.organizerSelf?.responseStatus === 'declined' ? 'line-through' : ''
-                            } ${`text-$[event.eventTitleColor]`}`}
-                          >
-                            {event.summary || 'No Title'}
-                          </Typography>
-                          <Typography type='body' className='text-xs'>
-                            {event.startTime}
-                          </Typography>
+          return (
+            <div key={i} className={`flex flex-grow ${i === 0 ? 'z-10 bg-white' : ''}`}>
+              {new Array(visibleDays).fill(0).map((_, index) => {
+                const key = `${index + 1}`
+                const events = mappedEvents[key] || []
+                const positionedEvents = calculateEventPositions(events)
+
+                return (
+                  <div
+                    onDoubleClick={() => handleCellClick(index, i)}
+                    key={index}
+                    className='relative flex flex-1 flex-grow cursor-pointer border-b border-r border-solid border-strokes-1'
+                    style={{ height: `${GridConstants.hourCellHeight}vhh` }}
+                  >
+                    {positionedEvents
+                      .filter(googleEvent => {
+                        return googleEvent.row === 0 ? i === 0 : i === googleEvent.startHour + 1
+                      })
+                      // .filter(googleEvent => {
+                      //   return i === googleEvent.startHour + 1
+                      // })
+                      .map((event, eventIndex) => (
+                        <div
+                          key={event.id}
+                          className='absolute rounded-sm overflow-hidden'
+                          style={{
+                            height: `${event.eventHeight}px`,
+                            top: `${event.topOffset}px`,
+                            left: event.left,
+                            width: event.width,
+                            background:
+                              event.organizerSelf?.responseStatus === 'declined'
+                                ? event.eventBgSolid
+                                : event.organizerSelf?.responseStatus === 'accepted'
+                                ? event.eventBgSolid
+                                : event.organizerSelf?.responseStatus === 'tentative'
+                                ? event.eventBgRadiant
+                                : event.eventBgSolid,
+                            border: `1px solid ${
+                              event.organizerSelf?.responseStatus === 'declined'
+                                ? event.eventBgSolid
+                                : event.organizerSelf?.responseStatus === 'accepted'
+                                ? event.eventBgSolid
+                                : event.organizerSelf?.responseStatus === 'tentative'
+                                ? event.eventBgRadiant
+                                : '#fff'
+                            }`,
+                            borderRadius: '4px',
+                            color: event.eventTitleColor,
+                            opacity: event.organizerSelf?.responseStatus === 'declined' ? 0.6 : 1,
+                            zIndex: eventIndex + 10
+                          }}
+                        >
+                          <div className='flex flex-col justify-between h-full p-1'>
+                            <Typography
+                              type='body'
+                              className={`text-xs font-bold truncate ${
+                                event.organizerSelf?.responseStatus === 'declined' ? 'line-through' : ''
+                              } ${`text-$[event.eventTitleColor]`}`}
+                            >
+                              {event.summary || 'No Title'}
+                            </Typography>
+                            <Typography type='body' className='text-xs'>
+                              {event.startTime}
+                            </Typography>
+                          </div>
                         </div>
-                      </div>
-                    ))}
+                      ))}
 
-                  {/* {events.length > 3 && (
-                    <span
-                      className='absolute top-0 right-0 bg-red-500 text-white px-1 text-xs z-50 more-indicator'
-                      style={{ top: `calc(${events[0].topOffset}px - 14px)` }}
-                    >
-                      {events.length - 3} more
-                    </span>
-                  )} */}
-                </div>
-              )
-            })}
-          </div>
-        ))}
+                    {/* {events.length > 3 && (
+                      <span
+                        className='absolute top-0 right-0 bg-red-500 text-white px-1 text-xs z-50 more-indicator'
+                        style={{ top: `calc(${events[0].topOffset}px - 14px)` }}
+                      >
+                        {events.length - 3} more
+                      </span>
+                    )} */}
+                  </div>
+                )
+              })}
+            </div>
+          )
+        })}
       </div>
     </>
   )
