@@ -8,7 +8,7 @@ const CurrentTimeThread = () => {
   useEffect(() => {
     const calculateCurrentHourOffset = () => {
       const now = new Date()
-      const currentHour = now.getHours()
+      const currentHour = now.getHours() + 1
       const currentMinute = now.getMinutes()
       const totalMinutes = currentHour * 60 + currentMinute
       const offset = (totalMinutes * cellHeight) / 60

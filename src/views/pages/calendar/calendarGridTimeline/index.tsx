@@ -11,7 +11,7 @@ const CalendarGridTimeline = () => {
   return (
     <div className='relative w-12 border-r border-solid border-r-strokes-1 lg:w-16'>
       {new Array(GridConstants.rowsCount).fill(0).map((_, index) => {
-        const isCurrentHour = index === currentHour
+        const isCurrentHour = index === currentHour 
         const isAllDay = index === 0
 
         return (
@@ -21,7 +21,7 @@ const CalendarGridTimeline = () => {
             key={index}
             style={{ height: cellHeight }}
           >
-            {isAllDay ? 'all day' : `${index}`.padStart(2, '0') + ':00'}
+            {isAllDay ? 'all day' : `${index - 1}`.padStart(2, '0') + ':00'}
           </div>
         )
       })}

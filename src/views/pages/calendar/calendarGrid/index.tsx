@@ -50,7 +50,7 @@ const CalendarGrid: React.FC<Props> = ({ toggleEventModal, setSelectedDate, setS
 
       console.log(daysExtended, event.summary, 'extendsMoreThanOneDay')
 
-      const key = `${dayIndex}`
+      const key = `${dayIndex + 1}`
 
       if (!groupedEvents[key]) {
         groupedEvents[key] = []
@@ -119,12 +119,15 @@ const CalendarGrid: React.FC<Props> = ({ toggleEventModal, setSelectedDate, setS
 
       return {
         ...event,
-        width: event.daysExtended > 1 ? `${event.daysExtended * 100 - 5}%` : `${group?.length ? 95 / group?.length : 95}%`,
+        width:
+          event.daysExtended > 1 ? `${event.daysExtended * 100 - 5}%` : `${group?.length ? 95 / group?.length : 95}%`,
+        // width: `${(group?.length ? 95 / group?.length : 95)}%`,
         left: `${group?.length ? (columnIndex * 95) / group?.length : columnIndex * 95}%`,
         row: event.daysExtended > 1 ? 0 : event.startHour
       }
     })
   }
+
   function groupOverlappingEvents(events: any[]) {
     const overlappingGroups = []
 
@@ -183,11 +186,9 @@ const CalendarGrid: React.FC<Props> = ({ toggleEventModal, setSelectedDate, setS
         {new Array(GridConstants.rowsCount).fill(0).map((_, i) => (
           <div key={i} className={`flex flex-grow ${i === 0 ? 'z-10 bg-white' : ''}`}>
             {new Array(visibleDays).fill(0).map((_, index) => {
-              const key = `${index}`
+              const key = `${index + 1}`
               const events = mappedEvents[key] || []
               const positionedEvents = calculateEventPositions(events)
-
-              console.log(i, 'events')
 
               return (
                 <div
@@ -198,8 +199,16 @@ const CalendarGrid: React.FC<Props> = ({ toggleEventModal, setSelectedDate, setS
                 >
                   {positionedEvents
                     .filter(googleEvent => {
-                      return googleEvent.row === 0 ? (i === 0 && googleEvent.row === 0) : i === googleEvent.startHour 
+                      {
+                        console.log(googleEvent.summary, 'title', googleEvent.startHour, 'googleEvent.startHour', i)
+                      }
+                      return googleEvent.row === 0
+                        ? i === 0 && googleEvent.daysExtended == 1
+                        : i === googleEvent.startHour + 1
                     })
+                    // .filter(googleEvent => {
+                    //   return i === googleEvent.startHour + 1
+                    // })
                     .map((event, eventIndex) => (
                       <div
                         key={event.id}
@@ -216,7 +225,7 @@ const CalendarGrid: React.FC<Props> = ({ toggleEventModal, setSelectedDate, setS
                               ? event.eventBgSolid
                               : event.organizerSelf?.responseStatus === 'tentative'
                               ? event.eventBgRadiant
-                              : '#fff',
+                              : event.eventBgSolid,
                           border: `1px solid ${
                             event.organizerSelf?.responseStatus === 'declined'
                               ? event.eventBgSolid
@@ -224,8 +233,9 @@ const CalendarGrid: React.FC<Props> = ({ toggleEventModal, setSelectedDate, setS
                               ? event.eventBgSolid
                               : event.organizerSelf?.responseStatus === 'tentative'
                               ? event.eventBgRadiant
-                              : event.eventBgSolid
+                              : '#fff'
                           }`,
+                          borderRadius: '4px',
                           color: event.eventTitleColor,
                           opacity: event.organizerSelf?.responseStatus === 'declined' ? 0.6 : 1,
                           zIndex: eventIndex + 10
