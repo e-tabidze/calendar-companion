@@ -117,11 +117,6 @@ const CalendarGrid: React.FC<Props> = ({ toggleEventModal, setSelectedDate, setS
       const columnIndex = columns.findIndex((column: any) => column.includes(event))
       const group = groupsss.find(g => g.includes(event))!
 
-      console.log(columns, 'columns')
-
-      console.log(group?.length, 'group?.length ')
-
-      console.log(columnIndex, 'columnIndex')
 
       return {
         ...event,

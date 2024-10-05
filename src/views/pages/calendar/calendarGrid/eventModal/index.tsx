@@ -24,15 +24,18 @@ interface Props {
 const EventModal: React.FC<Props> = ({ isOpen, toggleIsOpen, selectedDate, selectedStartHour }) => {
   const { handleSubmit, control, createEventValues, setValue } = useCreateEvent(selectedDate, selectedStartHour)
 
-  console.log(selectedDate, 'selectedDate')
-
   console.log(createEventValues, 'createEventValues')
 
-  console.log(selectedStartHour, 'selectedStartHour ')
+  const timeDifferenceString = selectedDate ? formatTimeDifference(selectedDate, selectedStartHour) : ''
 
-  const timeDifferenceString = selectedDate
-    ? formatTimeDifference(selectedDate, selectedStartHour)
-    : '';
+  const onSubmit = (e) => {
+    console.log('Submit', e)
+  }
+
+  const handleCloseAndSubmit = () => {
+    onSubmit()
+      toggleIsOpen(); // Close modal after form submission
+  };
 
 
   return (
@@ -47,123 +50,125 @@ const EventModal: React.FC<Props> = ({ isOpen, toggleIsOpen, selectedDate, selec
     >
       <Dialog
         open={isOpen}
-        onClose={toggleIsOpen}
-        className='fixed w-3/4 mx-auto inset-x-0 bottom-6 z-50 flex items-center justify-center transition duration-800 ease-out'
+        onClose={handleCloseAndSubmit}
+        className='fixed mx-auto inset-x-0 bottom-6 z-50 flex items-center justify-center transition duration-800 ease-out bg-red-100 w-full h-full'
         transition
       >
-        <DialogPanel className='max-w-lg w-full rounded-lg bg-white shadow-lg'>
-          <div className='px-[18px] pt-[18px]'>
-            <div className='flex gap-3'>
-              <div className='h-[51px] w-1 bg-red-100' />
-              <div>
-                <Typography type='subtitle' color='light'>
-                  {/* In 1h and 15 minutes */}
-                  {timeDifferenceString}
-                </Typography>
-                <EventInput
-                  control={control}
-                  name='title'
-                  className='h-[30px] bg-white mt-1'
-                  placeholder='Add title'
-                  boldPlaceholder
-                />
-              </div>
-            </div>
-            <div className='flex gap-3'>
-              <div className='h-[51px] w-1 bg-white' />
-              <div>
-                <EventInput
-                  control={control}
-                  name='description'
-                  className='h-[30px] bg-white'
-                  placeholder='Add description'
-                />
-              </div>
-            </div>
-          </div>
-
-          <div className='w-full h-px bg-grey-10' />
-
-          <div className='bg-grey-70 rounded-xl flex m-[18px] p-3'>
-            <div className='w-11 h-11 rounded-full bg-white flex justify-center items-center'>
-              <Icon svgPath='googleMeet' width={25} height={25} />
-            </div>
-            <div className='w-full ml-2'>
-              <div className='flex items-center justify-between'>
-                <div className='flex items-center gap-2'>
-                  <DateDropdown name='selected_date' control={control} label='date' errors={undefined} />
-                  <TimeSelectorPopover control={control} />
-                  <div className='w-1 h-1 rounded-full bg-raisin-80' />
-                  <RepeatEventPopover control={control} />
+        <DialogPanel className='max-w-lg w-full rounded-lg bg-white shadow-lg absolute bottom-0'>
+          <form>
+            <div className='px-[18px] pt-[18px]'>
+              <div className='flex gap-3'>
+                <div className='h-[51px] w-1 bg-red-100' />
+                <div>
+                  <Typography type='subtitle' color='light'>
+                    {timeDifferenceString}
+                  </Typography>
+                  <EventInput
+                    control={control}
+                    name='title'
+                    className='h-[30px] bg-white mt-1'
+                    placeholder='Add title'
+                    boldPlaceholder
+                  />
                 </div>
-                <SwitchField name='all_day' label='All day' control={control} reversed height='h-[14px]' />
               </div>
-              <DefaultButton
-                text='Add meeting link'
-                className={`border-none text-2sm px-0 ${createEventValues.meeting_link ? '!text-primary-100' : ''} `}
-                type='button'
-                onClick={() => setValue('meeting_link', !createEventValues.meeting_link)}
-              />
+              <div className='flex gap-3'>
+                <div className='h-[51px] w-1 bg-white' />
+                <div>
+                  <EventInput
+                    control={control}
+                    name='description'
+                    className='h-[30px] bg-white'
+                    placeholder='Add description'
+                  />
+                </div>
+              </div>
             </div>
-          </div>
 
-          <div className='mx-[18px] flex gap-[18px] mb-[18px]'>
-            <div className='border border-grey-70 rounded-xl p-3 flex-grow'>
-              <Typography type='subtitle' color='light'>
-                Participants
-              </Typography>
-              <div className='flex items-center justify-between'>
+            <div className='w-full h-px bg-grey-10' />
+
+            <div className='bg-grey-70 rounded-xl flex m-[18px] p-3'>
+              <div className='w-11 h-11 rounded-full bg-white flex justify-center items-center'>
+                <Icon svgPath='googleMeet' width={25} height={25} />
+              </div>
+              <div className='w-full ml-2'>
+                <div className='flex items-center justify-between'>
+                  <div className='flex items-center gap-2'>
+                    <DateDropdown name='selected_date' control={control} label='date' errors={undefined} />
+                    <TimeSelectorPopover control={control} />
+                    <div className='w-1 h-1 rounded-full bg-raisin-80' />
+                    <RepeatEventPopover control={control} />
+                  </div>
+                  <SwitchField name='all_day' label='All day' control={control} reversed height='h-[14px]' />
+                </div>
+                <DefaultButton
+                  text='Add meeting link'
+                  className={`border-none text-2sm px-0 ${createEventValues.meeting_link ? '!text-primary-100' : ''} `}
+                  type='button'
+                  onClick={() => setValue('meeting_link', !createEventValues.meeting_link)}
+                />
+              </div>
+            </div>
+
+            <div className='mx-[18px] flex gap-[18px] mb-[18px]'>
+              <div className='border border-grey-70 rounded-xl p-3 flex-grow'>
                 <Typography type='subtitle' color='light'>
-                  No participants yet
+                  Participants
                 </Typography>
-                <IconButton icon='add' width={24} height={24} />
+                <div className='flex items-center justify-between'>
+                  <Typography type='subtitle' color='light'>
+                    No participants yet
+                  </Typography>
+                  <IconButton icon='add' width={24} height={24} />
+                </div>
+              </div>
+
+              <div className='border border-grey-70 rounded-xl p-3 min-w-[180px]'>
+                <Typography type='subtitle' color='light' className='mb-3'>
+                  Companion bot
+                </Typography>
+                <SwitchField name='companion_bot' label='Attend' control={control} reversed height='h-[17px]' />
               </div>
             </div>
 
-            <div className='border border-grey-70 rounded-xl p-3 min-w-[180px]'>
-              <Typography type='subtitle' color='light' className='mb-3'>
-                Companion bot
+            <div className='mx-[18px] border border-grey-70 rounded-xl p-3 mb-[18px]'>
+              <Typography type='subtitle' color='light' className='mb-3 text-[13px]'>
+                Documents
               </Typography>
-              <SwitchField name='companion_bot' label='Attend' control={control} reversed height='h-[17px]' />
+              <Typography type='subtitle' color='light' className='mb-3'>
+                No documents added yet
+              </Typography>
             </div>
-          </div>
 
-          <div className='mx-[18px] border border-grey-70 rounded-xl p-3 mb-[18px]'>
-            <Typography type='subtitle' color='light' className='mb-3 text-[13px]'>
-              Documents
-            </Typography>
-            <Typography type='subtitle' color='light' className='mb-3'>
-              No documents added yet
-            </Typography>
-          </div>
+            <div className='w-full h-px bg-grey-10' />
 
-          <div className='w-full h-px bg-grey-10' />
+            <div className='m-[18px] flex gap-4 items-center justify-between'>
+              <div className='flex gap-4 items-center'>
+                <SelectCalendarPopover control={control} />
+                <EventColorPopover control={control} />
 
-          <div className='m-[18px] flex gap-4 items-center justify-between'>
-            <div className="flex gap-4 items-center">
-
-            <SelectCalendarPopover control={control} />
-            <EventColorPopover control={control} />
-
-            <IconButton
-              icon={createEventValues.is_private ? 'padlock' : 'padlockOpen'}
-              width={22}
-              height={22}
-              type='button'
-              onClick={() => setValue('is_private', !createEventValues.is_private)}
-            />
-            <IconTextButton
-              icon={createEventValues.busy ? 'busy' : 'free'}
-              width={16}
-              height={16}
-              onClick={() => setValue('busy', !createEventValues.busy)}
-              type='button'
-              label={createEventValues.busy ? 'Busy' : 'Free'}
-              className="w-[52px]"
-            />
+                <IconButton
+                  icon={createEventValues.is_private ? 'padlock' : 'padlockOpen'}
+                  width={22}
+                  height={22}
+                  type='button'
+                  onClick={() => setValue('is_private', !createEventValues.is_private)}
+                />
+                <IconTextButton
+                  icon={createEventValues.busy ? 'busy' : 'free'}
+                  width={16}
+                  height={16}
+                  onClick={() => setValue('busy', !createEventValues.busy)}
+                  type='button'
+                  label={createEventValues.busy ? 'Busy' : 'Free'}
+                  className='w-[52px]'
+                />
+              </div>
+              <GoingPopover control={control} />
             </div>
-            <GoingPopover control={control} />
-          </div>
+
+            <DefaultButton type='submit' text='create' />
+          </form>
         </DialogPanel>
       </Dialog>
     </Transition>
