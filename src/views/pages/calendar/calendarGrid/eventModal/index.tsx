@@ -24,6 +24,8 @@ interface Props {
 const EventModal: React.FC<Props> = ({ isOpen, toggleIsOpen, selectedDate, selectedStartHour }) => {
   const { handleSubmit, control, createEventValues, setValue } = useCreateEvent(selectedDate, selectedStartHour)
 
+  console.log(createEventValues, 'createEventValues')
+
   const timeDifferenceString = selectedDate ? formatTimeDifference(selectedDate, selectedStartHour) : ''
 
   const onSubmit = (data: any) => {

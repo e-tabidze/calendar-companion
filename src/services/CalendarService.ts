@@ -1,7 +1,13 @@
 import HttpService from './HttpService'
 
 class CalendarService extends HttpService {
-  getGoogleEvents(AccessToken = '', workspaceId: string, start_date: string, end_date: string, calendarIds: any[] = []) {
+  getGoogleEvents(
+    AccessToken = '',
+    workspaceId: string,
+    start_date: string,
+    end_date: string,
+    calendarIds: any[] = []
+  ) {
     const headers = {
       ...(AccessToken && { Authorization: `Bearer ${AccessToken}` }),
       'X-Workspace-Id': workspaceId
@@ -9,7 +15,11 @@ class CalendarService extends HttpService {
 
     const calendarIdsQuery = calendarIds.map(calendar => `calendar_id[]=${encodeURIComponent(calendar.id)}`).join('&')
 
-    return this.get(`/lightweight-api/google-events?startDate=${start_date}&endDate=${end_date}&${calendarIdsQuery}`, {}, headers)
+    return this.get(
+      `/lightweight-api/google-events?startDate=${start_date}&endDate=${end_date}&${calendarIdsQuery}`,
+      {},
+      headers
+    )
   }
 
   getGoogleCalendars(AccessToken = '', workspaceId: string) {
@@ -19,6 +29,10 @@ class CalendarService extends HttpService {
     }
 
     return this.get(`lightweight-api/google-calendars`, {}, headers)
+  }
+
+  getPrimaryCalendar(AccessToken = '') {
+    return this.get(`/api/my-primary-calendar`, AccessToken ? { Authorization: `${AccessToken}` } : {})
   }
 }
 
