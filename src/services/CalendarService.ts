@@ -34,6 +34,10 @@ class CalendarService extends HttpService {
   getPrimaryCalendar(AccessToken = '') {
     return this.get(`/api/my-primary-calendar`, AccessToken ? { Authorization: `${AccessToken}` } : {})
   }
+
+  getParticipants(AccessToken = '', username: string) {
+    return this.get(`/api/participants?username=${username}`, AccessToken ? { Authorization: `${AccessToken}` } : {})
+  }
 }
 
 export default new CalendarService()

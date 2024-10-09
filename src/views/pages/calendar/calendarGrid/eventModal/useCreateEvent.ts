@@ -1,6 +1,8 @@
 import { useForm, useWatch } from 'react-hook-form'
 import { useEffect } from 'react'
 import useUserData from 'src/hooks/useUserData'
+import CalendarService from 'src/services/CalendarService'
+import { useQuery } from '@tanstack/react-query'
 
 const useCreateEvent = (selectedDate: Date | null, selectedStartHour: null | number) => {
   const { primaryCalendar } = useUserData()
@@ -53,6 +55,16 @@ const useCreateEvent = (selectedDate: Date | null, selectedStartHour: null | num
 
   const createEventValues: any = useWatch({ control })
 
+  const getParticipants = async (username: string) => {
+    try {
+      const response: any = await CalendarService.getParticipants('', username)
+
+      return response.data
+    } catch (error) {
+      throw error
+    }
+  }
+
   return {
     control,
     handleSubmit,
@@ -64,7 +76,8 @@ const useCreateEvent = (selectedDate: Date | null, selectedStartHour: null | num
     clearErrors,
     setValue,
     isValid,
-    trigger
+    trigger,
+    getParticipants
   }
 }
 

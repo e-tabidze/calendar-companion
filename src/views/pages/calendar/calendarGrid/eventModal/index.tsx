@@ -13,6 +13,7 @@ import EventColorPopover from './eventColorPopover'
 import SelectCalendarPopover from './selectCalendarPopover'
 import GoingPopover from './goingPopover'
 import { formatTimeDifference } from 'src/utils/timeFormatter'
+import ParticipantsPopover from './participantsPopover'
 
 interface Props {
   isOpen: boolean
@@ -22,7 +23,7 @@ interface Props {
 }
 
 const EventModal: React.FC<Props> = ({ isOpen, toggleIsOpen, selectedDate, selectedStartHour }) => {
-  const { handleSubmit, control, createEventValues, setValue } = useCreateEvent(selectedDate, selectedStartHour)
+  const { handleSubmit, control, createEventValues, setValue, getParticipants } = useCreateEvent(selectedDate, selectedStartHour)
 
   console.log(createEventValues, 'createEventValues')
 
@@ -117,12 +118,7 @@ const EventModal: React.FC<Props> = ({ isOpen, toggleIsOpen, selectedDate, selec
                 <Typography type='subtitle' color='light'>
                   Participants
                 </Typography>
-                <div className='flex items-center justify-between'>
-                  <Typography type='subtitle' color='light'>
-                    No participants yet
-                  </Typography>
-                  <IconButton icon='add' width={24} height={24} />
-                </div>
+                <ParticipantsPopover control={control} getParticipants={getParticipants} />
               </div>
 
               <div className='border border-grey-70 rounded-xl p-3 min-w-[180px]'>
