@@ -65,7 +65,7 @@ const EventColorPopover: React.FC<Props> = ({ control }) => {
                 <Controller
                   control={control}
                   name='event_color'
-                  render={({ field: { onChange, value } }) => (
+                  render={({ field: { onChange } }) => (
                     <div className='w-full'>
                       <div className='gap-3 flex items-center p-4'>
                         <Icon svgPath='hex' width={14} height={14} className='fill-transparent' />

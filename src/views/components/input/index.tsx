@@ -188,8 +188,6 @@ export const DefaultInput: React.FC<Props> = ({
 export const EventInput: React.FC<Props> = ({
   control,
   name = '',
-  label,
-  labelMobile,
   id,
   errors,
   pattern,
@@ -203,7 +201,6 @@ export const EventInput: React.FC<Props> = ({
   placeholder,
   boldPlaceholder
 }) => {
-  const [isFocused, setIsFocused] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
   const { t } = useTranslation()
 
@@ -211,9 +208,6 @@ export const EventInput: React.FC<Props> = ({
 
   const InputComponent = rows ? 'textarea' : 'input'
 
-  const handleFocus = () => setIsFocused(true)
-
-  const handleBlur = () => setIsFocused(false)
 
   const handleKeyDown = (e: any) => {
     e.stopPropagation()
@@ -284,9 +278,7 @@ export const EventInput: React.FC<Props> = ({
               {labelMobile}
             </label> */}
             <InputComponent
-              onFocus={handleFocus}
               onBlur={() => {
-                handleBlur()
                 onBlur && onBlur()
               }}
               placeholder={placeholder}

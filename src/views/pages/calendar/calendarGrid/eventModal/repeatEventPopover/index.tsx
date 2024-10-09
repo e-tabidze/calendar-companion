@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Popover, PopoverButton, PopoverPanel } from '@headlessui/react'
-import { Controller, useWatch } from 'react-hook-form'
+import { Controller } from 'react-hook-form'
 import Icon from 'src/views/app/Icon'
 import Typography from 'src/views/components/typography'
 
@@ -42,7 +42,7 @@ const RepeatEventPopover: React.FC<Props> = ({ control }) => {
             <Controller
               control={control}
               name='repeat_option'
-              render={({ field: { onChange, value } }) => (
+              render={() => (
                 <div className='w-full'>
                   <div className='gap-3 flex items-center p-4'>
                     <Icon svgPath='repeat' width={14} height={14} className='fill-transparent' />

@@ -4,7 +4,6 @@ import ka from 'date-fns/locale/ka'
 import 'react-datepicker/dist/react-datepicker.css'
 import { Controller } from 'react-hook-form'
 import { format } from 'date-fns'
-import _ from 'lodash'
 import { i18n } from 'next-i18next'
 
 interface Props {
@@ -66,7 +65,7 @@ const CustomDateInput: React.FC<CalendarInputProps> = ({
   </div>
 )
 
-const DateDropdown: React.FC<Props> = ({ name, control, label, errors }) => {
+const DateDropdown: React.FC<Props> = ({ name, control, label }) => {
   const [isCalendarOpen, setIsCalendarOpen] = useState(false)
 
   return (

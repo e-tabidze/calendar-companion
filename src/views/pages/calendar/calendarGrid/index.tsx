@@ -116,8 +116,9 @@ const CalendarGrid: React.FC<Props> = ({ toggleEventModal, setSelectedDate, setS
     googleEventsData?.forEach((event: any) => {
       const startDateTime = parseISO(event.start.dateTime)
       const endDateTime = parseISO(event.end.dateTime)
-      const startDate = event.start.date && parseISO(event.start.date)
-      const endtDate = event.end.date && parseISO(event.end.date)
+
+      // const startDate = event.start.date && parseISO(event.start.date)
+      // const endtDate = event.end.date && parseISO(event.end.date)
       const dayIndex = daysArray.findIndex(day => isEqual(getDate(startDateTime), day))
       const startHour = getHours(startDateTime)
       const startMinutes = getMinutes(startDateTime)
@@ -126,7 +127,7 @@ const CalendarGrid: React.FC<Props> = ({ toggleEventModal, setSelectedDate, setS
       const eventHeight = daysExtended > 1 ? cellHeight - 20 : (durationInMinutes / 60) * cellHeight
       const topOffset = (startMinutes / 60) * cellHeight
 
-      const hasValidDateTime = startDateTime.toString() !== 'Invalid Date' && endDateTime.toString() !== 'Invalid Date'
+      // const hasValidDateTime = startDateTime.toString() !== 'Invalid Date' && endDateTime.toString() !== 'Invalid Date'
 
       const key = `${dayIndex + 1}`
 
@@ -199,9 +200,6 @@ const CalendarGrid: React.FC<Props> = ({ toggleEventModal, setSelectedDate, setS
                       .filter(googleEvent => {
                         return googleEvent.row === 0 ? i === 0 : i === googleEvent.startHour + 1
                       })
-                      // .filter(googleEvent => {
-                      //   return i === googleEvent.startHour + 1
-                      // })
                       .map((event, eventIndex) => (
                         <div
                           key={event.id}

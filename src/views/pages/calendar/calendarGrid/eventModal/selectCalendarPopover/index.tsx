@@ -51,6 +51,7 @@ const SearchCalendarDropdown: React.FC<Props> = ({ control }) => {
                         <Controller
                           control={control}
                           name='selected_calendar'
+                          key={index}
                           render={({ field: { onChange, value } }) => (
                             <div
                               key={calendar.id}

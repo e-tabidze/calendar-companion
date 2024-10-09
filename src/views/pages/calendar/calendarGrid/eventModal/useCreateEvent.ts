@@ -2,7 +2,6 @@ import { useForm, useWatch } from 'react-hook-form'
 import { useEffect } from 'react'
 import useUserData from 'src/hooks/useUserData'
 import CalendarService from 'src/services/CalendarService'
-import { useQuery } from '@tanstack/react-query'
 
 const useCreateEvent = (selectedDate: Date | null, selectedStartHour: null | number) => {
   const { primaryCalendar } = useUserData()

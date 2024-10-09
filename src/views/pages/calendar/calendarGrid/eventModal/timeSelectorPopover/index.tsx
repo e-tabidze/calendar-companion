@@ -14,6 +14,7 @@ const generateTimeSlots = (startHour: number, endHour: number, interval: number)
       slots.push(timeString)
     }
   }
+  
   return slots
 }
 
