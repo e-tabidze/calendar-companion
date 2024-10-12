@@ -1,10 +1,17 @@
-import { useForm, useWatch } from 'react-hook-form'
+import { useFieldArray, useForm, useWatch } from 'react-hook-form'
 import { useEffect } from 'react'
 import useUserData from 'src/hooks/useUserData'
 import CalendarService from 'src/services/CalendarService'
 
 const useCreateEvent = (selectedDate: Date | null, selectedStartHour: null | number) => {
   const { primaryCalendar } = useUserData()
+
+  const participant = {
+    userId: '',
+    color: '',
+    full_name: '',
+    username: ''
+  }
 
   const createEventDefaultValues = {
     title: '',
@@ -19,7 +26,8 @@ const useCreateEvent = (selectedDate: Date | null, selectedStartHour: null | num
     selected_calendar: '',
     is_private: false,
     busy: false,
-    going: 'yes'
+    going: 'yes',
+    event_participants: [] as any
   }
 
   useEffect(() => {
@@ -52,6 +60,15 @@ const useCreateEvent = (selectedDate: Date | null, selectedStartHour: null | num
     defaultValues: createEventDefaultValues
   })
 
+  const {
+    fields: event_participants,
+    append: appendParticipant,
+    remove: removeParticipant
+  } = useFieldArray({
+    control,
+    name: 'event_participants'
+  })
+
   const createEventValues: any = useWatch({ control })
 
   const getParticipants = async (username: string) => {
@@ -76,7 +93,10 @@ const useCreateEvent = (selectedDate: Date | null, selectedStartHour: null | num
     setValue,
     isValid,
     trigger,
-    getParticipants
+    getParticipants,
+    event_participants,
+    appendParticipant,
+    removeParticipant
   }
 }
 

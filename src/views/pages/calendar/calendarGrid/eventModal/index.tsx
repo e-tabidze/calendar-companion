@@ -23,7 +23,16 @@ interface Props {
 }
 
 const EventModal: React.FC<Props> = ({ isOpen, toggleIsOpen, selectedDate, selectedStartHour }) => {
-  const { handleSubmit, control, createEventValues, setValue, getParticipants } = useCreateEvent(selectedDate, selectedStartHour)
+  const {
+    handleSubmit,
+    control,
+    createEventValues,
+    setValue,
+    getParticipants,
+    event_participants,
+    appendParticipant,
+    removeParticipant,
+  } = useCreateEvent(selectedDate, selectedStartHour)
 
   console.log(createEventValues, 'createEventValues')
 
@@ -118,7 +127,13 @@ const EventModal: React.FC<Props> = ({ isOpen, toggleIsOpen, selectedDate, selec
                 <Typography type='subtitle' color='light'>
                   Participants
                 </Typography>
-                <ParticipantsPopover getParticipants={getParticipants} />
+                <ParticipantsPopover
+                  getParticipants={getParticipants}
+                  event_participants={event_participants}
+                  appendParticipant={appendParticipant}
+                  removeParticipant={removeParticipant}
+                  setValue={setValue}
+                />
               </div>
 
               <div className='border border-grey-70 rounded-xl p-3 min-w-[180px]'>
