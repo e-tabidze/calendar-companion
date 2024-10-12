@@ -38,6 +38,14 @@ class CalendarService extends HttpService {
   getParticipants(AccessToken = '', username: string) {
     return this.get(`/api/participants?username=${username}`, AccessToken ? { Authorization: `${AccessToken}` } : {})
   }
+
+  postCreateGoogleEvent(AccessToken = '', account_id: string, event_data: any) {
+    return this.post(
+      `/api/create-google-event`,
+      { account_id: account_id, event_data: event_data },
+      AccessToken ? { Authorization: `${AccessToken}` } : {}
+    )
+  }
 }
 
 export default new CalendarService()

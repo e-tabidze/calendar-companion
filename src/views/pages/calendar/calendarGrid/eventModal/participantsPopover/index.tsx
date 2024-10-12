@@ -7,17 +7,11 @@ import { IconButton } from 'src/views/components/button'
 
 interface Props {
   getParticipants: any
-  event_participants: any
-  appendParticipant: any
-  removeParticipant: any
   setValue: any
 }
 
 const ParticipantsPopover: React.FC<Props> = ({
   getParticipants,
-  event_participants,
-  appendParticipant,
-  removeParticipant,
   setValue
 }) => {
   const [searchTerm, setSearchTerm] = useState('')
@@ -46,16 +40,33 @@ const ParticipantsPopover: React.FC<Props> = ({
   const participantsData = useGetParticipants.data?.result?.data
 
   const isParticipantAdded = (userId: string) => {
-    return eventParticipants.some((participant: any) => participant.user_id === userId)
+    return eventParticipants.some((participant: any) => participant.username === userId)
   }
 
   const handleParticipantClick = (participant: any) => {
-    if (isParticipantAdded(participant.user_id)) {
-      setEventParticipants(prev => prev.filter(p => p.user_id !== participant.user_id))
+    if (isParticipantAdded(participant.username)) {
+      setEventParticipants(prev => prev.filter(p => p.username !== participant.username))
     } else {
       setEventParticipants(prev => [...prev, participant])
     }
   }
+
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter' && searchTerm.trim()) {
+      const newParticipant = {
+        user_id: '',
+        username: searchTerm.trim(),
+        full_name: '',
+        color: '#32A623', 
+      };
+  
+      if (!isParticipantAdded(searchTerm.trim())) {
+        setEventParticipants((prev) => [...prev, newParticipant]);
+      }
+  
+      setSearchTerm('');
+    }
+  };
 
   return (
     <div className='w-full'>
@@ -102,6 +113,7 @@ const ParticipantsPopover: React.FC<Props> = ({
               className='ml-2 w-full'
               value={searchTerm}
               onChange={handleSearchChange}
+              onKeyDown={handleKeyPress} 
             />
           </div>
           <div className='h-px w-full bg-raisin-10 mt-3' />
@@ -111,7 +123,7 @@ const ParticipantsPopover: React.FC<Props> = ({
               <div
                 key={index}
                 className={`flex rounded-sm p-2 items-center justify-between w-[434px] mb-1 ${
-                  isParticipantAdded(data.user_id) ? 'bg-primary-15' : 'bg-grey-70'
+                  isParticipantAdded(data.username) ? 'bg-primary-15' : 'bg-grey-70'
                 }`}
               >
                 <div className='flex items-center gap-2' onClick={() => handleParticipantClick(data)}>

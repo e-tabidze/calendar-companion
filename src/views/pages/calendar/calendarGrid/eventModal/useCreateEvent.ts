@@ -1,17 +1,10 @@
-import { useFieldArray, useForm, useWatch } from 'react-hook-form'
+import { useForm, useWatch } from 'react-hook-form'
 import { useEffect } from 'react'
 import useUserData from 'src/hooks/useUserData'
 import CalendarService from 'src/services/CalendarService'
 
 const useCreateEvent = (selectedDate: Date | null, selectedStartHour: null | number) => {
   const { primaryCalendar } = useUserData()
-
-  const participant = {
-    userId: '',
-    color: '',
-    full_name: '',
-    username: ''
-  }
 
   const createEventDefaultValues = {
     title: '',
@@ -60,15 +53,6 @@ const useCreateEvent = (selectedDate: Date | null, selectedStartHour: null | num
     defaultValues: createEventDefaultValues
   })
 
-  const {
-    fields: event_participants,
-    append: appendParticipant,
-    remove: removeParticipant
-  } = useFieldArray({
-    control,
-    name: 'event_participants'
-  })
-
   const createEventValues: any = useWatch({ control })
 
   const getParticipants = async (username: string) => {
@@ -77,6 +61,17 @@ const useCreateEvent = (selectedDate: Date | null, selectedStartHour: null | num
 
       return response.data
     } catch (error) {
+      throw error
+    }
+  }
+
+  const postCreateGoogleEvent = async (AccessToken = '', account_id: string, event_data: any) => {
+    try {
+      const response: any = await CalendarService.postCreateGoogleEvent(AccessToken, account_id, event_data)
+
+      return response.data
+    } catch (error) {
+      console.error('Error creating product:', error)
       throw error
     }
   }
@@ -94,9 +89,7 @@ const useCreateEvent = (selectedDate: Date | null, selectedStartHour: null | num
     isValid,
     trigger,
     getParticipants,
-    event_participants,
-    appendParticipant,
-    removeParticipant
+    postCreateGoogleEvent
   }
 }
 

@@ -14,6 +14,8 @@ import SelectCalendarPopover from './selectCalendarPopover'
 import GoingPopover from './goingPopover'
 import { formatTimeDifference } from 'src/utils/timeFormatter'
 import ParticipantsPopover from './participantsPopover'
+import useUserData from 'src/hooks/useUserData'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 
 interface Props {
   isOpen: boolean
@@ -23,28 +25,34 @@ interface Props {
 }
 
 const EventModal: React.FC<Props> = ({ isOpen, toggleIsOpen, selectedDate, selectedStartHour }) => {
-  const {
-    handleSubmit,
-    control,
-    createEventValues,
-    setValue,
-    getParticipants,
-    event_participants,
-    appendParticipant,
-    removeParticipant,
-  } = useCreateEvent(selectedDate, selectedStartHour)
+  const { primaryCalendar } = useUserData()
+
+  const queryClient = useQueryClient()
+
+  console.log(primaryCalendar, 'primaryCalendar')
+  const { handleSubmit, control, createEventValues, setValue, getParticipants, postCreateGoogleEvent } = useCreateEvent(
+    selectedDate,
+    selectedStartHour
+  )
 
   console.log(createEventValues, 'createEventValues')
 
   const timeDifferenceString = selectedDate ? formatTimeDifference(selectedDate, selectedStartHour) : ''
 
-  const onSubmit = (data: any) => {
-    console.log('submit', data)
-  }
+  const postCreateEventMutation = useMutation(() => postCreateGoogleEvent('', primaryCalendar?.account_id, createEventValues), {
+    onSuccess: () => {
+      queryClient.invalidateQueries(['userInfo'])
+    },
+    onError: (response: any) => {
+      if (response.response.status === 400 && response.response.data.result.message === 'User Already Exists') {
+        console.log('User Already Exists')
+      }
+    }
+  })
 
   const handleCloseAndSubmit = () => {
     if (createEventValues.title) {
-      onSubmit(createEventValues)
+      postCreateEventMutation.mutate()
     }
     toggleIsOpen()
   }
@@ -59,7 +67,7 @@ const EventModal: React.FC<Props> = ({ isOpen, toggleIsOpen, selectedDate, selec
       leaveFrom='transform translate-y-0 opacity-100'
       leaveTo='transform translate-y-10 opacity-0'
     >
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(handleCloseAndSubmit)}>
         <Dialog
           open={isOpen}
           onClose={handleCloseAndSubmit}
@@ -127,13 +135,7 @@ const EventModal: React.FC<Props> = ({ isOpen, toggleIsOpen, selectedDate, selec
                 <Typography type='subtitle' color='light'>
                   Participants
                 </Typography>
-                <ParticipantsPopover
-                  getParticipants={getParticipants}
-                  event_participants={event_participants}
-                  appendParticipant={appendParticipant}
-                  removeParticipant={removeParticipant}
-                  setValue={setValue}
-                />
+                <ParticipantsPopover getParticipants={getParticipants} setValue={setValue} />
               </div>
 
               <div className='border border-grey-70 rounded-xl p-3 min-w-[180px]'>
