@@ -29,7 +29,6 @@ const EventModal: React.FC<Props> = ({ isOpen, toggleIsOpen, selectedDate, selec
 
   const queryClient = useQueryClient()
 
-  console.log(primaryCalendar, 'primaryCalendar')
   const { handleSubmit, control, createEventValues, setValue, getParticipants, postCreateGoogleEvent } = useCreateEvent(
     selectedDate,
     selectedStartHour
@@ -135,7 +134,7 @@ const EventModal: React.FC<Props> = ({ isOpen, toggleIsOpen, selectedDate, selec
                 <Typography type='subtitle' color='light'>
                   Participants
                 </Typography>
-                <ParticipantsPopover control={control} getParticipants={getParticipants} setValue={setValue} />
+                <ParticipantsPopover  getParticipants={getParticipants} setValue={setValue} />
               </div>
 
               <div className='border border-grey-70 rounded-xl p-3 min-w-[180px]'>

@@ -5,25 +5,17 @@ import Typography from 'src/views/components/typography'
 import { useQuery } from '@tanstack/react-query'
 import { IconButton } from 'src/views/components/button'
 import ParticipantRolePopover from './participantRolePopover'
-import { Controller } from 'react-hook-form'
 
 interface Props {
   getParticipants: any
   setValue: any
-  control: any
 }
 
-const ParticipantsPopover: React.FC<Props> = ({ getParticipants, setValue, control }) => {
+const ParticipantsPopover: React.FC<Props> = ({ getParticipants, setValue }) => {
   const [searchTerm, setSearchTerm] = useState('')
-  const [eventParticipants, setEventParticipants] = useState<any[]>([])
-
-  console.log(eventParticipants, 'eventParticipants')
-
-  useEffect(() => {
-    setValue('event_participants', eventParticipants)
-  }, [eventParticipants])
-
-  const popoverRef = useRef(null)
+  const [selectedEventParticipants, setSelectedEventParticipants] = useState<any[]>([])
+  const [participantsDataState, setParticipantsDataState] = useState<any[]>([])
+  const [typedParticipants, setTypedParticipants] = useState<any>([])
 
   const useGetParticipants = useQuery({
     queryKey: ['participants', searchTerm],
@@ -32,26 +24,35 @@ const ParticipantsPopover: React.FC<Props> = ({ getParticipants, setValue, contr
     staleTime: Infinity
   })
 
+  useEffect(() => {
+    setValue('event_participants', selectedEventParticipants)
+  }, [selectedEventParticipants, participantsDataState])
+
+  useEffect(() => {
+    const participantsData = useGetParticipants.data?.result?.data || []
+    setParticipantsDataState([...participantsData, ...typedParticipants])
+  }, [useGetParticipants.data, typedParticipants])
+
+  const popoverRef = useRef(null)
+
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value
     setSearchTerm(value)
   }
 
-  const participantsData = useGetParticipants.data?.result?.data
-
   const isParticipantAdded = (userId: string) => {
-    return eventParticipants.some((participant: any) => participant.username === userId)
+    return selectedEventParticipants.some((participant: any) => participant.username === userId)
   }
 
   const handleParticipantClick = (participant: any) => {
     if (isParticipantAdded(participant.username)) {
-      setEventParticipants(prev => prev.filter(p => p.username !== participant.username))
+      setSelectedEventParticipants(prev => prev.filter(p => p.username !== participant.username))
     } else {
       const newParticipant: any = {
         ...participant,
         role: 'viewer'
       }
-      setEventParticipants(prev => [...prev, newParticipant])
+      setSelectedEventParticipants(prev => [...prev, newParticipant])
     }
   }
 
@@ -65,28 +66,32 @@ const ParticipantsPopover: React.FC<Props> = ({ getParticipants, setValue, contr
         role: 'viewer'
       }
 
-      if (!isParticipantAdded(searchTerm.trim())) {
-        setEventParticipants(prev => [...prev, newParticipant])
+      if (!participantsDataState.some((participant: any) => participant.username === newParticipant.username)) {
+        setTypedParticipants((prev: any) => [...prev, newParticipant])
+        setParticipantsDataState(prev => [...prev, newParticipant])
+        setSearchTerm('')
       }
-
-      setSearchTerm('')
     }
   }
 
   const handleRoleUpdate = (username: string, newRole: string) => {
-    setEventParticipants(prev =>
+    setSelectedEventParticipants(prev =>
       prev.map(participant => (participant.username === username ? { ...participant, role: newRole } : participant))
     )
   }
+
+  const filteredParticipants = participantsDataState.filter(data =>
+    data.username.toLowerCase().includes(searchTerm.toLowerCase())
+  )
 
   return (
     <div className='w-full'>
       <Popover ref={popoverRef}>
         <PopoverButton className='mt-px text-[13px] w-full justify-between flex items-center gap-1 font-semibold text-grey-90 focus:outline-none data-[focus]:outline-1 data-[focus]:outline-white'>
           <div className='flex'>
-            {eventParticipants.length > 0 ? (
+            {selectedEventParticipants.length > 0 ? (
               <div className='flex items-center'>
-                {eventParticipants.slice(0, 5).map((participant: any, index: number) => (
+                {selectedEventParticipants.slice(0, 5).map((participant: any, index: number) => (
                   <div
                     key={index}
                     className={`h-7 w-7 rounded-full text-white border-2 border-[#fff] -ml-[10px]`}
@@ -96,10 +101,10 @@ const ParticipantsPopover: React.FC<Props> = ({ getParticipants, setValue, contr
                   </div>
                 ))}
 
-                {eventParticipants.length > 5 && (
+                {selectedEventParticipants.length > 5 && (
                   <div className='ml-2'>
                     <Typography type='subtitle' color='light'>
-                      +{eventParticipants.length - 5} participants
+                      +{selectedEventParticipants.length - 5} participants
                     </Typography>
                   </div>
                 )}
@@ -130,7 +135,7 @@ const ParticipantsPopover: React.FC<Props> = ({ getParticipants, setValue, contr
           <div className='h-px w-full bg-raisin-10 mt-3' />
 
           <div className='pl-3 pb-3 pt-1 pr-4'>
-            {participantsData?.map((data: any, index: number) => (
+            {filteredParticipants?.map((data: any, index: number) => (
               <div
                 key={index}
                 className={`flex rounded-sm p-2 items-center justify-between w-[434px] mb-1 ${
@@ -162,10 +167,9 @@ const ParticipantsPopover: React.FC<Props> = ({ getParticipants, setValue, contr
                   <div className='w-px h-10 bg-grey-10' />
 
                   <ParticipantRolePopover
-                    role={eventParticipants.find(p => p.username === data.username)?.role || 'viewer'}
+                    role={selectedEventParticipants.find(p => p.username === data.username)?.role || 'viewer'}
                     onUpdateRole={newRole => handleRoleUpdate(data.username, newRole)}
                   />
-
                 </div>
               </div>
             ))}
