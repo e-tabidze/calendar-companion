@@ -5,6 +5,7 @@ import Typography from 'src/views/components/typography'
 import { useQuery } from '@tanstack/react-query'
 import { IconButton } from 'src/views/components/button'
 import ParticipantRolePopover from './participantRolePopover'
+import { Controller } from 'react-hook-form'
 
 interface Props {
   getParticipants: any
@@ -46,7 +47,11 @@ const ParticipantsPopover: React.FC<Props> = ({ getParticipants, setValue, contr
     if (isParticipantAdded(participant.username)) {
       setEventParticipants(prev => prev.filter(p => p.username !== participant.username))
     } else {
-      setEventParticipants(prev => [...prev, participant])
+      const newParticipant: any = {
+        ...participant,
+        role: 'viewer'
+      }
+      setEventParticipants(prev => [...prev, newParticipant])
     }
   }
 
@@ -56,7 +61,8 @@ const ParticipantsPopover: React.FC<Props> = ({ getParticipants, setValue, contr
         user_id: '',
         username: searchTerm.trim(),
         full_name: '',
-        color: '#32A623'
+        color: '#32A623',
+        role: 'viewer'
       }
 
       if (!isParticipantAdded(searchTerm.trim())) {
@@ -65,6 +71,12 @@ const ParticipantsPopover: React.FC<Props> = ({ getParticipants, setValue, contr
 
       setSearchTerm('')
     }
+  }
+
+  const handleRoleUpdate = (username: string, newRole: string) => {
+    setEventParticipants(prev =>
+      prev.map(participant => (participant.username === username ? { ...participant, role: newRole } : participant))
+    )
   }
 
   return (
@@ -142,13 +154,18 @@ const ParticipantsPopover: React.FC<Props> = ({ getParticipants, setValue, contr
                   </div>
                 </div>
                 <div className='flex gap-2 mr-2 items-center'>
-                  <div className="w-[36px] flex gap-2 mr-2 items-center">
+                  <div className='w-[36px] flex gap-2 mr-2 items-center'>
                     <Icon svgPath='participantSettings' height={15} width={15} />
                     <Icon svgPath='deleteParticipant' height={15} width={15} />
                   </div>
 
                   <div className='w-px h-10 bg-grey-10' />
-                  <ParticipantRolePopover control={control} />
+
+                  <ParticipantRolePopover
+                    role={eventParticipants.find(p => p.username === data.username)?.role || 'viewer'}
+                    onUpdateRole={newRole => handleRoleUpdate(data.username, newRole)}
+                  />
+
                 </div>
               </div>
             ))}
