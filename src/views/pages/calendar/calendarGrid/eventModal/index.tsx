@@ -135,7 +135,7 @@ const EventModal: React.FC<Props> = ({ isOpen, toggleIsOpen, selectedDate, selec
                 <Typography type='subtitle' color='light'>
                   Participants
                 </Typography>
-                <ParticipantsPopover getParticipants={getParticipants} setValue={setValue} />
+                <ParticipantsPopover control={control} getParticipants={getParticipants} setValue={setValue} />
               </div>
 
               <div className='border border-grey-70 rounded-xl p-3 min-w-[180px]'>
