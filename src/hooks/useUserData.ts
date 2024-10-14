@@ -18,7 +18,9 @@ const useUserData = () => {
   const userData = useCheckUser.data
   const isLoading = useCheckUser.isLoading
   const workspaces = useCheckUser.data?.workspaces
-  const activeWorkspace = useCheckUser.data?.active_profile
+  const activeWorkspace = useCheckUser.data?.workspaces?.find(
+    (workspace:any) => workspace.id === useCheckUser.data?.active_profile_id
+  );
   const primaryCalendar = useGetPrimaryCalendar.data?.result?.data[0]
 
   const getCheckUser = async (AccessToken = '') => {
