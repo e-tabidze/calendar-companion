@@ -35,7 +35,7 @@ export const handleUserRedirection = (userData: any, router: any) => {
     if (userData?.username_verified_at === null) {
       if (!!userData?.information?.source === false) {
         router.push('/getting-started')
-      } else if (userData.active_profile === null) {
+      } else if (userData.active_profile_id === userData.id) {
         router.push('/workspace')
       } else if (userData.account_connection.length === 0) {
         router.push('/connect-account')
