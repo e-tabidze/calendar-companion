@@ -145,14 +145,14 @@ const EventModal: React.FC<Props> = ({ isOpen, toggleIsOpen, selectedDate, selec
               </div>
             </div>
 
-            <div className='mx-[18px] border border-grey-70 rounded-xl p-3 mb-[18px]'>
+            {/* <div className='mx-[18px] border border-grey-70 rounded-xl p-3 mb-[18px]'>
               <Typography type='subtitle' color='light' className='mb-3 text-[13px]'>
                 Documents
               </Typography>
               <Typography type='subtitle' color='light' className='mb-3'>
                 No documents added yet
               </Typography>
-            </div>
+            </div> */}
 
             <div className='w-full h-px bg-grey-10' />
 
