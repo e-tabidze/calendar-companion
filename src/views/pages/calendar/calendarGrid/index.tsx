@@ -173,8 +173,10 @@ const CalendarGrid: React.FC<Props> = ({ toggleEventModal, setSelectedDate, setS
     const clickedDate = new Date(startOfPeriod)
     const date = addDays(clickedDate, day)
 
+    console.log(hour == '-1', 'hour??')
+
     setSelectedDate(date)
-    setSelectedStartHour(hour)
+    setSelectedStartHour(hour == '-1' ? '' : hour)
     toggleEventModal()
   }
 
@@ -191,7 +193,7 @@ const CalendarGrid: React.FC<Props> = ({ toggleEventModal, setSelectedDate, setS
 
                 return (
                   <div
-                    onDoubleClick={() => handleCellClick(index, i)}
+                    onDoubleClick={() => handleCellClick(index, i - 1)}
                     key={index}
                     className='relative flex flex-1 flex-grow cursor-pointer border-b border-r border-solid border-strokes-1'
                     style={{ height: `${GridConstants.hourCellHeight}vhh` }}
