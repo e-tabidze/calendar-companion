@@ -3,7 +3,7 @@ import { useEffect } from 'react'
 import useUserData from 'src/hooks/useUserData'
 import CalendarService from 'src/services/CalendarService'
 
-const useCreateEvent = (selectedDate: Date | null, selectedStartHour: null | number) => {
+const useCreateEvent = (selectedDate: Date | null, selectedStartHour: null | number, clickedEvent?: any) => {
   const { primaryCalendar } = useUserData()
 
   const createEventDefaultValues = {
@@ -11,8 +11,8 @@ const useCreateEvent = (selectedDate: Date | null, selectedStartHour: null | num
     description: '',
     selected_date: new Date(),
     meeting_link: false,
-    selected_start_hour: '',
-    selected_end_hour: '',
+    selected_start_hour: '' as any,
+    selected_end_hour: '' as any,
     event_color: '',
     all_day: false,
     companion_bot: false,
@@ -24,7 +24,7 @@ const useCreateEvent = (selectedDate: Date | null, selectedStartHour: null | num
   }
 
   useEffect(() => {
-    selectedDate && setValue('selected_date', selectedDate)
+    selectedDate && setValue('selected_date', new Date(selectedDate))
     if (selectedStartHour) {
       const formattedHour = String(selectedStartHour).padStart(2, '0') + ':00'
       setValue('selected_start_hour', formattedHour)
@@ -36,7 +36,14 @@ const useCreateEvent = (selectedDate: Date | null, selectedStartHour: null | num
       setValue('selected_calendar', primaryCalendar?.id)
       setValue('event_color', primaryCalendar?.backgroundColor)
     }
-  }, [selectedDate, primaryCalendar])
+    if (clickedEvent) {
+      setValue('title', clickedEvent?.summary)
+      setValue('description', clickedEvent?.description)
+      setValue('selected_date', new Date(clickedEvent?.start?.dateTime)),
+      setValue('selected_start_hour', new Date(clickedEvent?.start?.dateTime).getHours())
+      setValue('selected_end_hour', new Date(clickedEvent?.end?.dateTime).getHours())
+    }
+  }, [clickedEvent, selectedDate])
 
   const {
     control,
@@ -46,7 +53,8 @@ const useCreateEvent = (selectedDate: Date | null, selectedStartHour: null | num
     setError,
     clearErrors,
     setValue,
-    trigger
+    trigger,
+    reset
   } = useForm({
     mode: 'onChange',
     reValidateMode: 'onChange',
@@ -89,7 +97,8 @@ const useCreateEvent = (selectedDate: Date | null, selectedStartHour: null | num
     isValid,
     trigger,
     getParticipants,
-    postCreateGoogleEvent
+    postCreateGoogleEvent,
+    reset
   }
 }
 

@@ -29,7 +29,7 @@ const Input: React.FC<InputProps> = ({ className, value, onClick, onFocus, onCha
 
   useEffect(() => {
     if (inputRef.current) {
-      const textLength = value.length || 1 
+      const textLength = value.length || 1
       setInputWidth(`${textLength + 1}ch`)
     }
   }, [value])
@@ -53,13 +53,7 @@ interface CalendarInputProps extends InputProps {
   label: string
 }
 
-const CustomDateInput: React.FC<CalendarInputProps> = ({
-  className,
-  value,
-  onClick,
-  onFocus,
-  onChange
-}) => (
+const CustomDateInput: React.FC<CalendarInputProps> = ({ className, value, onClick, onFocus, onChange }) => (
   <div className='relative'>
     <Input className={className} value={value} onClick={onClick} onFocus={onFocus} onChange={onChange} />,
   </div>

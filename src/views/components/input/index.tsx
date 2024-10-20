@@ -253,7 +253,7 @@ export const EventInput: React.FC<Props> = ({
   }
 
   return (
-    <InputContainer key={index} className={`flex flex-col ${className} ${disabled && styles.disabledInput}`}>
+    <InputContainer key={index} className={`flex flex-col w-full ${className} ${disabled && styles.disabledInput}`}>
       <Controller
         control={control}
         name={name}

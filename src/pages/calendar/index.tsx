@@ -13,12 +13,22 @@ const Calendar = () => {
   const [showDock, setShowDock] = useState(true)
   const [selectedDate, setSelectedDate] = useState<Date | null>(null)
   const [selectedStartHour, setSelectedStartHour] = useState(null)
+  const [clickedEvent, setClickedEvent] = useState(null)
 
-
-  const toggleEventModal = () => {
+  const toggleEventModal = (eventData?: any) => {
     setShowDock(!showDock)
     setEventModal(!eventModal)
+
+    if (eventData) {
+      setClickedEvent(eventData)
+    }
+
   }
+
+
+  console.log(selectedDate, 'selectedDate')
+
+
   const { headerHeight } = useCalendarContext()
 
   return (
@@ -30,11 +40,21 @@ const Calendar = () => {
       <div style={{ marginTop: headerHeight }}>
         <div className='flex min-w-full max-w-full flex-1'>
           <CalendarGridTimeline />
-          <CalendarGrid toggleEventModal={toggleEventModal} setSelectedDate={setSelectedDate} setSelectedStartHour={setSelectedStartHour} />
+          <CalendarGrid
+            toggleEventModal={toggleEventModal}
+            setSelectedDate={setSelectedDate}
+            setSelectedStartHour={setSelectedStartHour}
+          />
         </div>
       </div>
       <Dock />
-      <EventModal isOpen={eventModal} toggleIsOpen={toggleEventModal} selectedDate={selectedDate} selectedStartHour={selectedStartHour} />
+      <EventModal
+        isOpen={eventModal}
+        toggleIsOpen={toggleEventModal}
+        selectedDate={selectedDate}
+        selectedStartHour={selectedStartHour}
+        clickedEvent={clickedEvent}
+      />
     </>
   )
 }

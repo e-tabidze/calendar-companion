@@ -3,7 +3,6 @@ import { Popover, PopoverButton, PopoverPanel } from '@headlessui/react'
 import Icon from 'src/views/app/Icon'
 import Typography from 'src/views/components/typography'
 import { useQuery } from '@tanstack/react-query'
-import { IconButton } from 'src/views/components/button'
 import ParticipantRolePopover from './participantRolePopover'
 
 interface Props {
@@ -115,7 +114,7 @@ const ParticipantsPopover: React.FC<Props> = ({ getParticipants, setValue }) => 
               </Typography>
             )}
           </div>
-          <IconButton icon='add' width={24} height={24} />
+          <Icon svgPath='add' width={24} height={24} />
         </PopoverButton>
         <PopoverPanel
           transition

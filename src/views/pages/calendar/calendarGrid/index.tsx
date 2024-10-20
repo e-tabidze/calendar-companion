@@ -19,7 +19,7 @@ import { convertToAMPM } from 'src/utils/convertAMPM'
 import { getRadiantBackground } from 'src/utils/getRadiantBackground'
 
 interface Props {
-  toggleEventModal: () => void
+  toggleEventModal: (eventData?: any) => void
   setSelectedDate: (date: any) => void
   setSelectedStartHour: (hour: any) => void
 }
@@ -34,7 +34,7 @@ const doEventsOverlap = (event1: any, event2: any) => {
 }
 
 function groupOverlappingEvents(events: any[]) {
-  const overlappingGroups = []
+  if (events.length === 0) return []
 
   const toDate = (event: any) => ({
     start: new Date(event.start.dateTime),
@@ -42,37 +42,33 @@ function groupOverlappingEvents(events: any[]) {
     original: event
   })
 
-  const sortedEvents = events.map(toDate).sort((a: any, b: any) => a.startHour - b.startHour)
+  const sortedEvents = events.map(toDate).sort((a, b) => a.start.getTime() - b.start.getTime())
+  const overlappingGroups: any[][] = []
 
-  let currentGroup = [sortedEvents[0]?.original]
+  for (const event of sortedEvents) {
+    let addedToExistingGroup = false
 
-  for (let i = 1; i < sortedEvents.length; i++) {
-    const currentEvent = sortedEvents[i]
-    const lastEventInGroup = toDate(currentGroup[currentGroup.length - 1])
-
-    if (currentEvent.start < lastEventInGroup.end) {
-      currentGroup.push(currentEvent.original)
-    } else {
-      if (currentGroup.length > 1) {
-        overlappingGroups.push(currentGroup)
+    for (const group of overlappingGroups) {
+      if (group.some(groupEvent => event.start < groupEvent.end && event.end > groupEvent.start)) {
+        group.push(event)
+        addedToExistingGroup = true
+        break
       }
-      currentGroup = [currentEvent.original]
+    }
+
+    if (!addedToExistingGroup) {
+      overlappingGroups.push([event])
     }
   }
 
-  if (currentGroup.length > 1) {
-    overlappingGroups.push(currentGroup)
-  }
-
-  return overlappingGroups
+  return overlappingGroups.map(group => group.map(event => event.original))
 }
 
 const calculateEventPositions = (events: any[]) => {
   const sortedEvents = [...events].sort(
     (a, b) => new Date(a.start.dateTime).getTime() - new Date(b.start.dateTime).getTime()
   )
-
-  const columns: any = []
+  const columns: any[] = []
 
   sortedEvents.forEach(event => {
     let placed = false
@@ -88,17 +84,21 @@ const calculateEventPositions = (events: any[]) => {
     }
   })
 
-  const groupsss = groupOverlappingEvents(sortedEvents)
+  const overlappingGroups = groupOverlappingEvents(sortedEvents)
 
   return sortedEvents.map(event => {
-    const columnIndex = columns.findIndex((column: any) => column.includes(event))
-    const group = groupsss.find(g => g.includes(event))!
+    const columnIndex = columns.findIndex(column => column.includes(event))
+    const group = overlappingGroups.find(g => g.includes(event))!
+    const groupLength = group.length || 1
+
+    const width = event.daysExtended > 1 ? `${event.daysExtended * 100 - 5}%` : `${95 / groupLength}%`
+
+    const left = event.daysExtended > 1 ? '0%' : `${(columnIndex * 95) / groupLength}%`
 
     return {
       ...event,
-      width:
-        event.daysExtended > 1 ? `${event.daysExtended * 100 - 5}%` : `${group?.length ? 95 / group?.length : 95}%`,
-      left: `${event.daysExtended ? '0' : group?.length ? (columnIndex * 95) / group?.length : 0}%`,
+      width,
+      left,
       row: event.daysExtended > 1 ? 0 : event.startHour + 1
     }
   })
@@ -117,8 +117,6 @@ const CalendarGrid: React.FC<Props> = ({ toggleEventModal, setSelectedDate, setS
       const startDateTime = parseISO(event.start.dateTime)
       const endDateTime = parseISO(event.end.dateTime)
 
-      // const startDate = event.start.date && parseISO(event.start.date)
-      // const endtDate = event.end.date && parseISO(event.end.date)
       const dayIndex = daysArray.findIndex(day => isEqual(getDate(startDateTime), day))
       const startHour = getHours(startDateTime)
       const startMinutes = getMinutes(startDateTime)
@@ -126,8 +124,6 @@ const CalendarGrid: React.FC<Props> = ({ toggleEventModal, setSelectedDate, setS
       const daysExtended = differenceInDays(endDateTime, startDateTime) + 1
       const eventHeight = daysExtended > 1 ? cellHeight - 20 : (durationInMinutes / 60) * cellHeight
       const topOffset = (startMinutes / 60) * cellHeight
-
-      // const hasValidDateTime = startDateTime.toString() !== 'Invalid Date' && endDateTime.toString() !== 'Invalid Date'
 
       const key = `${dayIndex + 1}`
 
@@ -173,11 +169,13 @@ const CalendarGrid: React.FC<Props> = ({ toggleEventModal, setSelectedDate, setS
     const clickedDate = new Date(startOfPeriod)
     const date = addDays(clickedDate, day)
 
-    console.log(hour == '-1', 'hour??')
-
     setSelectedDate(date)
     setSelectedStartHour(hour == '-1' ? '' : hour)
     toggleEventModal()
+  }
+
+  const handleEventClick = (event: any) => {
+    toggleEventModal(event)
   }
 
   return (
@@ -204,7 +202,11 @@ const CalendarGrid: React.FC<Props> = ({ toggleEventModal, setSelectedDate, setS
                       })
                       .map((event, eventIndex) => (
                         <div
-                          key={event.id}
+                          onDoubleClick={e => {
+                            e.stopPropagation()
+                            handleEventClick(event)
+                          }}
+                          key={event._id}
                           className='absolute rounded-sm overflow-hidden'
                           style={{
                             height: `${event.eventHeight}px`,

@@ -22,37 +22,48 @@ interface Props {
   toggleIsOpen: () => void
   selectedDate: Date | null
   selectedStartHour: null | number
+  clickedEvent: null | any
 }
 
-const EventModal: React.FC<Props> = ({ isOpen, toggleIsOpen, selectedDate, selectedStartHour }) => {
+const EventModal: React.FC<Props> = ({ isOpen, toggleIsOpen, selectedDate, selectedStartHour, clickedEvent }) => {
   const { primaryCalendar } = useUserData()
 
   const queryClient = useQueryClient()
 
-  const { handleSubmit, control, createEventValues, setValue, getParticipants, postCreateGoogleEvent } = useCreateEvent(
+  const { handleSubmit, control, createEventValues, setValue, getParticipants, postCreateGoogleEvent, reset } = useCreateEvent(
     selectedDate,
-    selectedStartHour
+    selectedStartHour,
+    clickedEvent
   )
-
-  console.log(createEventValues, 'createEventValues')
 
   const timeDifferenceString = selectedDate ? formatTimeDifference(selectedDate, selectedStartHour) : ''
 
-  const postCreateEventMutation = useMutation(() => postCreateGoogleEvent('', primaryCalendar?.account_id, createEventValues), {
-    onSuccess: () => {
-      queryClient.invalidateQueries(['userInfo'])
-    },
-    onError: (response: any) => {
-      if (response.response.status === 400 && response.response.data.result.message === 'User Already Exists') {
-        console.log('User Already Exists')
+  const postCreateEventMutation = useMutation(
+    () => postCreateGoogleEvent('', primaryCalendar?.account_id, createEventValues),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(['userInfo'])
+      },
+      onError: (response: any) => {
+        if (response.response.status === 400 && response.response.data.result.message === 'User Already Exists') {
+          console.log('User Already Exists')
+        }
       }
     }
-  })
+  )
+
+  console.log(clickedEvent, 'clickedEvent')
 
   const handleCloseAndSubmit = () => {
     if (createEventValues.title) {
-      postCreateEventMutation.mutate()
+      if (clickedEvent !== null) {
+        console.log('Edit')
+      } else {
+        console.log('Create')
+        postCreateEventMutation.mutate()
+      }
     }
+    reset()
     toggleIsOpen()
   }
 
@@ -78,14 +89,14 @@ const EventModal: React.FC<Props> = ({ isOpen, toggleIsOpen, selectedDate, selec
             <div className='px-[18px] pt-[18px]'>
               <div className='flex gap-3'>
                 <div className='h-[51px] w-1 bg-red-100' />
-                <div>
+                <div className="w-full">
                   <Typography type='subtitle' color='light'>
                     {timeDifferenceString}
                   </Typography>
                   <EventInput
                     control={control}
                     name='title'
-                    className='h-[30px] bg-white mt-1'
+                    className='h-[30px] bg-white mt-1 w-full'
                     placeholder='Add title'
                     boldPlaceholder
                   />
@@ -93,14 +104,14 @@ const EventModal: React.FC<Props> = ({ isOpen, toggleIsOpen, selectedDate, selec
               </div>
               <div className='flex gap-3'>
                 <div className='h-[51px] w-1 bg-white' />
-                <div>
+                {/* <div> */}
                   <EventInput
                     control={control}
                     name='description'
                     className='h-[30px] bg-white'
                     placeholder='Add description'
                   />
-                </div>
+                {/* </div> */}
               </div>
             </div>
 
@@ -134,7 +145,7 @@ const EventModal: React.FC<Props> = ({ isOpen, toggleIsOpen, selectedDate, selec
                 <Typography type='subtitle' color='light'>
                   Participants
                 </Typography>
-                <ParticipantsPopover  getParticipants={getParticipants} setValue={setValue} />
+                <ParticipantsPopover getParticipants={getParticipants} setValue={setValue} />
               </div>
 
               <div className='border border-grey-70 rounded-xl p-3 min-w-[180px]'>

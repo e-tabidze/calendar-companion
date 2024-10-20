@@ -39,7 +39,6 @@ const SearchCalendarDropdown: React.FC<Props> = ({ control }) => {
                 />
               </div>
               <div className='h-px w-full bg-raisin-10 mt-3' />
-
               <div className='pl-3 pb-3 pt-1 pr-[50px]'>
                 {googleCalendarsDataLoading ? (
                   <>Loading</>
@@ -54,7 +53,7 @@ const SearchCalendarDropdown: React.FC<Props> = ({ control }) => {
                           key={index}
                           render={({ field: { onChange, value } }) => (
                             <div
-                              key={calendar.id}
+                              key={calendar._id}
                               className='flex items-center gap-3 cursor-pointer transition-all py-2'
                               onClick={() => {
                                 onChange(calendar.id)
