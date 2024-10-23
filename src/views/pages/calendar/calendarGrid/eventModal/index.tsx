@@ -23,18 +23,23 @@ interface Props {
   selectedDate: Date | null
   selectedStartHour: null | number
   clickedEvent: null | any
+  setClickedEvent: any
 }
 
-const EventModal: React.FC<Props> = ({ isOpen, toggleIsOpen, selectedDate, selectedStartHour, clickedEvent }) => {
+const EventModal: React.FC<Props> = ({
+  isOpen,
+  toggleIsOpen,
+  selectedDate,
+  selectedStartHour,
+  clickedEvent,
+  setClickedEvent
+}) => {
   const { primaryCalendar } = useUserData()
 
   const queryClient = useQueryClient()
 
-  const { handleSubmit, control, createEventValues, setValue, getParticipants, postCreateGoogleEvent, reset } = useCreateEvent(
-    selectedDate,
-    selectedStartHour,
-    clickedEvent
-  )
+  const { handleSubmit, control, createEventValues, setValue, getParticipants, postCreateGoogleEvent, reset } =
+    useCreateEvent(selectedDate, selectedStartHour, clickedEvent)
 
   const timeDifferenceString = selectedDate ? formatTimeDifference(selectedDate, selectedStartHour) : ''
 
@@ -48,22 +53,22 @@ const EventModal: React.FC<Props> = ({ isOpen, toggleIsOpen, selectedDate, selec
         if (response.response.status === 400 && response.response.data.result.message === 'User Already Exists') {
           console.log('User Already Exists')
         }
+      },
+      onSettled: () => {
+        reset()
       }
     }
   )
-
-  console.log(clickedEvent, 'clickedEvent')
 
   const handleCloseAndSubmit = () => {
     if (createEventValues.title) {
       if (clickedEvent !== null) {
         console.log('Edit')
       } else {
-        console.log('Create')
         postCreateEventMutation.mutate()
       }
     }
-    reset()
+    setClickedEvent(null)
     toggleIsOpen()
   }
 
@@ -89,7 +94,7 @@ const EventModal: React.FC<Props> = ({ isOpen, toggleIsOpen, selectedDate, selec
             <div className='px-[18px] pt-[18px]'>
               <div className='flex gap-3'>
                 <div className='h-[51px] w-1 bg-red-100' />
-                <div className="w-full">
+                <div className='w-full'>
                   <Typography type='subtitle' color='light'>
                     {timeDifferenceString}
                   </Typography>
@@ -104,14 +109,12 @@ const EventModal: React.FC<Props> = ({ isOpen, toggleIsOpen, selectedDate, selec
               </div>
               <div className='flex gap-3'>
                 <div className='h-[51px] w-1 bg-white' />
-                {/* <div> */}
-                  <EventInput
-                    control={control}
-                    name='description'
-                    className='h-[30px] bg-white'
-                    placeholder='Add description'
-                  />
-                {/* </div> */}
+                <EventInput
+                  control={control}
+                  name='description'
+                  className='h-[30px] bg-white'
+                  placeholder='Add description'
+                />
               </div>
             </div>
 
@@ -145,7 +148,11 @@ const EventModal: React.FC<Props> = ({ isOpen, toggleIsOpen, selectedDate, selec
                 <Typography type='subtitle' color='light'>
                   Participants
                 </Typography>
-                <ParticipantsPopover getParticipants={getParticipants} setValue={setValue} />
+                <ParticipantsPopover
+                  getParticipants={getParticipants}
+                  setValue={setValue}
+                  clickedEvent={clickedEvent}
+                />
               </div>
 
               <div className='border border-grey-70 rounded-xl p-3 min-w-[180px]'>

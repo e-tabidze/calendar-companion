@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 import CalendarService from 'src/services/CalendarService'
 import { useEffect, useState } from 'react'
 import { useCalendarContext } from 'src/contexts/CalendarContext'
+import { format } from 'date-fns'
 
 const useCalendar = (workspaceId?: any, selectedCalendars: string[] = []) => {
   const { startOfPeriod, endOfPeriod, currentPeriod, visibleDays } = useCalendarContext()
@@ -9,9 +10,21 @@ const useCalendar = (workspaceId?: any, selectedCalendars: string[] = []) => {
   const [socket, setSocket] = useState<WebSocket | null>(null)
   const [syncing, setSyncing] = useState(false)
 
-  const getGoogleEvents = async (AccessToken = '', workspaceId: string, start_date: string, end_date: string, calendarIds: string[] = []) => {
+  const getGoogleEvents = async (
+    AccessToken = '',
+    workspaceId: string,
+    start_date: string,
+    end_date: string,
+    calendarIds: string[] = []
+  ) => {
     try {
-      const response: any = await CalendarService.getGoogleEvents(AccessToken, workspaceId, start_date, end_date, calendarIds)
+      const response: any = await CalendarService.getGoogleEvents(
+        AccessToken,
+        workspaceId,
+        start_date,
+        end_date,
+        calendarIds
+      )
 
       return response.data
     } catch (error) {
@@ -28,8 +41,8 @@ const useCalendar = (workspaceId?: any, selectedCalendars: string[] = []) => {
         ? getGoogleEvents(
             '',
             workspaceId,
-            startOfPeriod.toISOString().split('T')[0],
-            endOfPeriod.toISOString().split('T')[0],
+            format(startOfPeriod, 'yyyy-MM-dd'),
+            format(endOfPeriod, 'yyyy-MM-dd'),
             selectedCalendars
           )
         : Promise.resolve({ data: null }),

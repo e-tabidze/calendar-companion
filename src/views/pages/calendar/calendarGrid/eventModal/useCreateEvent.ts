@@ -2,6 +2,7 @@ import { useForm, useWatch } from 'react-hook-form'
 import { useEffect } from 'react'
 import useUserData from 'src/hooks/useUserData'
 import CalendarService from 'src/services/CalendarService'
+import { format } from 'date-fns'
 
 const useCreateEvent = (selectedDate: Date | null, selectedStartHour: null | number, clickedEvent?: any) => {
   const { primaryCalendar } = useUserData()
@@ -9,7 +10,7 @@ const useCreateEvent = (selectedDate: Date | null, selectedStartHour: null | num
   const createEventDefaultValues = {
     title: '',
     description: '',
-    selected_date: new Date(),
+    selected_date: '',
     meeting_link: false,
     selected_start_hour: '' as any,
     selected_end_hour: '' as any,
@@ -24,7 +25,7 @@ const useCreateEvent = (selectedDate: Date | null, selectedStartHour: null | num
   }
 
   useEffect(() => {
-    selectedDate && setValue('selected_date', new Date(selectedDate))
+    selectedDate && setValue('selected_date', format(selectedDate, 'yyyy-MM-dd'))
     if (selectedStartHour) {
       const formattedHour = String(selectedStartHour).padStart(2, '0') + ':00'
       setValue('selected_start_hour', formattedHour)
@@ -39,8 +40,8 @@ const useCreateEvent = (selectedDate: Date | null, selectedStartHour: null | num
     if (clickedEvent) {
       setValue('title', clickedEvent?.summary)
       setValue('description', clickedEvent?.description)
-      setValue('selected_date', new Date(clickedEvent?.start?.dateTime)),
-      setValue('selected_start_hour', new Date(clickedEvent?.start?.dateTime).getHours())
+      setValue('selected_date', format(clickedEvent?.start?.dateTime, 'yyyy-MM-dd')),
+        setValue('selected_start_hour', new Date(clickedEvent?.start?.dateTime).getHours())
       setValue('selected_end_hour', new Date(clickedEvent?.end?.dateTime).getHours())
     }
   }, [clickedEvent, selectedDate])

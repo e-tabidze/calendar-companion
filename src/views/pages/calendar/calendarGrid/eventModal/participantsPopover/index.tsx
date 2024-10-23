@@ -8,13 +8,16 @@ import ParticipantRolePopover from './participantRolePopover'
 interface Props {
   getParticipants: any
   setValue: any
+  clickedEvent: any
 }
 
-const ParticipantsPopover: React.FC<Props> = ({ getParticipants, setValue }) => {
+const ParticipantsPopover: React.FC<Props> = ({ getParticipants, setValue, clickedEvent }) => {
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedEventParticipants, setSelectedEventParticipants] = useState<any[]>([])
   const [participantsDataState, setParticipantsDataState] = useState<any[]>([])
   const [typedParticipants, setTypedParticipants] = useState<any>([])
+
+  console.log(clickedEvent?.attendees, 'clickedEvent')
 
   const useGetParticipants = useQuery({
     queryKey: ['participants', searchTerm],
@@ -22,6 +25,12 @@ const ParticipantsPopover: React.FC<Props> = ({ getParticipants, setValue }) => 
     enabled: !!searchTerm.trim(),
     staleTime: Infinity
   })
+
+  useEffect(() => {
+    if (Array.isArray(clickedEvent?.attendees) && clickedEvent?.attendees.length > 0) {
+      setSelectedEventParticipants(clickedEvent.attendees)
+    }
+  }, [clickedEvent])
 
   useEffect(() => {
     setValue('event_participants', selectedEventParticipants)
@@ -91,13 +100,16 @@ const ParticipantsPopover: React.FC<Props> = ({ getParticipants, setValue }) => 
             {selectedEventParticipants.length > 0 ? (
               <div className='flex items-center'>
                 {selectedEventParticipants.slice(0, 5).map((participant: any, index: number) => (
-                  <div
-                    key={index}
-                    className={`h-7 w-7 rounded-full text-white border-2 border-[#fff] -ml-[10px]`}
-                    style={{ backgroundColor: participant.color }}
-                  >
-                    {participant?.username?.charAt(0)}
-                  </div>
+                  <>
+                  {console.log(participant, 'participant')}
+                    <div
+                      key={index}
+                      className={`h-7 w-7 rounded-full text-white border-2 border-[#fff] -ml-[10px]`}
+                      style={{ backgroundColor: participant.color || "#FA6666" }}
+                    >
+                      {participant?.username?.charAt(0) || participant?.email?.charAt(0)}
+                    </div>
+                  </>
                 ))}
 
                 {selectedEventParticipants.length > 5 && (

@@ -25,10 +25,6 @@ const Calendar = () => {
 
   }
 
-
-  console.log(selectedDate, 'selectedDate')
-
-
   const { headerHeight } = useCalendarContext()
 
   return (
@@ -54,6 +50,7 @@ const Calendar = () => {
         selectedDate={selectedDate}
         selectedStartHour={selectedStartHour}
         clickedEvent={clickedEvent}
+        setClickedEvent={setClickedEvent}
       />
     </>
   )
