@@ -1,4 +1,4 @@
-import { useState } from 'react'
+  import { useState } from 'react'
 import _ from 'lodash'
 
 import { Controller } from 'react-hook-form'
@@ -202,7 +202,6 @@ export const EventInput: React.FC<Props> = ({
   onBlur,
   placeholder,
   boldPlaceholder,
-  autoFocus,
   readOnly
 }) => {
   const [showPassword, setShowPassword] = useState(false)

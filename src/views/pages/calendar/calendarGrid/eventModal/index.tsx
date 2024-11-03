@@ -24,9 +24,9 @@ function convertTo24Hour(timeString: string) {
   let [hours] = time.split(':').map(Number)
 
   if (modifier === 'PM' && hours !== 12) {
-    hours += 12 
+    hours += 12
   } else if (modifier === 'AM' && hours === 12) {
-    hours = 0 
+    hours = 0
   }
 
   return hours
@@ -104,9 +104,6 @@ const EventModal: React.FC<Props> = ({
     }
   )
 
-  console.log(clickedEvent, 'clickedEvent')
-  console.log(createEventValues, 'createEventValues')
-
   const handleCloseAndSubmit = () => {
     if (createEventValues.title) {
       if (clickedEvent !== null) {
@@ -116,6 +113,7 @@ const EventModal: React.FC<Props> = ({
       }
     }
     toggleIsOpen()
+    setClickedEvent(null)
   }
 
   const clickTimeoutRef = useRef<NodeJS.Timeout | null>(null)
@@ -176,7 +174,7 @@ const EventModal: React.FC<Props> = ({
                     <EventInput
                       control={control}
                       name='title'
-                      readOnly={!isEditable}
+                      readOnly={clickedEvent !== null && !isEditable}
                       className={`h-[30px] bg-white mt-1 w-full text-lg font-bold ${
                         isEditable ? 'cursor-text' : 'cursor-pointer'
                       }`}
