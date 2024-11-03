@@ -41,10 +41,10 @@ const useCreateEvent = (selectedDate: Date | null, selectedStartHour: null | num
       setValue('title', clickedEvent?.summary)
       setValue('description', clickedEvent?.description)
       setValue('selected_date', format(clickedEvent?.start?.dateTime, 'yyyy-MM-dd')),
-        setValue('selected_start_hour', new Date(clickedEvent?.start?.dateTime).getHours())
+      setValue('selected_start_hour', new Date(clickedEvent?.start?.dateTime).getHours())
       setValue('selected_end_hour', new Date(clickedEvent?.end?.dateTime).getHours())
     }
-  }, [clickedEvent, selectedDate])
+  }, [clickedEvent, selectedDate, primaryCalendar])
 
   const {
     control,
@@ -85,6 +85,17 @@ const useCreateEvent = (selectedDate: Date | null, selectedStartHour: null | num
     }
   }
 
+  const putUpdateGoogleEvent = async (AccessToken = '', event_id: string, account_id: string, event_data: any) => {
+    try {
+      const response: any = await CalendarService.putUpdateGoogleEvent(AccessToken, event_id, account_id, event_data)
+
+      return response.data
+    } catch (error) {
+      console.error('Error creating product:', error)
+      throw error
+    }
+  }
+
   return {
     control,
     handleSubmit,
@@ -99,7 +110,8 @@ const useCreateEvent = (selectedDate: Date | null, selectedStartHour: null | num
     trigger,
     getParticipants,
     postCreateGoogleEvent,
-    reset
+    reset,
+    putUpdateGoogleEvent
   }
 }
 

@@ -3,33 +3,7 @@ import { Popover, PopoverButton, PopoverPanel } from '@headlessui/react'
 import { Controller, useWatch } from 'react-hook-form'
 import Icon from 'src/views/app/Icon'
 import Typography from 'src/views/components/typography'
-
-const colorOptions = [
-  {
-    color: 'Green',
-    hex: '#6FC81E'
-  },
-  {
-    color: 'Blue',
-    hex: '#006FD3'
-  },
-  {
-    color: 'Purple',
-    hex: '#5300AC'
-  },
-  {
-    color: 'Pink',
-    hex: '#B60786'
-  },
-  {
-    color: 'Red',
-    hex: '#E73130'
-  },
-  {
-    color: 'Orange',
-    hex: '#FF9420'
-  }
-]
+import { GOOGLE_EVENT_COLORS } from 'src/@core/configs/googleEventColors'
 
 interface Props {
   control: any
@@ -38,10 +12,18 @@ interface Props {
 const EventColorPopover: React.FC<Props> = ({ control }) => {
   const [searchTermHex, setSearchTermHex] = useState<string>('')
 
+  const colorOptions = Object.values(GOOGLE_EVENT_COLORS)
+
+  // const filteredColors = colorOptions.filter(
+  //   color =>
+  //     color.color.toLowerCase().includes(searchTermHex.toLowerCase()) ||
+  //     color.hex.toLowerCase().includes(searchTermHex.toLowerCase())
+  // )
+
   const filteredColors = colorOptions.filter(
     color =>
-      color.color.toLowerCase().includes(searchTermHex.toLowerCase()) ||
-      color.hex.toLowerCase().includes(searchTermHex.toLowerCase())
+      color.name.toLowerCase().includes(searchTermHex.toLowerCase()) ||
+      color.color.toLowerCase().includes(searchTermHex.toLowerCase())
   )
 
   const { event_color } = useWatch({ control })
@@ -53,7 +35,7 @@ const EventColorPopover: React.FC<Props> = ({ control }) => {
       {({ close }) => (
         <>
           <PopoverButton className='mt-px text-[13px] flex items-center gap-1 font-semibold text-grey-90 focus:outline-none data-[focus]:outline-1 data-[focus]:outline-white'>
-            <span className='w-4 h-4 rounded-full' style={{ background: event_color }} />
+            <span className='w-4 h-4 rounded-full' style={{ background: GOOGLE_EVENT_COLORS[event_color]?.color || event_color }} />
           </PopoverButton>
           <PopoverPanel
             transition
@@ -85,13 +67,13 @@ const EventColorPopover: React.FC<Props> = ({ control }) => {
                             className='flex items-center cursor-pointer'
                             onClick={() => {
                               setSearchTermHex('')
-                              onChange(color.hex)
+                              onChange(color.id)
                               close()
                             }}
                           >
-                            <div className='w-4 h-4 rounded-full' style={{ background: color.hex }} />
+                            <div className='w-4 h-4 rounded-full' style={{ background: color.color }} />
                             <Typography type='subtitle' color='light' className='text-[13px] p-2'>
-                              {color.color}
+                              {color.name}
                             </Typography>
                           </div>
                         ))}

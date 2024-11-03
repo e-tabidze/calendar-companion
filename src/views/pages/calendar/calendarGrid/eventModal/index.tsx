@@ -16,6 +16,21 @@ import { formatTimeDifference } from 'src/utils/timeFormatter'
 import ParticipantsPopover from './participantsPopover'
 import useUserData from 'src/hooks/useUserData'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { useRouter } from 'next/router'
+import { useRef, useState } from 'react'
+
+function convertTo24Hour(timeString: string) {
+  const [time, modifier] = timeString.split(' ')
+  let [hours] = time.split(':').map(Number)
+
+  if (modifier === 'PM' && hours !== 12) {
+    hours += 12 
+  } else if (modifier === 'AM' && hours === 12) {
+    hours = 0 
+  }
+
+  return hours
+}
 
 interface Props {
   isOpen: boolean
@@ -36,12 +51,28 @@ const EventModal: React.FC<Props> = ({
 }) => {
   const { primaryCalendar } = useUserData()
 
+  const [isEditable, setIsEditable] = useState<boolean>(false)
+
+  const router = useRouter()
+
   const queryClient = useQueryClient()
 
-  const { handleSubmit, control, createEventValues, setValue, getParticipants, postCreateGoogleEvent, reset } =
-    useCreateEvent(selectedDate, selectedStartHour, clickedEvent)
+  const {
+    handleSubmit,
+    control,
+    createEventValues,
+    setValue,
+    getParticipants,
+    postCreateGoogleEvent,
+    reset,
+    putUpdateGoogleEvent
+  } = useCreateEvent(selectedDate, selectedStartHour, clickedEvent)
 
-  const timeDifferenceString = selectedDate ? formatTimeDifference(selectedDate, selectedStartHour) : ''
+  const timeDifferenceString = selectedDate
+    ? formatTimeDifference(selectedDate, selectedStartHour)
+    : clickedEvent !== null
+    ? formatTimeDifference(new Date(clickedEvent?.start?.dateTime), convertTo24Hour(clickedEvent?.startTime))
+    : ''
 
   const postCreateEventMutation = useMutation(
     () => postCreateGoogleEvent('', primaryCalendar?.account_id, createEventValues),
@@ -49,10 +80,8 @@ const EventModal: React.FC<Props> = ({
       onSuccess: () => {
         queryClient.invalidateQueries(['userInfo'])
       },
-      onError: (response: any) => {
-        if (response.response.status === 400 && response.response.data.result.message === 'User Already Exists') {
-          console.log('User Already Exists')
-        }
+      onError: () => {
+        console.log('TODO: Error creating event')
       },
       onSettled: () => {
         reset()
@@ -60,16 +89,61 @@ const EventModal: React.FC<Props> = ({
     }
   )
 
+  const putUpdateEventMutation = useMutation(
+    () => putUpdateGoogleEvent('', clickedEvent.id, primaryCalendar?.account_id, createEventValues),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(['userInfo'])
+      },
+      onError: () => {
+        console.log('TODO: Error updating event')
+      },
+      onSettled: () => {
+        reset()
+      }
+    }
+  )
+
+  console.log(clickedEvent, 'clickedEvent')
+  console.log(createEventValues, 'createEventValues')
+
   const handleCloseAndSubmit = () => {
     if (createEventValues.title) {
       if (clickedEvent !== null) {
-        console.log('Edit')
+        putUpdateEventMutation.mutate()
       } else {
         postCreateEventMutation.mutate()
       }
     }
-    setClickedEvent(null)
     toggleIsOpen()
+  }
+
+  const clickTimeoutRef = useRef<NodeJS.Timeout | null>(null)
+
+  const handleSingleClick = () => {
+    if (clickTimeoutRef.current) {
+      clearTimeout(clickTimeoutRef.current)
+    }
+
+    clickTimeoutRef.current = setTimeout(() => {
+      if (clickedEvent && !isEditable) {
+        router.push(`/details/${clickedEvent.id}`)
+      }
+    }, 300)
+  }
+
+  const handleDoubleClick = () => {
+    if (clickTimeoutRef.current) {
+      clearTimeout(clickTimeoutRef.current)
+    }
+
+    if (clickedEvent) {
+      setIsEditable(true)
+    }
+  }
+
+  const handleBlur = () => {
+    setIsEditable(false)
   }
 
   return (
@@ -98,13 +172,19 @@ const EventModal: React.FC<Props> = ({
                   <Typography type='subtitle' color='light'>
                     {timeDifferenceString}
                   </Typography>
-                  <EventInput
-                    control={control}
-                    name='title'
-                    className='h-[30px] bg-white mt-1 w-full'
-                    placeholder='Add title'
-                    boldPlaceholder
-                  />
+                  <div onClick={handleSingleClick} onDoubleClick={handleDoubleClick} className={`relative`}>
+                    <EventInput
+                      control={control}
+                      name='title'
+                      readOnly={!isEditable}
+                      className={`h-[30px] bg-white mt-1 w-full text-lg font-bold ${
+                        isEditable ? 'cursor-text' : 'cursor-pointer'
+                      }`}
+                      placeholder='Add title'
+                      boldPlaceholder
+                      onBlur={handleBlur}
+                    />
+                  </div>
                 </div>
               </div>
               <div className='flex gap-3'>

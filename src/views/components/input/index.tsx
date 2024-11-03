@@ -41,6 +41,8 @@ interface Props {
   min?: number
   onBlur?: any
   boldPlaceholder?: boolean
+  autoFocus?: any
+  readOnly?: boolean
 }
 
 export const DefaultInput: React.FC<Props> = ({
@@ -199,7 +201,9 @@ export const EventInput: React.FC<Props> = ({
   min,
   onBlur,
   placeholder,
-  boldPlaceholder
+  boldPlaceholder,
+  autoFocus,
+  readOnly
 }) => {
   const [showPassword, setShowPassword] = useState(false)
   const { t } = useTranslation()
@@ -207,7 +211,6 @@ export const EventInput: React.FC<Props> = ({
   const togglePasswordVisibility = () => setShowPassword(!showPassword)
 
   const InputComponent = rows ? 'textarea' : 'input'
-
 
   const handleKeyDown = (e: any) => {
     e.stopPropagation()
@@ -281,14 +284,15 @@ export const EventInput: React.FC<Props> = ({
               onBlur={() => {
                 onBlur && onBlur()
               }}
+              readOnly={readOnly}
               placeholder={placeholder}
               disabled={disabled}
               value={value || ''}
-              className={`placeholder:text-md placeholder:text-raisin-40 ${boldPlaceholder ? 'placeholder:font-bold placeholder:text-3md' : ''}  ${
-                rows ? 'pt-5 min-h-[80px]' : 'h-14'
-              } ${
-                !disabled ? 'hover:border-raisin-30' : ''
-              } ${_.get(errors, name)?.ref?.name === name ? 'bg-red-15' : ''}`}
+              className={`placeholder:text-md placeholder:text-raisin-40 ${
+                boldPlaceholder ? 'placeholder:font-bold placeholder:text-3md' : ''
+              }  ${rows ? 'pt-5 min-h-[80px]' : 'h-14'} ${!disabled ? 'hover:border-raisin-30' : ''} ${
+                _.get(errors, name)?.ref?.name === name ? 'bg-red-15' : ''
+              } ${readOnly ? 'cursor-pointer' : 'cursor-text'} `}
               type={type === 'password' ? (showPassword ? 'text' : 'password') : ''}
               onChange={e => {
                 onChange(e)

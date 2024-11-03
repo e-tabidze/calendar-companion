@@ -33,10 +33,11 @@ type TypographyProps = (
 ) & {
   children: any
   className?: string
-  onClick?: () => void
+  onClick?: (e?: any) => void
+  onDoubleClick?: (e?: any) => void
 }
 
-const Typography = ({ type, weight, color, children, className, onClick }: TypographyProps) => {
+const Typography = ({ type, weight, color, children, className, onClick, onDoubleClick }: TypographyProps) => {
   switch (type) {
     case 'h1':
       return (
@@ -46,7 +47,7 @@ const Typography = ({ type, weight, color, children, className, onClick }: Typog
       )
     case 'h2':
       return (
-        <H2Typography className={className} onClick={onClick}>
+        <H2Typography className={className} onClick={onClick} onDoubleClick={onDoubleClick}>
           {children}
         </H2Typography>
       )

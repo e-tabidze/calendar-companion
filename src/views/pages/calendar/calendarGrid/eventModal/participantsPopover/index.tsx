@@ -17,8 +17,6 @@ const ParticipantsPopover: React.FC<Props> = ({ getParticipants, setValue, click
   const [participantsDataState, setParticipantsDataState] = useState<any[]>([])
   const [typedParticipants, setTypedParticipants] = useState<any>([])
 
-  console.log(clickedEvent?.attendees, 'clickedEvent')
-
   const useGetParticipants = useQuery({
     queryKey: ['participants', searchTerm],
     queryFn: () => getParticipants(searchTerm),
@@ -100,16 +98,13 @@ const ParticipantsPopover: React.FC<Props> = ({ getParticipants, setValue, click
             {selectedEventParticipants.length > 0 ? (
               <div className='flex items-center'>
                 {selectedEventParticipants.slice(0, 5).map((participant: any, index: number) => (
-                  <>
-                  {console.log(participant, 'participant')}
-                    <div
-                      key={index}
-                      className={`h-7 w-7 rounded-full text-white border-2 border-[#fff] -ml-[10px]`}
-                      style={{ backgroundColor: participant.color || "#FA6666" }}
-                    >
-                      {participant?.username?.charAt(0) || participant?.email?.charAt(0)}
-                    </div>
-                  </>
+                  <div
+                    key={index}
+                    className={`h-7 w-7 rounded-full text-white border-2 border-[#fff] -ml-[10px]`}
+                    style={{ backgroundColor: participant.color || '#FA6666' }}
+                  >
+                    {participant?.username?.charAt(0) || participant?.email?.charAt(0)}
+                  </div>
                 ))}
 
                 {selectedEventParticipants.length > 5 && (

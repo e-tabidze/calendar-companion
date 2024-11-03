@@ -46,6 +46,14 @@ class CalendarService extends HttpService {
       AccessToken ? { Authorization: `${AccessToken}` } : {}
     )
   }
+
+  putUpdateGoogleEvent(AccessToken = '', event_id: string,  account_id: string, event_data: any) {
+    return this.put(
+      `/api/update-google-event`,
+      { event_id: event_id, account_id: account_id, event_data: event_data },
+      AccessToken ? { Authorization: `${AccessToken}` } : {}
+    )
+  }
 }
 
 export default new CalendarService()
