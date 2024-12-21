@@ -22,7 +22,6 @@ const Calendar = () => {
     if (eventData) {
       setClickedEvent(eventData)
     }
-
   }
 
   const { headerHeight } = useCalendarContext()

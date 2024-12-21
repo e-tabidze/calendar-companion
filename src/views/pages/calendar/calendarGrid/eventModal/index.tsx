@@ -118,6 +118,9 @@ const EventModal: React.FC<Props> = ({
 
   const clickTimeoutRef = useRef<NodeJS.Timeout | null>(null)
 
+  console.log(clickedEvent, 'clickedEvent')
+
+
   const handleSingleClick = () => {
     if (clickTimeoutRef.current) {
       clearTimeout(clickTimeoutRef.current)

@@ -54,6 +54,14 @@ class CalendarService extends HttpService {
       AccessToken ? { Authorization: `${AccessToken}` } : {}
     )
   }
+
+  getSingleEvent(AccessToken = '', event_id: string) {
+    return this.get(`/api/single-event/${event_id}`, AccessToken ? { Authorization: `${AccessToken}` } : {})
+  }
+
+  getMeetingJSON(AccessToken = '', bot_send_by: string, filename: string) {
+    return this.get(`/api/proxy/storage/meetings/${bot_send_by}/${filename}`, AccessToken ? { Authorization: `${AccessToken}` } : {})
+  }
 }
 
 export default new CalendarService()
