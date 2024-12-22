@@ -21,7 +21,7 @@ const SwitchField: React.FC<Props> = ({
   name,
   defaultValue,
   onChangeCallback,
-  height
+  height,
 }) => {
   return (
     <div

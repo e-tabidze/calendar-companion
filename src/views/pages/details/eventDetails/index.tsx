@@ -1,5 +1,5 @@
 import React from 'react'
-import { Video, MoreHorizontal, Plus } from 'lucide-react'
+import { MoreHorizontal } from 'lucide-react'
 import DetailsPageHeader from '../detailsPageHeader'
 import Divider from 'src/views/components/divider'
 import EventOverview from '../eventOverview'
@@ -21,7 +21,7 @@ const EventDetails: React.FC<EventDetailsProps> = ({ eventDetails }) => {
         <EventOverview eventDetails={eventDetails} />
       </div>
 
-      {/* <div className='max-w-6xl mx-auto p-4'>
+      <div className='max-w-6xl mx-auto p-4'>
         <div className='relative pl-8 border-l-2 border-gray-100'>
           <div className='relative'>
             <div className='absolute -left-[2.2rem] w-4 h-4 rounded-full bg-yellow-400' />
@@ -49,7 +49,7 @@ const EventDetails: React.FC<EventDetailsProps> = ({ eventDetails }) => {
             </div>
           </div>
         </div>
-      </div> */}
+      </div>
     </div>
   )
 }

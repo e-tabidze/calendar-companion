@@ -13,7 +13,7 @@ const DetailsPageHeader: React.FC<Props> = ({ eventDetails }) => {
   const router = useRouter()
 
   return (
-    <div className='flex items-center justify-between mx-8 mb-4'>
+    <div className='flex items-center justify-between mx-8 mb-4 mt-3'>
       <div className='flex items-center gap-8'>
         <IconButton
           icon='arrowLeft'

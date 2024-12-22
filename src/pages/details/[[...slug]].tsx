@@ -13,9 +13,6 @@ const Details = () => {
   )
 
 
-  // console.log(eventDetails, 'eventData')
-
-
   if (isEventDataLoading) {
     return <div>Loading...</div>
   }
