@@ -11,13 +11,13 @@ const EventOverview: React.FC<Props> = ({ eventDetails }) => {
   console.log(eventDetails, 'eventDetails')
 
   return (
-    <div className='flex gap-4'>
-      <Icon svgPath='action1' width={20} height={20} className='hidden lg:inline-block' />
+    <div className='flex gap-4 mt-16'>
+      <Icon svgPath='action1' width={22} height={22} className='hidden lg:inline-block' />
       <div className='flex-1'>
         <div className='mb-8'>
           <div className='flex flex-col lg:flex-row lg:items-center gap-3 mb-2'>
             <div className='flex items-center gap-4'>
-              <Icon svgPath='action1' width={20} height={20} className='inline-block lg:hidden' />
+              <Icon svgPath='action1' width={22} height={22} className='inline-block lg:hidden' />
               <div className='w-8 h-8 rounded-full bg-gray-200 border-2 border-white flex justify-center items-center'>
                 {eventDetails.event_data.creator.email?.charAt(0) || ''}
               </div>
