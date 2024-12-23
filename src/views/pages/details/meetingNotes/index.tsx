@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react'
-import { Search, User, MoreHorizontal } from 'lucide-react'
+import { Search, User } from 'lucide-react'
 import Icon from 'src/views/app/Icon'
 import Typography from 'src/views/components/typography'
 import { differenceInMinutes, format } from 'date-fns'
@@ -102,7 +102,7 @@ const MeetingNotes: React.FC<Props> = ({ transcript, mp4, eventDetails }) => {
         <Icon svgPath='action1' width={21} height={21} className='hidden lg:inline-block z-20 relative' />
       </div>
 
-      <div>
+      <div className='w-full'>
         <div className='flex flex-col lg:flex-row lg:items-center gap-3 mb-4 mt-[3px]'>
           <div className='flex items-center gap-4'>
             <Icon svgPath='action1' width={16} height={16} className='inline-block lg:hidden' />
@@ -122,7 +122,14 @@ const MeetingNotes: React.FC<Props> = ({ transcript, mp4, eventDetails }) => {
               <Typography type='h4' color='dark' className='font-medium'>
                 {eventDetails.event_data.summary}
               </Typography>
-              <div className='text-gray-500 mt-1'>Duration: {differenceInMinutes(eventDetails?.event_data?.end?.dateTime, eventDetails?.event_data?.start?.dateTime)}m</div>
+              <div className='text-gray-500 mt-1'>
+                Duration:{' '}
+                {differenceInMinutes(
+                  eventDetails?.event_data?.end?.dateTime,
+                  eventDetails?.event_data?.start?.dateTime
+                )}
+                m
+              </div>
 
               <div className='mt-4 mb-6'>
                 <div className='w-full h-4 flex items-center gap-px'>
@@ -140,8 +147,8 @@ const MeetingNotes: React.FC<Props> = ({ transcript, mp4, eventDetails }) => {
               </div>
             </div>
 
-            <div className='grid grid-cols-2 divide-x'>
-              <div className='p-6'>
+            <div className='flex gap-4'>
+              <div className='p-6 w-5/12'>
                 <video
                   ref={videoRef}
                   className='w-full rounded-lg'
@@ -155,8 +162,7 @@ const MeetingNotes: React.FC<Props> = ({ transcript, mp4, eventDetails }) => {
                 </video>
               </div>
 
-              {/* Chat Section */}
-              <div>
+              <div className='w-7/12'>
                 <div className='px-6 py-3 border-b'>
                   <div className='relative'>
                     <input
@@ -170,11 +176,10 @@ const MeetingNotes: React.FC<Props> = ({ transcript, mp4, eventDetails }) => {
                   </div>
                 </div>
 
-                <div className='grid grid-cols-[200px_1fr] divide-x'>
-                  {/* Time and Names Column */}
-                  <div className='py-4 space-y-6'>
-                    {filteredTranscript.map((entry, index) => (
-                      <div key={index} className='px-4 flex items-center gap-3'>
+                <div className='p-4'>
+                  {filteredTranscript.map((entry, index) => (
+                    <div key={index} className='flex gap-4'>
+                      <div className='px-4 gap-3 flex items-center w-1/3 border-r'>
                         <div className='w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center'>
                           <User className='w-5 h-5 text-gray-400' />
                         </div>
@@ -183,17 +188,11 @@ const MeetingNotes: React.FC<Props> = ({ transcript, mp4, eventDetails }) => {
                           <div className='text-xs text-gray-500'>{formatTime(entry.offset)}</div>
                         </div>
                       </div>
-                    ))}
-                  </div>
-
-                  {/* Messages Column */}
-                  <div className='py-4 px-6 space-y-6'>
-                    {filteredTranscript.map((entry, index) => (
-                      <div key={index}>
-                        <p>{renderWords(entry.words)}</p>
+                      <div key={index} className='w-2/3 py-4'>
+                        <Typography type='subtitle'>{renderWords(entry.words)}</Typography>
                       </div>
-                    ))}
-                  </div>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
