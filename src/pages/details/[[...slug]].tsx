@@ -27,8 +27,9 @@ const Details = () => {
       <Divider />
       <div className='max-w-6xl mx-auto'>
         <EventOverview eventDetails={eventDetails} />
-        {/* <EventDetails eventDetails={eventDetails} meetingJson={meetingJson} /> */}
+        <EventDetails eventDetails={eventDetails} meetingJson={meetingJson} />
         <MeetingNotes transcript={meetingJson?.transcript} mp4={meetingJson?.mp4} eventDetails={eventDetails} />
+
       </div>
     </div>
   )

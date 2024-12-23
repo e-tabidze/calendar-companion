@@ -51,6 +51,7 @@ const combineEntriesBySpeaker = (transcript: TranscriptEntry[]) => {
 const MeetingNotes: React.FC<Props> = ({ transcript, mp4, eventDetails }) => {
   const [searchTerm, setSearchTerm] = useState('')
   const [currentTime, setCurrentTime] = useState(0)
+  const [isTranscriptExpanded, setTranscriptExpanded] = useState(false)
   const videoRef = useRef<HTMLVideoElement>(null)
 
   const combinedTranscript = combineEntriesBySpeaker(transcript)
@@ -117,8 +118,8 @@ const MeetingNotes: React.FC<Props> = ({ transcript, mp4, eventDetails }) => {
         </div>
 
         <div className='bg-gray-50 p-4 rounded-lg'>
-          <div className='max-w-7xl mx-auto bg-white rounded-lg shadow-sm overflow-hidden'>
-            <div className='px-6 pt-4 pb-2'>
+          <div className='max-w-7xl mx-auto bg-white rounded-lg shadow-sm p-6'>
+            <div className=''>
               <Typography type='h4' color='dark' className='font-medium'>
                 {eventDetails.event_data.summary}
               </Typography>
@@ -148,7 +149,7 @@ const MeetingNotes: React.FC<Props> = ({ transcript, mp4, eventDetails }) => {
             </div>
 
             <div className='flex gap-4'>
-              <div className='p-6 w-5/12'>
+              <div className='h-fit w-5/12'>
                 <video
                   ref={videoRef}
                   className='w-full rounded-lg'
@@ -162,38 +163,47 @@ const MeetingNotes: React.FC<Props> = ({ transcript, mp4, eventDetails }) => {
                 </video>
               </div>
 
-              <div className='w-7/12'>
-                <div className='px-6 py-3 border-b'>
-                  <div className='relative'>
-                    <input
-                      type='text'
-                      placeholder='Search in conversation'
-                      className='w-full pl-8 pr-4 py-2 bg-gray-50 rounded-lg text-gray-900 text-sm placeholder-gray-500 focus:outline-none'
-                      value={searchTerm}
-                      onChange={e => setSearchTerm(e.target.value)}
-                    />
-                    <Search className='absolute left-2.5 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400' />
+              <div className='w-7/12 border rounded-lg'>
+                <div>
+                  <div className='px-6 py-3 border-b'>
+                    <div className='relative'>
+                      <input
+                        type='text'
+                        placeholder='Search in conversation'
+                        className='w-full pl-8 pr-4 py-2 bg-gray-50 rounded-lg text-gray-900 text-sm placeholder-gray-500 focus:outline-none'
+                        value={searchTerm}
+                        onChange={e => setSearchTerm(e.target.value)}
+                      />
+                      <Search className='absolute left-2.5 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400' />
+                    </div>
+                  </div>
+
+                  <div className={`${isTranscriptExpanded ? '' : 'h-[121px] overflow-hidden'}`}>
+                    {filteredTranscript.map((entry, index) => (
+                      <div key={index} className='flex gap-4'>
+                        <div className='px-4 gap-3 flex items-center w-1/3 border-r'>
+                          <div className='w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center'>
+                            <User className='w-5 h-5 text-gray-400' />
+                          </div>
+                          <div>
+                            <div className='text-sm font-medium text-gray-900'>{entry.speaker}</div>
+                            <div className='text-xs text-gray-500'>{formatTime(entry.offset)}</div>
+                          </div>
+                        </div>
+                        <div key={index} className='w-2/3 py-4'>
+                          <Typography type='subtitle'>{renderWords(entry.words)}</Typography>
+                        </div>
+                      </div>
+                    ))}
                   </div>
                 </div>
-
-                <div className='p-4'>
-                  {filteredTranscript.map((entry, index) => (
-                    <div key={index} className='flex gap-4'>
-                      <div className='px-4 gap-3 flex items-center w-1/3 border-r'>
-                        <div className='w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center'>
-                          <User className='w-5 h-5 text-gray-400' />
-                        </div>
-                        <div>
-                          <div className='text-sm font-medium text-gray-900'>{entry.speaker}</div>
-                          <div className='text-xs text-gray-500'>{formatTime(entry.offset)}</div>
-                        </div>
-                      </div>
-                      <div key={index} className='w-2/3 py-4'>
-                        <Typography type='subtitle'>{renderWords(entry.words)}</Typography>
-                      </div>
-                    </div>
-                  ))}
-                </div>
+                <button
+                  className='bg-primary-15 text-primary-100 w-full rounded-b-lg h-8'
+                  type='button'
+                  onClick={() => setTranscriptExpanded(!isTranscriptExpanded)}
+                >
+                  {isTranscriptExpanded ? 'Collapse transcript' : 'Expand transcript'}
+                </button>
               </div>
             </div>
           </div>

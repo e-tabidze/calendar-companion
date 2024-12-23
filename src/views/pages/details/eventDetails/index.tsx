@@ -1,6 +1,5 @@
 import React from 'react'
 import { MoreHorizontal } from 'lucide-react'
-import EventOverview from '../eventOverview'
 import Icon from 'src/views/app/Icon'
 
 interface EventDetailsProps {
@@ -9,7 +8,6 @@ interface EventDetailsProps {
 }
 
 const EventDetails: React.FC<EventDetailsProps> = ({ eventDetails }) => {
-  console.log(eventDetails, 'eventDetails')
 
   return (
     <div>
@@ -17,7 +15,6 @@ const EventDetails: React.FC<EventDetailsProps> = ({ eventDetails }) => {
       <div className='max-w-6xl mx-auto'>
         <div className='relative pl-8 border-l-2 border-gray-100'>
           <div className='relative'>
-            {/* <div className='absolute -left-[2.2rem] w-4 h-4 rounded-full bg-yellow-400' /> */}
             <Icon svgPath='action2' width={20} height={20} className='absolute -left-[2.2rem]' />
 
             <div className='flex items-center gap-3 mb-2'>
