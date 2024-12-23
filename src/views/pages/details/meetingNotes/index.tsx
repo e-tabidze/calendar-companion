@@ -82,7 +82,7 @@ const MeetingNotes: React.FC<Props> = ({ transcript, mp4, eventDetails }) => {
           key={index}
           onClick={() => handleWordClick(word.start)}
           className={`cursor-pointer transition-colors duration-200 hover:opacity-80 ${
-            isActive ? 'bg-[#FF6B4E] text-white px-0.5 rounded' : 'text-[#FF6B4E]'
+            isActive ? 'bg-primary-100 text-white px-0.5 rounded' : 'text-primary-100'
           }`}
         >
           {word.word}{' '}
