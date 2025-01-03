@@ -33,11 +33,13 @@ const EventDetails: React.FC<EventDetailsProps> = ({ eventDetails }) => {
                   <MoreHorizontal className='w-5 h-5 text-gray-400' />
                 </button>
               </div>
+              <div contentEditable>
               <div className='text-[#FF5A1F]'>📍 It consists of 15 items and 33 sub-items</div>
-              <p className='mt-4 text-gray-600'>
+              <p className='mt-4 text-gray-600' >
                 {eventDetails.event_data.description ||
                   'Suspendisse quis erat non ligula sollicitudin pulvinar ac ac velit. Fusce quam enim, tristique vel sem vitae, finibus pulvinar velit.'}
               </p>
+            </div>
             </div>
           </div>
         </div>

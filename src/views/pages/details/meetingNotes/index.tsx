@@ -4,6 +4,8 @@ import Icon from 'src/views/app/Icon'
 import Typography from 'src/views/components/typography'
 import { differenceInMinutes, format } from 'date-fns'
 import { parseISO } from 'date-fns'
+import AudioWaveform from './AudioWave'
+import MeetingInsights from './MeetingInsight'
 
 interface Word {
   start: number
@@ -134,16 +136,8 @@ const MeetingNotes: React.FC<Props> = ({ transcript, mp4, eventDetails }) => {
 
               <div className='mt-4 mb-6'>
                 <div className='w-full h-4 flex items-center gap-px'>
-                  {[...Array(200)].map((_, i) => (
-                    <div
-                      key={i}
-                      className='w-px'
-                      style={{
-                        height: `${Math.random() * 100}%`,
-                        backgroundColor: `hsla(${Math.floor(Math.random() * 360)}, 70%, 50%, 0.2)`
-                      }}
-                    />
-                  ))}
+                <AudioWaveform videoRef={videoRef} />
+
                 </div>
               </div>
             </div>
@@ -206,8 +200,12 @@ const MeetingNotes: React.FC<Props> = ({ transcript, mp4, eventDetails }) => {
                 </button>
               </div>
             </div>
+
+            
           </div>
+        
         </div>
+        <MeetingInsights transcript={transcript} eventDetails={eventDetails}/>
       </div>
     </div>
   )
