@@ -1,43 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react'
-import { Link, Bold, Italic, Underline } from 'lucide-react'
-
-interface Position {
-  x: number
-  y: number
-}
+import HoverToolbar, { Position } from './hoverToolbar'
 
 interface MenuState {
   show: boolean
   position: Position | null
-}
-
-const HoverToolbar: React.FC<{
-  onSelect: (command: string) => void
-  position: Position
-}> = ({ onSelect, position }) => {
-  const tools = [
-    { icon: Bold, value: 'bold' },
-    { icon: Italic, value: 'italic' },
-    { icon: Underline, value: 'underline' },
-    { icon: Link, value: 'link' }
-  ]
-
-  return (
-    <div
-      className='absolute bg-white shadow-lg rounded-full border border-gray-200 p-2 flex gap-1 z-50 w-fit'
-      style={{
-        top: `${position.y}px`,
-        left: `calc(${position.x}px + 70px)`,
-        transform: 'translate(-50%, -120%)'
-      }}
-    >
-      {tools.map(tool => (
-        <button key={tool.value} className='p-2 hover:bg-gray-100 rounded-full' onClick={() => onSelect(tool.value)}>
-          <tool.icon className='w-4 h-4' />
-        </button>
-      ))}
-    </div>
-  )
 }
 
 const InteractiveDoc: React.FC = () => {
@@ -59,9 +25,9 @@ const InteractiveDoc: React.FC = () => {
 
         if (startContainer.nodeType === Node.TEXT_NODE) {
           const tempRange = range.cloneRange()
-          tempRange.setEnd(tempRange.startContainer, tempRange.startOffset + 1) 
+          tempRange.setEnd(tempRange.startContainer, tempRange.startOffset + 1)
           rect = tempRange.getBoundingClientRect()
-          tempRange.detach() 
+          tempRange.detach()
         } else {
           rect = (startContainer as Element).getBoundingClientRect()
         }
@@ -84,7 +50,7 @@ const InteractiveDoc: React.FC = () => {
 
   useEffect(() => {
     document.addEventListener('selectionchange', handleSelectionChange)
-    
+
     return () => document.removeEventListener('selectionchange', handleSelectionChange)
   }, [hoverToolbar.show])
 
