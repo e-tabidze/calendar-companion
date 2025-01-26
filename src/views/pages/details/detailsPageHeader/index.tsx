@@ -37,7 +37,7 @@ const DetailsPageHeader: React.FC<Props> = ({ eventDetails }) => {
 
       <div className='flex items-center gap-4'>
         <div className='flex -space-x-2'>
-          {eventDetails?.event_data?.attendees.map((attendee: any) => (
+          {eventDetails?.event_data?.attendees?.map((attendee: any) => (
             <div
               key={attendee?.email}
               className='w-8 h-8 rounded-full bg-gray-200 border-2 border-white flex justify-center items-center'
