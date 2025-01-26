@@ -1,5 +1,6 @@
 'use client';
 import { useEffect, useState } from 'react';
+import {LandingComp} from "src/views/components/landing/landing";
 
 const MainPage = () => {
   const [message, setMessage] = useState('');
@@ -34,15 +35,9 @@ const MainPage = () => {
   };
 
   return (
-    <div>
-      <p>Status: {message}</p>
-      <input 
-        type="text" 
-        value={input} 
-        onChange={(e) => setInput(e.target.value)} 
-      />
-      <button onClick={sendMessage}>Send Message</button>
-    </div>
+      <div>
+        <LandingComp />
+      </div>
   );
 };
 
