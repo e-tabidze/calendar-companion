@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react'
-import { Link, Type, Bold, Italic, Underline, List, TextQuote, MessageSquare } from 'lucide-react'
+import { Link, Bold, Italic, Underline } from 'lucide-react'
 
 interface Position {
   x: number
@@ -23,12 +23,12 @@ const HoverToolbar: React.FC<{
   ]
 
   return (
-    <div 
-      className='fixed bg-white shadow-lg rounded-full border border-gray-200 p-2 flex gap-1 z-50 w-fit'
+    <div
+      className='absolute bg-white shadow-lg rounded-full border border-gray-200 p-2 flex gap-1 z-50 w-fit'
       style={{
-        bottom: `calc(100vh - ${position.y}px + 10px)`,
-        left: `${position.x}px`,
-        transform: 'translateX(-50%)'
+        top: `${position.y}px`,
+        left: `calc(${position.x}px + 70px)`,
+        transform: 'translate(-50%, -120%)'
       }}
     >
       {tools.map(tool => (
@@ -41,43 +41,53 @@ const HoverToolbar: React.FC<{
 }
 
 const InteractiveDoc: React.FC = () => {
-  const [hoverToolbar, setHoverToolbar] = useState<MenuState>({ show: false, position: null })
-  const editorRef = useRef<HTMLDivElement>(null)
+  const [hoverToolbar, setHoverToolbar] = useState<MenuState>({
+    show: false,
+    position: null
+  })
+
+  const selectionStartPosition = useRef<Position | null>(null) 
+
+  console.log(selectionStartPosition, 'selectionStartPosition')
 
   const handleSelectionChange = () => {
     const selection = window.getSelection()
     if (selection && !selection.isCollapsed) {
-      const range = selection.getRangeAt(0)
-      const rect = range.getBoundingClientRect()
-      
-      setHoverToolbar({
-        show: true,
-        position: {
-          x: rect.left,
-          y: rect.top
-        }
-      })
+      if (!hoverToolbar.show) {
+        const range = selection.getRangeAt(0)
+        const rect = range.getBoundingClientRect()
+        const x = rect.left + window.scrollX
+        const y = rect.top + window.scrollY
+
+        selectionStartPosition.current = { x, y }
+
+        setHoverToolbar({
+          show: true,
+          position: { x, y }
+        })
+      }
     } else {
       setHoverToolbar({ show: false, position: null })
+      selectionStartPosition.current = null
     }
   }
 
   useEffect(() => {
     document.addEventListener('selectionchange', handleSelectionChange)
     return () => document.removeEventListener('selectionchange', handleSelectionChange)
-  }, [])
+  }, [hoverToolbar.show])
 
   const applyFormat = (format: string) => {
-    if (format === 'h1' || format === 'h2' || format === 'h3') {
-      document.execCommand('formatBlock', false, format)
-    } else if (format === 'bullet') {
-      document.execCommand('insertUnorderedList')
-    } else if (format === 'quote') {
-      document.execCommand('formatBlock', false, 'blockquote')
-    } else if (format === 'bold' || format === 'italic' || format === 'underline') {
+    if (format === 'bold' || format === 'italic' || format === 'underline') {
       document.execCommand(format)
+    } else if (format === 'link') {
+      const url = prompt('Enter URL:')
+      if (url) {
+        document.execCommand('createLink', false, url)
+      }
     }
     setHoverToolbar({ show: false, position: null })
+    selectionStartPosition.current = null
   }
 
   return (
@@ -92,9 +102,8 @@ const InteractiveDoc: React.FC = () => {
       <div className='text-lg text-gray-400 focus:outline-none mt-3' contentEditable suppressContentEditableWarning>
         👉 Add a subtitle to let others know how this template should be used
       </div>
-      <div className='relative'>
+      <div className=''>
         <div
-          ref={editorRef}
           className='min-h-[200px] p-4 rounded-lg focus:outline-none'
           contentEditable
           suppressContentEditableWarning
