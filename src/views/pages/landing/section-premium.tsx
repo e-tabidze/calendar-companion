@@ -1,6 +1,3 @@
-import Image from 'next/image';
-
-
 export const PremiumSection = () => {
   return (
     <div>

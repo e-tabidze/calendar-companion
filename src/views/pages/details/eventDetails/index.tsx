@@ -1,5 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react'
-import { MoreHorizontal, Plus, ChevronUp, ChevronDown, Link, Type, Bold, Italic, Underline } from 'lucide-react'
+import React from 'react'
 import InteractiveDoc from '../interactiveDoc'
 
 interface Props {
@@ -18,7 +17,9 @@ const EventDetails: React.FC<Props> = ({ eventDetails }) => {
 
       <div className='flex-1'>
         <div className='flex items-center gap-3 mb-2'>
-          <img src='/api/placeholder/32/32' className='w-8 h-8 rounded-full' alt='' />
+          <div className='w-8 h-8 rounded-full bg-gray-200 border-2 border-white flex justify-center items-center'>
+            {eventDetails.event_data.creator.email?.charAt(0) || ''}
+          </div>
           <div>
             <span className='font-medium'>{eventDetails?.event_data?.creator?.email}</span>
             <span className='text-gray-600 ml-2'>Edited an agenda</span>

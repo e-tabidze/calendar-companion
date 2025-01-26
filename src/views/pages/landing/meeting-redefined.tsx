@@ -9,6 +9,7 @@ export const MeetingsRedefined = () => {
           <Image
             className="img-vertical"
             alt="meetingsImgVertical"
+            src=""
           />
         </div>
         <div className="meeting-redefined-paragraph">

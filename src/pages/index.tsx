@@ -4,7 +4,6 @@ import {LandingComp} from "src/views/components/landing/landing";
 
 const MainPage = () => {
   const [message, setMessage] = useState('');
-  const [input, setInput] = useState('');
   const workspaceID = 'myWorkspace1';
   
   useEffect(() => {
@@ -27,12 +26,14 @@ const MainPage = () => {
     };
   }, [workspaceID]);
 
-  const sendMessage = () => {
-    const socket = new WebSocket(`ws://localhost:5000/ws?workspace_id=${workspaceID}`);
-    socket.onopen = () => {
-      socket.send(input);
-    };
-  };
+  // const sendMessage = () => {
+  //   const socket = new WebSocket(`ws://localhost:5000/ws?workspace_id=${workspaceID}`);
+  //   socket.onopen = () => {
+  //     socket.send(input);
+  //   };
+  // };
+
+  console.log(message, 'message')
 
   return (
       <div>

@@ -8,7 +8,6 @@ interface Props {
 }
 
 const EventOverview: React.FC<Props> = ({ eventDetails }) => {
-  console.log(eventDetails, 'eventDetails')
 
   return (
     <div className='flex gap-4 mt-16'>

@@ -46,16 +46,26 @@ const InteractiveDoc: React.FC = () => {
     position: null
   })
 
-  const selectionStartPosition = useRef<Position | null>(null) 
-
-  console.log(selectionStartPosition, 'selectionStartPosition')
+  const selectionStartPosition = useRef<Position | null>(null)
 
   const handleSelectionChange = () => {
     const selection = window.getSelection()
     if (selection && !selection.isCollapsed) {
       if (!hoverToolbar.show) {
         const range = selection.getRangeAt(0)
-        const rect = range.getBoundingClientRect()
+
+        const startContainer = range.startContainer
+        let rect
+
+        if (startContainer.nodeType === Node.TEXT_NODE) {
+          const tempRange = range.cloneRange()
+          tempRange.setEnd(tempRange.startContainer, tempRange.startOffset + 1) 
+          rect = tempRange.getBoundingClientRect()
+          tempRange.detach() 
+        } else {
+          rect = (startContainer as Element).getBoundingClientRect()
+        }
+
         const x = rect.left + window.scrollX
         const y = rect.top + window.scrollY
 
@@ -74,6 +84,7 @@ const InteractiveDoc: React.FC = () => {
 
   useEffect(() => {
     document.addEventListener('selectionchange', handleSelectionChange)
+    
     return () => document.removeEventListener('selectionchange', handleSelectionChange)
   }, [hoverToolbar.show])
 
