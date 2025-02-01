@@ -163,12 +163,10 @@ const InteractiveDoc: React.FC = () => {
         case 'justifyLeft':
         case 'justifyCenter':
         case 'justifyRight': {
-          // Get the current block element
           const range = selection.getRangeAt(0)
           const block = range.commonAncestorContainer
           let targetElement = block.nodeType === Node.TEXT_NODE ? block.parentElement : (block as HTMLElement)
 
-          // Find the closest block-level parent if current element is not a block
           while (
             targetElement &&
             getComputedStyle(targetElement).display !== 'block' &&
@@ -178,22 +176,63 @@ const InteractiveDoc: React.FC = () => {
             targetElement = targetElement.parentElement
           }
 
-          // If no block element found, wrap in a div
           if (!targetElement || targetElement.tagName === 'BODY') {
             const div = document.createElement('div')
             range.surroundContents(div)
             targetElement = div
           }
 
-          // Apply alignment
           targetElement.style.textAlign =
             format === 'justifyLeft' ? 'left' : format === 'justifyCenter' ? 'center' : 'right'
           break
         }
 
-        case 'insertUnorderedList':
-          document.execCommand('insertUnorderedList')
+        case 'insertUnorderedList': {
+          const range = selection.getRangeAt(0)
+          const block = range.commonAncestorContainer
+          let targetElement = block.nodeType === Node.TEXT_NODE ? block.parentElement : (block as HTMLElement)
+
+          const existingList = targetElement.closest('ul')
+          if (existingList) {
+            const fragment = document.createDocumentFragment()
+            Array.from(existingList.children).forEach(li => {
+              const p = document.createElement('p')
+              p.innerHTML = li.innerHTML
+              fragment.appendChild(p)
+            })
+            
+            existingList.parentNode?.replaceChild(fragment, existingList)
+          } else {
+            const ul = document.createElement('ul')
+            ul.className = 'list-disc list-inside' 
+
+            const text = range.toString()
+            if (text) {
+              const lines = text.split('\n').filter(line => line.trim())
+              lines.forEach(line => {
+                const li = document.createElement('li')
+                li.textContent = line
+                ul.appendChild(li)
+              })
+            } else {
+              const li = document.createElement('li')
+              li.innerHTML = '<br>' 
+              ul.appendChild(li)
+            }
+
+            range.deleteContents()
+            range.insertNode(ul)
+
+            if (!text) {
+              const newRange = document.createRange()
+              newRange.setStart(ul.firstChild as Node, 0)
+              newRange.collapse(true)
+              selection.removeAllRanges()
+              selection.addRange(newRange)
+            }
+          }
           break
+        }
 
         case 'createLink': {
           const url = prompt('Enter URL:')
@@ -301,21 +340,27 @@ const InteractiveDoc: React.FC = () => {
         const range = selection.getRangeAt(0)
         const startContainer = range.startContainer
         let rect: DOMRect
-
+  
         if (startContainer.nodeType === Node.TEXT_NODE) {
-          const tempRange = range.cloneRange()
-          tempRange.setEnd(tempRange.startContainer, tempRange.startOffset + 1)
-          rect = tempRange.getBoundingClientRect()
-          tempRange.detach()
+          try {
+            const tempRange = range.cloneRange()
+            const nodeLength = startContainer.textContent?.length || 0
+            const endOffset = Math.min(tempRange.startOffset + 1, nodeLength)
+            tempRange.setEnd(tempRange.startContainer, endOffset)
+            rect = tempRange.getBoundingClientRect()
+            tempRange.detach()
+          } catch (error) {
+            rect = range.getBoundingClientRect()
+          }
         } else {
           rect = (startContainer as Element).getBoundingClientRect()
         }
-
+  
         const position = {
           x: rect.left + window.scrollX,
           y: rect.top + window.scrollY
         }
-
+  
         selectionStartPosition.current = position
         setHoverToolbar({ show: true, position })
       }
