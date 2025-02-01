@@ -10,6 +10,26 @@ const COMMANDS = [
 
 type BlockType = 'text' | 'h1' | 'h2' | 'bullet' | 'checklist'
 type CommandType = typeof COMMANDS[number]['value']
+type FormatType =
+  | 'bold'
+  | 'italic'
+  | 'underline'
+  | 'link'
+  | 'justifyLeft'
+  | 'justifyCenter'
+  | 'justifyRight'
+  | 'insertUnorderedList'
+  | 'createLink'
+  | 'insertImage'
+  | 'insertEmoji'
+  | 'insertBlock'
+  | 'strikethrough'
+  | 'superscript'
+  | 'subscript'
+  | 'heading'
+  | 'font'
+  | 'codeLanguage'
+  | 'askAI'
 
 interface MenuState {
   show: boolean
@@ -110,12 +130,133 @@ const InteractiveDoc: React.FC = () => {
       h2: () => document.execCommand('formatBlock', false, 'h2'),
       bullet: () => document.execCommand('insertUnorderedList'),
       checklist: () => {
-        // Implement checklist logic
+        const div = document.createElement('div')
+        div.className = 'flex items-center space-x-2'
+        div.innerHTML = `
+          <input type="checkbox" class="form-checkbox h-4 w-4" />
+          <div contenteditable="true" class="flex-1">${text || 'New item'}</div>
+        `
+        range.deleteContents()
+        range.insertNode(div)
       }
     }
 
     commands[command.value]()
     setCommandMenu(prev => ({ ...prev, show: false, position: null, filterText: '' }))
+  }, [])
+
+  const applyFormat = useCallback((format: FormatType) => {
+    const selection = window.getSelection()
+    if (!selection) return
+
+    try {
+      switch (format) {
+        case 'bold':
+        case 'italic':
+        case 'underline':
+        case 'strikethrough':
+        case 'superscript':
+        case 'subscript':
+          document.execCommand(format)
+          break
+
+        case 'justifyLeft':
+        case 'justifyCenter':
+        case 'justifyRight': {
+          // Get the current block element
+          const range = selection.getRangeAt(0)
+          const block = range.commonAncestorContainer
+          let targetElement = block.nodeType === Node.TEXT_NODE ? block.parentElement : (block as HTMLElement)
+
+          // Find the closest block-level parent if current element is not a block
+          while (
+            targetElement &&
+            getComputedStyle(targetElement).display !== 'block' &&
+            targetElement.tagName !== 'P' &&
+            targetElement.tagName !== 'DIV'
+          ) {
+            targetElement = targetElement.parentElement
+          }
+
+          // If no block element found, wrap in a div
+          if (!targetElement || targetElement.tagName === 'BODY') {
+            const div = document.createElement('div')
+            range.surroundContents(div)
+            targetElement = div
+          }
+
+          // Apply alignment
+          targetElement.style.textAlign =
+            format === 'justifyLeft' ? 'left' : format === 'justifyCenter' ? 'center' : 'right'
+          break
+        }
+
+        case 'insertUnorderedList':
+          document.execCommand('insertUnorderedList')
+          break
+
+        case 'createLink': {
+          const url = prompt('Enter URL:')
+          if (url) {
+            document.execCommand('createLink', false, url)
+            const link = selection.anchorNode?.parentElement
+            if (link?.tagName === 'A') {
+              link.setAttribute('target', '_blank')
+            }
+          }
+          break
+        }
+
+        case 'insertImage': {
+          const url = prompt('Enter image URL:')
+          if (url) {
+            document.execCommand('insertImage', false, url)
+          }
+          break
+        }
+
+        case 'insertEmoji': {
+          const emojis = ['😊', '👍', '❤️', '🎉', '🚀']
+          const emoji = prompt('Choose an emoji: ' + emojis.join(' '))
+          if (emoji) {
+            document.execCommand('insertText', false, emoji)
+          }
+          break
+        }
+
+        case 'heading': {
+          const range = selection.getRangeAt(0)
+          const container = range.commonAncestorContainer.parentElement
+          if (container) {
+            const isHeading = container.tagName === 'H1'
+            document.execCommand('formatBlock', false, isHeading ? 'p' : 'h1')
+          }
+          break
+        }
+
+        case 'font': {
+          const fonts = ['Arial', 'Times New Roman', 'Courier New', 'Georgia']
+          const font = prompt('Choose a font: ' + fonts.join(', '))
+          if (font) {
+            document.execCommand('fontName', false, font)
+          }
+          break
+        }
+
+        case 'askAI': {
+          console.log('AI assistant requested for:', selection.toString())
+          break
+        }
+      }
+    } catch (error) {
+      console.error('Error applying format:', error)
+    }
+
+    const keepOpenFormats: FormatType[] = ['font', 'askAI']
+    if (!keepOpenFormats.includes(format)) {
+      setHoverToolbar({ show: false, position: null })
+      selectionStartPosition.current = null
+    }
   }, [])
 
   const handleKeyDown = useCallback(
@@ -183,19 +324,6 @@ const InteractiveDoc: React.FC = () => {
       selectionStartPosition.current = null
     }
   }, [hoverToolbar.show])
-
-  const applyFormat = useCallback((format: string) => {
-    if (['bold', 'italic', 'underline'].includes(format)) {
-      document.execCommand(format)
-    } else if (format === 'link') {
-      const url = prompt('Enter URL:')
-      if (url) {
-        document.execCommand('createLink', false, url)
-      }
-    }
-    setHoverToolbar({ show: false, position: null })
-    selectionStartPosition.current = null
-  }, [])
 
   useEffect(() => {
     document.addEventListener('selectionchange', handleSelectionChange)

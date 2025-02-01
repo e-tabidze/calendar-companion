@@ -1,7 +1,6 @@
 import {
   Bold,
   Italic,
-  Link,
   Underline,
   Type,
   AlignLeft,
@@ -27,16 +26,9 @@ export interface Position {
 }
 
 const HoverToolbar: React.FC<{
-  onSelect: (command: string) => void
+  onSelect: (command: any) => void
   position: Position
 }> = ({ onSelect, position }) => {
-  const tools = [
-    { icon: Bold, value: 'bold' },
-    { icon: Italic, value: 'italic' },
-    { icon: Underline, value: 'underline' },
-    { icon: Link, value: 'link' }
-  ]
-
   const [showAdvanced, setShowAdvanced] = useState(false)
 
   return (
@@ -49,6 +41,7 @@ const HoverToolbar: React.FC<{
       }}
     >
       <div className='flex items-center space-x-1 p-1'>
+        {/* Text Formatting */}
         <button onClick={() => onSelect('bold')} className='p-1.5 hover:bg-gray-100 rounded' title='Bold'>
           <Bold size={16} />
         </button>
@@ -64,35 +57,19 @@ const HoverToolbar: React.FC<{
 
         <div className='w-px h-5 bg-gray-200 mx-1' />
 
+        {/* Alignment */}
         <button onClick={() => onSelect('justifyLeft')} className='p-1.5 hover:bg-gray-100 rounded' title='Align Left'>
           <AlignLeft size={16} />
         </button>
-        <button
-          onClick={() => onSelect('justifyCenter')}
-          className='p-1.5 hover:bg-gray-100 rounded'
-          title='Align Center'
-        >
+        <button onClick={() => onSelect('justifyCenter')} className='p-1.5 hover:bg-gray-100 rounded' title='Align Center'>
           <AlignCenter size={16} />
         </button>
-        <button
-          onClick={() => onSelect('justifyCenter')}
-          className='p-1.5 hover:bg-gray-100 rounded'
-          title='Align Center'
-        >
+        <button onClick={() => onSelect('justifyRight')} className='p-1.5 hover:bg-gray-100 rounded' title='Align Right'>
           <AlignRight size={16} />
         </button>
-        <button
-          onClick={() => onSelect('justifyRight')}
-          className='p-1.5 hover:bg-gray-100 rounded'
-          title='Align Right'
-        >
-          <List size={16} />
-        </button>
-        <button
-          onClick={() => onSelect('insertUnorderedList')}
-          className='p-1.5 hover:bg-gray-100 rounded'
-          title='Bullet List'
-        >
+
+        {/* Lists */}
+        <button onClick={() => onSelect('insertUnorderedList')} className='p-1.5 hover:bg-gray-100 rounded' title='Bullet List'>
           <List size={16} />
         </button>
 
@@ -102,25 +79,13 @@ const HoverToolbar: React.FC<{
         <button onClick={() => onSelect('createLink')} className='p-1.5 hover:bg-gray-100 rounded' title='Insert Link'>
           <Link2 size={16} />
         </button>
-        <button
-          onClick={() => onSelect('insertImage')}
-          className='p-1.5 hover:bg-gray-100 rounded'
-          title='Insert Image'
-        >
+        <button onClick={() => onSelect('insertImage')} className='p-1.5 hover:bg-gray-100 rounded' title='Insert Image'>
           <Image size={16} />
         </button>
-        <button
-          onClick={() => onSelect('insertEmoji')}
-          className='p-1.5 hover:bg-gray-100 rounded'
-          title='Insert Emoji'
-        >
+        <button onClick={() => onSelect('insertEmoji')} className='p-1.5 hover:bg-gray-100 rounded' title='Insert Emoji'>
           <SmilePlus size={16} />
         </button>
-        <button
-          onClick={() => onSelect('insertBlock')}
-          className='p-1.5 hover:bg-gray-100 rounded'
-          title='Insert Block'
-        >
+        <button onClick={() => onSelect('insertBlock')} className='p-1.5 hover:bg-gray-100 rounded' title='Insert Block'>
           <Plus size={16} />
         </button>
 
@@ -142,20 +107,13 @@ const HoverToolbar: React.FC<{
         </button>
       </div>
 
+      {/* Advanced Options */}
       {showAdvanced && (
         <div className='flex items-center space-x-1 p-1 border-t border-gray-200'>
-          <button
-            onClick={() => onSelect('strikethrough')}
-            className='p-1.5 hover:bg-gray-100 rounded'
-            title='Strikethrough'
-          >
+          <button onClick={() => onSelect('strikethrough')} className='p-1.5 hover:bg-gray-100 rounded' title='Strikethrough'>
             <Strikethrough size={16} />
           </button>
-          <button
-            onClick={() => onSelect('superscript')}
-            className='p-1.5 hover:bg-gray-100 rounded'
-            title='Superscript'
-          >
+          <button onClick={() => onSelect('superscript')} className='p-1.5 hover:bg-gray-100 rounded' title='Superscript'>
             <Superscript size={16} />
           </button>
           <button onClick={() => onSelect('subscript')} className='p-1.5 hover:bg-gray-100 rounded' title='Subscript'>
@@ -164,11 +122,7 @@ const HoverToolbar: React.FC<{
           <button onClick={() => onSelect('heading')} className='p-1.5 hover:bg-gray-100 rounded' title='Heading'>
             <Heading1 size={16} />
           </button>
-          <button
-            onClick={() => onSelect('codeLanguage')}
-            className='p-1.5 hover:bg-gray-100 rounded'
-            title='Code Language'
-          >
+          <button onClick={() => onSelect('codeLanguage')} className='p-1.5 hover:bg-gray-100 rounded' title='Code Language'>
             <Languages size={16} />
           </button>
         </div>
