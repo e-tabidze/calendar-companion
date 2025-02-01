@@ -101,46 +101,176 @@ const InteractiveDoc: React.FC = () => {
   const handleCommandSelect = useCallback((command: Command) => {
     const selection = window.getSelection()
     if (!selection) return
-
+  
     const range = selection.getRangeAt(0)
     const container = range.commonAncestorContainer as HTMLElement
     const targetBlock = container.nodeType === Node.TEXT_NODE ? container.parentElement : container
     const text = range.toString().trim().replace('/', '')
-
+  
     if (!targetBlock) return
-
+  
     const commands: Record<CommandType, () => void> = {
       h1: () => {
         const h1 = document.createElement('h1')
         h1.className = 'text-2xl font-bold mt-4'
         h1.textContent = text || 'Heading 1'
         h1.contentEditable = 'true'
-
+  
         const br = document.createElement('br')
         range.deleteContents()
         range.insertNode(h1)
         range.insertNode(br)
-
+  
         const newRange = document.createRange()
         newRange.selectNodeContents(h1)
         newRange.collapse(false)
         selection.removeAllRanges()
         selection.addRange(newRange)
       },
-      h2: () => document.execCommand('formatBlock', false, 'h2'),
-      bullet: () => document.execCommand('insertUnorderedList'),
-      checklist: () => {
-        const div = document.createElement('div')
-        div.className = 'flex items-center space-x-2'
-        div.innerHTML = `
-          <input type="checkbox" class="form-checkbox h-4 w-4" />
-          <div contenteditable="true" class="flex-1">${text || 'New item'}</div>
-        `
+      h2: () => {
+        const h2 = document.createElement('h2')
+        h2.className = 'text-xl font-bold mt-3'
+        h2.textContent = text || 'Heading 2'
+        h2.contentEditable = 'true'
+  
+        const br = document.createElement('br')
         range.deleteContents()
-        range.insertNode(div)
+        range.insertNode(h2)
+        range.insertNode(br)
+  
+        const newRange = document.createRange()
+        newRange.selectNodeContents(h2)
+        newRange.collapse(false)
+        selection.removeAllRanges()
+        selection.addRange(newRange)
+      },
+      bullet: () => {
+        // Find the closest existing list or checklist container to the current selection
+        const existingList = targetBlock.closest('ul')
+        const existingChecklist = targetBlock.closest('.flex.flex-col.gap-2')
+        
+        // Create new list
+        const ul = document.createElement('ul')
+        ul.className = 'list-disc list-inside my-2'
+  
+        if (existingChecklist) {
+          // Convert only this checklist item to bullet
+          const contentDiv = targetBlock.querySelector('[contenteditable="true"]')
+          const li = document.createElement('li')
+          li.contentEditable = 'true'
+          li.textContent = contentDiv?.textContent || ''
+          ul.appendChild(li)
+          
+          // Replace only the current checklist item
+          const checklistItem = targetBlock.closest('.flex.items-center.gap-2')
+          if (checklistItem) {
+            checklistItem.parentNode?.replaceChild(ul, checklistItem)
+          } else {
+            range.deleteContents()
+            range.insertNode(ul)
+          }
+        } else if (existingList) {
+          // If already in a bullet list, just add a new item
+          const li = document.createElement('li')
+          li.contentEditable = 'true'
+          li.textContent = text || ''
+          if (text) {
+            existingList.appendChild(li)
+          } else {
+            const referenceNode = targetBlock.closest('li')?.nextSibling
+            existingList.insertBefore(li, referenceNode || null)
+          }
+        } else {
+          // Create new bullet list
+          if (text) {
+            const lines = text.split('\n').filter(line => line.trim())
+            lines.forEach(line => {
+              const li = document.createElement('li')
+              li.textContent = line
+              li.contentEditable = 'true'
+              ul.appendChild(li)
+            })
+          } else {
+            const li = document.createElement('li')
+            li.innerHTML = '<br>'
+            li.contentEditable = 'true'
+            ul.appendChild(li)
+          }
+          range.deleteContents()
+          range.insertNode(ul)
+        }
+  
+        // Set cursor in the appropriate list item
+        const lastLi = ul.lastElementChild || existingList?.lastElementChild
+        if (lastLi) {
+          const newRange = document.createRange()
+          newRange.setStart(lastLi, 0)
+          newRange.collapse(true)
+          selection.removeAllRanges()
+          selection.addRange(newRange)
+        }
+      },
+      checklist: () => {
+        // Find the closest list or checklist container to the current selection
+        const existingList = targetBlock.closest('ul')
+        const existingChecklist = targetBlock.closest('.flex.flex-col.gap-2')
+  
+        const createChecklistItem = (content: string = '') => {
+          const itemDiv = document.createElement('div')
+          itemDiv.className = 'flex items-center gap-2'
+          itemDiv.innerHTML = `
+            <input type="checkbox" class="h-4 w-4 rounded border-gray-300">
+            <div contenteditable="true" class="flex-1">${content || '<br>'}</div>
+          `
+          return itemDiv
+        }
+  
+        if (existingList) {
+          // Convert only this bullet to checklist item
+          const listItem = targetBlock.closest('li')
+          if (listItem) {
+            const container = document.createElement('div')
+            container.className = 'flex flex-col gap-2 my-2'
+            container.appendChild(createChecklistItem(listItem.textContent || ''))
+            listItem.parentNode?.replaceChild(container, listItem)
+          }
+        } else if (!existingChecklist) {
+          // Create new checklist container
+          const container = document.createElement('div')
+          container.className = 'flex flex-col gap-2 my-2'
+          
+          if (text) {
+            const lines = text.split('\n').filter(line => line.trim())
+            lines.forEach(line => {
+              container.appendChild(createChecklistItem(line))
+            })
+          } else {
+            container.appendChild(createChecklistItem())
+          }
+          range.deleteContents()
+          range.insertNode(container)
+        } else {
+          // If already in a checklist, just add a new item after current
+          const currentItem = targetBlock.closest('.flex.items-center.gap-2')
+          const newItem = createChecklistItem(text)
+          if (currentItem) {
+            currentItem.parentNode?.insertBefore(newItem, currentItem.nextSibling)
+          }
+        }
+  
+        // Set cursor in the new checklist item
+        const container = targetBlock.closest('.flex.flex-col.gap-2')
+        const lastItem = container?.lastElementChild?.querySelector('[contenteditable="true"]')
+        if (lastItem) {
+          const newRange = document.createRange()
+          newRange.setStart(lastItem, 0)
+          newRange.collapse(true)
+          selection.removeAllRanges()
+          selection.addRange(newRange)
+        }
       }
     }
-
+  
     commands[command.value]()
     setCommandMenu(prev => ({ ...prev, show: false, position: null, filterText: '' }))
   }, [])
@@ -190,21 +320,21 @@ const InteractiveDoc: React.FC = () => {
         case 'insertUnorderedList': {
           const range = selection.getRangeAt(0)
           const block = range.commonAncestorContainer
-          let targetElement = block.nodeType === Node.TEXT_NODE ? block.parentElement : (block as HTMLElement)
+          let targetElement: any = block.nodeType === Node.TEXT_NODE ? block.parentElement : (block as HTMLElement)
 
           const existingList = targetElement.closest('ul')
           if (existingList) {
             const fragment = document.createDocumentFragment()
-            Array.from(existingList.children).forEach(li => {
+            Array.from(existingList.children).forEach((li: any) => {
               const p = document.createElement('p')
               p.innerHTML = li.innerHTML
               fragment.appendChild(p)
             })
-            
+
             existingList.parentNode?.replaceChild(fragment, existingList)
           } else {
             const ul = document.createElement('ul')
-            ul.className = 'list-disc list-inside' 
+            ul.className = 'list-disc list-inside'
 
             const text = range.toString()
             if (text) {
@@ -216,7 +346,7 @@ const InteractiveDoc: React.FC = () => {
               })
             } else {
               const li = document.createElement('li')
-              li.innerHTML = '<br>' 
+              li.innerHTML = '<br>'
               ul.appendChild(li)
             }
 
@@ -321,13 +451,73 @@ const InteractiveDoc: React.FC = () => {
       }
 
       if (e.key === 'Enter') {
-        const newBlock = {
-          id: Date.now().toString(),
-          type: 'text' as const,
-          content: ''
+        // Check if we're in a checklist item
+        const selection = window.getSelection()
+        if (!selection) return
+
+        const range = selection.getRangeAt(0)
+        const checklistItem = range.commonAncestorContainer.parentElement?.closest('.flex.items-center.gap-2')
+        const checklistContainer = checklistItem?.parentElement
+
+        if (checklistItem && checklistContainer) {
+          e.preventDefault() // Prevent default Enter behavior
+
+          // Create new checklist item
+          const newItem = document.createElement('div')
+          newItem.className = 'flex items-center gap-2'
+          newItem.innerHTML = `
+            <input type="checkbox" class="h-4 w-4 rounded border-gray-300">
+            <div contenteditable="true" class="flex-1"><br></div>
+          `
+
+          // Insert after current item
+          if (checklistItem.nextSibling) {
+            checklistContainer.insertBefore(newItem, checklistItem.nextSibling)
+          } else {
+            checklistContainer.appendChild(newItem)
+          }
+
+          // Move cursor to new item
+          const editableDiv = newItem.querySelector('[contenteditable="true"]')
+          if (editableDiv) {
+            const newRange = document.createRange()
+            newRange.setStart(editableDiv, 0)
+            newRange.collapse(true)
+            selection.removeAllRanges()
+            selection.addRange(newRange)
+          }
+        } else {
+          // Handle normal Enter key for non-checklist items
+          const newBlock = {
+            id: Date.now().toString(),
+            type: 'text' as const,
+            content: ''
+          }
+          const index = blocks.findIndex(b => b.id === blockId)
+          setBlocks(prev => [...prev.slice(0, index + 1), newBlock, ...prev.slice(index + 1)])
         }
-        const index = blocks.findIndex(b => b.id === blockId)
-        setBlocks(prev => [...prev.slice(0, index + 1), newBlock, ...prev.slice(index + 1)])
+      }
+
+      // Handle Backspace to remove empty checklist items
+      if (e.key === 'Backspace') {
+        const selection = window.getSelection()
+        if (!selection) return
+
+        const range = selection.getRangeAt(0)
+        const checklistItem = range.commonAncestorContainer.parentElement?.closest('.flex.items-center.gap-2')
+        const editableDiv = checklistItem?.querySelector('[contenteditable="true"]')
+
+        if (checklistItem && editableDiv && editableDiv.textContent?.trim() === '') {
+          const checklistContainer = checklistItem.parentElement
+          if (checklistContainer?.children.length === 1) {
+            // If it's the last item, remove the entire checklist
+            checklistContainer.remove()
+          } else {
+            // Remove just this item
+            checklistItem.remove()
+          }
+          e.preventDefault()
+        }
       }
     },
     [blocks]
@@ -340,7 +530,7 @@ const InteractiveDoc: React.FC = () => {
         const range = selection.getRangeAt(0)
         const startContainer = range.startContainer
         let rect: DOMRect
-  
+
         if (startContainer.nodeType === Node.TEXT_NODE) {
           try {
             const tempRange = range.cloneRange()
@@ -355,12 +545,12 @@ const InteractiveDoc: React.FC = () => {
         } else {
           rect = (startContainer as Element).getBoundingClientRect()
         }
-  
+
         const position = {
           x: rect.left + window.scrollX,
           y: rect.top + window.scrollY
         }
-  
+
         selectionStartPosition.current = position
         setHoverToolbar({ show: true, position })
       }
