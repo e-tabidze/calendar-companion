@@ -2,6 +2,8 @@ import React from 'react'
 import Icon from 'src/views/app/Icon'
 
 export const DefaultButton = ({ text, onClick, bg, className, textColor, type, disabled }: any) => {
+  console.log(bg, 'bg')
+  
   return (
     <button
       className={`${bg} rounded ${disabled ? 'opacity-60' : ''}  ${bg ? `${textColor}` : 'text-raisin-100'} ${

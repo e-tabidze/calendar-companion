@@ -9,7 +9,6 @@ import {
   List,
   Link2,
   Image,
-  SmilePlus,
   Plus,
   MoreHorizontal,
   Strikethrough,
@@ -19,6 +18,7 @@ import {
   Languages
 } from 'lucide-react'
 import { useState } from 'react'
+import EmojiPicker from '../emojiPicker'
 
 export interface Position {
   x: number
@@ -41,7 +41,6 @@ const HoverToolbar: React.FC<{
       }}
     >
       <div className='flex items-center space-x-1 p-1'>
-        {/* Text Formatting */}
         <button onClick={() => onSelect('bold')} className='p-1.5 hover:bg-gray-100 rounded' title='Bold'>
           <Bold size={16} />
         </button>
@@ -57,7 +56,6 @@ const HoverToolbar: React.FC<{
 
         <div className='w-px h-5 bg-gray-200 mx-1' />
 
-        {/* Alignment */}
         <button onClick={() => onSelect('justifyLeft')} className='p-1.5 hover:bg-gray-100 rounded' title='Align Left'>
           <AlignLeft size={16} />
         </button>
@@ -68,33 +66,29 @@ const HoverToolbar: React.FC<{
           <AlignRight size={16} />
         </button>
 
-        {/* Lists */}
         <button onClick={() => onSelect('insertUnorderedList')} className='p-1.5 hover:bg-gray-100 rounded' title='Bullet List'>
           <List size={16} />
         </button>
 
         <div className='w-px h-5 bg-gray-200 mx-1' />
 
-        {/* Insert Options */}
         <button onClick={() => onSelect('createLink')} className='p-1.5 hover:bg-gray-100 rounded' title='Insert Link'>
           <Link2 size={16} />
         </button>
         <button onClick={() => onSelect('insertImage')} className='p-1.5 hover:bg-gray-100 rounded' title='Insert Image'>
           <Image size={16} />
         </button>
-        <button onClick={() => onSelect('insertEmoji')} className='p-1.5 hover:bg-gray-100 rounded' title='Insert Emoji'>
-          <SmilePlus size={16} />
-        </button>
+   
+        <EmojiPicker /> 
         <button onClick={() => onSelect('insertBlock')} className='p-1.5 hover:bg-gray-100 rounded' title='Insert Block'>
           <Plus size={16} />
         </button>
 
         <div className='w-px h-5 bg-gray-200 mx-1' />
 
-        {/* AI and More Options */}
         <button
           onClick={() => onSelect('askAI')}
-          className='px-3 py-1.5 bg-orange-50 text-orange-600 hover:bg-orange-100 rounded text-sm font-medium'
+          className='px-3 py-1.5 bg-orange-50 text-orange-600 hover:bg-orange-100 rounded text-sm font-medium hover:text-white transition-all duration-300'
         >
           Ask to AI
         </button>
@@ -107,7 +101,6 @@ const HoverToolbar: React.FC<{
         </button>
       </div>
 
-      {/* Advanced Options */}
       {showAdvanced && (
         <div className='flex items-center space-x-1 p-1 border-t border-gray-200'>
           <button onClick={() => onSelect('strikethrough')} className='p-1.5 hover:bg-gray-100 rounded' title='Strikethrough'>

@@ -1,12 +1,6 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react'
 import HoverToolbar, { Position } from './hoverToolbar'
-
-const COMMANDS = [
-  { label: 'Heading 1', value: 'h1' },
-  { label: 'Heading 2', value: 'h2' },
-  { label: 'Bullet List', value: 'bullet' },
-  { label: 'Checklist', value: 'checklist' }
-] as const
+import CommandMenu, { Command, COMMANDS } from './commandMenu'
 
 type BlockType = 'text' | 'h1' | 'h2' | 'bullet' | 'checklist'
 type CommandType = typeof COMMANDS[number]['value']
@@ -42,44 +36,6 @@ interface Block {
   content: string
 }
 
-interface Command {
-  label: string
-  value: CommandType
-}
-
-interface CommandMenuProps {
-  position: Position | null
-  onSelect: (cmd: Command) => void
-  filterText: string
-}
-
-const CommandMenu: React.FC<CommandMenuProps> = ({ position, onSelect, filterText }) => {
-  const filteredCommands = COMMANDS.filter(cmd => cmd.label.toLowerCase().includes(filterText.toLowerCase()))
-
-  if (!filteredCommands.length || !position) return null
-
-  return (
-    <div
-      className='absolute bg-white shadow-lg rounded-lg border border-gray-200 w-48 z-50'
-      style={{
-        top: `${position.y + 24}px`,
-        left: `${position.x}px`,
-        transform: 'translate(-50%, 0)'
-      }}
-    >
-      {filteredCommands.map(cmd => (
-        <button
-          key={cmd.value}
-          className='w-full px-4 py-2 text-left hover:bg-gray-100 focus:outline-none'
-          onClick={() => onSelect(cmd)}
-        >
-          {cmd.label}
-        </button>
-      ))}
-    </div>
-  )
-}
-
 const InteractiveDoc: React.FC = () => {
   const [hoverToolbar, setHoverToolbar] = useState<MenuState>({
     show: false,
@@ -101,26 +57,26 @@ const InteractiveDoc: React.FC = () => {
   const handleCommandSelect = useCallback((command: Command) => {
     const selection = window.getSelection()
     if (!selection) return
-  
+
     const range = selection.getRangeAt(0)
     const container = range.commonAncestorContainer as HTMLElement
     const targetBlock = container.nodeType === Node.TEXT_NODE ? container.parentElement : container
     const text = range.toString().trim().replace('/', '')
-  
+
     if (!targetBlock) return
-  
+
     const commands: Record<CommandType, () => void> = {
       h1: () => {
         const h1 = document.createElement('h1')
         h1.className = 'text-2xl font-bold mt-4'
         h1.textContent = text || 'Heading 1'
         h1.contentEditable = 'true'
-  
+
         const br = document.createElement('br')
         range.deleteContents()
         range.insertNode(h1)
         range.insertNode(br)
-  
+
         const newRange = document.createRange()
         newRange.selectNodeContents(h1)
         newRange.collapse(false)
@@ -132,12 +88,12 @@ const InteractiveDoc: React.FC = () => {
         h2.className = 'text-xl font-bold mt-3'
         h2.textContent = text || 'Heading 2'
         h2.contentEditable = 'true'
-  
+
         const br = document.createElement('br')
         range.deleteContents()
         range.insertNode(h2)
         range.insertNode(br)
-  
+
         const newRange = document.createRange()
         newRange.selectNodeContents(h2)
         newRange.collapse(false)
@@ -145,23 +101,19 @@ const InteractiveDoc: React.FC = () => {
         selection.addRange(newRange)
       },
       bullet: () => {
-        // Find the closest existing list or checklist container to the current selection
         const existingList = targetBlock.closest('ul')
         const existingChecklist = targetBlock.closest('.flex.flex-col.gap-2')
-        
-        // Create new list
+
         const ul = document.createElement('ul')
         ul.className = 'list-disc list-inside my-2'
-  
+
         if (existingChecklist) {
-          // Convert only this checklist item to bullet
           const contentDiv = targetBlock.querySelector('[contenteditable="true"]')
           const li = document.createElement('li')
           li.contentEditable = 'true'
           li.textContent = contentDiv?.textContent || ''
           ul.appendChild(li)
-          
-          // Replace only the current checklist item
+
           const checklistItem = targetBlock.closest('.flex.items-center.gap-2')
           if (checklistItem) {
             checklistItem.parentNode?.replaceChild(ul, checklistItem)
@@ -170,7 +122,6 @@ const InteractiveDoc: React.FC = () => {
             range.insertNode(ul)
           }
         } else if (existingList) {
-          // If already in a bullet list, just add a new item
           const li = document.createElement('li')
           li.contentEditable = 'true'
           li.textContent = text || ''
@@ -181,7 +132,6 @@ const InteractiveDoc: React.FC = () => {
             existingList.insertBefore(li, referenceNode || null)
           }
         } else {
-          // Create new bullet list
           if (text) {
             const lines = text.split('\n').filter(line => line.trim())
             lines.forEach(line => {
@@ -199,8 +149,7 @@ const InteractiveDoc: React.FC = () => {
           range.deleteContents()
           range.insertNode(ul)
         }
-  
-        // Set cursor in the appropriate list item
+
         const lastLi = ul.lastElementChild || existingList?.lastElementChild
         if (lastLi) {
           const newRange = document.createRange()
@@ -211,10 +160,9 @@ const InteractiveDoc: React.FC = () => {
         }
       },
       checklist: () => {
-        // Find the closest list or checklist container to the current selection
         const existingList = targetBlock.closest('ul')
         const existingChecklist = targetBlock.closest('.flex.flex-col.gap-2')
-  
+
         const createChecklistItem = (content: string = '') => {
           const itemDiv = document.createElement('div')
           itemDiv.className = 'flex items-center gap-2'
@@ -224,9 +172,8 @@ const InteractiveDoc: React.FC = () => {
           `
           return itemDiv
         }
-  
+
         if (existingList) {
-          // Convert only this bullet to checklist item
           const listItem = targetBlock.closest('li')
           if (listItem) {
             const container = document.createElement('div')
@@ -235,10 +182,9 @@ const InteractiveDoc: React.FC = () => {
             listItem.parentNode?.replaceChild(container, listItem)
           }
         } else if (!existingChecklist) {
-          // Create new checklist container
           const container = document.createElement('div')
           container.className = 'flex flex-col gap-2 my-2'
-          
+
           if (text) {
             const lines = text.split('\n').filter(line => line.trim())
             lines.forEach(line => {
@@ -250,15 +196,13 @@ const InteractiveDoc: React.FC = () => {
           range.deleteContents()
           range.insertNode(container)
         } else {
-          // If already in a checklist, just add a new item after current
           const currentItem = targetBlock.closest('.flex.items-center.gap-2')
           const newItem = createChecklistItem(text)
           if (currentItem) {
             currentItem.parentNode?.insertBefore(newItem, currentItem.nextSibling)
           }
         }
-  
-        // Set cursor in the new checklist item
+
         const container = targetBlock.closest('.flex.flex-col.gap-2')
         const lastItem = container?.lastElementChild?.querySelector('[contenteditable="true"]')
         if (lastItem) {
@@ -270,7 +214,7 @@ const InteractiveDoc: React.FC = () => {
         }
       }
     }
-  
+
     commands[command.value]()
     setCommandMenu(prev => ({ ...prev, show: false, position: null, filterText: '' }))
   }, [])
@@ -385,11 +329,6 @@ const InteractiveDoc: React.FC = () => {
         }
 
         case 'insertEmoji': {
-          const emojis = ['😊', '👍', '❤️', '🎉', '🚀']
-          const emoji = prompt('Choose an emoji: ' + emojis.join(' '))
-          if (emoji) {
-            document.execCommand('insertText', false, emoji)
-          }
           break
         }
 
@@ -451,7 +390,6 @@ const InteractiveDoc: React.FC = () => {
       }
 
       if (e.key === 'Enter') {
-        // Check if we're in a checklist item
         const selection = window.getSelection()
         if (!selection) return
 
@@ -460,9 +398,8 @@ const InteractiveDoc: React.FC = () => {
         const checklistContainer = checklistItem?.parentElement
 
         if (checklistItem && checklistContainer) {
-          e.preventDefault() // Prevent default Enter behavior
+          e.preventDefault()
 
-          // Create new checklist item
           const newItem = document.createElement('div')
           newItem.className = 'flex items-center gap-2'
           newItem.innerHTML = `
@@ -470,14 +407,12 @@ const InteractiveDoc: React.FC = () => {
             <div contenteditable="true" class="flex-1"><br></div>
           `
 
-          // Insert after current item
           if (checklistItem.nextSibling) {
             checklistContainer.insertBefore(newItem, checklistItem.nextSibling)
           } else {
             checklistContainer.appendChild(newItem)
           }
 
-          // Move cursor to new item
           const editableDiv = newItem.querySelector('[contenteditable="true"]')
           if (editableDiv) {
             const newRange = document.createRange()
@@ -487,7 +422,6 @@ const InteractiveDoc: React.FC = () => {
             selection.addRange(newRange)
           }
         } else {
-          // Handle normal Enter key for non-checklist items
           const newBlock = {
             id: Date.now().toString(),
             type: 'text' as const,
@@ -498,7 +432,6 @@ const InteractiveDoc: React.FC = () => {
         }
       }
 
-      // Handle Backspace to remove empty checklist items
       if (e.key === 'Backspace') {
         const selection = window.getSelection()
         if (!selection) return
@@ -510,10 +443,8 @@ const InteractiveDoc: React.FC = () => {
         if (checklistItem && editableDiv && editableDiv.textContent?.trim() === '') {
           const checklistContainer = checklistItem.parentElement
           if (checklistContainer?.children.length === 1) {
-            // If it's the last item, remove the entire checklist
             checklistContainer.remove()
           } else {
-            // Remove just this item
             checklistItem.remove()
           }
           e.preventDefault()

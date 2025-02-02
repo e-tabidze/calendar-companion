@@ -15,7 +15,7 @@ const EventDetails: React.FC<Props> = ({ eventDetails }) => {
         </div>
       </div>
 
-      <div className='flex-1'>
+      <div className='flex-1 ml-4'>
         <div className='flex items-center gap-3 mb-2'>
           <div className='w-8 h-8 rounded-full bg-gray-200 border-2 border-white flex justify-center items-center'>
             {eventDetails.event_data.creator.email?.charAt(0) || ''}
