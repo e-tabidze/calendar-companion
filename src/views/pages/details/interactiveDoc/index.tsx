@@ -496,6 +496,8 @@ const InteractiveDoc: React.FC = () => {
     return () => document.removeEventListener('selectionchange', handleSelectionChange)
   }, [handleSelectionChange])
 
+  console.log(blocks, 'blocks')
+
   return (
     <div className='w-full'>
       <div

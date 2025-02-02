@@ -60,7 +60,6 @@ const LoginPage = () => {
   const authWithGoogle = () => {
     window.location.href = 'https://api.companyon.ai/api/auth/login/google'
 
-    console.log(Cookie.get('AccessToken'), 'Cookie.get')
     queryClient.invalidateQueries(['userInfo'])
 
     handleUserRedirection(userData, router)
