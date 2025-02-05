@@ -51,7 +51,7 @@ const InteractiveDoc: React.FC = () => {
     position: null,
     filterText: ''
   })
-  const [blocks, setBlocks] = useState<Block[]>([{ id: '1', type: 'text', content: '' }])
+  const [blocks, setBlocks] = useState<Block[]>([])
   const selectionStartPosition = useRef<Position | null>(null)
 
   const handleCommandSelect = useCallback((command: Command) => {
@@ -425,7 +425,7 @@ const InteractiveDoc: React.FC = () => {
           const newBlock = {
             id: Date.now().toString(),
             type: 'text' as const,
-            content: ''
+            content: e.currentTarget.innerHTML
           }
           const index = blocks.findIndex(b => b.id === blockId)
           setBlocks(prev => [...prev.slice(0, index + 1), newBlock, ...prev.slice(index + 1)])
@@ -513,7 +513,7 @@ const InteractiveDoc: React.FC = () => {
       </div>
       <div>
         <div
-          className='min-h-[200px] p-4 rounded-lg focus:outline-none'
+          className='min-h-[200px] rounded-lg focus:outline-none'
           contentEditable
           suppressContentEditableWarning
           onKeyDown={e => handleKeyDown(e, 'content')}
