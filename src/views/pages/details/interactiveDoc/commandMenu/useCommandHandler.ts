@@ -35,7 +35,7 @@ type FormatType =
   | 'codeLanguage'
   | 'askAI'
 
-const useCommandHandler = (setCommandMenu: any) => {
+const useCommandHandler = (setCommandMenu: any, handleCreateNewBlock: any) => {
   const handleCommandSelect = useCallback((command: Command) => {
     const selection = window.getSelection()
     if (!selection) return
@@ -47,6 +47,9 @@ const useCommandHandler = (setCommandMenu: any) => {
 
     if (!targetBlock) return
 
+    const blockElement = targetBlock.closest('[data-block-id]')
+    const blockId = blockElement?.getAttribute('data-block-id')
+
     const commands: Record<CommandType, () => void> = {
       h1: () => {
         const h1 = document.createElement('h1')
@@ -54,10 +57,12 @@ const useCommandHandler = (setCommandMenu: any) => {
         h1.textContent = text || 'Heading 1'
         h1.contentEditable = 'true'
 
-        const br = document.createElement('br')
         range.deleteContents()
         range.insertNode(h1)
-        range.insertNode(br)
+
+        if (blockId) {
+          handleCreateNewBlock({ currentTarget: blockElement }, blockId)
+        }
 
         const newRange = document.createRange()
         newRange.selectNodeContents(h1)
@@ -71,10 +76,12 @@ const useCommandHandler = (setCommandMenu: any) => {
         h2.textContent = text || 'Heading 2'
         h2.contentEditable = 'true'
 
-        const br = document.createElement('br')
         range.deleteContents()
         range.insertNode(h2)
-        range.insertNode(br)
+
+        if (blockId) {
+          handleCreateNewBlock({ currentTarget: blockElement }, blockId)
+        }
 
         const newRange = document.createRange()
         newRange.selectNodeContents(h2)

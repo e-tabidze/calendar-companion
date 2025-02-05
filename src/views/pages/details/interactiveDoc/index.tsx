@@ -45,16 +45,6 @@ const InteractiveDoc: React.FC = () => {
 
   const selectionStartPosition = useRef<Position | null>(null)
 
-  const { handleCommandSelect } = useCommandHandler(setCommandMenu)
-
-  const { applyFormat } = useApplyFormat(setHoverToolbar, selectionStartPosition)
-
-  const { handleSelectionChange } = useHandleSelectionChange(hoverToolbar, setHoverToolbar, selectionStartPosition)
-
-  const handleBlockContent = (blockId: string, content: string) => {
-    setBlocks(prev => prev.map(block => (block.id === blockId ? { ...block, content } : block)))
-  }
-
   const handleCreateNewBlock = (e: any, blockId: string) => {
     const currentIndex = blocks.findIndex(b => b.id === blockId)
     const newBlock = {
@@ -81,6 +71,16 @@ const InteractiveDoc: React.FC = () => {
         ;(newBlockEl as HTMLElement).focus()
       }
     }, 0)
+  }
+
+  const { handleCommandSelect } = useCommandHandler(setCommandMenu, handleCreateNewBlock)
+
+  const { applyFormat } = useApplyFormat(setHoverToolbar, selectionStartPosition)
+
+  const { handleSelectionChange } = useHandleSelectionChange(hoverToolbar, setHoverToolbar, selectionStartPosition)
+
+  const handleBlockContent = (blockId: string, content: string) => {
+    setBlocks(prev => prev.map(block => (block.id === blockId ? { ...block, content } : block)))
   }
 
   const handleKeyDown = useCallback(
