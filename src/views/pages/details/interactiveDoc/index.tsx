@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, useCallback } from 'react'
+import React, { useState, useRef, useCallback, useEffect } from 'react'
 import HoverToolbar, { Position } from './hoverToolbar'
 import CommandMenu from './commandMenu'
 import useCommandHandler from './commandMenu/useCommandHandler'
@@ -7,15 +7,16 @@ import useHandleSelectionChange from './commandMenu/useHandleSelectionChange'
 
 type BlockType = 'text' | 'h1' | 'h2' | 'bullet' | 'checklist'
 
-interface MenuState {
-  show: boolean
-  position: Position | null
-}
-
 interface Block {
   id: string
   type: BlockType
   content: string
+  index: number
+}
+
+interface MenuState {
+  show: boolean
+  position: Position | null
 }
 
 const InteractiveDoc: React.FC = () => {
@@ -33,7 +34,15 @@ const InteractiveDoc: React.FC = () => {
     position: null,
     filterText: ''
   })
-  const [blocks, setBlocks] = useState<Block[]>([])
+  const [blocks, setBlocks] = useState<Block[]>([
+    {
+      id: '1',
+      type: 'text',
+      content: '',
+      index: 0
+    }
+  ])
+
   const selectionStartPosition = useRef<Position | null>(null)
 
   const { handleCommandSelect } = useCommandHandler(setCommandMenu)
@@ -41,6 +50,38 @@ const InteractiveDoc: React.FC = () => {
   const { applyFormat } = useApplyFormat(setHoverToolbar, selectionStartPosition)
 
   const { handleSelectionChange } = useHandleSelectionChange(hoverToolbar, setHoverToolbar, selectionStartPosition)
+
+  const handleBlockContent = (blockId: string, content: string) => {
+    setBlocks(prev => prev.map(block => (block.id === blockId ? { ...block, content } : block)))
+  }
+
+  const handleCreateNewBlock = (e: any, blockId: string) => {
+    const currentIndex = blocks.findIndex(b => b.id === blockId)
+    const newBlock = {
+      id: Date.now().toString(),
+      type: 'text' as const,
+      content: '',
+      index: currentIndex + 1
+    }
+
+    handleBlockContent(blockId, e.currentTarget.innerHTML)
+
+    setBlocks(prev => [
+      ...prev.slice(0, currentIndex + 1),
+      newBlock,
+      ...prev.slice(currentIndex + 1).map(block => ({
+        ...block,
+        index: block.index + 1
+      }))
+    ])
+
+    setTimeout(() => {
+      const newBlockEl = document.querySelector(`[data-block-id="${newBlock.id}"]`)
+      if (newBlockEl) {
+        ;(newBlockEl as HTMLElement).focus()
+      }
+    }, 0)
+  }
 
   const handleKeyDown = useCallback(
     (e: React.KeyboardEvent<HTMLDivElement>, blockId: string) => {
@@ -65,65 +106,8 @@ const InteractiveDoc: React.FC = () => {
       }
 
       if (e.key === 'Enter') {
-        const selection = window.getSelection()
-        if (!selection) return
-
-        const range = selection.getRangeAt(0)
-        const checklistItem = range.commonAncestorContainer.parentElement?.closest('.flex.items-center.gap-2')
-        const checklistContainer = checklistItem?.parentElement
-
-        if (checklistItem && checklistContainer) {
-          e.preventDefault()
-
-          const newItem = document.createElement('div')
-          newItem.className = 'flex items-center gap-2'
-          newItem.innerHTML = `
-            <input type="checkbox" class="h-4 w-4 rounded border-gray-300">
-            <div contenteditable="true" class="flex-1"><br></div>
-          `
-
-          if (checklistItem.nextSibling) {
-            checklistContainer.insertBefore(newItem, checklistItem.nextSibling)
-          } else {
-            checklistContainer.appendChild(newItem)
-          }
-
-          const editableDiv = newItem.querySelector('[contenteditable="true"]')
-          if (editableDiv) {
-            const newRange = document.createRange()
-            newRange.setStart(editableDiv, 0)
-            newRange.collapse(true)
-            selection.removeAllRanges()
-            selection.addRange(newRange)
-          }
-        } else {
-          const newBlock = {
-            id: Date.now().toString(),
-            type: 'text' as const,
-            content: e.currentTarget.innerHTML
-          }
-          const index = blocks.findIndex(b => b.id === blockId)
-          setBlocks(prev => [...prev.slice(0, index + 1), newBlock, ...prev.slice(index + 1)])
-        }
-      }
-
-      if (e.key === 'Backspace') {
-        const selection = window.getSelection()
-        if (!selection) return
-
-        const range = selection.getRangeAt(0)
-        const checklistItem = range.commonAncestorContainer.parentElement?.closest('.flex.items-center.gap-2')
-        const editableDiv = checklistItem?.querySelector('[contenteditable="true"]')
-
-        if (checklistItem && editableDiv && editableDiv.textContent?.trim() === '') {
-          const checklistContainer = checklistItem.parentElement
-          if (checklistContainer?.children.length === 1) {
-            checklistContainer.remove()
-          } else {
-            checklistItem.remove()
-          }
-          e.preventDefault()
-        }
+        e.preventDefault()
+        handleCreateNewBlock(e, blockId)
       }
     },
     [blocks]
@@ -135,7 +119,6 @@ const InteractiveDoc: React.FC = () => {
   }, [handleSelectionChange])
 
   console.log(blocks, 'blocks')
-
   return (
     <div className='w-full'>
       <div
@@ -146,16 +129,26 @@ const InteractiveDoc: React.FC = () => {
       >
         Add page title
       </div>
-      <div className='text-lg text-gray-500 focus:outline-none mt-3' contentEditable suppressContentEditableWarning>
+      <div
+        className='text-lg text-gray-500 focus:outline-none mt-3'
+        contentEditable
+        suppressContentEditableWarning
+        onInput={e => handleCreateNewBlock(e, 'content')}
+      >
         👉 Add a subtitle to let others know how this template should be used
       </div>
-      <div>
-        <div
-          className='min-h-[200px] rounded-lg focus:outline-none'
-          contentEditable
-          suppressContentEditableWarning
-          onKeyDown={e => handleKeyDown(e, 'content')}
-        />
+      <div className='min-h-[200px] rounded-lg focus:outline-none'>
+        {blocks.map(block => (
+          <div
+            key={block.id}
+            data-block-id={block.id}
+            className='min-h-[24px] mb-2 focus:outline-none'
+            contentEditable
+            suppressContentEditableWarning
+            onKeyDown={e => handleKeyDown(e, block.id)}
+            onInput={e => handleBlockContent(block.id, e.currentTarget.innerHTML)}
+          />
+        ))}
         {commandMenu.show && (
           <CommandMenu
             position={commandMenu.position}
