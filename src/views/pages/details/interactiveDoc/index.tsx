@@ -87,61 +87,30 @@ const InteractiveDoc: React.FC = () => {
   const handleContainerKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
     const selection = window.getSelection()
 
-    if (!selection || selection.isCollapsed) {
-      return // Do nothing if no selection or caret is not active
+    if (e.metaKey && e.key === 'a') {
+      e.preventDefault()
+      if (!selection || !containerRef.current) return
+
+      const range = document.createRange()
+      range.selectNodeContents(containerRef.current)
+      selection.removeAllRanges()
+      selection.addRange(range)
     }
 
     if (e.key === 'Backspace') {
-      e.preventDefault() // Prevent default behavior
+      if (selection?.rangeCount && selection.getRangeAt(0).toString().trim()) {
+        setBlocks([{ id: '1', type: 'text', content: '', index: 0 }])
 
-      // Identify the selected content
-      const range = selection.getRangeAt(0)
-      range.deleteContents() // Delete the selected content from the DOM
-
-      // Reset the blocks state with an empty block
-      setBlocks([{ id: '1', type: 'text', content: '', index: 0 }])
-      setHoverToolbar({show: false, position: null })
-
-
-      // Ensure focus is restored to the empty block
-      setTimeout(() => {
-        const firstBlock = document.querySelector('[data-block-id="1"]')
-        if (firstBlock) {
-          ;(firstBlock as HTMLElement).focus()
-        }
-      }, 0)
+        setTimeout(() => {
+          const firstBlock = document.querySelector('[data-block-id="1"]')
+          if (firstBlock) {
+            ;(firstBlock as HTMLElement).innerHTML = ''
+            ;(firstBlock as HTMLElement).focus()
+          }
+        }, 0)
+      }
     }
   }
-
-  // const handleKeyDown = useCallback(
-  //   (e: React.KeyboardEvent<HTMLDivElement>, blockId: string) => {
-  //     if (e.key === '/') {
-  //       e.preventDefault()
-  //       const selection = window.getSelection()
-  //       if (!selection) return
-
-  //       const range = selection.getRangeAt(0)
-  //       const rect = range.getBoundingClientRect()
-  //       const containerRect = e.currentTarget.getBoundingClientRect()
-
-  //       const x = rect.width === 0 ? containerRect.left + 100 : rect.left
-  //       const y = rect.height === 0 ? e.currentTarget.offsetTop - 404 : rect.bottom
-
-  //       setCommandMenu({
-  //         show: true,
-  //         position: { x, y: y + window.scrollY },
-  //         blockId,
-  //         filterText: ''
-  //       })
-  //     }
-
-  //     if (e.key === 'Enter') {
-  //       // e.preventDefault()
-  //       handleCreateNewBlock(e, blockId)
-  //     }
-  //   },
-  //   [blocks]
-  // )
 
   const handleKeyDown = useCallback(
     (e: React.KeyboardEvent<HTMLDivElement>, blockId: string) => {

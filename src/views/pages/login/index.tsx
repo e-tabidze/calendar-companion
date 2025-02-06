@@ -41,7 +41,7 @@ const LoginPage = () => {
         const minutes = TOKEN_TIME_MINUTES
         const token = response.result.data.bearer
         if (token) {
-          date.setTime(date.getTime() + minutes * 60 * 10999)
+          date.setTime(date.getTime() + minutes * 60 * 1000)
           Cookie.set(ACCESS_TOKEN_NAME, token, { expires: date, secure: true })
         }
 

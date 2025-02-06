@@ -21,7 +21,7 @@ const EmailVerifyPage = () => {
       onSuccess: (response: any) => {
         const date = new Date()
         const minutes = TOKEN_TIME_MINUTES
-        date.setTime(date.getTime() + minutes * 60 * 10999)
+        date.setTime(date.getTime() + minutes * 60 * 1000);  // 1000ms = 1 second
         Cookie.set(ACCESS_TOKEN_NAME, response.result.data.bearer, { expires: date, secure: true })
         router.push('/getting-started')
       },
