@@ -206,6 +206,7 @@ const InteractiveDoc: React.FC = () => {
         ref={containerRef}
         className='min-h-[200px] rounded-lg focus:outline-none'
         onKeyDown={handleContainerKeyDown}
+        // contentEditable
       >
         {blocks.map(block => (
           <div
