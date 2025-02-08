@@ -122,7 +122,7 @@ const InteractiveDoc: React.FC = () => {
         containerRef.current!,
         NodeFilter.SHOW_ELEMENT,
         {
-          acceptNode: (node) => {
+          acceptNode: (node: any) => {
             if (node === containerRef.current) return NodeFilter.FILTER_SKIP
             if (!node.getAttribute('data-block-id')) return NodeFilter.FILTER_ACCEPT
             return NodeFilter.FILTER_SKIP
