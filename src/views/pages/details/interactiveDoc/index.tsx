@@ -46,136 +46,112 @@ const InteractiveDoc: React.FC = () => {
   const selectionStartPosition = useRef<Position | null>(null)
   const containerRef = useRef<HTMLDivElement>(null)
 
-  const handleCreateNewBlock = (e: any, blockId: string) => {
-    const currentIndex = blocks.findIndex(b => b.id === blockId)
-    const newBlock = {
-      id: Date.now().toString(),
-      type: 'text' as const,
-      content: '',
-      index: currentIndex + 1
+  const updateBlocksFromContainer = () => {
+    if (!containerRef.current) return
+
+    const divElements = containerRef.current.querySelectorAll('div[data-block-id]')
+    const newBlocks: Block[] = Array.from(divElements).map((div, index) => ({
+      id: div.getAttribute('data-block-id') || Date.now().toString(),
+      type: 'text',
+      content: div.innerHTML,
+      index
+    }))
+
+    if (newBlocks.length === 0) {
+      newBlocks.push({
+        id: '1',
+        type: 'text',
+        content: containerRef.current.innerHTML,
+        index: 0
+      })
     }
 
-    handleBlockContent(blockId, e.currentTarget.innerHTML)
-
-    setBlocks(prev => [
-      ...prev.slice(0, currentIndex + 1),
-      newBlock,
-      ...prev.slice(currentIndex + 1).map(block => ({
-        ...block,
-        index: block.index + 1
-      }))
-    ])
-
-    setTimeout(() => {
-      const newBlockEl = document.querySelector(`[data-block-id="${newBlock.id}"]`)
-      if (newBlockEl) {
-        ;(newBlockEl as HTMLElement).focus()
-      }
-    }, 0)
+    setBlocks(newBlocks)
   }
 
-  const { handleCommandSelect } = useCommandHandler(setCommandMenu, handleCreateNewBlock)
+  const debouncedUpdateBlocks = useCallback(
+    debounce(() => updateBlocksFromContainer(), 300),
+    []
+  )
 
-  const { applyFormat } = useApplyFormat(setHoverToolbar, selectionStartPosition)
-
-  const { handleSelectionChange } = useHandleSelectionChange(hoverToolbar, setHoverToolbar, selectionStartPosition)
-
-  const handleBlockContent = (blockId: string, content: string) => {
-    setBlocks(prev => prev.map(block => (block.id === blockId ? { ...block, content } : block)))
-  }
-
-  const handleContainerKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+  const handleContainerKeyDown = useCallback((e: React.KeyboardEvent<HTMLDivElement>) => {
     const selection = window.getSelection()
+    if (!selection || !containerRef.current) return
+
+    if (e.key === '/') {
+      e.preventDefault()
+      const range = selection.getRangeAt(0)
+      const rect = range.getBoundingClientRect()
+      const containerRect = e.currentTarget.getBoundingClientRect()
+
+      let currentBlock = range.startContainer.parentElement
+      let blockId = currentBlock?.getAttribute('data-block-id')
+      
+      if (!blockId) {
+        blockId = Date.now().toString()
+        currentBlock?.setAttribute('data-block-id', blockId)
+      }
+
+      setCommandMenu({
+        show: true,
+        position: {
+          x: rect.width === 0 ? containerRect.left + 100 : rect.left,
+          y: rect.bottom + window.scrollY
+        },
+        blockId,
+        filterText: ''
+      })
+    }
 
     if (e.metaKey && e.key === 'a') {
       e.preventDefault()
-      if (!selection || !containerRef.current) return
-
       const range = document.createRange()
       range.selectNodeContents(containerRef.current)
       selection.removeAllRanges()
       selection.addRange(range)
     }
 
-    if (e.key === 'Backspace') {
-      if (selection?.rangeCount && selection.getRangeAt(0).toString().trim()) {
-        setBlocks([{ id: '1', type: 'text', content: '', index: 0 }])
+    debouncedUpdateBlocks()
+  }, [])
 
-        setTimeout(() => {
-          const firstBlock = document.querySelector('[data-block-id="1"]')
-          if (firstBlock) {
-            ;(firstBlock as HTMLElement).innerHTML = ''
-            ;(firstBlock as HTMLElement).focus()
+  const handleContainerInput = useCallback(() => {
+    if (!containerRef.current) return
+
+    const ensureBlockIds = () => {
+      const walker = document.createTreeWalker(
+        containerRef.current!,
+        NodeFilter.SHOW_ELEMENT,
+        {
+          acceptNode: (node) => {
+            if (node === containerRef.current) return NodeFilter.FILTER_SKIP
+            if (!node.getAttribute('data-block-id')) return NodeFilter.FILTER_ACCEPT
+            return NodeFilter.FILTER_SKIP
           }
-        }, 0)
+        }
+      )
+
+      let node
+      while ((node = walker.nextNode())) {
+        const element = node as Element
+        if (!element.getAttribute('data-block-id')) {
+          element.setAttribute('data-block-id', Date.now().toString())
+        }
       }
     }
-  }
 
-  const handleKeyDown = useCallback(
-    (e: React.KeyboardEvent<HTMLDivElement>, blockId: string) => {
-      if (e.key === '/') {
-        e.preventDefault()
-        const selection = window.getSelection()
-        if (!selection) return
+    ensureBlockIds()
+    debouncedUpdateBlocks()
+  }, [])
 
-        const range = selection.getRangeAt(0)
-        const rect = range.getBoundingClientRect()
-        const containerRect = e.currentTarget.getBoundingClientRect()
+  const { handleCommandSelect } = useCommandHandler(setCommandMenu, () => {
+    debouncedUpdateBlocks()
+  })
 
-        const x = rect.width === 0 ? containerRect.left + 100 : rect.left
-        const y = rect.height === 0 ? e.currentTarget.offsetTop - 404 : rect.bottom
-
-        setCommandMenu({
-          show: true,
-          position: { x, y: y + window.scrollY },
-          blockId,
-          filterText: ''
-        })
-      }
-
-      if (e.key === 'Enter') {
-        e.preventDefault()
-        const targetBlock = e.currentTarget
-        const ul = targetBlock.querySelector('ul')
-
-        if (ul) {
-          const li = document.createElement('li')
-          li.contentEditable = 'true'
-          li.innerHTML = '<br>'
-          ul.appendChild(li)
-
-          const selection = window.getSelection()
-          const range = document.createRange()
-          range.setStart(li, 0)
-          range.collapse(true)
-          selection?.removeAllRanges()
-          selection?.addRange(range)
-        } else {
-          handleCreateNewBlock(e, blockId)
-        }
-      }
-
-      if (e.key === 'Backspace') {
-        const selection = window.getSelection()
-        if (!selection) return
-
-        const range = selection.getRangeAt(0)
-        const checklistItem = range.commonAncestorContainer.parentElement?.closest('.flex.items-center.gap-2')
-        const editableDiv = checklistItem?.querySelector('[contenteditable="true"]')
-
-        if (checklistItem && editableDiv && editableDiv.textContent?.trim() === '') {
-          const checklistContainer = checklistItem.parentElement
-          if (checklistContainer?.children.length === 1) {
-            checklistContainer.remove()
-          } else {
-            checklistItem.remove()
-          }
-          e.preventDefault()
-        }
-      }
-    },
-    [blocks]
+  const { applyFormat } = useApplyFormat(setHoverToolbar, selectionStartPosition)
+  const { handleSelectionChange } = useHandleSelectionChange(
+    hoverToolbar,
+    setHoverToolbar,
+    selectionStartPosition
   )
 
   useEffect(() => {
@@ -183,55 +159,65 @@ const InteractiveDoc: React.FC = () => {
     return () => document.removeEventListener('selectionchange', handleSelectionChange)
   }, [handleSelectionChange])
 
-  console.log(blocks, 'blocks')
+  useEffect(() => {
+    if (containerRef.current && containerRef.current.children.length === 0) {
+      const div = document.createElement('div')
+      div.setAttribute('data-block-id', '1')
+      div.innerHTML = '<br>'
+      containerRef.current.appendChild(div)
+    }
+  }, [])
+
+  console.log('Current blocks:', blocks)
+
   return (
-    <div className='w-full'>
+    <div className="w-full">
       <div
-        className='text-4xl font-bold text-gray-500 focus:outline-none'
+        className="text-4xl font-bold text-gray-500 focus:outline-none"
         contentEditable
         suppressContentEditableWarning
-        onKeyDown={e => handleKeyDown(e, 'title')}
       >
         Add page title
       </div>
       <div
-        className='text-lg text-gray-500 focus:outline-none mt-3'
+        className="text-lg text-gray-500 focus:outline-none mt-3"
         contentEditable
         suppressContentEditableWarning
-        onInput={e => handleCreateNewBlock(e, 'content')}
       >
         👉 Add a subtitle to let others know how this template should be used
       </div>
       <div
         ref={containerRef}
-        className='min-h-[200px] rounded-lg focus:outline-none'
+        className="min-h-[200px] rounded-lg focus:outline-none p-4"
+        contentEditable
+        suppressContentEditableWarning
         onKeyDown={handleContainerKeyDown}
-        // contentEditable
-      >
-        {blocks.map(block => (
-          <div
-            key={block.id}
-            data-block-id={block.id}
-            className='min-h-[24px] mb-2 focus:outline-none'
-            contentEditable
-            suppressContentEditableWarning
-            onKeyDown={e => handleKeyDown(e, block.id)}
-            onInput={e => handleBlockContent(block.id, e.currentTarget.innerHTML)}
-          />
-        ))}
-        {commandMenu.show && (
-          <CommandMenu
-            position={commandMenu.position}
-            onSelect={handleCommandSelect}
-            filterText={commandMenu.filterText}
-          />
-        )}
-        {hoverToolbar.show && hoverToolbar.position && (
-          <HoverToolbar onSelect={applyFormat} position={hoverToolbar.position} />
-        )}
-      </div>
+        onInput={handleContainerInput}
+      />
+      {commandMenu.show && (
+        <CommandMenu
+          position={commandMenu.position}
+          onSelect={handleCommandSelect}
+          filterText={commandMenu.filterText}
+        />
+      )}
+      {hoverToolbar.show && hoverToolbar.position && (
+        <HoverToolbar onSelect={applyFormat} position={hoverToolbar.position} />
+      )}
     </div>
   )
+}
+
+function debounce(func: Function, wait: number) {
+  let timeout: NodeJS.Timeout
+  return function executedFunction(...args: any[]) {
+    const later = () => {
+      clearTimeout(timeout)
+      func(...args)
+    }
+    clearTimeout(timeout)
+    timeout = setTimeout(later, wait)
+  }
 }
 
 export default InteractiveDoc
