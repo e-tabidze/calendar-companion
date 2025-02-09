@@ -11,7 +11,7 @@ const Details = () => {
 
   const { slug } = router.query
 
-  const { eventDetails, isEventDataLoading, isEventDataError, meetingJson } = useDetails(slug ? slug[0] : '')
+  const { eventDetails, isEventDataLoading, isEventDataError, meetingJson } = useDetails(String(slug))
 
   if (isEventDataLoading) {
     return <div>Loading...</div>

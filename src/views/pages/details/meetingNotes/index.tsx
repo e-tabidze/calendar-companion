@@ -114,16 +114,18 @@ const MeetingNotes: React.FC<Props> = ({ transcript, mp4, eventDetails }) => {
           <Typography type='subtitle' color='light' className='text-[13px'>
             {eventDetails.which_bot}
           </Typography>
-          <Typography type='subtitle' color='light' className='text-[13px] text-grey-90'>
-            Generated a transcript {format(parseISO(eventDetails.created_at), 'MMM d · hh:mmaaa')}
-          </Typography>
+          {eventDetails.created_at &&  (
+            <Typography type='subtitle' color='light' className='text-[13px] text-grey-90'>
+              Generated a transcript {format(parseISO(eventDetails.created_at), 'MMM d · hh:mmaaa')}
+            </Typography>
+          )}
         </div>
 
         <div className='bg-gray-50 p-4 rounded-lg'>
           <div className='max-w-7xl mx-auto bg-white rounded-lg shadow-sm p-6'>
             <div className=''>
               <Typography type='h4' color='dark' className='font-medium'>
-                {eventDetails.event_data.summary}
+                {eventDetails.event_data?.summary}
               </Typography>
               <div className='text-gray-500 mt-1'>
                 Duration:{' '}
@@ -136,8 +138,7 @@ const MeetingNotes: React.FC<Props> = ({ transcript, mp4, eventDetails }) => {
 
               <div className='mt-4 mb-6'>
                 <div className='w-full h-4 flex items-center gap-px'>
-                <AudioWaveform videoRef={videoRef} />
-
+                  <AudioWaveform videoRef={videoRef} />
                 </div>
               </div>
             </div>
@@ -200,12 +201,9 @@ const MeetingNotes: React.FC<Props> = ({ transcript, mp4, eventDetails }) => {
                 </button>
               </div>
             </div>
-
-            
           </div>
-        
         </div>
-        <MeetingInsights transcript={transcript} eventDetails={eventDetails}/>
+        <MeetingInsights transcript={transcript} eventDetails={eventDetails} />
       </div>
     </div>
   )

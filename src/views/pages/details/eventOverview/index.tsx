@@ -8,7 +8,6 @@ interface Props {
 }
 
 const EventOverview: React.FC<Props> = ({ eventDetails }) => {
-
   return (
     <div className='flex gap-4 mt-16'>
       <Icon svgPath='action1' width={22} height={22} className='hidden lg:inline-block' />
@@ -18,29 +17,33 @@ const EventOverview: React.FC<Props> = ({ eventDetails }) => {
             <div className='flex items-center gap-4'>
               <Icon svgPath='action1' width={22} height={22} className='inline-block lg:hidden' />
               <div className='w-8 h-8 rounded-full bg-gray-200 border-2 border-white flex justify-center items-center'>
-                {eventDetails.event_data.creator.email?.charAt(0) || ''}
+                {eventDetails.event_data?.creator.email?.charAt(0) || ''}
               </div>
             </div>
             <Typography type='subtitle' color='light' className='text-[13px'>
-              {eventDetails.event_data.creator.email}
+              {eventDetails.event_data?.creator.email}
             </Typography>
-            <Typography type='subtitle' color='light' className='text-[13px] text-grey-90'>
-              Created a meeting {format(parseISO(eventDetails.event_data.created), 'MMM d · hh:mmaaa')}
-            </Typography>
+            {eventDetails.event_data?.created && (
+              <Typography type='subtitle' color='light' className='text-[13px] text-grey-90'>
+                Created a meeting {format(parseISO(eventDetails.event_data.created), 'MMM d · hh:mmaaa')}
+              </Typography>
+            )}
           </div>
 
           <div className='mt-6 bg-gray-50 rounded-lg'>
             <div className='p-6'>
               <div className='border-l-[3px] rounded-sm border-primary-100 pl-4'>
-                <Typography type='subtitle' color='light'>
-                  {formatTimeDifferenceHours(
-                    eventDetails.event_data.start.dateTime,
-                    `${eventDetails.event_data.start.dateTime?.split('T')[1]}`
-                  )}
-                </Typography>
+                {eventDetails.event_data?.start && (
+                  <Typography type='subtitle' color='light'>
+                    {formatTimeDifferenceHours(
+                      eventDetails.event_data.start.dateTime,
+                      `${eventDetails.event_data.start.dateTime?.split('T')[1]}`
+                    )}
+                  </Typography>
+                )}
 
                 <Typography type='h4' color='dark' className='font-medium'>
-                  {eventDetails.event_data.summary}
+                  {eventDetails.event_data?.summary}
                 </Typography>
               </div>
             </div>
@@ -51,19 +54,23 @@ const EventOverview: React.FC<Props> = ({ eventDetails }) => {
               <div className='flex gap-4 bg-white p-4 min-h-[85px] rounded-lg w-full lg:w-5/12'>
                 <Icon svgPath='videoLarge' width={44} height={44} />
                 <div>
-                  <Typography type='subtitle' color='light' className='text-[13px] text-grey-90'>
-                    {format(parseISO(eventDetails.event_data.start.dateTime), 'MMM d, hh:mmaaa')} -{' '}
-                    {format(parseISO(eventDetails.event_data.end.dateTime), 'MMM d, hh:mmaaa')}{' '}
-                    {eventDetails?.event_data?.recurrence ? '·' : ''} {eventDetails?.event_data?.recurrence}
-                  </Typography>
-                  <a
-                    href={eventDetails.event_data.hangoutLink}
-                    className='text-primary-100 hover:underline'
-                    target='_blank'
-                    rel='noopener noreferrer'
-                  >
-                    {eventDetails.event_data.hangoutLink}
-                  </a>
+                  {eventDetails.event_data?.start && (
+                    <Typography type='subtitle' color='light' className='text-[13px] text-grey-90'>
+                      {format(parseISO(eventDetails.event_data.start.dateTime), 'MMM d, hh:mmaaa')} -{' '}
+                      {format(parseISO(eventDetails.event_data.end.dateTime), 'MMM d, hh:mmaaa')}{' '}
+                      {eventDetails?.event_data?.recurrence ? '·' : ''} {eventDetails?.event_data?.recurrence}
+                    </Typography>
+                  )}
+                  {eventDetails.event_data?.hangoutLink && (
+                    <a
+                      href={eventDetails.event_data.hangoutLink}
+                      className='text-primary-100 hover:underline'
+                      target='_blank'
+                      rel='noopener noreferrer'
+                    >
+                      {eventDetails.event_data.hangoutLink}
+                    </a>
+                  )}
                 </div>
               </div>
 

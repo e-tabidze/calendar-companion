@@ -24,11 +24,13 @@ const DetailsPageHeader: React.FC<Props> = ({ eventDetails }) => {
         />
 
         <div>
-          <Typography type='subtitle' color='light' className='text-[13px] text-grey-90'>
-            {format(parseISO(eventDetails.event_data.start.dateTime), 'MMM d, hh:mmaaa')} -{' '}
-            {format(parseISO(eventDetails.event_data.end.dateTime), 'MMM d, hh:mmaaa')}{' '}
-            {eventDetails?.event_data?.recurrence ? '·' : ''} {eventDetails?.event_data?.recurrence}
-          </Typography>
+          {eventDetails.event_data && (
+            <Typography type='subtitle' color='light' className='text-[13px] text-grey-90'>
+              {format(parseISO(eventDetails.event_data.start.dateTime), 'MMM d, hh:mmaaa')} -{' '}
+              {format(parseISO(eventDetails.event_data.end.dateTime), 'MMM d, hh:mmaaa')}{' '}
+              {eventDetails?.event_data?.recurrence ? '·' : ''} {eventDetails?.event_data?.recurrence}
+            </Typography>
+          )}
           <Typography type='subtitle' className='text-left text-raisin-110 text-md'>
             {eventDetails?.event_title}
           </Typography>

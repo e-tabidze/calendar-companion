@@ -4,6 +4,8 @@ import CommandMenu from './commandMenu'
 import useCommandHandler from './commandMenu/useCommandHandler'
 import useApplyFormat from './commandMenu/useApplyFormat'
 import useHandleSelectionChange from './commandMenu/useHandleSelectionChange'
+import useDocSocket from './useDocSocket'
+import { useRouter } from 'next/router'
 
 type BlockType = 'text' | 'h1' | 'h2' | 'bullet' | 'checklist'
 
@@ -46,6 +48,37 @@ const InteractiveDoc: React.FC = () => {
   const selectionStartPosition = useRef<Position | null>(null)
   const containerRef = useRef<HTMLDivElement>(null)
 
+  const handleIncomingMessage = (newBlocks: Block[]) => {
+    setBlocks(newBlocks)
+  }
+
+  const router = useRouter()
+
+  const { slug } = router.query
+
+  // Initialize WebSocket connection
+  const { sendMessage } = useDocSocket({
+    detailsId: String(slug),
+    onMessageReceived: handleIncomingMessage
+  })
+
+  // Send updated block content to the server
+  const broadcastChanges = useCallback(() => {
+    if (!containerRef.current) return
+
+    const updatedBlocks: Block[] = Array.from(containerRef.current.querySelectorAll('div[data-block-id]')).map(
+      (div, index) => ({
+        id: div.getAttribute('data-block-id') || `${Date.now()}-${index}`,
+        type: 'text',
+        content: div.innerHTML,
+        index
+      })
+    )
+
+    setBlocks(updatedBlocks)
+    sendMessage(updatedBlocks) // Send changes to the server
+  }, [sendMessage])
+
   const updateBlocksFromContainer = () => {
     if (!containerRef.current) return
 
@@ -86,7 +119,7 @@ const InteractiveDoc: React.FC = () => {
 
       let currentBlock = range.startContainer.parentElement
       let blockId = currentBlock?.getAttribute('data-block-id')
-      
+
       if (!blockId) {
         blockId = Date.now().toString()
         currentBlock?.setAttribute('data-block-id', blockId)
@@ -118,17 +151,13 @@ const InteractiveDoc: React.FC = () => {
     if (!containerRef.current) return
 
     const ensureBlockIds = () => {
-      const walker = document.createTreeWalker(
-        containerRef.current!,
-        NodeFilter.SHOW_ELEMENT,
-        {
-          acceptNode: (node: any) => {
-            if (node === containerRef.current) return NodeFilter.FILTER_SKIP
-            if (!node.getAttribute('data-block-id')) return NodeFilter.FILTER_ACCEPT
-            return NodeFilter.FILTER_SKIP
-          }
+      const walker = document.createTreeWalker(containerRef.current!, NodeFilter.SHOW_ELEMENT, {
+        acceptNode: (node: any) => {
+          if (node === containerRef.current) return NodeFilter.FILTER_SKIP
+          if (!node.getAttribute('data-block-id')) return NodeFilter.FILTER_ACCEPT
+          return NodeFilter.FILTER_SKIP
         }
-      )
+      })
 
       let node
       while ((node = walker.nextNode())) {
@@ -139,20 +168,17 @@ const InteractiveDoc: React.FC = () => {
       }
     }
 
+    broadcastChanges()
     ensureBlockIds()
     debouncedUpdateBlocks()
-  }, [])
+  }, [broadcastChanges])
 
   const { handleCommandSelect } = useCommandHandler(setCommandMenu, () => {
     debouncedUpdateBlocks()
   })
 
   const { applyFormat } = useApplyFormat(setHoverToolbar, selectionStartPosition)
-  const { handleSelectionChange } = useHandleSelectionChange(
-    hoverToolbar,
-    setHoverToolbar,
-    selectionStartPosition
-  )
+  const { handleSelectionChange } = useHandleSelectionChange(hoverToolbar, setHoverToolbar, selectionStartPosition)
 
   useEffect(() => {
     document.addEventListener('selectionchange', handleSelectionChange)
@@ -171,24 +197,20 @@ const InteractiveDoc: React.FC = () => {
   console.log('Current blocks:', blocks)
 
   return (
-    <div className="w-full">
+    <div className='w-full'>
       <div
-        className="text-4xl font-bold text-gray-500 focus:outline-none"
+        className='text-4xl font-bold text-gray-500 focus:outline-none'
         contentEditable
         suppressContentEditableWarning
       >
         Add page title
       </div>
-      <div
-        className="text-lg text-gray-500 focus:outline-none mt-3"
-        contentEditable
-        suppressContentEditableWarning
-      >
+      <div className='text-lg text-gray-500 focus:outline-none mt-3' contentEditable suppressContentEditableWarning>
         👉 Add a subtitle to let others know how this template should be used
       </div>
       <div
         ref={containerRef}
-        className="min-h-[200px] rounded-lg focus:outline-none p-4"
+        className='min-h-[200px] rounded-lg focus:outline-none p-4'
         contentEditable
         suppressContentEditableWarning
         onKeyDown={handleContainerKeyDown}
