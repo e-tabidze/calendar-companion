@@ -23,7 +23,6 @@ const useDocSocket = ({ detailsId, onMessageReceived }: DocSocketOptions) => {
 
       socket.onmessage = (event) => {
         const data = JSON.parse(event.data)
-        console.log(data, 'data')
         onMessageReceived(data)
       }
 
