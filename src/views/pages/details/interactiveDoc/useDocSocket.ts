@@ -9,7 +9,7 @@ const useDocSocket = ({ detailsId, onMessageReceived }: DocSocketOptions) => {
   const socketRef = useRef<WebSocket | null>(null)
 
   useEffect(() => {
-    const socket = new WebSocket(`ws://127.0.0.1:5005/details?details_id=${detailsId}`)
+    const socket = new WebSocket(`wss://api.companyon.ai/details?details_id=${detailsId}`)
     socketRef.current = socket
 
     socket.onopen = () => {
