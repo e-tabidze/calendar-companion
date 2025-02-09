@@ -36,19 +36,29 @@ const InteractiveDoc: React.FC = () => {
 
   const { sendMessage } = useDocSocket({
     detailsId: String(slug),
-    onMessageReceived: setBlocks
+    onMessageReceived: (content: string) => {
+      if (containerRef.current && typeof content === 'string') {
+        containerRef.current.innerHTML = content
+      }
+    }
   })
+
+  const handleDocumentChange = useCallback(() => {
+    if (!containerRef.current) return
+    sendMessage(containerRef.current.innerHTML)
+  }, [sendMessage])
 
   const updateBlocks = useCallback(() => {
     if (!containerRef.current) return
 
-    const updatedBlocks: Block[] = Array.from(containerRef.current.querySelectorAll('div[data-block-id]'))
-      .map((div, index) => ({
+    const updatedBlocks: Block[] = Array.from(containerRef.current.querySelectorAll('div[data-block-id]')).map(
+      (div, index) => ({
         id: div.getAttribute('data-block-id') || `${Date.now()}-${index}`,
         type: 'text',
         content: div.innerHTML,
         index
-      }))
+      })
+    )
 
     if (updatedBlocks.length === 0) {
       updatedBlocks.push({
@@ -63,69 +73,46 @@ const InteractiveDoc: React.FC = () => {
     sendMessage(updatedBlocks)
   }, [sendMessage])
 
-  const debouncedUpdateBlocks = useCallback(
-    debounce(updateBlocks, 300),
-    [updateBlocks]
-  )
+  const debouncedUpdateBlocks = useCallback(debounce(updateBlocks, 300), [updateBlocks])
 
-  const handleContainerKeyDown = useCallback((e: React.KeyboardEvent<HTMLDivElement>) => {
-    const selection = window.getSelection()
-    if (!selection || !containerRef.current) return
+  const handleContainerKeyDown = useCallback(
+    (e: React.KeyboardEvent<HTMLDivElement>) => {
+      const selection = window.getSelection()
+      if (!selection || !containerRef.current) return
 
-    if (e.key === '/') {
-      e.preventDefault()
-      const range = selection.getRangeAt(0)
-      const rect = range.getBoundingClientRect()
-      const containerRect = e.currentTarget.getBoundingClientRect()
+      if (e.key === '/') {
+        e.preventDefault()
+        const range = selection.getRangeAt(0)
+        const rect = range.getBoundingClientRect()
+        const containerRect = e.currentTarget.getBoundingClientRect()
 
-      const currentBlock = range.startContainer.parentElement
-      let blockId = currentBlock?.getAttribute('data-block-id') || Date.now().toString()
-      currentBlock?.setAttribute('data-block-id', blockId)
+        const currentBlock = range.startContainer.parentElement
+        const blockId = currentBlock?.getAttribute('data-block-id') || Date.now().toString()
+        currentBlock?.setAttribute('data-block-id', blockId)
 
-      setCommandMenu({
-        show: true,
-        position: {
-          x: rect.width === 0 ? containerRect.left + 100 : rect.left,
-          y: rect.bottom + window.scrollY
-        },
-        blockId,
-        filterText: ''
-      })
-    }
-
-    if (e.metaKey && e.key === 'a') {
-      e.preventDefault()
-      const range = document.createRange()
-      range.selectNodeContents(containerRef.current)
-      selection.removeAllRanges()
-      selection.addRange(range)
-    }
-
-    debouncedUpdateBlocks()
-  }, [debouncedUpdateBlocks])
-
-  const handleContainerInput = useCallback(() => {
-    if (!containerRef.current) return
-
-    const walker = document.createTreeWalker(
-      containerRef.current,
-      NodeFilter.SHOW_ELEMENT,
-      {
-        acceptNode: (node: Node) => {
-          if (node === containerRef.current) return NodeFilter.FILTER_SKIP
-          if (!(node as Element).getAttribute('data-block-id')) return NodeFilter.FILTER_ACCEPT
-          return NodeFilter.FILTER_SKIP
-        }
+        setCommandMenu({
+          show: true,
+          position: {
+            x: rect.width === 0 ? containerRect.left + 100 : rect.left,
+            y: rect.bottom + window.scrollY
+          },
+          blockId,
+          filterText: ''
+        })
       }
-    )
 
-    let node
-    while ((node = walker.nextNode())) {
-      (node as Element).setAttribute('data-block-id', Date.now().toString())
-    }
+      if (e.metaKey && e.key === 'a') {
+        e.preventDefault()
+        const range = document.createRange()
+        range.selectNodeContents(containerRef.current)
+        selection.removeAllRanges()
+        selection.addRange(range)
+      }
 
-    debouncedUpdateBlocks()
-  }, [debouncedUpdateBlocks])
+      debouncedUpdateBlocks()
+    },
+    [debouncedUpdateBlocks]
+  )
 
   const { handleCommandSelect } = useCommandHandler(setCommandMenu, debouncedUpdateBlocks)
   const { applyFormat } = useApplyFormat(setHoverToolbar, selectionStartPosition)
@@ -133,6 +120,7 @@ const InteractiveDoc: React.FC = () => {
 
   useEffect(() => {
     document.addEventListener('selectionchange', handleSelectionChange)
+
     return () => document.removeEventListener('selectionchange', handleSelectionChange)
   }, [handleSelectionChange])
 
@@ -148,28 +136,24 @@ const InteractiveDoc: React.FC = () => {
   console.log(blocks, 'blocks')
 
   return (
-    <div className="w-full">
+    <div className='w-full'>
       <div
-        className="text-4xl font-bold text-gray-500 focus:outline-none"
+        className='text-4xl font-bold text-gray-500 focus:outline-none'
         contentEditable
         suppressContentEditableWarning
       >
         Add page title
       </div>
-      <div 
-        className="text-lg text-gray-500 focus:outline-none mt-3"
-        contentEditable 
-        suppressContentEditableWarning
-      >
+      <div className='text-lg text-gray-500 focus:outline-none mt-3' contentEditable suppressContentEditableWarning>
         👉 Add a subtitle to let others know how this template should be used
       </div>
       <div
         ref={containerRef}
-        className="min-h-[200px] rounded-lg focus:outline-none p-4"
+        className='min-h-[200px] rounded-lg focus:outline-none p-4'
         contentEditable
         suppressContentEditableWarning
         onKeyDown={handleContainerKeyDown}
-        onInput={handleContainerInput}
+        onInput={handleDocumentChange}
       />
       {commandMenu.show && (
         <CommandMenu
@@ -179,17 +163,15 @@ const InteractiveDoc: React.FC = () => {
         />
       )}
       {hoverToolbar.show && hoverToolbar.position && (
-        <HoverToolbar 
-          onSelect={applyFormat} 
-          position={hoverToolbar.position} 
-        />
+        <HoverToolbar onSelect={applyFormat} position={hoverToolbar.position} />
       )}
     </div>
   )
 }
 
-const debounce = (func: Function, wait: number) => {
+const debounce = (func: any, wait: number) => {
   let timeout: NodeJS.Timeout
+
   return function executedFunction(...args: any[]) {
     const later = () => {
       clearTimeout(timeout)

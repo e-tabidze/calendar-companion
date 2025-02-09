@@ -14,27 +14,6 @@ export interface Command {
 
 type CommandType = typeof COMMANDS[number]['value']
 
-type FormatType =
-  | 'bold'
-  | 'italic'
-  | 'underline'
-  | 'link'
-  | 'justifyLeft'
-  | 'justifyCenter'
-  | 'justifyRight'
-  | 'insertUnorderedList'
-  | 'createLink'
-  | 'insertImage'
-  | 'insertEmoji'
-  | 'insertBlock'
-  | 'strikethrough'
-  | 'superscript'
-  | 'subscript'
-  | 'heading'
-  | 'font'
-  | 'codeLanguage'
-  | 'askAI'
-
 const useCommandHandler = (setCommandMenu: any, handleCreateNewBlock: any) => {
   const handleCommandSelect = useCallback((command: Command) => {
     const selection = window.getSelection()
@@ -152,13 +131,14 @@ const useCommandHandler = (setCommandMenu: any, handleCreateNewBlock: any) => {
         const existingList = targetBlock.closest('ul')
         const existingChecklist = targetBlock.closest('.flex.flex-col.gap-2')
 
-        const createChecklistItem = (content: string = '') => {
+        const createChecklistItem = (content: any = '') => {
           const itemDiv = document.createElement('div')
           itemDiv.className = 'flex items-center gap-2'
           itemDiv.innerHTML = `
             <input type="checkbox" class="h-4 w-4 rounded border-gray-300">
             <div contenteditable="true" class="flex-1">${content || '<br>'}</div>
           `
+          
           return itemDiv
         }
 

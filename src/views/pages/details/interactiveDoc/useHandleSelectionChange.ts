@@ -14,27 +14,6 @@ export interface Command {
 
 type CommandType = typeof COMMANDS[number]['value']
 
-type FormatType =
-  | 'bold'
-  | 'italic'
-  | 'underline'
-  | 'link'
-  | 'justifyLeft'
-  | 'justifyCenter'
-  | 'justifyRight'
-  | 'insertUnorderedList'
-  | 'createLink'
-  | 'insertImage'
-  | 'insertEmoji'
-  | 'insertBlock'
-  | 'strikethrough'
-  | 'superscript'
-  | 'subscript'
-  | 'heading'
-  | 'font'
-  | 'codeLanguage'
-  | 'askAI'
-
 const useHandleSelectionChange = (hoverToolbar: any, setHoverToolbar: any, selectionStartPosition: any) => {
   const handleSelectionChange = useCallback(() => {
     const selection = window.getSelection()

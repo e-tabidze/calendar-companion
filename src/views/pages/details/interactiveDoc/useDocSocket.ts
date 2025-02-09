@@ -1,58 +1,41 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
 
-export interface DocSocketOptions {
+interface DocSocketOptions {
   detailsId: string
   onMessageReceived: (message: any) => void
 }
 
 const useDocSocket = ({ detailsId, onMessageReceived }: DocSocketOptions) => {
   const socketRef = useRef<WebSocket | null>(null)
-  const [reconnectAttempts, setReconnectAttempts] = useState(0)
 
   useEffect(() => {
-    let reconnectTimeout: NodeJS.Timeout
+    const socket = new WebSocket(`ws://127.0.0.1:5005/details?details_id=${detailsId}`)
+    socketRef.current = socket
 
-    const connectWebSocket = () => {
-      const socket = new WebSocket(`ws://127.0.0.1:5005/details?details_id=${detailsId}`)
-      socketRef.current = socket
+    socket.onopen = () => {
+      console.log('Connected to WebSocket')
+    }
 
-      socket.onopen = () => {
-        console.log('WebSocket connection established')
-        setReconnectAttempts(0) 
-      }
-
-      socket.onmessage = (event) => {
+    socket.onmessage = (event) => {
+      try {
         const data = JSON.parse(event.data)
         onMessageReceived(data)
-      }
-
-      socket.onclose = (event) => {
-        console.log(`WebSocket closed with code: ${event.code}, reason: ${event.reason}`)
-
-        if (event.code !== 1000 && reconnectAttempts < 5) {
-          console.log('Attempting to reconnect...')
-          reconnectTimeout = setTimeout(() => {
-            setReconnectAttempts(reconnectAttempts + 1)
-            connectWebSocket()
-          }, 3000)
-        }
-      }
-
-      socket.onerror = (error) => {
-        console.error('WebSocket error:', error)
+      } catch (error) {
+        console.error('Error parsing message:', error)
       }
     }
 
-    connectWebSocket()
+    socket.onclose = () => {
+      console.log('WebSocket connection closed')
+    }
 
     return () => {
-      clearTimeout(reconnectTimeout)
-      socketRef.current?.close(1000, 'Client closing connection')
+      socket.close()
     }
-  }, [])
+  }, [detailsId, onMessageReceived])
 
   const sendMessage = (data: any) => {
-    if (socketRef.current && socketRef.current.readyState === WebSocket.OPEN) {
+    if (socketRef.current?.readyState === WebSocket.OPEN) {
       socketRef.current.send(JSON.stringify(data))
     }
   }

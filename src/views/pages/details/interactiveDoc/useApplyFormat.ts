@@ -67,7 +67,7 @@ const useApplyFormat = (setHoverToolbar: any, selectionStartPosition: any) => {
         case 'insertUnorderedList': {
           const range = selection.getRangeAt(0)
           const block = range.commonAncestorContainer
-          let targetElement: any = block.nodeType === Node.TEXT_NODE ? block.parentElement : (block as HTMLElement)
+          const targetElement: any = block.nodeType === Node.TEXT_NODE ? block.parentElement : (block as HTMLElement)
 
           const existingList = targetElement.closest('ul')
           if (existingList) {
