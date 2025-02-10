@@ -151,24 +151,38 @@ const InteractiveDoc: React.FC = () => {
         ) {
           e.preventDefault()
 
-          const newBlock = document.createElement('div')
-          newBlock.setAttribute('data-block-id', createNewBlockId())
-          newBlock.innerHTML = '<br>'
+          const parent = checklistItem.parentNode
+          const nextSibling = checklistItem.nextElementSibling
 
-          if (checklistContainer.children.length === 1) {
-            currentBlock.replaceWith(newBlock)
-          } else {
-            const wrapper = document.createElement('div')
-            wrapper.setAttribute('data-block-id', createNewBlockId())
-            wrapper.appendChild(newBlock)
-            checklistItem.replaceWith(wrapper)
+          // Remove the current checklist item
+          checklistItem.remove()
+
+          if (checklistContainer.children.length === 0) {
+            // If no items remain, create a new block
+            const newBlock = document.createElement('div')
+            newBlock.setAttribute('data-block-id', createNewBlockId())
+            newBlock.innerHTML = '<br>'
+
+            currentBlock.parentNode?.insertBefore(newBlock, currentBlock.nextSibling) // Insert the new block after the current block
+            currentBlock.remove() // Remove the empty checklist block
+
+            // Move the caret to the new block
+            const newRange = document.createRange()
+            newRange.selectNodeContents(newBlock)
+            newRange.collapse(true)
+            selection.removeAllRanges()
+            selection.addRange(newRange)
+          } else if (nextSibling) {
+            // If there are remaining checklist items, move the caret to the next one
+            const nextContentEditable = nextSibling.querySelector('[contenteditable="true"]')
+            if (nextContentEditable) {
+              const newRange = document.createRange()
+              newRange.selectNodeContents(nextContentEditable)
+              newRange.collapse(true)
+              selection.removeAllRanges()
+              selection.addRange(newRange)
+            }
           }
-
-          const newRange = document.createRange()
-          newRange.selectNodeContents(newBlock)
-          newRange.collapse(true)
-          selection.removeAllRanges()
-          selection.addRange(newRange)
 
           updateBlocks()
           return
