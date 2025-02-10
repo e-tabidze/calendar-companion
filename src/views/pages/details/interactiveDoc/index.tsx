@@ -99,14 +99,14 @@ const InteractiveDoc: React.FC = () => {
     newBlock.innerHTML = '<br>'
 
     const range = selection.getRangeAt(0)
-    const currentBlock = range.startContainer.nodeType === Node.TEXT_NODE
-      ? range.startContainer.parentElement?.closest('[data-block-id]')
-      : (range.startContainer as HTMLElement).closest('[data-block-id]')
+    const currentBlock =
+      range.startContainer.nodeType === Node.TEXT_NODE
+        ? range.startContainer.parentElement?.closest('[data-block-id]')
+        : (range.startContainer as HTMLElement).closest('[data-block-id]')
 
     if (currentBlock) {
       currentBlock.parentNode?.insertBefore(newBlock, currentBlock.nextSibling)
-      
-      // Move cursor to new block
+
       const newRange = document.createRange()
       newRange.selectNodeContents(newBlock)
       newRange.collapse(true)
@@ -122,6 +122,156 @@ const InteractiveDoc: React.FC = () => {
       const selection = window.getSelection()
       if (!selection || !containerRef.current) return
 
+      const range = selection.getRangeAt(0)
+      const currentBlock =
+        range.startContainer.nodeType === Node.TEXT_NODE
+          ? range.startContainer.parentElement?.closest('[data-block-id]')
+          : (range.startContainer as HTMLElement).closest('[data-block-id]')
+
+      if (!currentBlock) return
+
+      const currentList = currentBlock.querySelector('ul')
+      const currentListItem =
+        range.startContainer.nodeType === Node.TEXT_NODE
+          ? range.startContainer.parentElement?.closest('li')
+          : (range.startContainer as HTMLElement).closest('li')
+
+      const checklistItem =
+        range.startContainer.nodeType === Node.TEXT_NODE
+          ? range.startContainer.parentElement?.closest('.flex.items-center.gap-2')
+          : (range.startContainer as HTMLElement).closest('.flex.items-center.gap-2')
+
+      const checklistContainer = currentBlock.querySelector('.flex.flex-col.gap-2')
+      const contentDiv = checklistItem?.querySelector('[contenteditable="true"]')
+
+      if (checklistContainer && checklistItem && contentDiv) {
+        if (
+          ((e.key === 'Backspace' && getCaretPosition(contentDiv) === 0) || (e.key === 'Enter' && !e.shiftKey)) &&
+          contentDiv.textContent?.trim() === ''
+        ) {
+          e.preventDefault()
+
+          const newBlock = document.createElement('div')
+          newBlock.setAttribute('data-block-id', createNewBlockId())
+          newBlock.innerHTML = '<br>'
+
+          if (checklistContainer.children.length === 1) {
+            currentBlock.replaceWith(newBlock)
+          } else {
+            const wrapper = document.createElement('div')
+            wrapper.setAttribute('data-block-id', createNewBlockId())
+            wrapper.appendChild(newBlock)
+            checklistItem.replaceWith(wrapper)
+          }
+
+          const newRange = document.createRange()
+          newRange.selectNodeContents(newBlock)
+          newRange.collapse(true)
+          selection.removeAllRanges()
+          selection.addRange(newRange)
+
+          updateBlocks()
+          return
+        }
+
+        if (e.key === 'Enter' && !e.shiftKey) {
+          e.preventDefault()
+
+          const newItem = document.createElement('div')
+          newItem.className = 'flex items-center gap-2'
+          newItem.innerHTML = `
+            <input type="checkbox" class="h-4 w-4 rounded border-gray-300">
+            <div contenteditable="true" class="flex-1"><br></div>
+          `
+
+          checklistItem.parentNode?.insertBefore(newItem, checklistItem.nextSibling)
+
+          const newContentDiv = newItem.querySelector('[contenteditable="true"]')
+          if (newContentDiv) {
+            const newRange = document.createRange()
+            newRange.selectNodeContents(newContentDiv)
+            newRange.collapse(true)
+            selection.removeAllRanges()
+            selection.addRange(newRange)
+          }
+
+          updateBlocks()
+          return
+        }
+      }
+
+      if (currentList && currentListItem) {
+        if (e.key === 'Enter' && !e.shiftKey) {
+          e.preventDefault()
+
+          if (currentListItem.textContent?.trim() === '' && currentList.children.length > 1) {
+            currentListItem.remove()
+
+            if (currentListItem === currentList.lastElementChild) {
+              if (currentList.children.length === 0) {
+                const newBlock = document.createElement('div')
+                const newBlockId = `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`
+                newBlock.setAttribute('data-block-id', newBlockId)
+                newBlock.innerHTML = '<br>'
+                currentBlock.parentNode?.insertBefore(newBlock, currentBlock.nextSibling)
+
+                const newRange = document.createRange()
+                newRange.selectNodeContents(newBlock)
+                newRange.collapse(true)
+                selection.removeAllRanges()
+                selection.addRange(newRange)
+
+                if (!currentBlock.textContent?.trim()) {
+                  currentBlock.remove()
+                }
+              }
+            }
+          } else {
+            const newLi = document.createElement('li')
+            newLi.contentEditable = 'true'
+            newLi.innerHTML = '<br>'
+
+            currentListItem.parentNode?.insertBefore(newLi, currentListItem.nextSibling)
+
+            const newRange = document.createRange()
+            newRange.selectNodeContents(newLi)
+            newRange.collapse(true)
+            selection.removeAllRanges()
+            selection.addRange(newRange)
+          }
+          updateBlocks()
+          return
+        }
+
+        if (
+          (e.key === 'Backspace' || (e.key === 'Delete' && e.metaKey)) &&
+          currentListItem.textContent?.trim() === '' &&
+          getCaretPosition(currentListItem) === 0
+        ) {
+          e.preventDefault()
+
+          currentListItem.remove()
+
+          if (currentList.children.length === 0) {
+            const newBlock = document.createElement('div')
+            const newBlockId = `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`
+            newBlock.setAttribute('data-block-id', newBlockId)
+            newBlock.innerHTML = '<br>'
+            currentBlock.parentNode?.insertBefore(newBlock, currentBlock.nextSibling)
+
+            const newRange = document.createRange()
+            newRange.selectNodeContents(newBlock)
+            newRange.collapse(true)
+            selection.removeAllRanges()
+            selection.addRange(newRange)
+
+            currentBlock.remove()
+          }
+          updateBlocks()
+          return
+        }
+      }
+
       if (e.key === 'Enter' && !e.shiftKey) {
         e.preventDefault()
         handleCreateNewBlock()
@@ -130,13 +280,11 @@ const InteractiveDoc: React.FC = () => {
 
       if (e.key === '/') {
         e.preventDefault()
-        const range = selection.getRangeAt(0)
         const rect = range.getBoundingClientRect()
         const containerRect = e.currentTarget.getBoundingClientRect()
 
-        const currentBlock = range.startContainer.parentElement
-        const blockId = currentBlock?.getAttribute('data-block-id') || createNewBlockId()
-        currentBlock?.setAttribute('data-block-id', blockId)
+        const blockId = currentBlock.getAttribute('data-block-id') || createNewBlockId()
+        currentBlock.setAttribute('data-block-id', blockId)
 
         setCommandMenu({
           show: true,
@@ -157,8 +305,16 @@ const InteractiveDoc: React.FC = () => {
         selection.addRange(range)
       }
     },
-    [handleCreateNewBlock]
+    [handleCreateNewBlock, updateBlocks]
   )
+
+  const getCaretPosition = (element: Node): number => {
+    const selection = window.getSelection()
+    if (!selection || !selection.rangeCount) return 0
+
+    const range = selection.getRangeAt(0)
+    return range.startOffset
+  }
 
   const { handleCommandSelect } = useCommandHandler(setCommandMenu, handleCreateNewBlock)
   const { applyFormat } = useApplyFormat(setHoverToolbar, selectionStartPosition)

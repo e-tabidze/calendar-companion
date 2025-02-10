@@ -36,79 +36,86 @@ const useCommandHandler = (setCommandMenu: any, handleCreateNewBlock: any) => {
 
     const commands: Record<CommandType, () => void> = {
       h1: () => {
-        // Create heading inside the existing block
         const h1 = document.createElement('h1')
         h1.className = 'text-2xl font-bold mt-4'
         h1.textContent = text || 'Heading 1'
         h1.contentEditable = 'true'
 
-        // Clear existing block content and insert heading
         blockElement.innerHTML = ''
         blockElement.appendChild(h1)
 
-        // Set cursor at the end of heading
         const newRange = document.createRange()
         newRange.selectNodeContents(h1)
         newRange.collapse(false)
         selection.removeAllRanges()
         selection.addRange(newRange)
 
-        // Trigger an input event to ensure blocks are updated
         const inputEvent = new InputEvent('input', {
           bubbles: true,
-          cancelable: true,
+          cancelable: true
         })
         blockParent.dispatchEvent(inputEvent)
       },
       h2: () => {
-        // Create heading inside the existing block
         const h2 = document.createElement('h2')
         h2.className = 'text-xl font-bold mt-3'
         h2.textContent = text || 'Heading 2'
         h2.contentEditable = 'true'
 
-        // Clear existing block content and insert heading
         blockElement.innerHTML = ''
         blockElement.appendChild(h2)
 
-        // Set cursor at the end of heading
         const newRange = document.createRange()
         newRange.selectNodeContents(h2)
         newRange.collapse(false)
         selection.removeAllRanges()
         selection.addRange(newRange)
 
-        // Trigger an input event
         const inputEvent = new InputEvent('input', {
           bubbles: true,
-          cancelable: true,
+          cancelable: true
         })
         blockParent.dispatchEvent(inputEvent)
       },
       bullet: () => {
-        const ul = document.createElement('ul')
-        ul.className = 'list-disc list-inside my-2'
+        const existingList = blockElement.querySelector('ul')
+        if (existingList) {
+          const li = document.createElement('li')
+          li.contentEditable = 'true'
+          li.textContent = text || ''
+          if (!text) li.innerHTML = '<br>'
 
-        if (text) {
-          const lines = text.split('\n').filter(line => line.trim())
-          lines.forEach(line => {
+          const currentLi = targetBlock.closest('li')
+          if (currentLi) {
+            existingList.insertBefore(li, currentLi.nextSibling)
+          } else {
+            existingList.appendChild(li)
+          }
+        } else {
+          const ul = document.createElement('ul')
+          ul.className = 'list-disc list-inside my-2'
+
+          if (text) {
+            const lines = text.split('\n').filter(line => line.trim())
+            lines.forEach(line => {
+              const li = document.createElement('li')
+              li.textContent = line
+              li.contentEditable = 'true'
+              ul.appendChild(li)
+            })
+          } else {
             const li = document.createElement('li')
-            li.textContent = line
+            li.innerHTML = '<br>'
             li.contentEditable = 'true'
             ul.appendChild(li)
-          })
-        } else {
-          const li = document.createElement('li')
-          li.innerHTML = '<br>'
-          li.contentEditable = 'true'
-          ul.appendChild(li)
+          }
+
+          blockElement.innerHTML = ''
+          blockElement.appendChild(ul)
         }
 
-        // Clear existing block content and insert list
-        blockElement.innerHTML = ''
-        blockElement.appendChild(ul)
-
-        const lastLi = ul.lastElementChild
+        const list = blockElement.querySelector('ul')
+        const lastLi = list?.lastElementChild
         if (lastLi) {
           const newRange = document.createRange()
           newRange.selectNodeContents(lastLi)
@@ -117,10 +124,9 @@ const useCommandHandler = (setCommandMenu: any, handleCreateNewBlock: any) => {
           selection.addRange(newRange)
         }
 
-        // Trigger an input event
         const inputEvent = new InputEvent('input', {
           bubbles: true,
-          cancelable: true,
+          cancelable: true
         })
         blockParent.dispatchEvent(inputEvent)
       },
@@ -135,7 +141,6 @@ const useCommandHandler = (setCommandMenu: any, handleCreateNewBlock: any) => {
           return itemDiv
         }
 
-        // Create checklist container
         const checklistContainer = document.createElement('div')
         checklistContainer.className = 'flex flex-col gap-2 my-2'
 
@@ -148,7 +153,6 @@ const useCommandHandler = (setCommandMenu: any, handleCreateNewBlock: any) => {
           checklistContainer.appendChild(createChecklistItem())
         }
 
-        // Clear existing block content and insert checklist
         blockElement.innerHTML = ''
         blockElement.appendChild(checklistContainer)
 
@@ -161,10 +165,9 @@ const useCommandHandler = (setCommandMenu: any, handleCreateNewBlock: any) => {
           selection.addRange(newRange)
         }
 
-        // Trigger an input event
         const inputEvent = new InputEvent('input', {
           bubbles: true,
-          cancelable: true,
+          cancelable: true
         })
         blockParent.dispatchEvent(inputEvent)
       }
