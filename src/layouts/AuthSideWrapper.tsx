@@ -60,8 +60,7 @@ const AuthSideWrapper: React.FC<Props> = ({ children }: Props) => {
   )
 }
 
-export function getStaticProps({ locale }: { locale: string }) {
-  console.log(locale)
+export function getStaticProps() {
 
   return {
     props: {}

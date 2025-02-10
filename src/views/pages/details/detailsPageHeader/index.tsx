@@ -8,8 +8,6 @@ interface Props {
   eventDetails: any
 }
 const DetailsPageHeader: React.FC<Props> = ({ eventDetails }) => {
-  console.log(eventDetails?.event_title, 'eventDetails')
-
   const router = useRouter()
 
   return (
