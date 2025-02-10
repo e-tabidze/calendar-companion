@@ -14,6 +14,8 @@ export interface Command {
 
 type CommandType = typeof COMMANDS[number]['value']
 
+const createNewBlockId = () => `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`
+
 const useCommandHandler = (setCommandMenu: any, handleCreateNewBlock: any) => {
   const handleCommandSelect = useCallback((command: Command) => {
     const selection = window.getSelection()
@@ -27,160 +29,144 @@ const useCommandHandler = (setCommandMenu: any, handleCreateNewBlock: any) => {
     if (!targetBlock) return
 
     const blockElement = targetBlock.closest('[data-block-id]')
-    const blockId = blockElement?.getAttribute('data-block-id')
+    if (!blockElement) return
+
+    const blockParent = blockElement.parentElement
+    if (!blockParent) return
 
     const commands: Record<CommandType, () => void> = {
       h1: () => {
+        // Create heading inside the existing block
         const h1 = document.createElement('h1')
         h1.className = 'text-2xl font-bold mt-4'
         h1.textContent = text || 'Heading 1'
         h1.contentEditable = 'true'
 
-        range.deleteContents()
-        range.insertNode(h1)
+        // Clear existing block content and insert heading
+        blockElement.innerHTML = ''
+        blockElement.appendChild(h1)
 
-        if (blockId) {
-          handleCreateNewBlock({ currentTarget: blockElement }, blockId)
-        }
-
+        // Set cursor at the end of heading
         const newRange = document.createRange()
         newRange.selectNodeContents(h1)
         newRange.collapse(false)
         selection.removeAllRanges()
         selection.addRange(newRange)
+
+        // Trigger an input event to ensure blocks are updated
+        const inputEvent = new InputEvent('input', {
+          bubbles: true,
+          cancelable: true,
+        })
+        blockParent.dispatchEvent(inputEvent)
       },
       h2: () => {
+        // Create heading inside the existing block
         const h2 = document.createElement('h2')
         h2.className = 'text-xl font-bold mt-3'
         h2.textContent = text || 'Heading 2'
         h2.contentEditable = 'true'
 
-        range.deleteContents()
-        range.insertNode(h2)
+        // Clear existing block content and insert heading
+        blockElement.innerHTML = ''
+        blockElement.appendChild(h2)
 
-        if (blockId) {
-          handleCreateNewBlock({ currentTarget: blockElement }, blockId)
-        }
-
+        // Set cursor at the end of heading
         const newRange = document.createRange()
         newRange.selectNodeContents(h2)
         newRange.collapse(false)
         selection.removeAllRanges()
         selection.addRange(newRange)
+
+        // Trigger an input event
+        const inputEvent = new InputEvent('input', {
+          bubbles: true,
+          cancelable: true,
+        })
+        blockParent.dispatchEvent(inputEvent)
       },
       bullet: () => {
-        const existingList = targetBlock.closest('ul')
-        const existingChecklist = targetBlock.closest('.flex.flex-col.gap-2')
-
         const ul = document.createElement('ul')
         ul.className = 'list-disc list-inside my-2'
 
-        if (existingChecklist) {
-          const contentDiv = targetBlock.querySelector('[contenteditable="true"]')
-          const li = document.createElement('li')
-          li.contentEditable = 'true'
-          li.textContent = contentDiv?.textContent || ''
-          ul.appendChild(li)
-
-          const checklistItem = targetBlock.closest('.flex.items-center.gap-2')
-          if (checklistItem) {
-            checklistItem.parentNode?.replaceChild(ul, checklistItem)
-          } else {
-            range.deleteContents()
-            range.insertNode(ul)
-          }
-        } else if (existingList) {
-          const li = document.createElement('li')
-          li.contentEditable = 'true'
-          li.textContent = text || ''
-          if (text) {
-            existingList.appendChild(li)
-          } else {
-            const referenceNode = targetBlock.closest('li')?.nextSibling
-            existingList.insertBefore(li, referenceNode || null)
-          }
-        } else {
-          if (text) {
-            const lines = text.split('\n').filter(line => line.trim())
-            lines.forEach(line => {
-              const li = document.createElement('li')
-              li.textContent = line
-              li.contentEditable = 'true'
-              ul.appendChild(li)
-            })
-          } else {
+        if (text) {
+          const lines = text.split('\n').filter(line => line.trim())
+          lines.forEach(line => {
             const li = document.createElement('li')
-            li.innerHTML = '<br>'
+            li.textContent = line
             li.contentEditable = 'true'
             ul.appendChild(li)
-          }
-          range.deleteContents()
-          range.insertNode(ul)
+          })
+        } else {
+          const li = document.createElement('li')
+          li.innerHTML = '<br>'
+          li.contentEditable = 'true'
+          ul.appendChild(li)
         }
 
-        const lastLi = ul.lastElementChild || existingList?.lastElementChild
+        // Clear existing block content and insert list
+        blockElement.innerHTML = ''
+        blockElement.appendChild(ul)
+
+        const lastLi = ul.lastElementChild
         if (lastLi) {
           const newRange = document.createRange()
-          newRange.setStart(lastLi, 0)
-          newRange.collapse(true)
+          newRange.selectNodeContents(lastLi)
+          newRange.collapse(false)
           selection.removeAllRanges()
           selection.addRange(newRange)
         }
+
+        // Trigger an input event
+        const inputEvent = new InputEvent('input', {
+          bubbles: true,
+          cancelable: true,
+        })
+        blockParent.dispatchEvent(inputEvent)
       },
       checklist: () => {
-        const existingList = targetBlock.closest('ul')
-        const existingChecklist = targetBlock.closest('.flex.flex-col.gap-2')
-
-        const createChecklistItem = (content: any = '') => {
+        const createChecklistItem = (content: string = '') => {
           const itemDiv = document.createElement('div')
           itemDiv.className = 'flex items-center gap-2'
           itemDiv.innerHTML = `
             <input type="checkbox" class="h-4 w-4 rounded border-gray-300">
             <div contenteditable="true" class="flex-1">${content || '<br>'}</div>
           `
-          
           return itemDiv
         }
 
-        if (existingList) {
-          const listItem = targetBlock.closest('li')
-          if (listItem) {
-            const container = document.createElement('div')
-            container.className = 'flex flex-col gap-2 my-2'
-            container.appendChild(createChecklistItem(listItem.textContent || ''))
-            listItem.parentNode?.replaceChild(container, listItem)
-          }
-        } else if (!existingChecklist) {
-          const container = document.createElement('div')
-          container.className = 'flex flex-col gap-2 my-2'
+        // Create checklist container
+        const checklistContainer = document.createElement('div')
+        checklistContainer.className = 'flex flex-col gap-2 my-2'
 
-          if (text) {
-            const lines = text.split('\n').filter(line => line.trim())
-            lines.forEach(line => {
-              container.appendChild(createChecklistItem(line))
-            })
-          } else {
-            container.appendChild(createChecklistItem())
-          }
-          range.deleteContents()
-          range.insertNode(container)
+        if (text) {
+          const lines = text.split('\n').filter(line => line.trim())
+          lines.forEach(line => {
+            checklistContainer.appendChild(createChecklistItem(line))
+          })
         } else {
-          const currentItem = targetBlock.closest('.flex.items-center.gap-2')
-          const newItem = createChecklistItem(text)
-          if (currentItem) {
-            currentItem.parentNode?.insertBefore(newItem, currentItem.nextSibling)
-          }
+          checklistContainer.appendChild(createChecklistItem())
         }
 
-        const container = targetBlock.closest('.flex.flex-col.gap-2')
-        const lastItem = container?.lastElementChild?.querySelector('[contenteditable="true"]')
+        // Clear existing block content and insert checklist
+        blockElement.innerHTML = ''
+        blockElement.appendChild(checklistContainer)
+
+        const lastItem = checklistContainer.lastElementChild?.querySelector('[contenteditable="true"]')
         if (lastItem) {
           const newRange = document.createRange()
-          newRange.setStart(lastItem, 0)
-          newRange.collapse(true)
+          newRange.selectNodeContents(lastItem)
+          newRange.collapse(false)
           selection.removeAllRanges()
           selection.addRange(newRange)
         }
+
+        // Trigger an input event
+        const inputEvent = new InputEvent('input', {
+          bubbles: true,
+          cancelable: true,
+        })
+        blockParent.dispatchEvent(inputEvent)
       }
     }
 

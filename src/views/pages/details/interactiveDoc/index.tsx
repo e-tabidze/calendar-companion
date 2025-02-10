@@ -19,6 +19,8 @@ interface MenuState {
   position: Position | null
 }
 
+const createNewBlockId = () => `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`
+
 const InteractiveDoc: React.FC = () => {
   const [blocks, setBlocks] = useState<Block[]>([{ id: '1', type: 'text', content: '', index: 0 }])
   const [hoverToolbar, setHoverToolbar] = useState<MenuState>({ show: false, position: null })
@@ -39,6 +41,7 @@ const InteractiveDoc: React.FC = () => {
     onMessageReceived: (content: string) => {
       if (containerRef.current && typeof content === 'string') {
         containerRef.current.innerHTML = content
+        updateBlocks()
       }
     }
   })
@@ -46,25 +49,38 @@ const InteractiveDoc: React.FC = () => {
   const handleDocumentChange = useCallback(() => {
     if (!containerRef.current) return
     sendMessage(containerRef.current.innerHTML)
+    updateBlocks()
   }, [sendMessage])
 
   const updateBlocks = useCallback(() => {
     if (!containerRef.current) return
 
-    const updatedBlocks: Block[] = Array.from(containerRef.current.querySelectorAll('div[data-block-id]')).map(
-      (div, index) => ({
-        id: div.getAttribute('data-block-id') || `${Date.now()}-${index}`,
-        type: 'text',
-        content: div.innerHTML,
+    const updatedBlocks: Block[] = Array.from(containerRef.current.children).map((element, index) => {
+      if (!element.hasAttribute('data-block-id')) {
+        element.setAttribute('data-block-id', createNewBlockId())
+      }
+
+      const blockType = (): Block['type'] => {
+        if (element.querySelector('h1')) return 'h1'
+        if (element.querySelector('h2')) return 'h2'
+        if (element.querySelector('ul')) return 'bullet'
+        if (element.classList.contains('checklist')) return 'checklist'
+        return 'text'
+      }
+
+      return {
+        id: element.getAttribute('data-block-id') || createNewBlockId(),
+        type: blockType(),
+        content: element.outerHTML,
         index
-      })
-    )
+      }
+    })
 
     if (updatedBlocks.length === 0) {
       updatedBlocks.push({
         id: '1',
         type: 'text',
-        content: containerRef.current.innerHTML,
+        content: '<div data-block-id="1"><br></div>',
         index: 0
       })
     }
@@ -73,12 +89,44 @@ const InteractiveDoc: React.FC = () => {
     sendMessage(updatedBlocks)
   }, [sendMessage])
 
-  const debouncedUpdateBlocks = useCallback(debounce(updateBlocks, 300), [updateBlocks])
+  const handleCreateNewBlock = useCallback(() => {
+    const selection = window.getSelection()
+    if (!selection || !containerRef.current) return
+
+    const newBlockId = createNewBlockId()
+    const newBlock = document.createElement('div')
+    newBlock.setAttribute('data-block-id', newBlockId)
+    newBlock.innerHTML = '<br>'
+
+    const range = selection.getRangeAt(0)
+    const currentBlock = range.startContainer.nodeType === Node.TEXT_NODE
+      ? range.startContainer.parentElement?.closest('[data-block-id]')
+      : (range.startContainer as HTMLElement).closest('[data-block-id]')
+
+    if (currentBlock) {
+      currentBlock.parentNode?.insertBefore(newBlock, currentBlock.nextSibling)
+      
+      // Move cursor to new block
+      const newRange = document.createRange()
+      newRange.selectNodeContents(newBlock)
+      newRange.collapse(true)
+      selection.removeAllRanges()
+      selection.addRange(newRange)
+    }
+
+    updateBlocks()
+  }, [updateBlocks])
 
   const handleContainerKeyDown = useCallback(
     (e: React.KeyboardEvent<HTMLDivElement>) => {
       const selection = window.getSelection()
       if (!selection || !containerRef.current) return
+
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault()
+        handleCreateNewBlock()
+        return
+      }
 
       if (e.key === '/') {
         e.preventDefault()
@@ -87,7 +135,7 @@ const InteractiveDoc: React.FC = () => {
         const containerRect = e.currentTarget.getBoundingClientRect()
 
         const currentBlock = range.startContainer.parentElement
-        const blockId = currentBlock?.getAttribute('data-block-id') || Date.now().toString()
+        const blockId = currentBlock?.getAttribute('data-block-id') || createNewBlockId()
         currentBlock?.setAttribute('data-block-id', blockId)
 
         setCommandMenu({
@@ -108,19 +156,16 @@ const InteractiveDoc: React.FC = () => {
         selection.removeAllRanges()
         selection.addRange(range)
       }
-
-      debouncedUpdateBlocks()
     },
-    [debouncedUpdateBlocks]
+    [handleCreateNewBlock]
   )
 
-  const { handleCommandSelect } = useCommandHandler(setCommandMenu, debouncedUpdateBlocks)
+  const { handleCommandSelect } = useCommandHandler(setCommandMenu, handleCreateNewBlock)
   const { applyFormat } = useApplyFormat(setHoverToolbar, selectionStartPosition)
   const { handleSelectionChange } = useHandleSelectionChange(hoverToolbar, setHoverToolbar, selectionStartPosition)
 
   useEffect(() => {
     document.addEventListener('selectionchange', handleSelectionChange)
-
     return () => document.removeEventListener('selectionchange', handleSelectionChange)
   }, [handleSelectionChange])
 
@@ -130,8 +175,9 @@ const InteractiveDoc: React.FC = () => {
       div.setAttribute('data-block-id', '1')
       div.innerHTML = '<br>'
       containerRef.current.appendChild(div)
+      updateBlocks()
     }
-  }, [])
+  }, [updateBlocks])
 
   console.log(blocks, 'blocks')
 
@@ -167,19 +213,6 @@ const InteractiveDoc: React.FC = () => {
       )}
     </div>
   )
-}
-
-const debounce = (func: any, wait: number) => {
-  let timeout: NodeJS.Timeout
-
-  return function executedFunction(...args: any[]) {
-    const later = () => {
-      clearTimeout(timeout)
-      func(...args)
-    }
-    clearTimeout(timeout)
-    timeout = setTimeout(later, wait)
-  }
 }
 
 export default InteractiveDoc
