@@ -16,7 +16,7 @@ const useDocSocket = ({ detailsId, onMessageReceived }: DocSocketOptions) => {
       console.log('Connected to WebSocket')
     }
 
-    socket.onmessage = (event) => {
+    socket.onmessage = event => {
       try {
         const data = JSON.parse(event.data)
         onMessageReceived(data)

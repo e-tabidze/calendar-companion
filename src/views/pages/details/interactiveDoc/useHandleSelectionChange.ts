@@ -1,4 +1,4 @@
-import { useCallback } from 'react'
+import { useCallback, useRef } from 'react'
 import { MutableRefObject } from 'react'
 
 interface Position {
@@ -41,35 +41,54 @@ const useHandleSelectionChange = (
   setHoverToolbar: React.Dispatch<React.SetStateAction<HoverToolbarState>>,
   selectionStartPosition: MutableRefObject<Position | null>
 ) => {
+  // Create refs to store the latest values without causing re-renders
+  const hoverToolbarRef = useRef(hoverToolbar)
+  const positionRef = useRef<Position | null>(null)
+  
+  // Update refs when props change
+  hoverToolbarRef.current = hoverToolbar
+  
   const handleSelectionChange = useCallback(() => {
     const selection = window.getSelection()
 
     if (!selection) {
-      setHoverToolbar({ show: false, position: null })
-      selectionStartPosition.current = null
+      if (hoverToolbarRef.current.show) {
+        setHoverToolbar({ show: false, position: null })
+        selectionStartPosition.current = null
+      }
       return
     }
 
     const isValidSelection = !selection.isCollapsed && selection.rangeCount > 0
 
-    if (isValidSelection && !hoverToolbar.show) {
+    if (isValidSelection) {
       try {
         const range = selection.getRangeAt(0)
         const rect = getSelectionRect(range)
-        const position = calculatePosition(rect)
+        const newPosition = calculatePosition(rect)
 
-        selectionStartPosition.current = position
-        setHoverToolbar({ show: true, position })
+        // Only update if position has changed significantly
+        const hasPositionChanged = !positionRef.current || 
+          Math.abs(positionRef.current.x - newPosition.x) > 5 || 
+          Math.abs(positionRef.current.y - newPosition.y) > 5
+
+        if (!hoverToolbarRef.current.show || hasPositionChanged) {
+          positionRef.current = newPosition
+          selectionStartPosition.current = newPosition
+          setHoverToolbar({ show: true, position: newPosition })
+        }
       } catch (error) {
         console.error('Error handling selection change:', error)
-        setHoverToolbar({ show: false, position: null })
-        selectionStartPosition.current = null
+        if (hoverToolbarRef.current.show) {
+          setHoverToolbar({ show: false, position: null })
+          selectionStartPosition.current = null
+        }
       }
-    } else if (!isValidSelection) {
+    } else if (hoverToolbarRef.current.show) {
       setHoverToolbar({ show: false, position: null })
       selectionStartPosition.current = null
     }
-  }, [hoverToolbar.show, setHoverToolbar, selectionStartPosition])
+  }, [setHoverToolbar, selectionStartPosition]) // Removed hoverToolbar from dependencies
 
   return { handleSelectionChange }
 }

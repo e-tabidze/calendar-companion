@@ -47,12 +47,6 @@ const InteractiveDoc: React.FC = () => {
     sendMessage: sendMessageRef.current
   })
 
-  const handleDocumentChange = useCallback(() => {
-    if (!containerRef.current) return
-    sendMessageRef.current(containerRef.current.innerHTML)
-    updateBlocks()
-  }, [updateBlocks])
-
   const { handleContainerKeyDown } = useContainerKeyDown(
     containerRef,
     updateBlocks,
@@ -98,7 +92,6 @@ const InteractiveDoc: React.FC = () => {
         contentEditable
         suppressContentEditableWarning
         onKeyDown={handleContainerKeyDown}
-        onInput={handleDocumentChange}
       />
       {commandMenu.show && (
         <MemoizedCommandMenu
