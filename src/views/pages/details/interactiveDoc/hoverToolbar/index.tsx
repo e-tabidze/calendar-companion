@@ -19,11 +19,7 @@ import {
 } from 'lucide-react'
 import { useState } from 'react'
 import EmojiPicker from '../emojiPicker'
-
-export interface Position {
-  x: number
-  y: number
-}
+import { Position } from '../types'
 
 const HoverToolbar: React.FC<{
   onSelect: (command: any) => void
@@ -59,14 +55,26 @@ const HoverToolbar: React.FC<{
         <button onClick={() => onSelect('justifyLeft')} className='p-1.5 hover:bg-gray-100 rounded' title='Align Left'>
           <AlignLeft size={16} />
         </button>
-        <button onClick={() => onSelect('justifyCenter')} className='p-1.5 hover:bg-gray-100 rounded' title='Align Center'>
+        <button
+          onClick={() => onSelect('justifyCenter')}
+          className='p-1.5 hover:bg-gray-100 rounded'
+          title='Align Center'
+        >
           <AlignCenter size={16} />
         </button>
-        <button onClick={() => onSelect('justifyRight')} className='p-1.5 hover:bg-gray-100 rounded' title='Align Right'>
+        <button
+          onClick={() => onSelect('justifyRight')}
+          className='p-1.5 hover:bg-gray-100 rounded'
+          title='Align Right'
+        >
           <AlignRight size={16} />
         </button>
 
-        <button onClick={() => onSelect('insertUnorderedList')} className='p-1.5 hover:bg-gray-100 rounded' title='Bullet List'>
+        <button
+          onClick={() => onSelect('insertUnorderedList')}
+          className='p-1.5 hover:bg-gray-100 rounded'
+          title='Bullet List'
+        >
           <List size={16} />
         </button>
 
@@ -75,12 +83,20 @@ const HoverToolbar: React.FC<{
         <button onClick={() => onSelect('createLink')} className='p-1.5 hover:bg-gray-100 rounded' title='Insert Link'>
           <Link2 size={16} />
         </button>
-        <button onClick={() => onSelect('insertImage')} className='p-1.5 hover:bg-gray-100 rounded' title='Insert Image'>
+        <button
+          onClick={() => onSelect('insertImage')}
+          className='p-1.5 hover:bg-gray-100 rounded'
+          title='Insert Image'
+        >
           <Image size={16} />
         </button>
-   
-        <EmojiPicker /> 
-        <button onClick={() => onSelect('insertBlock')} className='p-1.5 hover:bg-gray-100 rounded' title='Insert Block'>
+
+        <EmojiPicker />
+        <button
+          onClick={() => onSelect('insertBlock')}
+          className='p-1.5 hover:bg-gray-100 rounded'
+          title='Insert Block'
+        >
           <Plus size={16} />
         </button>
 
@@ -103,10 +119,18 @@ const HoverToolbar: React.FC<{
 
       {showAdvanced && (
         <div className='flex items-center space-x-1 p-1 border-t border-gray-200'>
-          <button onClick={() => onSelect('strikethrough')} className='p-1.5 hover:bg-gray-100 rounded' title='Strikethrough'>
+          <button
+            onClick={() => onSelect('strikethrough')}
+            className='p-1.5 hover:bg-gray-100 rounded'
+            title='Strikethrough'
+          >
             <Strikethrough size={16} />
           </button>
-          <button onClick={() => onSelect('superscript')} className='p-1.5 hover:bg-gray-100 rounded' title='Superscript'>
+          <button
+            onClick={() => onSelect('superscript')}
+            className='p-1.5 hover:bg-gray-100 rounded'
+            title='Superscript'
+          >
             <Superscript size={16} />
           </button>
           <button onClick={() => onSelect('subscript')} className='p-1.5 hover:bg-gray-100 rounded' title='Subscript'>
@@ -115,7 +139,11 @@ const HoverToolbar: React.FC<{
           <button onClick={() => onSelect('heading')} className='p-1.5 hover:bg-gray-100 rounded' title='Heading'>
             <Heading1 size={16} />
           </button>
-          <button onClick={() => onSelect('codeLanguage')} className='p-1.5 hover:bg-gray-100 rounded' title='Code Language'>
+          <button
+            onClick={() => onSelect('codeLanguage')}
+            className='p-1.5 hover:bg-gray-100 rounded'
+            title='Code Language'
+          >
             <Languages size={16} />
           </button>
         </div>

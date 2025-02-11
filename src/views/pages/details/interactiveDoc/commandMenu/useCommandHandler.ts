@@ -1,4 +1,5 @@
 import { useCallback } from 'react'
+import { CommandMenuState } from '../types'
 
 export const COMMANDS = [
   { label: 'Heading 1', value: 'h1' },
@@ -12,13 +13,6 @@ export type CommandType = typeof COMMANDS[number]['value']
 export interface Command {
   label: string
   value: CommandType
-}
-
-interface CommandMenuState {
-  show: boolean
-  position: { x: number; y: number } | null
-  filterText: string
-  blockId: string | undefined
 }
 
 const createInputEvent = () => new InputEvent('input', { bubbles: true, cancelable: true })
