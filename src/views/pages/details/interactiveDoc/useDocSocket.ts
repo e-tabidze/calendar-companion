@@ -32,7 +32,7 @@ const useDocSocket = ({ detailsId, onMessageReceived }: DocSocketOptions) => {
     return () => {
       socket.close()
     }
-  }, [detailsId, onMessageReceived])
+  }, [detailsId])
 
   const sendMessage = (data: any) => {
     if (socketRef.current?.readyState === WebSocket.OPEN) {
