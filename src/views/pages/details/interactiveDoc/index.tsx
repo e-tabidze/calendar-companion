@@ -404,7 +404,7 @@ const InteractiveDoc: React.FC = () => {
     return range.startOffset
   }
 
-  const { handleCommandSelect } = useCommandHandler(setCommandMenu, handleCreateNewBlock)
+  const { handleCommandSelect } = useCommandHandler(setCommandMenu)
   const { applyFormat } = useApplyFormat(setHoverToolbar, selectionStartPosition)
   const { handleSelectionChange } = useHandleSelectionChange(hoverToolbar, setHoverToolbar, selectionStartPosition)
 

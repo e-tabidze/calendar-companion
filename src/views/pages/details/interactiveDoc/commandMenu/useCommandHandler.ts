@@ -7,175 +7,144 @@ export const COMMANDS = [
   { label: 'Checklist', value: 'checklist' }
 ] as const
 
+export type CommandType = typeof COMMANDS[number]['value']
+
 export interface Command {
   label: string
   value: CommandType
 }
 
-type CommandType = typeof COMMANDS[number]['value']
+interface CommandMenuState {
+  show: boolean
+  position: { x: number; y: number } | null
+  filterText: string
+  blockId: string | undefined
+}
 
-const createNewBlockId = () => `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`
+const createInputEvent = () => new InputEvent('input', { bubbles: true, cancelable: true })
 
-const useCommandHandler = (setCommandMenu: any, handleCreateNewBlock: any) => {
-  const handleCommandSelect = useCallback((command: Command) => {
-    const selection = window.getSelection()
-    if (!selection) return
+const setSelectionToEnd = (element: HTMLElement, selection: Selection) => {
+  const range = document.createRange()
+  range.selectNodeContents(element)
+  range.collapse(false)
+  selection.removeAllRanges()
+  selection.addRange(range)
+}
 
-    const range = selection.getRangeAt(0)
-    const container = range.commonAncestorContainer as HTMLElement
-    const targetBlock = container.nodeType === Node.TEXT_NODE ? container.parentElement : container
-    const text = range.toString().trim().replace('/', '')
+const createHeadingElement = (tag: 'h1' | 'h2', text: string, className: string): HTMLHeadingElement => {
+  const heading = document.createElement(tag)
+  heading.className = className
+  heading.textContent = text || `${tag.toUpperCase()}`
+  heading.contentEditable = 'true'
+  return heading
+}
 
-    if (!targetBlock) return
+const createBulletListItem = (text: string = ''): HTMLLIElement => {
+  const li = document.createElement('li')
+  li.contentEditable = 'true'
+  li.innerHTML = text || '<br>'
+  return li
+}
 
-    const blockElement = targetBlock.closest('[data-block-id]')
-    if (!blockElement) return
+const createChecklistItem = (content: string = ''): HTMLDivElement => {
+  const itemDiv = document.createElement('div')
+  itemDiv.className = 'flex items-center gap-2'
+  itemDiv.innerHTML = `
+    <input type="checkbox" class="h-4 w-4 rounded border-gray-300">
+    <div contenteditable="true" class="flex-1">${content || '<br>'}</div>
+  `
+  return itemDiv
+}
 
-    const blockParent = blockElement.parentElement
-    if (!blockParent) return
+const useCommandHandler = (setCommandMenu: React.Dispatch<React.SetStateAction<CommandMenuState>>) => {
+  const handleCommandSelect = useCallback(
+    (command: Command) => {
+      const selection = window.getSelection()
+      if (!selection) return
 
-    const commands: Record<CommandType, () => void> = {
-      h1: () => {
-        const h1 = document.createElement('h1')
-        h1.className = 'text-2xl font-bold mt-4'
-        h1.textContent = text || 'Heading 1'
-        h1.contentEditable = 'true'
+      const range = selection.getRangeAt(0)
+      const container = range.commonAncestorContainer as HTMLElement
+      const targetBlock = container.nodeType === Node.TEXT_NODE ? container.parentElement : container
+      const text = range.toString().trim().replace('/', '')
 
-        blockElement.innerHTML = ''
-        blockElement.appendChild(h1)
+      if (!targetBlock) return
 
-        const newRange = document.createRange()
-        newRange.selectNodeContents(h1)
-        newRange.collapse(false)
-        selection.removeAllRanges()
-        selection.addRange(newRange)
+      const blockElement = targetBlock.closest('[data-block-id]')
+      if (!blockElement) return
 
-        const inputEvent = new InputEvent('input', {
-          bubbles: true,
-          cancelable: true
-        })
-        blockParent.dispatchEvent(inputEvent)
-      },
-      h2: () => {
-        const h2 = document.createElement('h2')
-        h2.className = 'text-xl font-bold mt-3'
-        h2.textContent = text || 'Heading 2'
-        h2.contentEditable = 'true'
+      const blockParent = blockElement.parentElement
+      if (!blockParent) return
 
-        blockElement.innerHTML = ''
-        blockElement.appendChild(h2)
-
-        const newRange = document.createRange()
-        newRange.selectNodeContents(h2)
-        newRange.collapse(false)
-        selection.removeAllRanges()
-        selection.addRange(newRange)
-
-        const inputEvent = new InputEvent('input', {
-          bubbles: true,
-          cancelable: true
-        })
-        blockParent.dispatchEvent(inputEvent)
-      },
-      bullet: () => {
-        const existingList = blockElement.querySelector('ul')
-        if (existingList) {
-          const li = document.createElement('li')
-          li.contentEditable = 'true'
-          li.textContent = text || ''
-          if (!text) li.innerHTML = '<br>'
-
-          const currentLi = targetBlock.closest('li')
-          if (currentLi) {
-            existingList.insertBefore(li, currentLi.nextSibling)
-          } else {
-            existingList.appendChild(li)
-          }
-        } else {
-          const ul = document.createElement('ul')
-          ul.className = 'list-disc list-inside my-2'
-
-          if (text) {
-            const lines = text.split('\n').filter(line => line.trim())
-            lines.forEach(line => {
-              const li = document.createElement('li')
-              li.textContent = line
-              li.contentEditable = 'true'
-              ul.appendChild(li)
-            })
-          } else {
-            const li = document.createElement('li')
-            li.innerHTML = '<br>'
-            li.contentEditable = 'true'
-            ul.appendChild(li)
-          }
-
+      const commandHandlers: Record<CommandType, () => void> = {
+        h1: () => {
+          const h1 = createHeadingElement('h1', text, 'text-2xl font-bold mt-4')
           blockElement.innerHTML = ''
-          blockElement.appendChild(ul)
+          blockElement.appendChild(h1)
+          setSelectionToEnd(h1, selection)
+          blockParent.dispatchEvent(createInputEvent())
+        },
+        h2: () => {
+          const h2 = createHeadingElement('h2', text, 'text-xl font-bold mt-3')
+          blockElement.innerHTML = ''
+          blockElement.appendChild(h2)
+          setSelectionToEnd(h2, selection)
+          blockParent.dispatchEvent(createInputEvent())
+        },
+        bullet: () => {
+          const existingList = blockElement.querySelector('ul')
+          if (existingList) {
+            const li = createBulletListItem(text)
+            const currentLi = targetBlock.closest('li')
+            const insertPosition = currentLi?.nextSibling || null
+            existingList.insertBefore(li, insertPosition)
+            setSelectionToEnd(li, selection)
+          } else {
+            const ul = document.createElement('ul')
+            ul.className = 'list-disc list-inside my-2'
+
+            const items = text
+              ? text
+                  .split('\n')
+                  .filter(line => line.trim())
+                  .map(line => createBulletListItem(line))
+              : [createBulletListItem()]
+
+            ul.append(...items)
+            blockElement.innerHTML = ''
+            blockElement.appendChild(ul)
+            setSelectionToEnd(ul.lastElementChild as HTMLElement, selection)
+          }
+          blockParent.dispatchEvent(createInputEvent())
+        },
+        checklist: () => {
+          const checklistContainer = document.createElement('div')
+          checklistContainer.className = 'flex flex-col gap-2 my-2'
+
+          const items = text
+            ? text
+                .split('\n')
+                .filter(line => line.trim())
+                .map(line => createChecklistItem(line))
+            : [createChecklistItem()]
+
+          checklistContainer.append(...items)
+          blockElement.innerHTML = ''
+          blockElement.appendChild(checklistContainer)
+
+          const lastItem = checklistContainer.lastElementChild?.querySelector('[contenteditable="true"]')
+          if (lastItem) {
+            setSelectionToEnd(lastItem as HTMLElement, selection)
+          }
+
+          blockParent.dispatchEvent(createInputEvent())
         }
-
-        const list = blockElement.querySelector('ul')
-        const lastLi = list?.lastElementChild
-        if (lastLi) {
-          const newRange = document.createRange()
-          newRange.selectNodeContents(lastLi)
-          newRange.collapse(false)
-          selection.removeAllRanges()
-          selection.addRange(newRange)
-        }
-
-        const inputEvent = new InputEvent('input', {
-          bubbles: true,
-          cancelable: true
-        })
-        blockParent.dispatchEvent(inputEvent)
-      },
-      checklist: () => {
-        const createChecklistItem = (content: string = '') => {
-          const itemDiv = document.createElement('div')
-          itemDiv.className = 'flex items-center gap-2'
-          itemDiv.innerHTML = `
-            <input type="checkbox" class="h-4 w-4 rounded border-gray-300">
-            <div contenteditable="true" class="flex-1">${content || '<br>'}</div>
-          `
-          return itemDiv
-        }
-
-        const checklistContainer = document.createElement('div')
-        checklistContainer.className = 'flex flex-col gap-2 my-2'
-
-        if (text) {
-          const lines = text.split('\n').filter(line => line.trim())
-          lines.forEach(line => {
-            checklistContainer.appendChild(createChecklistItem(line))
-          })
-        } else {
-          checklistContainer.appendChild(createChecklistItem())
-        }
-
-        blockElement.innerHTML = ''
-        blockElement.appendChild(checklistContainer)
-
-        const lastItem = checklistContainer.lastElementChild?.querySelector('[contenteditable="true"]')
-        if (lastItem) {
-          const newRange = document.createRange()
-          newRange.selectNodeContents(lastItem)
-          newRange.collapse(false)
-          selection.removeAllRanges()
-          selection.addRange(newRange)
-        }
-
-        const inputEvent = new InputEvent('input', {
-          bubbles: true,
-          cancelable: true
-        })
-        blockParent.dispatchEvent(inputEvent)
       }
-    }
 
-    commands[command.value]()
-    setCommandMenu((prev: any) => ({ ...prev, show: false, position: null, filterText: '' }))
-  }, [])
+      commandHandlers[command.value]()
+      setCommandMenu(prev => ({ ...prev, show: false, position: null, filterText: '' }))
+    },
+    [setCommandMenu]
+  )
 
   return { handleCommandSelect }
 }
