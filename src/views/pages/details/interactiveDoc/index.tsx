@@ -136,77 +136,56 @@ const InteractiveDoc: React.FC = () => {
           ? range.startContainer.parentElement?.closest('li')
           : (range.startContainer as HTMLElement).closest('li')
 
-      const checklistItem =
-        range.startContainer.nodeType === Node.TEXT_NODE
-          ? range.startContainer.parentElement?.closest('.flex.items-center.gap-2')
-          : (range.startContainer as HTMLElement).closest('.flex.items-center.gap-2')
-
-      const checklistContainer = currentBlock.querySelector('.flex.flex-col.gap-2')
-      const contentDiv = checklistItem?.querySelector('[contenteditable="true"]')
-
-      if (checklistContainer && checklistItem && contentDiv) {
+      if (currentList && currentListItem) {
         if (
-          ((e.key === 'Backspace' && getCaretPosition(contentDiv) === 0) || (e.key === 'Enter' && !e.shiftKey)) &&
-          contentDiv.textContent?.trim() === ''
+          (e.key === 'Backspace' || (e.key === 'Delete' && e.metaKey)) &&
+          currentListItem.textContent?.trim() === '' &&
+          getCaretPosition(currentListItem) === 0
         ) {
           e.preventDefault()
 
-          const parent = checklistItem.parentNode
-          const nextSibling = checklistItem.nextElementSibling
+          // Get the relative position of the current list item within its container
+          const containerRect = containerRef.current.getBoundingClientRect()
+          const listItemRect = currentListItem.getBoundingClientRect()
+          const relativeTop = listItemRect.top - containerRect.top
 
-          // Remove the current checklist item
-          checklistItem.remove()
+          // Create new block
+          const newBlock = document.createElement('div')
+          const newBlockId = createNewBlockId()
+          newBlock.setAttribute('data-block-id', newBlockId)
+          newBlock.innerHTML = '<br>'
 
-          if (checklistContainer.children.length === 0) {
-            // If no items remain, create a new block
-            const newBlock = document.createElement('div')
-            newBlock.setAttribute('data-block-id', createNewBlockId())
-            newBlock.innerHTML = '<br>'
+          // Insert new block at the same position as the current list
+          currentBlock.parentNode?.insertBefore(newBlock, currentBlock.nextSibling)
 
-            currentBlock.parentNode?.insertBefore(newBlock, currentBlock.nextSibling) // Insert the new block after the current block
-            currentBlock.remove() // Remove the empty checklist block
-
-            // Move the caret to the new block
-            const newRange = document.createRange()
-            newRange.selectNodeContents(newBlock)
-            newRange.collapse(true)
-            selection.removeAllRanges()
-            selection.addRange(newRange)
-          } else if (nextSibling) {
-            // If there are remaining checklist items, move the caret to the next one
-            const nextContentEditable = nextSibling.querySelector('[contenteditable="true"]')
-            if (nextContentEditable) {
-              const newRange = document.createRange()
-              newRange.selectNodeContents(nextContentEditable)
-              newRange.collapse(true)
-              selection.removeAllRanges()
-              selection.addRange(newRange)
-            }
+          // Remove the list item
+          if (currentList.children.length <= 1) {
+            // If this was the last item, remove the entire list block
+            currentBlock.remove()
+          } else {
+            currentListItem.remove()
           }
 
-          updateBlocks()
-          return
-        }
+          // Set selection to new block
+          const newRange = document.createRange()
+          newRange.selectNodeContents(newBlock)
+          newRange.collapse(true)
+          selection.removeAllRanges()
+          selection.addRange(newRange)
 
-        if (e.key === 'Enter' && !e.shiftKey) {
-          e.preventDefault()
+          // Force layout update
+          newBlock.style.display = 'block'
 
-          const newItem = document.createElement('div')
-          newItem.className = 'flex items-center gap-2'
-          newItem.innerHTML = `
-            <input type="checkbox" class="h-4 w-4 rounded border-gray-300">
-            <div contenteditable="true" class="flex-1"><br></div>
-          `
+          // Calculate new position and adjust if needed
+          const newBlockRect = newBlock.getBoundingClientRect()
+          const newRelativeTop = newBlockRect.top - containerRect.top
 
-          checklistItem.parentNode?.insertBefore(newItem, checklistItem.nextSibling)
-
-          const newContentDiv = newItem.querySelector('[contenteditable="true"]')
-          if (newContentDiv) {
-            const newRange = document.createRange()
-            newRange.selectNodeContents(newContentDiv)
-            newRange.collapse(true)
-            selection.removeAllRanges()
-            selection.addRange(newRange)
+          if (newRelativeTop !== relativeTop) {
+            // Insert a spacer div to maintain position
+            const spacer = document.createElement('div')
+            spacer.style.height = '0'
+            spacer.style.marginTop = `${relativeTop - newRelativeTop}px`
+            newBlock.insertBefore(spacer, newBlock.firstChild)
           }
 
           updateBlocks()
