@@ -19,6 +19,7 @@ const useDocSocket = ({ detailsId, onMessageReceived }: DocSocketOptions) => {
     socket.onmessage = event => {
       try {
         const data = JSON.parse(event.data)
+        console.log(data,"receivved?")
         onMessageReceived(data)
       } catch (error) {
         console.error('Error parsing message:', error)

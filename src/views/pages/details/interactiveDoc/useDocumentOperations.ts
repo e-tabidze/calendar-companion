@@ -1,4 +1,4 @@
-import { useCallback, useRef } from 'react'
+import { useCallback, useEffect, useRef } from 'react'
 import { Block } from './types'
 
 interface DocumentOperationsProps {
@@ -16,17 +16,45 @@ export const useDocumentOperations = ({
   const lastUpdateTime = useRef<number>(0)
   const updateThreshold = 500 // ms
 
+  // Add these refs for typing detection
+  const typingIntervalRef = useRef<NodeJS.Timeout | null>(null)
+  const isTypingRef = useRef(false)
+  const isSentRef = useRef(false)
+
+  const cleanupTypingInterval = useCallback(() => {
+    if (typingIntervalRef.current) {
+      clearInterval(typingIntervalRef.current)
+      typingIntervalRef.current = null
+    }
+  }, [])
+
+  const handleKeyDown = useCallback(() => {
+    isTypingRef.current = true
+    isSentRef.current = false
+    cleanupTypingInterval()
+  }, [cleanupTypingInterval])
+
+  const handleKeyUp = useCallback(() => {
+    cleanupTypingInterval()
+    
+    typingIntervalRef.current = setInterval(() => {
+      if (!isSentRef.current && isTypingRef.current) {
+        performUpdate()
+        isSentRef.current = true
+        isTypingRef.current = false
+      }
+    }, 300)
+  }, [])
+
   const updateBlocks = useCallback(() => {
     if (!containerRef.current) return
 
     const now = Date.now()
     if (now - lastUpdateTime.current < updateThreshold) {
-      // Clear existing timeout
       if (updateTimeoutRef.current) {
         clearTimeout(updateTimeoutRef.current)
       }
       
-      // Set new timeout
       updateTimeoutRef.current = setTimeout(() => {
         performUpdate()
       }, updateThreshold)
@@ -85,8 +113,20 @@ export const useDocumentOperations = ({
     updateBlocks()
   }, [containerRef, updateBlocks])
 
+  // Cleanup on unmount
+  useEffect(() => {
+    return () => {
+      cleanupTypingInterval()
+      if (updateTimeoutRef.current) {
+        clearTimeout(updateTimeoutRef.current)
+      }
+    }
+  }, [cleanupTypingInterval])
+
   return {
     updateBlocks,
-    handleCreateNewBlock
+    handleCreateNewBlock,
+    handleKeyDown,
+    handleKeyUp
   }
 }

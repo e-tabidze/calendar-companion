@@ -32,16 +32,61 @@ const InteractiveDoc: React.FC = () => {
   const { sendMessage } = useDocSocket({
     detailsId: String(slug),
     onMessageReceived: (content: string) => {
-      if (containerRef.current && typeof content === 'string') {
+      if (!containerRef.current) return
+
+      const selection = window.getSelection()
+      const activeElement = document.activeElement
+      let savedRange = null
+      if (selection?.rangeCount) {
+        savedRange = selection.getRangeAt(0).cloneRange()
+      }
+
+      if (Array.isArray(content)) {
+        const existingBlocks = Array.from(containerRef.current.children).map(child => ({
+          id: child.getAttribute('data-block-id'),
+          element: child
+        }))
+
+        content.forEach(block => {
+          const existingBlock = containerRef.current?.querySelector(`[data-block-id="${block.id}"]`)
+          if (existingBlock) {
+            if (existingBlock.innerHTML !== block.content) {
+              existingBlock.innerHTML = block.content
+            }
+          } else {
+            const div = document.createElement('div')
+            div.setAttribute('data-block-id', block.id)
+            div.innerHTML = block.content
+            containerRef.current?.appendChild(div)
+          }
+        })
+
+        existingBlocks.forEach(({ id, element }) => {
+          if (!content.find(block => block.id === id)) {
+            element.remove()
+          }
+        })
+
+        setBlocks(content)
+      } else if (typeof content === 'string') {
         containerRef.current.innerHTML = content
         updateBlocks()
+      }
+
+      if (savedRange && activeElement === containerRef.current) {
+        try {
+          selection?.removeAllRanges()
+          selection?.addRange(savedRange)
+        } catch (error) {
+          console.warn('Could not restore cursor position')
+        }
       }
     }
   })
 
   sendMessageRef.current = sendMessage
 
-  const { updateBlocks, handleCreateNewBlock } = useDocumentOperations({
+  const { updateBlocks, handleCreateNewBlock, handleKeyDown, handleKeyUp } = useDocumentOperations({
     containerRef,
     setBlocks,
     sendMessage: sendMessageRef.current
@@ -91,7 +136,11 @@ const InteractiveDoc: React.FC = () => {
         className='min-h-[200px] rounded-lg focus:outline-none p-4'
         contentEditable
         suppressContentEditableWarning
-        onKeyDown={handleContainerKeyDown}
+        onKeyDown={e => {
+          handleContainerKeyDown(e)
+          handleKeyDown()
+        }}
+        onKeyUp={handleKeyUp}
       />
       {commandMenu.show && (
         <MemoizedCommandMenu
