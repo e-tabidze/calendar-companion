@@ -3,6 +3,7 @@ export interface Block {
   type: 'text' | 'h1' | 'h2' | 'bullet' | 'checklist'
   content: string
   index: number
+  username: string
 }
 
 export interface CommandMenuState {

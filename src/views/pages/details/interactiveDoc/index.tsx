@@ -9,12 +9,13 @@ import useHandleSelectionChange from './useHandleSelectionChange'
 import { useDocumentOperations } from './useDocumentOperations'
 import { Block, MenuState, Position } from './types'
 import useContainerKeyDown from './useContainerKeyDown'
+import useUserData from 'src/hooks/useUserData'
 
 const MemoizedHoverToolbar = React.memo(HoverToolbar)
 const MemoizedCommandMenu = React.memo(CommandMenu)
 
 const InteractiveDoc: React.FC = () => {
-  const [blocks, setBlocks] = useState<Block[]>([{ id: '1', type: 'text', content: '', index: 0 }])
+  const [blocks, setBlocks] = useState<Block[]>([{ id: '1', type: 'text', content: '', index: 0, username: '' }])
   const [hoverToolbar, setHoverToolbar] = useState<MenuState>({ show: false, position: null })
   const [commandMenu, setCommandMenu] = useState({
     show: false,
@@ -22,6 +23,8 @@ const InteractiveDoc: React.FC = () => {
     filterText: '',
     blockId: undefined as string | undefined
   })
+
+  const { userData } = useUserData()
 
   const selectionStartPosition = useRef<Position | null>(null)
   const containerRef = useRef<HTMLDivElement>(null)
@@ -89,7 +92,8 @@ const InteractiveDoc: React.FC = () => {
   const { updateBlocks, handleCreateNewBlock, handleKeyDown, handleKeyUp } = useDocumentOperations({
     containerRef,
     setBlocks,
-    sendMessage: sendMessageRef.current
+    sendMessage: sendMessageRef.current,
+    username: userData?.username
   })
 
   const { handleContainerKeyDown } = useContainerKeyDown(

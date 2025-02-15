@@ -5,13 +5,10 @@ interface DocumentOperationsProps {
   containerRef: React.RefObject<HTMLDivElement>
   setBlocks: React.Dispatch<React.SetStateAction<Block[]>>
   sendMessage: (content: string | Block[]) => void
+  username: string
 }
 
-export const useDocumentOperations = ({
-  containerRef,
-  setBlocks,
-  sendMessage
-}: DocumentOperationsProps) => {
+export const useDocumentOperations = ({ containerRef, setBlocks, sendMessage, username }: DocumentOperationsProps) => {
   const updateTimeoutRef = useRef<NodeJS.Timeout | null>(null)
   const lastUpdateTime = useRef<number>(0)
   const updateThreshold = 500 // ms
@@ -20,6 +17,12 @@ export const useDocumentOperations = ({
   const typingIntervalRef = useRef<NodeJS.Timeout | null>(null)
   const isTypingRef = useRef(false)
   const isSentRef = useRef(false)
+  const usernameRef = useRef(username) // Keep username in ref to access in callbacks
+
+  // Update usernameRef when username prop changes
+  useEffect(() => {
+    usernameRef.current = username
+  }, [username])
 
   const cleanupTypingInterval = useCallback(() => {
     if (typingIntervalRef.current) {
@@ -36,7 +39,7 @@ export const useDocumentOperations = ({
 
   const handleKeyUp = useCallback(() => {
     cleanupTypingInterval()
-    
+
     typingIntervalRef.current = setInterval(() => {
       if (!isSentRef.current && isTypingRef.current) {
         performUpdate()
@@ -54,11 +57,11 @@ export const useDocumentOperations = ({
       if (updateTimeoutRef.current) {
         clearTimeout(updateTimeoutRef.current)
       }
-      
+
       updateTimeoutRef.current = setTimeout(() => {
         performUpdate()
       }, updateThreshold)
-      
+
       return
     }
 
@@ -67,16 +70,17 @@ export const useDocumentOperations = ({
 
   const performUpdate = useCallback(() => {
     if (!containerRef.current) return
-    
+
     lastUpdateTime.current = Date.now()
-    
+
     const blocks: Block[] = Array.from(containerRef.current.children).map((child, index) => {
       const blockId = child.getAttribute('data-block-id') || String(index + 1)
       return {
         id: blockId,
         type: 'text',
         content: child.innerHTML,
-        index
+        index,
+        username: usernameRef.current
       }
     })
 
@@ -91,9 +95,10 @@ export const useDocumentOperations = ({
     if (!selection) return
 
     const range = selection.getRangeAt(0)
-    const currentBlock = range.startContainer.nodeType === Node.TEXT_NODE
-      ? range.startContainer.parentElement?.closest('[data-block-id]')
-      : (range.startContainer as HTMLElement).closest('[data-block-id]')
+    const currentBlock =
+      range.startContainer.nodeType === Node.TEXT_NODE
+        ? range.startContainer.parentElement?.closest('[data-block-id]')
+        : (range.startContainer as HTMLElement).closest('[data-block-id]')
 
     if (!currentBlock) return
 
