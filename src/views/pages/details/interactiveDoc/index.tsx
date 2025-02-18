@@ -15,7 +15,7 @@ const MemoizedHoverToolbar = React.memo(HoverToolbar)
 const MemoizedCommandMenu = React.memo(CommandMenu)
 
 const InteractiveDoc: React.FC = () => {
-  const [blocks, setBlocks] = useState<Block[]>([{ id: '1', type: 'text', content: '', index: 0, username: '' }])
+  const [blocks, setBlocks] = useState<Block[]>([])
   const [hoverToolbar, setHoverToolbar] = useState<MenuState>({ show: false, position: null })
   const [commandMenu, setCommandMenu] = useState({
     show: false,
@@ -25,7 +25,6 @@ const InteractiveDoc: React.FC = () => {
   })
 
   const { userData } = useUserData()
-
   const selectionStartPosition = useRef<Position | null>(null)
   const containerRef = useRef<HTMLDivElement>(null)
   const sendMessageRef = useRef<(content: string | Block[]) => void>(() => {})
@@ -34,7 +33,7 @@ const InteractiveDoc: React.FC = () => {
 
   const { sendMessage } = useDocSocket({
     detailsId: String(slug),
-    onMessageReceived: (content: string) => {
+    onMessageReceived: (content: Block[]) => {
       if (!containerRef.current) return
 
       const selection = window.getSelection()
@@ -45,35 +44,28 @@ const InteractiveDoc: React.FC = () => {
       }
 
       if (Array.isArray(content)) {
-        const existingBlocks = Array.from(containerRef.current.children).map(child => ({
-          id: child.getAttribute('data-block-id'),
-          element: child
-        }))
+        // Ensure only the latest update per index is displayed
+        const latestBlocks: Record<number, Block> = {}
 
         content.forEach(block => {
-          const existingBlock = containerRef.current?.querySelector(`[data-block-id="${block.id}"]`)
-          if (existingBlock) {
-            if (existingBlock.innerHTML !== block.content) {
-              existingBlock.innerHTML = block.content
-            }
-          } else {
-            const div = document.createElement('div')
-            div.setAttribute('data-block-id', block.id)
-            div.innerHTML = block.content
-            containerRef.current?.appendChild(div)
-          }
+          latestBlocks[block.index] = block // Overwrite any previous updates for the same index
         })
 
-        existingBlocks.forEach(({ id, element }) => {
-          if (!content.find(block => block.id === id)) {
-            element.remove()
-          }
-        })
+        // Convert map to sorted array
+        const sortedBlocks = Object.values(latestBlocks).sort((a, b) => a.index - b.index)
 
-        setBlocks(content)
-      } else if (typeof content === 'string') {
-        containerRef.current.innerHTML = content
-        updateBlocks()
+        setBlocks(sortedBlocks)
+
+        // Update the DOM manually
+        containerRef.current.innerHTML = "" // Clear the container before rendering
+
+        sortedBlocks.forEach(block => {
+          const div = document.createElement("div")
+          div.setAttribute("data-block-index", String(block.index))
+          div.setAttribute("data-block-id", block.id)
+          div.innerHTML = block.content
+          containerRef.current?.appendChild(div)
+        })
       }
 
       if (savedRange && activeElement === containerRef.current) {
@@ -120,8 +112,6 @@ const InteractiveDoc: React.FC = () => {
       updateBlocks()
     }
   }, [updateBlocks])
-
-  console.log(blocks, 'blocks')
 
   return (
     <div className='w-full'>
