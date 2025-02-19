@@ -7,7 +7,7 @@ const MainPage = () => {
   const workspaceID = 'myWorkspace1';
   
   useEffect(() => {
-    const socket = new WebSocket(`ws://localhost:5000/ws?workspace_id=${workspaceID}`);
+    const socket = new WebSocket(`wss://api.companyon.ai/ws?workspace_id=${workspaceID}`);
 
     socket.onopen = () => {
       console.log('WebSocket connection established');

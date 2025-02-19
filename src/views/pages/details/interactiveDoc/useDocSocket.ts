@@ -10,7 +10,7 @@ const useDocSocket = ({ detailsId, onMessageReceived }: DocSocketOptions) => {
   const lastSentUpdatesRef = useRef<{[key: number]: string}>({}) // Track by index
 
   useEffect(() => {
-    const socket = new WebSocket(`ws://127.0.0.1:5050/details?details_id=${detailsId}`)
+    const socket = new WebSocket(`wss://api.companyon.ai/details?details_id=${detailsId}`)
     socketRef.current = socket
 
     socket.onopen = () => {

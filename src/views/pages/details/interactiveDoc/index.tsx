@@ -113,6 +113,8 @@ const InteractiveDoc: React.FC = () => {
     }
   }, [updateBlocks])
 
+  console.log(blocks, 'blocks')
+
   return (
     <div className='w-full'>
       <div
