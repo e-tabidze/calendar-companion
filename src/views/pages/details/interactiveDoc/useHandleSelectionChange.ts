@@ -22,7 +22,8 @@ const getSelectionRect = (range: Range): DOMRect => {
       tempRange.setEnd(tempRange.startContainer, endOffset)
       const rect = tempRange.getBoundingClientRect()
       tempRange.detach()
-      return rect
+      
+      return rect;
     } catch (error) {
       return range.getBoundingClientRect()
     }
@@ -56,7 +57,8 @@ const useHandleSelectionChange = (
         setHoverToolbar({ show: false, position: null })
         selectionStartPosition.current = null
       }
-      return
+      
+return
     }
 
     const isValidSelection = !selection.isCollapsed && selection.rangeCount > 0

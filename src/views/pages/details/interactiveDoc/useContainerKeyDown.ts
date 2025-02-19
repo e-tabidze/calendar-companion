@@ -86,6 +86,7 @@ const useContainerKeyDown = (
           }
 
           updateBlocks()
+
           return
         }
 
@@ -150,6 +151,7 @@ const useContainerKeyDown = (
             }
           }
           updateBlocks()
+
           return
         }
       }
@@ -210,6 +212,7 @@ const useContainerKeyDown = (
             selection.addRange(newRange)
           }
           updateBlocks()
+
           return
         }
 
@@ -255,6 +258,7 @@ const useContainerKeyDown = (
           }
 
           updateBlocks()
+
           return
         }
       }
@@ -262,6 +266,7 @@ const useContainerKeyDown = (
       if (e.key === 'Enter' && !e.shiftKey) {
         e.preventDefault()
         handleCreateNewBlock()
+
         return
       }
 

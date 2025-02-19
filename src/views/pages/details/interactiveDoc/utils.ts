@@ -5,5 +5,6 @@ export const getCaretPosition = (): number => {
   if (!selection || !selection.rangeCount) return 0
 
   const range = selection.getRangeAt(0)
-  return range.startOffset
+  
+return range.startOffset
 }

@@ -1,4 +1,4 @@
-import { Position } from "../hoverToolbar"
+import { Position } from "../types"
 
 export const COMMANDS = [
   { label: 'Heading 1', value: 'h1' },

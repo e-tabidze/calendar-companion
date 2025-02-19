@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useLayoutEffect, useState, useEffect } from 'react'
+import React, { useRef, useLayoutEffect, useState, useEffect } from 'react'
 import HoverToolbar from './hoverToolbar'
 import CommandMenu from './commandMenu'
 import useCommandHandler from './commandMenu/useCommandHandler'
@@ -27,7 +27,9 @@ const InteractiveDoc: React.FC = () => {
   const { userData } = useUserData()
   const selectionStartPosition = useRef<Position | null>(null)
   const containerRef = useRef<HTMLDivElement>(null)
-  const sendMessageRef = useRef<(content: string | Block[]) => void>(() => {})
+  const sendMessageRef = useRef<(content: string | Block[]) => void>(() => {
+    return
+  })
 
   const { slug } = useRouter().query
 
@@ -100,7 +102,8 @@ const InteractiveDoc: React.FC = () => {
 
   useEffect(() => {
     document.addEventListener('selectionchange', handleSelectionChange)
-    return () => document.removeEventListener('selectionchange', handleSelectionChange)
+    
+return () => document.removeEventListener('selectionchange', handleSelectionChange)
   }, [handleSelectionChange])
 
   useLayoutEffect(() => {

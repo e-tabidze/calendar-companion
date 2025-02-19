@@ -30,24 +30,27 @@ const createHeadingElement = (tag: 'h1' | 'h2', text: string, className: string)
   heading.className = className
   heading.textContent = text || `${tag.toUpperCase()}`
   heading.contentEditable = 'true'
-  return heading
+  
+return heading
 }
 
-const createBulletListItem = (text: string = ''): HTMLLIElement => {
+const createBulletListItem = (text = ''): HTMLLIElement => {
   const li = document.createElement('li')
   li.contentEditable = 'true'
   li.innerHTML = text || '<br>'
-  return li
+  
+return li
 }
 
-const createChecklistItem = (content: string = ''): HTMLDivElement => {
+const createChecklistItem = (content = ''): HTMLDivElement => {
   const itemDiv = document.createElement('div')
   itemDiv.className = 'flex items-center gap-2'
   itemDiv.innerHTML = `
     <input type="checkbox" class="h-4 w-4 rounded border-gray-300">
     <div contenteditable="true" class="flex-1">${content || '<br>'}</div>
   `
-  return itemDiv
+  
+return itemDiv
 }
 
 const useCommandHandler = (setCommandMenu: React.Dispatch<React.SetStateAction<CommandMenuState>>) => {

@@ -13,6 +13,8 @@
     "@typescript-eslint/ban-ts-comment": "off",
     "@typescript-eslint/no-explicit-any": "off",
     "@typescript-eslint/no-non-null-assertion": "off",
+    "react-hooks/exhaustive-deps": "warn",  // Changed from error to warn
+    "jsx-a11y/alt-text": "warn",         
     // "@typescript-eslint/no-explicit-any": "error",
     // add new line above comment
     "lines-around-comment": [

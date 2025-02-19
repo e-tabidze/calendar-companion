@@ -32,22 +32,15 @@ interface HoverToolbarState {
   position: Position | null
 }
 
-const SIMPLE_FORMATS = new Set([
-  'bold',
-  'italic',
-  'underline',
-  'strikethrough',
-  'superscript',
-  'subscript'
-])
+const SIMPLE_FORMATS = new Set(['bold', 'italic', 'underline', 'strikethrough', 'superscript', 'subscript'])
 
 const KEEP_OPEN_FORMATS = new Set(['font', 'askAI'])
 
 const AVAILABLE_FONTS = ['Arial', 'Times New Roman', 'Courier New', 'Georgia'] as const
 
 const getBlockElement = (node: Node): HTMLElement | null => {
-  let element = node.nodeType === Node.TEXT_NODE ? node.parentElement : node as HTMLElement
-  
+  let element = node.nodeType === Node.TEXT_NODE ? node.parentElement : (node as HTMLElement)
+
   while (
     element &&
     getComputedStyle(element).display !== 'block' &&
@@ -56,7 +49,7 @@ const getBlockElement = (node: Node): HTMLElement | null => {
   ) {
     element = element.parentElement
   }
-  
+
   return element
 }
 
@@ -66,11 +59,13 @@ const createList = (range: Range, selection: Selection): HTMLUListElement => {
 
   const text = range.toString()
   if (text) {
-    const lines = text.split('\n')
+    const lines = text
+      .split('\n')
       .filter(line => line.trim())
       .map(line => {
         const li = document.createElement('li')
         li.textContent = line
+
         return li
       })
     ul.append(...lines)
@@ -171,7 +166,7 @@ const useApplyFormat = (
         document.execCommand(format)
       } else {
         const range = selection.getRangeAt(0)
-        
+
         switch (format) {
           case 'justifyLeft':
           case 'justifyCenter':

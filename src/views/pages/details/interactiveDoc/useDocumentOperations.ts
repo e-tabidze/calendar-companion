@@ -15,7 +15,7 @@ export const useDocumentOperations = ({ containerRef, setBlocks, sendMessage, us
   const lastActiveBlockRef = useRef<HTMLElement | null>(null)
   const lastBlockContentRef = useRef<Map<string, string>>(new Map()) // Track by blockId
   const lastBlockUserRef = useRef<Map<string, string>>(new Map()) // Track username by blockId
-  
+
   const typingIntervalRef = useRef<NodeJS.Timeout | null>(null)
   const isTypingRef = useRef(false)
   const isSentRef = useRef(false)
@@ -39,12 +39,12 @@ export const useDocumentOperations = ({ containerRef, setBlocks, sendMessage, us
   const shouldUpdateBlock = useCallback((blockId: string, content: string, currentUsername: string) => {
     const lastContent = lastBlockContentRef.current.get(blockId)
     const lastUser = lastBlockUserRef.current.get(blockId)
-    
+
     // If this is our block (we created it or last modified it)
     if (!lastUser || lastUser === currentUsername) {
       return !lastContent || lastContent !== content
     }
-    
+
     // If it's someone else's block, don't update unless we're actively changing it
     return lastContent !== content && lastActiveBlockRef.current?.getAttribute('data-block-id') === blockId
   }, [])
@@ -58,6 +58,7 @@ export const useDocumentOperations = ({ containerRef, setBlocks, sendMessage, us
         clearTimeout(updateTimeoutRef.current)
       }
       updateTimeoutRef.current = setTimeout(performUpdate, updateThreshold)
+
       return
     }
 
@@ -84,6 +85,7 @@ export const useDocumentOperations = ({ containerRef, setBlocks, sendMessage, us
     // Update local state while preserving other blocks and their usernames
     const allBlocks: Block[] = Array.from(containerRef.current.children).map((child, index) => {
       const blockId = child.getAttribute('data-block-id') || String(index + 1)
+
       return {
         id: blockId,
         type: 'text',
@@ -94,6 +96,7 @@ export const useDocumentOperations = ({ containerRef, setBlocks, sendMessage, us
     })
 
     setBlocks(allBlocks)
+
     // Send only the modified block
     sendMessage([activeBlock])
   }, [containerRef, setBlocks, sendMessage, getBlockUsername, shouldUpdateBlock])
@@ -105,9 +108,10 @@ export const useDocumentOperations = ({ containerRef, setBlocks, sendMessage, us
     if (!selection?.rangeCount) return
 
     const range = selection.getRangeAt(0)
-    const currentBlock = range.startContainer.nodeType === Node.TEXT_NODE
-      ? range.startContainer.parentElement?.closest('[data-block-id]')
-      : (range.startContainer as HTMLElement).closest('[data-block-id]')
+    const currentBlock =
+      range.startContainer.nodeType === Node.TEXT_NODE
+        ? range.startContainer.parentElement?.closest('[data-block-id]')
+        : (range.startContainer as HTMLElement).closest('[data-block-id]')
 
     if (currentBlock instanceof HTMLElement) {
       const blockId = currentBlock.getAttribute('data-block-id')
@@ -125,9 +129,10 @@ export const useDocumentOperations = ({ containerRef, setBlocks, sendMessage, us
     if (!selection?.rangeCount) return
 
     const range = selection.getRangeAt(0)
-    const currentBlock = range.startContainer.nodeType === Node.TEXT_NODE
-      ? range.startContainer.parentElement?.closest('[data-block-id]')
-      : (range.startContainer as HTMLElement).closest('[data-block-id]')
+    const currentBlock =
+      range.startContainer.nodeType === Node.TEXT_NODE
+        ? range.startContainer.parentElement?.closest('[data-block-id]')
+        : (range.startContainer as HTMLElement).closest('[data-block-id]')
 
     if (currentBlock instanceof HTMLElement) {
       lastActiveBlockRef.current = currentBlock
@@ -242,6 +247,7 @@ export const useDocumentOperations = ({ containerRef, setBlocks, sendMessage, us
     // Update local state while preserving ownership of all blocks
     const allBlocks: Block[] = Array.from(containerRef.current.children).map((child, index) => {
       const blockId = child.getAttribute('data-block-id') || String(index + 1)
+
       return {
         id: blockId,
         type: 'text',
@@ -263,7 +269,7 @@ export const useDocumentOperations = ({ containerRef, setBlocks, sendMessage, us
     }
 
     sendMessage([newBlockData])
-}, [containerRef, sendMessage, getBlockUsername])
+  }, [containerRef, sendMessage, getBlockUsername])
 
   useEffect(() => {
     return () => {
