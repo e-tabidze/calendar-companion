@@ -51,6 +51,8 @@ const InteractiveDoc: React.FC = () => {
       if (Array.isArray(content)) {
         const latestBlocks: Record<number, Block> = {}
 
+        console.log(content, 'content')
+
         content.forEach(block => {
           latestBlocks[block.index] = block
         })
@@ -67,41 +69,26 @@ const InteractiveDoc: React.FC = () => {
 
         sortedBlocks.forEach(block => {
           const blockContainer = document.createElement('div')
-          blockContainer.className = 'flex items-start py-2 relative -ml-12'
+          blockContainer.className = 'flex items-start py-2 relative'
 
           blockContainer.setAttribute('data-block-index', String(block.index))
           blockContainer.setAttribute('data-block-id', block.id)
 
           const timeColumn = document.createElement('div')
-          timeColumn.className = 'flex-shrink-0 text-sm text-gray-500 absolute -left-[53px]'
-
-          timeColumn.classList.add('presentation-only')
+          timeColumn.className = 'presentation-only flex-shrink-0 text-sm text-gray-500 absolute -left-[100px]'
           timeColumn.textContent = '13:45am'
 
-          const avatarColumn = document.createElement('div')
-          avatarColumn.className = 'flex-shrink-0 mx-2 relative'
-          avatarColumn.classList.add('presentation-only')
-
           const avatar = document.createElement('div')
-          avatar.classList.add('presentation-only')
-
           let initial = '?'
-          if (block.username) {
-            initial = block.username.charAt(0).toUpperCase()
-          }
 
           const isT = initial === 'T'
-          avatar.className = `presentation-only w-4 h-4 rounded-full bg-gray-200 flex items-center justify-center text-xs font-bold text-gray-700 absolute z-10 -left-[6px] ${
-            isT ? 'bg-indigo-800 text-white' : ''
+          avatar.className = `presentation-only w-4 h-4 rounded-full flex items-center justify-center text-xs font-bold text-white absolute -left-[47px] z-10 ${
+            isT ? 'bg-indigo-800' : 'bg-gray-800'
           }`
           avatar.textContent = initial
-          avatarColumn.appendChild(avatar)
-
-          const verticalLine = document.createElement('div')
-          verticalLine.className = 'presentation-only absolute h-full w-px bg-gray-200 left-[9px] top-0 -z-10'
 
           const contentColumn = document.createElement('div')
-          contentColumn.className = 'flex-1 px-8'
+          contentColumn.className = 'flex-1'
 
           const contentDiv = document.createElement('div')
 
@@ -113,9 +100,8 @@ const InteractiveDoc: React.FC = () => {
           contentColumn.appendChild(contentDiv)
 
           blockContainer.appendChild(timeColumn)
-          blockContainer.appendChild(avatarColumn)
+          blockContainer.appendChild(avatar)
           blockContainer.appendChild(contentColumn)
-          blockContainer.appendChild(verticalLine)
 
           containerRef.current?.appendChild(blockContainer)
         })
@@ -124,25 +110,22 @@ const InteractiveDoc: React.FC = () => {
         const newIndex = sortedBlocks.length > 0 ? sortedBlocks[sortedBlocks.length - 1].index + 1 : 0
 
         const emptyLineContainer = document.createElement('div')
-        emptyLineContainer.className = 'flex items-center py-2 relative -ml-12'
+        emptyLineContainer.className = 'flex items-center py-2 relative'
         emptyLineContainer.setAttribute('data-block-index', String(newIndex))
         emptyLineContainer.setAttribute('data-block-id', newBlockId)
 
         const timeColumn = document.createElement('div')
-        timeColumn.className = 'presentation-only flex-shrink-0 text-sm text-gray-500 absolute -left-[53px]'
+        timeColumn.className = 'presentation-only flex-shrink-0 text-sm text-gray-500 absolute -left-[100px]'
         timeColumn.textContent = '13:45am'
 
-        const avatarColumn = document.createElement('div')
-        avatarColumn.className = 'presentation-only flex-shrink-0 mx-2 relative'
 
         const avatar = document.createElement('div')
         let initial = userData.username.charAt(0).toUpperCase()
         const isT = initial === 'T'
-        avatar.className = `presentation-only w-4 h-4 rounded-full bg-gray-200 flex items-center justify-center text-xs font-bold text-gray-700 absolute z-10 -left-[6px] -bottom-[9px] ${
-          isT ? 'bg-indigo-800 text-white' : ''
+        avatar.className = `presentation-only w-4 h-4 rounded-full flex items-center justify-center text-xs font-bold text-white absolute -left-[47px] z-10 ${
+          isT ? 'bg-indigo-800' : 'bg-gray-800'
         }`
         avatar.textContent = initial
-        avatarColumn.appendChild(avatar)
 
         const contentColumn = document.createElement('div')
         contentColumn.className = 'flex-1'
@@ -152,14 +135,9 @@ const InteractiveDoc: React.FC = () => {
         contentDiv.innerHTML = '<br>'
         contentColumn.appendChild(contentDiv)
 
-        const verticalLine = document.createElement('div')
-        verticalLine.className = 'presentation-only absolute h-full w-px bg-gray-200 left-[9px] top-0 -z-10'
-
         emptyLineContainer.appendChild(timeColumn)
-        emptyLineContainer.appendChild(avatarColumn)
+        emptyLineContainer.appendChild(avatar)
         emptyLineContainer.appendChild(contentColumn)
-        emptyLineContainer.appendChild(verticalLine)
-
         containerRef.current?.appendChild(emptyLineContainer)
 
         lastBlockUserRef.current.set(newBlockId, userData.username)

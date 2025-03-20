@@ -208,16 +208,21 @@ export const useDocumentOperations = ({ containerRef, setBlocks, sendMessage, us
       const newBlockId = crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).substring(2, 15)
 
       const blockContainer = document.createElement('div')
-      blockContainer.className = 'flex items-center relative'
+      blockContainer.className = 'flex items-center relative py-2'
       blockContainer.setAttribute('data-block-id', newBlockId)
       blockContainer.setAttribute('data-block-index', String(insertAtIndex))
 
       const timeColumn = document.createElement('div')
       timeColumn.className = 'presentation-only flex-shrink-0 text-sm text-gray-500 absolute -left-[100px]'
-      timeColumn.textContent = '13:45am'
+      const now = new Date()
+      const hours = now.getHours()
+      const minutes = now.getMinutes()
+      const ampm = hours >= 12 ? 'pm' : 'am'
+      const formattedHours = hours % 12 === 0 ? 12 : hours % 12
+      const formattedMinutes = minutes.toString().padStart(2, '0')
+      const timeString = `${formattedHours}:${formattedMinutes}${ampm}`
 
-      const avatarColumn = document.createElement('div')
-      avatarColumn.className = 'presentation-only flex-shrink-0 relative'
+      timeColumn.textContent = timeString
 
       const avatar = document.createElement('div')
       let initial = '?'
@@ -225,11 +230,10 @@ export const useDocumentOperations = ({ containerRef, setBlocks, sendMessage, us
         initial = usernameRef.current.charAt(0).toUpperCase()
       }
       const isT = initial === 'T'
-      avatar.className = `presentation-only w-4 h-4 rounded-full flex items-center justify-center text-xs font-bold text-white absolute -left-[47px] z-10 -top-2 ${
+      avatar.className = `presentation-only w-4 h-4 rounded-full flex items-center justify-center text-xs font-bold text-white absolute -left-[47px] z-10 ${
         isT ? 'bg-indigo-800' : 'bg-gray-800'
       }`
       avatar.textContent = initial
-      avatarColumn.appendChild(avatar)
 
       const contentColumn = document.createElement('div')
       contentColumn.className = 'flex-1'
@@ -240,7 +244,7 @@ export const useDocumentOperations = ({ containerRef, setBlocks, sendMessage, us
       contentColumn.appendChild(contentDiv)
 
       blockContainer.appendChild(timeColumn)
-      blockContainer.appendChild(avatarColumn)
+      blockContainer.appendChild(avatar)
       blockContainer.appendChild(contentColumn)
 
       if (insertAtIndex < containerRef.current.children.length) {
