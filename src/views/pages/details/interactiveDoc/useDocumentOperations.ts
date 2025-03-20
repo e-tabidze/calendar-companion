@@ -11,10 +11,10 @@ interface DocumentOperationsProps {
 export const useDocumentOperations = ({ containerRef, setBlocks, sendMessage, username }: DocumentOperationsProps) => {
   const updateTimeoutRef = useRef<NodeJS.Timeout | null>(null)
   const lastUpdateTime = useRef<number>(0)
-  const updateThreshold = 500 // ms
+  const updateThreshold = 500
   const lastActiveBlockRef = useRef<HTMLElement | null>(null)
-  const lastBlockContentRef = useRef<Map<string, string>>(new Map()) // Track by blockId
-  const lastBlockUserRef = useRef<Map<string, string>>(new Map()) // Track username by blockId
+  const lastBlockContentRef = useRef<Map<string, string>>(new Map())
+  const lastBlockUserRef = useRef<Map<string, string>>(new Map())
 
   const typingIntervalRef = useRef<NodeJS.Timeout | null>(null)
   const isTypingRef = useRef(false)
@@ -36,16 +36,30 @@ export const useDocumentOperations = ({ containerRef, setBlocks, sendMessage, us
     return lastBlockUserRef.current.get(blockId) || usernameRef.current
   }, [])
 
+  const getContentElement = useCallback((block: HTMLElement): HTMLElement | null => {
+    const contentColumn = block.children[2] as HTMLElement
+    if (!contentColumn) return null
+
+    const contentElement = contentColumn.querySelector('[contenteditable]') as HTMLElement
+    return contentElement
+  }, [])
+
+  const getBlockContent = useCallback(
+    (block: HTMLElement): string => {
+      const contentElement = getContentElement(block)
+      return contentElement ? contentElement.innerHTML : '<br>'
+    },
+    [getContentElement]
+  )
+
   const shouldUpdateBlock = useCallback((blockId: string, content: string, currentUsername: string) => {
     const lastContent = lastBlockContentRef.current.get(blockId)
     const lastUser = lastBlockUserRef.current.get(blockId)
 
-    // If this is our block (we created it or last modified it)
     if (!lastUser || lastUser === currentUsername) {
       return !lastContent || lastContent !== content
     }
 
-    // If it's someone else's block, don't update unless we're actively changing it
     return lastContent !== content && lastActiveBlockRef.current?.getAttribute('data-block-id') === blockId
   }, [])
 
@@ -66,10 +80,9 @@ export const useDocumentOperations = ({ containerRef, setBlocks, sendMessage, us
     const activeBlockId = lastActiveBlockRef.current.getAttribute('data-block-id')
     if (!activeBlockId) return
 
-    const activeContent = lastActiveBlockRef.current.innerHTML
+    const activeContent = getBlockContent(lastActiveBlockRef.current)
     if (!shouldUpdateBlock(activeBlockId, activeContent, usernameRef.current)) return
 
-    // Update only if we're modifying the content
     const activeBlock: Block = {
       id: activeBlockId,
       type: 'text',
@@ -78,18 +91,17 @@ export const useDocumentOperations = ({ containerRef, setBlocks, sendMessage, us
       username: usernameRef.current
     }
 
-    // Update our tracking refs
     lastBlockContentRef.current.set(activeBlockId, activeContent)
     lastBlockUserRef.current.set(activeBlockId, usernameRef.current)
 
-    // Update local state while preserving other blocks and their usernames
     const allBlocks: Block[] = Array.from(containerRef.current.children).map((child, index) => {
       const blockId = child.getAttribute('data-block-id') || String(index + 1)
+      const blockContent = getBlockContent(child as HTMLElement)
 
       return {
         id: blockId,
         type: 'text',
-        content: child.innerHTML,
+        content: blockContent,
         index,
         username: getBlockUsername(blockId)
       }
@@ -97,9 +109,8 @@ export const useDocumentOperations = ({ containerRef, setBlocks, sendMessage, us
 
     setBlocks(allBlocks)
 
-    // Send only the modified block
     sendMessage([activeBlock])
-  }, [containerRef, setBlocks, sendMessage, getBlockUsername, shouldUpdateBlock])
+  }, [containerRef, setBlocks, sendMessage, getBlockUsername, shouldUpdateBlock, getBlockContent])
 
   const updateBlocks = useCallback(() => {
     if (!containerRef.current) return
@@ -108,19 +119,23 @@ export const useDocumentOperations = ({ containerRef, setBlocks, sendMessage, us
     if (!selection?.rangeCount) return
 
     const range = selection.getRangeAt(0)
-    const currentBlock =
+
+    const currentBlock = (
       range.startContainer.nodeType === Node.TEXT_NODE
         ? range.startContainer.parentElement?.closest('[data-block-id]')
         : (range.startContainer as HTMLElement).closest('[data-block-id]')
+    ) as HTMLElement | null
 
-    if (currentBlock instanceof HTMLElement) {
+    if (currentBlock) {
       const blockId = currentBlock.getAttribute('data-block-id')
-      if (blockId && shouldUpdateBlock(blockId, currentBlock.innerHTML, usernameRef.current)) {
+      const blockContent = getBlockContent(currentBlock)
+
+      if (blockId && shouldUpdateBlock(blockId, blockContent, usernameRef.current)) {
         lastActiveBlockRef.current = currentBlock
         performUpdate()
       }
     }
-  }, [performUpdate, shouldUpdateBlock])
+  }, [performUpdate, shouldUpdateBlock, getBlockContent])
 
   const handleKeyDown = useCallback(() => {
     if (!containerRef.current) return
@@ -129,12 +144,14 @@ export const useDocumentOperations = ({ containerRef, setBlocks, sendMessage, us
     if (!selection?.rangeCount) return
 
     const range = selection.getRangeAt(0)
-    const currentBlock =
+
+    const currentBlock = (
       range.startContainer.nodeType === Node.TEXT_NODE
         ? range.startContainer.parentElement?.closest('[data-block-id]')
         : (range.startContainer as HTMLElement).closest('[data-block-id]')
+    ) as HTMLElement | null
 
-    if (currentBlock instanceof HTMLElement) {
+    if (currentBlock) {
       lastActiveBlockRef.current = currentBlock
     }
 
@@ -155,121 +172,128 @@ export const useDocumentOperations = ({ containerRef, setBlocks, sendMessage, us
     }, 300)
   }, [cleanupTypingInterval, performUpdate])
 
-  // const handleCreateNewBlock = useCallback(() => {
-  //   if (!containerRef.current) return
+  const handleCreateNewBlock = useCallback(
+    (index?: number) => {
+      if (!containerRef.current) return
 
-  //   const selection = window.getSelection()
-  //   if (!selection) return
+      let insertAtIndex = index
+      let currentBlock: HTMLElement | null = null
 
-  //   const range = selection.getRangeAt(0)
-  //   const currentBlock =
-  //     range.startContainer.nodeType === Node.TEXT_NODE
-  //       ? range.startContainer.parentElement?.closest('[data-block-id]')
-  //       : (range.startContainer as HTMLElement).closest('[data-block-id]')
+      if (insertAtIndex === undefined) {
+        const selection = window.getSelection()
+        if (!selection) return
 
-  //   if (!currentBlock) return
+        const range = selection.getRangeAt(0)
+        currentBlock = (
+          range.startContainer.nodeType === Node.TEXT_NODE
+            ? range.startContainer.parentElement?.closest('[data-block-id]')
+            : (range.startContainer as HTMLElement).closest('[data-block-id]')
+        ) as HTMLElement | null
 
-  //   // Create new block with unique ID
-  //   const newBlock = document.createElement('div')
-  //   const newBlockId = Math.random().toString(36).substr(2, 9)
-  //   newBlock.setAttribute('data-block-id', newBlockId)
-  //   newBlock.innerHTML = '<br>'
+        if (!currentBlock) return
 
-  //   currentBlock.parentNode?.insertBefore(newBlock, currentBlock.nextSibling)
-
-  //   // Set cursor to new block
-  //   const newRange = document.createRange()
-  //   newRange.selectNodeContents(newBlock)
-  //   newRange.collapse(true)
-  //   selection.removeAllRanges()
-  //   selection.addRange(newRange)
-
-  //   // Update tracking refs for the new block
-  //   lastActiveBlockRef.current = newBlock
-  //   lastBlockContentRef.current.set(newBlockId, '<br>')
-  //   lastBlockUserRef.current.set(newBlockId, usernameRef.current)
-
-  //   // Only send the new block
-  //   const newBlockData: Block = {
-  //     id: newBlockId,
-  //     type: 'text',
-  //     content: '<br>',
-  //     index: Array.from(containerRef.current.children).indexOf(newBlock),
-  //     username: usernameRef.current
-  //   }
-
-  //   sendMessage([newBlockData])
-  // }, [containerRef, sendMessage])
-
-  const handleCreateNewBlock = useCallback(() => {
-    if (!containerRef.current) return
-
-    const selection = window.getSelection()
-    if (!selection) return
-
-    const range = selection.getRangeAt(0)
-    const currentBlock =
-      range.startContainer.nodeType === Node.TEXT_NODE
-        ? range.startContainer.parentElement?.closest('[data-block-id]')
-        : (range.startContainer as HTMLElement).closest('[data-block-id]')
-
-    if (!currentBlock) return
-
-    const currentBlockId = currentBlock.getAttribute('data-block-id')
-    if (!currentBlockId) return
-
-    // Preserve the current block's content and ownership
-    const currentContent = currentBlock.innerHTML
-    const currentOwner = lastBlockUserRef.current.get(currentBlockId) || usernameRef.current
-    lastBlockContentRef.current.set(currentBlockId, currentContent)
-    lastBlockUserRef.current.set(currentBlockId, currentOwner)
-
-    // Create new block with unique ID
-    const newBlock = document.createElement('div')
-    const newBlockId = Math.random().toString(36).substr(2, 9)
-    newBlock.setAttribute('data-block-id', newBlockId)
-    newBlock.innerHTML = '<br>'
-
-    currentBlock.parentNode?.insertBefore(newBlock, currentBlock.nextSibling)
-
-    // Set cursor to new block
-    const newRange = document.createRange()
-    newRange.selectNodeContents(newBlock)
-    newRange.collapse(true)
-    selection.removeAllRanges()
-    selection.addRange(newRange)
-
-    // Update tracking refs for the new block only
-    lastActiveBlockRef.current = newBlock
-    lastBlockContentRef.current.set(newBlockId, '<br>')
-    lastBlockUserRef.current.set(newBlockId, usernameRef.current)
-
-    // Update local state while preserving ownership of all blocks
-    const allBlocks: Block[] = Array.from(containerRef.current.children).map((child, index) => {
-      const blockId = child.getAttribute('data-block-id') || String(index + 1)
-
-      return {
-        id: blockId,
-        type: 'text',
-        content: child.innerHTML,
-        index,
-        username: lastBlockUserRef.current.get(blockId) || getBlockUsername(blockId)
+        insertAtIndex = Array.from(containerRef.current.children).indexOf(currentBlock) + 1
       }
-    })
 
-    setBlocks(allBlocks)
+      if (currentBlock) {
+        const currentBlockId = currentBlock.getAttribute('data-block-id')
+        if (currentBlockId) {
+          const currentContent = getBlockContent(currentBlock)
+          const currentOwner = lastBlockUserRef.current.get(currentBlockId) || usernameRef.current
+          lastBlockContentRef.current.set(currentBlockId, currentContent)
+          lastBlockUserRef.current.set(currentBlockId, currentOwner)
+        }
+      }
 
-    // Only send the new block with current user's ownership
-    const newBlockData: Block = {
-      id: newBlockId,
-      type: 'text',
-      content: '<br>',
-      index: Array.from(containerRef.current.children).indexOf(newBlock),
-      username: usernameRef.current
-    }
+      const newBlockId = crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).substring(2, 15)
 
-    sendMessage([newBlockData])
-  }, [containerRef, sendMessage, getBlockUsername])
+      const blockContainer = document.createElement('div')
+      blockContainer.className = 'flex items-center relative'
+      blockContainer.setAttribute('data-block-id', newBlockId)
+      blockContainer.setAttribute('data-block-index', String(insertAtIndex))
+
+      const timeColumn = document.createElement('div')
+      timeColumn.className = 'presentation-only flex-shrink-0 text-sm text-gray-500 absolute -left-[100px]'
+      timeColumn.textContent = '13:45am'
+
+      const avatarColumn = document.createElement('div')
+      avatarColumn.className = 'presentation-only flex-shrink-0 relative'
+
+      const avatar = document.createElement('div')
+      let initial = '?'
+      if (usernameRef.current) {
+        initial = usernameRef.current.charAt(0).toUpperCase()
+      }
+      const isT = initial === 'T'
+      avatar.className = `presentation-only w-4 h-4 rounded-full flex items-center justify-center text-xs font-bold text-white absolute -left-[47px] z-10 -top-2 ${
+        isT ? 'bg-indigo-800' : 'bg-gray-800'
+      }`
+      avatar.textContent = initial
+      avatarColumn.appendChild(avatar)
+
+      const contentColumn = document.createElement('div')
+      contentColumn.className = 'flex-1'
+
+      const contentDiv = document.createElement('div')
+      contentDiv.setAttribute('contenteditable', 'true')
+      contentDiv.innerHTML = '<br>'
+      contentColumn.appendChild(contentDiv)
+
+      blockContainer.appendChild(timeColumn)
+      blockContainer.appendChild(avatarColumn)
+      blockContainer.appendChild(contentColumn)
+
+      if (insertAtIndex < containerRef.current.children.length) {
+        containerRef.current.insertBefore(blockContainer, containerRef.current.children[insertAtIndex])
+      } else {
+        containerRef.current.appendChild(blockContainer)
+      }
+
+      setTimeout(() => {
+        const selection = window.getSelection()
+        if (selection) {
+          const range = document.createRange()
+          range.selectNodeContents(contentDiv)
+          range.collapse(true)
+          selection.removeAllRanges()
+          selection.addRange(range)
+          contentDiv.focus()
+        }
+      }, 0)
+
+      lastActiveBlockRef.current = blockContainer
+      lastBlockContentRef.current.set(newBlockId, '<br>')
+      lastBlockUserRef.current.set(newBlockId, usernameRef.current)
+
+      const allBlocks: Block[] = Array.from(containerRef.current.children).map((child, idx) => {
+        const blockId = child.getAttribute('data-block-id') || String(idx + 1)
+        const blockContent = getBlockContent(child as HTMLElement)
+
+        return {
+          id: blockId,
+          type: 'text',
+          content: blockContent,
+          index: idx,
+          username: lastBlockUserRef.current.get(blockId) || getBlockUsername(blockId)
+        }
+      })
+
+      setBlocks(allBlocks)
+
+      const newBlockData: Block = {
+        id: newBlockId,
+        type: 'text',
+        content: '<br>',
+        index: insertAtIndex,
+        username: usernameRef.current
+      }
+
+      sendMessage([newBlockData])
+
+      return blockContainer
+    },
+    [containerRef, sendMessage, getBlockUsername, getBlockContent]
+  )
 
   useEffect(() => {
     return () => {

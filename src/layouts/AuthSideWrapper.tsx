@@ -1,4 +1,4 @@
-import { useTranslation } from 'react-i18next'
+import { useRouter } from 'next/router'
 import Icon from 'src/views/app/Icon'
 
 interface Props {
@@ -6,24 +6,25 @@ interface Props {
 }
 
 const AuthSideWrapper: React.FC<Props> = ({ children }: Props) => {
-  const { t } = useTranslation()
+  const router = useRouter()
+
+  const url = 'https://companyon.ai/'
 
   return (
     <div className='flex min-h-full flex-1 overflow-hidden h-screen'>
       <div className="fixed hidden h-full flex-col items-start justify-between gap-5 overflow-y-visible bg-primary-100 bg-[url('/icons/authBgPattern.svg')] bg-cover p-8 lg:flex lg:w-[506px]">
-        <button className='flex items-center gap-4 rounded-[30px] bg-[#00000042] px-6 py-4 font-semibold text-white backdrop-blur-2xl'>
+        <button
+          className='flex items-center gap-4 rounded-[30px] bg-[#00000042] px-6 py-4 font-semibold text-white backdrop-blur-2xl'
+          onClick={() => router.push(url)}
+        >
           <Icon svgPath='linearArrowLeft' className='fill-transparent' width={20} height={20} />
-          <div>{t('backToHome')}</div>
+          <div>Back To Home</div>
         </button>
 
         <div className='rounded-3xl bg-[#00000042] p-8 pr-10 backdrop-blur-2xl'>
           <div className='text-[42px] font-bold leading-[110%] text-white'>
             Get <span className='text-[#FFCA0C]'>more</span>from your meetings
           </div>
-
-          {/* <div className='py-8'>
-            <div className='border-t border-dashed border-t-[#ffffff66]' />
-          </div> */}
 
           <div className='flex flex-col gap-8 text-base font-medium text-white mt-10'>
             <div className='flex items-center gap-4'>
@@ -61,7 +62,6 @@ const AuthSideWrapper: React.FC<Props> = ({ children }: Props) => {
 }
 
 export function getStaticProps() {
-
   return {
     props: {}
   }

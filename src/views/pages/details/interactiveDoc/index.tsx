@@ -30,13 +30,16 @@ const InteractiveDoc: React.FC = () => {
   const sendMessageRef = useRef<(content: string | Block[]) => void>(() => {
     return
   })
+  const initializedRef = useRef(false)
+  const lastBlockUserRef = useRef<Map<string, string>>(new Map())
 
   const { slug } = useRouter().query
 
   const { sendMessage } = useDocSocket({
-    detailsId: String(slug),
+    detailsId: userData ? String(slug) : '',
+
     onMessageReceived: (content: Block[]) => {
-      if (!containerRef.current) return
+      if (!containerRef.current || !userData) return
 
       const selection = window.getSelection()
       const activeElement = document.activeElement
@@ -46,28 +49,120 @@ const InteractiveDoc: React.FC = () => {
       }
 
       if (Array.isArray(content)) {
-        // Ensure only the latest update per index is displayed
         const latestBlocks: Record<number, Block> = {}
 
         content.forEach(block => {
-          latestBlocks[block.index] = block // Overwrite any previous updates for the same index
+          latestBlocks[block.index] = block
         })
 
-        // Convert map to sorted array
         const sortedBlocks = Object.values(latestBlocks).sort((a, b) => a.index - b.index)
+
+        if (sortedBlocks.length > 0) {
+          initializedRef.current = true
+        }
 
         setBlocks(sortedBlocks)
 
-        // Update the DOM manually
-        containerRef.current.innerHTML = "" // Clear the container before rendering
+        containerRef.current.innerHTML = ''
 
         sortedBlocks.forEach(block => {
-          const div = document.createElement("div")
-          div.setAttribute("data-block-index", String(block.index))
-          div.setAttribute("data-block-id", block.id)
-          div.innerHTML = block.content
-          containerRef.current?.appendChild(div)
+          const blockContainer = document.createElement('div')
+          blockContainer.className = 'flex items-start py-2 relative -ml-12'
+
+          blockContainer.setAttribute('data-block-index', String(block.index))
+          blockContainer.setAttribute('data-block-id', block.id)
+
+          const timeColumn = document.createElement('div')
+          timeColumn.className = 'w-20 flex-shrink-0 text-sm text-gray-500 text-right pr-2 '
+
+          timeColumn.classList.add('presentation-only')
+          timeColumn.textContent = '13:45am'
+
+          const avatarColumn = document.createElement('div')
+          avatarColumn.className = 'flex-shrink-0 mx-2 relative'
+          avatarColumn.classList.add('presentation-only')
+
+          const avatar = document.createElement('div')
+          avatar.classList.add('presentation-only')
+
+          let initial = '?'
+          if (block.username) {
+            initial = block.username.charAt(0).toUpperCase()
+          }
+
+          const isT = initial === 'T'
+          avatar.className = `presentation-only w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center text-xs font-bold text-gray-700 ${
+            isT ? 'bg-indigo-800 text-white' : ''
+          }`
+          avatar.textContent = initial
+          avatarColumn.appendChild(avatar)
+
+          const verticalLine = document.createElement('div')
+          verticalLine.className = 'presentation-only absolute h-full w-px bg-gray-200 left-[9px] top-0 -z-10'
+
+          const contentColumn = document.createElement('div')
+          contentColumn.className = 'flex-1'
+
+          const contentDiv = document.createElement('div')
+
+          const isOwner = userData && userData.username === block.username
+          contentDiv.setAttribute('contenteditable', isOwner ? 'true' : 'false')
+
+          contentDiv.innerHTML = block.content
+
+          contentColumn.appendChild(contentDiv)
+
+          blockContainer.appendChild(timeColumn)
+          blockContainer.appendChild(avatarColumn)
+          blockContainer.appendChild(contentColumn)
+          blockContainer.appendChild(verticalLine)
+
+          containerRef.current?.appendChild(blockContainer)
         })
+
+        const newBlockId = crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).substring(2, 15)
+        const newIndex = sortedBlocks.length > 0 ? sortedBlocks[sortedBlocks.length - 1].index + 1 : 0
+
+        const emptyLineContainer = document.createElement('div')
+        emptyLineContainer.className = 'flex items-start py-2 relative -ml-12'
+        emptyLineContainer.setAttribute('data-block-index', String(newIndex))
+        emptyLineContainer.setAttribute('data-block-id', newBlockId)
+
+        const timeColumn = document.createElement('div')
+        timeColumn.className = 'presentation-only flex-shrink-0 text-sm text-gray-500 absolute -left-[100px]'
+        timeColumn.textContent = '13:45am'
+
+        const avatarColumn = document.createElement('div')
+        avatarColumn.className = 'presentation-only flex-shrink-0 mx-2 relative'
+
+        const avatar = document.createElement('div')
+        let initial = userData.username.charAt(0).toUpperCase()
+        const isT = initial === 'T'
+        avatar.className = `presentation-only w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center text-xs font-bold text-gray-700 ${
+          isT ? 'bg-indigo-800 text-white' : ''
+        }`
+        avatar.textContent = initial
+        avatarColumn.appendChild(avatar)
+
+        const contentColumn = document.createElement('div')
+        contentColumn.className = 'flex-1'
+
+        const contentDiv = document.createElement('div')
+        contentDiv.setAttribute('contenteditable', 'true')
+        contentDiv.innerHTML = '<br>'
+        contentColumn.appendChild(contentDiv)
+
+        const verticalLine = document.createElement('div')
+        verticalLine.className = 'presentation-only absolute h-full w-px bg-gray-200 left-[9px] top-0 -z-10'
+
+        emptyLineContainer.appendChild(timeColumn)
+        emptyLineContainer.appendChild(avatarColumn)
+        emptyLineContainer.appendChild(contentColumn)
+        emptyLineContainer.appendChild(verticalLine)
+
+        containerRef.current?.appendChild(emptyLineContainer)
+
+        lastBlockUserRef.current.set(newBlockId, userData.username)
       }
 
       if (savedRange && activeElement === containerRef.current) {
@@ -81,13 +176,17 @@ const InteractiveDoc: React.FC = () => {
     }
   })
 
-  sendMessageRef.current = sendMessage
+  useEffect(() => {
+    if (userData) {
+      sendMessageRef.current = sendMessage
+    }
+  }, [userData, sendMessage])
 
   const { updateBlocks, handleCreateNewBlock, handleKeyDown, handleKeyUp } = useDocumentOperations({
     containerRef,
     setBlocks,
     sendMessage: sendMessageRef.current,
-    username: userData?.username
+    username: userData?.username || ''
   })
 
   const { handleContainerKeyDown } = useContainerKeyDown(
@@ -102,21 +201,21 @@ const InteractiveDoc: React.FC = () => {
 
   useEffect(() => {
     document.addEventListener('selectionchange', handleSelectionChange)
-    
-return () => document.removeEventListener('selectionchange', handleSelectionChange)
+    return () => document.removeEventListener('selectionchange', handleSelectionChange)
   }, [handleSelectionChange])
 
-  useLayoutEffect(() => {
-    if (containerRef.current?.children.length === 0) {
-      const div = document.createElement('div')
-      div.setAttribute('data-block-id', '1')
-      div.innerHTML = '<br>'
-      containerRef.current.appendChild(div)
-      updateBlocks()
-    }
-  }, [updateBlocks])
+  useEffect(() => {
+    if (
+      userData?.username &&
+      !initializedRef.current &&
+      containerRef.current &&
+      containerRef.current.children.length === 0
+    ) {
+      handleCreateNewBlock(0)
 
-  console.log(blocks, 'blocks')
+      initializedRef.current = true
+    }
+  }, [userData, handleCreateNewBlock, initializedRef])
 
   return (
     <div className='w-full'>
@@ -133,8 +232,6 @@ return () => document.removeEventListener('selectionchange', handleSelectionChan
       <div
         ref={containerRef}
         className='min-h-[200px] rounded-lg focus:outline-none p-4'
-        contentEditable
-        suppressContentEditableWarning
         onKeyDown={e => {
           handleContainerKeyDown(e)
           handleKeyDown()

@@ -48,7 +48,7 @@ const useDetails = (eventId: string) => {
 
       return response.data
     },
-    enabled: !!botSendBy,
+    enabled: !!botSendBy
   })
 
   const meetingJson = useMeetingJSON.data
@@ -66,7 +66,7 @@ const useDetails = (eventId: string) => {
   const getMeetingJSON = async (bot_send_by: string, filename: string) => {
     try {
       const response: any = await CalendarService.getMeetingJSON('', bot_send_by, filename)
-      
+
       return response
     } catch (error) {
       throw error
