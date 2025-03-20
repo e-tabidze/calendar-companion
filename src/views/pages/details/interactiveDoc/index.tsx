@@ -33,6 +33,8 @@ const InteractiveDoc: React.FC = () => {
   const initializedRef = useRef(false)
   const lastBlockUserRef = useRef<Map<string, string>>(new Map())
 
+  console.log(userData, 'userData')
+
   const { slug } = useRouter().query
 
   const { sendMessage } = useDocSocket({
@@ -79,12 +81,9 @@ const InteractiveDoc: React.FC = () => {
           timeColumn.textContent = '13:45am'
 
           const avatar = document.createElement('div')
-          let initial = '?'
+          let initial = block?.username?.charAt(0).toLocaleUpperCase()
 
-          const isT = initial === 'T'
-          avatar.className = `presentation-only w-4 h-4 rounded-full flex items-center justify-center text-xs font-bold text-white absolute -left-[47px] z-10 ${
-            isT ? 'bg-indigo-800' : 'bg-gray-800'
-          }`
+          avatar.className = `presentation-only w-4 h-4 rounded-full flex items-center justify-center text-xs font-bold text-white absolute -left-[47px] z-10 bg-gray-800`
           avatar.textContent = initial
 
           const contentColumn = document.createElement('div')
@@ -118,13 +117,9 @@ const InteractiveDoc: React.FC = () => {
         timeColumn.className = 'presentation-only flex-shrink-0 text-sm text-gray-500 absolute -left-[100px]'
         timeColumn.textContent = '13:45am'
 
-
         const avatar = document.createElement('div')
-        let initial = userData.username.charAt(0).toUpperCase()
-        const isT = initial === 'T'
-        avatar.className = `presentation-only w-4 h-4 rounded-full flex items-center justify-center text-xs font-bold text-white absolute -left-[47px] z-10 ${
-          isT ? 'bg-indigo-800' : 'bg-gray-800'
-        }`
+        const initial = userData.username.charAt(0).toUpperCase()
+        avatar.className = `presentation-only w-4 h-4 rounded-full flex items-center justify-center text-xs font-bold text-white absolute -left-[47px] z-10 bg-gray-800`
         avatar.textContent = initial
 
         const contentColumn = document.createElement('div')
