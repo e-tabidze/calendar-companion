@@ -168,7 +168,10 @@ const InteractiveDoc: React.FC = () => {
     handleCreateNewBlock,
     setCommandMenu
   )
-  const { handleCommandSelect } = useCommandHandler(setCommandMenu)
+  
+  // IMPORTANT CHANGE: Pass updateBlocks to the command handler
+  const { handleCommandSelect } = useCommandHandler(setCommandMenu, updateBlocks)
+  
   const { applyFormat } = useApplyFormat(setHoverToolbar, selectionStartPosition)
   const { handleSelectionChange } = useHandleSelectionChange(hoverToolbar, setHoverToolbar, selectionStartPosition)
 
