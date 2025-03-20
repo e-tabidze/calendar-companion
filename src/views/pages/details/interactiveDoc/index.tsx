@@ -1,4 +1,4 @@
-import React, { useRef, useLayoutEffect, useState, useEffect } from 'react'
+import React, { useRef, useState, useEffect } from 'react'
 import HoverToolbar from './hoverToolbar'
 import CommandMenu from './commandMenu'
 import useCommandHandler from './commandMenu/useCommandHandler'
@@ -73,7 +73,7 @@ const InteractiveDoc: React.FC = () => {
           blockContainer.setAttribute('data-block-id', block.id)
 
           const timeColumn = document.createElement('div')
-          timeColumn.className = 'w-20 flex-shrink-0 text-sm text-gray-500 text-right pr-2 '
+          timeColumn.className = 'flex-shrink-0 text-sm text-gray-500 absolute -left-[53px]'
 
           timeColumn.classList.add('presentation-only')
           timeColumn.textContent = '13:45am'
@@ -91,7 +91,7 @@ const InteractiveDoc: React.FC = () => {
           }
 
           const isT = initial === 'T'
-          avatar.className = `presentation-only w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center text-xs font-bold text-gray-700 ${
+          avatar.className = `presentation-only w-4 h-4 rounded-full bg-gray-200 flex items-center justify-center text-xs font-bold text-gray-700 absolute z-10 -left-[6px] ${
             isT ? 'bg-indigo-800 text-white' : ''
           }`
           avatar.textContent = initial
@@ -101,7 +101,7 @@ const InteractiveDoc: React.FC = () => {
           verticalLine.className = 'presentation-only absolute h-full w-px bg-gray-200 left-[9px] top-0 -z-10'
 
           const contentColumn = document.createElement('div')
-          contentColumn.className = 'flex-1'
+          contentColumn.className = 'flex-1 px-8'
 
           const contentDiv = document.createElement('div')
 
@@ -124,12 +124,12 @@ const InteractiveDoc: React.FC = () => {
         const newIndex = sortedBlocks.length > 0 ? sortedBlocks[sortedBlocks.length - 1].index + 1 : 0
 
         const emptyLineContainer = document.createElement('div')
-        emptyLineContainer.className = 'flex items-start py-2 relative -ml-12'
+        emptyLineContainer.className = 'flex items-center py-2 relative -ml-12'
         emptyLineContainer.setAttribute('data-block-index', String(newIndex))
         emptyLineContainer.setAttribute('data-block-id', newBlockId)
 
         const timeColumn = document.createElement('div')
-        timeColumn.className = 'presentation-only flex-shrink-0 text-sm text-gray-500 absolute -left-[100px]'
+        timeColumn.className = 'presentation-only flex-shrink-0 text-sm text-gray-500 absolute -left-[53px]'
         timeColumn.textContent = '13:45am'
 
         const avatarColumn = document.createElement('div')
@@ -138,7 +138,7 @@ const InteractiveDoc: React.FC = () => {
         const avatar = document.createElement('div')
         let initial = userData.username.charAt(0).toUpperCase()
         const isT = initial === 'T'
-        avatar.className = `presentation-only w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center text-xs font-bold text-gray-700 ${
+        avatar.className = `presentation-only w-4 h-4 rounded-full bg-gray-200 flex items-center justify-center text-xs font-bold text-gray-700 absolute z-10 -left-[6px] -bottom-[9px] ${
           isT ? 'bg-indigo-800 text-white' : ''
         }`
         avatar.textContent = initial
