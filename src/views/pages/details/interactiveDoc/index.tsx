@@ -69,7 +69,7 @@ const InteractiveDoc: React.FC = () => {
 
         containerRef.current.innerHTML = ''
 
-        sortedBlocks.forEach(block => {
+        sortedBlocks.forEach((block: any) => {
           const blockContainer = document.createElement('div')
           blockContainer.className = 'flex items-start py-2 relative'
 
@@ -78,7 +78,19 @@ const InteractiveDoc: React.FC = () => {
 
           const timeColumn = document.createElement('div')
           timeColumn.className = 'presentation-only flex-shrink-0 text-sm text-gray-500 absolute -left-[100px]'
-          timeColumn.textContent = '13:45am'
+
+          const createdAt = block?.created_at
+          const date = new Date(createdAt)
+
+          const hours = date.getHours()
+          const minutes = date.getMinutes().toString().padStart(2, '0')
+
+          const ampm = hours >= 12 ? 'pm' : 'am'
+          const twelveHourFormat = hours % 12 || 12
+
+          const formattedTime = `${twelveHourFormat}:${minutes}${ampm}`
+
+          timeColumn.textContent = formattedTime
 
           const avatar = document.createElement('div')
           let initial = block?.username?.charAt(0).toLocaleUpperCase()
@@ -115,7 +127,18 @@ const InteractiveDoc: React.FC = () => {
 
         const timeColumn = document.createElement('div')
         timeColumn.className = 'presentation-only flex-shrink-0 text-sm text-gray-500 absolute -left-[100px]'
-        timeColumn.textContent = '13:45am'
+        const createdAt = new Date()
+        const date = new Date(createdAt)
+
+        const hours = date.getHours()
+        const minutes = date.getMinutes().toString().padStart(2, '0')
+
+        const ampm = hours >= 12 ? 'pm' : 'am'
+        const twelveHourFormat = hours % 12 || 12
+
+        const formattedTime = `${twelveHourFormat}:${minutes}${ampm}`
+
+        timeColumn.textContent = formattedTime
 
         const avatar = document.createElement('div')
         const initial = userData.username.charAt(0).toUpperCase()
@@ -168,10 +191,9 @@ const InteractiveDoc: React.FC = () => {
     handleCreateNewBlock,
     setCommandMenu
   )
-  
-  // IMPORTANT CHANGE: Pass updateBlocks to the command handler
+
   const { handleCommandSelect } = useCommandHandler(setCommandMenu, updateBlocks)
-  
+
   const { applyFormat } = useApplyFormat(setHoverToolbar, selectionStartPosition)
   const { handleSelectionChange } = useHandleSelectionChange(hoverToolbar, setHoverToolbar, selectionStartPosition)
 
