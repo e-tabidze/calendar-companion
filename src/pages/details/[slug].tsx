@@ -25,7 +25,7 @@ const Details = () => {
     <div>
       <DetailsPageHeader eventDetails={eventDetails} />
       <Divider />
-      <div className='max-w-6xl mx-auto'>
+      <div className='max-w-6xl mx-auto pb-96'>
         <EventOverview eventDetails={eventDetails} />
         <EventDetails eventDetails={eventDetails} />
         <MeetingNotes transcript={meetingJson?.transcript} mp4={meetingJson?.mp4} eventDetails={eventDetails} />

@@ -33,8 +33,6 @@ const InteractiveDoc: React.FC = () => {
   const initializedRef = useRef(false)
   const lastBlockUserRef = useRef<Map<string, string>>(new Map())
 
-  console.log(userData, 'userData')
-
   const { slug } = useRouter().query
 
   const { sendMessage } = useDocSocket({
@@ -52,8 +50,6 @@ const InteractiveDoc: React.FC = () => {
 
       if (Array.isArray(content)) {
         const latestBlocks: Record<number, Block> = {}
-
-        console.log(content, 'content')
 
         content.forEach(block => {
           latestBlocks[block.index] = block
@@ -93,7 +89,7 @@ const InteractiveDoc: React.FC = () => {
           timeColumn.textContent = formattedTime
 
           const avatar = document.createElement('div')
-          let initial = block?.username?.charAt(0).toLocaleUpperCase()
+          const initial = block?.username?.charAt(0).toLocaleUpperCase()
 
           avatar.className = `presentation-only w-4 h-4 rounded-full flex items-center justify-center text-xs font-bold text-white absolute -left-[47px] z-10 bg-gray-800`
           avatar.textContent = initial
@@ -199,6 +195,7 @@ const InteractiveDoc: React.FC = () => {
 
   useEffect(() => {
     document.addEventListener('selectionchange', handleSelectionChange)
+    
     return () => document.removeEventListener('selectionchange', handleSelectionChange)
   }, [handleSelectionChange])
 
@@ -214,6 +211,8 @@ const InteractiveDoc: React.FC = () => {
       initializedRef.current = true
     }
   }, [userData, handleCreateNewBlock, initializedRef])
+
+  console.log(blocks, 'blocks')
 
   return (
     <div className='w-full'>

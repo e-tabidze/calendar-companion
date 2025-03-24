@@ -38,12 +38,16 @@ const EMOJI_CATEGORIES = [
   }
 ]
 
-const EmojiPicker = () => {
+interface Props {
+  label?: boolean
+}
+
+const EmojiPicker: React.FC<Props> = ({ label = false }) => {
   return (
     <Popover className='relative'>
       <>
-        <Popover.Button className='p-1.5 hover:bg-gray-100 rounded'>
-          <SmilePlus size={16} />
+        <Popover.Button className='p-1.5 hover:bg-gray-100 rounded flex items-center gap-2'>
+          <SmilePlus size={16} /> {label && 'Reaction'}
         </Popover.Button>
 
         <Transition

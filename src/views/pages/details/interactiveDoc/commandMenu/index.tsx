@@ -1,5 +1,6 @@
 import React from 'react'
-import { Position } from "../types"
+import { Position } from '../types'
+import EmojiPicker from '../emojiPicker'
 
 export const COMMANDS = [
   { label: 'Heading 1', value: 'h1' },
@@ -22,31 +23,32 @@ interface CommandMenuProps {
 }
 
 const CommandMenu: React.FC<CommandMenuProps> = ({ position, onSelect, filterText }) => {
-  const filteredCommands = COMMANDS.filter(cmd => 
-    cmd.label.toLowerCase().includes(filterText.toLowerCase())
-  )
+  const filteredCommands = COMMANDS.filter(cmd => cmd.label.toLowerCase().includes(filterText.toLowerCase()))
 
   if (!filteredCommands.length || !position) return null
 
   return (
     <div
-      className="absolute bg-white shadow-lg rounded-lg border border-gray-200 w-48 z-50"
+      className='absolute bg-white shadow-lg rounded-lg border border-gray-200 w-48 z-50'
       style={{
         top: `${position.y + 24}px`,
         left: `${position.x}px`,
         transform: 'translate(-50%, 0)'
       }}
-      data-command-menu="true"
+      data-command-menu='true'
     >
       {filteredCommands.map(cmd => (
         <button
           key={cmd.value}
-          className="w-full px-4 py-2 text-left hover:bg-gray-100 focus:outline-none"
+          className='w-full px-4 py-2 text-left hover:bg-gray-100 focus:outline-none'
           onClick={() => onSelect(cmd)}
         >
           {cmd.label}
         </button>
       ))}
+      <div className='w-full px-2 pb-2 text-left hover:bg-gray-100 focus:outline-none'>
+        <EmojiPicker label />
+      </div>
     </div>
   )
 }

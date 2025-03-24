@@ -41,12 +41,14 @@ export const useDocumentOperations = ({ containerRef, setBlocks, sendMessage, us
     if (!contentColumn) return null
 
     const contentElement = contentColumn.querySelector('[contenteditable]') as HTMLElement
+
     return contentElement
   }, [])
 
   const getBlockContent = useCallback(
     (block: HTMLElement): string => {
       const contentElement = getContentElement(block)
+
       return contentElement ? contentElement.innerHTML : '<br>'
     },
     [getContentElement]
@@ -307,6 +309,14 @@ export const useDocumentOperations = ({ containerRef, setBlocks, sendMessage, us
       }
     }
   }, [cleanupTypingInterval])
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      updateBlocks()
+    }, 30000)
+    
+    return () => clearInterval(interval)
+  }, [updateBlocks])
 
   return {
     updateBlocks,
